@@ -1,0 +1,63 @@
+---
+title: 'Miru Installation Script'
+---
+
+```bash
+#!/bin/bash
+echo ''
+set -e  # Exit on error
+
+# Ensure the script is running with elevated privileges
+if [ "$(id -u)" -ne 0 ]; then
+echo "This miru installation script must be run with 'sudo' to be able to install miru as a debian package to your system. Please prepend 'sudo' to your previous command to run this script."
+exit 1
+fi
+
+# Determine the architecture
+echo "Determining the architecture..."
+arch="arm64"  # default to arm64
+if [ "$(uname -m)" == "x86_64" ] || [ "$(uname -m)" == "x64" ]; then
+	arch="amd64"
+fi
+echo "Architecture: $arch"
+
+# Loop through each file in the directory matching the glob pattern
+for file in ./miru*.deb; do
+	# Check if the file exists
+	if [[ -f "$file" ]]; then
+		# Remove the file
+		rm "$file"
+		echo "Removing existing miru installation file: $file"
+	fi
+done
+
+# download the debian package
+echo -e "\nDownloading the debian package..."
+curl -sSfOJ "%s/v1/install/$arch"
+
+# Verify a debian package was downloaded
+count=$(find . -maxdepth 1 -name 'miru*.deb' | wc -l)
+# Check if the count is zero
+if [ "$count" -eq 0 ]; then
+    echo "Failed to download the Debian package. Exiting..."
+    exit 1
+fi
+
+# remove any previous installations
+echo -e "\nRemoving any previous miru installations..."
+dpkg --purge miru
+
+# install the debian package
+echo -e "\nInstalling miru debian package..."
+dpkg -i miru*.deb
+
+# remove the debian package
+echo -e "\nRemoving downloaded files..."
+rm miru*.deb
+
+# start the installation script
+echo -e "\nStarting the installation script..."
+install-miru
+
+exit 0
+```

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Miru",
+  "logo": {
+    "dark": "/logo/light.png",
+    "light": "/logo/dark.png"
+  },
+  "favicon": "/miru-favicon.svg",
+  "colors": {
+    "primary": "#0D9373",
+    "light": "#07C983",
+    "dark": "#0D9373",
+    "anchors": {
+      "from": "#0D9373",
+      "to": "#07C983"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "Talk to a Founder",
+      "url": "mailto:vedant@miru.com"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Miru Dashboard",
+    "url": "https://app.miruml.com"
+  },
+  "navigation": [
+    {
+      "group": "Get Started",
+      "pages": [
+        "get-started/quickstart"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "x": "https://x.com/mirurobotics",
+    "github": "https://github.com/miruml",
+    "linkedin": "https://www.linkedin.com/company/miruml/"
+  }
+}
