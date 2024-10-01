@@ -2,6 +2,7 @@
 title: 'Quickstart'
 description: 'Deploy your first software update with Miru!'
 ---
+import '/snippets/img.css'
 
 ## Setup your development
 
@@ -16,51 +17,47 @@ with **NVIDIA Jetson**, **Raspberry Pi**, and **Orange Pi** running **Ubuntu**.
 
 For requests for other devices/OS support, [reach out to a founder](mailto:vedant@miruml.com). **Do not use this in production without talking to a founder first!**
 
-
-### Connect to Github 
-
+### Connect to GitHub 
 <AccordionGroup>
 
-  <Accordion icon = 'github' title = 'Install the Github App' id = 'install-github-app'>
+  <Accordion icon = 'github' title = 'Install the GitHub App' id = 'install-github-app'>
 
   Miru integrates with your GitHub account for a seamless deployment experience.
   While you may connect any repositories of your choosing, this guide will walk
-  you through an example deployment using the Miru Examples Repository.
+  you through an example deployment using the *Miru Examples repository*.
 
-  To use this repository with us, click [Miru Examples Repository](https://github.com/miruml/examples) and fork the
+  To use this repository with us, click [Miru Examples repository](https://github.com/miruml/examples) and fork the
   repository by clicking the Fork button in the top right of the repository
   screen on GitHub.
 
-  <img src="/images/fork.png" width="500" />
+  <img src="/images/fork.png" style={{borderRadius: '7px'}} />
 
   Rename the repository to *miru-examples* and choose the owner as your personal
-  GitHub account. If using an organization's account, the organization owner may
+  GitHub account (we're using *mirueng*). If using an organization's account, the organization owner may
   need to grant you permission to fork the repository into the organization's
   namespace and create a new repository.
 
-  <img src="/images/repo-name.png" width="400" />
+  <img src="/images/fork-repo-name.png" />
 
   You should now see the *miru-examples* repository on your GitHub account.
 
-  <img height="200" src="/images/miru-examples.png" />
+  <img height="200" src="/images/forked-miru-examples.png" />
 
-   Navigate to the [settings](https://app.miruml.com/settings/integrations) page in Miru and click **Connect GitHub** to connect your repository.
+   Navigate to the [settings](https://app.miruml.com/settings/integrations) page in Miru and click **Connect** to connect your GitHub account.
 
   <img height="200" src="/images/connect-github.png" />
 
-  Click the GitHub account that you just created the repository with.
+  Select the GitHub account that you just created the repository with. For us, that's *miru-eng*.
 
-  <img height="200" src="/images/install-miru-github.png" />
+  <img height="200" src="/images/install-gh-app.png" />
 
-  Select the **miru-examples** repository to grant Miru access and click **Install**. You
-  can add other repositories or change Miru's access to your GitHub repositories
-  at any time. If you're adding Miru under an organization, you may need the
-  necessary permissions to install an app.
+  Select the **miru-examples** repository to grant Miru access and click **Save**. You can add other repositories or change Miru's access to your GitHub repositories
+  at any time. If you're adding Miru under an GitHub organization account, the organization owner may need to grant Miru access themselves.
 
-  <img height="200" src="/images/selecting-repos.png" />
+  <img height="200" src="/images/select-gh-repos.png" />
 
   </Accordion>
-  <Accordion icon = 'code-branch' title = 'Create a Github Source' id = 'create-github-source'>
+  <Accordion icon = 'code-branch' title = 'Create a GitHub Source' id = 'create-github-source'>
  
 
   After the installation completes, you'll be redirected to the
@@ -75,23 +72,27 @@ For requests for other devices/OS support, [reach out to a founder](mailto:vedan
   2. Branch - the branch for the repository (ex: main)
   3. Build Directory - the folder in the repository housing a docker-compose.yaml file (ex: /backend)
 
-  Note that you can create multiple sources from the same repository, provided
-  each source has a unique branch and build directory combination.
+  <div style={{
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  }}>
+  <img height="200" src="/images/todo-source.png" style={{ 
+    flex: 1,
+    maxWidth: '250px',
+    marginRight: '40px',
+  }} />
+  <p style={{ flex: 1}}>
+    Note that you can create multiple sources from the same repository, provided
+    each source has a unique branch and build directory combination.
 
-  As we'll see, GitHub Sources can be associated with one or more **Device
-  Groups**, allowing you to easily deploy your code to a group of devices. The
-  deployment process using docker-compose files will be detailed in the [Deploy
-  with Docker Compose](#use-docker-compose)
-  section. For now, we'll focus on connecting our GitHub.
-
-  To create a GitHub source, click the **Source** button, fill in the fields,
-  and click **Create Source**. We'll set up our GitHub source to track the
-  `\todo` in the `main` branch of our forked `miru-examples` repository and name
-  the source *To Do*. 
-
-  <img height="200" src="/images/todo-source.png" />
-
-
+    To create a GitHub source, click the **Source** button, fill in the fields,
+    and click **Create Source**. We'll set up our GitHub source to track the
+    `\todo` in the `main` branch of our forked `miru-examples` repository and name
+    the source *To Do*. 
+  </p>
+  </div>
 
   </Accordion>
 
@@ -103,42 +104,56 @@ For requests for other devices/OS support, [reach out to a founder](mailto:vedan
   <Accordion icon="layer-plus" title="Create a Device Group" id = 'create-a-device-group'>
     Navigate to the devices page and create a Device Group. Device Groups are a
     convenient way to organize your devices. You might create a group for a
-    specific functionality, different customers, a set of test devices, etc.
+    specific functionality, different customers, a set of test devices, etc.  
 
     <img height="200" src="/images/device-group.png" />
 
-    Each Device Group is connected to one or more GitHub sources. 
+    In general, device groups are meant to organize your devices. You can use devices of different hardware types (NVIDIA Jetson, Raspberry Pi, etc.) in the same group as well easily move devices between groups later if you'd like. 
 
-    When creating a Device Group, simply name the group and select the GitHub
-    Source. We'll name ours *Example Group* and set the GitHub Source to be the
-    *To Do* source we just created.
-  
-    <img height="200" src="/images/device-group-detailed.png" />
+    <div style={{
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+    }}>
+    <p style={{ flex: 1}}>
+      Each Device Group is connected to one or more GitHub sources. This allows you to use multiple GitHub sources (from potentially different repositories) to deploy code to your devices. On the other hand, you can use the same GitHub sources across different groups so that groups or organized by customer or region, but the devices in the group still have the same code being deployed to them.
+
+      When creating a Device Group, simply name the group and select the GitHub
+      Source. We'll name ours *Example Group* and set the GitHub Source to be the
+      *To Do* source we just created.
+    </p>
+    <img height="200" src="/images/edit-group.png" style={{ 
+      flex: 1,
+      maxWidth: '300px',
+      marginLeft: '40px',
+    }} />
+    </div>
+
   </Accordion>
 
   <Accordion icon="robot" title="Create a Device" id = 'create-a-device'>
+    First click into the Device Group you want to add your device to. We'll use the Development Group.
 
-    To add a device, click into the Device Group and select the Device button in
-      the top right corner. You'll be prompted to name your device and choose the
-      hardware that it's running on. 
+    <img src="/images/select-group.png" />
 
-    <img height="200" src="/images/add-device.png" />
+    Click the Device button in the top right-hand corner.
 
+    <img src="/images/create-device.png" />
+
+    Simply fill in the prompted information to name your device, choose the hardware, etc. Don't stress about getting it right the first time, you can easily change this information later.
+   
   </Accordion>
   
-  <Accordion icon="object-intersect" title="Change a Device's Group" id='move-a-device'>
+  <Accordion icon="pen-to-square" title="Edit a Device" id='move-a-device'>
 
-    To move a device to a different group, first find the device on Group page.
+    To edit a device, find the device on the Group page and click the ellipsis on the far right. Then select the "Edit" button.
 
-    <img src="/images/group-page.png" />
+    <img src="/images/device-on-group-page.png" />
 
-    Click the ellipsis on the far right and select the "Edit" button.
+    From you here you can change the device's group, edit it's name, or select a different hardware.
 
-    <img src="/images/device-row.png" />
-
-    Select the desired group for the device from the options in the top right-hand corner.
-
-    <img src="/images/edit-device-group.png" />
+    <img src="/images/edit-device.png" width="300" />
 
   </Accordion>
 </AccordionGroup>
@@ -190,7 +205,7 @@ For requests for other devices/OS support, [reach out to a founder](mailto:vedan
     </Accordion>
   </Accordion>
   <Accordion icon="docker" title="Install/Upgrade Docker" id = 'install-docker'>
-      If you don't have docker installed already, don't worry; Miru will handle the installation for you. First, select the OS your device is running on. Currently, Miru only supports Ubuntu.
+      If you don't have docker installed already, don't worry. Miru will handle the installation for you. First, select the OS your device is running on. Currently, Miru only supports Ubuntu.
 
       <pre><code className="language-bash">
       ? We've autodetected your operating system to be Ubuntu.
@@ -209,7 +224,7 @@ For requests for other devices/OS support, [reach out to a founder](mailto:vedan
       \ Testing Docker Installation
       </code></pre>
 
-      If Docker is not installed or is not compatible with `miru`, you'll be asked to let the `miru` installer install/upgrade Docker for you. This is done using [this bash script](https://www.notion.so/Docker-Installation-Script-for-Ubuntu-060d9037f8b44a4b98cba14ef6b958f1?pvs=21), which executes the [Official Docker Installation Instructions for Ubuntu](https://docs.docker.com/engine/install/ubuntu/). 
+      If Docker is not installed or is not compatible with `miru`, you'll be asked to let the `miru` installer install/upgrade Docker for you. This is done using [this bash script](https://miruml.notion.site/Docker-Installation-Script-e11b5fd27f8547b1ab4622913dd18447?pvs=4), which executes the [Official Docker Installation Instructions](https://docs.docker.com/engine/install) for the OS your device is running on. 
       If you're upgrading your Docker installation, existing Docker resources (containers, images, networks, etc.) **will be left untouched** and will continue running after the installation is complete.
       {/* TODO: Should I make this on a Mintlify page?*/}
       Once the bash script completes, the `miru` installer will again test if the Docker installation is compatible (which it should be), after which it will automatically move on to authenticating your device. 
@@ -219,11 +234,11 @@ For requests for other devices/OS support, [reach out to a founder](mailto:vedan
   <Accordion icon="key" title="Authenticate" id = 'authenticate-device'>
     To authenticate your device, navigate to the group your device lives in and select the device you want to authenticate. Click the key icon at the far right of the device's row to retrieve its authentication token.
 
-    <img height="200" src="/images/authenticate.png" />
+    <img src="/images/authenticate.png" />
 
     A short-lived token will be granted to you.
 
-    <img height="200" src="/images/JWT.png" />
+    <img src="/images/JWT.png" width="400"/>
 
    Copy and paste this token into the **Enter your Authentication Token** prompt on your device.
 
@@ -241,25 +256,21 @@ For requests for other devices/OS support, [reach out to a founder](mailto:vedan
 
 </AccordionGroup>
 
-### Build an Artifact
+### Create an Artifact
 <AccordionGroup>
 
-  <Accordion icon="check" title="Prepare your Deployment" id = 'prepare-deployment'>
-    Miru utilizes [Docker Compose](https://docs.docker.com/compose/) to deploy your containers. To test a Miru deployment with your device, you can use the **miru-examples** repository you forked earlier from the [Miru Example Repository](https://github.com/miruml/demo) in the **Connect to GitHub** section.
+  <Accordion icon="docker" title="Prepare your Application" id = 'prepare-deployment'>
+    Miru utilizes [Docker Compose](https://docs.docker.com/compose/) to deploy your application. This section will walk through the setup of your application with Docker Compose to deploy to `miru`. We'll use the [Miru Examples repository](https://github.com/miruml/demo) you forked in the [Connect to GitHub](#install-the-github-app) section. 
 
-    Open up your **development machine**. This should be a computer that has push access to your GitHub account. We recommend using a computer different from the device you installed Miru onto. Although, you could use the same device if that's all you have access to.
+    Ensure you're using a **development machine** for this section. This should be a computer that has pull/push access to your GitHub account. We recommend using a computer different from the device you installed `miru` onto. Although, you could use the same device if that's all you have access to.
 
-    We'll walk through a deployment by just pushing a change to GitHub. A simple push will trigger a new deployment to your device with Miru. This is because we specified the device's group to track the main branch and /todo/ build path of your miru-examples repository in the [Create a Device](#create-a-device) section.
-
-    This setup allows Miru to automatically deploy your changes to your device.
-
-    #### Prepare your Deployment
 
   First clone your ***miru-examples*** repository.
 
   ``` bash
+    # your repo url should like similar to: https://github.com/<your-username>/miru-examples.git
+    # ours is https://github.com/miru-eng/miru-examples.git when using the 'miru-eng' account
     git clone YOUR-MIRU-EXAMPLE-REPOSITORY-URL
-    # e.g. https/your-username/miru-examples
   ```
 
   Navigate inside the ***miru-examples*** directory.
@@ -279,87 +290,84 @@ For requests for other devices/OS support, [reach out to a founder](mailto:vedan
   └── ...
   ```
 
-  Open the **/todo** directory in your favorite code editor to examine the code and containers that will be deployed onto your device. While there are other folders within the miru-examples repository, we setup the Device Group to only look at the **todo** folder by specifying the build path as /**todo** when [creating the Device Group](#create-a-device-group).
+  Open the **/todo** directory in your favorite code editor to examine the code and containers that will be deployed onto your device. While there are other folders within the miru-examples repository, we setup a singel GitHub Source in our Device Group, which looks at the **todo** folder. This was specified by inputting the build path as **/todo** when [creating the Device Group](#create-a-device-group).
  
 
   The todo folder has the following structure:
 
   ```plaintext
-  miru-examples/
-  ├── todo/
-  │ ├── ...
-  └── simple-torch/
-  │ ├── ...
-  ├── ...
+  todo/
+  ├── compose.yaml
+  ├── backend/
+  │   ├── Dockerfile
+  │   ├── ...
+  └── frontend/
+      ├── Dockerfile
+      ├── ...
   ```
  
-
-  In the next section we'll learn how to use **Docker Compose** with Miru.
-  </Accordion>
-
-<Accordion icon="docker" title="Use Docker Compose" id = 'use-docker-compose'>
     The first (and maybe most important) file is the `compose.yaml` file. This specifies what docker services (containers) to run, how they should interact with the host machine, and how to build or pull the images these services will run. 
   
     <Accordion icon="rectangle-terminal" title="`compose.yaml`">
-    ```
+    ```yaml
     name: todo
     services:
-    frontend:
-    build:
-      context: frontend
-      target: development
-    ports:
-      - 3000:3000
-    stdin_open: true
-    volumes:
-      - /usr/src/app/node_modules
-    restart: always
-    networks:
-      - react-express
-    depends_on:
-      - backend
+      frontend:
+        build:
+          context: frontend
+          target: development
+        ports:
+          - 3000:3000
+        stdin_open: true
+        volumes:
+          - /usr/src/app/node_modules
+        restart: always
+        networks:
+          - react-express
+        depends_on:
+          - backend
 
-  backend:
-    restart: always
-    build:
-      context: backend
-      target: development
-    volumes:
-      - /usr/src/app/node_modules
-    depends_on:
-      - mongo
+      backend:
+        restart: always
+        build:
+          context: backend
+          target: development
+        volumes:
+          - /usr/src/app/node_modules
+        depends_on:
+          - mongo
+        networks:
+          - express-mongo
+          - react-express
+        expose: 
+          - 3000
+      mongo:
+        restart: always
+        image: mongo:4.2.0
+        volumes:
+          - mongo_data:/data/db
+        networks:
+          - express-mongo
+        expose:
+          - 27017
     networks:
-      - express-mongo
-      - react-express
-    expose: 
-      - 3000
-  mongo:
-    restart: always
-    image: mongo:4.2.0
-    volumes:
-      - mongo_data:/data/db
-    networks:
-      - express-mongo
-    expose:
-      - 27017
-networks:
-  react-express:
-  express-mongo:
+      react-express:
+      express-mongo:
 
-volumes:
-  mongo_data:
+    volumes:
+      mongo_data:
    ```
     
   </Accordion>
   
     For example, the **frontend** service contains the following build specification:
 
-    ```
-      frontend:
-        build:
-          context: frontend
-          target: development
-        ...
+    ```yaml
+    frontend:
+      build:
+        context: frontend
+        target: development
+      ...
     ```
 
     The `frontend.build` parameters specify where the Dockerfile for this service is located in the filesystem and any information required to build the Docker image. 
@@ -368,11 +376,11 @@ volumes:
 
     Similarly, the **backend** service's build specification is:
 
-    ```
-      backend:
-       build:
-         context: backend
-         target: development
+    ```yaml
+    backend:
+      build:
+        context: backend
+        target: development
     ```
     So Docker Compose will look for the backend service's Dockerfile at `/todo/backend/Dockerfile`. If you look within these folders you'll find Dockerfiles in each of them.
 
@@ -391,19 +399,26 @@ volumes:
 
     The **mongo** service is the last service defined in the compose.yaml file. Notably, it does not have a build parameter. Instead, it uses an image parameter ([mongo:4.2.0](https://hub.docker.com/_/mongo)) to specify the Docker image to pull from Docker Hub. This approach ensures that the service uses a specific version of the MongoDB image.
 
-    ```
+    ```yaml
     mongo:
       restart: always
       image: mongo:4.2.0
     ```
 
-    These services work together to create a simple web application that can be accessed on localhost to create a ToDo list. After deploying this application, you should be able to navigate to localhost on the device in which you installed Miru and see a website similar to the following:
+    These services work together to create a simple web application that can be accessed on localhost to create a ToDo list. After deploying this application, you will be able to navigate to localhost on the device in which the application is deployed and see the following:
 
     <img height="200" src="/images/todo-app.png" />
+
+
   </Accordion>
 
-  <Accordion icon="play" title="Deploy your Application" id = 'deploy-application'>
-    Now that our application is ready, we'll navigate back to our **miru-examples** repository, add a change, and push to GitHub.
+  <Accordion icon="hammer" title="Build an Artifact" id = 'build-an-artifact'>
+
+    To use `miru` with your docker compose setup, simply ensure your **docker-compose.yml** is located in the directory specified by your GitHub Source. For us that would be **.../miru-examples/todo/compose.yml** since we specified our GitHub Source directory to be **/todo** and our repository lives in the **miru-examples** directory. Your compose file can be named **compose** or **docker-compose** with a file extension of **yaml** or **yml** (compose.yml, compose.yaml, docker-compose.yml, or docker-compose.yaml).
+
+    Ensure you're using a **development machine** for this section. This should be a computer that has pull/push access to your GitHub account. We recommend using a computer different from the device you installed `miru` onto. Although, you could use the same device if that's all you have access to.
+
+    With our application ready, we'll navigate back to our **miru-examples** repository, add a change, and push to GitHub.
 
     ```
     # This is an arbitrary change to push a new commit to GitHub
@@ -412,53 +427,92 @@ volumes:
     git add .
     git commit -m "Test Miru deployment"
     ```
-    Upon pushing to GitHub, Miru receives the push event and begins building your containers on our servers. You'll be able to see the progress of this **Deployment** on your **DeviceGroup** page.
+    Upon pushing to GitHub, Miru receives the push event and begins building your containers on our servers. You'll be able to see the progress of this **Artifact** being built on the **Group** page the device is located in.
 
-    Your deployment will transition through 7 different states before being deployed to your device.
+    <img src="/images/queued-artifact.png" />
 
-    1. **Cloning** -> Cloning your GitHub repositories on Miru servers to build your images
+    Your artifact will transition through 5 different states before it is ready for deployment.
+
+    1. **Queued** -> Waiting for a build server to become available to build your artifact
     2. **Verifying** -> Verifying your Docker Compose file and build specifications are valid
     3. **Building** -> Building your Docker images
     4. **Storing** -> Storing your images in our private container registry
-    5. **Staged** -> The deployment is waiting for you to manually select which device(s) to deploy to, allowing you to test your deployment before rolling it out to the rest of your devices.
-    6. **Deploying** -> The device is attempting to deploy the application
-    7. **Deployed** -> The device has successfully deployed the application
+    5. **Ready** -> The artifact is ready to be deployed to your devices.
 
-  Once the containers have been built, the **Deployment** is staged for you to deploy to your target devices. To deploy to your target devices, click the **deploy** button at the far right of the deployment row.
-
-  <img height="200" src="/images/staged-deployment-update.png" />
-
-  A popup will allow you to select which devices will receive the deployment.
-
-  <img height="200" src="/images/staging-popup.png" />
-  
-  Double-click on your target device to get information about the deployment that you've just initiated.
-
-  <img height="200" src="/images/devices-list.png" />
-  
-  In the **Device Details** page, you'll see the status of your device and the queued deployment.
-  
-  <img height="200" src="/images/device-details.png" />
-
-  Once it's finished deploying, the deployment status will change to **active**. This means the device has successfully installed the new containers!
-
-  <img height="200" src="/images/active-deployment.png" />
-
-  The **Containers** section of the **Device Details** page shows the status of your running and stopped containers.
-
-  <img height="200" src="/images/containers.png" />
-
-  So far, we've just deployed to one Device Group with one device. However, you can add many devices to a Device Group, and Device Groups may have a many-to-many relationship with GitHub Sources. Device Groups can have multiple GitHub Sources, and a GitHub Source can belong to multiple Device Groups.
   </Accordion>
+  <Accordion icon="box-open" title="Using Artifacts" id = 'using-artifacts'>
+    At the top of a group's page, you'll find **Staged Artifacts**. These are the artifacts which are available to deploy to your devices. By default, newly created artifacts are placed in the staging area and are NOT deployed to your devices. Deployments only occur if you explicitly do so via the UI (more on this in later sections).
 
+    For convenience, you can see the artifact's ID, Git commit, and GitHub source. To see more information about an artifact, click on the artifact's ID. Alternatively, click the ellipsis on the far right and select "Inspect". To move an artifact out of the staging area, select the "Archive" option after clicking the ellipsis for that artifact.
+
+    <img src="/images/staged-artifacts.png" />
+
+    Archived artifacts can be found on the **Artifacts** page within a group (top left next the **Group** page). Here you can see the history of all artifacts, including staged artifacts, for a given group. You can easily sort and search them for more information. If you want to put an artifact back in the staging area, click the ellipsis on the far right and select "Restage".
+
+    <img src="/images/artifacts-history.png" />
+
+    If we inspect an artifact (click on it's ID), we'll see all the information about it including the `miru` and Docker build logs. This is will give you any necessary troubleshooting information if the build fails for some reason.
+
+    <img src="/images/artifact-failed-build.png" />
+
+    You can also easily reference the build logs to know what was in your Dockerfiles as well as examine the steps our build servers executed to create your artifact.
+
+    <img src="/images/artifact-built.png" />
+  </Accordion>
+</AccordionGroup>
+
+### Deploy an Artifact
+<AccordionGroup>
+  <Accordion icon="play" title="Deploy" id = 'deploy-application'>
+
+  To deploy an artifact to your devices, click the ellipsis on the far right of the artifact you want to deploy.
+
+  <img src="/images/staged-artifacts.png" />
+  A popup will appear, allowing you to select which devices you would like to deploy the artifact to. Device's with a deployment already running the chosen artifact will not appear (since the artifact is already deployed). 
+
+  <div style={{
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  }}>
+  <p style={{ flex: 1}}>
+If a deployment currently on a device is from an artifact with the same GitHub source as the artifact being deployed, then the new deployment will replace this old deployment.
+    
+  For example, consider Artifact A and Artifact B, which both have the same GitHub Source C. If a device has a deployment running Artifact A and we're deploying Artifact B, the new deployment running Artifact B will replace the deployment running Artifact A. However, if Artifact B has GitHub Source D (instead of GitHub Source C), then the new deployment running Artifact B will simply deploy alongside the deployment running Artifact A (devices can run more than one deployment). 
+  </p>
+  <img height="200" src="/images/deploy-artifact-table.png" style={{ 
+    flex: 1,
+    maxWidth: '400px',
+    marginLeft: '40px',
+  }} />
+  </div>
+  
+  After selecting the devices to deploy to and clicking "Deploy", the deployments will be queued, awaiting the devices to notice the new deployment and take appropriate action. 
+  
+  </Accordion>
   <Accordion icon="magnifying-glass" title="Verify your Deployment" id = 'verify-deployment'>
-  To see the deployment on your device, open the terminal on your device and view the containers on your device.
+  
+  Scrolling down to the Devices portion of the Group page, you'll find a preview of the information about the device. An overall device status as well as a count of the deployments and their containers are shown for convenience.
+
+
+  <img src="/images/devices-during-deployment.png" />
+
+  Clicking on the name of a device, we can see more detailed information, including the state of its deployments and containers. Each deployment shows its state (queued, downloading, running, etc.), the artifact ID it is running, the deployment ID, and the GitHub Source. By clicking the ellipsis for a deployment, you can start, stop, or remove a deployment from that device. 
+
+  <img src="/images/device-details.png" />
+
+  Scrolling down you'll find all the containers on the device. Again, clicking the ellipsis will allow you to start or stop a given container from the convenience of our UI.
+
+  <img src="/images/device-containers.png" />
+  
+  To verify the deployment is running your device, open the terminal on your device and view its containers.
 
   ```
   docker ps 
   ```
 
-  You should see containers similar to the following:
+  You should see 3 containers: a backend, a frontend, and mongo (the redis container is irrelevant here).
   ```
   CONTAINER ID   IMAGE                                                                                               COMMAND                  CREATED        STATUS                          PORTS                                       NAMES
 0acc0567aa05   redis:7.2.5                                                                                         "docker-entrypoint.s…"   19 hours ago   Up 21 minutes                   0.0.0.0:6379->6379/tcp, :::6379->6379/tcp   miru-backend-database-1
@@ -466,12 +520,31 @@ volumes:
 a9248d812f66   008971674194.dkr.ecr.us-east-1.amazonaws.com/backend-47:05acb0845046f7cb42116fb7a22978762a4c8ceb    "docker-entrypoint.s…"   2 days ago     Restarting (1) 18 seconds ago                                               miru-todo-backend-1
 2d231e06c705   mongo                                                                                               "docker-entrypoint.s…"   2 days ago     Up 21 minutes                   27017/tcp                                   miru-todo-mongo-1
   ```
+  Furthermore, you should see these exact same containers in the `miru` UI for this device as well. 
+  
   If you have access to your device's browser you can navigate to localhost and view the Todo application running on your device.
   
   <img height="200" src="/images/todo-verify.png" />
 
   **Congratulations!** You've made your first OTA deployment with Miru.
   </Accordion>
+
+  <Accordion icon="toolbox" title="Using Deployments" id = 'using-deployments'>
+
+  To see more information about a deployment, click on its ID (the rocket ship icon).
+
+  <img src="/images/click-deployment-id.png" />
+
+  This will take you to the deployment page, where you can see the error logs for that deployment. We're working on adding more logs for both the deployments and their containers!
+
+  <img src="/images/deployment-logs.png" />
+
+  To see the deployment history for a device, click the **Deployments** tab in the top left corner when viewing the device page. From here you'll be able to search all the deployments for this device. If you would like to redeploy a deployment, click the ellipsis for that deployment and select **Redeploy**.
+
+  <img src="/images/deployment-history.png" />
+  </Accordion>
+
+
 
 </AccordionGroup>
 
