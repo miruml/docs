@@ -31,14 +31,14 @@ For requests for other devices/OS support, [reach out to a founder](mailto:vedan
   repository by clicking the Fork button in the top right of the repository
   screen on GitHub.
 
-  <img height="200" src="/images/fork.png" />
+  <img src="/images/fork.png" width="500" />
 
   Rename the repository to *miru-examples* and choose the owner as your personal
   GitHub account. If using an organization's account, the organization owner may
   need to grant you permission to fork the repository into the organization's
   namespace and create a new repository.
 
-  <img height="200" src="/images/repo-name.png" />
+  <img src="/images/repo-name.png" width="400" />
 
   You should now see the *miru-examples* repository on your GitHub account.
 
@@ -60,7 +60,7 @@ For requests for other devices/OS support, [reach out to a founder](mailto:vedan
   <img height="200" src="/images/selecting-repos.png" />
 
   </Accordion>
-  <Accordion icon = 'github' title = 'Create a Github Source' id = 'create-github-source'>
+  <Accordion icon = 'code-branch' title = 'Create a Github Source' id = 'create-github-source'>
  
 
   After the installation completes, you'll be redirected to the
@@ -97,10 +97,10 @@ For requests for other devices/OS support, [reach out to a founder](mailto:vedan
 
 </AccordionGroup>
 
-### Use the Miru Web Application
+### Create a Device
 <AccordionGroup>
 
-  <Accordion icon="layer-group" title="Create a Device Group" id = 'create-a-device-group'>
+  <Accordion icon="layer-plus" title="Create a Device Group" id = 'create-a-device-group'>
     Navigate to the devices page and create a Device Group. Device Groups are a
     convenient way to organize your devices. You might create a group for a
     specific functionality, different customers, a set of test devices, etc.
@@ -114,32 +114,41 @@ For requests for other devices/OS support, [reach out to a founder](mailto:vedan
     *To Do* source we just created.
   
     <img height="200" src="/images/device-group-detailed.png" />
-
-    
-  
-  
-  
-  
-  
-    </Accordion>
+  </Accordion>
 
   <Accordion icon="robot" title="Create a Device" id = 'create-a-device'>
 
-  To add a device, click into the Device Group and select the Device button in
-    the top right corner. You'll be prompted to name your device and choose the
-    hardware that it's running on. 
+    To add a device, click into the Device Group and select the Device button in
+      the top right corner. You'll be prompted to name your device and choose the
+      hardware that it's running on. 
 
-  <img height="200" src="/images/add-device.png" />
+    <img height="200" src="/images/add-device.png" />
+
+  </Accordion>
+  
+  <Accordion icon="object-intersect" title="Change a Device's Group" id='move-a-device'>
+
+    To move a device to a different group, first find the device on Group page.
+
+    <img src="/images/group-page.png" />
+
+    Click the ellipsis on the far right and select the "Edit" button.
+
+    <img src="/images/device-row.png" />
+
+    Select the desired group for the device from the options in the top right-hand corner.
+
+    <img src="/images/edit-device-group.png" />
 
   </Accordion>
 </AccordionGroup>
 
 
-### Install Miru on your Device
+### Install Miru onto your Device
 
 <AccordionGroup>
 
-  <Accordion icon="instalod" title="Install Miru" id = 'install-miru'>
+  <Accordion icon="arrow-down-to-line" title="Install Miru" id = 'install-miru'>
 
   Installing Miru onto your device takes ~ 3 minutes.  The only dependencies for Miru are `docker`, `docker compose`, and `miru`. If you don't have `docker` or `docker compose` installed already don't worry, Miru will handle the installation for you! 
 
@@ -207,7 +216,7 @@ For requests for other devices/OS support, [reach out to a founder](mailto:vedan
 
   </Accordion>
 
-  <Accordion icon="key" title="Authenticate your Device" id = 'authenticate-device'>
+  <Accordion icon="key" title="Authenticate" id = 'authenticate-device'>
     To authenticate your device, navigate to the group your device lives in and select the device you want to authenticate. Click the key icon at the far right of the device's row to retrieve its authentication token.
 
     <img height="200" src="/images/authenticate.png" />
@@ -232,8 +241,7 @@ For requests for other devices/OS support, [reach out to a founder](mailto:vedan
 
 </AccordionGroup>
 
-### Deploy an Update
-
+### Build an Artifact
 <AccordionGroup>
 
   <Accordion icon="check" title="Prepare your Deployment" id = 'prepare-deployment'>
