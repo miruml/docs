@@ -11,8 +11,7 @@ anywhere in the world. Simply push new changes to GitHub and let Miru take care 
 the rest.
 
 This **Getting Started** page will walk you through an example set up and 
-deployment using Miru. Please note that, currently Miru is only compatible 
-with **NVIDIA Jetson**, **Raspberry Pi**, and **Orange Pi** running **Ubuntu**.
+deployment using Miru. Miru is compatible with any machine running an **Ubuntu** or **Raspberry Pi** operating system with an **aarch64** or **x86_64** architecture (32-bit architectures are not supported). Miru is particularly suited for **NVIDIA Jetson** devices, **Raspberry Pis**, and **industrial PCs**. 
 
 For requests for other devices/OS support, [reach out to a founder](mailto:vedant@miruml.com). **Do not use this in production without talking to a founder first!**
 
@@ -61,10 +60,10 @@ For requests for other devices/OS support, [reach out to a founder](mailto:vedan
   <Accordion icon = 'code-branch' title = 'Create a GitHub Source' id = 'create-github-source'>
 
   After the installation completes, you'll be redirected to the
-  [settings](https://app.miruml.com/settings/integrations) page in Miru. Wait a
+  [integrations](https://app.miruml.com/integrations/github) page in Miru. Wait a
   few seconds before refreshing the page to see your updated repository access.
 
-  <img height="200" src="/images/miru-examples-on-miru.png" style={{borderRadius: '7px'}}/>
+  <img height="200" src="/images/github-connection-miru-examples.png" style={{borderRadius: '7px'}}/>
 
   After connecting a GitHub repository, you'll need to create a **GitHub Source**. A GitHub Source is uniquely identified by three items:
 
@@ -91,9 +90,11 @@ For requests for other devices/OS support, [reach out to a founder](mailto:vedan
     To create a GitHub source, click the **Source** button, fill in the fields,
     and click **Create Source**. We'll set up our GitHub source to track the
     `\todo` in the `main` branch of our forked `miru-examples` repository and name
-    the source *To Do*. 
+    the source *To Do*.
+
   </p>
   </div>
+    The default architecture for a new GitHub source is **aarch64**. However, you can also use **x86_64** as well. GitHub sources with an aarch64 architecture will create artifacts supported for 64-bit ARM devices (NVIDIA Jetson, Raspberry Pi, etc.) while GitHub sources with an x86_64 architecture will create artifacts supported for 64-bit x86 machines (e.g. industrial PCs)
 
   </Accordion>
 
@@ -168,11 +169,11 @@ For requests for other devices/OS support, [reach out to a founder](mailto:vedan
 
   <Accordion icon="arrow-down-to-line" title="Install Miru" id = 'install-miru'>
 
-  Installing Miru onto your device takes ~ 3 minutes.  The only dependencies for Miru are `docker`, `docker compose`, and `miru`. If you don't have `docker` or `docker compose` installed already don't worry, Miru will handle the installation for you! 
+  Installing Miru onto your device takes 3 minutes.  The only dependencies for Miru are `docker`, `docker compose`, and `miru`. If you don't have `docker` or `docker compose` installed already don't worry, Miru will handle the installation for you! 
 
   We highly recommend **to SSH into your device** so that you can easily copy and paste your authentication token from your local computer.
 
-  Please note that **only arm64/aarch64 is supported** at this time. Miru is **incompatible with x86_64/x64.**
+  Please note that `miru` is compatible with any machine running an **Ubuntu** or **Raspberry Pi** operating system with an **aarch64** or **x86_64** architecture (32-bit architectures are not supported). Miru is particularly suited for **NVIDIA Jetson** devices, **Raspberry Pis**, and **industrial PCs**. 
 
   #### 1. **Install `miru`**
 

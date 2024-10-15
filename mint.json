@@ -27,7 +27,7 @@
     },
     "navigation": [
         {
-            "group": "Get Started",
+            "group": "Miru Docs",
             "pages": [
                 "get-started/quickstart"
             ]
