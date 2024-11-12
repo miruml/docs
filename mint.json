@@ -29,6 +29,7 @@
         {
             "group": "Getting Started",
             "pages": [
+                "pages/introduction",
                 "pages/core-concepts",
                 "pages/quickstart",
                 "pages/faq"
@@ -37,16 +38,23 @@
         {
             "group": "Usage",
             "pages": [
+
                 {
-                    "group": "Core Concepts",
+                    "group": "Deployments",
                     "pages": [
-                        "pages/core-concepts/groups",
-                        "pages/core-concepts/devices",
-                        "pages/core-concepts/sources",
-                        "pages/core-concepts/artifacts",
-                        "pages/core-concepts/deployments"
+                        "pages/deployments/sources",
+                        "pages/deployments/artifacts",
+                        "pages/deployments/deployments"
                     ]
                 },
+                {
+                    "group": "Jobs",
+                    "pages": [
+                        "pages/core-concepts/creating-jobs",
+                        "pages/core-concepts/running-jobs"
+                    ]
+                },
+                "pages/configurations/configurations",
                 {
                     "group": "Integrations",
                     "pages": [
@@ -75,14 +83,6 @@
             "group": "System Overview",
             "pages": [
                 {
-                    "group": "Architecture",
-                    "pages": [
-                        "pages/architecture/overview",
-                        "pages/communication/https",
-                        "pages/communication/mqtt"
-                    ]
-                },
-                {
                     "group": "Communication",
                     "pages": [
                         "pages/communication/https",
@@ -92,7 +92,7 @@
                 {
                     "group": "Device Agent",
                     "pages": [
-                        "pages/miru-agent/overview",
+                        "pages/miru-agent/overview"
                     ]
                 },
                 {
