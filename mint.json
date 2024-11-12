@@ -29,24 +29,12 @@
         {
             "group": "Getting Started",
             "pages": [
-                "pages/core-concepts",
-                "pages/quickstart",
-                "pages/faq"
+                "pages/quickstart"
             ]
         },
         {
             "group": "Usage",
             "pages": [
-                {
-                    "group": "Core Concepts",
-                    "pages": [
-                        "pages/core-concepts/groups",
-                        "pages/core-concepts/devices",
-                        "pages/core-concepts/sources",
-                        "pages/core-concepts/artifacts",
-                        "pages/core-concepts/deployments"
-                    ]
-                },
                 {
                     "group": "Integrations",
                     "pages": [
@@ -60,44 +48,6 @@
                     "pages": [
                         "pages/miru-agent/installation",
                         "pages/miru-agent/commands"
-                    ]
-                },
-                {
-                    "group": "Tutorials",
-                    "pages": [
-                        "pages/tutorials/web-app",
-                        "pages/tutorials/pytorch"
-                    ]
-                }
-            ]
-        },
-        {
-            "group": "System Overview",
-            "pages": [
-                {
-                    "group": "Communication",
-                    "pages": [
-                        "pages/communication/https",
-                        "pages/communication/mqtt"
-                    ]
-                },
-                {
-                    "group": "Device Agent",
-                    "pages": [
-                        "pages/miru-agent/overview"
-                    ]
-                },
-                {
-                    "group": "Security",
-                    "pages": [
-                        {
-                            "group": "Authentication",
-                            "pages": [
-                                "pages/authentication/devices",
-                                "pages/authentication/users"
-                            ]
-                        },
-                        "pages/security/"
                     ]
                 }
             ]
