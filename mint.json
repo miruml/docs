@@ -75,14 +75,6 @@
             "group": "System Overview",
             "pages": [
                 {
-                    "group": "Architecture",
-                    "pages": [
-                        "pages/architecture/overview",
-                        "pages/communication/https",
-                        "pages/communication/mqtt"
-                    ]
-                },
-                {
                     "group": "Communication",
                     "pages": [
                         "pages/communication/https",
@@ -92,7 +84,7 @@
                 {
                     "group": "Device Agent",
                     "pages": [
-                        "pages/miru-agent/overview",
+                        "pages/miru-agent/overview"
                     ]
                 },
                 {
