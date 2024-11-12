@@ -1,0 +1,65 @@
+To deploy an artifact to your devices, click the ellipsis on the far right of the artifact you want to deploy and select "Deploy" from the dropdown menu.
+
+If a deployment currently on a device is from an artifact with the same GitHub source as the artifact being deployed, then the new deployment will replace this old deployment.
+
+<img src="/images/staged-artifacts.png" style={{borderRadius: '7px'}}/>
+A popup will appear, allowing you to select which devices you would like to deploy the artifact to. Device's with a deployment already running the chosen artifact will not appear (since the artifact is already deployed). 
+
+<div style={{
+borderRadius: '7px',
+display: 'flex',
+flexDirection: 'row',
+alignItems: 'center',
+justifyContent: 'flex-start',
+}}>
+<p style={{ flex: 1}}>
+
+For example, consider Artifact A and Artifact B, which both have the same GitHub Source C. If a device has a deployment running Artifact A and we're deploying Artifact B, the new deployment running Artifact B will replace the deployment running Artifact A. However, if Artifact B has GitHub Source D (instead of GitHub Source C), then the new deployment running Artifact B will simply deploy alongside the deployment running Artifact A (devices can run more than one deployment). 
+</p>
+<img height="200" src="/images/deploy-artifact-table.png" style={{ 
+borderRadius: '7px',
+flex: 1,
+maxWidth: '400px',
+marginLeft: '40px',
+}} />
+</div>
+
+After selecting the devices to deploy to and clicking "Deploy", the deployments will be queued, awaiting the devices to notice the new deployment and take appropriate action. 
+
+</Accordion>
+<Accordion icon="magnifying-glass" title="Verify your Deployment" id = 'verify-deployment'>
+
+Scrolling down to the Devices portion of the Group page, you'll find a preview of the information about the device. An overall device status as well as a count of the deployments and their containers are shown for convenience.
+
+
+<img src="/images/devices-during-deployment.png" style={{borderRadius: '7px'}}/>
+
+Clicking on the name of a device, we can see more detailed information, including the state of its deployments and containers. Each deployment shows its state (queued, downloading, running, etc.), the artifact ID it is running, the deployment ID, and the GitHub Source. By clicking the ellipsis for a deployment, you can start, stop, or remove a deployment from that device. 
+
+<img src="/images/device-details.png" style={{borderRadius: '7px'}}/>
+
+Scrolling down you'll find all the containers on the device. Again, clicking the ellipsis will allow you to start or stop a given container from the convenience of our UI.
+
+<img src="/images/device-containers.png" style={{borderRadius: '7px'}}/>
+
+To verify the deployment is running your device, open the terminal on your device and view its containers.
+
+```
+docker ps 
+```
+
+You should see 3 containers: a backend, a frontend, and mongo (the redis container is irrelevant here).
+```
+CONTAINER ID   IMAGE                                                                                               COMMAND                  CREATED        STATUS                          PORTS                                       NAMES
+0acc0567aa05   redis:7.2.5                                                                                         "docker-entrypoint.s…"   19 hours ago   Up 21 minutes                   0.0.0.0:6379->6379/tcp, :::6379->6379/tcp   miru-backend-database-1
+7eb4db606f1a   008971674194.dkr.ecr.us-east-1.amazonaws.com/frontend-47:05acb0845046f7cb42116fb7a22978762a4c8ceb   "docker-entrypoint.s…"   2 days ago     Restarting (1) 21 seconds ago                                               miru-todo-frontend-1
+a9248d812f66   008971674194.dkr.ecr.us-east-1.amazonaws.com/backend-47:05acb0845046f7cb42116fb7a22978762a4c8ceb    "docker-entrypoint.s…"   2 days ago     Restarting (1) 18 seconds ago                                               miru-todo-backend-1
+2d231e06c705   mongo                                                                                               "docker-entrypoint.s…"   2 days ago     Up 21 minutes                   27017/tcp                                   miru-todo-mongo-1
+```
+Furthermore, you should see these exact same containers in the `miru` UI for this device as well. 
+
+If you have access to your device's browser you can navigate to localhost and view the Todo application running on your device.
+
+<img height="200" src="/images/todo-verify.png" style={{borderRadius: '7px'}}/>
+
+**Congratulations!** You've made your first OTA deployment with Miru.
