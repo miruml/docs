@@ -1,0 +1,40 @@
+Instead of using public Docker Hub images like we did with `mongo:4.2.0` image in [Prepare your Application](#prepare-artifact), you can use images from your private Docker Hub repository. Navigate to the integrations page in `miru` by clicking the [Integrations](https://app.miruml.com/integrations/github) tab in the top left of the home page.
+
+<img src="/images/integrations-page.png" style={{borderRadius: '7px'}} />
+
+Navigate to the Docker Hub Integration using the options on the left and create an access token for `miru` to connect to your repository with.
+
+<img src="/images/create-dockerhub-pat.png" style={{borderRadius: '7px'}} />
+
+Navigate to the [personal access tokens](https://app.docker.com/settings/personal-access-tokens) page located in your Docker Hub [account settings](https://app.docker.com/settings). Generate a new personal access token to grant `miru`. Ensure you select **Read-only** NOT **Public Repo Read-only** to grant miru access to images in your private repository.
+
+<img src="/images/generate-dockerhub-pat.png" style={{borderRadius: '7px', border: '1px solid #808080'}} />
+
+<img src="/images/generate-dockerhub-pat-form.png" style={{borderRadius: '7px', border: '1px solid #808080'}} />
+
+Enter your username and personal access token into miru.
+
+<img src="/images/generated-dockerhub-pat.png" style={{borderRadius: '7px', border: '1px solid #808080'}} />
+
+<div style={{
+display: 'flex',
+flexDirection: 'row',
+alignItems: 'center',
+justifyContent: 'flex-start',
+}}>
+<p style={{ flex: 1}}>
+Congratulations! You've successfully connected `miru` with your Docker Hub. `miru` will have read-only access to images in your private repository. If using repositories from an organization with `miru`, please ensure your account (that you created the personal access token with) has the necessary permissions to use such repositories.
+</p>
+<img src="/images/connect-dockerhub-form.png" style={{ 
+    borderRadius: '7px',
+    flex: 1,
+    maxWidth: '300px',
+    marginRight: '10px',
+}} />
+</div>
+To use an image from private repositories, simple specify the image reference for your Docker image in your **docker-compose.yml** file. 
+
+```yaml
+<compose-service>:
+    image: <namespace>/<repository>:<tag>
+```

@@ -1,0 +1,17 @@
+At the top of a group's page, you'll find **Staged Artifacts**. These are the artifacts which are available to deploy to your devices. By default, newly created artifacts are placed in the staging area and are NOT deployed to your devices. Deployments only occur if you explicitly do so via the UI (more on this in later sections).
+
+For convenience, you can see the artifact's ID, Git commit, and GitHub source. To see more information about an artifact, click on the artifact's ID. Alternatively, click the ellipsis on the far right and select "Inspect". To move an artifact out of the staging area, select the "Archive" option after clicking the ellipsis for that artifact.
+
+<img src="/images/staged-artifacts.png" style={{borderRadius: '7px'}}/>
+
+Archived artifacts can be found on the **Artifacts** page within a group (top left next the **Group** page). Here you can see the history of all artifacts, including staged artifacts, for a given group. You can easily sort and search them for more information. If you want to put an artifact back in the staging area, click the ellipsis on the far right and select "Restage".
+
+<img src="/images/artifacts-history.png" style={{borderRadius: '7px'}}/>
+
+If we inspect an artifact (click on it's ID), we'll see all the information about it including the `miru` and Docker build logs. This is will give you any necessary troubleshooting information if the build fails for some reason.
+
+<img src="/images/artifact-failed-build.png" style={{borderRadius: '7px'}}/>
+
+You can also easily reference the build logs to know what was in your Dockerfiles as well as examine the steps our build servers executed to create your artifact.
+
+<img src="/images/artifact-built.png" style={{borderRadius: '7px'}}/>

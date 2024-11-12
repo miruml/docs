@@ -27,9 +27,17 @@
     },
     "navigation": [
         {
-            "group": "Miru Docs",
+            "group": "Getting Started",
             "pages": [
-                "get-started/quickstart"
+                "pages/quickstart"
+            ]
+        },
+        {
+            "group": "Integrations",
+            "pages": [
+                "pages/integrations/github",
+                "pages/integrations/dockerhub",
+                "pages/integrations/gar"
             ]
         }
     ],

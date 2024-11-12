@@ -1,0 +1,37 @@
+After the installation completes, you'll be redirected to the
+[integrations](https://app.miruml.com/integrations/github) page in Miru. Wait a
+few seconds before refreshing the page to see your updated repository access.
+
+<img height="200" src="/images/github-connection-miru-examples.png" style={{borderRadius: '7px'}}/>
+
+After connecting a GitHub repository, you'll need to create a **GitHub Source**. A GitHub Source is uniquely identified by three items:
+
+1. Repository - the GitHub repository (ex: miru-examples)
+2. Branch - the branch for the repository (ex: main)
+3. Build Directory - the folder in the repository housing a docker-compose.yaml file (ex: /backend)
+
+<div style={{
+display: 'flex',
+flexDirection: 'row',
+alignItems: 'center',
+justifyContent: 'flex-start',
+}}>
+<img height="200" src="/images/todo-source.png" style={{ 
+borderRadius: '7px',
+flex: 1,
+maxWidth: '250px',
+marginRight: '40px',
+}} />
+<p style={{ flex: 1}}>
+Note that you can create multiple sources from the same repository, provided
+each source has a unique branch and build directory combination.
+
+To create a GitHub source, click the **Source** button, fill in the fields,
+and click **Create Source**. We'll set up our GitHub source to track the
+`\todo` in the `main` branch of our forked `miru-examples` repository and name
+the source *To Do*.
+
+</p>
+</div>
+The default architecture for a new GitHub source is **aarch64**. However, you can also use **x86_64** as well. GitHub sources with an aarch64 architecture will create artifacts supported for 64-bit ARM devices (NVIDIA Jetson, Raspberry Pi, etc.) while GitHub sources with an x86_64 architecture will create artifacts supported for 64-bit x86 machines (e.g. industrial PCs)
+
