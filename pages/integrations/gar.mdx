@@ -3,7 +3,27 @@ title: 'Google Artifact Registry'
 description: 'Deploy Docker images from your private Google Artifact Registry repository with Miru'
 ---
 
-import DockerHub from '/snippets/integrations/dockerhub.mdx';
+import CreateSA from '/snippets/integrations/gar/create-sa.mdx';
+import ProvisionKey from '/snippets/integrations/gar/provision-key.mdx';
+import AddSAToMiru from '/snippets/integrations/gar/add-sa-to-miru.mdx';
+import AddGARPermissions from '/snippets/integrations/gar/add-gar-access.mdx';
 
-### Connect to Docker Hub
-<DockerHub />
+Instead of using public Docker Hub images like we did with `mongo:4.2.0` image in [Prepare your Application](http://docs.miruml.com/pages/quickstart#prepare-your-application), you can use private images located in your Google Artifact Registry repository. 
+
+To do so, we need to create a service account in your Google Cloud project, add it to `miru`, and grant it read-only access to your chosen Artifact Registry repositories. Follow the steps below to connect `miru` with your Google Artifact Registry.
+
+### Connect to Google Artifact Registry
+<AccordionGroup>
+  <Accordion icon = 'file-user' title = 'Create a Service Account' id = 'create-sa'>
+    <CreateSA />
+  </Accordion>
+  <Accordion icon = 'key' title = 'Provision a Key for the Service Account' id = 'provision-key'>
+    <ProvisionKey />
+  </Accordion>
+  <Accordion icon = 'plus' title = 'Add the Service Account to miru' id = 'add-sa-to-miru'>
+    <AddSAToMiru />
+  </Accordion>
+  <Accordion icon = 'lock' title = 'Grant Access to Artifact Registry Repositories' id = 'add-gar-access'>
+    <AddGARPermissions />
+  </Accordion>
+</AccordionGroup>

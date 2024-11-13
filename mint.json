@@ -38,16 +38,8 @@
                 {
                     "group": "Integrations",
                     "pages": [
-                        "pages/integrations/github",
                         "pages/integrations/dockerhub",
                         "pages/integrations/gar"
-                    ]
-                },
-                {
-                    "group": "Device Agent",
-                    "pages": [
-                        "pages/miru-agent/installation",
-                        "pages/miru-agent/commands"
                     ]
                 }
             ]
@@ -57,5 +49,8 @@
         "x": "https://x.com/mirurobotics",
         "github": "https://github.com/miruml",
         "linkedin": "https://www.linkedin.com/company/miruml/"
+    },
+    "modeToggle": {
+        "default": "dark"
     }
 }
