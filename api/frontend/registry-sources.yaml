@@ -3,10 +3,12 @@ info:
   title: Registry Sources 
   version: 0.1.0
 servers:
-  - url: https://api.miruml.com
+  - url: https://api.miruml.com/internal/v1
     description: Production
-  - url: https://api.dev.miruml.com
+  - url: https://api.dev.miruml.com/internal/v1
     description: Development
+  - url: http://localhost:8080/internal/v1
+    description: Local
 components:
   schemas:
     Repository:
@@ -60,7 +62,7 @@ components:
           type: boolean
           example: false 
 paths:
-  /internal/v1/workspaces/{workspace_id}/sources/registry:
+  /workspaces/{workspace_id}/sources/registry:
     get:
       tags:
         - Registry Sources
@@ -95,7 +97,7 @@ paths:
         content:
           application/json:
             schema:
-
+              $ref: '#/components/schemas/CreateRegistrySource'
       responses:
         '200':
           description: Successfully created the registry source for the workspace.
@@ -107,7 +109,7 @@ paths:
                   registry_source_id:
                     type: string
                     example: "reg_src_1234"
-  /internal/v1/sources/registry/{registry_id}:
+  /sources/registry/{registry_id}:
     get:
       tags:
         - Registry Sources
