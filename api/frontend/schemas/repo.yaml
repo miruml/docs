@@ -1,0 +1,17 @@
+openapi: 3.0.3
+info:
+  title: Repository Schemas
+  version: ""
+components:
+  schemas:
+    Repository:
+      title: Repository
+      type: object 
+      properties:
+        registry_url:
+          type: string
+          example: "docker.io"
+        repository_name:
+          type: string
+          example: "redis"
+paths: {}

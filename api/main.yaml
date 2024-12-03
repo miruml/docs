@@ -1,0 +1,16 @@
+openapi: 3.0.3
+info:
+  title: MiruML API
+  version: 0.1.0
+servers:
+  - url: https://api.miruml.com/{audience}/{version}
+    description: Production
+    variables:
+      audience:
+        default: internal
+        enum:
+          - internal
+          - internal/devices
+      version:
+        default: v1
+paths: {}

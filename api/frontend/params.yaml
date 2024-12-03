@@ -1,0 +1,14 @@
+openapi: 3.0.3
+info:
+  title: Registry Sources 
+  version: 0.1.0
+components:
+  parameters:
+    workspace_id:
+      name: workspace_id 
+      in: path
+      required: true
+      description: The unique identifier of the workspace
+      schema:
+        type: string
+paths: {}

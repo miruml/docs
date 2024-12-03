@@ -1,12 +1,26 @@
 openapi: 3.0.3
 info:
-  title: Artifacts 
-  version: 0.1.0
+  title: Registry Sources 
+  version: ""
 paths:
-  /internal/v1/workspaces/{workspace_id}/artifact:
+  /workspaces/{workspace_id}/sources/registry:
+    get:
+      tags:
+        - Registry Sources
+      parameters:
+        - $ref: '../parameters.yaml#/components/parameters/workspace_id'
+      responses:
+        '200':
+          description: Successfully retrieved the registry sources for the workspace.
+          content:
+            application/json:
+              schema:
+                type: array 
+                items:
+                  $ref: '../schemas/reg-src.yaml#/components/schemas/RegistrySource'
     post:
       tags:
-        - Artifacts 
+        - Registry Sources
       parameters:
         - name: workspace_id 
           in: path
@@ -19,25 +33,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                registry_source_name:
-                  type: string
-                  example: "Ad Display V2.2.1"
-                  description: The name of the registry source.
-                compose_file:
-                  type: string
-                  example: "name: miru\nservices:\n  redis:\n  image: redis:latest\n  restart: always"
-                  description: The compose file for the registry source.
-                aarch64:
-                  type: boolean
-                  example: true
-                  description: Whether the registry source is aarch64.
-                x86_64:
-                  type: boolean
-                  example: false 
-                  description: Whether the registry source is x86_64.
-                
+              $ref: '../schemas/reg-src.yaml#/components/schemas/CreateRegistrySource'
       responses:
         '200':
           description: Successfully created the registry source for the workspace.
@@ -49,32 +45,27 @@ paths:
                   registry_source_id:
                     type: string
                     example: "reg_src_1234"
-                    description: The unique identifier of the device. 
-  /internal/v1/sources/artifacts/{artifact_id}:
+  /sources/registry/{registry_id}:
     get:
       tags:
-        - Artifacts
+        - Registry Sources
       parameters:
-        - name: artifact_id 
+        - name: registry_id 
           in: path
           required: true
-          description: The unique identifier of the artifact.
+          description: The unique identifier of the registry source.
           schema:
             type: string
       responses:
         '200':
-          description: Successfully retrieved the artifact.
+          description: Successfully retrieved the registry source.
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  artifact_id:
-                    type: string
-                    example: "art_1234"
+                $ref: '../schemas/reg-src.yaml#/components/schemas/RegistrySource'
     patch:
       tags:
-        - Artifacts
+        - Registry Sources
       parameters:
         - name: registry_id 
           in: path
@@ -93,6 +84,3 @@ paths:
                   registry_source_id:
                     type: string
                     example: "reg_src_1234"
-
-
-# group artifacts: /artifacts, /artifacts/staged, /artifacts/:artifact_id

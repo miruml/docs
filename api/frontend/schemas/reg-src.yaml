@@ -1,0 +1,52 @@
+openapi: 3.0.3
+info:
+  title: Registry Sources Schemas
+  version: ""
+components:
+  schemas:
+    Repository:
+      $ref: './repo.yaml#/components/schemas/Repository'
+    RegistrySource:
+      title: Registry Source
+      type: object
+      properties:
+        registry_source_id:
+          type: string
+          example: "reg_src_1234"
+        registry_source_name:
+          type: string
+          example: "Ad Display V2.2.1"
+        repositories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Repository'
+          example:
+            - registry_url: "docker.io"
+              repository_name: "redis"
+            - registry_url: "us-central1-docker.pkg.dev/miruml"
+              repository_name: "frontend/wordpress"
+            - registry_url: "docker.io"
+              repository_name: "backend/django"
+        aarch64:
+          type: boolean
+          example: true
+        x86_64:
+          type: boolean
+          example: false
+    CreateRegistrySource:
+      title: Create Registry Source
+      type: object
+      properties:
+        registry_source_name:
+          type: string
+          example: "Ad Display V2.2.1"
+        compose_file:
+          type: string
+          example: "name: miru\nservices:\n  redis:\n  image: redis:latest\n  restart: always"
+        aarch64:
+          type: boolean
+          example: true
+        x86_64:
+          type: boolean
+          example: false 
+paths: {}
