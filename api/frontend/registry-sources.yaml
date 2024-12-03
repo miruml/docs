@@ -1,0 +1,137 @@
+openapi: 3.0.3
+info:
+  title: Registry Sources 
+  version: 0.1.0
+paths:
+  /internal/v1/workspaces/{workspace_id}/sources/registry:
+    get:
+      tags:
+        - Registry Sources
+      parameters:
+        - name: workspace_id 
+          in: path
+          required: true
+          description: The unique identifier of the workspace
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the registry sources for the workspace.
+          content:
+            application/json:
+              schema:
+                type: array 
+                items:
+                  type: object
+                  properties:
+                    registry_source_id:
+                      type: string
+                      example: "reg_src_1234"
+    post:
+      tags:
+        - Registry Sources
+      parameters:
+        - name: workspace_id 
+          in: path
+          required: true
+          description: The unique identifier of the workspace
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                registry_source_name:
+                  type: string
+                  example: "Ad Display V2.2.1"
+                compose_file:
+                  type: string
+                  example: "name: miru\nservices:\n  redis:\n  image: redis:latest\n  restart: always"
+                aarch64:
+                  type: boolean
+                  example: true
+                x86_64:
+                  type: boolean
+                  example: false 
+      responses:
+        '200':
+          description: Successfully created the registry source for the workspace.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  registry_source_id:
+                    type: string
+                    example: "reg_src_1234"
+  /internal/v1/sources/registry/{registry_id}:
+    get:
+      tags:
+        - Registry Sources
+      parameters:
+        - name: registry_id 
+          in: path
+          required: true
+          description: The unique identifier of the registry source.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the registry source.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  registry_source_id:
+                    type: string
+                    example: "reg_src_1234"
+                  registry_source_name:
+                    type: string
+                    example: "Ad Display V2.2.1"
+                  repositories:
+                    type: array
+                    items:
+                      type: object 
+                      properties:
+                        registry_url:
+                          type: string
+                        repository_name:
+                          type: string
+                    example:
+                      - registry_url: "docker.io"
+                        repository_name: "redis"
+                      - registry_url: "us-central1-docker.pkg.dev/miruml"
+                        repository_name: "frontend/wordpress"
+                      - registry_url: "docker.io"
+                        repository_name: "backend/django"
+                  aarch64:
+                    type: boolean
+                    example: true
+                  x86_64:
+                    type: boolean
+                    example: false
+    patch:
+      tags:
+        - Registry Sources
+      parameters:
+        - name: registry_id 
+          in: path
+          required: true
+          description: The unique identifier of the registry source.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the registry source.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  registry_source_id:
+                    type: string
+                    example: "reg_src_1234"
