@@ -2,6 +2,63 @@ openapi: 3.0.3
 info:
   title: Registry Sources 
   version: 0.1.0
+servers:
+  - url: https://api.miruml.com
+    description: Production
+  - url: https://api.dev.miruml.com
+    description: Development
+components:
+  schemas:
+    Repository:
+      type: object 
+      properties:
+        registry_url:
+          type: string
+          example: "docker.io"
+        repository_name:
+          type: string
+          example: "redis"
+    RegistrySource:
+      type: object
+      properties:
+        registry_source_id:
+          type: string
+          example: "reg_src_1234"
+        registry_source_name:
+          type: string
+          example: "Ad Display V2.2.1"
+        repositories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Repository'
+          example:
+            - registry_url: "docker.io"
+              repository_name: "redis"
+            - registry_url: "us-central1-docker.pkg.dev/miruml"
+              repository_name: "frontend/wordpress"
+            - registry_url: "docker.io"
+              repository_name: "backend/django"
+        aarch64:
+          type: boolean
+          example: true
+        x86_64:
+          type: boolean
+          example: false
+    CreateRegistrySource:
+      type: object
+      properties:
+        registry_source_name:
+          type: string
+          example: "Ad Display V2.2.1"
+        compose_file:
+          type: string
+          example: "name: miru\nservices:\n  redis:\n  image: redis:latest\n  restart: always"
+        aarch64:
+          type: boolean
+          example: true
+        x86_64:
+          type: boolean
+          example: false 
 paths:
   /internal/v1/workspaces/{workspace_id}/sources/registry:
     get:
@@ -22,11 +79,7 @@ paths:
               schema:
                 type: array 
                 items:
-                  type: object
-                  properties:
-                    registry_source_id:
-                      type: string
-                      example: "reg_src_1234"
+                  $ref: '#/components/schemas/RegistrySource'
     post:
       tags:
         - Registry Sources
@@ -42,20 +95,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                registry_source_name:
-                  type: string
-                  example: "Ad Display V2.2.1"
-                compose_file:
-                  type: string
-                  example: "name: miru\nservices:\n  redis:\n  image: redis:latest\n  restart: always"
-                aarch64:
-                  type: boolean
-                  example: true
-                x86_64:
-                  type: boolean
-                  example: false 
+
       responses:
         '200':
           description: Successfully created the registry source for the workspace.
@@ -84,36 +124,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  registry_source_id:
-                    type: string
-                    example: "reg_src_1234"
-                  registry_source_name:
-                    type: string
-                    example: "Ad Display V2.2.1"
-                  repositories:
-                    type: array
-                    items:
-                      type: object 
-                      properties:
-                        registry_url:
-                          type: string
-                        repository_name:
-                          type: string
-                    example:
-                      - registry_url: "docker.io"
-                        repository_name: "redis"
-                      - registry_url: "us-central1-docker.pkg.dev/miruml"
-                        repository_name: "frontend/wordpress"
-                      - registry_url: "docker.io"
-                        repository_name: "backend/django"
-                  aarch64:
-                    type: boolean
-                    example: true
-                  x86_64:
-                    type: boolean
-                    example: false
+                $ref: '#/components/schemas/RegistrySource'
     patch:
       tags:
         - Registry Sources
