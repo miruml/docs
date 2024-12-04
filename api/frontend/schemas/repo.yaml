@@ -7,6 +7,12 @@ components:
     Image:
       title: Image 
       type: object 
+      required:
+        - digest
+        - tags
+        - uri
+        - bytes
+        - uploaded_at
       properties:
         digest:
           type: string
@@ -30,8 +36,12 @@ components:
           type: string
           example: "2021-01-01T00:00:00Z"
     RepositoryListItemNoID:
-      title: Repository List Item
+      title: Repository List Item No ID
       type: object 
+      required:
+        - registry_url
+        - name
+        - uri
       properties:
         registry_url:
           type: string
@@ -46,6 +56,8 @@ components:
       title: Repository List Item
       allOf:
         - type: object
+          required:
+            - id
           properties:
             id:
               type: string
@@ -56,6 +68,8 @@ components:
       allOf:  
         - $ref: '#/components/schemas/RepositoryListItem'
         - type: object
+          required:
+            - images
           properties:
             images:
               type: array

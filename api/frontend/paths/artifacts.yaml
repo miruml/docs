@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Registry Sources 
+  title: Artifacts
   version: ""
 paths:
   /artifacts/{artifact_id}:

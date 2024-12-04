@@ -1,15 +1,27 @@
 openapi: 3.0.3
 info:
-  title: Registry Sources Schemas
+  title: Artifact Schemas
   version: ""
 components: 
   schemas: 
     GitHubSourceData:
       title: GitHub Source Data
       type: object
+      required:
+        - sender
+        - branch
+        - build_path
+        - repository
+        - head_commit
       properties: 
         sender:
           type: object
+          required:
+            - id
+            - type
+            - login
+            - html_url
+            - avatar_url
           properties: 
             id: 
               type: integer
@@ -34,6 +46,12 @@ components:
           example: "valid/wordpress"
         repository:
           type: object
+          required:
+            - id
+            - html_url
+            - clone_url
+            - full_name
+            - pushed_at
           properties: 
             id:
               type: integer
@@ -49,9 +67,14 @@ components:
               example: "miruml/e2e-tests"
             pushed_at:
               type: string
+              format: date-time
               example: "2024-11-03T14:19:50Z"
         head_commit:
           type: object
+          required:
+            - id
+            - url
+            - message
           properties: 
             id:
               type: string
@@ -62,16 +85,18 @@ components:
             message: 
               type: string
               example: "Update README.md"
-    RegistrySourceData:
-      title: Registry Source Data
-      type: object
-      properties: 
-        id:
-          type: string
-          example: "FIXME"
     Artifact:
       title: Artifact
       type: object
+      required:
+        - id
+        - status
+        - src_id
+        - src_type
+        - gh_src_data
+        - aarch64
+        - x86_64
+        - created_at
       properties: 
         id: 
           type: string
@@ -104,23 +129,33 @@ components:
           example: false
         created_at:
           type: string
+          format: date-time
           example: "2024-11-03T14:19:50Z"
+        # not required since it's nullable
         ready_at:
           type: string
+          format: date-time
           example: "2024-11-03T14:25:50Z"
           nullable: true
+        # not required since it's nullable
         failed_at:
           type: string
+          format: date-time
           example: "2024-11-03T14:25:50Z"
           nullable: true
     CreateRegistrySourceArtifact:
       title: Create Registry Source Artifact
       type: object
+      required:
+        - images
       properties: 
         images:
           type: array
           items:
             type: object
+            required:
+              - repo_id
+              - tag
             properties: 
               repo_id:
                 type: string

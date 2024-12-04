@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Registry Sources Schemas
+  title: Registry Source Schemas
   version: ""
 components:
   schemas:
@@ -16,6 +16,12 @@ components:
     RegistrySourceListItem:
       title: Registry Source List Item
       type: object
+      required:
+        - id
+        - name
+        - repos
+        - aarch64
+        - x86_64
       properties:
         id:
           type: string
@@ -38,6 +44,8 @@ components:
       allOf:
         - $ref: '#/components/schemas/RegistrySourceListItem'
         - type: object
+          required:
+            - repos
           properties:
             repos:
               type: array
@@ -46,6 +54,12 @@ components:
     CreateRegistrySource:
       title: Create Registry Source
       type: object
+      required:
+        - name
+        - compose_file
+        - extra_repos
+        - aarch64
+        - x86_64
       properties:
         name:
           type: string
@@ -69,6 +83,12 @@ components:
     UpdateRegistrySource:
       title: Update Registry Source
       type: object
+      required:
+        - name
+        - compose_file
+        - extra_repos
+        - aarch64
+        - x86_64
       properties:
         name:
           type: string
