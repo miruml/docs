@@ -13,4 +13,36 @@ servers:
           - internal/devices
       version:
         default: v1
-paths: {}
+  - url: https://dev.api.miruml.com/{audience}/{version}
+    description: Development 
+    variables:
+      audience:
+        default: internal
+        enum:
+          - internal
+          - internal/devices
+      version:
+        default: v1
+  - url: https://localhost:8080/{audience}/{version}
+    description: Local Development 
+    variables:
+      audience:
+        default: internal
+        enum:
+          - internal
+          - internal/devices
+      version:
+        default: v1
+paths: 
+  /workspaces/{workspace_id}/sources/registries:
+    $ref: './frontend/paths/reg-srcs.yaml#/paths/~1workspaces~1{workspace_id}~1sources~1registries'
+  /sources/registries/{registry_source_id}:
+    $ref: './frontend/paths/reg-srcs.yaml#/paths/~1sources~1registries~1{registry_source_id}'
+  /integrations/dockerhub/{dockerhub_integration_id}/repositories/accessible:
+    $ref: './frontend/paths/repos.yaml#/paths/~1integrations~1dockerhub~1{dockerhub_integration_id}~1repositories~1accessible'
+  /integrations/gar/{gar_integration_id}/repositories/accessible:
+    $ref: './frontend/paths/repos.yaml#/paths/~1integrations~1gar~1{gar_integration_id}~1repositories~1accessible'
+  /workspaces/{workspace_id}/repositories/accessible:
+    $ref: './frontend/paths/repos.yaml#/paths/~1workspaces~1{workspace_id}~1repositories~1accessible'
+  /repository/{repository_id}:
+    $ref: './frontend/paths/repos.yaml#/paths/~1repository~1{repository_id}'

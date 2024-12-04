@@ -3,12 +3,12 @@ info:
   title: Registry Sources 
   version: ""
 paths:
-  /workspaces/{workspace_id}/sources/registry:
+  /workspaces/{workspace_id}/sources/registries:
     get:
       tags:
         - Registry Sources
       parameters:
-        - $ref: '../parameters.yaml#/components/parameters/workspace_id'
+        - $ref: '../params.yaml#/components/parameters/workspace_id'
       responses:
         '200':
           description: Successfully retrieved the registry sources for the workspace.
@@ -17,17 +17,12 @@ paths:
               schema:
                 type: array 
                 items:
-                  $ref: '../schemas/reg-src.yaml#/components/schemas/RegistrySource'
+                  $ref: '../schemas/reg-src.yaml#/components/schemas/RegistrySourceListItem'
     post:
       tags:
         - Registry Sources
       parameters:
-        - name: workspace_id 
-          in: path
-          required: true
-          description: The unique identifier of the workspace
-          schema:
-            type: string
+        - $ref: '../params.yaml#/components/parameters/workspace_id'
       requestBody:
         required: true
         content:
@@ -40,22 +35,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  registry_source_id:
-                    type: string
-                    example: "reg_src_1234"
-  /sources/registry/{registry_id}:
+                $ref: '../schemas/reg-src.yaml#/components/schemas/RegistrySource'
+  /sources/registries/{registry_source_id}:
     get:
       tags:
         - Registry Sources
       parameters:
-        - name: registry_id 
-          in: path
-          required: true
-          description: The unique identifier of the registry source.
-          schema:
-            type: string
+        - $ref: '../params.yaml#/components/parameters/registry_source_id'
       responses:
         '200':
           description: Successfully retrieved the registry source.
@@ -67,20 +53,17 @@ paths:
       tags:
         - Registry Sources
       parameters:
-        - name: registry_id 
-          in: path
-          required: true
-          description: The unique identifier of the registry source.
-          schema:
-            type: string
+        - $ref: '../params.yaml#/components/parameters/registry_source_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/reg-src.yaml#/components/schemas/UpdateRegistrySource'
       responses:
         '200':
           description: Successfully retrieved the registry source.
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  registry_source_id:
-                    type: string
-                    example: "reg_src_1234"
+                $ref: '../schemas/reg-src.yaml#/components/schemas/RegistrySource'

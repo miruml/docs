@@ -4,14 +4,62 @@ info:
   version: ""
 components:
   schemas:
-    Repository:
-      title: Repository
+    Image:
+      title: Image 
+      type: object 
+      properties:
+        digest:
+          type: string
+          example: "sha256:123abc"
+        tags:
+          type: array
+          items:
+            type: string
+            example: "latest"
+          example:
+            - "latest"
+            - "v1.0.0"
+            - "stable"
+        uri:
+          type: string
+          example: "docker.io/redis:latest"
+        bytes:
+          type: integer
+          example: 392510987
+        uploaded_at:
+          type: string
+          example: "2021-01-01T00:00:00Z"
+    RepositoryListItemNoID:
+      title: Repository List Item
       type: object 
       properties:
         registry_url:
           type: string
-          example: "docker.io"
-        repository_name:
+          example: "us-central1-docker.pkg.dev/container-integration"
+        name:
           type: string
-          example: "redis"
+          example: "miru/django"
+        uri:
+          type: string
+          example: "us-central1-docker.pkg.dev/container-integration/miru/django"
+    RepositoryListItem:
+      title: Repository List Item
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: string
+              example: "repo_123"
+        - $ref: '#/components/schemas/RepositoryListItemNoID'
+    Repository:
+      title: Repository 
+      allOf:  
+        - $ref: '#/components/schemas/RepositoryListItem'
+        - type: object
+          properties:
+            images:
+              type: array
+              items:
+                $ref: "#/components/schemas/Image"
+
 paths: {}

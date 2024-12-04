@@ -1,0 +1,68 @@
+openapi: 3.0.3
+info:
+  title: Repositories 
+  version: ""
+paths:
+  /integrations/dockerhub/{dockerhub_integration_id}/repositories/accessible:
+    get:
+      tags:
+        - Repositories
+      parameters:
+        - $ref: '../params.yaml#/components/parameters/dockerhub_integration_id'
+      responses:
+        '200':
+          description: Successfully retrieved the repositories for the dockerhub integration.
+          content:
+            application/json:
+              schema:
+                type: array 
+                items:
+                  $ref: '../schemas/repo.yaml#/components/schemas/RepositoryListItemNoID'
+  /integrations/gar/{gar_integration_id}/repositories/accessible:
+    get:
+      tags:
+        - Repositories
+      parameters:
+        - $ref: '../params.yaml#/components/parameters/gar_integration_id'
+      responses:
+        '200':
+          description: Successfully retrieved the repositories for the google artifact registry integration.
+          content:
+            application/json:
+              schema:
+                type: array 
+                items:
+                  $ref: '../schemas/repo.yaml#/components/schemas/RepositoryListItemNoID'
+  /workspaces/{workspace_id}/repositories/accessible:
+    get:
+      tags:
+        - Repositories
+      parameters:
+        - $ref: '../params.yaml#/components/parameters/workspace_id'
+      responses:
+        '200':
+          description: Successfully retrieved the repositories for the workspace.
+          content:
+            application/json:
+              schema:
+                type: array 
+                items:
+                  $ref: '../schemas/repo.yaml#/components/schemas/RepositoryListItemNoID'
+  /repository/{repository_id}:
+    get:
+      tags:
+        - Repositories
+      parameters:
+        - $ref: '../params.yaml#/components/parameters/repository_id'
+          in: path
+          required: true
+          description: The unique identifier of the repository.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the repository.
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/repo.yaml#/components/schemas/Repository'
