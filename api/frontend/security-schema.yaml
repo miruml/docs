@@ -1,0 +1,12 @@
+openapi: 3.0.3
+info:
+  title: Frontend Authentication
+  version: ""
+components:
+  securitySchemes:
+    ClerkAuth:
+      type: apiKey
+      in: header
+      name: X-Session-Token
+      description: The Clerk session token for the user
+paths: {}

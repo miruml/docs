@@ -7,8 +7,10 @@ paths:
     get:
       tags:
         - Repositories
+      security:
+        - ClerkAuth: []
       parameters:
-        - $ref: '../params.yaml#/components/parameters/dockerhub_integration_id'
+        - $ref: '../../params.yaml#/components/parameters/dockerhub_integration_id'
       responses:
         '200':
           description: Successfully retrieved the repositories for the dockerhub integration.
@@ -22,8 +24,10 @@ paths:
     get:
       tags:
         - Repositories
+      security:
+        - ClerkAuth: []
       parameters:
-        - $ref: '../params.yaml#/components/parameters/gar_integration_id'
+        - $ref: '../../params.yaml#/components/parameters/gar_integration_id'
       responses:
         '200':
           description: Successfully retrieved the repositories for the google artifact registry integration.
@@ -37,8 +41,10 @@ paths:
     get:
       tags:
         - Repositories
+      security:
+        - ClerkAuth: []
       parameters:
-        - $ref: '../params.yaml#/components/parameters/workspace_id'
+        - $ref: '../../params.yaml#/components/parameters/workspace_id'
       responses:
         '200':
           description: Successfully retrieved the repositories for the workspace.
@@ -52,8 +58,10 @@ paths:
     get:
       tags:
         - Repositories
+      security:
+        - ClerkAuth: []
       parameters:
-        - $ref: '../params.yaml#/components/parameters/repository_id'
+        - $ref: '../../params.yaml#/components/parameters/repository_id'
           in: path
           required: true
           description: The unique identifier of the repository.

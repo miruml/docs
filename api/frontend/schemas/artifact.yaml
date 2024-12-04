@@ -1,0 +1,131 @@
+openapi: 3.0.3
+info:
+  title: Registry Sources Schemas
+  version: ""
+components: 
+  schemas: 
+    GitHubSourceData:
+      title: GitHub Source Data
+      type: object
+      properties: 
+        sender:
+          type: object
+          properties: 
+            id: 
+              type: integer
+              example: 1234
+            type:
+              type: string
+              example: "User"
+            login:
+              type: string
+              example: "bensmidt"
+            html_url:
+              type: string
+              example: "https://github.com/bensmidt"
+            avatar_url:
+              type: string
+              example: "https://avatars.githubusercontent.com/u/92611223?v=4"
+        branch:
+          type: string
+          example: "main"
+        build_path:
+          type: string
+          example: "valid/wordpress"
+        repository:
+          type: object
+          properties: 
+            id:
+              type: integer
+              example: 819141000
+            html_url:
+              type: string
+              example: "https://github.com/miruml/e2e-tests"
+            clone_url:
+              type: string
+              example: "https://github.com/miruml/e2e-tests.git"
+            full_name:
+              type: string
+              example: "miruml/e2e-tests"
+            pushed_at:
+              type: string
+              example: "2024-11-03T14:19:50Z"
+        head_commit:
+          type: object
+          properties: 
+            id:
+              type: string
+              example: "94d8a2681f1ef81b0362cdb77bf37691bc1d2b03"
+            url: 
+              type: string
+              example: "https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03"
+            message: 
+              type: string
+              example: "Update README.md"
+    RegistrySourceData:
+      title: Registry Source Data
+      type: object
+      properties: 
+        id:
+          type: string
+          example: "FIXME"
+    Artifact:
+      title: Artifact
+      type: object
+      properties: 
+        id: 
+          type: string
+          example: "art_1234"
+        status:
+          type: string
+          enum:
+            - queued
+            - verifying 
+            - building
+            - storing 
+            - ready 
+            - failed
+        src_id:
+          type: string
+          example: "reg_src_1234"
+        src_type:
+          type: string
+          enum:
+            - github
+            - registry
+        gh_src_data:
+          $ref: "#/components/schemas/GitHubSourceData"
+          nullable: true
+        aarch64:
+          type: boolean
+          example: true
+        x86_64:
+          type: boolean
+          example: false
+        created_at:
+          type: string
+          example: "2024-11-03T14:19:50Z"
+        ready_at:
+          type: string
+          example: "2024-11-03T14:25:50Z"
+          nullable: true
+        failed_at:
+          type: string
+          example: "2024-11-03T14:25:50Z"
+          nullable: true
+    CreateRegistrySourceArtifact:
+      title: Create Registry Source Artifact
+      type: object
+      properties: 
+        images:
+          type: array
+          items:
+            type: object
+            properties: 
+              repo_id:
+                type: string
+                example: "repo_1234"
+              tag:
+                type: string
+                example: "v1.3.4"
+paths: {}

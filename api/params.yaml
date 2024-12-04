@@ -4,6 +4,13 @@ info:
   version: 0.1.0
 components:
   parameters:
+    artifact_id:
+      name: artifact_id
+      in: path
+      required: true
+      description: The unique identifier of the artifact
+      schema:
+        type: string
     dockerhub_integration_id:
       name: dockerhub_integration_id
       in: path
