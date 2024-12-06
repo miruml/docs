@@ -4,8 +4,66 @@ info:
   version: ""
 components:
   schemas:
-    Image:
-      title: Image 
+
+    ExternalRepository:
+      title: External Repository
+      type: object 
+      required:
+        - registry_url
+        - name
+        - uri
+      properties:
+        object:
+          type: string
+          example: "external_repository"
+        registry_url:
+          type: string
+          example: "us-central1-docker.pkg.dev/container-integration"
+        name:
+          type: string
+          example: "miru/django"
+        uri:
+          type: string
+          example: "us-central1-docker.pkg.dev/container-integration/miru/django"
+    ExternalRepositoryList:
+      title: External Repository List
+      type: object
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/ExternalRepository"
+    Repository:
+      title: Repository 
+      allOf:
+        - $ref: '#/components/schemas/ExternalRepository'
+        - type: object
+          required:
+            - id
+            - object
+          properties:
+            object:
+              type: string
+              example: "repository"
+            id:
+              type: string
+              example: "repo_123"
+    RepositoryList:
+      title: Repository List
+      type: object
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Repository"
+    ExternalImage:
+      title: External Image 
       type: object 
       required:
         - digest
@@ -14,6 +72,9 @@ components:
         - bytes
         - uploaded_at
       properties:
+        object:
+          type: string
+          example: "external_image"
         digest:
           type: string
           example: "sha256:123abc"
@@ -35,45 +96,15 @@ components:
         uploaded_at:
           type: string
           example: "2021-01-01T00:00:00Z"
-    RepositoryListItemNoID:
-      title: Repository List Item No ID
-      type: object 
-      required:
-        - registry_url
-        - name
-        - uri
+    ExternalImageList:
+      title: External Image List
+      type: object
       properties:
-        registry_url:
+        object:
           type: string
-          example: "us-central1-docker.pkg.dev/container-integration"
-        name:
-          type: string
-          example: "miru/django"
-        uri:
-          type: string
-          example: "us-central1-docker.pkg.dev/container-integration/miru/django"
-    RepositoryListItem:
-      title: Repository List Item
-      allOf:
-        - type: object
-          required:
-            - id
-          properties:
-            id:
-              type: string
-              example: "repo_123"
-        - $ref: '#/components/schemas/RepositoryListItemNoID'
-    Repository:
-      title: Repository 
-      allOf:  
-        - $ref: '#/components/schemas/RepositoryListItem'
-        - type: object
-          required:
-            - images
-          properties:
-            images:
-              type: array
-              items:
-                $ref: "#/components/schemas/Image"
-
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/ExternalImage"
 paths: {}

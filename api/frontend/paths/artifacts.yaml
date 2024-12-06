@@ -32,8 +32,7 @@ paths:
           content:
             application/json:
               schema:
-                type: string
-                example: "name: miru\nservices:\n  redis:\n  image: redis:latest\n  restart: always"
+                $ref: '../schemas/artifact.yaml#/components/schemas/ComposeFile'
   /sources/registries/{registry_source_id}/artifacts:
     post:
       tags:
@@ -48,6 +47,27 @@ paths:
           application/json:
             schema:
               $ref: '../schemas/artifact.yaml#/components/schemas/CreateRegistrySourceArtifact'
+      responses:
+        '200':
+          description: Successfully created the artifact.
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/artifact.yaml#/components/schemas/Artifact'
+  /sources/github/{github_source_id}/artifacts:
+    post:
+      tags:
+        - Artifacts
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: '../../params.yaml#/components/parameters/github_source_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/artifact.yaml#/components/schemas/CreateGitHubSourceArtifact'
       responses:
         '200':
           description: Successfully created the artifact.

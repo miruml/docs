@@ -4,6 +4,87 @@ info:
   version: ""
 components: 
   schemas: 
+    ComposeFile:
+      title: Compose File
+      type: object
+      required:
+        - object
+        - content
+      properties:
+        object:
+          type: string
+          example: "compose_file"
+        content:
+          type: string
+          example: "name: miru\nservices:\n  redis:\n  image: redis:latest\n  restart: always"
+    GitHubSourceDataHeadCommit:
+      title: GitHub Source Data Head Commit
+      type: object
+      required:
+        - id
+        - url
+        - message
+      properties: 
+        id:
+          type: string
+          example: "94d8a2681f1ef81b0362cdb77bf37691bc1d2b03"
+        url: 
+          type: string
+          example: "https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03"
+        message: 
+          type: string
+          example: "Update README.md"
+    GitHubSourceDataRepository:
+      title: GitHub Source Data Repository
+      type: object
+      required:
+        - id
+        - html_url
+        - clone_url
+        - full_name
+        - pushed_at
+      properties: 
+        id:
+          type: integer
+          example: 819141000
+        html_url:
+          type: string
+          example: "https://github.com/miruml/e2e-tests"
+        clone_url:
+          type: string
+          example: "https://github.com/miruml/e2e-tests.git"
+        full_name:
+          type: string
+          example: "miruml/e2e-tests"
+        pushed_at:
+          type: string
+          format: date-time
+          example: "2024-11-03T14:19:50Z"
+    GitHubSourceDataSender:
+      title: GitHub Source Data Sender
+      type: object
+      required:
+        - id
+        - type
+        - login
+        - html_url
+        - avatar_url
+      properties: 
+        id: 
+          type: integer
+          example: 1234
+        type:
+          type: string
+          example: "User"
+        login:
+          type: string
+          example: "bensmidt"
+        html_url:
+          type: string
+          example: "https://github.com/bensmidt"
+        avatar_url:
+          type: string
+          example: "https://avatars.githubusercontent.com/u/92611223?v=4"
     GitHubSourceData:
       title: GitHub Source Data
       type: object
@@ -15,29 +96,7 @@ components:
         - head_commit
       properties: 
         sender:
-          type: object
-          required:
-            - id
-            - type
-            - login
-            - html_url
-            - avatar_url
-          properties: 
-            id: 
-              type: integer
-              example: 1234
-            type:
-              type: string
-              example: "User"
-            login:
-              type: string
-              example: "bensmidt"
-            html_url:
-              type: string
-              example: "https://github.com/bensmidt"
-            avatar_url:
-              type: string
-              example: "https://avatars.githubusercontent.com/u/92611223?v=4"
+          $ref: "#/components/schemas/GitHubSourceDataSender"
         branch:
           type: string
           example: "main"
@@ -45,46 +104,9 @@ components:
           type: string
           example: "valid/wordpress"
         repository:
-          type: object
-          required:
-            - id
-            - html_url
-            - clone_url
-            - full_name
-            - pushed_at
-          properties: 
-            id:
-              type: integer
-              example: 819141000
-            html_url:
-              type: string
-              example: "https://github.com/miruml/e2e-tests"
-            clone_url:
-              type: string
-              example: "https://github.com/miruml/e2e-tests.git"
-            full_name:
-              type: string
-              example: "miruml/e2e-tests"
-            pushed_at:
-              type: string
-              format: date-time
-              example: "2024-11-03T14:19:50Z"
+          $ref: "#/components/schemas/GitHubSourceDataRepository"
         head_commit:
-          type: object
-          required:
-            - id
-            - url
-            - message
-          properties: 
-            id:
-              type: string
-              example: "94d8a2681f1ef81b0362cdb77bf37691bc1d2b03"
-            url: 
-              type: string
-              example: "https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03"
-            message: 
-              type: string
-              example: "Update README.md"
+          $ref: "#/components/schemas/GitHubSourceDataHeadCommit"
     Artifact:
       title: Artifact
       type: object
@@ -93,11 +115,13 @@ components:
         - status
         - src_id
         - src_type
-        - gh_src_data
         - aarch64
         - x86_64
         - created_at
       properties: 
+        object:
+          type: string
+          example: "artifact"
         id: 
           type: string
           example: "art_1234"
@@ -110,15 +134,15 @@ components:
             - storing 
             - ready 
             - failed
-        src_id:
+        source_id:
           type: string
           example: "reg_src_1234"
-        src_type:
+        source_type:
           type: string
           enum:
             - github
             - registry
-        gh_src_data:
+        github_source_data:
           $ref: "#/components/schemas/GitHubSourceData"
           nullable: true
         aarch64:
@@ -163,4 +187,13 @@ components:
               tag:
                 type: string
                 example: "v1.3.4"
+    CreateGitHubSourceArtifact:
+      title: Create GitHub Source Artifact
+      type: object
+      required:
+        - commit_id
+      properties:
+        commit_id:
+          type: string
+          example: "94d8a2681f1ef81b0362cdb77bf37691bc1d2b03"
 paths: {}

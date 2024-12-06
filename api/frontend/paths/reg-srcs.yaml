@@ -17,9 +17,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array 
-                items:
-                  $ref: '../schemas/reg-src.yaml#/components/schemas/RegistrySourceListItem'
+                $ref: '../schemas/reg-src.yaml#/components/schemas/RegistrySourceList'
     post:
       tags:
         - Registry Sources
@@ -89,5 +87,4 @@ paths:
           content:
             application/json:
               schema:
-                type: string
-                example: "name: miru\nservices:\n  redis:\n  image: redis:latest\n  restart: always"
+                $ref: '../schemas/artifact.yaml#/components/schemas/ComposeFile'

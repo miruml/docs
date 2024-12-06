@@ -1,0 +1,26 @@
+openapi: 3.0.3
+info:
+  title: GitHub Integration Schemas
+  version: ""
+components:
+  schemas:
+    Commit:
+      title: Commit
+      type: object
+      required:
+        - commit_id
+      properties:
+        sha:
+          type: string
+          example: "94d8a2681f1ef81b0362cdb77bf37691bc1d2b03"
+        message:
+          type: string
+          example: "Fixes a bug"
+        html_url:
+          type: string
+          example: "https://github.com/bensmidt/test-repo/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03"
+        url:
+          type: string
+          example: "https://api.github.com/repos/bensmidt/test-repo/commits/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03"
+      
+paths: {}

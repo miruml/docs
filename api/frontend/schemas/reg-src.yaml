@@ -4,15 +4,26 @@ info:
   version: ""
 components:
   schemas:
-    RepositoryListItemWithIsExtra:
-      title: Repository List Item With Is Extra (Registry Source)
+    RepositoryWithIsExtra:
+      title: Repository With Is Extra (Registry Source)
       allOf:
-        - $ref: '../schemas/repo.yaml#/components/schemas/RepositoryListItem'
+        - $ref: '../schemas/repo.yaml#/components/schemas/Repository'
         - type: object
           properties:
             is_extra:
               type: boolean
               example: true
+    RepositoryListWithIsExtra:
+      title: Repository List With Is Extra (Registry Source)
+      type: object
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/RepositoryWithIsExtra'
     RegistrySourceListItem:
       title: Registry Source List Item
       type: object
@@ -26,19 +37,39 @@ components:
         id:
           type: string
           example: "reg_src_1234"
+        object:
+          type: string
+          example: "registry_source"
         name:
           type: string
           example: "Ad Display V2.2.1"
-        repos:
-          type: array
-          items:
-            $ref: './repo.yaml#/components/schemas/RepositoryListItem'
+        repositories:
+          $ref: '#/components/schemas/RepositoryListWithIsExtra'
         aarch64:
           type: boolean
           example: true
         x86_64:
           type: boolean
           example: false
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-10-26 20:00:23.742537+00"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2024-10-26 20:00:23.742537+00"
+    RegistrySourceList:
+      title: Registry Source List
+      type: object
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegistrySourceListItem'
     RegistrySource:
       title: Registry Source
       allOf:
@@ -48,9 +79,7 @@ components:
             - repos
           properties:
             repos:
-              type: array
-              items:
-                $ref: '#/components/schemas/RepositoryListItemWithIsExtra'
+              $ref: '#/components/schemas/RepositoryListWithIsExtra'
     CreateRegistrySource:
       title: Create Registry Source
       type: object
@@ -97,12 +126,15 @@ components:
           type: string
           example: "name: miru\nservices:\n  redis:\n  image: redis:latest\n  restart: always"
         extra_repos:
-          type: array
-          items:
-            type: string
-          example:
-            - "docker.io/redis"
-            - "us-central1-docker.pkg.dev/container-integration/miru/django"
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: string
+              example:
+                - "docker.io/redis"
+                - "us-central1-docker.pkg.dev/container-integration/miru/django"
         aarch64:
           type: boolean
           example: true
