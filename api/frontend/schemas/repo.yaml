@@ -4,7 +4,6 @@ info:
   version: ""
 components:
   schemas:
-
     ExternalRepository:
       title: External Repository
       type: object 

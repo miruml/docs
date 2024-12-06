@@ -6,6 +6,9 @@ components:
   schemas:
     RepositoryWithIsExtra:
       title: Repository With Is Extra (Registry Source)
+      type: object
+      required:
+        - is_extra
       allOf:
         - $ref: '../schemas/repo.yaml#/components/schemas/Repository'
         - type: object
@@ -16,6 +19,9 @@ components:
     RepositoryListWithIsExtra:
       title: Repository List With Is Extra (Registry Source)
       type: object
+      required:
+        - object
+        - data
       properties:
         object:
           type: string
@@ -29,10 +35,13 @@ components:
       type: object
       required:
         - id
+        - object
         - name
-        - repos
+        - repositories
         - aarch64
         - x86_64
+        - created_at
+        - updated_at
       properties:
         id:
           type: string
@@ -44,7 +53,7 @@ components:
           type: string
           example: "Ad Display V2.2.1"
         repositories:
-          $ref: '#/components/schemas/RepositoryListWithIsExtra'
+          $ref: '../schemas/repo.yaml#/components/schemas/RepositoryList'
         aarch64:
           type: boolean
           example: true
@@ -62,6 +71,9 @@ components:
     RegistrySourceList:
       title: Registry Source List
       type: object
+      required:
+        - object
+        - data
       properties:
         object:
           type: string
@@ -72,13 +84,16 @@ components:
             $ref: '#/components/schemas/RegistrySourceListItem'
     RegistrySource:
       title: Registry Source
+      type: object
+      required:
+        - repositories
       allOf:
         - $ref: '#/components/schemas/RegistrySourceListItem'
         - type: object
           required:
-            - repos
+            - repositories
           properties:
-            repos:
+            repositories:
               $ref: '#/components/schemas/RepositoryListWithIsExtra'
     CreateRegistrySource:
       title: Create Registry Source
@@ -86,7 +101,7 @@ components:
       required:
         - name
         - compose_file
-        - extra_repos
+        - extra_repositories
         - aarch64
         - x86_64
       properties:
@@ -96,7 +111,7 @@ components:
         compose_file:
           type: string
           example: "name: miru\nservices:\n  redis:\n  image: redis:latest\n  restart: always"
-        extra_repos:
+        extra_repositories:
           type: array
           items:
             type: string
@@ -115,7 +130,7 @@ components:
       required:
         - name
         - compose_file
-        - extra_repos
+        - extra_repositories
         - aarch64
         - x86_64
       properties:
@@ -125,7 +140,7 @@ components:
         compose_file:
           type: string
           example: "name: miru\nservices:\n  redis:\n  image: redis:latest\n  restart: always"
-        extra_repos:
+        extra_repositories:
           type: object
           properties:
             data:

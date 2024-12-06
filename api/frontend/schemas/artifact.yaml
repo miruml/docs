@@ -111,10 +111,11 @@ components:
       title: Artifact
       type: object
       required:
+        - object
         - id
         - status
-        - src_id
-        - src_type
+        - source_id
+        - source_type
         - aarch64
         - x86_64
         - created_at
