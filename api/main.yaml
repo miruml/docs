@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: MiruML API
+  title: Miru API
   version: 0.1.0
 servers:
   - url: https://api.miruml.com/{audience}/{version}
