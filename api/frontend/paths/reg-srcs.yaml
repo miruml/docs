@@ -7,8 +7,6 @@ paths:
     get:
       tags:
         - Registry Sources
-      security:
-        - ClerkAuth: []
       parameters:
         - $ref: '../../params.yaml#/components/parameters/workspace_id'
       responses:
@@ -21,8 +19,6 @@ paths:
     post:
       tags:
         - Registry Sources
-      security:
-        - ClerkAuth: []
       parameters:
         - $ref: '../../params.yaml#/components/parameters/workspace_id'
       requestBody:
@@ -42,8 +38,6 @@ paths:
     get:
       tags:
         - Registry Sources
-      security:
-        - ClerkAuth: []
       parameters:
         - $ref: '../../params.yaml#/components/parameters/registry_source_id'
       responses:
@@ -56,8 +50,6 @@ paths:
     patch:
       tags:
         - Registry Sources
-      security:
-        - ClerkAuth: []
       parameters:
         - $ref: '../../params.yaml#/components/parameters/registry_source_id'
       requestBody:
@@ -77,8 +69,6 @@ paths:
     get:
       tags:
         - Registry Sources
-      security:
-        - ClerkAuth: []
       parameters:
         - $ref: '../../params.yaml#/components/parameters/registry_source_id'
       responses:

@@ -3,8 +3,8 @@ info:
   title: Miru API
   version: 0.1.0
 servers:
-  - url: https://api.miruml.com/{audience}/{version}
-    description: Production
+  - url: http://localhost:8080/{audience}/{version}
+    description: Local Development 
     variables:
       audience:
         default: internal
@@ -23,8 +23,8 @@ servers:
           - internal/devices
       version:
         default: v1
-  - url: https://localhost:8080/{audience}/{version}
-    description: Local Development 
+  - url: https://api.miruml.com/{audience}/{version}
+    description: Production
     variables:
       audience:
         default: internal
@@ -33,6 +33,14 @@ servers:
           - internal/devices
       version:
         default: v1
+components:
+  securitySchemes:
+    ClerkAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT # Optional, indicates token format
+security:
+  - ClerkAuth: []
 paths: 
   # artifacts
   /artifacts/{artifact_id}:

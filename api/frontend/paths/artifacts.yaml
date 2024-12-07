@@ -7,8 +7,6 @@ paths:
     get:
       tags:
         - Artifacts
-      security:
-        - ClerkAuth: []
       parameters:
         - $ref: '../../params.yaml#/components/parameters/artifact_id'
       responses:
@@ -18,12 +16,16 @@ paths:
             application/json:
               schema:
                 $ref: '../schemas/artifact.yaml#/components/schemas/Artifact'
+        '401':
+          $ref: '../responses.yaml#/components/responses/Unauthorized'
+        '403':
+          $ref: '../responses.yaml#/components/responses/Forbidden'
+        '404':
+          $ref: '../responses.yaml#/components/responses/NotFound'
   /artifacts/{artifact_id}/compose_file:
     get:
       tags:
         - Artifacts
-      security:
-        - ClerkAuth: []
       parameters:
         - $ref: '../../params.yaml#/components/parameters/artifact_id'
       responses:
@@ -33,12 +35,14 @@ paths:
             application/json:
               schema:
                 $ref: '../schemas/artifact.yaml#/components/schemas/ComposeFile'
+        '401':
+          $ref: '../responses.yaml#/components/responses/Unauthorized'
+        '403':
+          $ref: '../responses.yaml#/components/responses/Forbidden'
   /sources/registries/{registry_source_id}/artifacts:
     post:
       tags:
         - Artifacts
-      security:
-        - ClerkAuth: []
       parameters:
         - $ref: '../../params.yaml#/components/parameters/registry_source_id'
       requestBody:
@@ -58,8 +62,6 @@ paths:
     post:
       tags:
         - Artifacts
-      security:
-        - ClerkAuth: []
       parameters:
         - $ref: '../../params.yaml#/components/parameters/github_source_id'
       requestBody:

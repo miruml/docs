@@ -1,0 +1,43 @@
+openapi: 3.0.3
+info:
+  title: Artifacts
+  version: ""
+components:
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            title: Error
+            type: object
+            required:
+              - error
+            properties:
+              error:
+                $ref: './errors/generic.yaml#/components/schemas/UnauthorizedError'
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            title: Error
+            type: object
+            required:
+              - error
+            properties:
+              error:
+                $ref: './errors/generic.yaml#/components/schemas/ForbiddenError'
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            title: Error
+            type: object
+            required:
+              - error
+            properties:
+              error:
+                $ref: './errors/generic.yaml#/components/schemas/RecordNotFoundError'
+paths: {}

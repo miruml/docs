@@ -7,8 +7,6 @@ paths:
     get:
       tags:
         - Repositories
-      security:
-        - ClerkAuth: []
       parameters:
         - $ref: '../../params.yaml#/components/parameters/dockerhub_integration_id'
       responses:
@@ -22,8 +20,6 @@ paths:
     get:
       tags:
         - Repositories
-      security:
-        - ClerkAuth: []
       parameters:
         - $ref: '../../params.yaml#/components/parameters/gar_integration_id'
       responses:
@@ -37,8 +33,6 @@ paths:
     get:
       tags:
         - Repositories
-      security:
-        - ClerkAuth: []
       parameters:
         - $ref: '../../params.yaml#/components/parameters/workspace_id'
       responses:
@@ -52,8 +46,6 @@ paths:
     get:
       tags:
         - Repositories
-      security:
-        - ClerkAuth: []
       parameters:
         - $ref: '../../params.yaml#/components/parameters/repository_id'
       responses:
@@ -67,8 +59,6 @@ paths:
     get:
       tags:
         - Repositories
-      security:
-        - ClerkAuth: []
       parameters:
         - $ref: '../../params.yaml#/components/parameters/repository_id'
       responses:

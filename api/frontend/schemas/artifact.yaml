@@ -4,6 +4,71 @@ info:
   version: ""
 components: 
   schemas: 
+
+    Artifact:
+      title: Artifact
+      type: object
+      required:
+        - object
+        - id
+        - status
+        - source_id
+        - source_type
+        - aarch64
+        - x86_64
+        - created_at
+      properties: 
+        object:
+          type: string
+          example: "artifact"
+        id: 
+          type: string
+          example: "art_1234"
+        status:
+          $ref: "#/components/schemas/ArtifactStatus"
+        source_id:
+          type: string
+          example: "reg_src_1234"
+        source_type:
+          type: string
+          enum:
+            - github
+            - registry
+        github_source_data:
+          $ref: "#/components/schemas/GitHubSourceData"
+          nullable: true
+        aarch64:
+          type: boolean
+          example: true
+        x86_64:
+          type: boolean
+          example: false
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-11-03T14:19:50Z"
+        ready_at:
+          type: string
+          format: date-time
+          example: "2024-11-03T14:25:50Z"
+          nullable: true
+        failed_at:
+          type: string
+          format: date-time
+          example: "2024-11-03T14:25:50Z"
+          nullable: true
+
+    ArtifactStatus:
+      title: Artifact Status
+      type: string
+      enum:
+        - queued
+        - verifying 
+        - building
+        - storing 
+        - ready 
+        - failed
+
     ComposeFile:
       title: Compose File
       type: object
@@ -17,6 +82,7 @@ components:
         content:
           type: string
           example: "name: miru\nservices:\n  redis:\n  image: redis:latest\n  restart: always"
+
     GitHubSourceDataHeadCommit:
       title: GitHub Source Data Head Commit
       type: object
@@ -34,6 +100,7 @@ components:
         message: 
           type: string
           example: "Update README.md"
+
     GitHubSourceDataRepository:
       title: GitHub Source Data Repository
       type: object
@@ -47,6 +114,7 @@ components:
         id:
           type: integer
           example: 819141000
+          format: int64
         html_url:
           type: string
           example: "https://github.com/miruml/e2e-tests"
@@ -60,6 +128,7 @@ components:
           type: string
           format: date-time
           example: "2024-11-03T14:19:50Z"
+
     GitHubSourceDataSender:
       title: GitHub Source Data Sender
       type: object
@@ -73,6 +142,7 @@ components:
         id: 
           type: integer
           example: 1234
+          format: int64
         type:
           type: string
           example: "User"
@@ -85,6 +155,7 @@ components:
         avatar_url:
           type: string
           example: "https://avatars.githubusercontent.com/u/92611223?v=4"
+
     GitHubSourceData:
       title: GitHub Source Data
       type: object
@@ -107,67 +178,7 @@ components:
           $ref: "#/components/schemas/GitHubSourceDataRepository"
         head_commit:
           $ref: "#/components/schemas/GitHubSourceDataHeadCommit"
-    Artifact:
-      title: Artifact
-      type: object
-      required:
-        - object
-        - id
-        - status
-        - source_id
-        - source_type
-        - aarch64
-        - x86_64
-        - created_at
-      properties: 
-        object:
-          type: string
-          example: "artifact"
-        id: 
-          type: string
-          example: "art_1234"
-        status:
-          type: string
-          enum:
-            - queued
-            - verifying 
-            - building
-            - storing 
-            - ready 
-            - failed
-        source_id:
-          type: string
-          example: "reg_src_1234"
-        source_type:
-          type: string
-          enum:
-            - github
-            - registry
-        github_source_data:
-          $ref: "#/components/schemas/GitHubSourceData"
-          nullable: true
-        aarch64:
-          type: boolean
-          example: true
-        x86_64:
-          type: boolean
-          example: false
-        created_at:
-          type: string
-          format: date-time
-          example: "2024-11-03T14:19:50Z"
-        # not required since it's nullable
-        ready_at:
-          type: string
-          format: date-time
-          example: "2024-11-03T14:25:50Z"
-          nullable: true
-        # not required since it's nullable
-        failed_at:
-          type: string
-          format: date-time
-          example: "2024-11-03T14:25:50Z"
-          nullable: true
+
     CreateRegistrySourceArtifact:
       title: Create Registry Source Artifact
       type: object
@@ -188,6 +199,7 @@ components:
               tag:
                 type: string
                 example: "v1.3.4"
+
     CreateGitHubSourceArtifact:
       title: Create GitHub Source Artifact
       type: object
