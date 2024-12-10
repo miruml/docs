@@ -1,0 +1,125 @@
+openapi: 3.0.3
+info:
+  title: Repository Schemas
+  version: ""
+components:
+  schemas:
+    BaseContainerRepository:
+      title: Base Container Repository
+      type: object 
+      required:
+        - registry_url
+        - name
+        - uri
+      properties:
+        registry_url:
+          type: string
+          example: "us-central1-docker.pkg.dev/container-integration"
+        name:
+          type: string
+          example: "miru/django"
+        uri:
+          type: string
+          example: "us-central1-docker.pkg.dev/container-integration/miru/django"
+    ExternalContainerRepository:
+      title: External Container Repository
+      allOf:
+        - $ref: "#/components/schemas/BaseContainerRepository"
+        - type: object
+          required:
+            - object
+          properties:
+            object:
+              type: string
+              example: "external_repository"
+            description:
+              type: string
+              example: "A repository for the miru/django image"
+            size:
+              type: integer
+              format: int64
+              description: "The size of the repository in bytes"
+              example: 506406741
+    ExternalContainerRepositoryList:
+      title: External Container Repository List
+      type: object
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/ExternalContainerRepository"
+    ContainerRepository:
+      title: Container Repository 
+      allOf:
+        - $ref: '#/components/schemas/BaseContainerRepository'
+        - type: object
+          required:
+            - id
+            - object
+          properties:
+            object:
+              type: string
+              example: "repository"
+            id:
+              type: string
+              example: "repo_123"
+    ContainerRepositoryList:
+      title: Container Repository List
+      type: object
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/ContainerRepository"
+    ExternalContainerImage:
+      title: External Container Image 
+      type: object 
+      required:
+        - digest
+        - tags
+        - uri
+        - bytes
+        - uploaded_at
+      properties:
+        object:
+          type: string
+          example: "external_image"
+        digest:
+          type: string
+          example: "sha256:123abc"
+        tags:
+          type: array
+          items:
+            type: string
+            example: "latest"
+          example:
+            - "latest"
+            - "v1.0.0"
+            - "stable"
+        uri:
+          type: string
+          example: "docker.io/redis:latest"
+        bytes:
+          type: integer
+          example: 392510987
+        uploaded_at:
+          type: string
+          example: "2021-01-01T00:00:00Z"
+    ExternalContainerImageList:
+      title: External Container Image List
+      type: object
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/ExternalContainerImage"
+paths: {}

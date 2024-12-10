@@ -1,0 +1,70 @@
+openapi: 3.0.3
+info:
+  title: Container Repositories 
+  version: ""
+paths:
+  /integrations/dockerhub/{dockerhub_integration_id}/repositories/external:
+    get:
+      tags:
+        - Container Repositories
+      parameters:
+        - $ref: '../../params.yaml#/components/parameters/dockerhub_integration_id'
+      responses:
+        '200':
+          description: Successfully retrieved the repositories for the dockerhub integration.
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/cont-repo.yaml#/components/schemas/ExternalContainerRepositoryList'
+  /integrations/gar/{gar_integration_id}/repositories/external:
+    get:
+      tags:
+        - Container Repositories
+      parameters:
+        - $ref: '../../params.yaml#/components/parameters/gar_integration_id'
+      responses:
+        '200':
+          description: Successfully retrieved the repositories for the google artifact registry integration.
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/cont-repo.yaml#/components/schemas/ExternalContainerRepositoryList'
+  /workspaces/{workspace_id}/repositories/containers/external:
+    get:
+      tags:
+        - Container Repositories
+      parameters:
+        - $ref: '../../params.yaml#/components/parameters/workspace_id'
+      responses:
+        '200':
+          description: Successfully retrieved the repositories for the workspace.
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/cont-repo.yaml#/components/schemas/ExternalContainerRepositoryList'
+  /repositories/containers/{repository_id}:
+    get:
+      tags:
+        - Container Repositories
+      parameters:
+        - $ref: '../../params.yaml#/components/parameters/repository_id'
+      responses:
+        '200':
+          description: Successfully retrieved the repository.
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/cont-repo.yaml#/components/schemas/ContainerRepository'
+  /repositories/containers/{repository_id}/images/external:
+    get:
+      tags:
+        - Container Repositories
+      parameters:
+        - $ref: '../../params.yaml#/components/parameters/repository_id'
+      responses:
+        '200':
+          description: Successfully retrieved the images for the repository.
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/cont-repo.yaml#/components/schemas/ExternalContainerImageList'

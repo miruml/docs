@@ -60,12 +60,12 @@ paths:
     $ref: './frontend/paths/reg-srcs.yaml#/paths/~1sources~1registries~1{registry_source_id}~1compose_file'
   # repositories
   /integrations/dockerhub/{dockerhub_integration_id}/repositories/external:
-    $ref: './frontend/paths/repos.yaml#/paths/~1integrations~1dockerhub~1{dockerhub_integration_id}~1repositories~1external'
+    $ref: './frontend/paths/cont-repos.yaml#/paths/~1integrations~1dockerhub~1{dockerhub_integration_id}~1repositories~1external'
   /integrations/gar/{gar_integration_id}/repositories/external:
-    $ref: './frontend/paths/repos.yaml#/paths/~1integrations~1gar~1{gar_integration_id}~1repositories~1external'
-  /workspaces/{workspace_id}/repositories/external:
-    $ref: './frontend/paths/repos.yaml#/paths/~1workspaces~1{workspace_id}~1repositories~1external'
-  /repositories/{repository_id}:
-    $ref: './frontend/paths/repos.yaml#/paths/~1repositories~1{repository_id}'
-  /repositories/{repository_id}/images/external:
-    $ref: './frontend/paths/repos.yaml#/paths/~1repositories~1{repository_id}~1images~1external'
+    $ref: './frontend/paths/cont-repos.yaml#/paths/~1integrations~1gar~1{gar_integration_id}~1repositories~1external'
+  /workspaces/{workspace_id}/repositories/containers/external:
+    $ref: './frontend/paths/cont-repos.yaml#/paths/~1workspaces~1{workspace_id}~1repositories~1containers~1external'
+  /repositories/containers/{repository_id}:
+    $ref: './frontend/paths/cont-repos.yaml#/paths/~1repositories~1containers~1{repository_id}'
+  /repositories/containers/{repository_id}/images/external:
+    $ref: './frontend/paths/cont-repos.yaml#/paths/~1repositories~1containers~1{repository_id}~1images~1external'
