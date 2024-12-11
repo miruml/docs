@@ -21,7 +21,9 @@ var _ MappedNullable = &CreateRegistrySourceArtifact{}
 
 // CreateRegistrySourceArtifact struct for CreateRegistrySourceArtifact
 type CreateRegistrySourceArtifact struct {
+	AllowDuplicate bool `json:"allow_duplicate"`
 	Images []CreateRegistrySourceArtifactImagesInner `json:"images"`
+	Groups []string `json:"groups"`
 }
 
 type _CreateRegistrySourceArtifact CreateRegistrySourceArtifact
@@ -30,9 +32,11 @@ type _CreateRegistrySourceArtifact CreateRegistrySourceArtifact
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateRegistrySourceArtifact(images []CreateRegistrySourceArtifactImagesInner) *CreateRegistrySourceArtifact {
+func NewCreateRegistrySourceArtifact(allowDuplicate bool, images []CreateRegistrySourceArtifactImagesInner, groups []string) *CreateRegistrySourceArtifact {
 	this := CreateRegistrySourceArtifact{}
+	this.AllowDuplicate = allowDuplicate
 	this.Images = images
+	this.Groups = groups
 	return &this
 }
 
@@ -42,6 +46,30 @@ func NewCreateRegistrySourceArtifact(images []CreateRegistrySourceArtifactImages
 func NewCreateRegistrySourceArtifactWithDefaults() *CreateRegistrySourceArtifact {
 	this := CreateRegistrySourceArtifact{}
 	return &this
+}
+
+// GetAllowDuplicate returns the AllowDuplicate field value
+func (o *CreateRegistrySourceArtifact) GetAllowDuplicate() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.AllowDuplicate
+}
+
+// GetAllowDuplicateOk returns a tuple with the AllowDuplicate field value
+// and a boolean to check if the value has been set.
+func (o *CreateRegistrySourceArtifact) GetAllowDuplicateOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AllowDuplicate, true
+}
+
+// SetAllowDuplicate sets field value
+func (o *CreateRegistrySourceArtifact) SetAllowDuplicate(v bool) {
+	o.AllowDuplicate = v
 }
 
 // GetImages returns the Images field value
@@ -68,6 +96,30 @@ func (o *CreateRegistrySourceArtifact) SetImages(v []CreateRegistrySourceArtifac
 	o.Images = v
 }
 
+// GetGroups returns the Groups field value
+func (o *CreateRegistrySourceArtifact) GetGroups() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+
+	return o.Groups
+}
+
+// GetGroupsOk returns a tuple with the Groups field value
+// and a boolean to check if the value has been set.
+func (o *CreateRegistrySourceArtifact) GetGroupsOk() ([]string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Groups, true
+}
+
+// SetGroups sets field value
+func (o *CreateRegistrySourceArtifact) SetGroups(v []string) {
+	o.Groups = v
+}
+
 func (o CreateRegistrySourceArtifact) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -78,7 +130,9 @@ func (o CreateRegistrySourceArtifact) MarshalJSON() ([]byte, error) {
 
 func (o CreateRegistrySourceArtifact) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["allow_duplicate"] = o.AllowDuplicate
 	toSerialize["images"] = o.Images
+	toSerialize["groups"] = o.Groups
 	return toSerialize, nil
 }
 
@@ -87,7 +141,9 @@ func (o *CreateRegistrySourceArtifact) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"allow_duplicate",
 		"images",
+		"groups",
 	}
 
 	allProperties := make(map[string]interface{})

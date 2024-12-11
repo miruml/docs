@@ -15,7 +15,7 @@ components:
               - error
             properties:
               error:
-                $ref: './errors/generic.yaml#/components/schemas/UnauthorizedError'
+                $ref: '../errors/generic.yaml#/components/schemas/UnauthorizedError'
     Forbidden:
       description: Forbidden
       content:
@@ -27,7 +27,7 @@ components:
               - error
             properties:
               error:
-                $ref: './errors/generic.yaml#/components/schemas/ForbiddenError'
+                $ref: '../errors/generic.yaml#/components/schemas/ForbiddenError'
     NotFound:
       description: Not Found
       content:
@@ -39,5 +39,5 @@ components:
               - error
             properties:
               error:
-                $ref: './errors/generic.yaml#/components/schemas/RecordNotFoundError'
+                $ref: '../errors/generic.yaml#/components/schemas/RecordNotFoundError'
 paths: {}

@@ -183,8 +183,13 @@ components:
       title: Create Registry Source Artifact
       type: object
       required:
+        - allow_duplicate
         - images
+        - groups
       properties: 
+        allow_duplicate:
+          type: boolean
+          example: false
         images:
           type: array
           items:
@@ -193,20 +198,35 @@ components:
               - repo_id
               - tag
             properties: 
-              repo_id:
+              repository_id:
                 type: string
-                example: "repo_1234"
+                example: "cont_repo_1234"
               tag:
                 type: string
                 example: "v1.3.4"
+        groups:
+          type: array
+          items:
+            type: string
+            example: "group_123"
 
     CreateGitHubSourceArtifact:
       title: Create GitHub Source Artifact
       type: object
       required:
+        - allow_duplicate
         - commit_sha
+        - group
       properties:
+        allow_duplicate:
+          type: boolean
+          example: false
         commit_sha:
           type: string
           example: "94d8a2681f1ef81b0362cdb77bf37691bc1d2b03"
+        groups:
+          type: array
+          items:
+            type: string
+            example: "group_123"
 paths: {}

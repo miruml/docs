@@ -4,13 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**AllowDuplicate** | **bool** |  | 
 **CommitSha** | **string** |  | 
+**Groups** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
 ### NewCreateGitHubSourceArtifact
 
-`func NewCreateGitHubSourceArtifact(commitSha string, ) *CreateGitHubSourceArtifact`
+`func NewCreateGitHubSourceArtifact(allowDuplicate bool, commitSha string, ) *CreateGitHubSourceArtifact`
 
 NewCreateGitHubSourceArtifact instantiates a new CreateGitHubSourceArtifact object
 This constructor will assign default values to properties that have it defined,
@@ -24,6 +26,26 @@ will change when the set of required properties is changed
 NewCreateGitHubSourceArtifactWithDefaults instantiates a new CreateGitHubSourceArtifact object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAllowDuplicate
+
+`func (o *CreateGitHubSourceArtifact) GetAllowDuplicate() bool`
+
+GetAllowDuplicate returns the AllowDuplicate field if non-nil, zero value otherwise.
+
+### GetAllowDuplicateOk
+
+`func (o *CreateGitHubSourceArtifact) GetAllowDuplicateOk() (*bool, bool)`
+
+GetAllowDuplicateOk returns a tuple with the AllowDuplicate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAllowDuplicate
+
+`func (o *CreateGitHubSourceArtifact) SetAllowDuplicate(v bool)`
+
+SetAllowDuplicate sets AllowDuplicate field to given value.
+
 
 ### GetCommitSha
 
@@ -44,6 +66,31 @@ and a boolean to check if the value has been set.
 
 SetCommitSha sets CommitSha field to given value.
 
+
+### GetGroups
+
+`func (o *CreateGitHubSourceArtifact) GetGroups() []string`
+
+GetGroups returns the Groups field if non-nil, zero value otherwise.
+
+### GetGroupsOk
+
+`func (o *CreateGitHubSourceArtifact) GetGroupsOk() (*[]string, bool)`
+
+GetGroupsOk returns a tuple with the Groups field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGroups
+
+`func (o *CreateGitHubSourceArtifact) SetGroups(v []string)`
+
+SetGroups sets Groups field to given value.
+
+### HasGroups
+
+`func (o *CreateGitHubSourceArtifact) HasGroups() bool`
+
+HasGroups returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

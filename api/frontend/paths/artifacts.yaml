@@ -17,11 +17,11 @@ paths:
               schema:
                 $ref: '../schemas/artifact.yaml#/components/schemas/Artifact'
         '401':
-          $ref: '../responses.yaml#/components/responses/Unauthorized'
+          $ref: '../responses/generic.yaml#/components/responses/Unauthorized'
         '403':
-          $ref: '../responses.yaml#/components/responses/Forbidden'
+          $ref: '../responses/generic.yaml#/components/responses/Forbidden'
         '404':
-          $ref: '../responses.yaml#/components/responses/NotFound'
+          $ref: '../responses/generic.yaml#/components/responses/NotFound'
   /artifacts/{artifact_id}/compose_file:
     get:
       tags:
@@ -36,9 +36,9 @@ paths:
               schema:
                 $ref: '../schemas/artifact.yaml#/components/schemas/ComposeFile'
         '401':
-          $ref: '../responses.yaml#/components/responses/Unauthorized'
+          $ref: '../responses/generic.yaml#/components/responses/Unauthorized'
         '403':
-          $ref: '../responses.yaml#/components/responses/Forbidden'
+          $ref: '../responses/generic.yaml#/components/responses/Forbidden'
   /sources/registries/{registry_source_id}/artifacts:
     post:
       tags:
@@ -58,6 +58,8 @@ paths:
             application/json:
               schema:
                 $ref: '../schemas/artifact.yaml#/components/schemas/Artifact'
+        '409':
+          $ref: '../responses/artifacts.yaml#/components/responses/DuplicateArtifact'
   /sources/github/{github_source_id}/artifacts:
     post:
       tags:
@@ -72,8 +74,6 @@ paths:
               $ref: '../schemas/artifact.yaml#/components/schemas/CreateGitHubSourceArtifact'
       responses:
         '200':
-          description: Successfully created the artifact.
-          content:
-            application/json:
-              schema:
-                $ref: '../schemas/artifact.yaml#/components/schemas/Artifact'
+          description: Successfully queued the artifact for creation
+        '409':
+          $ref: '../responses/artifacts.yaml#/components/responses/DuplicateArtifact'

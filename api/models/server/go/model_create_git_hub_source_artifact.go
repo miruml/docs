@@ -15,12 +15,17 @@ package openapi
 
 type CreateGitHubSourceArtifact struct {
 
+	AllowDuplicate bool `json:"allow_duplicate"`
+
 	CommitSha string `json:"commit_sha"`
+
+	Groups []string `json:"groups,omitempty"`
 }
 
 // AssertCreateGitHubSourceArtifactRequired checks if the required fields are not zero-ed
 func AssertCreateGitHubSourceArtifactRequired(obj CreateGitHubSourceArtifact) error {
 	elements := map[string]interface{}{
+		"allow_duplicate": obj.AllowDuplicate,
 		"commit_sha": obj.CommitSha,
 	}
 	for name, el := range elements {

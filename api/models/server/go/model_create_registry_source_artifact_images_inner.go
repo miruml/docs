@@ -15,7 +15,7 @@ package openapi
 
 type CreateRegistrySourceArtifactImagesInner struct {
 
-	RepoId string `json:"repo_id"`
+	RepositoryId string `json:"repository_id,omitempty"`
 
 	Tag string `json:"tag"`
 }
@@ -23,7 +23,6 @@ type CreateRegistrySourceArtifactImagesInner struct {
 // AssertCreateRegistrySourceArtifactImagesInnerRequired checks if the required fields are not zero-ed
 func AssertCreateRegistrySourceArtifactImagesInnerRequired(obj CreateRegistrySourceArtifactImagesInner) error {
 	elements := map[string]interface{}{
-		"repo_id": obj.RepoId,
 		"tag": obj.Tag,
 	}
 	for name, el := range elements {

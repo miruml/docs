@@ -79,7 +79,7 @@ components:
               example: "container_repository"
             id:
               type: string
-              example: "repo_123"
+              example: "cont_repo_123"
     ContainerRepositoryList:
       title: Container Repository List
       type: object

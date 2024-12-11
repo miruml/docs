@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RepoId** | **string** |  | 
+**RepositoryId** | Pointer to **string** |  | [optional] 
 **Tag** | **string** |  | 
 
 ## Methods
 
 ### NewCreateRegistrySourceArtifactImagesInner
 
-`func NewCreateRegistrySourceArtifactImagesInner(repoId string, tag string, ) *CreateRegistrySourceArtifactImagesInner`
+`func NewCreateRegistrySourceArtifactImagesInner(tag string, ) *CreateRegistrySourceArtifactImagesInner`
 
 NewCreateRegistrySourceArtifactImagesInner instantiates a new CreateRegistrySourceArtifactImagesInner object
 This constructor will assign default values to properties that have it defined,
@@ -26,25 +26,30 @@ NewCreateRegistrySourceArtifactImagesInnerWithDefaults instantiates a new Create
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetRepoId
+### GetRepositoryId
 
-`func (o *CreateRegistrySourceArtifactImagesInner) GetRepoId() string`
+`func (o *CreateRegistrySourceArtifactImagesInner) GetRepositoryId() string`
 
-GetRepoId returns the RepoId field if non-nil, zero value otherwise.
+GetRepositoryId returns the RepositoryId field if non-nil, zero value otherwise.
 
-### GetRepoIdOk
+### GetRepositoryIdOk
 
-`func (o *CreateRegistrySourceArtifactImagesInner) GetRepoIdOk() (*string, bool)`
+`func (o *CreateRegistrySourceArtifactImagesInner) GetRepositoryIdOk() (*string, bool)`
 
-GetRepoIdOk returns a tuple with the RepoId field if it's non-nil, zero value otherwise
+GetRepositoryIdOk returns a tuple with the RepositoryId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetRepoId
+### SetRepositoryId
 
-`func (o *CreateRegistrySourceArtifactImagesInner) SetRepoId(v string)`
+`func (o *CreateRegistrySourceArtifactImagesInner) SetRepositoryId(v string)`
 
-SetRepoId sets RepoId field to given value.
+SetRepositoryId sets RepositoryId field to given value.
 
+### HasRepositoryId
+
+`func (o *CreateRegistrySourceArtifactImagesInner) HasRepositoryId() bool`
+
+HasRepositoryId returns a boolean if a field has been set.
 
 ### GetTag
 
