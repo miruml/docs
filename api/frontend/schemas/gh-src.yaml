@@ -4,8 +4,8 @@ info:
   version: ""
 components:
   schemas:
-    Committer:
-      title: Committer
+    GitHubCommitter:
+      title: GitHub Committer
       type: object
       required:
         - id
@@ -15,8 +15,9 @@ components:
         - avatar_url
       properties:
         id:
-          type: string
-          example: "92611223"
+          type: integer
+          format: int64
+          example: 92611223
         object:
           type: string
           example: "github_account"
@@ -32,8 +33,8 @@ components:
         avatar_url:
           type: string
           example: "https://avatars.githubusercontent.com/u/92611223?v=4"
-    Commit:
-      title: Commit
+    GitHubCommit:
+      title: GitHub Commit
       type: object
       required:
         - commit_id
@@ -51,20 +52,20 @@ components:
           type: string
           example: "https://github.com/bensmidt/test-repo/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03"
         committer:
-          $ref: '#/components/schemas/Committer'
-    CommitList:
-      title: CommitList
+          $ref: '#/components/schemas/GitHubCommitter'
+    GitHubCommitList:
+      title: GitHub CommitList
       type: object 
       properties:
         object:
           type: string
           example: "list"
-        commits:
+        data:
           type: array
           items:
-            $ref: '#/components/schemas/Commit'
-    Repository:
-      title: Repository
+            $ref: '#/components/schemas/GitHubCommit'
+    GitHubRepository:
+      title: GitHub Repository
       type: object
       required:
         - id
@@ -74,8 +75,9 @@ components:
         - clone_url
       properties:
         id:
-          type: string
-          example: "1234567890"
+          type: integer
+          format: int64
+          example: 1234567890
         object:
           type: string
           example: "github_repository"
@@ -88,9 +90,6 @@ components:
         html_url:
           type: string
           example: "https://github.com/bensmidt/e2e-tests"
-        clone_url:
-          type: string
-          example: "https://github.com/bensmidt/e2e-tests.git"
     GitHubSourceCommits:
       title: GitHubSourceCommits
       type: object
@@ -99,9 +98,9 @@ components:
           type: string
           example: "github_source_commits"
         repository:
-          $ref: '#/components/schemas/Repository'
+          $ref: '#/components/schemas/GitHubRepository'
         commits:
-          $ref: '#/components/schemas/CommitList'
+          $ref: '#/components/schemas/GitHubCommitList'
 paths: {}
 
 

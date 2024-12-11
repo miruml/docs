@@ -15,13 +15,13 @@ package openapi
 
 type CreateGitHubSourceArtifact struct {
 
-	CommitId string `json:"commit_id"`
+	CommitSha string `json:"commit_sha"`
 }
 
 // AssertCreateGitHubSourceArtifactRequired checks if the required fields are not zero-ed
 func AssertCreateGitHubSourceArtifactRequired(obj CreateGitHubSourceArtifact) error {
 	elements := map[string]interface{}{
-		"commit_id": obj.CommitId,
+		"commit_sha": obj.CommitSha,
 	}
 	for name, el := range elements {
 		if isZero := IsZeroValue(el); isZero {

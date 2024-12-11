@@ -21,7 +21,7 @@ var _ MappedNullable = &CreateGitHubSourceArtifact{}
 
 // CreateGitHubSourceArtifact struct for CreateGitHubSourceArtifact
 type CreateGitHubSourceArtifact struct {
-	CommitId string `json:"commit_id"`
+	CommitSha string `json:"commit_sha"`
 }
 
 type _CreateGitHubSourceArtifact CreateGitHubSourceArtifact
@@ -30,9 +30,9 @@ type _CreateGitHubSourceArtifact CreateGitHubSourceArtifact
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateGitHubSourceArtifact(commitId string) *CreateGitHubSourceArtifact {
+func NewCreateGitHubSourceArtifact(commitSha string) *CreateGitHubSourceArtifact {
 	this := CreateGitHubSourceArtifact{}
-	this.CommitId = commitId
+	this.CommitSha = commitSha
 	return &this
 }
 
@@ -44,28 +44,28 @@ func NewCreateGitHubSourceArtifactWithDefaults() *CreateGitHubSourceArtifact {
 	return &this
 }
 
-// GetCommitId returns the CommitId field value
-func (o *CreateGitHubSourceArtifact) GetCommitId() string {
+// GetCommitSha returns the CommitSha field value
+func (o *CreateGitHubSourceArtifact) GetCommitSha() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.CommitId
+	return o.CommitSha
 }
 
-// GetCommitIdOk returns a tuple with the CommitId field value
+// GetCommitShaOk returns a tuple with the CommitSha field value
 // and a boolean to check if the value has been set.
-func (o *CreateGitHubSourceArtifact) GetCommitIdOk() (*string, bool) {
+func (o *CreateGitHubSourceArtifact) GetCommitShaOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CommitId, true
+	return &o.CommitSha, true
 }
 
-// SetCommitId sets field value
-func (o *CreateGitHubSourceArtifact) SetCommitId(v string) {
-	o.CommitId = v
+// SetCommitSha sets field value
+func (o *CreateGitHubSourceArtifact) SetCommitSha(v string) {
+	o.CommitSha = v
 }
 
 func (o CreateGitHubSourceArtifact) MarshalJSON() ([]byte, error) {
@@ -78,7 +78,7 @@ func (o CreateGitHubSourceArtifact) MarshalJSON() ([]byte, error) {
 
 func (o CreateGitHubSourceArtifact) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["commit_id"] = o.CommitId
+	toSerialize["commit_sha"] = o.CommitSha
 	return toSerialize, nil
 }
 
@@ -87,7 +87,7 @@ func (o *CreateGitHubSourceArtifact) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"commit_id",
+		"commit_sha",
 	}
 
 	allProperties := make(map[string]interface{})

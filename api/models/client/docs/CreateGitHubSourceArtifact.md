@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CommitId** | **string** |  | 
+**CommitSha** | **string** |  | 
 
 ## Methods
 
 ### NewCreateGitHubSourceArtifact
 
-`func NewCreateGitHubSourceArtifact(commitId string, ) *CreateGitHubSourceArtifact`
+`func NewCreateGitHubSourceArtifact(commitSha string, ) *CreateGitHubSourceArtifact`
 
 NewCreateGitHubSourceArtifact instantiates a new CreateGitHubSourceArtifact object
 This constructor will assign default values to properties that have it defined,
@@ -25,24 +25,24 @@ NewCreateGitHubSourceArtifactWithDefaults instantiates a new CreateGitHubSourceA
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetCommitId
+### GetCommitSha
 
-`func (o *CreateGitHubSourceArtifact) GetCommitId() string`
+`func (o *CreateGitHubSourceArtifact) GetCommitSha() string`
 
-GetCommitId returns the CommitId field if non-nil, zero value otherwise.
+GetCommitSha returns the CommitSha field if non-nil, zero value otherwise.
 
-### GetCommitIdOk
+### GetCommitShaOk
 
-`func (o *CreateGitHubSourceArtifact) GetCommitIdOk() (*string, bool)`
+`func (o *CreateGitHubSourceArtifact) GetCommitShaOk() (*string, bool)`
 
-GetCommitIdOk returns a tuple with the CommitId field if it's non-nil, zero value otherwise
+GetCommitShaOk returns a tuple with the CommitSha field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCommitId
+### SetCommitSha
 
-`func (o *CreateGitHubSourceArtifact) SetCommitId(v string)`
+`func (o *CreateGitHubSourceArtifact) SetCommitSha(v string)`
 
-SetCommitId sets CommitId field to given value.
+SetCommitSha sets CommitSha field to given value.
 
 
 
