@@ -53,4 +53,12 @@ components:
       description: The unique identifier of the workspace
       schema:
         type: string
+    pageSize:
+      name: pageSize
+      in: query
+      required: false
+      description: The number of items to return per page
+      schema:
+        type: integer
+        default: 25
 paths: {}

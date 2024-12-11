@@ -1,0 +1,107 @@
+openapi: 3.0.3
+info:
+  title: GitHub Integration Schemas
+  version: ""
+components:
+  schemas:
+    Committer:
+      title: Committer
+      type: object
+      required:
+        - id
+        - login
+        - type
+        - html_url
+        - avatar_url
+      properties:
+        id:
+          type: string
+          example: "92611223"
+        object:
+          type: string
+          example: "github_account"
+        login:
+          type: string
+          example: "bensmidt"
+        type:
+          type: string
+          example: "User"
+        html_url:
+          type: string
+          example: "https://github.com/bensmidt"
+        avatar_url:
+          type: string
+          example: "https://avatars.githubusercontent.com/u/92611223?v=4"
+    Commit:
+      title: Commit
+      type: object
+      required:
+        - commit_id
+      properties:
+        object:
+          type: string
+          example: "github_commit"
+        sha:
+          type: string
+          example: "94d8a2681f1ef81b0362cdb77bf37691bc1d2b03"
+        message:
+          type: string
+          example: "Fixes a bug"
+        html_url:
+          type: string
+          example: "https://github.com/bensmidt/test-repo/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03"
+        committer:
+          $ref: '#/components/schemas/Committer'
+    CommitList:
+      title: CommitList
+      type: object 
+      properties:
+        object:
+          type: string
+          example: "list"
+        commits:
+          type: array
+          items:
+            $ref: '#/components/schemas/Commit'
+    Repository:
+      title: Repository
+      type: object
+      required:
+        - id
+        - name
+        - full_name
+        - html_url
+        - clone_url
+      properties:
+        id:
+          type: string
+          example: "1234567890"
+        object:
+          type: string
+          example: "github_repository"
+        name:
+          type: string
+          example: "e2e-tests"
+        full_name:
+          type: string
+          example: "bensmidt/e2e-tests"
+        html_url:
+          type: string
+          example: "https://github.com/bensmidt/e2e-tests"
+        clone_url:
+          type: string
+          example: "https://github.com/bensmidt/e2e-tests.git"
+    GitHubSourceCommits:
+      title: GitHubSourceCommits
+      type: object
+      properties:
+        object:
+          type: string
+          example: "github_source_commits"
+        repository:
+          $ref: '#/components/schemas/Repository'
+        commits:
+          $ref: '#/components/schemas/CommitList'
+paths: {}
+
+

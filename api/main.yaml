@@ -51,6 +51,11 @@ paths:
     $ref: './frontend/paths/artifacts.yaml#/paths/~1sources~1registries~1{registry_source_id}~1artifacts'
   /sources/github/{github_source_id}/artifacts:
     $ref: './frontend/paths/artifacts.yaml#/paths/~1sources~1github~1{github_source_id}~1artifacts'
+
+  # github sources
+  /sources/github/{github_source_id}/commits:
+    $ref: './frontend/paths/gh-src.yaml#/paths/~1sources~1github~1{github_source_id}~1commits'
+
   # registry sources
   /workspaces/{workspace_id}/sources/registries:
     $ref: './frontend/paths/reg-srcs.yaml#/paths/~1workspaces~1{workspace_id}~1sources~1registries'
@@ -58,6 +63,7 @@ paths:
     $ref: './frontend/paths/reg-srcs.yaml#/paths/~1sources~1registries~1{registry_source_id}'
   /sources/registries/{registry_source_id}/compose_file:
     $ref: './frontend/paths/reg-srcs.yaml#/paths/~1sources~1registries~1{registry_source_id}~1compose_file'
+
   # repositories
   /integrations/dockerhub/{dockerhub_integration_id}/repositories/external:
     $ref: './frontend/paths/cont-repos.yaml#/paths/~1integrations~1dockerhub~1{dockerhub_integration_id}~1repositories~1external'

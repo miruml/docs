@@ -204,9 +204,9 @@ components:
       title: Create GitHub Source Artifact
       type: object
       required:
-        - commit_id
+        - commit_sha
       properties:
-        commit_id:
+        commit_sha:
           type: string
           example: "94d8a2681f1ef81b0362cdb77bf37691bc1d2b03"
 paths: {}

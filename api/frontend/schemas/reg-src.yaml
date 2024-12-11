@@ -30,8 +30,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ContainerRepositoryWithIsExtra'
-    RegistrySourceListItem:
-      title: Registry Source List Item
+    RegistrySource:
+      title: Registry Source 
       type: object
       required:
         - id
@@ -53,7 +53,7 @@ components:
           type: string
           example: "Ad Display V2.2.1"
         repositories:
-          $ref: '../schemas/cont-repo.yaml#/components/schemas/ContainerRepositoryList'
+          $ref: '#/components/schemas/ContainerRepositoryListWithIsExtra'
         aarch64:
           type: boolean
           example: true
@@ -81,20 +81,7 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/RegistrySourceListItem'
-    RegistrySource:
-      title: Registry Source
-      type: object
-      required:
-        - repositories
-      allOf:
-        - $ref: '#/components/schemas/RegistrySourceListItem'
-        - type: object
-          required:
-            - repositories
-          properties:
-            repositories:
-              $ref: '#/components/schemas/ContainerRepositoryListWithIsExtra'
+            $ref: '#/components/schemas/RegistrySource'
     CreateRegistrySource:
       title: Create Registry Source
       type: object

@@ -1,0 +1,19 @@
+openapi: 3.0.3
+info:
+  title: GitHub Integration 
+  version: ""
+paths:
+  /sources/github/{github_source_id}/commits:
+    get:
+      tags:
+        - GitHub Sources
+      parameters:
+        - $ref: '../../params.yaml#/components/parameters/workspace_id'
+        - $ref: '../../params.yaml#/components/parameters/github_source_id'
+      responses:
+        '200':
+          description: Successfully retrieved the commits for the GitHub source.
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/gh-src.yaml#/components/schemas/GitHubSourceCommits'

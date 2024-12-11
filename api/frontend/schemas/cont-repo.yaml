@@ -4,6 +4,13 @@ info:
   version: ""
 components:
   schemas:
+    ContainerRepositoryType:
+      title: Container Repository Type
+      type: string
+      enum:
+        - gar
+        - dockerhub
+      example: "gar"
     BaseContainerRepository:
       title: Base Container Repository
       type: object 
@@ -11,6 +18,7 @@ components:
         - registry_url
         - name
         - uri
+        - type
       properties:
         registry_url:
           type: string
@@ -21,6 +29,8 @@ components:
         uri:
           type: string
           example: "us-central1-docker.pkg.dev/container-integration/miru/django"
+        type:
+          $ref: "#/components/schemas/ContainerRepositoryType"
     ExternalContainerRepository:
       title: External Container Repository
       allOf:
@@ -28,18 +38,22 @@ components:
         - type: object
           required:
             - object
+            - description
+            - bytes
           properties:
             object:
               type: string
-              example: "external_repository"
+              example: "external_container_repository"
             description:
               type: string
               example: "A repository for the miru/django image"
-            size:
+              nullable: true
+            bytes:
               type: integer
               format: int64
               description: "The size of the repository in bytes"
               example: 506406741
+              nullable: true
     ExternalContainerRepositoryList:
       title: External Container Repository List
       type: object
@@ -62,7 +76,7 @@ components:
           properties:
             object:
               type: string
-              example: "repository"
+              example: "container_repository"
             id:
               type: string
               example: "repo_123"
@@ -107,10 +121,13 @@ components:
           example: "docker.io/redis:latest"
         bytes:
           type: integer
+          format: int64
           example: 392510987
+          nullable: true
         uploaded_at:
           type: string
           example: "2021-01-01T00:00:00Z"
+          format: date-time
     ExternalContainerImageList:
       title: External Container Image List
       type: object
