@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Id** | **string** |  | 
 **Object** | **string** |  | 
 **Name** | **string** |  | 
-**Repositories** | [**ContainerRepositoryListWithIsExtra**](ContainerRepositoryListWithIsExtra.md) |  | 
+**Repositories** | [**RegistrySourceContainerRepositoryList**](RegistrySourceContainerRepositoryList.md) |  | 
 **Aarch64** | **bool** |  | 
 **X8664** | **bool** |  | 
 **CreatedAt** | **time.Time** |  | 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewRegistrySource
 
-`func NewRegistrySource(id string, object string, name string, repositories ContainerRepositoryListWithIsExtra, aarch64 bool, x8664 bool, createdAt time.Time, updatedAt time.Time, ) *RegistrySource`
+`func NewRegistrySource(id string, object string, name string, repositories RegistrySourceContainerRepositoryList, aarch64 bool, x8664 bool, createdAt time.Time, updatedAt time.Time, ) *RegistrySource`
 
 NewRegistrySource instantiates a new RegistrySource object
 This constructor will assign default values to properties that have it defined,
@@ -94,20 +94,20 @@ SetName sets Name field to given value.
 
 ### GetRepositories
 
-`func (o *RegistrySource) GetRepositories() ContainerRepositoryListWithIsExtra`
+`func (o *RegistrySource) GetRepositories() RegistrySourceContainerRepositoryList`
 
 GetRepositories returns the Repositories field if non-nil, zero value otherwise.
 
 ### GetRepositoriesOk
 
-`func (o *RegistrySource) GetRepositoriesOk() (*ContainerRepositoryListWithIsExtra, bool)`
+`func (o *RegistrySource) GetRepositoriesOk() (*RegistrySourceContainerRepositoryList, bool)`
 
 GetRepositoriesOk returns a tuple with the Repositories field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRepositories
 
-`func (o *RegistrySource) SetRepositories(v ContainerRepositoryListWithIsExtra)`
+`func (o *RegistrySource) SetRepositories(v RegistrySourceContainerRepositoryList)`
 
 SetRepositories sets Repositories field to given value.
 

@@ -17,12 +17,15 @@ type CreateRegistrySourceArtifactImagesInner struct {
 
 	RepositoryId string `json:"repository_id,omitempty"`
 
+	Digest string `json:"digest"`
+
 	Tag string `json:"tag"`
 }
 
 // AssertCreateRegistrySourceArtifactImagesInnerRequired checks if the required fields are not zero-ed
 func AssertCreateRegistrySourceArtifactImagesInnerRequired(obj CreateRegistrySourceArtifactImagesInner) error {
 	elements := map[string]interface{}{
+		"digest": obj.Digest,
 		"tag": obj.Tag,
 	}
 	for name, el := range elements {

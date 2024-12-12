@@ -5,13 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **RepositoryId** | Pointer to **string** |  | [optional] 
+**Digest** | **string** |  | 
 **Tag** | **string** |  | 
 
 ## Methods
 
 ### NewCreateRegistrySourceArtifactImagesInner
 
-`func NewCreateRegistrySourceArtifactImagesInner(tag string, ) *CreateRegistrySourceArtifactImagesInner`
+`func NewCreateRegistrySourceArtifactImagesInner(digest string, tag string, ) *CreateRegistrySourceArtifactImagesInner`
 
 NewCreateRegistrySourceArtifactImagesInner instantiates a new CreateRegistrySourceArtifactImagesInner object
 This constructor will assign default values to properties that have it defined,
@@ -50,6 +51,26 @@ SetRepositoryId sets RepositoryId field to given value.
 `func (o *CreateRegistrySourceArtifactImagesInner) HasRepositoryId() bool`
 
 HasRepositoryId returns a boolean if a field has been set.
+
+### GetDigest
+
+`func (o *CreateRegistrySourceArtifactImagesInner) GetDigest() string`
+
+GetDigest returns the Digest field if non-nil, zero value otherwise.
+
+### GetDigestOk
+
+`func (o *CreateRegistrySourceArtifactImagesInner) GetDigestOk() (*string, bool)`
+
+GetDigestOk returns a tuple with the Digest field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDigest
+
+`func (o *CreateRegistrySourceArtifactImagesInner) SetDigest(v string)`
+
+SetDigest sets Digest field to given value.
+
 
 ### GetTag
 

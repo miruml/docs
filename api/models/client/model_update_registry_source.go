@@ -23,7 +23,7 @@ var _ MappedNullable = &UpdateRegistrySource{}
 type UpdateRegistrySource struct {
 	Name string `json:"name"`
 	ComposeFile string `json:"compose_file"`
-	ExtraRepositories UpdateRegistrySourceExtraRepositories `json:"extra_repositories"`
+	ExtraRepositories []string `json:"extra_repositories"`
 	Aarch64 bool `json:"aarch64"`
 	X8664 bool `json:"x86_64"`
 }
@@ -34,7 +34,7 @@ type _UpdateRegistrySource UpdateRegistrySource
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateRegistrySource(name string, composeFile string, extraRepositories UpdateRegistrySourceExtraRepositories, aarch64 bool, x8664 bool) *UpdateRegistrySource {
+func NewUpdateRegistrySource(name string, composeFile string, extraRepositories []string, aarch64 bool, x8664 bool) *UpdateRegistrySource {
 	this := UpdateRegistrySource{}
 	this.Name = name
 	this.ComposeFile = composeFile
@@ -101,9 +101,9 @@ func (o *UpdateRegistrySource) SetComposeFile(v string) {
 }
 
 // GetExtraRepositories returns the ExtraRepositories field value
-func (o *UpdateRegistrySource) GetExtraRepositories() UpdateRegistrySourceExtraRepositories {
+func (o *UpdateRegistrySource) GetExtraRepositories() []string {
 	if o == nil {
-		var ret UpdateRegistrySourceExtraRepositories
+		var ret []string
 		return ret
 	}
 
@@ -112,15 +112,15 @@ func (o *UpdateRegistrySource) GetExtraRepositories() UpdateRegistrySourceExtraR
 
 // GetExtraRepositoriesOk returns a tuple with the ExtraRepositories field value
 // and a boolean to check if the value has been set.
-func (o *UpdateRegistrySource) GetExtraRepositoriesOk() (*UpdateRegistrySourceExtraRepositories, bool) {
+func (o *UpdateRegistrySource) GetExtraRepositoriesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ExtraRepositories, true
+	return o.ExtraRepositories, true
 }
 
 // SetExtraRepositories sets field value
-func (o *UpdateRegistrySource) SetExtraRepositories(v UpdateRegistrySourceExtraRepositories) {
+func (o *UpdateRegistrySource) SetExtraRepositories(v []string) {
 	o.ExtraRepositories = v
 }
 

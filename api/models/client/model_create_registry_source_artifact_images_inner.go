@@ -22,6 +22,7 @@ var _ MappedNullable = &CreateRegistrySourceArtifactImagesInner{}
 // CreateRegistrySourceArtifactImagesInner struct for CreateRegistrySourceArtifactImagesInner
 type CreateRegistrySourceArtifactImagesInner struct {
 	RepositoryId *string `json:"repository_id,omitempty"`
+	Digest string `json:"digest"`
 	Tag string `json:"tag"`
 }
 
@@ -31,8 +32,9 @@ type _CreateRegistrySourceArtifactImagesInner CreateRegistrySourceArtifactImages
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateRegistrySourceArtifactImagesInner(tag string) *CreateRegistrySourceArtifactImagesInner {
+func NewCreateRegistrySourceArtifactImagesInner(digest string, tag string) *CreateRegistrySourceArtifactImagesInner {
 	this := CreateRegistrySourceArtifactImagesInner{}
+	this.Digest = digest
 	this.Tag = tag
 	return &this
 }
@@ -77,6 +79,30 @@ func (o *CreateRegistrySourceArtifactImagesInner) SetRepositoryId(v string) {
 	o.RepositoryId = &v
 }
 
+// GetDigest returns the Digest field value
+func (o *CreateRegistrySourceArtifactImagesInner) GetDigest() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Digest
+}
+
+// GetDigestOk returns a tuple with the Digest field value
+// and a boolean to check if the value has been set.
+func (o *CreateRegistrySourceArtifactImagesInner) GetDigestOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Digest, true
+}
+
+// SetDigest sets field value
+func (o *CreateRegistrySourceArtifactImagesInner) SetDigest(v string) {
+	o.Digest = v
+}
+
 // GetTag returns the Tag field value
 func (o *CreateRegistrySourceArtifactImagesInner) GetTag() string {
 	if o == nil {
@@ -114,6 +140,7 @@ func (o CreateRegistrySourceArtifactImagesInner) ToMap() (map[string]interface{}
 	if !IsNil(o.RepositoryId) {
 		toSerialize["repository_id"] = o.RepositoryId
 	}
+	toSerialize["digest"] = o.Digest
 	toSerialize["tag"] = o.Tag
 	return toSerialize, nil
 }
@@ -123,6 +150,7 @@ func (o *CreateRegistrySourceArtifactImagesInner) UnmarshalJSON(data []byte) (er
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"digest",
 		"tag",
 	}
 

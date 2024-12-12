@@ -16,11 +16,11 @@ import (
 	"fmt"
 )
 
-// checks if the ContainerRepositoryWithIsExtra type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ContainerRepositoryWithIsExtra{}
+// checks if the RegistrySourceContainerRepository type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RegistrySourceContainerRepository{}
 
-// ContainerRepositoryWithIsExtra struct for ContainerRepositoryWithIsExtra
-type ContainerRepositoryWithIsExtra struct {
+// RegistrySourceContainerRepository struct for RegistrySourceContainerRepository
+type RegistrySourceContainerRepository struct {
 	RegistryUrl string `json:"registry_url"`
 	Name string `json:"name"`
 	Uri string `json:"uri"`
@@ -28,16 +28,17 @@ type ContainerRepositoryWithIsExtra struct {
 	Object string `json:"object"`
 	Id string `json:"id"`
 	IsExtra bool `json:"is_extra"`
+	ComposeService NullableString `json:"compose_service"`
 }
 
-type _ContainerRepositoryWithIsExtra ContainerRepositoryWithIsExtra
+type _RegistrySourceContainerRepository RegistrySourceContainerRepository
 
-// NewContainerRepositoryWithIsExtra instantiates a new ContainerRepositoryWithIsExtra object
+// NewRegistrySourceContainerRepository instantiates a new RegistrySourceContainerRepository object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewContainerRepositoryWithIsExtra(registryUrl string, name string, uri string, type_ ContainerRepositoryType, object string, id string, isExtra bool) *ContainerRepositoryWithIsExtra {
-	this := ContainerRepositoryWithIsExtra{}
+func NewRegistrySourceContainerRepository(registryUrl string, name string, uri string, type_ ContainerRepositoryType, object string, id string, isExtra bool, composeService NullableString) *RegistrySourceContainerRepository {
+	this := RegistrySourceContainerRepository{}
 	this.RegistryUrl = registryUrl
 	this.Name = name
 	this.Uri = uri
@@ -45,19 +46,20 @@ func NewContainerRepositoryWithIsExtra(registryUrl string, name string, uri stri
 	this.Object = object
 	this.Id = id
 	this.IsExtra = isExtra
+	this.ComposeService = composeService
 	return &this
 }
 
-// NewContainerRepositoryWithIsExtraWithDefaults instantiates a new ContainerRepositoryWithIsExtra object
+// NewRegistrySourceContainerRepositoryWithDefaults instantiates a new RegistrySourceContainerRepository object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewContainerRepositoryWithIsExtraWithDefaults() *ContainerRepositoryWithIsExtra {
-	this := ContainerRepositoryWithIsExtra{}
+func NewRegistrySourceContainerRepositoryWithDefaults() *RegistrySourceContainerRepository {
+	this := RegistrySourceContainerRepository{}
 	return &this
 }
 
 // GetRegistryUrl returns the RegistryUrl field value
-func (o *ContainerRepositoryWithIsExtra) GetRegistryUrl() string {
+func (o *RegistrySourceContainerRepository) GetRegistryUrl() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -68,7 +70,7 @@ func (o *ContainerRepositoryWithIsExtra) GetRegistryUrl() string {
 
 // GetRegistryUrlOk returns a tuple with the RegistryUrl field value
 // and a boolean to check if the value has been set.
-func (o *ContainerRepositoryWithIsExtra) GetRegistryUrlOk() (*string, bool) {
+func (o *RegistrySourceContainerRepository) GetRegistryUrlOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -76,12 +78,12 @@ func (o *ContainerRepositoryWithIsExtra) GetRegistryUrlOk() (*string, bool) {
 }
 
 // SetRegistryUrl sets field value
-func (o *ContainerRepositoryWithIsExtra) SetRegistryUrl(v string) {
+func (o *RegistrySourceContainerRepository) SetRegistryUrl(v string) {
 	o.RegistryUrl = v
 }
 
 // GetName returns the Name field value
-func (o *ContainerRepositoryWithIsExtra) GetName() string {
+func (o *RegistrySourceContainerRepository) GetName() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -92,7 +94,7 @@ func (o *ContainerRepositoryWithIsExtra) GetName() string {
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *ContainerRepositoryWithIsExtra) GetNameOk() (*string, bool) {
+func (o *RegistrySourceContainerRepository) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -100,12 +102,12 @@ func (o *ContainerRepositoryWithIsExtra) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value
-func (o *ContainerRepositoryWithIsExtra) SetName(v string) {
+func (o *RegistrySourceContainerRepository) SetName(v string) {
 	o.Name = v
 }
 
 // GetUri returns the Uri field value
-func (o *ContainerRepositoryWithIsExtra) GetUri() string {
+func (o *RegistrySourceContainerRepository) GetUri() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -116,7 +118,7 @@ func (o *ContainerRepositoryWithIsExtra) GetUri() string {
 
 // GetUriOk returns a tuple with the Uri field value
 // and a boolean to check if the value has been set.
-func (o *ContainerRepositoryWithIsExtra) GetUriOk() (*string, bool) {
+func (o *RegistrySourceContainerRepository) GetUriOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -124,12 +126,12 @@ func (o *ContainerRepositoryWithIsExtra) GetUriOk() (*string, bool) {
 }
 
 // SetUri sets field value
-func (o *ContainerRepositoryWithIsExtra) SetUri(v string) {
+func (o *RegistrySourceContainerRepository) SetUri(v string) {
 	o.Uri = v
 }
 
 // GetType returns the Type field value
-func (o *ContainerRepositoryWithIsExtra) GetType() ContainerRepositoryType {
+func (o *RegistrySourceContainerRepository) GetType() ContainerRepositoryType {
 	if o == nil {
 		var ret ContainerRepositoryType
 		return ret
@@ -140,7 +142,7 @@ func (o *ContainerRepositoryWithIsExtra) GetType() ContainerRepositoryType {
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-func (o *ContainerRepositoryWithIsExtra) GetTypeOk() (*ContainerRepositoryType, bool) {
+func (o *RegistrySourceContainerRepository) GetTypeOk() (*ContainerRepositoryType, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -148,12 +150,12 @@ func (o *ContainerRepositoryWithIsExtra) GetTypeOk() (*ContainerRepositoryType, 
 }
 
 // SetType sets field value
-func (o *ContainerRepositoryWithIsExtra) SetType(v ContainerRepositoryType) {
+func (o *RegistrySourceContainerRepository) SetType(v ContainerRepositoryType) {
 	o.Type = v
 }
 
 // GetObject returns the Object field value
-func (o *ContainerRepositoryWithIsExtra) GetObject() string {
+func (o *RegistrySourceContainerRepository) GetObject() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -164,7 +166,7 @@ func (o *ContainerRepositoryWithIsExtra) GetObject() string {
 
 // GetObjectOk returns a tuple with the Object field value
 // and a boolean to check if the value has been set.
-func (o *ContainerRepositoryWithIsExtra) GetObjectOk() (*string, bool) {
+func (o *RegistrySourceContainerRepository) GetObjectOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -172,12 +174,12 @@ func (o *ContainerRepositoryWithIsExtra) GetObjectOk() (*string, bool) {
 }
 
 // SetObject sets field value
-func (o *ContainerRepositoryWithIsExtra) SetObject(v string) {
+func (o *RegistrySourceContainerRepository) SetObject(v string) {
 	o.Object = v
 }
 
 // GetId returns the Id field value
-func (o *ContainerRepositoryWithIsExtra) GetId() string {
+func (o *RegistrySourceContainerRepository) GetId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -188,7 +190,7 @@ func (o *ContainerRepositoryWithIsExtra) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *ContainerRepositoryWithIsExtra) GetIdOk() (*string, bool) {
+func (o *RegistrySourceContainerRepository) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -196,12 +198,12 @@ func (o *ContainerRepositoryWithIsExtra) GetIdOk() (*string, bool) {
 }
 
 // SetId sets field value
-func (o *ContainerRepositoryWithIsExtra) SetId(v string) {
+func (o *RegistrySourceContainerRepository) SetId(v string) {
 	o.Id = v
 }
 
 // GetIsExtra returns the IsExtra field value
-func (o *ContainerRepositoryWithIsExtra) GetIsExtra() bool {
+func (o *RegistrySourceContainerRepository) GetIsExtra() bool {
 	if o == nil {
 		var ret bool
 		return ret
@@ -212,7 +214,7 @@ func (o *ContainerRepositoryWithIsExtra) GetIsExtra() bool {
 
 // GetIsExtraOk returns a tuple with the IsExtra field value
 // and a boolean to check if the value has been set.
-func (o *ContainerRepositoryWithIsExtra) GetIsExtraOk() (*bool, bool) {
+func (o *RegistrySourceContainerRepository) GetIsExtraOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -220,11 +222,37 @@ func (o *ContainerRepositoryWithIsExtra) GetIsExtraOk() (*bool, bool) {
 }
 
 // SetIsExtra sets field value
-func (o *ContainerRepositoryWithIsExtra) SetIsExtra(v bool) {
+func (o *RegistrySourceContainerRepository) SetIsExtra(v bool) {
 	o.IsExtra = v
 }
 
-func (o ContainerRepositoryWithIsExtra) MarshalJSON() ([]byte, error) {
+// GetComposeService returns the ComposeService field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *RegistrySourceContainerRepository) GetComposeService() string {
+	if o == nil || o.ComposeService.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.ComposeService.Get()
+}
+
+// GetComposeServiceOk returns a tuple with the ComposeService field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *RegistrySourceContainerRepository) GetComposeServiceOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ComposeService.Get(), o.ComposeService.IsSet()
+}
+
+// SetComposeService sets field value
+func (o *RegistrySourceContainerRepository) SetComposeService(v string) {
+	o.ComposeService.Set(&v)
+}
+
+func (o RegistrySourceContainerRepository) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -232,7 +260,7 @@ func (o ContainerRepositoryWithIsExtra) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ContainerRepositoryWithIsExtra) ToMap() (map[string]interface{}, error) {
+func (o RegistrySourceContainerRepository) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["registry_url"] = o.RegistryUrl
 	toSerialize["name"] = o.Name
@@ -241,10 +269,11 @@ func (o ContainerRepositoryWithIsExtra) ToMap() (map[string]interface{}, error) 
 	toSerialize["object"] = o.Object
 	toSerialize["id"] = o.Id
 	toSerialize["is_extra"] = o.IsExtra
+	toSerialize["compose_service"] = o.ComposeService.Get()
 	return toSerialize, nil
 }
 
-func (o *ContainerRepositoryWithIsExtra) UnmarshalJSON(data []byte) (err error) {
+func (o *RegistrySourceContainerRepository) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -256,6 +285,7 @@ func (o *ContainerRepositoryWithIsExtra) UnmarshalJSON(data []byte) (err error) 
 		"object",
 		"id",
 		"is_extra",
+		"compose_service",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -272,53 +302,53 @@ func (o *ContainerRepositoryWithIsExtra) UnmarshalJSON(data []byte) (err error) 
 		}
 	}
 
-	varContainerRepositoryWithIsExtra := _ContainerRepositoryWithIsExtra{}
+	varRegistrySourceContainerRepository := _RegistrySourceContainerRepository{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varContainerRepositoryWithIsExtra)
+	err = decoder.Decode(&varRegistrySourceContainerRepository)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ContainerRepositoryWithIsExtra(varContainerRepositoryWithIsExtra)
+	*o = RegistrySourceContainerRepository(varRegistrySourceContainerRepository)
 
 	return err
 }
 
-type NullableContainerRepositoryWithIsExtra struct {
-	value *ContainerRepositoryWithIsExtra
+type NullableRegistrySourceContainerRepository struct {
+	value *RegistrySourceContainerRepository
 	isSet bool
 }
 
-func (v NullableContainerRepositoryWithIsExtra) Get() *ContainerRepositoryWithIsExtra {
+func (v NullableRegistrySourceContainerRepository) Get() *RegistrySourceContainerRepository {
 	return v.value
 }
 
-func (v *NullableContainerRepositoryWithIsExtra) Set(val *ContainerRepositoryWithIsExtra) {
+func (v *NullableRegistrySourceContainerRepository) Set(val *RegistrySourceContainerRepository) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableContainerRepositoryWithIsExtra) IsSet() bool {
+func (v NullableRegistrySourceContainerRepository) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableContainerRepositoryWithIsExtra) Unset() {
+func (v *NullableRegistrySourceContainerRepository) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableContainerRepositoryWithIsExtra(val *ContainerRepositoryWithIsExtra) *NullableContainerRepositoryWithIsExtra {
-	return &NullableContainerRepositoryWithIsExtra{value: val, isSet: true}
+func NewNullableRegistrySourceContainerRepository(val *RegistrySourceContainerRepository) *NullableRegistrySourceContainerRepository {
+	return &NullableRegistrySourceContainerRepository{value: val, isSet: true}
 }
 
-func (v NullableContainerRepositoryWithIsExtra) MarshalJSON() ([]byte, error) {
+func (v NullableRegistrySourceContainerRepository) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableContainerRepositoryWithIsExtra) UnmarshalJSON(src []byte) error {
+func (v *NullableRegistrySourceContainerRepository) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

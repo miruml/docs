@@ -25,7 +25,7 @@ type RegistrySource struct {
 
 	Name string `json:"name"`
 
-	Repositories ContainerRepositoryListWithIsExtra `json:"repositories"`
+	Repositories RegistrySourceContainerRepositoryList `json:"repositories"`
 
 	Aarch64 bool `json:"aarch64"`
 
@@ -54,7 +54,7 @@ func AssertRegistrySourceRequired(obj RegistrySource) error {
 		}
 	}
 
-	if err := AssertContainerRepositoryListWithIsExtraRequired(obj.Repositories); err != nil {
+	if err := AssertRegistrySourceContainerRepositoryListRequired(obj.Repositories); err != nil {
 		return err
 	}
 	return nil
@@ -62,7 +62,7 @@ func AssertRegistrySourceRequired(obj RegistrySource) error {
 
 // AssertRegistrySourceConstraints checks if the values respects the defined constraints
 func AssertRegistrySourceConstraints(obj RegistrySource) error {
-	if err := AssertContainerRepositoryListWithIsExtraConstraints(obj.Repositories); err != nil {
+	if err := AssertRegistrySourceContainerRepositoryListConstraints(obj.Repositories); err != nil {
 		return err
 	}
 	return nil

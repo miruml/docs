@@ -4,11 +4,12 @@ info:
   version: ""
 components:
   schemas:
-    ContainerRepositoryWithIsExtra:
+    RegistrySourceContainerRepository:
       title: Container Repository With Is Extra (Registry Source)
       type: object
       required:
         - is_extra
+        - compose_service
       allOf:
         - $ref: '../schemas/cont-repo.yaml#/components/schemas/ContainerRepository'
         - type: object
@@ -16,7 +17,11 @@ components:
             is_extra:
               type: boolean
               example: true
-    ContainerRepositoryListWithIsExtra:
+            compose_service:
+              type: string
+              example: "database"
+              nullable: true
+    RegistrySourceContainerRepositoryList:
       title: Container Repository List With Is Extra (Registry Source)
       type: object
       required:
@@ -29,7 +34,7 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/ContainerRepositoryWithIsExtra'
+            $ref: '#/components/schemas/RegistrySourceContainerRepository'
     RegistrySource:
       title: Registry Source 
       type: object
@@ -53,7 +58,7 @@ components:
           type: string
           example: "Ad Display V2.2.1"
         repositories:
-          $ref: '#/components/schemas/ContainerRepositoryListWithIsExtra'
+          $ref: '#/components/schemas/RegistrySourceContainerRepositoryList'
         aarch64:
           type: boolean
           example: true
@@ -128,15 +133,12 @@ components:
           type: string
           example: "name: miru\nservices:\n  redis:\n  image: redis:latest\n  restart: always"
         extra_repositories:
-          type: object
-          properties:
-            data:
-              type: array
-              items:
-                type: string
-              example:
-                - "docker.io/redis"
-                - "us-central1-docker.pkg.dev/container-integration/miru/django"
+          type: array
+          items:
+            type: string
+          example:
+            - "docker.io/redis"
+            - "us-central1-docker.pkg.dev/container-integration/miru/django"
         aarch64:
           type: boolean
           example: true

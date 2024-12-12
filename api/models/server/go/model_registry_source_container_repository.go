@@ -13,7 +13,7 @@ package openapi
 
 
 
-type ContainerRepositoryWithIsExtra struct {
+type RegistrySourceContainerRepository struct {
 
 	RegistryUrl string `json:"registry_url"`
 
@@ -28,10 +28,12 @@ type ContainerRepositoryWithIsExtra struct {
 	Id string `json:"id"`
 
 	IsExtra bool `json:"is_extra"`
+
+	ComposeService *string `json:"compose_service"`
 }
 
-// AssertContainerRepositoryWithIsExtraRequired checks if the required fields are not zero-ed
-func AssertContainerRepositoryWithIsExtraRequired(obj ContainerRepositoryWithIsExtra) error {
+// AssertRegistrySourceContainerRepositoryRequired checks if the required fields are not zero-ed
+func AssertRegistrySourceContainerRepositoryRequired(obj RegistrySourceContainerRepository) error {
 	elements := map[string]interface{}{
 		"registry_url": obj.RegistryUrl,
 		"name": obj.Name,
@@ -40,6 +42,7 @@ func AssertContainerRepositoryWithIsExtraRequired(obj ContainerRepositoryWithIsE
 		"object": obj.Object,
 		"id": obj.Id,
 		"is_extra": obj.IsExtra,
+		"compose_service": obj.ComposeService,
 	}
 	for name, el := range elements {
 		if isZero := IsZeroValue(el); isZero {
@@ -50,7 +53,7 @@ func AssertContainerRepositoryWithIsExtraRequired(obj ContainerRepositoryWithIsE
 	return nil
 }
 
-// AssertContainerRepositoryWithIsExtraConstraints checks if the values respects the defined constraints
-func AssertContainerRepositoryWithIsExtraConstraints(obj ContainerRepositoryWithIsExtra) error {
+// AssertRegistrySourceContainerRepositoryConstraints checks if the values respects the defined constraints
+func AssertRegistrySourceContainerRepositoryConstraints(obj RegistrySourceContainerRepository) error {
 	return nil
 }

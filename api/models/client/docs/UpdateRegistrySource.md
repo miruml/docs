@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  | 
 **ComposeFile** | **string** |  | 
-**ExtraRepositories** | [**UpdateRegistrySourceExtraRepositories**](UpdateRegistrySourceExtraRepositories.md) |  | 
+**ExtraRepositories** | **[]string** |  | 
 **Aarch64** | **bool** |  | 
 **X8664** | **bool** |  | 
 
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 
 ### NewUpdateRegistrySource
 
-`func NewUpdateRegistrySource(name string, composeFile string, extraRepositories UpdateRegistrySourceExtraRepositories, aarch64 bool, x8664 bool, ) *UpdateRegistrySource`
+`func NewUpdateRegistrySource(name string, composeFile string, extraRepositories []string, aarch64 bool, x8664 bool, ) *UpdateRegistrySource`
 
 NewUpdateRegistrySource instantiates a new UpdateRegistrySource object
 This constructor will assign default values to properties that have it defined,
@@ -71,20 +71,20 @@ SetComposeFile sets ComposeFile field to given value.
 
 ### GetExtraRepositories
 
-`func (o *UpdateRegistrySource) GetExtraRepositories() UpdateRegistrySourceExtraRepositories`
+`func (o *UpdateRegistrySource) GetExtraRepositories() []string`
 
 GetExtraRepositories returns the ExtraRepositories field if non-nil, zero value otherwise.
 
 ### GetExtraRepositoriesOk
 
-`func (o *UpdateRegistrySource) GetExtraRepositoriesOk() (*UpdateRegistrySourceExtraRepositories, bool)`
+`func (o *UpdateRegistrySource) GetExtraRepositoriesOk() (*[]string, bool)`
 
 GetExtraRepositoriesOk returns a tuple with the ExtraRepositories field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExtraRepositories
 
-`func (o *UpdateRegistrySource) SetExtraRepositories(v UpdateRegistrySourceExtraRepositories)`
+`func (o *UpdateRegistrySource) SetExtraRepositories(v []string)`
 
 SetExtraRepositories sets ExtraRepositories field to given value.
 

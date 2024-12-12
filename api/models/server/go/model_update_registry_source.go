@@ -19,7 +19,7 @@ type UpdateRegistrySource struct {
 
 	ComposeFile string `json:"compose_file"`
 
-	ExtraRepositories UpdateRegistrySourceExtraRepositories `json:"extra_repositories"`
+	ExtraRepositories []string `json:"extra_repositories"`
 
 	Aarch64 bool `json:"aarch64"`
 
@@ -41,16 +41,10 @@ func AssertUpdateRegistrySourceRequired(obj UpdateRegistrySource) error {
 		}
 	}
 
-	if err := AssertUpdateRegistrySourceExtraRepositoriesRequired(obj.ExtraRepositories); err != nil {
-		return err
-	}
 	return nil
 }
 
 // AssertUpdateRegistrySourceConstraints checks if the values respects the defined constraints
 func AssertUpdateRegistrySourceConstraints(obj UpdateRegistrySource) error {
-	if err := AssertUpdateRegistrySourceExtraRepositoriesConstraints(obj.ExtraRepositories); err != nil {
-		return err
-	}
 	return nil
 }

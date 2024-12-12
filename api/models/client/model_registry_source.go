@@ -25,7 +25,7 @@ type RegistrySource struct {
 	Id string `json:"id"`
 	Object string `json:"object"`
 	Name string `json:"name"`
-	Repositories ContainerRepositoryListWithIsExtra `json:"repositories"`
+	Repositories RegistrySourceContainerRepositoryList `json:"repositories"`
 	Aarch64 bool `json:"aarch64"`
 	X8664 bool `json:"x86_64"`
 	CreatedAt time.Time `json:"created_at"`
@@ -38,7 +38,7 @@ type _RegistrySource RegistrySource
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRegistrySource(id string, object string, name string, repositories ContainerRepositoryListWithIsExtra, aarch64 bool, x8664 bool, createdAt time.Time, updatedAt time.Time) *RegistrySource {
+func NewRegistrySource(id string, object string, name string, repositories RegistrySourceContainerRepositoryList, aarch64 bool, x8664 bool, createdAt time.Time, updatedAt time.Time) *RegistrySource {
 	this := RegistrySource{}
 	this.Id = id
 	this.Object = object
@@ -132,9 +132,9 @@ func (o *RegistrySource) SetName(v string) {
 }
 
 // GetRepositories returns the Repositories field value
-func (o *RegistrySource) GetRepositories() ContainerRepositoryListWithIsExtra {
+func (o *RegistrySource) GetRepositories() RegistrySourceContainerRepositoryList {
 	if o == nil {
-		var ret ContainerRepositoryListWithIsExtra
+		var ret RegistrySourceContainerRepositoryList
 		return ret
 	}
 
@@ -143,7 +143,7 @@ func (o *RegistrySource) GetRepositories() ContainerRepositoryListWithIsExtra {
 
 // GetRepositoriesOk returns a tuple with the Repositories field value
 // and a boolean to check if the value has been set.
-func (o *RegistrySource) GetRepositoriesOk() (*ContainerRepositoryListWithIsExtra, bool) {
+func (o *RegistrySource) GetRepositoriesOk() (*RegistrySourceContainerRepositoryList, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -151,7 +151,7 @@ func (o *RegistrySource) GetRepositoriesOk() (*ContainerRepositoryListWithIsExtr
 }
 
 // SetRepositories sets field value
-func (o *RegistrySource) SetRepositories(v ContainerRepositoryListWithIsExtra) {
+func (o *RegistrySource) SetRepositories(v RegistrySourceContainerRepositoryList) {
 	o.Repositories = v
 }
 

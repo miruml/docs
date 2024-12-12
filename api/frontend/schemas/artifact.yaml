@@ -196,11 +196,15 @@ components:
             type: object
             required:
               - repo_id
+              - digest
               - tag
             properties: 
               repository_id:
                 type: string
                 example: "cont_repo_1234"
+              digest:
+                type: string
+                example: "sha256:1234567890"
               tag:
                 type: string
                 example: "v1.3.4"
