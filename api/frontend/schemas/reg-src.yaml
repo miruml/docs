@@ -5,24 +5,44 @@ info:
 components:
   schemas:
     RegistrySourceContainerRepository:
-      title: Container Repository With Is Extra (Registry Source)
+      title: Registry Source Container Repository
       type: object
       required:
+        - id
+        - object
+        - registry_url
+        - name
+        - uri
+        - type
         - is_extra
         - compose_service
-      allOf:
-        - $ref: '../schemas/cont-repo.yaml#/components/schemas/ContainerRepository'
-        - type: object
-          properties:
-            is_extra:
-              type: boolean
-              example: true
-            compose_service:
-              type: string
-              example: "database"
-              nullable: true
+      properties:
+        object:
+          type: string
+          example: "container_repository"
+        id:
+          type: string
+          example: "cont_repo_123"
+        registry_url:
+          type: string
+          example: "us-central1-docker.pkg.dev/container-integration"
+        name:
+          type: string
+          example: "miru/django"
+        uri:
+          type: string
+          example: "us-central1-docker.pkg.dev/container-integration/miru/django"
+        type:
+          $ref: "../schemas/cont-repo.yaml#/components/schemas/ContainerRepositoryType"
+        is_extra:
+          type: boolean
+          example: true
+        compose_service:
+          type: string
+          example: "database"
+          nullable: true
     RegistrySourceContainerRepositoryList:
-      title: Container Repository List With Is Extra (Registry Source)
+      title: Registry Source Container Repository List
       type: object
       required:
         - object
@@ -34,6 +54,7 @@ components:
         data:
           type: array
           items:
+            type: object
             $ref: '#/components/schemas/RegistrySourceContainerRepository'
     RegistrySource:
       title: Registry Source 
