@@ -21,12 +21,12 @@ var _ MappedNullable = &ContainerRepository{}
 
 // ContainerRepository struct for ContainerRepository
 type ContainerRepository struct {
+	Object string `json:"object"`
+	Id string `json:"id"`
 	RegistryUrl string `json:"registry_url"`
 	Name string `json:"name"`
 	Uri string `json:"uri"`
 	Type ContainerRepositoryType `json:"type"`
-	Object string `json:"object"`
-	Id string `json:"id"`
 }
 
 type _ContainerRepository ContainerRepository
@@ -35,14 +35,14 @@ type _ContainerRepository ContainerRepository
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewContainerRepository(registryUrl string, name string, uri string, type_ ContainerRepositoryType, object string, id string) *ContainerRepository {
+func NewContainerRepository(object string, id string, registryUrl string, name string, uri string, type_ ContainerRepositoryType) *ContainerRepository {
 	this := ContainerRepository{}
+	this.Object = object
+	this.Id = id
 	this.RegistryUrl = registryUrl
 	this.Name = name
 	this.Uri = uri
 	this.Type = type_
-	this.Object = object
-	this.Id = id
 	return &this
 }
 
@@ -52,6 +52,54 @@ func NewContainerRepository(registryUrl string, name string, uri string, type_ C
 func NewContainerRepositoryWithDefaults() *ContainerRepository {
 	this := ContainerRepository{}
 	return &this
+}
+
+// GetObject returns the Object field value
+func (o *ContainerRepository) GetObject() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Object
+}
+
+// GetObjectOk returns a tuple with the Object field value
+// and a boolean to check if the value has been set.
+func (o *ContainerRepository) GetObjectOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Object, true
+}
+
+// SetObject sets field value
+func (o *ContainerRepository) SetObject(v string) {
+	o.Object = v
+}
+
+// GetId returns the Id field value
+func (o *ContainerRepository) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *ContainerRepository) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *ContainerRepository) SetId(v string) {
+	o.Id = v
 }
 
 // GetRegistryUrl returns the RegistryUrl field value
@@ -150,54 +198,6 @@ func (o *ContainerRepository) SetType(v ContainerRepositoryType) {
 	o.Type = v
 }
 
-// GetObject returns the Object field value
-func (o *ContainerRepository) GetObject() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Object
-}
-
-// GetObjectOk returns a tuple with the Object field value
-// and a boolean to check if the value has been set.
-func (o *ContainerRepository) GetObjectOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Object, true
-}
-
-// SetObject sets field value
-func (o *ContainerRepository) SetObject(v string) {
-	o.Object = v
-}
-
-// GetId returns the Id field value
-func (o *ContainerRepository) GetId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *ContainerRepository) GetIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Id, true
-}
-
-// SetId sets field value
-func (o *ContainerRepository) SetId(v string) {
-	o.Id = v
-}
-
 func (o ContainerRepository) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -208,12 +208,12 @@ func (o ContainerRepository) MarshalJSON() ([]byte, error) {
 
 func (o ContainerRepository) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["object"] = o.Object
+	toSerialize["id"] = o.Id
 	toSerialize["registry_url"] = o.RegistryUrl
 	toSerialize["name"] = o.Name
 	toSerialize["uri"] = o.Uri
 	toSerialize["type"] = o.Type
-	toSerialize["object"] = o.Object
-	toSerialize["id"] = o.Id
 	return toSerialize, nil
 }
 
@@ -222,12 +222,12 @@ func (o *ContainerRepository) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"object",
+		"id",
 		"registry_url",
 		"name",
 		"uri",
 		"type",
-		"object",
-		"id",
 	}
 
 	allProperties := make(map[string]interface{})

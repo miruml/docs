@@ -47,8 +47,8 @@ paths:
     $ref: './frontend/paths/artifacts.yaml#/paths/~1artifacts~1{artifact_id}'
   /artifacts/{artifact_id}/compose_file:
     $ref: './frontend/paths/artifacts.yaml#/paths/~1artifacts~1{artifact_id}~1compose_file'
-  /sources/registries/{registry_source_id}/artifacts:
-    $ref: './frontend/paths/artifacts.yaml#/paths/~1sources~1registries~1{registry_source_id}~1artifacts'
+  /sources/registry/{registry_source_id}/artifacts:
+    $ref: './frontend/paths/artifacts.yaml#/paths/~1sources~1registry~1{registry_source_id}~1artifacts'
   /sources/github/{github_source_id}/artifacts:
     $ref: './frontend/paths/artifacts.yaml#/paths/~1sources~1github~1{github_source_id}~1artifacts'
 
@@ -57,21 +57,31 @@ paths:
     $ref: './frontend/paths/gh-src.yaml#/paths/~1sources~1github~1{github_source_id}~1commits'
 
   # registry sources
-  /workspaces/{workspace_id}/sources/registries:
-    $ref: './frontend/paths/reg-srcs.yaml#/paths/~1workspaces~1{workspace_id}~1sources~1registries'
-  /sources/registries/{registry_source_id}:
-    $ref: './frontend/paths/reg-srcs.yaml#/paths/~1sources~1registries~1{registry_source_id}'
-  /sources/registries/{registry_source_id}/compose_file:
-    $ref: './frontend/paths/reg-srcs.yaml#/paths/~1sources~1registries~1{registry_source_id}~1compose_file'
+  /workspaces/{workspace_id}/sources/registry:
+    $ref: './frontend/paths/reg-srcs.yaml#/paths/~1workspaces~1{workspace_id}~1sources~1registry'
+  /sources/registry/{registry_source_id}:
+    $ref: './frontend/paths/reg-srcs.yaml#/paths/~1sources~1registry~1{registry_source_id}'
+  /sources/registry/{registry_source_id}/compose_file:
+    $ref: './frontend/paths/reg-srcs.yaml#/paths/~1sources~1registry~1{registry_source_id}~1compose_file'
 
   # repositories
   /integrations/dockerhub/{dockerhub_integration_id}/repositories/external:
     $ref: './frontend/paths/cont-repos.yaml#/paths/~1integrations~1dockerhub~1{dockerhub_integration_id}~1repositories~1external'
   /integrations/gar/{gar_integration_id}/repositories/external:
     $ref: './frontend/paths/cont-repos.yaml#/paths/~1integrations~1gar~1{gar_integration_id}~1repositories~1external'
-  /workspaces/{workspace_id}/repositories/containers/external:
-    $ref: './frontend/paths/cont-repos.yaml#/paths/~1workspaces~1{workspace_id}~1repositories~1containers~1external'
-  /repositories/containers/{repository_id}:
-    $ref: './frontend/paths/cont-repos.yaml#/paths/~1repositories~1containers~1{repository_id}'
-  /repositories/containers/{repository_id}/images/external:
-    $ref: './frontend/paths/cont-repos.yaml#/paths/~1repositories~1containers~1{repository_id}~1images~1external'
+  /workspaces/{workspace_id}/repositories/container/external:
+    $ref: './frontend/paths/cont-repos.yaml#/paths/~1workspaces~1{workspace_id}~1repositories~1container~1external'
+  /repositories/container/{repository_id}:
+    $ref: './frontend/paths/cont-repos.yaml#/paths/~1repositories~1container~1{repository_id}'
+  /repositories/container/{repository_id}/images/external:
+    $ref: './frontend/paths/cont-repos.yaml#/paths/~1repositories~1container~1{repository_id}~1images~1external'
+
+  # error examples
+  /example/errors/400:
+    $ref: './frontend/paths/err-examples.yaml#/paths/~1example~1errors~1400'
+  /example/errors/401:
+    $ref: './frontend/paths/err-examples.yaml#/paths/~1example~1errors~1401'
+  /example/errors/403:
+    $ref: './frontend/paths/err-examples.yaml#/paths/~1example~1errors~1403'
+  /example/errors/404:
+    $ref: './frontend/paths/err-examples.yaml#/paths/~1example~1errors~1404'

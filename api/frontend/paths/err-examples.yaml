@@ -1,0 +1,37 @@
+openapi: 3.0.3
+info:
+  title: Generic Errors
+  version: ""
+paths:
+  /example/errors/400:
+    get:
+      description: This route doesn't actually exist. It's an example of a generic 400 error that any API route can return.
+      tags:
+        - Generic Errors
+      responses:
+        '400':
+          $ref: '../responses/generic.yaml#/components/responses/BadRequest'
+  /example/errors/401:
+    get:
+      description: This route doesn't actually exist. It's an example of a generic 401 error that any API route can return.
+      tags:
+        - Generic Errors
+      responses:
+        '401':
+          $ref: '../responses/generic.yaml#/components/responses/Unauthorized'
+  /example/errors/403:
+    get:
+      description: This route doesn't actually exist. It's an example of a generic 403 error that any API route can return.
+      tags:
+        - Generic Errors
+      responses:
+        '403':
+          $ref: '../responses/generic.yaml#/components/responses/Forbidden'
+  /example/errors/404:
+    get:
+      description: This route doesn't actually exist. It's an example of a generic 404 error that any API route can return.
+      tags:
+        - Generic Errors
+      responses:
+        '404':
+          $ref: '../responses/generic.yaml#/components/responses/NotFound'

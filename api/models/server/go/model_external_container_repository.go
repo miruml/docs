@@ -15,6 +15,8 @@ package openapi
 
 type ExternalContainerRepository struct {
 
+	Object string `json:"object"`
+
 	RegistryUrl string `json:"registry_url"`
 
 	Name string `json:"name"`
@@ -22,8 +24,6 @@ type ExternalContainerRepository struct {
 	Uri string `json:"uri"`
 
 	Type ContainerRepositoryType `json:"type"`
-
-	Object string `json:"object"`
 
 	Description *string `json:"description"`
 
@@ -34,11 +34,11 @@ type ExternalContainerRepository struct {
 // AssertExternalContainerRepositoryRequired checks if the required fields are not zero-ed
 func AssertExternalContainerRepositoryRequired(obj ExternalContainerRepository) error {
 	elements := map[string]interface{}{
+		"object": obj.Object,
 		"registry_url": obj.RegistryUrl,
 		"name": obj.Name,
 		"uri": obj.Uri,
 		"type": obj.Type,
-		"object": obj.Object,
 		"description": obj.Description,
 		"bytes": obj.Bytes,
 	}

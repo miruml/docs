@@ -15,6 +15,10 @@ package openapi
 
 type RegistrySourceContainerRepository struct {
 
+	Object string `json:"object"`
+
+	Id string `json:"id"`
+
 	RegistryUrl string `json:"registry_url"`
 
 	Name string `json:"name"`
@@ -22,10 +26,6 @@ type RegistrySourceContainerRepository struct {
 	Uri string `json:"uri"`
 
 	Type ContainerRepositoryType `json:"type"`
-
-	Object string `json:"object"`
-
-	Id string `json:"id"`
 
 	IsExtra bool `json:"is_extra"`
 
@@ -35,12 +35,12 @@ type RegistrySourceContainerRepository struct {
 // AssertRegistrySourceContainerRepositoryRequired checks if the required fields are not zero-ed
 func AssertRegistrySourceContainerRepositoryRequired(obj RegistrySourceContainerRepository) error {
 	elements := map[string]interface{}{
+		"object": obj.Object,
+		"id": obj.Id,
 		"registry_url": obj.RegistryUrl,
 		"name": obj.Name,
 		"uri": obj.Uri,
 		"type": obj.Type,
-		"object": obj.Object,
-		"id": obj.Id,
 		"is_extra": obj.IsExtra,
 		"compose_service": obj.ComposeService,
 	}

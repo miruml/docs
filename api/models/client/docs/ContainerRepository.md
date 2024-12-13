@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Object** | **string** |  | 
+**Id** | **string** |  | 
 **RegistryUrl** | **string** |  | 
 **Name** | **string** |  | 
 **Uri** | **string** |  | 
 **Type** | [**ContainerRepositoryType**](ContainerRepositoryType.md) |  | 
-**Object** | **string** |  | 
-**Id** | **string** |  | 
 
 ## Methods
 
 ### NewContainerRepository
 
-`func NewContainerRepository(registryUrl string, name string, uri string, type_ ContainerRepositoryType, object string, id string, ) *ContainerRepository`
+`func NewContainerRepository(object string, id string, registryUrl string, name string, uri string, type_ ContainerRepositoryType, ) *ContainerRepository`
 
 NewContainerRepository instantiates a new ContainerRepository object
 This constructor will assign default values to properties that have it defined,
@@ -29,6 +29,46 @@ will change when the set of required properties is changed
 NewContainerRepositoryWithDefaults instantiates a new ContainerRepository object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetObject
+
+`func (o *ContainerRepository) GetObject() string`
+
+GetObject returns the Object field if non-nil, zero value otherwise.
+
+### GetObjectOk
+
+`func (o *ContainerRepository) GetObjectOk() (*string, bool)`
+
+GetObjectOk returns a tuple with the Object field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetObject
+
+`func (o *ContainerRepository) SetObject(v string)`
+
+SetObject sets Object field to given value.
+
+
+### GetId
+
+`func (o *ContainerRepository) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *ContainerRepository) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *ContainerRepository) SetId(v string)`
+
+SetId sets Id field to given value.
+
 
 ### GetRegistryUrl
 
@@ -108,46 +148,6 @@ and a boolean to check if the value has been set.
 `func (o *ContainerRepository) SetType(v ContainerRepositoryType)`
 
 SetType sets Type field to given value.
-
-
-### GetObject
-
-`func (o *ContainerRepository) GetObject() string`
-
-GetObject returns the Object field if non-nil, zero value otherwise.
-
-### GetObjectOk
-
-`func (o *ContainerRepository) GetObjectOk() (*string, bool)`
-
-GetObjectOk returns a tuple with the Object field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetObject
-
-`func (o *ContainerRepository) SetObject(v string)`
-
-SetObject sets Object field to given value.
-
-
-### GetId
-
-`func (o *ContainerRepository) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *ContainerRepository) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *ContainerRepository) SetId(v string)`
-
-SetId sets Id field to given value.
 
 
 

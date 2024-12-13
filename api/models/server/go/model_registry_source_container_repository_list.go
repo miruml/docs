@@ -32,20 +32,10 @@ func AssertRegistrySourceContainerRepositoryListRequired(obj RegistrySourceConta
 		}
 	}
 
-	for _, el := range obj.Data {
-		if err := AssertRegistrySourceContainerRepositoryRequired(el); err != nil {
-			return err
-		}
-	}
 	return nil
 }
 
 // AssertRegistrySourceContainerRepositoryListConstraints checks if the values respects the defined constraints
 func AssertRegistrySourceContainerRepositoryListConstraints(obj RegistrySourceContainerRepositoryList) error {
-	for _, el := range obj.Data {
-		if err := AssertRegistrySourceContainerRepositoryConstraints(el); err != nil {
-			return err
-		}
-	}
 	return nil
 }

@@ -3,7 +3,7 @@ info:
   title: Registry Sources 
   version: ""
 paths:
-  /workspaces/{workspace_id}/sources/registries:
+  /workspaces/{workspace_id}/sources/registry:
     get:
       tags:
         - Registry Sources
@@ -34,7 +34,7 @@ paths:
             application/json:
               schema:
                 $ref: '../schemas/reg-src.yaml#/components/schemas/RegistrySource'
-  /sources/registries/{registry_source_id}:
+  /sources/registry/{registry_source_id}:
     get:
       tags:
         - Registry Sources
@@ -77,7 +77,7 @@ paths:
             application/json:
               schema:
                 $ref: '../schemas/reg-src.yaml#/components/schemas/RegistrySource'
-  /sources/registries/{registry_source_id}/compose_file:
+  /sources/registry/{registry_source_id}/compose_file:
     get:
       tags:
         - Registry Sources

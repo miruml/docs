@@ -21,11 +21,11 @@ var _ MappedNullable = &ExternalContainerRepository{}
 
 // ExternalContainerRepository struct for ExternalContainerRepository
 type ExternalContainerRepository struct {
+	Object string `json:"object"`
 	RegistryUrl string `json:"registry_url"`
 	Name string `json:"name"`
 	Uri string `json:"uri"`
 	Type ContainerRepositoryType `json:"type"`
-	Object string `json:"object"`
 	Description NullableString `json:"description"`
 	// The size of the repository in bytes
 	Bytes NullableInt64 `json:"bytes"`
@@ -37,13 +37,13 @@ type _ExternalContainerRepository ExternalContainerRepository
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExternalContainerRepository(registryUrl string, name string, uri string, type_ ContainerRepositoryType, object string, description NullableString, bytes NullableInt64) *ExternalContainerRepository {
+func NewExternalContainerRepository(object string, registryUrl string, name string, uri string, type_ ContainerRepositoryType, description NullableString, bytes NullableInt64) *ExternalContainerRepository {
 	this := ExternalContainerRepository{}
+	this.Object = object
 	this.RegistryUrl = registryUrl
 	this.Name = name
 	this.Uri = uri
 	this.Type = type_
-	this.Object = object
 	this.Description = description
 	this.Bytes = bytes
 	return &this
@@ -55,6 +55,30 @@ func NewExternalContainerRepository(registryUrl string, name string, uri string,
 func NewExternalContainerRepositoryWithDefaults() *ExternalContainerRepository {
 	this := ExternalContainerRepository{}
 	return &this
+}
+
+// GetObject returns the Object field value
+func (o *ExternalContainerRepository) GetObject() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Object
+}
+
+// GetObjectOk returns a tuple with the Object field value
+// and a boolean to check if the value has been set.
+func (o *ExternalContainerRepository) GetObjectOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Object, true
+}
+
+// SetObject sets field value
+func (o *ExternalContainerRepository) SetObject(v string) {
+	o.Object = v
 }
 
 // GetRegistryUrl returns the RegistryUrl field value
@@ -153,30 +177,6 @@ func (o *ExternalContainerRepository) SetType(v ContainerRepositoryType) {
 	o.Type = v
 }
 
-// GetObject returns the Object field value
-func (o *ExternalContainerRepository) GetObject() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Object
-}
-
-// GetObjectOk returns a tuple with the Object field value
-// and a boolean to check if the value has been set.
-func (o *ExternalContainerRepository) GetObjectOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Object, true
-}
-
-// SetObject sets field value
-func (o *ExternalContainerRepository) SetObject(v string) {
-	o.Object = v
-}
-
 // GetDescription returns the Description field value
 // If the value is explicit nil, the zero value for string will be returned
 func (o *ExternalContainerRepository) GetDescription() string {
@@ -239,11 +239,11 @@ func (o ExternalContainerRepository) MarshalJSON() ([]byte, error) {
 
 func (o ExternalContainerRepository) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["object"] = o.Object
 	toSerialize["registry_url"] = o.RegistryUrl
 	toSerialize["name"] = o.Name
 	toSerialize["uri"] = o.Uri
 	toSerialize["type"] = o.Type
-	toSerialize["object"] = o.Object
 	toSerialize["description"] = o.Description.Get()
 	toSerialize["bytes"] = o.Bytes.Get()
 	return toSerialize, nil
@@ -254,11 +254,11 @@ func (o *ExternalContainerRepository) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"object",
 		"registry_url",
 		"name",
 		"uri",
 		"type",
-		"object",
 		"description",
 		"bytes",
 	}

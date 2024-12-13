@@ -35,11 +35,7 @@ paths:
             application/json:
               schema:
                 $ref: '../schemas/artifact.yaml#/components/schemas/ComposeFile'
-        '401':
-          $ref: '../responses/generic.yaml#/components/responses/Unauthorized'
-        '403':
-          $ref: '../responses/generic.yaml#/components/responses/Forbidden'
-  /sources/registries/{registry_source_id}/artifacts:
+  /sources/registry/{registry_source_id}/artifacts:
     post:
       tags:
         - Artifacts

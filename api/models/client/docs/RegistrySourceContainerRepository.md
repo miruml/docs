@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Object** | **string** |  | 
+**Id** | **string** |  | 
 **RegistryUrl** | **string** |  | 
 **Name** | **string** |  | 
 **Uri** | **string** |  | 
 **Type** | [**ContainerRepositoryType**](ContainerRepositoryType.md) |  | 
-**Object** | **string** |  | 
-**Id** | **string** |  | 
 **IsExtra** | **bool** |  | 
 **ComposeService** | **NullableString** |  | 
 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewRegistrySourceContainerRepository
 
-`func NewRegistrySourceContainerRepository(registryUrl string, name string, uri string, type_ ContainerRepositoryType, object string, id string, isExtra bool, composeService NullableString, ) *RegistrySourceContainerRepository`
+`func NewRegistrySourceContainerRepository(object string, id string, registryUrl string, name string, uri string, type_ ContainerRepositoryType, isExtra bool, composeService NullableString, ) *RegistrySourceContainerRepository`
 
 NewRegistrySourceContainerRepository instantiates a new RegistrySourceContainerRepository object
 This constructor will assign default values to properties that have it defined,
@@ -31,6 +31,46 @@ will change when the set of required properties is changed
 NewRegistrySourceContainerRepositoryWithDefaults instantiates a new RegistrySourceContainerRepository object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetObject
+
+`func (o *RegistrySourceContainerRepository) GetObject() string`
+
+GetObject returns the Object field if non-nil, zero value otherwise.
+
+### GetObjectOk
+
+`func (o *RegistrySourceContainerRepository) GetObjectOk() (*string, bool)`
+
+GetObjectOk returns a tuple with the Object field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetObject
+
+`func (o *RegistrySourceContainerRepository) SetObject(v string)`
+
+SetObject sets Object field to given value.
+
+
+### GetId
+
+`func (o *RegistrySourceContainerRepository) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *RegistrySourceContainerRepository) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *RegistrySourceContainerRepository) SetId(v string)`
+
+SetId sets Id field to given value.
+
 
 ### GetRegistryUrl
 
@@ -110,46 +150,6 @@ and a boolean to check if the value has been set.
 `func (o *RegistrySourceContainerRepository) SetType(v ContainerRepositoryType)`
 
 SetType sets Type field to given value.
-
-
-### GetObject
-
-`func (o *RegistrySourceContainerRepository) GetObject() string`
-
-GetObject returns the Object field if non-nil, zero value otherwise.
-
-### GetObjectOk
-
-`func (o *RegistrySourceContainerRepository) GetObjectOk() (*string, bool)`
-
-GetObjectOk returns a tuple with the Object field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetObject
-
-`func (o *RegistrySourceContainerRepository) SetObject(v string)`
-
-SetObject sets Object field to given value.
-
-
-### GetId
-
-`func (o *RegistrySourceContainerRepository) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *RegistrySourceContainerRepository) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *RegistrySourceContainerRepository) SetId(v string)`
-
-SetId sets Id field to given value.
 
 
 ### GetIsExtra

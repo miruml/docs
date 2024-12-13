@@ -13,6 +13,23 @@ components:
         error:
           type: object
 
+    BadRequestError:
+      title: Bad Request
+      type: object
+      required:
+        - code
+        - params
+        - message
+      properties:
+        code:
+          type: string
+          example: "<error_code>"
+        params:
+          type: object
+        message:
+          type: string
+          example: "<error_message>"
+
     UnauthorizedError:
       title: Unauthorized
       type: object

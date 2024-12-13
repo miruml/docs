@@ -31,7 +31,7 @@ paths:
             application/json:
               schema:
                 $ref: '../schemas/cont-repo.yaml#/components/schemas/ExternalContainerRepositoryList'
-  /workspaces/{workspace_id}/repositories/containers/external:
+  /workspaces/{workspace_id}/repositories/container/external:
     get:
       tags:
         - Container Repositories
@@ -45,7 +45,7 @@ paths:
             application/json:
               schema:
                 $ref: '../schemas/cont-repo.yaml#/components/schemas/ExternalContainerRepositoryList'
-  /repositories/containers/{repository_id}:
+  /repositories/container/{repository_id}:
     get:
       tags:
         - Container Repositories
@@ -58,7 +58,7 @@ paths:
             application/json:
               schema:
                 $ref: '../schemas/cont-repo.yaml#/components/schemas/ContainerRepository'
-  /repositories/containers/{repository_id}/images/external:
+  /repositories/container/{repository_id}/images/external:
     get:
       tags:
         - Container Repositories

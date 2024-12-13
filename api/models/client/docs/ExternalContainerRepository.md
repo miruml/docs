@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Object** | **string** |  | 
 **RegistryUrl** | **string** |  | 
 **Name** | **string** |  | 
 **Uri** | **string** |  | 
 **Type** | [**ContainerRepositoryType**](ContainerRepositoryType.md) |  | 
-**Object** | **string** |  | 
 **Description** | **NullableString** |  | 
 **Bytes** | **NullableInt64** | The size of the repository in bytes | 
 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 
 ### NewExternalContainerRepository
 
-`func NewExternalContainerRepository(registryUrl string, name string, uri string, type_ ContainerRepositoryType, object string, description NullableString, bytes NullableInt64, ) *ExternalContainerRepository`
+`func NewExternalContainerRepository(object string, registryUrl string, name string, uri string, type_ ContainerRepositoryType, description NullableString, bytes NullableInt64, ) *ExternalContainerRepository`
 
 NewExternalContainerRepository instantiates a new ExternalContainerRepository object
 This constructor will assign default values to properties that have it defined,
@@ -30,6 +30,26 @@ will change when the set of required properties is changed
 NewExternalContainerRepositoryWithDefaults instantiates a new ExternalContainerRepository object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetObject
+
+`func (o *ExternalContainerRepository) GetObject() string`
+
+GetObject returns the Object field if non-nil, zero value otherwise.
+
+### GetObjectOk
+
+`func (o *ExternalContainerRepository) GetObjectOk() (*string, bool)`
+
+GetObjectOk returns a tuple with the Object field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetObject
+
+`func (o *ExternalContainerRepository) SetObject(v string)`
+
+SetObject sets Object field to given value.
+
 
 ### GetRegistryUrl
 
@@ -109,26 +129,6 @@ and a boolean to check if the value has been set.
 `func (o *ExternalContainerRepository) SetType(v ContainerRepositoryType)`
 
 SetType sets Type field to given value.
-
-
-### GetObject
-
-`func (o *ExternalContainerRepository) GetObject() string`
-
-GetObject returns the Object field if non-nil, zero value otherwise.
-
-### GetObjectOk
-
-`func (o *ExternalContainerRepository) GetObjectOk() (*string, bool)`
-
-GetObjectOk returns a tuple with the Object field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetObject
-
-`func (o *ExternalContainerRepository) SetObject(v string)`
-
-SetObject sets Object field to given value.
 
 
 ### GetDescription

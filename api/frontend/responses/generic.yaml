@@ -4,6 +4,18 @@ info:
   version: ""
 components:
   responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            title: Error
+            type: object
+            required:
+              - error
+            properties:
+              error:
+                $ref: '../errors/generic.yaml#/components/schemas/BadRequestError'
     Unauthorized:
       description: Unauthorized
       content:

@@ -15,6 +15,10 @@ package openapi
 
 type ContainerRepository struct {
 
+	Object string `json:"object"`
+
+	Id string `json:"id"`
+
 	RegistryUrl string `json:"registry_url"`
 
 	Name string `json:"name"`
@@ -22,21 +26,17 @@ type ContainerRepository struct {
 	Uri string `json:"uri"`
 
 	Type ContainerRepositoryType `json:"type"`
-
-	Object string `json:"object"`
-
-	Id string `json:"id"`
 }
 
 // AssertContainerRepositoryRequired checks if the required fields are not zero-ed
 func AssertContainerRepositoryRequired(obj ContainerRepository) error {
 	elements := map[string]interface{}{
+		"object": obj.Object,
+		"id": obj.Id,
 		"registry_url": obj.RegistryUrl,
 		"name": obj.Name,
 		"uri": obj.Uri,
 		"type": obj.Type,
-		"object": obj.Object,
-		"id": obj.Id,
 	}
 	for name, el := range elements {
 		if isZero := IsZeroValue(el); isZero {
