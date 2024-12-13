@@ -34,6 +34,10 @@ paths:
             application/json:
               schema:
                 $ref: '../schemas/reg-src.yaml#/components/schemas/RegistrySource'
+        '400':
+          $ref: '../responses/registry_sources.yaml#/components/responses/InvalidComposeFile'
+        '404':
+          $ref: '../responses/registry_sources.yaml#/components/responses/RepositoryNotFound'
   /sources/registry/{registry_source_id}:
     get:
       tags:
@@ -65,6 +69,10 @@ paths:
             application/json:
               schema:
                 $ref: '../schemas/reg-src.yaml#/components/schemas/RegistrySource'
+        '400':
+          $ref: '../responses/registry_sources.yaml#/components/responses/InvalidComposeFile'
+        '404':
+          $ref: '../responses/registry_sources.yaml#/components/responses/RepositoryNotFound'
     delete:
       tags:
         - Registry Sources

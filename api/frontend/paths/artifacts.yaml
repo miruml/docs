@@ -2,6 +2,12 @@ openapi: 3.0.3
 info:
   title: Artifacts
   version: ""
+components:
+  schemas:
+    CreateRegistrySourceArtifactErrors:
+      oneOf:
+        - $ref: '../errors/artifacts.yaml#/components/schemas/DuplicateArtifact'
+        - $ref: '../errors/generic.yaml#/components/schemas/BadRequestError'
 paths:
   /artifacts/{artifact_id}:
     get:
