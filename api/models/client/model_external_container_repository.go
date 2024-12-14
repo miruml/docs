@@ -23,6 +23,7 @@ var _ MappedNullable = &ExternalContainerRepository{}
 type ExternalContainerRepository struct {
 	Object string `json:"object"`
 	RegistryUrl string `json:"registry_url"`
+	AccountLogin string `json:"account_login"`
 	Name string `json:"name"`
 	Uri string `json:"uri"`
 	Type ContainerRepositoryType `json:"type"`
@@ -37,10 +38,11 @@ type _ExternalContainerRepository ExternalContainerRepository
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExternalContainerRepository(object string, registryUrl string, name string, uri string, type_ ContainerRepositoryType, description NullableString, bytes NullableInt64) *ExternalContainerRepository {
+func NewExternalContainerRepository(object string, registryUrl string, accountLogin string, name string, uri string, type_ ContainerRepositoryType, description NullableString, bytes NullableInt64) *ExternalContainerRepository {
 	this := ExternalContainerRepository{}
 	this.Object = object
 	this.RegistryUrl = registryUrl
+	this.AccountLogin = accountLogin
 	this.Name = name
 	this.Uri = uri
 	this.Type = type_
@@ -103,6 +105,30 @@ func (o *ExternalContainerRepository) GetRegistryUrlOk() (*string, bool) {
 // SetRegistryUrl sets field value
 func (o *ExternalContainerRepository) SetRegistryUrl(v string) {
 	o.RegistryUrl = v
+}
+
+// GetAccountLogin returns the AccountLogin field value
+func (o *ExternalContainerRepository) GetAccountLogin() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.AccountLogin
+}
+
+// GetAccountLoginOk returns a tuple with the AccountLogin field value
+// and a boolean to check if the value has been set.
+func (o *ExternalContainerRepository) GetAccountLoginOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AccountLogin, true
+}
+
+// SetAccountLogin sets field value
+func (o *ExternalContainerRepository) SetAccountLogin(v string) {
+	o.AccountLogin = v
 }
 
 // GetName returns the Name field value
@@ -241,6 +267,7 @@ func (o ExternalContainerRepository) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["object"] = o.Object
 	toSerialize["registry_url"] = o.RegistryUrl
+	toSerialize["account_login"] = o.AccountLogin
 	toSerialize["name"] = o.Name
 	toSerialize["uri"] = o.Uri
 	toSerialize["type"] = o.Type
@@ -256,6 +283,7 @@ func (o *ExternalContainerRepository) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"object",
 		"registry_url",
+		"account_login",
 		"name",
 		"uri",
 		"type",

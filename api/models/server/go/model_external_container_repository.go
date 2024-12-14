@@ -19,6 +19,8 @@ type ExternalContainerRepository struct {
 
 	RegistryUrl string `json:"registry_url"`
 
+	AccountLogin string `json:"account_login"`
+
 	Name string `json:"name"`
 
 	Uri string `json:"uri"`
@@ -36,6 +38,7 @@ func AssertExternalContainerRepositoryRequired(obj ExternalContainerRepository) 
 	elements := map[string]interface{}{
 		"object": obj.Object,
 		"registry_url": obj.RegistryUrl,
+		"account_login": obj.AccountLogin,
 		"name": obj.Name,
 		"uri": obj.Uri,
 		"type": obj.Type,

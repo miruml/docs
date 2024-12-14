@@ -39,11 +39,11 @@ components:
       description: The unique identifier of the registry source
       schema:
         type: string
-    repository_id:
-      name: repository_id
+    container_repository_id:
+      name: container_repository_id
       in: path
       required: true
-      description: The unique identifier of the repository
+      description: The unique identifier of the container repository
       schema:
         type: string
     workspace_id:

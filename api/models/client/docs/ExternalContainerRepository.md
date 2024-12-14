@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Object** | **string** |  | 
 **RegistryUrl** | **string** |  | 
+**AccountLogin** | **string** |  | 
 **Name** | **string** |  | 
 **Uri** | **string** |  | 
 **Type** | [**ContainerRepositoryType**](ContainerRepositoryType.md) |  | 
@@ -16,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewExternalContainerRepository
 
-`func NewExternalContainerRepository(object string, registryUrl string, name string, uri string, type_ ContainerRepositoryType, description NullableString, bytes NullableInt64, ) *ExternalContainerRepository`
+`func NewExternalContainerRepository(object string, registryUrl string, accountLogin string, name string, uri string, type_ ContainerRepositoryType, description NullableString, bytes NullableInt64, ) *ExternalContainerRepository`
 
 NewExternalContainerRepository instantiates a new ExternalContainerRepository object
 This constructor will assign default values to properties that have it defined,
@@ -69,6 +70,26 @@ and a boolean to check if the value has been set.
 `func (o *ExternalContainerRepository) SetRegistryUrl(v string)`
 
 SetRegistryUrl sets RegistryUrl field to given value.
+
+
+### GetAccountLogin
+
+`func (o *ExternalContainerRepository) GetAccountLogin() string`
+
+GetAccountLogin returns the AccountLogin field if non-nil, zero value otherwise.
+
+### GetAccountLoginOk
+
+`func (o *ExternalContainerRepository) GetAccountLoginOk() (*string, bool)`
+
+GetAccountLoginOk returns a tuple with the AccountLogin field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccountLogin
+
+`func (o *ExternalContainerRepository) SetAccountLogin(v string)`
+
+SetAccountLogin sets AccountLogin field to given value.
 
 
 ### GetName

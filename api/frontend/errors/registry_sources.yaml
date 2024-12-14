@@ -22,10 +22,10 @@ components:
           properties:
             error:
               type: string
-              example: "invalid_compose_file"
+              example: "<descriptive error message>"
         message:
           type: string
-          example: "Compose file is invalid: <error>"
+          example: "Compose file is invalid: <descriptive error message>"
 
     RepositoryNotFound:
       title: RepositoryNotFoundError
@@ -60,6 +60,21 @@ components:
               example: "docker.io/library/redis"
         message:
           type: string
-          example: Repository <repository> does not exist using the credentials from your workspace. Please double check the repository URI and the associated registry credentials.
+          example: Repository <repository-uri> (docker.io/library/redis) does not exist using the credentials from your workspace. Please double check the repository URI and the associated registry credentials.
+
+    UniqueNameViolation:
+      title: UniqueNameViolation
+      type: object
+      required:
+        - code
+        - params
+        - message
+      properties:
+        code:
+          type: string
+          example: "unique_name_violation"
+        params:
+          type: object
+          
 
 paths: {}

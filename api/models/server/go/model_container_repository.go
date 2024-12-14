@@ -21,6 +21,8 @@ type ContainerRepository struct {
 
 	RegistryUrl string `json:"registry_url"`
 
+	AccountLogin string `json:"account_login"`
+
 	Name string `json:"name"`
 
 	Uri string `json:"uri"`
@@ -34,6 +36,7 @@ func AssertContainerRepositoryRequired(obj ContainerRepository) error {
 		"object": obj.Object,
 		"id": obj.Id,
 		"registry_url": obj.RegistryUrl,
+		"account_login": obj.AccountLogin,
 		"name": obj.Name,
 		"uri": obj.Uri,
 		"type": obj.Type,

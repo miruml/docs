@@ -265,6 +265,10 @@ type NullableString struct {
 	isSet bool
 }
 
+func (v NullableString) Equals(other NullableString) bool {
+	return primitive.EqPointerVals(v.value, other.value) && v.isSet == other.isSet
+}
+
 func (v NullableString) Get() *string {
 	return v.value
 }

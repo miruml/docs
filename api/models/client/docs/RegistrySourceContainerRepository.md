@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Object** | **string** |  | 
 **Id** | **string** |  | 
 **RegistryUrl** | **string** |  | 
+**AccountLogin** | **string** |  | 
 **Name** | **string** |  | 
 **Uri** | **string** |  | 
 **Type** | [**ContainerRepositoryType**](ContainerRepositoryType.md) |  | 
@@ -17,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewRegistrySourceContainerRepository
 
-`func NewRegistrySourceContainerRepository(object string, id string, registryUrl string, name string, uri string, type_ ContainerRepositoryType, isExtra bool, composeService NullableString, ) *RegistrySourceContainerRepository`
+`func NewRegistrySourceContainerRepository(object string, id string, registryUrl string, accountLogin string, name string, uri string, type_ ContainerRepositoryType, isExtra bool, composeService NullableString, ) *RegistrySourceContainerRepository`
 
 NewRegistrySourceContainerRepository instantiates a new RegistrySourceContainerRepository object
 This constructor will assign default values to properties that have it defined,
@@ -90,6 +91,26 @@ and a boolean to check if the value has been set.
 `func (o *RegistrySourceContainerRepository) SetRegistryUrl(v string)`
 
 SetRegistryUrl sets RegistryUrl field to given value.
+
+
+### GetAccountLogin
+
+`func (o *RegistrySourceContainerRepository) GetAccountLogin() string`
+
+GetAccountLogin returns the AccountLogin field if non-nil, zero value otherwise.
+
+### GetAccountLoginOk
+
+`func (o *RegistrySourceContainerRepository) GetAccountLoginOk() (*string, bool)`
+
+GetAccountLoginOk returns a tuple with the AccountLogin field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccountLogin
+
+`func (o *RegistrySourceContainerRepository) SetAccountLogin(v string)`
+
+SetAccountLogin sets AccountLogin field to given value.
 
 
 ### GetName

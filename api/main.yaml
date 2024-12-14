@@ -71,10 +71,10 @@ paths:
     $ref: './frontend/paths/cont-repos.yaml#/paths/~1integrations~1gar~1{gar_integration_id}~1repositories~1external'
   /workspaces/{workspace_id}/repositories/container/external:
     $ref: './frontend/paths/cont-repos.yaml#/paths/~1workspaces~1{workspace_id}~1repositories~1container~1external'
-  /repositories/container/{repository_id}:
-    $ref: './frontend/paths/cont-repos.yaml#/paths/~1repositories~1container~1{repository_id}'
-  /repositories/container/{repository_id}/images/external:
-    $ref: './frontend/paths/cont-repos.yaml#/paths/~1repositories~1container~1{repository_id}~1images~1external'
+  /repositories/container/{container_repository_id}:
+    $ref: './frontend/paths/cont-repos.yaml#/paths/~1repositories~1container~1{container_repository_id}'
+  /repositories/container/{container_repository_id}/images/external:
+    $ref: './frontend/paths/cont-repos.yaml#/paths/~1repositories~1container~1{container_repository_id}~1images~1external'
 
   # error examples
   /example/errors/400:

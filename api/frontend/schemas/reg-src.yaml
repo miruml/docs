@@ -11,6 +11,7 @@ components:
         - id
         - object
         - registry_url
+        - account_login
         - name
         - uri
         - type
@@ -26,9 +27,12 @@ components:
         registry_url:
           type: string
           example: "us-central1-docker.pkg.dev/container-integration"
+        account_login:
+          type: string
+          example: "container-integration"
         name:
           type: string
-          example: "miru/django"
+          example: "django"
         uri:
           type: string
           example: "us-central1-docker.pkg.dev/container-integration/miru/django"
