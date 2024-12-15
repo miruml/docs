@@ -12,6 +12,8 @@ package openapi
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
 // checks if the ExternalContainerRepositoryList type satisfies the MappedNullable interface at compile time
@@ -19,16 +21,20 @@ var _ MappedNullable = &ExternalContainerRepositoryList{}
 
 // ExternalContainerRepositoryList struct for ExternalContainerRepositoryList
 type ExternalContainerRepositoryList struct {
-	Object *string `json:"object,omitempty"`
-	Data []ExternalContainerRepository `json:"data,omitempty"`
+	Object string `json:"object"`
+	Data []ExternalContainerRepository `json:"data"`
 }
+
+type _ExternalContainerRepositoryList ExternalContainerRepositoryList
 
 // NewExternalContainerRepositoryList instantiates a new ExternalContainerRepositoryList object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExternalContainerRepositoryList() *ExternalContainerRepositoryList {
+func NewExternalContainerRepositoryList(object string, data []ExternalContainerRepository) *ExternalContainerRepositoryList {
 	this := ExternalContainerRepositoryList{}
+	this.Object = object
+	this.Data = data
 	return &this
 }
 
@@ -40,66 +46,50 @@ func NewExternalContainerRepositoryListWithDefaults() *ExternalContainerReposito
 	return &this
 }
 
-// GetObject returns the Object field value if set, zero value otherwise.
+// GetObject returns the Object field value
 func (o *ExternalContainerRepositoryList) GetObject() string {
-	if o == nil || IsNil(o.Object) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Object
+
+	return o.Object
 }
 
-// GetObjectOk returns a tuple with the Object field value if set, nil otherwise
+// GetObjectOk returns a tuple with the Object field value
 // and a boolean to check if the value has been set.
 func (o *ExternalContainerRepositoryList) GetObjectOk() (*string, bool) {
-	if o == nil || IsNil(o.Object) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Object, true
+	return &o.Object, true
 }
 
-// HasObject returns a boolean if a field has been set.
-func (o *ExternalContainerRepositoryList) HasObject() bool {
-	if o != nil && !IsNil(o.Object) {
-		return true
-	}
-
-	return false
-}
-
-// SetObject gets a reference to the given string and assigns it to the Object field.
+// SetObject sets field value
 func (o *ExternalContainerRepositoryList) SetObject(v string) {
-	o.Object = &v
+	o.Object = v
 }
 
-// GetData returns the Data field value if set, zero value otherwise.
+// GetData returns the Data field value
 func (o *ExternalContainerRepositoryList) GetData() []ExternalContainerRepository {
-	if o == nil || IsNil(o.Data) {
+	if o == nil {
 		var ret []ExternalContainerRepository
 		return ret
 	}
+
 	return o.Data
 }
 
-// GetDataOk returns a tuple with the Data field value if set, nil otherwise
+// GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
 func (o *ExternalContainerRepositoryList) GetDataOk() ([]ExternalContainerRepository, bool) {
-	if o == nil || IsNil(o.Data) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Data, true
 }
 
-// HasData returns a boolean if a field has been set.
-func (o *ExternalContainerRepositoryList) HasData() bool {
-	if o != nil && !IsNil(o.Data) {
-		return true
-	}
-
-	return false
-}
-
-// SetData gets a reference to the given []ExternalContainerRepository and assigns it to the Data field.
+// SetData sets field value
 func (o *ExternalContainerRepositoryList) SetData(v []ExternalContainerRepository) {
 	o.Data = v
 }
@@ -114,13 +104,47 @@ func (o ExternalContainerRepositoryList) MarshalJSON() ([]byte, error) {
 
 func (o ExternalContainerRepositoryList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Object) {
-		toSerialize["object"] = o.Object
-	}
-	if !IsNil(o.Data) {
-		toSerialize["data"] = o.Data
-	}
+	toSerialize["object"] = o.Object
+	toSerialize["data"] = o.Data
 	return toSerialize, nil
+}
+
+func (o *ExternalContainerRepositoryList) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"object",
+		"data",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varExternalContainerRepositoryList := _ExternalContainerRepositoryList{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varExternalContainerRepositoryList)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ExternalContainerRepositoryList(varExternalContainerRepositoryList)
+
+	return err
 }
 
 type NullableExternalContainerRepositoryList struct {

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **int64** |  | 
-**Object** | Pointer to **string** |  | [optional] 
+**Object** | **string** |  | 
 **Login** | **string** |  | 
 **Type** | **string** |  | 
 **HtmlUrl** | **string** |  | 
@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 
 ### NewGitHubCommitter
 
-`func NewGitHubCommitter(id int64, login string, type_ string, htmlUrl string, avatarUrl string, ) *GitHubCommitter`
+`func NewGitHubCommitter(id int64, object string, login string, type_ string, htmlUrl string, avatarUrl string, ) *GitHubCommitter`
 
 NewGitHubCommitter instantiates a new GitHubCommitter object
 This constructor will assign default values to properties that have it defined,
@@ -69,11 +69,6 @@ and a boolean to check if the value has been set.
 
 SetObject sets Object field to given value.
 
-### HasObject
-
-`func (o *GitHubCommitter) HasObject() bool`
-
-HasObject returns a boolean if a field has been set.
 
 ### GetLogin
 

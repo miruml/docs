@@ -29,7 +29,7 @@ type Artifact struct {
 
 	SourceType string `json:"source_type"`
 
-	GithubSourceData GitHubSourceData `json:"github_source_data,omitempty"`
+	GithubSourceData GitHubSourceData `json:"github_source_data"`
 
 	Aarch64 bool `json:"aarch64"`
 
@@ -37,9 +37,9 @@ type Artifact struct {
 
 	CreatedAt time.Time `json:"created_at"`
 
-	ReadyAt *time.Time `json:"ready_at,omitempty"`
+	ReadyAt *time.Time `json:"ready_at"`
 
-	FailedAt *time.Time `json:"failed_at,omitempty"`
+	FailedAt *time.Time `json:"failed_at"`
 }
 
 // AssertArtifactRequired checks if the required fields are not zero-ed
@@ -50,9 +50,12 @@ func AssertArtifactRequired(obj Artifact) error {
 		"status": obj.Status,
 		"source_id": obj.SourceId,
 		"source_type": obj.SourceType,
+		"github_source_data": obj.GithubSourceData,
 		"aarch64": obj.Aarch64,
 		"x86_64": obj.X8664,
 		"created_at": obj.CreatedAt,
+		"ready_at": obj.ReadyAt,
+		"failed_at": obj.FailedAt,
 	}
 	for name, el := range elements {
 		if isZero := IsZeroValue(el); isZero {

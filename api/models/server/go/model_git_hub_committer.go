@@ -17,7 +17,7 @@ type GitHubCommitter struct {
 
 	Id int64 `json:"id"`
 
-	Object string `json:"object,omitempty"`
+	Object string `json:"object"`
 
 	Login string `json:"login"`
 
@@ -32,6 +32,7 @@ type GitHubCommitter struct {
 func AssertGitHubCommitterRequired(obj GitHubCommitter) error {
 	elements := map[string]interface{}{
 		"id": obj.Id,
+		"object": obj.Object,
 		"login": obj.Login,
 		"type": obj.Type,
 		"html_url": obj.HtmlUrl,

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Object** | Pointer to **string** |  | [optional] 
-**Data** | Pointer to [**[]ExternalContainerRepository**](ExternalContainerRepository.md) |  | [optional] 
+**Object** | **string** |  | 
+**Data** | [**[]ExternalContainerRepository**](ExternalContainerRepository.md) |  | 
 
 ## Methods
 
 ### NewExternalContainerRepositoryList
 
-`func NewExternalContainerRepositoryList() *ExternalContainerRepositoryList`
+`func NewExternalContainerRepositoryList(object string, data []ExternalContainerRepository, ) *ExternalContainerRepositoryList`
 
 NewExternalContainerRepositoryList instantiates a new ExternalContainerRepositoryList object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetObject sets Object field to given value.
 
-### HasObject
-
-`func (o *ExternalContainerRepositoryList) HasObject() bool`
-
-HasObject returns a boolean if a field has been set.
 
 ### GetData
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetData sets Data field to given value.
 
-### HasData
-
-`func (o *ExternalContainerRepositoryList) HasData() bool`
-
-HasData returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Object** | Pointer to **string** |  | [optional] 
+**Object** | **string** |  | 
 **Digest** | **string** |  | 
 **Tags** | **[]string** |  | 
 **Uri** | **string** |  | 
@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 
 ### NewExternalContainerImage
 
-`func NewExternalContainerImage(digest string, tags []string, uri string, bytes NullableInt64, uploadedAt time.Time, ) *ExternalContainerImage`
+`func NewExternalContainerImage(object string, digest string, tags []string, uri string, bytes NullableInt64, uploadedAt time.Time, ) *ExternalContainerImage`
 
 NewExternalContainerImage instantiates a new ExternalContainerImage object
 This constructor will assign default values to properties that have it defined,
@@ -49,11 +49,6 @@ and a boolean to check if the value has been set.
 
 SetObject sets Object field to given value.
 
-### HasObject
-
-`func (o *ExternalContainerImage) HasObject() bool`
-
-HasObject returns a boolean if a field has been set.
 
 ### GetDigest
 

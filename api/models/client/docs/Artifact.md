@@ -9,18 +9,18 @@ Name | Type | Description | Notes
 **Status** | [**ArtifactStatus**](ArtifactStatus.md) |  | 
 **SourceId** | **string** |  | 
 **SourceType** | **string** |  | 
-**GithubSourceData** | Pointer to [**GitHubSourceData**](GitHubSourceData.md) |  | [optional] 
+**GithubSourceData** | [**GitHubSourceData**](GitHubSourceData.md) |  | 
 **Aarch64** | **bool** |  | 
 **X8664** | **bool** |  | 
 **CreatedAt** | **time.Time** |  | 
-**ReadyAt** | Pointer to **NullableTime** |  | [optional] 
-**FailedAt** | Pointer to **NullableTime** |  | [optional] 
+**ReadyAt** | **NullableTime** |  | 
+**FailedAt** | **NullableTime** |  | 
 
 ## Methods
 
 ### NewArtifact
 
-`func NewArtifact(object string, id string, status ArtifactStatus, sourceId string, sourceType string, aarch64 bool, x8664 bool, createdAt time.Time, ) *Artifact`
+`func NewArtifact(object string, id string, status ArtifactStatus, sourceId string, sourceType string, githubSourceData GitHubSourceData, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime, ) *Artifact`
 
 NewArtifact instantiates a new Artifact object
 This constructor will assign default values to properties that have it defined,
@@ -154,11 +154,6 @@ and a boolean to check if the value has been set.
 
 SetGithubSourceData sets GithubSourceData field to given value.
 
-### HasGithubSourceData
-
-`func (o *Artifact) HasGithubSourceData() bool`
-
-HasGithubSourceData returns a boolean if a field has been set.
 
 ### GetAarch64
 
@@ -239,11 +234,6 @@ and a boolean to check if the value has been set.
 
 SetReadyAt sets ReadyAt field to given value.
 
-### HasReadyAt
-
-`func (o *Artifact) HasReadyAt() bool`
-
-HasReadyAt returns a boolean if a field has been set.
 
 ### SetReadyAtNil
 
@@ -274,11 +264,6 @@ and a boolean to check if the value has been set.
 
 SetFailedAt sets FailedAt field to given value.
 
-### HasFailedAt
-
-`func (o *Artifact) HasFailedAt() bool`
-
-HasFailedAt returns a boolean if a field has been set.
 
 ### SetFailedAtNil
 

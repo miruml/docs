@@ -15,13 +15,23 @@ package openapi
 
 type ExternalContainerRepositoryList struct {
 
-	Object string `json:"object,omitempty"`
+	Object string `json:"object"`
 
-	Data []ExternalContainerRepository `json:"data,omitempty"`
+	Data []ExternalContainerRepository `json:"data"`
 }
 
 // AssertExternalContainerRepositoryListRequired checks if the required fields are not zero-ed
 func AssertExternalContainerRepositoryListRequired(obj ExternalContainerRepositoryList) error {
+	elements := map[string]interface{}{
+		"object": obj.Object,
+		"data": obj.Data,
+	}
+	for name, el := range elements {
+		if isZero := IsZeroValue(el); isZero {
+			return &RequiredError{Field: name}
+		}
+	}
+
 	for _, el := range obj.Data {
 		if err := AssertExternalContainerRepositoryRequired(el); err != nil {
 			return err

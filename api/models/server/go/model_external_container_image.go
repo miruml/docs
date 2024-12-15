@@ -19,7 +19,7 @@ import (
 
 type ExternalContainerImage struct {
 
-	Object string `json:"object,omitempty"`
+	Object string `json:"object"`
 
 	Digest string `json:"digest"`
 
@@ -35,6 +35,7 @@ type ExternalContainerImage struct {
 // AssertExternalContainerImageRequired checks if the required fields are not zero-ed
 func AssertExternalContainerImageRequired(obj ExternalContainerImage) error {
 	elements := map[string]interface{}{
+		"object": obj.Object,
 		"digest": obj.Digest,
 		"tags": obj.Tags,
 		"uri": obj.Uri,

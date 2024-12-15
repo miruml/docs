@@ -12,6 +12,9 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the GitHubCommit type satisfies the MappedNullable interface at compile time
@@ -19,19 +22,28 @@ var _ MappedNullable = &GitHubCommit{}
 
 // GitHubCommit struct for GitHubCommit
 type GitHubCommit struct {
-	Object *string `json:"object,omitempty"`
-	Sha *string `json:"sha,omitempty"`
-	Message *string `json:"message,omitempty"`
-	HtmlUrl *string `json:"html_url,omitempty"`
-	Committer *GitHubCommitter `json:"committer,omitempty"`
+	Object string `json:"object"`
+	Sha string `json:"sha"`
+	Message string `json:"message"`
+	HtmlUrl string `json:"html_url"`
+	PushedAt time.Time `json:"pushed_at"`
+	Committer GitHubCommitter `json:"committer"`
 }
+
+type _GitHubCommit GitHubCommit
 
 // NewGitHubCommit instantiates a new GitHubCommit object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGitHubCommit() *GitHubCommit {
+func NewGitHubCommit(object string, sha string, message string, htmlUrl string, pushedAt time.Time, committer GitHubCommitter) *GitHubCommit {
 	this := GitHubCommit{}
+	this.Object = object
+	this.Sha = sha
+	this.Message = message
+	this.HtmlUrl = htmlUrl
+	this.PushedAt = pushedAt
+	this.Committer = committer
 	return &this
 }
 
@@ -43,164 +55,148 @@ func NewGitHubCommitWithDefaults() *GitHubCommit {
 	return &this
 }
 
-// GetObject returns the Object field value if set, zero value otherwise.
+// GetObject returns the Object field value
 func (o *GitHubCommit) GetObject() string {
-	if o == nil || IsNil(o.Object) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Object
+
+	return o.Object
 }
 
-// GetObjectOk returns a tuple with the Object field value if set, nil otherwise
+// GetObjectOk returns a tuple with the Object field value
 // and a boolean to check if the value has been set.
 func (o *GitHubCommit) GetObjectOk() (*string, bool) {
-	if o == nil || IsNil(o.Object) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Object, true
+	return &o.Object, true
 }
 
-// HasObject returns a boolean if a field has been set.
-func (o *GitHubCommit) HasObject() bool {
-	if o != nil && !IsNil(o.Object) {
-		return true
-	}
-
-	return false
-}
-
-// SetObject gets a reference to the given string and assigns it to the Object field.
+// SetObject sets field value
 func (o *GitHubCommit) SetObject(v string) {
-	o.Object = &v
+	o.Object = v
 }
 
-// GetSha returns the Sha field value if set, zero value otherwise.
+// GetSha returns the Sha field value
 func (o *GitHubCommit) GetSha() string {
-	if o == nil || IsNil(o.Sha) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Sha
+
+	return o.Sha
 }
 
-// GetShaOk returns a tuple with the Sha field value if set, nil otherwise
+// GetShaOk returns a tuple with the Sha field value
 // and a boolean to check if the value has been set.
 func (o *GitHubCommit) GetShaOk() (*string, bool) {
-	if o == nil || IsNil(o.Sha) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Sha, true
+	return &o.Sha, true
 }
 
-// HasSha returns a boolean if a field has been set.
-func (o *GitHubCommit) HasSha() bool {
-	if o != nil && !IsNil(o.Sha) {
-		return true
-	}
-
-	return false
-}
-
-// SetSha gets a reference to the given string and assigns it to the Sha field.
+// SetSha sets field value
 func (o *GitHubCommit) SetSha(v string) {
-	o.Sha = &v
+	o.Sha = v
 }
 
-// GetMessage returns the Message field value if set, zero value otherwise.
+// GetMessage returns the Message field value
 func (o *GitHubCommit) GetMessage() string {
-	if o == nil || IsNil(o.Message) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Message
+
+	return o.Message
 }
 
-// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
+// GetMessageOk returns a tuple with the Message field value
 // and a boolean to check if the value has been set.
 func (o *GitHubCommit) GetMessageOk() (*string, bool) {
-	if o == nil || IsNil(o.Message) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Message, true
+	return &o.Message, true
 }
 
-// HasMessage returns a boolean if a field has been set.
-func (o *GitHubCommit) HasMessage() bool {
-	if o != nil && !IsNil(o.Message) {
-		return true
-	}
-
-	return false
-}
-
-// SetMessage gets a reference to the given string and assigns it to the Message field.
+// SetMessage sets field value
 func (o *GitHubCommit) SetMessage(v string) {
-	o.Message = &v
+	o.Message = v
 }
 
-// GetHtmlUrl returns the HtmlUrl field value if set, zero value otherwise.
+// GetHtmlUrl returns the HtmlUrl field value
 func (o *GitHubCommit) GetHtmlUrl() string {
-	if o == nil || IsNil(o.HtmlUrl) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.HtmlUrl
+
+	return o.HtmlUrl
 }
 
-// GetHtmlUrlOk returns a tuple with the HtmlUrl field value if set, nil otherwise
+// GetHtmlUrlOk returns a tuple with the HtmlUrl field value
 // and a boolean to check if the value has been set.
 func (o *GitHubCommit) GetHtmlUrlOk() (*string, bool) {
-	if o == nil || IsNil(o.HtmlUrl) {
+	if o == nil {
 		return nil, false
 	}
-	return o.HtmlUrl, true
+	return &o.HtmlUrl, true
 }
 
-// HasHtmlUrl returns a boolean if a field has been set.
-func (o *GitHubCommit) HasHtmlUrl() bool {
-	if o != nil && !IsNil(o.HtmlUrl) {
-		return true
+// SetHtmlUrl sets field value
+func (o *GitHubCommit) SetHtmlUrl(v string) {
+	o.HtmlUrl = v
+}
+
+// GetPushedAt returns the PushedAt field value
+func (o *GitHubCommit) GetPushedAt() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
 	}
 
-	return false
+	return o.PushedAt
 }
 
-// SetHtmlUrl gets a reference to the given string and assigns it to the HtmlUrl field.
-func (o *GitHubCommit) SetHtmlUrl(v string) {
-	o.HtmlUrl = &v
+// GetPushedAtOk returns a tuple with the PushedAt field value
+// and a boolean to check if the value has been set.
+func (o *GitHubCommit) GetPushedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PushedAt, true
 }
 
-// GetCommitter returns the Committer field value if set, zero value otherwise.
+// SetPushedAt sets field value
+func (o *GitHubCommit) SetPushedAt(v time.Time) {
+	o.PushedAt = v
+}
+
+// GetCommitter returns the Committer field value
 func (o *GitHubCommit) GetCommitter() GitHubCommitter {
-	if o == nil || IsNil(o.Committer) {
+	if o == nil {
 		var ret GitHubCommitter
 		return ret
 	}
-	return *o.Committer
+
+	return o.Committer
 }
 
-// GetCommitterOk returns a tuple with the Committer field value if set, nil otherwise
+// GetCommitterOk returns a tuple with the Committer field value
 // and a boolean to check if the value has been set.
 func (o *GitHubCommit) GetCommitterOk() (*GitHubCommitter, bool) {
-	if o == nil || IsNil(o.Committer) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Committer, true
+	return &o.Committer, true
 }
 
-// HasCommitter returns a boolean if a field has been set.
-func (o *GitHubCommit) HasCommitter() bool {
-	if o != nil && !IsNil(o.Committer) {
-		return true
-	}
-
-	return false
-}
-
-// SetCommitter gets a reference to the given GitHubCommitter and assigns it to the Committer field.
+// SetCommitter sets field value
 func (o *GitHubCommit) SetCommitter(v GitHubCommitter) {
-	o.Committer = &v
+	o.Committer = v
 }
 
 func (o GitHubCommit) MarshalJSON() ([]byte, error) {
@@ -213,22 +209,55 @@ func (o GitHubCommit) MarshalJSON() ([]byte, error) {
 
 func (o GitHubCommit) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Object) {
-		toSerialize["object"] = o.Object
-	}
-	if !IsNil(o.Sha) {
-		toSerialize["sha"] = o.Sha
-	}
-	if !IsNil(o.Message) {
-		toSerialize["message"] = o.Message
-	}
-	if !IsNil(o.HtmlUrl) {
-		toSerialize["html_url"] = o.HtmlUrl
-	}
-	if !IsNil(o.Committer) {
-		toSerialize["committer"] = o.Committer
-	}
+	toSerialize["object"] = o.Object
+	toSerialize["sha"] = o.Sha
+	toSerialize["message"] = o.Message
+	toSerialize["html_url"] = o.HtmlUrl
+	toSerialize["pushed_at"] = o.PushedAt
+	toSerialize["committer"] = o.Committer
 	return toSerialize, nil
+}
+
+func (o *GitHubCommit) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"object",
+		"sha",
+		"message",
+		"html_url",
+		"pushed_at",
+		"committer",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varGitHubCommit := _GitHubCommit{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varGitHubCommit)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GitHubCommit(varGitHubCommit)
+
+	return err
 }
 
 type NullableGitHubCommit struct {

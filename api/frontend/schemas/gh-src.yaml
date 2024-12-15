@@ -9,6 +9,7 @@ components:
       type: object
       required:
         - id
+        - object
         - login
         - type
         - html_url
@@ -37,7 +38,12 @@ components:
       title: GitHub Commit
       type: object
       required:
-        - commit_id
+        - object
+        - sha
+        - message
+        - html_url
+        - pushed_at
+        - committer
       properties:
         object:
           type: string
@@ -51,11 +57,18 @@ components:
         html_url:
           type: string
           example: "https://github.com/bensmidt/test-repo/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03"
+        pushed_at:
+          type: string
+          format: date-time
+          example: "2024-01-01T00:00:00Z"
         committer:
           $ref: '#/components/schemas/GitHubCommitter'
     GitHubCommitList:
       title: GitHub CommitList
-      type: object 
+      type: object
+      required:
+        - object
+        - data
       properties:
         object:
           type: string
@@ -68,6 +81,7 @@ components:
       title: GitHub Repository
       type: object
       required:
+        - object
         - id
         - name
         - full_name
@@ -93,14 +107,21 @@ components:
     GitHubSourceCommits:
       title: GitHubSourceCommits
       type: object
+      required:
+        - object
+        - repository
+        - commits
+        - branch
       properties:
         object:
           type: string
           example: "github_source_commits"
         repository:
           $ref: '#/components/schemas/GitHubRepository'
+        branch:
+          type: string
+          example: "main"
         commits:
           $ref: '#/components/schemas/GitHubCommitList'
 paths: {}
-
 

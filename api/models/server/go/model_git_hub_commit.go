@@ -11,23 +11,43 @@
 package openapi
 
 
+import (
+	"time"
+)
+
 
 
 type GitHubCommit struct {
 
-	Object string `json:"object,omitempty"`
+	Object string `json:"object"`
 
-	Sha string `json:"sha,omitempty"`
+	Sha string `json:"sha"`
 
-	Message string `json:"message,omitempty"`
+	Message string `json:"message"`
 
-	HtmlUrl string `json:"html_url,omitempty"`
+	HtmlUrl string `json:"html_url"`
 
-	Committer GitHubCommitter `json:"committer,omitempty"`
+	PushedAt time.Time `json:"pushed_at"`
+
+	Committer GitHubCommitter `json:"committer"`
 }
 
 // AssertGitHubCommitRequired checks if the required fields are not zero-ed
 func AssertGitHubCommitRequired(obj GitHubCommit) error {
+	elements := map[string]interface{}{
+		"object": obj.Object,
+		"sha": obj.Sha,
+		"message": obj.Message,
+		"html_url": obj.HtmlUrl,
+		"pushed_at": obj.PushedAt,
+		"committer": obj.Committer,
+	}
+	for name, el := range elements {
+		if isZero := IsZeroValue(el); isZero {
+			return &RequiredError{Field: name}
+		}
+	}
+
 	if err := AssertGitHubCommitterRequired(obj.Committer); err != nil {
 		return err
 	}

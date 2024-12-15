@@ -22,7 +22,7 @@ var _ MappedNullable = &ExternalContainerImage{}
 
 // ExternalContainerImage struct for ExternalContainerImage
 type ExternalContainerImage struct {
-	Object *string `json:"object,omitempty"`
+	Object string `json:"object"`
 	Digest string `json:"digest"`
 	Tags []string `json:"tags"`
 	Uri string `json:"uri"`
@@ -36,8 +36,9 @@ type _ExternalContainerImage ExternalContainerImage
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExternalContainerImage(digest string, tags []string, uri string, bytes NullableInt64, uploadedAt time.Time) *ExternalContainerImage {
+func NewExternalContainerImage(object string, digest string, tags []string, uri string, bytes NullableInt64, uploadedAt time.Time) *ExternalContainerImage {
 	this := ExternalContainerImage{}
+	this.Object = object
 	this.Digest = digest
 	this.Tags = tags
 	this.Uri = uri
@@ -54,36 +55,28 @@ func NewExternalContainerImageWithDefaults() *ExternalContainerImage {
 	return &this
 }
 
-// GetObject returns the Object field value if set, zero value otherwise.
+// GetObject returns the Object field value
 func (o *ExternalContainerImage) GetObject() string {
-	if o == nil || IsNil(o.Object) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Object
+
+	return o.Object
 }
 
-// GetObjectOk returns a tuple with the Object field value if set, nil otherwise
+// GetObjectOk returns a tuple with the Object field value
 // and a boolean to check if the value has been set.
 func (o *ExternalContainerImage) GetObjectOk() (*string, bool) {
-	if o == nil || IsNil(o.Object) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Object, true
+	return &o.Object, true
 }
 
-// HasObject returns a boolean if a field has been set.
-func (o *ExternalContainerImage) HasObject() bool {
-	if o != nil && !IsNil(o.Object) {
-		return true
-	}
-
-	return false
-}
-
-// SetObject gets a reference to the given string and assigns it to the Object field.
+// SetObject sets field value
 func (o *ExternalContainerImage) SetObject(v string) {
-	o.Object = &v
+	o.Object = v
 }
 
 // GetDigest returns the Digest field value
@@ -218,9 +211,7 @@ func (o ExternalContainerImage) MarshalJSON() ([]byte, error) {
 
 func (o ExternalContainerImage) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Object) {
-		toSerialize["object"] = o.Object
-	}
+	toSerialize["object"] = o.Object
 	toSerialize["digest"] = o.Digest
 	toSerialize["tags"] = o.Tags
 	toSerialize["uri"] = o.Uri
@@ -234,6 +225,7 @@ func (o *ExternalContainerImage) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"object",
 		"digest",
 		"tags",
 		"uri",

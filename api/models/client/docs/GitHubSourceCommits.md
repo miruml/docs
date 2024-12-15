@@ -4,15 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Object** | Pointer to **string** |  | [optional] 
-**Repository** | Pointer to [**GitHubRepository**](GitHubRepository.md) |  | [optional] 
-**Commits** | Pointer to [**GitHubCommitList**](GitHubCommitList.md) |  | [optional] 
+**Object** | **string** |  | 
+**Repository** | [**GitHubRepository**](GitHubRepository.md) |  | 
+**Branch** | **string** |  | 
+**Commits** | [**GitHubCommitList**](GitHubCommitList.md) |  | 
 
 ## Methods
 
 ### NewGitHubSourceCommits
 
-`func NewGitHubSourceCommits() *GitHubSourceCommits`
+`func NewGitHubSourceCommits(object string, repository GitHubRepository, branch string, commits GitHubCommitList, ) *GitHubSourceCommits`
 
 NewGitHubSourceCommits instantiates a new GitHubSourceCommits object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +47,6 @@ and a boolean to check if the value has been set.
 
 SetObject sets Object field to given value.
 
-### HasObject
-
-`func (o *GitHubSourceCommits) HasObject() bool`
-
-HasObject returns a boolean if a field has been set.
 
 ### GetRepository
 
@@ -71,11 +67,26 @@ and a boolean to check if the value has been set.
 
 SetRepository sets Repository field to given value.
 
-### HasRepository
 
-`func (o *GitHubSourceCommits) HasRepository() bool`
+### GetBranch
 
-HasRepository returns a boolean if a field has been set.
+`func (o *GitHubSourceCommits) GetBranch() string`
+
+GetBranch returns the Branch field if non-nil, zero value otherwise.
+
+### GetBranchOk
+
+`func (o *GitHubSourceCommits) GetBranchOk() (*string, bool)`
+
+GetBranchOk returns a tuple with the Branch field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBranch
+
+`func (o *GitHubSourceCommits) SetBranch(v string)`
+
+SetBranch sets Branch field to given value.
+
 
 ### GetCommits
 
@@ -96,11 +107,6 @@ and a boolean to check if the value has been set.
 
 SetCommits sets Commits field to given value.
 
-### HasCommits
-
-`func (o *GitHubSourceCommits) HasCommits() bool`
-
-HasCommits returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

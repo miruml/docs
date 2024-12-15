@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **int64** |  | 
-**Object** | Pointer to **string** |  | [optional] 
+**Object** | **string** |  | 
 **Name** | **string** |  | 
 **FullName** | **string** |  | 
 **HtmlUrl** | **string** |  | 
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 
 ### NewGitHubRepository
 
-`func NewGitHubRepository(id int64, name string, fullName string, htmlUrl string, ) *GitHubRepository`
+`func NewGitHubRepository(id int64, object string, name string, fullName string, htmlUrl string, ) *GitHubRepository`
 
 NewGitHubRepository instantiates a new GitHubRepository object
 This constructor will assign default values to properties that have it defined,
@@ -68,11 +68,6 @@ and a boolean to check if the value has been set.
 
 SetObject sets Object field to given value.
 
-### HasObject
-
-`func (o *GitHubRepository) HasObject() bool`
-
-HasObject returns a boolean if a field has been set.
 
 ### GetName
 

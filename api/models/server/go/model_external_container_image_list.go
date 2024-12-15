@@ -15,13 +15,23 @@ package openapi
 
 type ExternalContainerImageList struct {
 
-	Object string `json:"object,omitempty"`
+	Object string `json:"object"`
 
-	Data []ExternalContainerImage `json:"data,omitempty"`
+	Data []ExternalContainerImage `json:"data"`
 }
 
 // AssertExternalContainerImageListRequired checks if the required fields are not zero-ed
 func AssertExternalContainerImageListRequired(obj ExternalContainerImageList) error {
+	elements := map[string]interface{}{
+		"object": obj.Object,
+		"data": obj.Data,
+	}
+	for name, el := range elements {
+		if isZero := IsZeroValue(el); isZero {
+			return &RequiredError{Field: name}
+		}
+	}
+
 	for _, el := range obj.Data {
 		if err := AssertExternalContainerImageRequired(el); err != nil {
 			return err

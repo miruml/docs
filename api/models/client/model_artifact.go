@@ -27,12 +27,12 @@ type Artifact struct {
 	Status ArtifactStatus `json:"status"`
 	SourceId string `json:"source_id"`
 	SourceType string `json:"source_type"`
-	GithubSourceData *GitHubSourceData `json:"github_source_data,omitempty"`
+	GithubSourceData GitHubSourceData `json:"github_source_data"`
 	Aarch64 bool `json:"aarch64"`
 	X8664 bool `json:"x86_64"`
 	CreatedAt time.Time `json:"created_at"`
-	ReadyAt NullableTime `json:"ready_at,omitempty"`
-	FailedAt NullableTime `json:"failed_at,omitempty"`
+	ReadyAt NullableTime `json:"ready_at"`
+	FailedAt NullableTime `json:"failed_at"`
 }
 
 type _Artifact Artifact
@@ -41,16 +41,19 @@ type _Artifact Artifact
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewArtifact(object string, id string, status ArtifactStatus, sourceId string, sourceType string, aarch64 bool, x8664 bool, createdAt time.Time) *Artifact {
+func NewArtifact(object string, id string, status ArtifactStatus, sourceId string, sourceType string, githubSourceData GitHubSourceData, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime) *Artifact {
 	this := Artifact{}
 	this.Object = object
 	this.Id = id
 	this.Status = status
 	this.SourceId = sourceId
 	this.SourceType = sourceType
+	this.GithubSourceData = githubSourceData
 	this.Aarch64 = aarch64
 	this.X8664 = x8664
 	this.CreatedAt = createdAt
+	this.ReadyAt = readyAt
+	this.FailedAt = failedAt
 	return &this
 }
 
@@ -182,36 +185,28 @@ func (o *Artifact) SetSourceType(v string) {
 	o.SourceType = v
 }
 
-// GetGithubSourceData returns the GithubSourceData field value if set, zero value otherwise.
+// GetGithubSourceData returns the GithubSourceData field value
 func (o *Artifact) GetGithubSourceData() GitHubSourceData {
-	if o == nil || IsNil(o.GithubSourceData) {
+	if o == nil {
 		var ret GitHubSourceData
 		return ret
 	}
-	return *o.GithubSourceData
+
+	return o.GithubSourceData
 }
 
-// GetGithubSourceDataOk returns a tuple with the GithubSourceData field value if set, nil otherwise
+// GetGithubSourceDataOk returns a tuple with the GithubSourceData field value
 // and a boolean to check if the value has been set.
 func (o *Artifact) GetGithubSourceDataOk() (*GitHubSourceData, bool) {
-	if o == nil || IsNil(o.GithubSourceData) {
+	if o == nil {
 		return nil, false
 	}
-	return o.GithubSourceData, true
+	return &o.GithubSourceData, true
 }
 
-// HasGithubSourceData returns a boolean if a field has been set.
-func (o *Artifact) HasGithubSourceData() bool {
-	if o != nil && !IsNil(o.GithubSourceData) {
-		return true
-	}
-
-	return false
-}
-
-// SetGithubSourceData gets a reference to the given GitHubSourceData and assigns it to the GithubSourceData field.
+// SetGithubSourceData sets field value
 func (o *Artifact) SetGithubSourceData(v GitHubSourceData) {
-	o.GithubSourceData = &v
+	o.GithubSourceData = v
 }
 
 // GetAarch64 returns the Aarch64 field value
@@ -286,16 +281,18 @@ func (o *Artifact) SetCreatedAt(v time.Time) {
 	o.CreatedAt = v
 }
 
-// GetReadyAt returns the ReadyAt field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetReadyAt returns the ReadyAt field value
+// If the value is explicit nil, the zero value for time.Time will be returned
 func (o *Artifact) GetReadyAt() time.Time {
-	if o == nil || IsNil(o.ReadyAt.Get()) {
+	if o == nil || o.ReadyAt.Get() == nil {
 		var ret time.Time
 		return ret
 	}
+
 	return *o.ReadyAt.Get()
 }
 
-// GetReadyAtOk returns a tuple with the ReadyAt field value if set, nil otherwise
+// GetReadyAtOk returns a tuple with the ReadyAt field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Artifact) GetReadyAtOk() (*time.Time, bool) {
@@ -305,39 +302,23 @@ func (o *Artifact) GetReadyAtOk() (*time.Time, bool) {
 	return o.ReadyAt.Get(), o.ReadyAt.IsSet()
 }
 
-// HasReadyAt returns a boolean if a field has been set.
-func (o *Artifact) HasReadyAt() bool {
-	if o != nil && o.ReadyAt.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetReadyAt gets a reference to the given NullableTime and assigns it to the ReadyAt field.
+// SetReadyAt sets field value
 func (o *Artifact) SetReadyAt(v time.Time) {
 	o.ReadyAt.Set(&v)
 }
-// SetReadyAtNil sets the value for ReadyAt to be an explicit nil
-func (o *Artifact) SetReadyAtNil() {
-	o.ReadyAt.Set(nil)
-}
 
-// UnsetReadyAt ensures that no value is present for ReadyAt, not even an explicit nil
-func (o *Artifact) UnsetReadyAt() {
-	o.ReadyAt.Unset()
-}
-
-// GetFailedAt returns the FailedAt field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetFailedAt returns the FailedAt field value
+// If the value is explicit nil, the zero value for time.Time will be returned
 func (o *Artifact) GetFailedAt() time.Time {
-	if o == nil || IsNil(o.FailedAt.Get()) {
+	if o == nil || o.FailedAt.Get() == nil {
 		var ret time.Time
 		return ret
 	}
+
 	return *o.FailedAt.Get()
 }
 
-// GetFailedAtOk returns a tuple with the FailedAt field value if set, nil otherwise
+// GetFailedAtOk returns a tuple with the FailedAt field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Artifact) GetFailedAtOk() (*time.Time, bool) {
@@ -347,27 +328,9 @@ func (o *Artifact) GetFailedAtOk() (*time.Time, bool) {
 	return o.FailedAt.Get(), o.FailedAt.IsSet()
 }
 
-// HasFailedAt returns a boolean if a field has been set.
-func (o *Artifact) HasFailedAt() bool {
-	if o != nil && o.FailedAt.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetFailedAt gets a reference to the given NullableTime and assigns it to the FailedAt field.
+// SetFailedAt sets field value
 func (o *Artifact) SetFailedAt(v time.Time) {
 	o.FailedAt.Set(&v)
-}
-// SetFailedAtNil sets the value for FailedAt to be an explicit nil
-func (o *Artifact) SetFailedAtNil() {
-	o.FailedAt.Set(nil)
-}
-
-// UnsetFailedAt ensures that no value is present for FailedAt, not even an explicit nil
-func (o *Artifact) UnsetFailedAt() {
-	o.FailedAt.Unset()
 }
 
 func (o Artifact) MarshalJSON() ([]byte, error) {
@@ -385,18 +348,12 @@ func (o Artifact) ToMap() (map[string]interface{}, error) {
 	toSerialize["status"] = o.Status
 	toSerialize["source_id"] = o.SourceId
 	toSerialize["source_type"] = o.SourceType
-	if !IsNil(o.GithubSourceData) {
-		toSerialize["github_source_data"] = o.GithubSourceData
-	}
+	toSerialize["github_source_data"] = o.GithubSourceData
 	toSerialize["aarch64"] = o.Aarch64
 	toSerialize["x86_64"] = o.X8664
 	toSerialize["created_at"] = o.CreatedAt
-	if o.ReadyAt.IsSet() {
-		toSerialize["ready_at"] = o.ReadyAt.Get()
-	}
-	if o.FailedAt.IsSet() {
-		toSerialize["failed_at"] = o.FailedAt.Get()
-	}
+	toSerialize["ready_at"] = o.ReadyAt.Get()
+	toSerialize["failed_at"] = o.FailedAt.Get()
 	return toSerialize, nil
 }
 
@@ -410,9 +367,12 @@ func (o *Artifact) UnmarshalJSON(data []byte) (err error) {
 		"status",
 		"source_id",
 		"source_type",
+		"github_source_data",
 		"aarch64",
 		"x86_64",
 		"created_at",
+		"ready_at",
+		"failed_at",
 	}
 
 	allProperties := make(map[string]interface{})

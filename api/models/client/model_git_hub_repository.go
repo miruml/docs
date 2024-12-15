@@ -22,7 +22,7 @@ var _ MappedNullable = &GitHubRepository{}
 // GitHubRepository struct for GitHubRepository
 type GitHubRepository struct {
 	Id int64 `json:"id"`
-	Object *string `json:"object,omitempty"`
+	Object string `json:"object"`
 	Name string `json:"name"`
 	FullName string `json:"full_name"`
 	HtmlUrl string `json:"html_url"`
@@ -34,9 +34,10 @@ type _GitHubRepository GitHubRepository
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGitHubRepository(id int64, name string, fullName string, htmlUrl string) *GitHubRepository {
+func NewGitHubRepository(id int64, object string, name string, fullName string, htmlUrl string) *GitHubRepository {
 	this := GitHubRepository{}
 	this.Id = id
+	this.Object = object
 	this.Name = name
 	this.FullName = fullName
 	this.HtmlUrl = htmlUrl
@@ -75,36 +76,28 @@ func (o *GitHubRepository) SetId(v int64) {
 	o.Id = v
 }
 
-// GetObject returns the Object field value if set, zero value otherwise.
+// GetObject returns the Object field value
 func (o *GitHubRepository) GetObject() string {
-	if o == nil || IsNil(o.Object) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Object
+
+	return o.Object
 }
 
-// GetObjectOk returns a tuple with the Object field value if set, nil otherwise
+// GetObjectOk returns a tuple with the Object field value
 // and a boolean to check if the value has been set.
 func (o *GitHubRepository) GetObjectOk() (*string, bool) {
-	if o == nil || IsNil(o.Object) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Object, true
+	return &o.Object, true
 }
 
-// HasObject returns a boolean if a field has been set.
-func (o *GitHubRepository) HasObject() bool {
-	if o != nil && !IsNil(o.Object) {
-		return true
-	}
-
-	return false
-}
-
-// SetObject gets a reference to the given string and assigns it to the Object field.
+// SetObject sets field value
 func (o *GitHubRepository) SetObject(v string) {
-	o.Object = &v
+	o.Object = v
 }
 
 // GetName returns the Name field value
@@ -190,9 +183,7 @@ func (o GitHubRepository) MarshalJSON() ([]byte, error) {
 func (o GitHubRepository) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
-	if !IsNil(o.Object) {
-		toSerialize["object"] = o.Object
-	}
+	toSerialize["object"] = o.Object
 	toSerialize["name"] = o.Name
 	toSerialize["full_name"] = o.FullName
 	toSerialize["html_url"] = o.HtmlUrl
@@ -205,6 +196,7 @@ func (o *GitHubRepository) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"id",
+		"object",
 		"name",
 		"full_name",
 		"html_url",

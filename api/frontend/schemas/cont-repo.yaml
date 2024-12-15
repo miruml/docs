@@ -54,6 +54,9 @@ components:
     ExternalContainerRepositoryList:
       title: External Container Repository List
       type: object
+      required:
+        - object
+        - data
       properties:
         object:
           type: string
@@ -66,8 +69,8 @@ components:
       title: Container Repository 
       type: object
       required:
-        - id
         - object
+        - id
         - registry_url
         - account_login
         - name
@@ -97,6 +100,9 @@ components:
     ContainerRepositoryList:
       title: Container Repository List
       type: object
+      required:
+        - object
+        - data
       properties:
         object:
           type: string
@@ -105,52 +111,4 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ContainerRepository"
-    ExternalContainerImage:
-      title: External Container Image 
-      type: object 
-      required:
-        - digest
-        - tags
-        - uri
-        - bytes
-        - uploaded_at
-      properties:
-        object:
-          type: string
-          example: "external_image"
-        digest:
-          type: string
-          example: "sha256:123abc"
-        tags:
-          type: array
-          items:
-            type: string
-            example: "latest"
-          example:
-            - "latest"
-            - "v1.0.0"
-            - "stable"
-        uri:
-          type: string
-          example: "docker.io/redis:latest"
-        bytes:
-          type: integer
-          format: int64
-          example: 392510987
-          nullable: true
-        uploaded_at:
-          type: string
-          example: "2021-01-01T00:00:00Z"
-          format: date-time
-    ExternalContainerImageList:
-      title: External Container Image List
-      type: object
-      properties:
-        object:
-          type: string
-          example: "list"
-        data:
-          type: array
-          items:
-            $ref: "#/components/schemas/ExternalContainerImage"
 paths: {}

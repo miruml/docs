@@ -56,6 +56,10 @@ paths:
   /sources/github/{github_source_id}/commits:
     $ref: './frontend/paths/gh-src.yaml#/paths/~1sources~1github~1{github_source_id}~1commits'
 
+  # images
+  /repositories/container/{container_repository_id}/images/external:
+    $ref: './frontend/paths/images.yaml#/paths/~1repositories~1container~1{container_repository_id}~1images~1external'
+
   # registry sources
   /workspaces/{workspace_id}/sources/registry:
     $ref: './frontend/paths/reg-srcs.yaml#/paths/~1workspaces~1{workspace_id}~1sources~1registry'
@@ -73,8 +77,6 @@ paths:
     $ref: './frontend/paths/cont-repos.yaml#/paths/~1workspaces~1{workspace_id}~1repositories~1container~1external'
   /repositories/container/{container_repository_id}:
     $ref: './frontend/paths/cont-repos.yaml#/paths/~1repositories~1container~1{container_repository_id}'
-  /repositories/container/{container_repository_id}/images/external:
-    $ref: './frontend/paths/cont-repos.yaml#/paths/~1repositories~1container~1{container_repository_id}~1images~1external'
 
   # error examples
   /example/errors/400:

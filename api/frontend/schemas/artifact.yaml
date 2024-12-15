@@ -14,9 +14,12 @@ components:
         - status
         - source_id
         - source_type
+        - github_source_data
         - aarch64
         - x86_64
         - created_at
+        - ready_at
+        - failed_at
       properties: 
         object:
           type: string

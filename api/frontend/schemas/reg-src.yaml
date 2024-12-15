@@ -8,8 +8,8 @@ components:
       title: Registry Source Container Repository
       type: object
       required:
-        - id
         - object
+        - id
         - registry_url
         - account_login
         - name

@@ -15,13 +15,23 @@ package openapi
 
 type GitHubCommitList struct {
 
-	Object string `json:"object,omitempty"`
+	Object string `json:"object"`
 
-	Data []GitHubCommit `json:"data,omitempty"`
+	Data []GitHubCommit `json:"data"`
 }
 
 // AssertGitHubCommitListRequired checks if the required fields are not zero-ed
 func AssertGitHubCommitListRequired(obj GitHubCommitList) error {
+	elements := map[string]interface{}{
+		"object": obj.Object,
+		"data": obj.Data,
+	}
+	for name, el := range elements {
+		if isZero := IsZeroValue(el); isZero {
+			return &RequiredError{Field: name}
+		}
+	}
+
 	for _, el := range obj.Data {
 		if err := AssertGitHubCommitRequired(el); err != nil {
 			return err

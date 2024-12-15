@@ -4,17 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Object** | Pointer to **string** |  | [optional] 
-**Sha** | Pointer to **string** |  | [optional] 
-**Message** | Pointer to **string** |  | [optional] 
-**HtmlUrl** | Pointer to **string** |  | [optional] 
-**Committer** | Pointer to [**GitHubCommitter**](GitHubCommitter.md) |  | [optional] 
+**Object** | **string** |  | 
+**Sha** | **string** |  | 
+**Message** | **string** |  | 
+**HtmlUrl** | **string** |  | 
+**PushedAt** | **time.Time** |  | 
+**Committer** | [**GitHubCommitter**](GitHubCommitter.md) |  | 
 
 ## Methods
 
 ### NewGitHubCommit
 
-`func NewGitHubCommit() *GitHubCommit`
+`func NewGitHubCommit(object string, sha string, message string, htmlUrl string, pushedAt time.Time, committer GitHubCommitter, ) *GitHubCommit`
 
 NewGitHubCommit instantiates a new GitHubCommit object
 This constructor will assign default values to properties that have it defined,
@@ -48,11 +49,6 @@ and a boolean to check if the value has been set.
 
 SetObject sets Object field to given value.
 
-### HasObject
-
-`func (o *GitHubCommit) HasObject() bool`
-
-HasObject returns a boolean if a field has been set.
 
 ### GetSha
 
@@ -73,11 +69,6 @@ and a boolean to check if the value has been set.
 
 SetSha sets Sha field to given value.
 
-### HasSha
-
-`func (o *GitHubCommit) HasSha() bool`
-
-HasSha returns a boolean if a field has been set.
 
 ### GetMessage
 
@@ -98,11 +89,6 @@ and a boolean to check if the value has been set.
 
 SetMessage sets Message field to given value.
 
-### HasMessage
-
-`func (o *GitHubCommit) HasMessage() bool`
-
-HasMessage returns a boolean if a field has been set.
 
 ### GetHtmlUrl
 
@@ -123,11 +109,26 @@ and a boolean to check if the value has been set.
 
 SetHtmlUrl sets HtmlUrl field to given value.
 
-### HasHtmlUrl
 
-`func (o *GitHubCommit) HasHtmlUrl() bool`
+### GetPushedAt
 
-HasHtmlUrl returns a boolean if a field has been set.
+`func (o *GitHubCommit) GetPushedAt() time.Time`
+
+GetPushedAt returns the PushedAt field if non-nil, zero value otherwise.
+
+### GetPushedAtOk
+
+`func (o *GitHubCommit) GetPushedAtOk() (*time.Time, bool)`
+
+GetPushedAtOk returns a tuple with the PushedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPushedAt
+
+`func (o *GitHubCommit) SetPushedAt(v time.Time)`
+
+SetPushedAt sets PushedAt field to given value.
+
 
 ### GetCommitter
 
@@ -148,11 +149,6 @@ and a boolean to check if the value has been set.
 
 SetCommitter sets Committer field to given value.
 
-### HasCommitter
-
-`func (o *GitHubCommit) HasCommitter() bool`
-
-HasCommitter returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

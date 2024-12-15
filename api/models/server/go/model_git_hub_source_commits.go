@@ -15,15 +15,29 @@ package openapi
 
 type GitHubSourceCommits struct {
 
-	Object string `json:"object,omitempty"`
+	Object string `json:"object"`
 
-	Repository GitHubRepository `json:"repository,omitempty"`
+	Repository GitHubRepository `json:"repository"`
 
-	Commits GitHubCommitList `json:"commits,omitempty"`
+	Branch string `json:"branch"`
+
+	Commits GitHubCommitList `json:"commits"`
 }
 
 // AssertGitHubSourceCommitsRequired checks if the required fields are not zero-ed
 func AssertGitHubSourceCommitsRequired(obj GitHubSourceCommits) error {
+	elements := map[string]interface{}{
+		"object": obj.Object,
+		"repository": obj.Repository,
+		"branch": obj.Branch,
+		"commits": obj.Commits,
+	}
+	for name, el := range elements {
+		if isZero := IsZeroValue(el); isZero {
+			return &RequiredError{Field: name}
+		}
+	}
+
 	if err := AssertGitHubRepositoryRequired(obj.Repository); err != nil {
 		return err
 	}

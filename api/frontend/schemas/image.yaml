@@ -1,0 +1,59 @@
+openapi: 3.0.3
+info:
+  title: Image Schemas
+  version: ""
+components:
+  schemas:   
+    ExternalContainerImage:
+      title: External Container Image 
+      type: object 
+      required:
+        - object
+        - digest
+        - tags
+        - uri
+        - bytes
+        - uploaded_at
+      properties:
+        object:
+          type: string
+          example: "external_image"
+        digest:
+          type: string
+          example: "sha256:123abc"
+        tags:
+          type: array
+          items:
+            type: string
+            example: "latest"
+          example:
+            - "latest"
+            - "v1.0.0"
+            - "stable"
+        uri:
+          type: string
+          example: "docker.io/redis:latest"
+        bytes:
+          type: integer
+          format: int64
+          example: 392510987
+          nullable: true
+        uploaded_at:
+          type: string
+          example: "2021-01-01T00:00:00Z"
+          format: date-time
+    ExternalContainerImageList:
+      title: External Container Image List
+      type: object
+      required:
+        - object
+        - data
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/ExternalContainerImage"
+paths: {}

@@ -17,7 +17,7 @@ type GitHubRepository struct {
 
 	Id int64 `json:"id"`
 
-	Object string `json:"object,omitempty"`
+	Object string `json:"object"`
 
 	Name string `json:"name"`
 
@@ -30,6 +30,7 @@ type GitHubRepository struct {
 func AssertGitHubRepositoryRequired(obj GitHubRepository) error {
 	elements := map[string]interface{}{
 		"id": obj.Id,
+		"object": obj.Object,
 		"name": obj.Name,
 		"full_name": obj.FullName,
 		"html_url": obj.HtmlUrl,

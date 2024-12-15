@@ -22,7 +22,7 @@ var _ MappedNullable = &GitHubCommitter{}
 // GitHubCommitter struct for GitHubCommitter
 type GitHubCommitter struct {
 	Id int64 `json:"id"`
-	Object *string `json:"object,omitempty"`
+	Object string `json:"object"`
 	Login string `json:"login"`
 	Type string `json:"type"`
 	HtmlUrl string `json:"html_url"`
@@ -35,9 +35,10 @@ type _GitHubCommitter GitHubCommitter
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGitHubCommitter(id int64, login string, type_ string, htmlUrl string, avatarUrl string) *GitHubCommitter {
+func NewGitHubCommitter(id int64, object string, login string, type_ string, htmlUrl string, avatarUrl string) *GitHubCommitter {
 	this := GitHubCommitter{}
 	this.Id = id
+	this.Object = object
 	this.Login = login
 	this.Type = type_
 	this.HtmlUrl = htmlUrl
@@ -77,36 +78,28 @@ func (o *GitHubCommitter) SetId(v int64) {
 	o.Id = v
 }
 
-// GetObject returns the Object field value if set, zero value otherwise.
+// GetObject returns the Object field value
 func (o *GitHubCommitter) GetObject() string {
-	if o == nil || IsNil(o.Object) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Object
+
+	return o.Object
 }
 
-// GetObjectOk returns a tuple with the Object field value if set, nil otherwise
+// GetObjectOk returns a tuple with the Object field value
 // and a boolean to check if the value has been set.
 func (o *GitHubCommitter) GetObjectOk() (*string, bool) {
-	if o == nil || IsNil(o.Object) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Object, true
+	return &o.Object, true
 }
 
-// HasObject returns a boolean if a field has been set.
-func (o *GitHubCommitter) HasObject() bool {
-	if o != nil && !IsNil(o.Object) {
-		return true
-	}
-
-	return false
-}
-
-// SetObject gets a reference to the given string and assigns it to the Object field.
+// SetObject sets field value
 func (o *GitHubCommitter) SetObject(v string) {
-	o.Object = &v
+	o.Object = v
 }
 
 // GetLogin returns the Login field value
@@ -216,9 +209,7 @@ func (o GitHubCommitter) MarshalJSON() ([]byte, error) {
 func (o GitHubCommitter) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
-	if !IsNil(o.Object) {
-		toSerialize["object"] = o.Object
-	}
+	toSerialize["object"] = o.Object
 	toSerialize["login"] = o.Login
 	toSerialize["type"] = o.Type
 	toSerialize["html_url"] = o.HtmlUrl
@@ -232,6 +223,7 @@ func (o *GitHubCommitter) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"id",
+		"object",
 		"login",
 		"type",
 		"html_url",

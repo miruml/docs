@@ -12,6 +12,8 @@ package openapi
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
 // checks if the GitHubCommitList type satisfies the MappedNullable interface at compile time
@@ -19,16 +21,20 @@ var _ MappedNullable = &GitHubCommitList{}
 
 // GitHubCommitList struct for GitHubCommitList
 type GitHubCommitList struct {
-	Object *string `json:"object,omitempty"`
-	Data []GitHubCommit `json:"data,omitempty"`
+	Object string `json:"object"`
+	Data []GitHubCommit `json:"data"`
 }
+
+type _GitHubCommitList GitHubCommitList
 
 // NewGitHubCommitList instantiates a new GitHubCommitList object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGitHubCommitList() *GitHubCommitList {
+func NewGitHubCommitList(object string, data []GitHubCommit) *GitHubCommitList {
 	this := GitHubCommitList{}
+	this.Object = object
+	this.Data = data
 	return &this
 }
 
@@ -40,66 +46,50 @@ func NewGitHubCommitListWithDefaults() *GitHubCommitList {
 	return &this
 }
 
-// GetObject returns the Object field value if set, zero value otherwise.
+// GetObject returns the Object field value
 func (o *GitHubCommitList) GetObject() string {
-	if o == nil || IsNil(o.Object) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Object
+
+	return o.Object
 }
 
-// GetObjectOk returns a tuple with the Object field value if set, nil otherwise
+// GetObjectOk returns a tuple with the Object field value
 // and a boolean to check if the value has been set.
 func (o *GitHubCommitList) GetObjectOk() (*string, bool) {
-	if o == nil || IsNil(o.Object) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Object, true
+	return &o.Object, true
 }
 
-// HasObject returns a boolean if a field has been set.
-func (o *GitHubCommitList) HasObject() bool {
-	if o != nil && !IsNil(o.Object) {
-		return true
-	}
-
-	return false
-}
-
-// SetObject gets a reference to the given string and assigns it to the Object field.
+// SetObject sets field value
 func (o *GitHubCommitList) SetObject(v string) {
-	o.Object = &v
+	o.Object = v
 }
 
-// GetData returns the Data field value if set, zero value otherwise.
+// GetData returns the Data field value
 func (o *GitHubCommitList) GetData() []GitHubCommit {
-	if o == nil || IsNil(o.Data) {
+	if o == nil {
 		var ret []GitHubCommit
 		return ret
 	}
+
 	return o.Data
 }
 
-// GetDataOk returns a tuple with the Data field value if set, nil otherwise
+// GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
 func (o *GitHubCommitList) GetDataOk() ([]GitHubCommit, bool) {
-	if o == nil || IsNil(o.Data) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Data, true
 }
 
-// HasData returns a boolean if a field has been set.
-func (o *GitHubCommitList) HasData() bool {
-	if o != nil && !IsNil(o.Data) {
-		return true
-	}
-
-	return false
-}
-
-// SetData gets a reference to the given []GitHubCommit and assigns it to the Data field.
+// SetData sets field value
 func (o *GitHubCommitList) SetData(v []GitHubCommit) {
 	o.Data = v
 }
@@ -114,13 +104,47 @@ func (o GitHubCommitList) MarshalJSON() ([]byte, error) {
 
 func (o GitHubCommitList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Object) {
-		toSerialize["object"] = o.Object
-	}
-	if !IsNil(o.Data) {
-		toSerialize["data"] = o.Data
-	}
+	toSerialize["object"] = o.Object
+	toSerialize["data"] = o.Data
 	return toSerialize, nil
+}
+
+func (o *GitHubCommitList) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"object",
+		"data",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varGitHubCommitList := _GitHubCommitList{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varGitHubCommitList)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GitHubCommitList(varGitHubCommitList)
+
+	return err
 }
 
 type NullableGitHubCommitList struct {
