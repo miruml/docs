@@ -241,11 +241,6 @@ components:
               tag:
                 type: string
                 example: "v1.3.4"
-        groups:
-          type: array
-          items:
-            type: string
-            example: "group_123"
 
     CreateGitHubSourceArtifact:
       title: Create GitHub Source Artifact
@@ -253,7 +248,6 @@ components:
       required:
         - allow_duplicate
         - commit_sha
-        - groups
       properties:
         allow_duplicate:
           type: boolean
@@ -261,11 +255,6 @@ components:
         commit_sha:
           type: string
           example: "94d8a2681f1ef81b0362cdb77bf37691bc1d2b03"
-        groups:
-          type: array
-          items:
-            type: string
-            example: "group_123"
     
     ArtifactDeployment:
       title: Artifact Deployment
