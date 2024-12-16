@@ -17,7 +17,7 @@ import (
 
 
 
-type Artifact struct {
+type GroupArtifact struct {
 
 	Object string `json:"object"`
 
@@ -52,10 +52,12 @@ type Artifact struct {
 	GithubSource GitHubSource `json:"github_source,omitempty"`
 
 	GithubSourceData GitHubSourceData `json:"github_source_data,omitempty"`
+
+	Staged bool `json:"staged"`
 }
 
-// AssertArtifactRequired checks if the required fields are not zero-ed
-func AssertArtifactRequired(obj Artifact) error {
+// AssertGroupArtifactRequired checks if the required fields are not zero-ed
+func AssertGroupArtifactRequired(obj GroupArtifact) error {
 	elements := map[string]interface{}{
 		"object": obj.Object,
 		"id": obj.Id,
@@ -68,6 +70,7 @@ func AssertArtifactRequired(obj Artifact) error {
 		"images": obj.Images,
 		"source_id": obj.SourceId,
 		"source_type": obj.SourceType,
+		"staged": obj.Staged,
 	}
 	for name, el := range elements {
 		if isZero := IsZeroValue(el); isZero {
@@ -96,8 +99,8 @@ func AssertArtifactRequired(obj Artifact) error {
 	return nil
 }
 
-// AssertArtifactConstraints checks if the values respects the defined constraints
-func AssertArtifactConstraints(obj Artifact) error {
+// AssertGroupArtifactConstraints checks if the values respects the defined constraints
+func AssertGroupArtifactConstraints(obj GroupArtifact) error {
 	if err := AssertUserConstraints(obj.CreatedBy); err != nil {
 		return err
 	}

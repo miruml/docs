@@ -1,0 +1,27 @@
+openapi: 3.0.3
+info:
+  title: Deploy Schemas
+  version: ""
+components: 
+  schemas: 
+
+    CreateDeployments:
+      title: Create Deployments
+      type: object
+      required:
+        - artifact_ids
+        - device_ids
+      properties:
+        artifact_ids:
+          type: array
+          items:
+            type: string
+            example: "art_1234"
+        device_ids:
+          type: array
+          items:
+            type: string
+            example: "device_1234"
+
+paths: {}
+

@@ -1,67 +1,67 @@
-# ArtifactList
+# GroupArtifactList
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Object** | **string** |  | 
-**Data** | [**[]Artifact**](Artifact.md) |  | 
+**Data** | [**[]GroupArtifact**](GroupArtifact.md) |  | 
 
 ## Methods
 
-### NewArtifactList
+### NewGroupArtifactList
 
-`func NewArtifactList(object string, data []Artifact, ) *ArtifactList`
+`func NewGroupArtifactList(object string, data []GroupArtifact, ) *GroupArtifactList`
 
-NewArtifactList instantiates a new ArtifactList object
+NewGroupArtifactList instantiates a new GroupArtifactList object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewArtifactListWithDefaults
+### NewGroupArtifactListWithDefaults
 
-`func NewArtifactListWithDefaults() *ArtifactList`
+`func NewGroupArtifactListWithDefaults() *GroupArtifactList`
 
-NewArtifactListWithDefaults instantiates a new ArtifactList object
+NewGroupArtifactListWithDefaults instantiates a new GroupArtifactList object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetObject
 
-`func (o *ArtifactList) GetObject() string`
+`func (o *GroupArtifactList) GetObject() string`
 
 GetObject returns the Object field if non-nil, zero value otherwise.
 
 ### GetObjectOk
 
-`func (o *ArtifactList) GetObjectOk() (*string, bool)`
+`func (o *GroupArtifactList) GetObjectOk() (*string, bool)`
 
 GetObjectOk returns a tuple with the Object field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetObject
 
-`func (o *ArtifactList) SetObject(v string)`
+`func (o *GroupArtifactList) SetObject(v string)`
 
 SetObject sets Object field to given value.
 
 
 ### GetData
 
-`func (o *ArtifactList) GetData() []Artifact`
+`func (o *GroupArtifactList) GetData() []GroupArtifact`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *ArtifactList) GetDataOk() (*[]Artifact, bool)`
+`func (o *GroupArtifactList) GetDataOk() (*[]GroupArtifact, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *ArtifactList) SetData(v []Artifact)`
+`func (o *GroupArtifactList) SetData(v []GroupArtifact)`
 
 SetData sets Data field to given value.
 

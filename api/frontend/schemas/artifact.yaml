@@ -29,6 +29,9 @@ components:
           example: "art_1234"
         status:
           $ref: "#/components/schemas/ArtifactStatus"
+        digest:
+          type: string
+          example: "dad036b"
         aarch64:
           type: boolean
           example: true
@@ -74,7 +77,32 @@ components:
         github_source_data:
           $ref: "#/components/schemas/GitHubSourceData"
           nullable: true
-          
+
+    GroupArtifact:
+      allOf:
+        - $ref: "#/components/schemas/Artifact"
+        - type: object
+          required:
+            - staged
+          properties:
+            staged:
+              type: boolean
+              example: true
+
+    GroupArtifactList:
+      title: Group Artifact List
+      type: object
+      required:
+        - object
+        - data
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/GroupArtifact"
     
     ArtifactList:
       title: Artifact List

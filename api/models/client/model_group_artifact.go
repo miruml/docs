@@ -17,11 +17,11 @@ import (
 	"fmt"
 )
 
-// checks if the Artifact type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &Artifact{}
+// checks if the GroupArtifact type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GroupArtifact{}
 
-// Artifact struct for Artifact
-type Artifact struct {
+// GroupArtifact struct for GroupArtifact
+type GroupArtifact struct {
 	Object string `json:"object"`
 	Id string `json:"id"`
 	Status ArtifactStatus `json:"status"`
@@ -39,16 +39,17 @@ type Artifact struct {
 	RegistrySource *RegistrySource `json:"registry_source,omitempty"`
 	GithubSource *GitHubSource `json:"github_source,omitempty"`
 	GithubSourceData *GitHubSourceData `json:"github_source_data,omitempty"`
+	Staged bool `json:"staged"`
 }
 
-type _Artifact Artifact
+type _GroupArtifact GroupArtifact
 
-// NewArtifact instantiates a new Artifact object
+// NewGroupArtifact instantiates a new GroupArtifact object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewArtifact(object string, id string, status ArtifactStatus, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime, images ImageList, sourceId string, sourceType string) *Artifact {
-	this := Artifact{}
+func NewGroupArtifact(object string, id string, status ArtifactStatus, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime, images ImageList, sourceId string, sourceType string, staged bool) *GroupArtifact {
+	this := GroupArtifact{}
 	this.Object = object
 	this.Id = id
 	this.Status = status
@@ -60,19 +61,20 @@ func NewArtifact(object string, id string, status ArtifactStatus, aarch64 bool, 
 	this.Images = images
 	this.SourceId = sourceId
 	this.SourceType = sourceType
+	this.Staged = staged
 	return &this
 }
 
-// NewArtifactWithDefaults instantiates a new Artifact object
+// NewGroupArtifactWithDefaults instantiates a new GroupArtifact object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewArtifactWithDefaults() *Artifact {
-	this := Artifact{}
+func NewGroupArtifactWithDefaults() *GroupArtifact {
+	this := GroupArtifact{}
 	return &this
 }
 
 // GetObject returns the Object field value
-func (o *Artifact) GetObject() string {
+func (o *GroupArtifact) GetObject() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -83,7 +85,7 @@ func (o *Artifact) GetObject() string {
 
 // GetObjectOk returns a tuple with the Object field value
 // and a boolean to check if the value has been set.
-func (o *Artifact) GetObjectOk() (*string, bool) {
+func (o *GroupArtifact) GetObjectOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -91,12 +93,12 @@ func (o *Artifact) GetObjectOk() (*string, bool) {
 }
 
 // SetObject sets field value
-func (o *Artifact) SetObject(v string) {
+func (o *GroupArtifact) SetObject(v string) {
 	o.Object = v
 }
 
 // GetId returns the Id field value
-func (o *Artifact) GetId() string {
+func (o *GroupArtifact) GetId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -107,7 +109,7 @@ func (o *Artifact) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *Artifact) GetIdOk() (*string, bool) {
+func (o *GroupArtifact) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -115,12 +117,12 @@ func (o *Artifact) GetIdOk() (*string, bool) {
 }
 
 // SetId sets field value
-func (o *Artifact) SetId(v string) {
+func (o *GroupArtifact) SetId(v string) {
 	o.Id = v
 }
 
 // GetStatus returns the Status field value
-func (o *Artifact) GetStatus() ArtifactStatus {
+func (o *GroupArtifact) GetStatus() ArtifactStatus {
 	if o == nil {
 		var ret ArtifactStatus
 		return ret
@@ -131,7 +133,7 @@ func (o *Artifact) GetStatus() ArtifactStatus {
 
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
-func (o *Artifact) GetStatusOk() (*ArtifactStatus, bool) {
+func (o *GroupArtifact) GetStatusOk() (*ArtifactStatus, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -139,12 +141,12 @@ func (o *Artifact) GetStatusOk() (*ArtifactStatus, bool) {
 }
 
 // SetStatus sets field value
-func (o *Artifact) SetStatus(v ArtifactStatus) {
+func (o *GroupArtifact) SetStatus(v ArtifactStatus) {
 	o.Status = v
 }
 
 // GetDigest returns the Digest field value if set, zero value otherwise.
-func (o *Artifact) GetDigest() string {
+func (o *GroupArtifact) GetDigest() string {
 	if o == nil || IsNil(o.Digest) {
 		var ret string
 		return ret
@@ -154,7 +156,7 @@ func (o *Artifact) GetDigest() string {
 
 // GetDigestOk returns a tuple with the Digest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Artifact) GetDigestOk() (*string, bool) {
+func (o *GroupArtifact) GetDigestOk() (*string, bool) {
 	if o == nil || IsNil(o.Digest) {
 		return nil, false
 	}
@@ -162,7 +164,7 @@ func (o *Artifact) GetDigestOk() (*string, bool) {
 }
 
 // HasDigest returns a boolean if a field has been set.
-func (o *Artifact) HasDigest() bool {
+func (o *GroupArtifact) HasDigest() bool {
 	if o != nil && !IsNil(o.Digest) {
 		return true
 	}
@@ -171,12 +173,12 @@ func (o *Artifact) HasDigest() bool {
 }
 
 // SetDigest gets a reference to the given string and assigns it to the Digest field.
-func (o *Artifact) SetDigest(v string) {
+func (o *GroupArtifact) SetDigest(v string) {
 	o.Digest = &v
 }
 
 // GetAarch64 returns the Aarch64 field value
-func (o *Artifact) GetAarch64() bool {
+func (o *GroupArtifact) GetAarch64() bool {
 	if o == nil {
 		var ret bool
 		return ret
@@ -187,7 +189,7 @@ func (o *Artifact) GetAarch64() bool {
 
 // GetAarch64Ok returns a tuple with the Aarch64 field value
 // and a boolean to check if the value has been set.
-func (o *Artifact) GetAarch64Ok() (*bool, bool) {
+func (o *GroupArtifact) GetAarch64Ok() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -195,12 +197,12 @@ func (o *Artifact) GetAarch64Ok() (*bool, bool) {
 }
 
 // SetAarch64 sets field value
-func (o *Artifact) SetAarch64(v bool) {
+func (o *GroupArtifact) SetAarch64(v bool) {
 	o.Aarch64 = v
 }
 
 // GetX8664 returns the X8664 field value
-func (o *Artifact) GetX8664() bool {
+func (o *GroupArtifact) GetX8664() bool {
 	if o == nil {
 		var ret bool
 		return ret
@@ -211,7 +213,7 @@ func (o *Artifact) GetX8664() bool {
 
 // GetX8664Ok returns a tuple with the X8664 field value
 // and a boolean to check if the value has been set.
-func (o *Artifact) GetX8664Ok() (*bool, bool) {
+func (o *GroupArtifact) GetX8664Ok() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -219,12 +221,12 @@ func (o *Artifact) GetX8664Ok() (*bool, bool) {
 }
 
 // SetX8664 sets field value
-func (o *Artifact) SetX8664(v bool) {
+func (o *GroupArtifact) SetX8664(v bool) {
 	o.X8664 = v
 }
 
 // GetCreatedAt returns the CreatedAt field value
-func (o *Artifact) GetCreatedAt() time.Time {
+func (o *GroupArtifact) GetCreatedAt() time.Time {
 	if o == nil {
 		var ret time.Time
 		return ret
@@ -235,7 +237,7 @@ func (o *Artifact) GetCreatedAt() time.Time {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
-func (o *Artifact) GetCreatedAtOk() (*time.Time, bool) {
+func (o *GroupArtifact) GetCreatedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -243,13 +245,13 @@ func (o *Artifact) GetCreatedAtOk() (*time.Time, bool) {
 }
 
 // SetCreatedAt sets field value
-func (o *Artifact) SetCreatedAt(v time.Time) {
+func (o *GroupArtifact) SetCreatedAt(v time.Time) {
 	o.CreatedAt = v
 }
 
 // GetReadyAt returns the ReadyAt field value
 // If the value is explicit nil, the zero value for time.Time will be returned
-func (o *Artifact) GetReadyAt() time.Time {
+func (o *GroupArtifact) GetReadyAt() time.Time {
 	if o == nil || o.ReadyAt.Get() == nil {
 		var ret time.Time
 		return ret
@@ -261,7 +263,7 @@ func (o *Artifact) GetReadyAt() time.Time {
 // GetReadyAtOk returns a tuple with the ReadyAt field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Artifact) GetReadyAtOk() (*time.Time, bool) {
+func (o *GroupArtifact) GetReadyAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -269,13 +271,13 @@ func (o *Artifact) GetReadyAtOk() (*time.Time, bool) {
 }
 
 // SetReadyAt sets field value
-func (o *Artifact) SetReadyAt(v time.Time) {
+func (o *GroupArtifact) SetReadyAt(v time.Time) {
 	o.ReadyAt.Set(&v)
 }
 
 // GetFailedAt returns the FailedAt field value
 // If the value is explicit nil, the zero value for time.Time will be returned
-func (o *Artifact) GetFailedAt() time.Time {
+func (o *GroupArtifact) GetFailedAt() time.Time {
 	if o == nil || o.FailedAt.Get() == nil {
 		var ret time.Time
 		return ret
@@ -287,7 +289,7 @@ func (o *Artifact) GetFailedAt() time.Time {
 // GetFailedAtOk returns a tuple with the FailedAt field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Artifact) GetFailedAtOk() (*time.Time, bool) {
+func (o *GroupArtifact) GetFailedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -295,12 +297,12 @@ func (o *Artifact) GetFailedAtOk() (*time.Time, bool) {
 }
 
 // SetFailedAt sets field value
-func (o *Artifact) SetFailedAt(v time.Time) {
+func (o *GroupArtifact) SetFailedAt(v time.Time) {
 	o.FailedAt.Set(&v)
 }
 
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
-func (o *Artifact) GetCreatedBy() User {
+func (o *GroupArtifact) GetCreatedBy() User {
 	if o == nil || IsNil(o.CreatedBy) {
 		var ret User
 		return ret
@@ -310,7 +312,7 @@ func (o *Artifact) GetCreatedBy() User {
 
 // GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Artifact) GetCreatedByOk() (*User, bool) {
+func (o *GroupArtifact) GetCreatedByOk() (*User, bool) {
 	if o == nil || IsNil(o.CreatedBy) {
 		return nil, false
 	}
@@ -318,7 +320,7 @@ func (o *Artifact) GetCreatedByOk() (*User, bool) {
 }
 
 // HasCreatedBy returns a boolean if a field has been set.
-func (o *Artifact) HasCreatedBy() bool {
+func (o *GroupArtifact) HasCreatedBy() bool {
 	if o != nil && !IsNil(o.CreatedBy) {
 		return true
 	}
@@ -327,12 +329,12 @@ func (o *Artifact) HasCreatedBy() bool {
 }
 
 // SetCreatedBy gets a reference to the given User and assigns it to the CreatedBy field.
-func (o *Artifact) SetCreatedBy(v User) {
+func (o *GroupArtifact) SetCreatedBy(v User) {
 	o.CreatedBy = &v
 }
 
 // GetDeployments returns the Deployments field value if set, zero value otherwise.
-func (o *Artifact) GetDeployments() ArtifactDeploymentList {
+func (o *GroupArtifact) GetDeployments() ArtifactDeploymentList {
 	if o == nil || IsNil(o.Deployments) {
 		var ret ArtifactDeploymentList
 		return ret
@@ -342,7 +344,7 @@ func (o *Artifact) GetDeployments() ArtifactDeploymentList {
 
 // GetDeploymentsOk returns a tuple with the Deployments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Artifact) GetDeploymentsOk() (*ArtifactDeploymentList, bool) {
+func (o *GroupArtifact) GetDeploymentsOk() (*ArtifactDeploymentList, bool) {
 	if o == nil || IsNil(o.Deployments) {
 		return nil, false
 	}
@@ -350,7 +352,7 @@ func (o *Artifact) GetDeploymentsOk() (*ArtifactDeploymentList, bool) {
 }
 
 // HasDeployments returns a boolean if a field has been set.
-func (o *Artifact) HasDeployments() bool {
+func (o *GroupArtifact) HasDeployments() bool {
 	if o != nil && !IsNil(o.Deployments) {
 		return true
 	}
@@ -359,12 +361,12 @@ func (o *Artifact) HasDeployments() bool {
 }
 
 // SetDeployments gets a reference to the given ArtifactDeploymentList and assigns it to the Deployments field.
-func (o *Artifact) SetDeployments(v ArtifactDeploymentList) {
+func (o *GroupArtifact) SetDeployments(v ArtifactDeploymentList) {
 	o.Deployments = &v
 }
 
 // GetImages returns the Images field value
-func (o *Artifact) GetImages() ImageList {
+func (o *GroupArtifact) GetImages() ImageList {
 	if o == nil {
 		var ret ImageList
 		return ret
@@ -375,7 +377,7 @@ func (o *Artifact) GetImages() ImageList {
 
 // GetImagesOk returns a tuple with the Images field value
 // and a boolean to check if the value has been set.
-func (o *Artifact) GetImagesOk() (*ImageList, bool) {
+func (o *GroupArtifact) GetImagesOk() (*ImageList, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -383,12 +385,12 @@ func (o *Artifact) GetImagesOk() (*ImageList, bool) {
 }
 
 // SetImages sets field value
-func (o *Artifact) SetImages(v ImageList) {
+func (o *GroupArtifact) SetImages(v ImageList) {
 	o.Images = v
 }
 
 // GetSourceId returns the SourceId field value
-func (o *Artifact) GetSourceId() string {
+func (o *GroupArtifact) GetSourceId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -399,7 +401,7 @@ func (o *Artifact) GetSourceId() string {
 
 // GetSourceIdOk returns a tuple with the SourceId field value
 // and a boolean to check if the value has been set.
-func (o *Artifact) GetSourceIdOk() (*string, bool) {
+func (o *GroupArtifact) GetSourceIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -407,12 +409,12 @@ func (o *Artifact) GetSourceIdOk() (*string, bool) {
 }
 
 // SetSourceId sets field value
-func (o *Artifact) SetSourceId(v string) {
+func (o *GroupArtifact) SetSourceId(v string) {
 	o.SourceId = v
 }
 
 // GetSourceType returns the SourceType field value
-func (o *Artifact) GetSourceType() string {
+func (o *GroupArtifact) GetSourceType() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -423,7 +425,7 @@ func (o *Artifact) GetSourceType() string {
 
 // GetSourceTypeOk returns a tuple with the SourceType field value
 // and a boolean to check if the value has been set.
-func (o *Artifact) GetSourceTypeOk() (*string, bool) {
+func (o *GroupArtifact) GetSourceTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -431,12 +433,12 @@ func (o *Artifact) GetSourceTypeOk() (*string, bool) {
 }
 
 // SetSourceType sets field value
-func (o *Artifact) SetSourceType(v string) {
+func (o *GroupArtifact) SetSourceType(v string) {
 	o.SourceType = v
 }
 
 // GetRegistrySource returns the RegistrySource field value if set, zero value otherwise.
-func (o *Artifact) GetRegistrySource() RegistrySource {
+func (o *GroupArtifact) GetRegistrySource() RegistrySource {
 	if o == nil || IsNil(o.RegistrySource) {
 		var ret RegistrySource
 		return ret
@@ -446,7 +448,7 @@ func (o *Artifact) GetRegistrySource() RegistrySource {
 
 // GetRegistrySourceOk returns a tuple with the RegistrySource field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Artifact) GetRegistrySourceOk() (*RegistrySource, bool) {
+func (o *GroupArtifact) GetRegistrySourceOk() (*RegistrySource, bool) {
 	if o == nil || IsNil(o.RegistrySource) {
 		return nil, false
 	}
@@ -454,7 +456,7 @@ func (o *Artifact) GetRegistrySourceOk() (*RegistrySource, bool) {
 }
 
 // HasRegistrySource returns a boolean if a field has been set.
-func (o *Artifact) HasRegistrySource() bool {
+func (o *GroupArtifact) HasRegistrySource() bool {
 	if o != nil && !IsNil(o.RegistrySource) {
 		return true
 	}
@@ -463,12 +465,12 @@ func (o *Artifact) HasRegistrySource() bool {
 }
 
 // SetRegistrySource gets a reference to the given RegistrySource and assigns it to the RegistrySource field.
-func (o *Artifact) SetRegistrySource(v RegistrySource) {
+func (o *GroupArtifact) SetRegistrySource(v RegistrySource) {
 	o.RegistrySource = &v
 }
 
 // GetGithubSource returns the GithubSource field value if set, zero value otherwise.
-func (o *Artifact) GetGithubSource() GitHubSource {
+func (o *GroupArtifact) GetGithubSource() GitHubSource {
 	if o == nil || IsNil(o.GithubSource) {
 		var ret GitHubSource
 		return ret
@@ -478,7 +480,7 @@ func (o *Artifact) GetGithubSource() GitHubSource {
 
 // GetGithubSourceOk returns a tuple with the GithubSource field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Artifact) GetGithubSourceOk() (*GitHubSource, bool) {
+func (o *GroupArtifact) GetGithubSourceOk() (*GitHubSource, bool) {
 	if o == nil || IsNil(o.GithubSource) {
 		return nil, false
 	}
@@ -486,7 +488,7 @@ func (o *Artifact) GetGithubSourceOk() (*GitHubSource, bool) {
 }
 
 // HasGithubSource returns a boolean if a field has been set.
-func (o *Artifact) HasGithubSource() bool {
+func (o *GroupArtifact) HasGithubSource() bool {
 	if o != nil && !IsNil(o.GithubSource) {
 		return true
 	}
@@ -495,12 +497,12 @@ func (o *Artifact) HasGithubSource() bool {
 }
 
 // SetGithubSource gets a reference to the given GitHubSource and assigns it to the GithubSource field.
-func (o *Artifact) SetGithubSource(v GitHubSource) {
+func (o *GroupArtifact) SetGithubSource(v GitHubSource) {
 	o.GithubSource = &v
 }
 
 // GetGithubSourceData returns the GithubSourceData field value if set, zero value otherwise.
-func (o *Artifact) GetGithubSourceData() GitHubSourceData {
+func (o *GroupArtifact) GetGithubSourceData() GitHubSourceData {
 	if o == nil || IsNil(o.GithubSourceData) {
 		var ret GitHubSourceData
 		return ret
@@ -510,7 +512,7 @@ func (o *Artifact) GetGithubSourceData() GitHubSourceData {
 
 // GetGithubSourceDataOk returns a tuple with the GithubSourceData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Artifact) GetGithubSourceDataOk() (*GitHubSourceData, bool) {
+func (o *GroupArtifact) GetGithubSourceDataOk() (*GitHubSourceData, bool) {
 	if o == nil || IsNil(o.GithubSourceData) {
 		return nil, false
 	}
@@ -518,7 +520,7 @@ func (o *Artifact) GetGithubSourceDataOk() (*GitHubSourceData, bool) {
 }
 
 // HasGithubSourceData returns a boolean if a field has been set.
-func (o *Artifact) HasGithubSourceData() bool {
+func (o *GroupArtifact) HasGithubSourceData() bool {
 	if o != nil && !IsNil(o.GithubSourceData) {
 		return true
 	}
@@ -527,11 +529,35 @@ func (o *Artifact) HasGithubSourceData() bool {
 }
 
 // SetGithubSourceData gets a reference to the given GitHubSourceData and assigns it to the GithubSourceData field.
-func (o *Artifact) SetGithubSourceData(v GitHubSourceData) {
+func (o *GroupArtifact) SetGithubSourceData(v GitHubSourceData) {
 	o.GithubSourceData = &v
 }
 
-func (o Artifact) MarshalJSON() ([]byte, error) {
+// GetStaged returns the Staged field value
+func (o *GroupArtifact) GetStaged() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Staged
+}
+
+// GetStagedOk returns a tuple with the Staged field value
+// and a boolean to check if the value has been set.
+func (o *GroupArtifact) GetStagedOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Staged, true
+}
+
+// SetStaged sets field value
+func (o *GroupArtifact) SetStaged(v bool) {
+	o.Staged = v
+}
+
+func (o GroupArtifact) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -539,7 +565,7 @@ func (o Artifact) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o Artifact) ToMap() (map[string]interface{}, error) {
+func (o GroupArtifact) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["object"] = o.Object
 	toSerialize["id"] = o.Id
@@ -570,10 +596,11 @@ func (o Artifact) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.GithubSourceData) {
 		toSerialize["github_source_data"] = o.GithubSourceData
 	}
+	toSerialize["staged"] = o.Staged
 	return toSerialize, nil
 }
 
-func (o *Artifact) UnmarshalJSON(data []byte) (err error) {
+func (o *GroupArtifact) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -589,6 +616,7 @@ func (o *Artifact) UnmarshalJSON(data []byte) (err error) {
 		"images",
 		"source_id",
 		"source_type",
+		"staged",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -605,53 +633,53 @@ func (o *Artifact) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varArtifact := _Artifact{}
+	varGroupArtifact := _GroupArtifact{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varArtifact)
+	err = decoder.Decode(&varGroupArtifact)
 
 	if err != nil {
 		return err
 	}
 
-	*o = Artifact(varArtifact)
+	*o = GroupArtifact(varGroupArtifact)
 
 	return err
 }
 
-type NullableArtifact struct {
-	value *Artifact
+type NullableGroupArtifact struct {
+	value *GroupArtifact
 	isSet bool
 }
 
-func (v NullableArtifact) Get() *Artifact {
+func (v NullableGroupArtifact) Get() *GroupArtifact {
 	return v.value
 }
 
-func (v *NullableArtifact) Set(val *Artifact) {
+func (v *NullableGroupArtifact) Set(val *GroupArtifact) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableArtifact) IsSet() bool {
+func (v NullableGroupArtifact) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableArtifact) Unset() {
+func (v *NullableGroupArtifact) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableArtifact(val *Artifact) *NullableArtifact {
-	return &NullableArtifact{value: val, isSet: true}
+func NewNullableGroupArtifact(val *GroupArtifact) *NullableGroupArtifact {
+	return &NullableGroupArtifact{value: val, isSet: true}
 }
 
-func (v NullableArtifact) MarshalJSON() ([]byte, error) {
+func (v NullableGroupArtifact) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableArtifact) UnmarshalJSON(src []byte) error {
+func (v *NullableGroupArtifact) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

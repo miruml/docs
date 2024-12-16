@@ -16,38 +16,38 @@ import (
 	"fmt"
 )
 
-// checks if the ArtifactList type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ArtifactList{}
+// checks if the GroupArtifactList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GroupArtifactList{}
 
-// ArtifactList struct for ArtifactList
-type ArtifactList struct {
+// GroupArtifactList struct for GroupArtifactList
+type GroupArtifactList struct {
 	Object string `json:"object"`
-	Data []Artifact `json:"data"`
+	Data []GroupArtifact `json:"data"`
 }
 
-type _ArtifactList ArtifactList
+type _GroupArtifactList GroupArtifactList
 
-// NewArtifactList instantiates a new ArtifactList object
+// NewGroupArtifactList instantiates a new GroupArtifactList object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewArtifactList(object string, data []Artifact) *ArtifactList {
-	this := ArtifactList{}
+func NewGroupArtifactList(object string, data []GroupArtifact) *GroupArtifactList {
+	this := GroupArtifactList{}
 	this.Object = object
 	this.Data = data
 	return &this
 }
 
-// NewArtifactListWithDefaults instantiates a new ArtifactList object
+// NewGroupArtifactListWithDefaults instantiates a new GroupArtifactList object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewArtifactListWithDefaults() *ArtifactList {
-	this := ArtifactList{}
+func NewGroupArtifactListWithDefaults() *GroupArtifactList {
+	this := GroupArtifactList{}
 	return &this
 }
 
 // GetObject returns the Object field value
-func (o *ArtifactList) GetObject() string {
+func (o *GroupArtifactList) GetObject() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -58,7 +58,7 @@ func (o *ArtifactList) GetObject() string {
 
 // GetObjectOk returns a tuple with the Object field value
 // and a boolean to check if the value has been set.
-func (o *ArtifactList) GetObjectOk() (*string, bool) {
+func (o *GroupArtifactList) GetObjectOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -66,14 +66,14 @@ func (o *ArtifactList) GetObjectOk() (*string, bool) {
 }
 
 // SetObject sets field value
-func (o *ArtifactList) SetObject(v string) {
+func (o *GroupArtifactList) SetObject(v string) {
 	o.Object = v
 }
 
 // GetData returns the Data field value
-func (o *ArtifactList) GetData() []Artifact {
+func (o *GroupArtifactList) GetData() []GroupArtifact {
 	if o == nil {
-		var ret []Artifact
+		var ret []GroupArtifact
 		return ret
 	}
 
@@ -82,7 +82,7 @@ func (o *ArtifactList) GetData() []Artifact {
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *ArtifactList) GetDataOk() ([]Artifact, bool) {
+func (o *GroupArtifactList) GetDataOk() ([]GroupArtifact, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -90,11 +90,11 @@ func (o *ArtifactList) GetDataOk() ([]Artifact, bool) {
 }
 
 // SetData sets field value
-func (o *ArtifactList) SetData(v []Artifact) {
+func (o *GroupArtifactList) SetData(v []GroupArtifact) {
 	o.Data = v
 }
 
-func (o ArtifactList) MarshalJSON() ([]byte, error) {
+func (o GroupArtifactList) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -102,14 +102,14 @@ func (o ArtifactList) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ArtifactList) ToMap() (map[string]interface{}, error) {
+func (o GroupArtifactList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["object"] = o.Object
 	toSerialize["data"] = o.Data
 	return toSerialize, nil
 }
 
-func (o *ArtifactList) UnmarshalJSON(data []byte) (err error) {
+func (o *GroupArtifactList) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -132,53 +132,53 @@ func (o *ArtifactList) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varArtifactList := _ArtifactList{}
+	varGroupArtifactList := _GroupArtifactList{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varArtifactList)
+	err = decoder.Decode(&varGroupArtifactList)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ArtifactList(varArtifactList)
+	*o = GroupArtifactList(varGroupArtifactList)
 
 	return err
 }
 
-type NullableArtifactList struct {
-	value *ArtifactList
+type NullableGroupArtifactList struct {
+	value *GroupArtifactList
 	isSet bool
 }
 
-func (v NullableArtifactList) Get() *ArtifactList {
+func (v NullableGroupArtifactList) Get() *GroupArtifactList {
 	return v.value
 }
 
-func (v *NullableArtifactList) Set(val *ArtifactList) {
+func (v *NullableGroupArtifactList) Set(val *GroupArtifactList) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableArtifactList) IsSet() bool {
+func (v NullableGroupArtifactList) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableArtifactList) Unset() {
+func (v *NullableGroupArtifactList) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableArtifactList(val *ArtifactList) *NullableArtifactList {
-	return &NullableArtifactList{value: val, isSet: true}
+func NewNullableGroupArtifactList(val *GroupArtifactList) *NullableGroupArtifactList {
+	return &NullableGroupArtifactList{value: val, isSet: true}
 }
 
-func (v NullableArtifactList) MarshalJSON() ([]byte, error) {
+func (v NullableGroupArtifactList) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableArtifactList) UnmarshalJSON(src []byte) error {
+func (v *NullableGroupArtifactList) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

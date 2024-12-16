@@ -1,4 +1,4 @@
-# Artifact
+# GroupArtifact
 
 ## Properties
 
@@ -21,415 +21,436 @@ Name | Type | Description | Notes
 **RegistrySource** | Pointer to [**RegistrySource**](RegistrySource.md) |  | [optional] 
 **GithubSource** | Pointer to [**GitHubSource**](GitHubSource.md) |  | [optional] 
 **GithubSourceData** | Pointer to [**GitHubSourceData**](GitHubSourceData.md) |  | [optional] 
+**Staged** | **bool** |  | 
 
 ## Methods
 
-### NewArtifact
+### NewGroupArtifact
 
-`func NewArtifact(object string, id string, status ArtifactStatus, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime, images ImageList, sourceId string, sourceType string, ) *Artifact`
+`func NewGroupArtifact(object string, id string, status ArtifactStatus, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime, images ImageList, sourceId string, sourceType string, staged bool, ) *GroupArtifact`
 
-NewArtifact instantiates a new Artifact object
+NewGroupArtifact instantiates a new GroupArtifact object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewArtifactWithDefaults
+### NewGroupArtifactWithDefaults
 
-`func NewArtifactWithDefaults() *Artifact`
+`func NewGroupArtifactWithDefaults() *GroupArtifact`
 
-NewArtifactWithDefaults instantiates a new Artifact object
+NewGroupArtifactWithDefaults instantiates a new GroupArtifact object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetObject
 
-`func (o *Artifact) GetObject() string`
+`func (o *GroupArtifact) GetObject() string`
 
 GetObject returns the Object field if non-nil, zero value otherwise.
 
 ### GetObjectOk
 
-`func (o *Artifact) GetObjectOk() (*string, bool)`
+`func (o *GroupArtifact) GetObjectOk() (*string, bool)`
 
 GetObjectOk returns a tuple with the Object field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetObject
 
-`func (o *Artifact) SetObject(v string)`
+`func (o *GroupArtifact) SetObject(v string)`
 
 SetObject sets Object field to given value.
 
 
 ### GetId
 
-`func (o *Artifact) GetId() string`
+`func (o *GroupArtifact) GetId() string`
 
 GetId returns the Id field if non-nil, zero value otherwise.
 
 ### GetIdOk
 
-`func (o *Artifact) GetIdOk() (*string, bool)`
+`func (o *GroupArtifact) GetIdOk() (*string, bool)`
 
 GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetId
 
-`func (o *Artifact) SetId(v string)`
+`func (o *GroupArtifact) SetId(v string)`
 
 SetId sets Id field to given value.
 
 
 ### GetStatus
 
-`func (o *Artifact) GetStatus() ArtifactStatus`
+`func (o *GroupArtifact) GetStatus() ArtifactStatus`
 
 GetStatus returns the Status field if non-nil, zero value otherwise.
 
 ### GetStatusOk
 
-`func (o *Artifact) GetStatusOk() (*ArtifactStatus, bool)`
+`func (o *GroupArtifact) GetStatusOk() (*ArtifactStatus, bool)`
 
 GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatus
 
-`func (o *Artifact) SetStatus(v ArtifactStatus)`
+`func (o *GroupArtifact) SetStatus(v ArtifactStatus)`
 
 SetStatus sets Status field to given value.
 
 
 ### GetDigest
 
-`func (o *Artifact) GetDigest() string`
+`func (o *GroupArtifact) GetDigest() string`
 
 GetDigest returns the Digest field if non-nil, zero value otherwise.
 
 ### GetDigestOk
 
-`func (o *Artifact) GetDigestOk() (*string, bool)`
+`func (o *GroupArtifact) GetDigestOk() (*string, bool)`
 
 GetDigestOk returns a tuple with the Digest field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDigest
 
-`func (o *Artifact) SetDigest(v string)`
+`func (o *GroupArtifact) SetDigest(v string)`
 
 SetDigest sets Digest field to given value.
 
 ### HasDigest
 
-`func (o *Artifact) HasDigest() bool`
+`func (o *GroupArtifact) HasDigest() bool`
 
 HasDigest returns a boolean if a field has been set.
 
 ### GetAarch64
 
-`func (o *Artifact) GetAarch64() bool`
+`func (o *GroupArtifact) GetAarch64() bool`
 
 GetAarch64 returns the Aarch64 field if non-nil, zero value otherwise.
 
 ### GetAarch64Ok
 
-`func (o *Artifact) GetAarch64Ok() (*bool, bool)`
+`func (o *GroupArtifact) GetAarch64Ok() (*bool, bool)`
 
 GetAarch64Ok returns a tuple with the Aarch64 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAarch64
 
-`func (o *Artifact) SetAarch64(v bool)`
+`func (o *GroupArtifact) SetAarch64(v bool)`
 
 SetAarch64 sets Aarch64 field to given value.
 
 
 ### GetX8664
 
-`func (o *Artifact) GetX8664() bool`
+`func (o *GroupArtifact) GetX8664() bool`
 
 GetX8664 returns the X8664 field if non-nil, zero value otherwise.
 
 ### GetX8664Ok
 
-`func (o *Artifact) GetX8664Ok() (*bool, bool)`
+`func (o *GroupArtifact) GetX8664Ok() (*bool, bool)`
 
 GetX8664Ok returns a tuple with the X8664 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetX8664
 
-`func (o *Artifact) SetX8664(v bool)`
+`func (o *GroupArtifact) SetX8664(v bool)`
 
 SetX8664 sets X8664 field to given value.
 
 
 ### GetCreatedAt
 
-`func (o *Artifact) GetCreatedAt() time.Time`
+`func (o *GroupArtifact) GetCreatedAt() time.Time`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *Artifact) GetCreatedAtOk() (*time.Time, bool)`
+`func (o *GroupArtifact) GetCreatedAtOk() (*time.Time, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *Artifact) SetCreatedAt(v time.Time)`
+`func (o *GroupArtifact) SetCreatedAt(v time.Time)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
 
 ### GetReadyAt
 
-`func (o *Artifact) GetReadyAt() time.Time`
+`func (o *GroupArtifact) GetReadyAt() time.Time`
 
 GetReadyAt returns the ReadyAt field if non-nil, zero value otherwise.
 
 ### GetReadyAtOk
 
-`func (o *Artifact) GetReadyAtOk() (*time.Time, bool)`
+`func (o *GroupArtifact) GetReadyAtOk() (*time.Time, bool)`
 
 GetReadyAtOk returns a tuple with the ReadyAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReadyAt
 
-`func (o *Artifact) SetReadyAt(v time.Time)`
+`func (o *GroupArtifact) SetReadyAt(v time.Time)`
 
 SetReadyAt sets ReadyAt field to given value.
 
 
 ### SetReadyAtNil
 
-`func (o *Artifact) SetReadyAtNil(b bool)`
+`func (o *GroupArtifact) SetReadyAtNil(b bool)`
 
  SetReadyAtNil sets the value for ReadyAt to be an explicit nil
 
 ### UnsetReadyAt
-`func (o *Artifact) UnsetReadyAt()`
+`func (o *GroupArtifact) UnsetReadyAt()`
 
 UnsetReadyAt ensures that no value is present for ReadyAt, not even an explicit nil
 ### GetFailedAt
 
-`func (o *Artifact) GetFailedAt() time.Time`
+`func (o *GroupArtifact) GetFailedAt() time.Time`
 
 GetFailedAt returns the FailedAt field if non-nil, zero value otherwise.
 
 ### GetFailedAtOk
 
-`func (o *Artifact) GetFailedAtOk() (*time.Time, bool)`
+`func (o *GroupArtifact) GetFailedAtOk() (*time.Time, bool)`
 
 GetFailedAtOk returns a tuple with the FailedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFailedAt
 
-`func (o *Artifact) SetFailedAt(v time.Time)`
+`func (o *GroupArtifact) SetFailedAt(v time.Time)`
 
 SetFailedAt sets FailedAt field to given value.
 
 
 ### SetFailedAtNil
 
-`func (o *Artifact) SetFailedAtNil(b bool)`
+`func (o *GroupArtifact) SetFailedAtNil(b bool)`
 
  SetFailedAtNil sets the value for FailedAt to be an explicit nil
 
 ### UnsetFailedAt
-`func (o *Artifact) UnsetFailedAt()`
+`func (o *GroupArtifact) UnsetFailedAt()`
 
 UnsetFailedAt ensures that no value is present for FailedAt, not even an explicit nil
 ### GetCreatedBy
 
-`func (o *Artifact) GetCreatedBy() User`
+`func (o *GroupArtifact) GetCreatedBy() User`
 
 GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
 
 ### GetCreatedByOk
 
-`func (o *Artifact) GetCreatedByOk() (*User, bool)`
+`func (o *GroupArtifact) GetCreatedByOk() (*User, bool)`
 
 GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedBy
 
-`func (o *Artifact) SetCreatedBy(v User)`
+`func (o *GroupArtifact) SetCreatedBy(v User)`
 
 SetCreatedBy sets CreatedBy field to given value.
 
 ### HasCreatedBy
 
-`func (o *Artifact) HasCreatedBy() bool`
+`func (o *GroupArtifact) HasCreatedBy() bool`
 
 HasCreatedBy returns a boolean if a field has been set.
 
 ### GetDeployments
 
-`func (o *Artifact) GetDeployments() ArtifactDeploymentList`
+`func (o *GroupArtifact) GetDeployments() ArtifactDeploymentList`
 
 GetDeployments returns the Deployments field if non-nil, zero value otherwise.
 
 ### GetDeploymentsOk
 
-`func (o *Artifact) GetDeploymentsOk() (*ArtifactDeploymentList, bool)`
+`func (o *GroupArtifact) GetDeploymentsOk() (*ArtifactDeploymentList, bool)`
 
 GetDeploymentsOk returns a tuple with the Deployments field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDeployments
 
-`func (o *Artifact) SetDeployments(v ArtifactDeploymentList)`
+`func (o *GroupArtifact) SetDeployments(v ArtifactDeploymentList)`
 
 SetDeployments sets Deployments field to given value.
 
 ### HasDeployments
 
-`func (o *Artifact) HasDeployments() bool`
+`func (o *GroupArtifact) HasDeployments() bool`
 
 HasDeployments returns a boolean if a field has been set.
 
 ### GetImages
 
-`func (o *Artifact) GetImages() ImageList`
+`func (o *GroupArtifact) GetImages() ImageList`
 
 GetImages returns the Images field if non-nil, zero value otherwise.
 
 ### GetImagesOk
 
-`func (o *Artifact) GetImagesOk() (*ImageList, bool)`
+`func (o *GroupArtifact) GetImagesOk() (*ImageList, bool)`
 
 GetImagesOk returns a tuple with the Images field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetImages
 
-`func (o *Artifact) SetImages(v ImageList)`
+`func (o *GroupArtifact) SetImages(v ImageList)`
 
 SetImages sets Images field to given value.
 
 
 ### GetSourceId
 
-`func (o *Artifact) GetSourceId() string`
+`func (o *GroupArtifact) GetSourceId() string`
 
 GetSourceId returns the SourceId field if non-nil, zero value otherwise.
 
 ### GetSourceIdOk
 
-`func (o *Artifact) GetSourceIdOk() (*string, bool)`
+`func (o *GroupArtifact) GetSourceIdOk() (*string, bool)`
 
 GetSourceIdOk returns a tuple with the SourceId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSourceId
 
-`func (o *Artifact) SetSourceId(v string)`
+`func (o *GroupArtifact) SetSourceId(v string)`
 
 SetSourceId sets SourceId field to given value.
 
 
 ### GetSourceType
 
-`func (o *Artifact) GetSourceType() string`
+`func (o *GroupArtifact) GetSourceType() string`
 
 GetSourceType returns the SourceType field if non-nil, zero value otherwise.
 
 ### GetSourceTypeOk
 
-`func (o *Artifact) GetSourceTypeOk() (*string, bool)`
+`func (o *GroupArtifact) GetSourceTypeOk() (*string, bool)`
 
 GetSourceTypeOk returns a tuple with the SourceType field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSourceType
 
-`func (o *Artifact) SetSourceType(v string)`
+`func (o *GroupArtifact) SetSourceType(v string)`
 
 SetSourceType sets SourceType field to given value.
 
 
 ### GetRegistrySource
 
-`func (o *Artifact) GetRegistrySource() RegistrySource`
+`func (o *GroupArtifact) GetRegistrySource() RegistrySource`
 
 GetRegistrySource returns the RegistrySource field if non-nil, zero value otherwise.
 
 ### GetRegistrySourceOk
 
-`func (o *Artifact) GetRegistrySourceOk() (*RegistrySource, bool)`
+`func (o *GroupArtifact) GetRegistrySourceOk() (*RegistrySource, bool)`
 
 GetRegistrySourceOk returns a tuple with the RegistrySource field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRegistrySource
 
-`func (o *Artifact) SetRegistrySource(v RegistrySource)`
+`func (o *GroupArtifact) SetRegistrySource(v RegistrySource)`
 
 SetRegistrySource sets RegistrySource field to given value.
 
 ### HasRegistrySource
 
-`func (o *Artifact) HasRegistrySource() bool`
+`func (o *GroupArtifact) HasRegistrySource() bool`
 
 HasRegistrySource returns a boolean if a field has been set.
 
 ### GetGithubSource
 
-`func (o *Artifact) GetGithubSource() GitHubSource`
+`func (o *GroupArtifact) GetGithubSource() GitHubSource`
 
 GetGithubSource returns the GithubSource field if non-nil, zero value otherwise.
 
 ### GetGithubSourceOk
 
-`func (o *Artifact) GetGithubSourceOk() (*GitHubSource, bool)`
+`func (o *GroupArtifact) GetGithubSourceOk() (*GitHubSource, bool)`
 
 GetGithubSourceOk returns a tuple with the GithubSource field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGithubSource
 
-`func (o *Artifact) SetGithubSource(v GitHubSource)`
+`func (o *GroupArtifact) SetGithubSource(v GitHubSource)`
 
 SetGithubSource sets GithubSource field to given value.
 
 ### HasGithubSource
 
-`func (o *Artifact) HasGithubSource() bool`
+`func (o *GroupArtifact) HasGithubSource() bool`
 
 HasGithubSource returns a boolean if a field has been set.
 
 ### GetGithubSourceData
 
-`func (o *Artifact) GetGithubSourceData() GitHubSourceData`
+`func (o *GroupArtifact) GetGithubSourceData() GitHubSourceData`
 
 GetGithubSourceData returns the GithubSourceData field if non-nil, zero value otherwise.
 
 ### GetGithubSourceDataOk
 
-`func (o *Artifact) GetGithubSourceDataOk() (*GitHubSourceData, bool)`
+`func (o *GroupArtifact) GetGithubSourceDataOk() (*GitHubSourceData, bool)`
 
 GetGithubSourceDataOk returns a tuple with the GithubSourceData field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGithubSourceData
 
-`func (o *Artifact) SetGithubSourceData(v GitHubSourceData)`
+`func (o *GroupArtifact) SetGithubSourceData(v GitHubSourceData)`
 
 SetGithubSourceData sets GithubSourceData field to given value.
 
 ### HasGithubSourceData
 
-`func (o *Artifact) HasGithubSourceData() bool`
+`func (o *GroupArtifact) HasGithubSourceData() bool`
 
 HasGithubSourceData returns a boolean if a field has been set.
+
+### GetStaged
+
+`func (o *GroupArtifact) GetStaged() bool`
+
+GetStaged returns the Staged field if non-nil, zero value otherwise.
+
+### GetStagedOk
+
+`func (o *GroupArtifact) GetStagedOk() (*bool, bool)`
+
+GetStagedOk returns a tuple with the Staged field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStaged
+
+`func (o *GroupArtifact) SetStaged(v bool)`
+
+SetStaged sets Staged field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

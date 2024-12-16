@@ -1,0 +1,20 @@
+openapi: 3.0.3
+info:
+  title: Artifact Schemas
+  version: ""
+paths:
+  /workspaces/{workspace_id}/deploy:
+    post:
+      tags:
+        - Deployments
+      parameters:
+        - $ref: "../../params.yaml#/components/parameters/workspace_id"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/deployment.yaml#/components/schemas/CreateDeployments"
+      responses:
+        '200':
+          description: Successfully created the deployments.

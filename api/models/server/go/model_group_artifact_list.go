@@ -13,15 +13,15 @@ package openapi
 
 
 
-type ArtifactList struct {
+type GroupArtifactList struct {
 
 	Object string `json:"object"`
 
-	Data []Artifact `json:"data"`
+	Data []GroupArtifact `json:"data"`
 }
 
-// AssertArtifactListRequired checks if the required fields are not zero-ed
-func AssertArtifactListRequired(obj ArtifactList) error {
+// AssertGroupArtifactListRequired checks if the required fields are not zero-ed
+func AssertGroupArtifactListRequired(obj GroupArtifactList) error {
 	elements := map[string]interface{}{
 		"object": obj.Object,
 		"data": obj.Data,
@@ -33,17 +33,17 @@ func AssertArtifactListRequired(obj ArtifactList) error {
 	}
 
 	for _, el := range obj.Data {
-		if err := AssertArtifactRequired(el); err != nil {
+		if err := AssertGroupArtifactRequired(el); err != nil {
 			return err
 		}
 	}
 	return nil
 }
 
-// AssertArtifactListConstraints checks if the values respects the defined constraints
-func AssertArtifactListConstraints(obj ArtifactList) error {
+// AssertGroupArtifactListConstraints checks if the values respects the defined constraints
+func AssertGroupArtifactListConstraints(obj GroupArtifactList) error {
 	for _, el := range obj.Data {
-		if err := AssertArtifactConstraints(el); err != nil {
+		if err := AssertGroupArtifactConstraints(el); err != nil {
 			return err
 		}
 	}

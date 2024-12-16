@@ -54,7 +54,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '../schemas/artifact.yaml#/components/schemas/ArtifactList'
+                $ref: '../schemas/artifact.yaml#/components/schemas/GroupArtifactList'
   /sources/registry/{registry_source_id}/artifacts:
     post:
       tags:
