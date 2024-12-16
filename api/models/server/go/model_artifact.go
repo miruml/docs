@@ -35,6 +35,8 @@ type Artifact struct {
 
 	FailedAt *time.Time `json:"failed_at"`
 
+	CreatedBy User `json:"created_by,omitempty"`
+
 	Deployments ArtifactDeploymentList `json:"deployments,omitempty"`
 
 	Images ImageList `json:"images"`
@@ -71,6 +73,9 @@ func AssertArtifactRequired(obj Artifact) error {
 		}
 	}
 
+	if err := AssertUserRequired(obj.CreatedBy); err != nil {
+		return err
+	}
 	if err := AssertArtifactDeploymentListRequired(obj.Deployments); err != nil {
 		return err
 	}
@@ -91,6 +96,9 @@ func AssertArtifactRequired(obj Artifact) error {
 
 // AssertArtifactConstraints checks if the values respects the defined constraints
 func AssertArtifactConstraints(obj Artifact) error {
+	if err := AssertUserConstraints(obj.CreatedBy); err != nil {
+		return err
+	}
 	if err := AssertArtifactDeploymentListConstraints(obj.Deployments); err != nil {
 		return err
 	}

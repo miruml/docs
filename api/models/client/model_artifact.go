@@ -30,6 +30,7 @@ type Artifact struct {
 	CreatedAt time.Time `json:"created_at"`
 	ReadyAt NullableTime `json:"ready_at"`
 	FailedAt NullableTime `json:"failed_at"`
+	CreatedBy *User `json:"created_by,omitempty"`
 	Deployments *ArtifactDeploymentList `json:"deployments,omitempty"`
 	Images ImageList `json:"images"`
 	SourceId string `json:"source_id"`
@@ -265,6 +266,38 @@ func (o *Artifact) SetFailedAt(v time.Time) {
 	o.FailedAt.Set(&v)
 }
 
+// GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
+func (o *Artifact) GetCreatedBy() User {
+	if o == nil || IsNil(o.CreatedBy) {
+		var ret User
+		return ret
+	}
+	return *o.CreatedBy
+}
+
+// GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Artifact) GetCreatedByOk() (*User, bool) {
+	if o == nil || IsNil(o.CreatedBy) {
+		return nil, false
+	}
+	return o.CreatedBy, true
+}
+
+// HasCreatedBy returns a boolean if a field has been set.
+func (o *Artifact) HasCreatedBy() bool {
+	if o != nil && !IsNil(o.CreatedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedBy gets a reference to the given User and assigns it to the CreatedBy field.
+func (o *Artifact) SetCreatedBy(v User) {
+	o.CreatedBy = &v
+}
+
 // GetDeployments returns the Deployments field value if set, zero value otherwise.
 func (o *Artifact) GetDeployments() ArtifactDeploymentList {
 	if o == nil || IsNil(o.Deployments) {
@@ -483,6 +516,9 @@ func (o Artifact) ToMap() (map[string]interface{}, error) {
 	toSerialize["created_at"] = o.CreatedAt
 	toSerialize["ready_at"] = o.ReadyAt.Get()
 	toSerialize["failed_at"] = o.FailedAt.Get()
+	if !IsNil(o.CreatedBy) {
+		toSerialize["created_by"] = o.CreatedBy
+	}
 	if !IsNil(o.Deployments) {
 		toSerialize["deployments"] = o.Deployments
 	}

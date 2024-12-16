@@ -49,6 +49,8 @@ components:
           format: date-time
           example: "2024-11-03T14:25:50Z"
           nullable: true
+        created_by:
+          $ref: "./user.yaml#/components/schemas/User"
         deployments:
           $ref: "#/components/schemas/ArtifactDeploymentList"
           nullable: true
@@ -72,6 +74,7 @@ components:
         github_source_data:
           $ref: "#/components/schemas/GitHubSourceData"
           nullable: true
+          
     
     ArtifactList:
       title: Artifact List

@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **CreatedAt** | **time.Time** |  | 
 **ReadyAt** | **NullableTime** |  | 
 **FailedAt** | **NullableTime** |  | 
+**CreatedBy** | Pointer to [**User**](User.md) |  | [optional] 
 **Deployments** | Pointer to [**ArtifactDeploymentList**](ArtifactDeploymentList.md) |  | [optional] 
 **Images** | [**ImageList**](ImageList.md) |  | 
 **SourceId** | **string** |  | 
@@ -219,6 +220,31 @@ SetFailedAt sets FailedAt field to given value.
 `func (o *Artifact) UnsetFailedAt()`
 
 UnsetFailedAt ensures that no value is present for FailedAt, not even an explicit nil
+### GetCreatedBy
+
+`func (o *Artifact) GetCreatedBy() User`
+
+GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
+
+### GetCreatedByOk
+
+`func (o *Artifact) GetCreatedByOk() (*User, bool)`
+
+GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedBy
+
+`func (o *Artifact) SetCreatedBy(v User)`
+
+SetCreatedBy sets CreatedBy field to given value.
+
+### HasCreatedBy
+
+`func (o *Artifact) HasCreatedBy() bool`
+
+HasCreatedBy returns a boolean if a field has been set.
+
 ### GetDeployments
 
 `func (o *Artifact) GetDeployments() ArtifactDeploymentList`
