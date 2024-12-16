@@ -18,8 +18,6 @@ type CreateRegistrySourceArtifact struct {
 	AllowDuplicate bool `json:"allow_duplicate"`
 
 	Images []CreateRegistrySourceArtifactImagesInner `json:"images"`
-
-	Groups []string `json:"groups"`
 }
 
 // AssertCreateRegistrySourceArtifactRequired checks if the required fields are not zero-ed
@@ -27,7 +25,6 @@ func AssertCreateRegistrySourceArtifactRequired(obj CreateRegistrySourceArtifact
 	elements := map[string]interface{}{
 		"allow_duplicate": obj.AllowDuplicate,
 		"images": obj.Images,
-		"groups": obj.Groups,
 	}
 	for name, el := range elements {
 		if isZero := IsZeroValue(el); isZero {

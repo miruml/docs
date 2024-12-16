@@ -18,8 +18,6 @@ type CreateGitHubSourceArtifact struct {
 	AllowDuplicate bool `json:"allow_duplicate"`
 
 	CommitSha string `json:"commit_sha"`
-
-	Groups []string `json:"groups"`
 }
 
 // AssertCreateGitHubSourceArtifactRequired checks if the required fields are not zero-ed
@@ -27,7 +25,6 @@ func AssertCreateGitHubSourceArtifactRequired(obj CreateGitHubSourceArtifact) er
 	elements := map[string]interface{}{
 		"allow_duplicate": obj.AllowDuplicate,
 		"commit_sha": obj.CommitSha,
-		"groups": obj.Groups,
 	}
 	for name, el := range elements {
 		if isZero := IsZeroValue(el); isZero {

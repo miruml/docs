@@ -6,13 +6,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AllowDuplicate** | **bool** |  | 
 **Images** | [**[]CreateRegistrySourceArtifactImagesInner**](CreateRegistrySourceArtifactImagesInner.md) |  | 
-**Groups** | **[]string** |  | 
 
 ## Methods
 
 ### NewCreateRegistrySourceArtifact
 
-`func NewCreateRegistrySourceArtifact(allowDuplicate bool, images []CreateRegistrySourceArtifactImagesInner, groups []string, ) *CreateRegistrySourceArtifact`
+`func NewCreateRegistrySourceArtifact(allowDuplicate bool, images []CreateRegistrySourceArtifactImagesInner, ) *CreateRegistrySourceArtifact`
 
 NewCreateRegistrySourceArtifact instantiates a new CreateRegistrySourceArtifact object
 This constructor will assign default values to properties that have it defined,
@@ -65,26 +64,6 @@ and a boolean to check if the value has been set.
 `func (o *CreateRegistrySourceArtifact) SetImages(v []CreateRegistrySourceArtifactImagesInner)`
 
 SetImages sets Images field to given value.
-
-
-### GetGroups
-
-`func (o *CreateRegistrySourceArtifact) GetGroups() []string`
-
-GetGroups returns the Groups field if non-nil, zero value otherwise.
-
-### GetGroupsOk
-
-`func (o *CreateRegistrySourceArtifact) GetGroupsOk() (*[]string, bool)`
-
-GetGroupsOk returns a tuple with the Groups field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetGroups
-
-`func (o *CreateRegistrySourceArtifact) SetGroups(v []string)`
-
-SetGroups sets Groups field to given value.
 
 
 

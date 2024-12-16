@@ -9,7 +9,7 @@ paths:
         - Container Repositories
       parameters:
         - $ref: '../../params.yaml#/components/parameters/dockerhub_integration_id'
-        - $ref: '../../params.yaml#/components/parameters/pageSize'
+        - $ref: '../../params.yaml#/components/parameters/page_size'
       responses:
         '200':
           description: Successfully retrieved the repositories for the dockerhub integration.
@@ -23,7 +23,7 @@ paths:
         - Container Repositories
       parameters:
         - $ref: '../../params.yaml#/components/parameters/gar_integration_id'
-        - $ref: '../../params.yaml#/components/parameters/pageSize'
+        - $ref: '../../params.yaml#/components/parameters/page_size'
       responses:
         '200':
           description: Successfully retrieved the repositories for the google artifact registry integration.
@@ -37,7 +37,7 @@ paths:
         - Container Repositories
       parameters:
         - $ref: '../../params.yaml#/components/parameters/workspace_id'
-        - $ref: '../../params.yaml#/components/parameters/pageSize'
+        - $ref: '../../params.yaml#/components/parameters/page_size'
       responses:
         '200':
           description: Successfully retrieved the repositories for the workspace.

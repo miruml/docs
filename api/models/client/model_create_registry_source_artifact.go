@@ -23,7 +23,6 @@ var _ MappedNullable = &CreateRegistrySourceArtifact{}
 type CreateRegistrySourceArtifact struct {
 	AllowDuplicate bool `json:"allow_duplicate"`
 	Images []CreateRegistrySourceArtifactImagesInner `json:"images"`
-	Groups []string `json:"groups"`
 }
 
 type _CreateRegistrySourceArtifact CreateRegistrySourceArtifact
@@ -32,11 +31,10 @@ type _CreateRegistrySourceArtifact CreateRegistrySourceArtifact
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateRegistrySourceArtifact(allowDuplicate bool, images []CreateRegistrySourceArtifactImagesInner, groups []string) *CreateRegistrySourceArtifact {
+func NewCreateRegistrySourceArtifact(allowDuplicate bool, images []CreateRegistrySourceArtifactImagesInner) *CreateRegistrySourceArtifact {
 	this := CreateRegistrySourceArtifact{}
 	this.AllowDuplicate = allowDuplicate
 	this.Images = images
-	this.Groups = groups
 	return &this
 }
 
@@ -96,30 +94,6 @@ func (o *CreateRegistrySourceArtifact) SetImages(v []CreateRegistrySourceArtifac
 	o.Images = v
 }
 
-// GetGroups returns the Groups field value
-func (o *CreateRegistrySourceArtifact) GetGroups() []string {
-	if o == nil {
-		var ret []string
-		return ret
-	}
-
-	return o.Groups
-}
-
-// GetGroupsOk returns a tuple with the Groups field value
-// and a boolean to check if the value has been set.
-func (o *CreateRegistrySourceArtifact) GetGroupsOk() ([]string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Groups, true
-}
-
-// SetGroups sets field value
-func (o *CreateRegistrySourceArtifact) SetGroups(v []string) {
-	o.Groups = v
-}
-
 func (o CreateRegistrySourceArtifact) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -132,7 +106,6 @@ func (o CreateRegistrySourceArtifact) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["allow_duplicate"] = o.AllowDuplicate
 	toSerialize["images"] = o.Images
-	toSerialize["groups"] = o.Groups
 	return toSerialize, nil
 }
 
@@ -143,7 +116,6 @@ func (o *CreateRegistrySourceArtifact) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"allow_duplicate",
 		"images",
-		"groups",
 	}
 
 	allProperties := make(map[string]interface{})

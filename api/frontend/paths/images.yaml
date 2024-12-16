@@ -9,7 +9,7 @@ paths:
         - Container Images
       parameters:
         - $ref: '../../params.yaml#/components/parameters/container_repository_id'
-        - $ref: '../../params.yaml#/components/parameters/pageSize'
+        - $ref: '../../params.yaml#/components/parameters/page_size'
       responses:
         '200':
           description: Successfully retrieved the images for the repository.

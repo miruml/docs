@@ -60,19 +60,19 @@ components:
       description: The unique identifier of the workspace
       schema:
         type: string
-    pageSize:
-      name: pageSize
+    page_size:
+      name: page_size
       in: query
       required: false
       description: The number of items to return per page
       schema:
         type: integer
         default: 25
-    staged:
-      name: staged
+    only_staged:
+      name: only_staged
       in: query
       required: false
-      description: Whether to return staged artifacts
+      description: Whether to return only staged artifacts
       schema:
         type: boolean
 paths: {}

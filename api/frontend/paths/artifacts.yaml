@@ -47,7 +47,7 @@ paths:
         - Artifacts
       parameters:
         - $ref: '../../params.yaml#/components/parameters/group_id'
-        - $ref: '../../params.yaml#/components/parameters/staged'
+        - $ref: '../../params.yaml#/components/parameters/only_staged'
       responses:
         '200':
           description: Successfully retrieved the artifacts for the group.

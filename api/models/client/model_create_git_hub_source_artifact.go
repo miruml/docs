@@ -23,7 +23,6 @@ var _ MappedNullable = &CreateGitHubSourceArtifact{}
 type CreateGitHubSourceArtifact struct {
 	AllowDuplicate bool `json:"allow_duplicate"`
 	CommitSha string `json:"commit_sha"`
-	Groups []string `json:"groups"`
 }
 
 type _CreateGitHubSourceArtifact CreateGitHubSourceArtifact
@@ -32,11 +31,10 @@ type _CreateGitHubSourceArtifact CreateGitHubSourceArtifact
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateGitHubSourceArtifact(allowDuplicate bool, commitSha string, groups []string) *CreateGitHubSourceArtifact {
+func NewCreateGitHubSourceArtifact(allowDuplicate bool, commitSha string) *CreateGitHubSourceArtifact {
 	this := CreateGitHubSourceArtifact{}
 	this.AllowDuplicate = allowDuplicate
 	this.CommitSha = commitSha
-	this.Groups = groups
 	return &this
 }
 
@@ -96,30 +94,6 @@ func (o *CreateGitHubSourceArtifact) SetCommitSha(v string) {
 	o.CommitSha = v
 }
 
-// GetGroups returns the Groups field value
-func (o *CreateGitHubSourceArtifact) GetGroups() []string {
-	if o == nil {
-		var ret []string
-		return ret
-	}
-
-	return o.Groups
-}
-
-// GetGroupsOk returns a tuple with the Groups field value
-// and a boolean to check if the value has been set.
-func (o *CreateGitHubSourceArtifact) GetGroupsOk() ([]string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Groups, true
-}
-
-// SetGroups sets field value
-func (o *CreateGitHubSourceArtifact) SetGroups(v []string) {
-	o.Groups = v
-}
-
 func (o CreateGitHubSourceArtifact) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -132,7 +106,6 @@ func (o CreateGitHubSourceArtifact) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["allow_duplicate"] = o.AllowDuplicate
 	toSerialize["commit_sha"] = o.CommitSha
-	toSerialize["groups"] = o.Groups
 	return toSerialize, nil
 }
 
@@ -143,7 +116,6 @@ func (o *CreateGitHubSourceArtifact) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"allow_duplicate",
 		"commit_sha",
-		"groups",
 	}
 
 	allProperties := make(map[string]interface{})

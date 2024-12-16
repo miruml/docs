@@ -6,13 +6,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AllowDuplicate** | **bool** |  | 
 **CommitSha** | **string** |  | 
-**Groups** | **[]string** |  | 
 
 ## Methods
 
 ### NewCreateGitHubSourceArtifact
 
-`func NewCreateGitHubSourceArtifact(allowDuplicate bool, commitSha string, groups []string, ) *CreateGitHubSourceArtifact`
+`func NewCreateGitHubSourceArtifact(allowDuplicate bool, commitSha string, ) *CreateGitHubSourceArtifact`
 
 NewCreateGitHubSourceArtifact instantiates a new CreateGitHubSourceArtifact object
 This constructor will assign default values to properties that have it defined,
@@ -65,26 +64,6 @@ and a boolean to check if the value has been set.
 `func (o *CreateGitHubSourceArtifact) SetCommitSha(v string)`
 
 SetCommitSha sets CommitSha field to given value.
-
-
-### GetGroups
-
-`func (o *CreateGitHubSourceArtifact) GetGroups() []string`
-
-GetGroups returns the Groups field if non-nil, zero value otherwise.
-
-### GetGroupsOk
-
-`func (o *CreateGitHubSourceArtifact) GetGroupsOk() (*[]string, bool)`
-
-GetGroupsOk returns a tuple with the Groups field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetGroups
-
-`func (o *CreateGitHubSourceArtifact) SetGroups(v []string)`
-
-SetGroups sets Groups field to given value.
 
 
 
