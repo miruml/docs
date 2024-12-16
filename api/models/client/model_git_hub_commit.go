@@ -28,6 +28,8 @@ type GitHubCommit struct {
 	HtmlUrl string `json:"html_url"`
 	PushedAt time.Time `json:"pushed_at"`
 	Committer GitHubCommitter `json:"committer"`
+	IsBuilt bool `json:"is_built"`
+	ArtifactId NullableString `json:"artifact_id"`
 }
 
 type _GitHubCommit GitHubCommit
@@ -36,7 +38,7 @@ type _GitHubCommit GitHubCommit
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGitHubCommit(object string, sha string, message string, htmlUrl string, pushedAt time.Time, committer GitHubCommitter) *GitHubCommit {
+func NewGitHubCommit(object string, sha string, message string, htmlUrl string, pushedAt time.Time, committer GitHubCommitter, isBuilt bool, artifactId NullableString) *GitHubCommit {
 	this := GitHubCommit{}
 	this.Object = object
 	this.Sha = sha
@@ -44,6 +46,8 @@ func NewGitHubCommit(object string, sha string, message string, htmlUrl string, 
 	this.HtmlUrl = htmlUrl
 	this.PushedAt = pushedAt
 	this.Committer = committer
+	this.IsBuilt = isBuilt
+	this.ArtifactId = artifactId
 	return &this
 }
 
@@ -199,6 +203,56 @@ func (o *GitHubCommit) SetCommitter(v GitHubCommitter) {
 	o.Committer = v
 }
 
+// GetIsBuilt returns the IsBuilt field value
+func (o *GitHubCommit) GetIsBuilt() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.IsBuilt
+}
+
+// GetIsBuiltOk returns a tuple with the IsBuilt field value
+// and a boolean to check if the value has been set.
+func (o *GitHubCommit) GetIsBuiltOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IsBuilt, true
+}
+
+// SetIsBuilt sets field value
+func (o *GitHubCommit) SetIsBuilt(v bool) {
+	o.IsBuilt = v
+}
+
+// GetArtifactId returns the ArtifactId field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *GitHubCommit) GetArtifactId() string {
+	if o == nil || o.ArtifactId.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.ArtifactId.Get()
+}
+
+// GetArtifactIdOk returns a tuple with the ArtifactId field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GitHubCommit) GetArtifactIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ArtifactId.Get(), o.ArtifactId.IsSet()
+}
+
+// SetArtifactId sets field value
+func (o *GitHubCommit) SetArtifactId(v string) {
+	o.ArtifactId.Set(&v)
+}
+
 func (o GitHubCommit) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -215,6 +269,8 @@ func (o GitHubCommit) ToMap() (map[string]interface{}, error) {
 	toSerialize["html_url"] = o.HtmlUrl
 	toSerialize["pushed_at"] = o.PushedAt
 	toSerialize["committer"] = o.Committer
+	toSerialize["is_built"] = o.IsBuilt
+	toSerialize["artifact_id"] = o.ArtifactId.Get()
 	return toSerialize, nil
 }
 
@@ -229,6 +285,8 @@ func (o *GitHubCommit) UnmarshalJSON(data []byte) (err error) {
 		"html_url",
 		"pushed_at",
 		"committer",
+		"is_built",
+		"artifact_id",
 	}
 
 	allProperties := make(map[string]interface{})

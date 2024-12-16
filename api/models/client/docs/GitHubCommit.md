@@ -10,12 +10,14 @@ Name | Type | Description | Notes
 **HtmlUrl** | **string** |  | 
 **PushedAt** | **time.Time** |  | 
 **Committer** | [**GitHubCommitter**](GitHubCommitter.md) |  | 
+**IsBuilt** | **bool** |  | 
+**ArtifactId** | **NullableString** |  | 
 
 ## Methods
 
 ### NewGitHubCommit
 
-`func NewGitHubCommit(object string, sha string, message string, htmlUrl string, pushedAt time.Time, committer GitHubCommitter, ) *GitHubCommit`
+`func NewGitHubCommit(object string, sha string, message string, htmlUrl string, pushedAt time.Time, committer GitHubCommitter, isBuilt bool, artifactId NullableString, ) *GitHubCommit`
 
 NewGitHubCommit instantiates a new GitHubCommit object
 This constructor will assign default values to properties that have it defined,
@@ -150,6 +152,56 @@ and a boolean to check if the value has been set.
 SetCommitter sets Committer field to given value.
 
 
+### GetIsBuilt
+
+`func (o *GitHubCommit) GetIsBuilt() bool`
+
+GetIsBuilt returns the IsBuilt field if non-nil, zero value otherwise.
+
+### GetIsBuiltOk
+
+`func (o *GitHubCommit) GetIsBuiltOk() (*bool, bool)`
+
+GetIsBuiltOk returns a tuple with the IsBuilt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsBuilt
+
+`func (o *GitHubCommit) SetIsBuilt(v bool)`
+
+SetIsBuilt sets IsBuilt field to given value.
+
+
+### GetArtifactId
+
+`func (o *GitHubCommit) GetArtifactId() string`
+
+GetArtifactId returns the ArtifactId field if non-nil, zero value otherwise.
+
+### GetArtifactIdOk
+
+`func (o *GitHubCommit) GetArtifactIdOk() (*string, bool)`
+
+GetArtifactIdOk returns a tuple with the ArtifactId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetArtifactId
+
+`func (o *GitHubCommit) SetArtifactId(v string)`
+
+SetArtifactId sets ArtifactId field to given value.
+
+
+### SetArtifactIdNil
+
+`func (o *GitHubCommit) SetArtifactIdNil(b bool)`
+
+ SetArtifactIdNil sets the value for ArtifactId to be an explicit nil
+
+### UnsetArtifactId
+`func (o *GitHubCommit) UnsetArtifactId()`
+
+UnsetArtifactId ensures that no value is present for ArtifactId, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

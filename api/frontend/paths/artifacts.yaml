@@ -41,6 +41,20 @@ paths:
             application/json:
               schema:
                 $ref: '../schemas/artifact.yaml#/components/schemas/ComposeFile'
+  /groups/{group_id}/artifacts:
+    get:
+      tags:
+        - Artifacts
+      parameters:
+        - $ref: '../../params.yaml#/components/parameters/group_id'
+        - $ref: '../../params.yaml#/components/parameters/staged'
+      responses:
+        '200':
+          description: Successfully retrieved the artifacts for the group.
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/artifact.yaml#/components/schemas/ArtifactList'
   /sources/registry/{registry_source_id}/artifacts:
     post:
       tags:

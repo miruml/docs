@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RepositoryId** | Pointer to **string** |  | [optional] 
+**RepositoryId** | **string** |  | 
 **Digest** | **string** |  | 
 **Tag** | **string** |  | 
 
@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 
 ### NewCreateRegistrySourceArtifactImagesInner
 
-`func NewCreateRegistrySourceArtifactImagesInner(digest string, tag string, ) *CreateRegistrySourceArtifactImagesInner`
+`func NewCreateRegistrySourceArtifactImagesInner(repositoryId string, digest string, tag string, ) *CreateRegistrySourceArtifactImagesInner`
 
 NewCreateRegistrySourceArtifactImagesInner instantiates a new CreateRegistrySourceArtifactImagesInner object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetRepositoryId sets RepositoryId field to given value.
 
-### HasRepositoryId
-
-`func (o *CreateRegistrySourceArtifactImagesInner) HasRepositoryId() bool`
-
-HasRepositoryId returns a boolean if a field has been set.
 
 ### GetDigest
 

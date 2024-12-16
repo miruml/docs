@@ -4,6 +4,63 @@ info:
   version: ""
 components:
   schemas:   
+    Image:
+      title: Image
+      type: object
+      required:
+        - object
+        - id
+        - registry_url
+        - account_login
+        - name
+        - uri
+        - type
+        - digest
+        - tag
+      properties:
+        object:
+          type: string
+          example: "image"
+        id:
+          type: string
+          example: "img_123"
+        registry_url:
+          type: string
+          example: "us-central1-docker.pkg.dev/container-integration"
+        account_login:
+          type: string
+          example: "container-integration"
+        name:
+          type: string
+          example: "django/nested/image/name"
+        uri:
+          type: string
+          example: "us-central1-docker.pkg.dev/container-integration/django/nested/image/name"
+        type:
+          type: string
+          example: "gar"
+        digest:
+          type: string
+          example: "sha256:123abc"
+        tag:
+          type: string
+          example: "latest"
+    
+    ImageList:
+      title: Image List
+      type: object
+      required:
+        - object
+        - data
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Image"
+      
     ExternalContainerImage:
       title: External Container Image 
       type: object 
@@ -42,6 +99,7 @@ components:
           type: string
           example: "2021-01-01T00:00:00Z"
           format: date-time
+
     ExternalContainerImageList:
       title: External Container Image List
       type: object
@@ -56,4 +114,5 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ExternalContainerImage"
+
 paths: {}

@@ -21,7 +21,7 @@ var _ MappedNullable = &CreateRegistrySourceArtifactImagesInner{}
 
 // CreateRegistrySourceArtifactImagesInner struct for CreateRegistrySourceArtifactImagesInner
 type CreateRegistrySourceArtifactImagesInner struct {
-	RepositoryId *string `json:"repository_id,omitempty"`
+	RepositoryId string `json:"repository_id"`
 	Digest string `json:"digest"`
 	Tag string `json:"tag"`
 }
@@ -32,8 +32,9 @@ type _CreateRegistrySourceArtifactImagesInner CreateRegistrySourceArtifactImages
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateRegistrySourceArtifactImagesInner(digest string, tag string) *CreateRegistrySourceArtifactImagesInner {
+func NewCreateRegistrySourceArtifactImagesInner(repositoryId string, digest string, tag string) *CreateRegistrySourceArtifactImagesInner {
 	this := CreateRegistrySourceArtifactImagesInner{}
+	this.RepositoryId = repositoryId
 	this.Digest = digest
 	this.Tag = tag
 	return &this
@@ -47,36 +48,28 @@ func NewCreateRegistrySourceArtifactImagesInnerWithDefaults() *CreateRegistrySou
 	return &this
 }
 
-// GetRepositoryId returns the RepositoryId field value if set, zero value otherwise.
+// GetRepositoryId returns the RepositoryId field value
 func (o *CreateRegistrySourceArtifactImagesInner) GetRepositoryId() string {
-	if o == nil || IsNil(o.RepositoryId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.RepositoryId
+
+	return o.RepositoryId
 }
 
-// GetRepositoryIdOk returns a tuple with the RepositoryId field value if set, nil otherwise
+// GetRepositoryIdOk returns a tuple with the RepositoryId field value
 // and a boolean to check if the value has been set.
 func (o *CreateRegistrySourceArtifactImagesInner) GetRepositoryIdOk() (*string, bool) {
-	if o == nil || IsNil(o.RepositoryId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.RepositoryId, true
+	return &o.RepositoryId, true
 }
 
-// HasRepositoryId returns a boolean if a field has been set.
-func (o *CreateRegistrySourceArtifactImagesInner) HasRepositoryId() bool {
-	if o != nil && !IsNil(o.RepositoryId) {
-		return true
-	}
-
-	return false
-}
-
-// SetRepositoryId gets a reference to the given string and assigns it to the RepositoryId field.
+// SetRepositoryId sets field value
 func (o *CreateRegistrySourceArtifactImagesInner) SetRepositoryId(v string) {
-	o.RepositoryId = &v
+	o.RepositoryId = v
 }
 
 // GetDigest returns the Digest field value
@@ -137,9 +130,7 @@ func (o CreateRegistrySourceArtifactImagesInner) MarshalJSON() ([]byte, error) {
 
 func (o CreateRegistrySourceArtifactImagesInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.RepositoryId) {
-		toSerialize["repository_id"] = o.RepositoryId
-	}
+	toSerialize["repository_id"] = o.RepositoryId
 	toSerialize["digest"] = o.Digest
 	toSerialize["tag"] = o.Tag
 	return toSerialize, nil
@@ -150,6 +141,7 @@ func (o *CreateRegistrySourceArtifactImagesInner) UnmarshalJSON(data []byte) (er
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"repository_id",
 		"digest",
 		"tag",
 	}

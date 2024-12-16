@@ -7,20 +7,24 @@ Name | Type | Description | Notes
 **Object** | **string** |  | 
 **Id** | **string** |  | 
 **Status** | [**ArtifactStatus**](ArtifactStatus.md) |  | 
-**SourceId** | **string** |  | 
-**SourceType** | **string** |  | 
-**GithubSourceData** | [**GitHubSourceData**](GitHubSourceData.md) |  | 
 **Aarch64** | **bool** |  | 
 **X8664** | **bool** |  | 
 **CreatedAt** | **time.Time** |  | 
 **ReadyAt** | **NullableTime** |  | 
 **FailedAt** | **NullableTime** |  | 
+**Deployments** | Pointer to [**ArtifactDeploymentList**](ArtifactDeploymentList.md) |  | [optional] 
+**Images** | [**ImageList**](ImageList.md) |  | 
+**SourceId** | **string** |  | 
+**SourceType** | **string** |  | 
+**RegistrySource** | Pointer to [**RegistrySource**](RegistrySource.md) |  | [optional] 
+**GithubSource** | Pointer to [**GitHubSource**](GitHubSource.md) |  | [optional] 
+**GithubSourceData** | Pointer to [**GitHubSourceData**](GitHubSourceData.md) |  | [optional] 
 
 ## Methods
 
 ### NewArtifact
 
-`func NewArtifact(object string, id string, status ArtifactStatus, sourceId string, sourceType string, githubSourceData GitHubSourceData, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime, ) *Artifact`
+`func NewArtifact(object string, id string, status ArtifactStatus, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime, images ImageList, sourceId string, sourceType string, ) *Artifact`
 
 NewArtifact instantiates a new Artifact object
 This constructor will assign default values to properties that have it defined,
@@ -93,66 +97,6 @@ and a boolean to check if the value has been set.
 `func (o *Artifact) SetStatus(v ArtifactStatus)`
 
 SetStatus sets Status field to given value.
-
-
-### GetSourceId
-
-`func (o *Artifact) GetSourceId() string`
-
-GetSourceId returns the SourceId field if non-nil, zero value otherwise.
-
-### GetSourceIdOk
-
-`func (o *Artifact) GetSourceIdOk() (*string, bool)`
-
-GetSourceIdOk returns a tuple with the SourceId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSourceId
-
-`func (o *Artifact) SetSourceId(v string)`
-
-SetSourceId sets SourceId field to given value.
-
-
-### GetSourceType
-
-`func (o *Artifact) GetSourceType() string`
-
-GetSourceType returns the SourceType field if non-nil, zero value otherwise.
-
-### GetSourceTypeOk
-
-`func (o *Artifact) GetSourceTypeOk() (*string, bool)`
-
-GetSourceTypeOk returns a tuple with the SourceType field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSourceType
-
-`func (o *Artifact) SetSourceType(v string)`
-
-SetSourceType sets SourceType field to given value.
-
-
-### GetGithubSourceData
-
-`func (o *Artifact) GetGithubSourceData() GitHubSourceData`
-
-GetGithubSourceData returns the GithubSourceData field if non-nil, zero value otherwise.
-
-### GetGithubSourceDataOk
-
-`func (o *Artifact) GetGithubSourceDataOk() (*GitHubSourceData, bool)`
-
-GetGithubSourceDataOk returns a tuple with the GithubSourceData field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetGithubSourceData
-
-`func (o *Artifact) SetGithubSourceData(v GitHubSourceData)`
-
-SetGithubSourceData sets GithubSourceData field to given value.
 
 
 ### GetAarch64
@@ -275,6 +219,166 @@ SetFailedAt sets FailedAt field to given value.
 `func (o *Artifact) UnsetFailedAt()`
 
 UnsetFailedAt ensures that no value is present for FailedAt, not even an explicit nil
+### GetDeployments
+
+`func (o *Artifact) GetDeployments() ArtifactDeploymentList`
+
+GetDeployments returns the Deployments field if non-nil, zero value otherwise.
+
+### GetDeploymentsOk
+
+`func (o *Artifact) GetDeploymentsOk() (*ArtifactDeploymentList, bool)`
+
+GetDeploymentsOk returns a tuple with the Deployments field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeployments
+
+`func (o *Artifact) SetDeployments(v ArtifactDeploymentList)`
+
+SetDeployments sets Deployments field to given value.
+
+### HasDeployments
+
+`func (o *Artifact) HasDeployments() bool`
+
+HasDeployments returns a boolean if a field has been set.
+
+### GetImages
+
+`func (o *Artifact) GetImages() ImageList`
+
+GetImages returns the Images field if non-nil, zero value otherwise.
+
+### GetImagesOk
+
+`func (o *Artifact) GetImagesOk() (*ImageList, bool)`
+
+GetImagesOk returns a tuple with the Images field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetImages
+
+`func (o *Artifact) SetImages(v ImageList)`
+
+SetImages sets Images field to given value.
+
+
+### GetSourceId
+
+`func (o *Artifact) GetSourceId() string`
+
+GetSourceId returns the SourceId field if non-nil, zero value otherwise.
+
+### GetSourceIdOk
+
+`func (o *Artifact) GetSourceIdOk() (*string, bool)`
+
+GetSourceIdOk returns a tuple with the SourceId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSourceId
+
+`func (o *Artifact) SetSourceId(v string)`
+
+SetSourceId sets SourceId field to given value.
+
+
+### GetSourceType
+
+`func (o *Artifact) GetSourceType() string`
+
+GetSourceType returns the SourceType field if non-nil, zero value otherwise.
+
+### GetSourceTypeOk
+
+`func (o *Artifact) GetSourceTypeOk() (*string, bool)`
+
+GetSourceTypeOk returns a tuple with the SourceType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSourceType
+
+`func (o *Artifact) SetSourceType(v string)`
+
+SetSourceType sets SourceType field to given value.
+
+
+### GetRegistrySource
+
+`func (o *Artifact) GetRegistrySource() RegistrySource`
+
+GetRegistrySource returns the RegistrySource field if non-nil, zero value otherwise.
+
+### GetRegistrySourceOk
+
+`func (o *Artifact) GetRegistrySourceOk() (*RegistrySource, bool)`
+
+GetRegistrySourceOk returns a tuple with the RegistrySource field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRegistrySource
+
+`func (o *Artifact) SetRegistrySource(v RegistrySource)`
+
+SetRegistrySource sets RegistrySource field to given value.
+
+### HasRegistrySource
+
+`func (o *Artifact) HasRegistrySource() bool`
+
+HasRegistrySource returns a boolean if a field has been set.
+
+### GetGithubSource
+
+`func (o *Artifact) GetGithubSource() GitHubSource`
+
+GetGithubSource returns the GithubSource field if non-nil, zero value otherwise.
+
+### GetGithubSourceOk
+
+`func (o *Artifact) GetGithubSourceOk() (*GitHubSource, bool)`
+
+GetGithubSourceOk returns a tuple with the GithubSource field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGithubSource
+
+`func (o *Artifact) SetGithubSource(v GitHubSource)`
+
+SetGithubSource sets GithubSource field to given value.
+
+### HasGithubSource
+
+`func (o *Artifact) HasGithubSource() bool`
+
+HasGithubSource returns a boolean if a field has been set.
+
+### GetGithubSourceData
+
+`func (o *Artifact) GetGithubSourceData() GitHubSourceData`
+
+GetGithubSourceData returns the GithubSourceData field if non-nil, zero value otherwise.
+
+### GetGithubSourceDataOk
+
+`func (o *Artifact) GetGithubSourceDataOk() (*GitHubSourceData, bool)`
+
+GetGithubSourceDataOk returns a tuple with the GithubSourceData field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGithubSourceData
+
+`func (o *Artifact) SetGithubSourceData(v GitHubSourceData)`
+
+SetGithubSourceData sets GithubSourceData field to given value.
+
+### HasGithubSourceData
+
+`func (o *Artifact) HasGithubSourceData() bool`
+
+HasGithubSourceData returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

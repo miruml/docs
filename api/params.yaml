@@ -46,6 +46,13 @@ components:
       description: The unique identifier of the container repository
       schema:
         type: string
+    group_id:
+      name: group_id
+      in: path
+      required: true
+      description: The unique identifier of the group
+      schema:
+        type: string
     workspace_id:
       name: workspace_id 
       in: path
@@ -61,4 +68,11 @@ components:
       schema:
         type: integer
         default: 25
+    staged:
+      name: staged
+      in: query
+      required: false
+      description: Whether to return staged artifacts
+      schema:
+        type: boolean
 paths: {}

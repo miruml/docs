@@ -25,12 +25,6 @@ type Artifact struct {
 
 	Status ArtifactStatus `json:"status"`
 
-	SourceId string `json:"source_id"`
-
-	SourceType string `json:"source_type"`
-
-	GithubSourceData GitHubSourceData `json:"github_source_data"`
-
 	Aarch64 bool `json:"aarch64"`
 
 	X8664 bool `json:"x86_64"`
@@ -40,6 +34,20 @@ type Artifact struct {
 	ReadyAt *time.Time `json:"ready_at"`
 
 	FailedAt *time.Time `json:"failed_at"`
+
+	Deployments ArtifactDeploymentList `json:"deployments,omitempty"`
+
+	Images ImageList `json:"images"`
+
+	SourceId string `json:"source_id"`
+
+	SourceType string `json:"source_type"`
+
+	RegistrySource RegistrySource `json:"registry_source,omitempty"`
+
+	GithubSource GitHubSource `json:"github_source,omitempty"`
+
+	GithubSourceData GitHubSourceData `json:"github_source_data,omitempty"`
 }
 
 // AssertArtifactRequired checks if the required fields are not zero-ed
@@ -48,14 +56,14 @@ func AssertArtifactRequired(obj Artifact) error {
 		"object": obj.Object,
 		"id": obj.Id,
 		"status": obj.Status,
-		"source_id": obj.SourceId,
-		"source_type": obj.SourceType,
-		"github_source_data": obj.GithubSourceData,
 		"aarch64": obj.Aarch64,
 		"x86_64": obj.X8664,
 		"created_at": obj.CreatedAt,
 		"ready_at": obj.ReadyAt,
 		"failed_at": obj.FailedAt,
+		"images": obj.Images,
+		"source_id": obj.SourceId,
+		"source_type": obj.SourceType,
 	}
 	for name, el := range elements {
 		if isZero := IsZeroValue(el); isZero {
@@ -63,6 +71,18 @@ func AssertArtifactRequired(obj Artifact) error {
 		}
 	}
 
+	if err := AssertArtifactDeploymentListRequired(obj.Deployments); err != nil {
+		return err
+	}
+	if err := AssertImageListRequired(obj.Images); err != nil {
+		return err
+	}
+	if err := AssertRegistrySourceRequired(obj.RegistrySource); err != nil {
+		return err
+	}
+	if err := AssertGitHubSourceRequired(obj.GithubSource); err != nil {
+		return err
+	}
 	if err := AssertGitHubSourceDataRequired(obj.GithubSourceData); err != nil {
 		return err
 	}
@@ -71,6 +91,18 @@ func AssertArtifactRequired(obj Artifact) error {
 
 // AssertArtifactConstraints checks if the values respects the defined constraints
 func AssertArtifactConstraints(obj Artifact) error {
+	if err := AssertArtifactDeploymentListConstraints(obj.Deployments); err != nil {
+		return err
+	}
+	if err := AssertImageListConstraints(obj.Images); err != nil {
+		return err
+	}
+	if err := AssertRegistrySourceConstraints(obj.RegistrySource); err != nil {
+		return err
+	}
+	if err := AssertGitHubSourceConstraints(obj.GithubSource); err != nil {
+		return err
+	}
 	if err := AssertGitHubSourceDataConstraints(obj.GithubSourceData); err != nil {
 		return err
 	}

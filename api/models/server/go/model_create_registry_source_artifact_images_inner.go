@@ -15,7 +15,7 @@ package openapi
 
 type CreateRegistrySourceArtifactImagesInner struct {
 
-	RepositoryId string `json:"repository_id,omitempty"`
+	RepositoryId string `json:"repository_id"`
 
 	Digest string `json:"digest"`
 
@@ -25,6 +25,7 @@ type CreateRegistrySourceArtifactImagesInner struct {
 // AssertCreateRegistrySourceArtifactImagesInnerRequired checks if the required fields are not zero-ed
 func AssertCreateRegistrySourceArtifactImagesInnerRequired(obj CreateRegistrySourceArtifactImagesInner) error {
 	elements := map[string]interface{}{
+		"repository_id": obj.RepositoryId,
 		"digest": obj.Digest,
 		"tag": obj.Tag,
 	}

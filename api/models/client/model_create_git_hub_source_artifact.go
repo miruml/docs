@@ -23,7 +23,7 @@ var _ MappedNullable = &CreateGitHubSourceArtifact{}
 type CreateGitHubSourceArtifact struct {
 	AllowDuplicate bool `json:"allow_duplicate"`
 	CommitSha string `json:"commit_sha"`
-	Groups []string `json:"groups,omitempty"`
+	Groups []string `json:"groups"`
 }
 
 type _CreateGitHubSourceArtifact CreateGitHubSourceArtifact
@@ -32,10 +32,11 @@ type _CreateGitHubSourceArtifact CreateGitHubSourceArtifact
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateGitHubSourceArtifact(allowDuplicate bool, commitSha string) *CreateGitHubSourceArtifact {
+func NewCreateGitHubSourceArtifact(allowDuplicate bool, commitSha string, groups []string) *CreateGitHubSourceArtifact {
 	this := CreateGitHubSourceArtifact{}
 	this.AllowDuplicate = allowDuplicate
 	this.CommitSha = commitSha
+	this.Groups = groups
 	return &this
 }
 
@@ -95,34 +96,26 @@ func (o *CreateGitHubSourceArtifact) SetCommitSha(v string) {
 	o.CommitSha = v
 }
 
-// GetGroups returns the Groups field value if set, zero value otherwise.
+// GetGroups returns the Groups field value
 func (o *CreateGitHubSourceArtifact) GetGroups() []string {
-	if o == nil || IsNil(o.Groups) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.Groups
 }
 
-// GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
+// GetGroupsOk returns a tuple with the Groups field value
 // and a boolean to check if the value has been set.
 func (o *CreateGitHubSourceArtifact) GetGroupsOk() ([]string, bool) {
-	if o == nil || IsNil(o.Groups) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Groups, true
 }
 
-// HasGroups returns a boolean if a field has been set.
-func (o *CreateGitHubSourceArtifact) HasGroups() bool {
-	if o != nil && !IsNil(o.Groups) {
-		return true
-	}
-
-	return false
-}
-
-// SetGroups gets a reference to the given []string and assigns it to the Groups field.
+// SetGroups sets field value
 func (o *CreateGitHubSourceArtifact) SetGroups(v []string) {
 	o.Groups = v
 }
@@ -139,9 +132,7 @@ func (o CreateGitHubSourceArtifact) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["allow_duplicate"] = o.AllowDuplicate
 	toSerialize["commit_sha"] = o.CommitSha
-	if !IsNil(o.Groups) {
-		toSerialize["groups"] = o.Groups
-	}
+	toSerialize["groups"] = o.Groups
 	return toSerialize, nil
 }
 
@@ -152,6 +143,7 @@ func (o *CreateGitHubSourceArtifact) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"allow_duplicate",
 		"commit_sha",
+		"groups",
 	}
 
 	allProperties := make(map[string]interface{})

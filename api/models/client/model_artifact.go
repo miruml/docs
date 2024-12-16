@@ -25,14 +25,18 @@ type Artifact struct {
 	Object string `json:"object"`
 	Id string `json:"id"`
 	Status ArtifactStatus `json:"status"`
-	SourceId string `json:"source_id"`
-	SourceType string `json:"source_type"`
-	GithubSourceData GitHubSourceData `json:"github_source_data"`
 	Aarch64 bool `json:"aarch64"`
 	X8664 bool `json:"x86_64"`
 	CreatedAt time.Time `json:"created_at"`
 	ReadyAt NullableTime `json:"ready_at"`
 	FailedAt NullableTime `json:"failed_at"`
+	Deployments *ArtifactDeploymentList `json:"deployments,omitempty"`
+	Images ImageList `json:"images"`
+	SourceId string `json:"source_id"`
+	SourceType string `json:"source_type"`
+	RegistrySource *RegistrySource `json:"registry_source,omitempty"`
+	GithubSource *GitHubSource `json:"github_source,omitempty"`
+	GithubSourceData *GitHubSourceData `json:"github_source_data,omitempty"`
 }
 
 type _Artifact Artifact
@@ -41,19 +45,19 @@ type _Artifact Artifact
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewArtifact(object string, id string, status ArtifactStatus, sourceId string, sourceType string, githubSourceData GitHubSourceData, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime) *Artifact {
+func NewArtifact(object string, id string, status ArtifactStatus, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime, images ImageList, sourceId string, sourceType string) *Artifact {
 	this := Artifact{}
 	this.Object = object
 	this.Id = id
 	this.Status = status
-	this.SourceId = sourceId
-	this.SourceType = sourceType
-	this.GithubSourceData = githubSourceData
 	this.Aarch64 = aarch64
 	this.X8664 = x8664
 	this.CreatedAt = createdAt
 	this.ReadyAt = readyAt
 	this.FailedAt = failedAt
+	this.Images = images
+	this.SourceId = sourceId
+	this.SourceType = sourceType
 	return &this
 }
 
@@ -135,78 +139,6 @@ func (o *Artifact) GetStatusOk() (*ArtifactStatus, bool) {
 // SetStatus sets field value
 func (o *Artifact) SetStatus(v ArtifactStatus) {
 	o.Status = v
-}
-
-// GetSourceId returns the SourceId field value
-func (o *Artifact) GetSourceId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.SourceId
-}
-
-// GetSourceIdOk returns a tuple with the SourceId field value
-// and a boolean to check if the value has been set.
-func (o *Artifact) GetSourceIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.SourceId, true
-}
-
-// SetSourceId sets field value
-func (o *Artifact) SetSourceId(v string) {
-	o.SourceId = v
-}
-
-// GetSourceType returns the SourceType field value
-func (o *Artifact) GetSourceType() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.SourceType
-}
-
-// GetSourceTypeOk returns a tuple with the SourceType field value
-// and a boolean to check if the value has been set.
-func (o *Artifact) GetSourceTypeOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.SourceType, true
-}
-
-// SetSourceType sets field value
-func (o *Artifact) SetSourceType(v string) {
-	o.SourceType = v
-}
-
-// GetGithubSourceData returns the GithubSourceData field value
-func (o *Artifact) GetGithubSourceData() GitHubSourceData {
-	if o == nil {
-		var ret GitHubSourceData
-		return ret
-	}
-
-	return o.GithubSourceData
-}
-
-// GetGithubSourceDataOk returns a tuple with the GithubSourceData field value
-// and a boolean to check if the value has been set.
-func (o *Artifact) GetGithubSourceDataOk() (*GitHubSourceData, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.GithubSourceData, true
-}
-
-// SetGithubSourceData sets field value
-func (o *Artifact) SetGithubSourceData(v GitHubSourceData) {
-	o.GithubSourceData = v
 }
 
 // GetAarch64 returns the Aarch64 field value
@@ -333,6 +265,206 @@ func (o *Artifact) SetFailedAt(v time.Time) {
 	o.FailedAt.Set(&v)
 }
 
+// GetDeployments returns the Deployments field value if set, zero value otherwise.
+func (o *Artifact) GetDeployments() ArtifactDeploymentList {
+	if o == nil || IsNil(o.Deployments) {
+		var ret ArtifactDeploymentList
+		return ret
+	}
+	return *o.Deployments
+}
+
+// GetDeploymentsOk returns a tuple with the Deployments field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Artifact) GetDeploymentsOk() (*ArtifactDeploymentList, bool) {
+	if o == nil || IsNil(o.Deployments) {
+		return nil, false
+	}
+	return o.Deployments, true
+}
+
+// HasDeployments returns a boolean if a field has been set.
+func (o *Artifact) HasDeployments() bool {
+	if o != nil && !IsNil(o.Deployments) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeployments gets a reference to the given ArtifactDeploymentList and assigns it to the Deployments field.
+func (o *Artifact) SetDeployments(v ArtifactDeploymentList) {
+	o.Deployments = &v
+}
+
+// GetImages returns the Images field value
+func (o *Artifact) GetImages() ImageList {
+	if o == nil {
+		var ret ImageList
+		return ret
+	}
+
+	return o.Images
+}
+
+// GetImagesOk returns a tuple with the Images field value
+// and a boolean to check if the value has been set.
+func (o *Artifact) GetImagesOk() (*ImageList, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Images, true
+}
+
+// SetImages sets field value
+func (o *Artifact) SetImages(v ImageList) {
+	o.Images = v
+}
+
+// GetSourceId returns the SourceId field value
+func (o *Artifact) GetSourceId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.SourceId
+}
+
+// GetSourceIdOk returns a tuple with the SourceId field value
+// and a boolean to check if the value has been set.
+func (o *Artifact) GetSourceIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SourceId, true
+}
+
+// SetSourceId sets field value
+func (o *Artifact) SetSourceId(v string) {
+	o.SourceId = v
+}
+
+// GetSourceType returns the SourceType field value
+func (o *Artifact) GetSourceType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.SourceType
+}
+
+// GetSourceTypeOk returns a tuple with the SourceType field value
+// and a boolean to check if the value has been set.
+func (o *Artifact) GetSourceTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SourceType, true
+}
+
+// SetSourceType sets field value
+func (o *Artifact) SetSourceType(v string) {
+	o.SourceType = v
+}
+
+// GetRegistrySource returns the RegistrySource field value if set, zero value otherwise.
+func (o *Artifact) GetRegistrySource() RegistrySource {
+	if o == nil || IsNil(o.RegistrySource) {
+		var ret RegistrySource
+		return ret
+	}
+	return *o.RegistrySource
+}
+
+// GetRegistrySourceOk returns a tuple with the RegistrySource field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Artifact) GetRegistrySourceOk() (*RegistrySource, bool) {
+	if o == nil || IsNil(o.RegistrySource) {
+		return nil, false
+	}
+	return o.RegistrySource, true
+}
+
+// HasRegistrySource returns a boolean if a field has been set.
+func (o *Artifact) HasRegistrySource() bool {
+	if o != nil && !IsNil(o.RegistrySource) {
+		return true
+	}
+
+	return false
+}
+
+// SetRegistrySource gets a reference to the given RegistrySource and assigns it to the RegistrySource field.
+func (o *Artifact) SetRegistrySource(v RegistrySource) {
+	o.RegistrySource = &v
+}
+
+// GetGithubSource returns the GithubSource field value if set, zero value otherwise.
+func (o *Artifact) GetGithubSource() GitHubSource {
+	if o == nil || IsNil(o.GithubSource) {
+		var ret GitHubSource
+		return ret
+	}
+	return *o.GithubSource
+}
+
+// GetGithubSourceOk returns a tuple with the GithubSource field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Artifact) GetGithubSourceOk() (*GitHubSource, bool) {
+	if o == nil || IsNil(o.GithubSource) {
+		return nil, false
+	}
+	return o.GithubSource, true
+}
+
+// HasGithubSource returns a boolean if a field has been set.
+func (o *Artifact) HasGithubSource() bool {
+	if o != nil && !IsNil(o.GithubSource) {
+		return true
+	}
+
+	return false
+}
+
+// SetGithubSource gets a reference to the given GitHubSource and assigns it to the GithubSource field.
+func (o *Artifact) SetGithubSource(v GitHubSource) {
+	o.GithubSource = &v
+}
+
+// GetGithubSourceData returns the GithubSourceData field value if set, zero value otherwise.
+func (o *Artifact) GetGithubSourceData() GitHubSourceData {
+	if o == nil || IsNil(o.GithubSourceData) {
+		var ret GitHubSourceData
+		return ret
+	}
+	return *o.GithubSourceData
+}
+
+// GetGithubSourceDataOk returns a tuple with the GithubSourceData field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Artifact) GetGithubSourceDataOk() (*GitHubSourceData, bool) {
+	if o == nil || IsNil(o.GithubSourceData) {
+		return nil, false
+	}
+	return o.GithubSourceData, true
+}
+
+// HasGithubSourceData returns a boolean if a field has been set.
+func (o *Artifact) HasGithubSourceData() bool {
+	if o != nil && !IsNil(o.GithubSourceData) {
+		return true
+	}
+
+	return false
+}
+
+// SetGithubSourceData gets a reference to the given GitHubSourceData and assigns it to the GithubSourceData field.
+func (o *Artifact) SetGithubSourceData(v GitHubSourceData) {
+	o.GithubSourceData = &v
+}
+
 func (o Artifact) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -346,14 +478,26 @@ func (o Artifact) ToMap() (map[string]interface{}, error) {
 	toSerialize["object"] = o.Object
 	toSerialize["id"] = o.Id
 	toSerialize["status"] = o.Status
-	toSerialize["source_id"] = o.SourceId
-	toSerialize["source_type"] = o.SourceType
-	toSerialize["github_source_data"] = o.GithubSourceData
 	toSerialize["aarch64"] = o.Aarch64
 	toSerialize["x86_64"] = o.X8664
 	toSerialize["created_at"] = o.CreatedAt
 	toSerialize["ready_at"] = o.ReadyAt.Get()
 	toSerialize["failed_at"] = o.FailedAt.Get()
+	if !IsNil(o.Deployments) {
+		toSerialize["deployments"] = o.Deployments
+	}
+	toSerialize["images"] = o.Images
+	toSerialize["source_id"] = o.SourceId
+	toSerialize["source_type"] = o.SourceType
+	if !IsNil(o.RegistrySource) {
+		toSerialize["registry_source"] = o.RegistrySource
+	}
+	if !IsNil(o.GithubSource) {
+		toSerialize["github_source"] = o.GithubSource
+	}
+	if !IsNil(o.GithubSourceData) {
+		toSerialize["github_source_data"] = o.GithubSourceData
+	}
 	return toSerialize, nil
 }
 
@@ -365,14 +509,14 @@ func (o *Artifact) UnmarshalJSON(data []byte) (err error) {
 		"object",
 		"id",
 		"status",
-		"source_id",
-		"source_type",
-		"github_source_data",
 		"aarch64",
 		"x86_64",
 		"created_at",
 		"ready_at",
 		"failed_at",
+		"images",
+		"source_id",
+		"source_type",
 	}
 
 	allProperties := make(map[string]interface{})

@@ -30,6 +30,10 @@ type GitHubCommit struct {
 	PushedAt time.Time `json:"pushed_at"`
 
 	Committer GitHubCommitter `json:"committer"`
+
+	IsBuilt bool `json:"is_built"`
+
+	ArtifactId *string `json:"artifact_id"`
 }
 
 // AssertGitHubCommitRequired checks if the required fields are not zero-ed
@@ -41,6 +45,8 @@ func AssertGitHubCommitRequired(obj GitHubCommit) error {
 		"html_url": obj.HtmlUrl,
 		"pushed_at": obj.PushedAt,
 		"committer": obj.Committer,
+		"is_built": obj.IsBuilt,
+		"artifact_id": obj.ArtifactId,
 	}
 	for name, el := range elements {
 		if isZero := IsZeroValue(el); isZero {

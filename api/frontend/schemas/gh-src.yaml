@@ -1,9 +1,48 @@
 openapi: 3.0.3
 info:
-  title: GitHub Integration Schemas
+  title: GitHub Schemas
   version: ""
 components:
   schemas:
+    GitHubSource:
+      title: GitHub Source
+      type: object
+      required:
+        - id
+        - object
+        - name
+        - repository_id
+        - repository_name
+        - branch
+        - build_path
+        - deleted
+      properties:
+        id:
+          type: string
+          example: "gh_src_123"
+        object:
+          type: string
+          example: "github_source"
+        name:
+          type: string
+          example: "e2e-tests"
+        repository_id:
+          type: integer 
+          format: int64
+          example: "12345"
+        repository_name:
+          type: string
+          example: "bensmidt/e2e-tests"
+        branch:
+          type: string
+          example: "main"
+        build_path:
+          type: string
+          example: "path/to/compose/file/"
+        deleted:
+          type: boolean
+          example: false
+
     GitHubCommitter:
       title: GitHub Committer
       type: object
@@ -44,6 +83,8 @@ components:
         - html_url
         - pushed_at
         - committer
+        - is_built
+        - artifact_id
       properties:
         object:
           type: string
@@ -63,6 +104,13 @@ components:
           example: "2024-01-01T00:00:00Z"
         committer:
           $ref: '#/components/schemas/GitHubCommitter'
+        is_built:
+          type: boolean
+          example: true
+        artifact_id:
+          type: string
+          example: "art_123"
+          nullable: true
     GitHubCommitList:
       title: GitHub CommitList
       type: object

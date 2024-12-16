@@ -12,14 +12,14 @@ components:
         - object
         - id
         - status
-        - source_id
-        - source_type
-        - github_source_data
         - aarch64
         - x86_64
         - created_at
         - ready_at
         - failed_at
+        - images
+        - source_id
+        - source_type
       properties: 
         object:
           type: string
@@ -29,17 +29,6 @@ components:
           example: "art_1234"
         status:
           $ref: "#/components/schemas/ArtifactStatus"
-        source_id:
-          type: string
-          example: "reg_src_1234"
-        source_type:
-          type: string
-          enum:
-            - github
-            - registry
-        github_source_data:
-          $ref: "#/components/schemas/GitHubSourceData"
-          nullable: true
         aarch64:
           type: boolean
           example: true
@@ -60,6 +49,44 @@ components:
           format: date-time
           example: "2024-11-03T14:25:50Z"
           nullable: true
+        deployments:
+          $ref: "#/components/schemas/ArtifactDeploymentList"
+          nullable: true
+        images:
+          $ref: "./image.yaml#/components/schemas/ImageList"
+          nullable: true
+        source_id:
+          type: string
+          example: "reg_src_1234"
+        source_type:
+          type: string
+          enum:
+            - github
+            - registry
+        registry_source:
+          $ref: "./reg-src.yaml#/components/schemas/RegistrySource"
+          nullable: true
+        github_source:
+          $ref: "./gh-src.yaml#/components/schemas/GitHubSource"
+          nullable: true
+        github_source_data:
+          $ref: "#/components/schemas/GitHubSourceData"
+          nullable: true
+    
+    ArtifactList:
+      title: Artifact List
+      type: object
+      required:
+        - object
+        - data
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Artifact"
 
     ArtifactStatus:
       title: Artifact Status
@@ -198,7 +225,7 @@ components:
           items:
             type: object
             required:
-              - repo_id
+              - repository_id
               - digest
               - tag
             properties: 
@@ -223,7 +250,7 @@ components:
       required:
         - allow_duplicate
         - commit_sha
-        - group
+        - groups
       properties:
         allow_duplicate:
           type: boolean
@@ -236,4 +263,49 @@ components:
           items:
             type: string
             example: "group_123"
+    
+    ArtifactDeployment:
+      title: Artifact Deployment
+      type: object
+      required:
+        - object
+        - id 
+        - device_id
+        - status
+        - activity_status
+        - error_status
+      properties:
+        object:
+          type: string
+          example: "deployment"
+        id:
+          type: string
+          example: "dep_1234"
+        device_id:
+          type: string
+          example: "device_1234"
+        status:
+          type: string
+          example: "retrying"
+        activity_status:
+          type: string
+          example: "booting"
+        error_status:
+          type: string
+          example: "retrying"
+
+    ArtifactDeploymentList: 
+      title: Artifact Deployment List
+      type: object
+      required:
+        - object
+        - data
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/ArtifactDeployment"
 paths: {}
