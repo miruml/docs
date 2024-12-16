@@ -1,0 +1,69 @@
+openapi: 3.0.3
+info:
+  title: Deploy Schemas
+  version: ""
+components: 
+  schemas: 
+    Device:
+      title: Device
+      type: object
+      required:
+        - object
+        - id
+        - name
+        - hardware
+        - operating_system
+        - architecture
+        - status
+        - miru_version
+        - created_at
+        - synced_at
+        - group
+      properties:
+        object:
+          type: string
+          example: "device"
+        id:
+          type: string
+          example: "device_1234"
+        name:
+          type: string
+          example: "my-device"
+        hardware:
+          type: string
+          example: "raspberry-pi"
+        operating_system:
+          type: string
+          example: "ubuntu"
+          nullable: true
+        architecture:
+          type: string
+          example: "arm64"
+          nullable: true
+        status:
+          type: string
+          example: "active"
+        miru_version:
+          type: string
+          example: "0.5.1"
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-11-03T14:19:50Z"
+        synced_at:
+          type: string
+          format: date-time
+        deployments:
+          type: array
+          items:
+            $ref: "./deployment.yaml#/components/schemas/Deployment"
+        group:
+          $ref: "./group.yaml#/components/schemas/Group"
+
+paths: {}
+        
+        
+        
+        
+        
+        

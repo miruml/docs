@@ -18,3 +18,31 @@ paths:
       responses:
         '200':
           description: Successfully created the deployments.
+  
+  /devices/{device_id}/deployments:
+    get:
+      tags:
+        - Deployments
+      parameters:
+        - $ref: "../../params.yaml#/components/parameters/device_id"
+      responses:
+        '200':
+          description: Successfully retrieved the deployments.
+          content:
+            application/json:
+              schema:
+                $ref: "../schemas/deployment.yaml#/components/schemas/DeploymentList"
+
+  /deployments/{deployment_id}:
+    get:
+      tags:
+        - Deployments
+      parameters:
+        - $ref: "../../params.yaml#/components/parameters/deployment_id"
+      responses:
+        '200':
+          description: Successfully retrieved the deployment.
+          content:
+            application/json:
+              schema:
+                $ref: "../schemas/deployment.yaml#/components/schemas/Deployment"

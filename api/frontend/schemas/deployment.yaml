@@ -23,5 +23,111 @@ components:
             type: string
             example: "device_1234"
 
+    Deployment:
+      title: Deployment
+      type: object
+      required:
+        - object
+        - id
+        - artifact
+        - status
+        - activity_status
+        - error_status
+        - target_status
+        - created_at
+        - downloading_at
+        - downloaded_at
+        - booting_at
+        - active_at
+        - stopping_at
+        - stopped_at
+        - removing_at
+        - archived_at
+      properties:
+        object:
+          type: string
+          example: "deployment"
+        id:
+          type: string
+          example: "dep_1234"
+        artifact:
+          $ref: "./artifact.yaml#/components/schemas/Artifact"
+        status:
+          type: string
+          example: "retrying"
+        activity_status:
+          type: string
+          example: "downloading"
+        error_status:
+          type: string
+          example: "retrying"
+        target_status:
+          type: string
+          example: "active"
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-11-03T14:19:50Z"
+        downloading_at:
+          type: string
+          format: date-time
+          example: "2024-11-03T14:19:50Z"
+          nullable: true
+        downloaded_at:
+          type: string
+          format: date-time
+          example: "2024-11-03T14:19:50Z"
+          nullable: true
+        booting_at:
+          type: string
+          format: date-time
+          example: "2024-11-03T14:19:50Z"
+          nullable: true
+        active_at:
+          type: string
+          format: date-time
+          example: "2024-11-03T14:19:50Z"
+          nullable: true
+        stopping_at:
+          type: string
+          format: date-time
+          example: "2024-11-03T14:19:50Z"
+          nullable: true
+        stopped_at:
+          type: string
+          format: date-time
+          example: "2024-11-03T14:19:50Z"
+          nullable: true
+        removing_at:
+          type: string
+          format: date-time
+          example: "2024-11-03T14:19:50Z"
+          nullable: true
+        archived_at:
+          type: string
+          format: date-time
+          example: "2024-11-03T14:19:50Z"
+          nullable: true
+        cooldown_ends_at:
+          type: string
+          format: date-time
+          example: "2024-11-03T14:19:50Z"
+          nullable: true
+
+    DeploymentList:
+      title: Deployment List
+      type: object
+      required:
+        - object
+        - data
+      properties:
+        object:
+          type: string
+          example: "deployment_list"
+        data:
+          type: array
+          items:
+            $ref: "./deployment.yaml#/components/schemas/Deployment"
+
 paths: {}
 

@@ -1,0 +1,25 @@
+openapi: 3.0.3
+info:
+  title: Deploy Schemas
+  version: ""
+components: 
+  schemas: 
+    Group:
+      title: Group
+      type: object
+      required:
+        - object
+        - id
+        - name
+      properties:
+        object:
+          type: string
+          example: "group"
+        id:
+          type: string
+          example: "group_1234"
+        name:
+          type: string
+          example: "my-group"
+
+paths: {}

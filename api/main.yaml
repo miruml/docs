@@ -57,6 +57,14 @@ paths:
   # deployments
   /workspaces/{workspace_id}/deploy:
     $ref: './frontend/paths/deployments.yaml#/paths/~1workspaces~1{workspace_id}~1deploy'
+  /devices/{device_id}/deployments:
+    $ref: './frontend/paths/deployments.yaml#/paths/~1devices~1{device_id}~1deployments'
+  /deployments/{deployment_id}:
+    $ref: './frontend/paths/deployments.yaml#/paths/~1deployments~1{deployment_id}'
+
+  # devices
+  /devices/{device_id}:
+    $ref: './frontend/paths/device.yaml#/paths/~1devices~1{device_id}'
 
   # github sources
   /sources/github/{github_source_id}/commits:
