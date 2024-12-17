@@ -104,6 +104,7 @@ components:
 
     GroupArtifact:
       allOf:
+        - $ref: "#/components/schemas/Artifact"
         - type: object
           required:
             - staged
@@ -111,7 +112,6 @@ components:
             staged:
               type: boolean
               example: true
-        - $ref: "#/components/schemas/Artifact"
 
     GroupArtifactList:
       title: Group Artifact List

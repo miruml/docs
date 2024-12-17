@@ -65,7 +65,7 @@ components:
         - type: object
           properties:
             group:
-              $ref: "./group.yaml#/components/schemas/Group"
+              $ref: "./group.yaml#/components/schemas/BaseGroup"
 
 paths: {}
         

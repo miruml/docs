@@ -13,15 +13,15 @@ package openapi
 
 
 
-type GroupAllOfDevices struct {
+type GroupDeviceContainerList struct {
 
 	Object string `json:"object"`
 
-	Data []Device1 `json:"data"`
+	Data []GroupDeviceContainer `json:"data"`
 }
 
-// AssertGroupAllOfDevicesRequired checks if the required fields are not zero-ed
-func AssertGroupAllOfDevicesRequired(obj GroupAllOfDevices) error {
+// AssertGroupDeviceContainerListRequired checks if the required fields are not zero-ed
+func AssertGroupDeviceContainerListRequired(obj GroupDeviceContainerList) error {
 	elements := map[string]interface{}{
 		"object": obj.Object,
 		"data": obj.Data,
@@ -33,17 +33,17 @@ func AssertGroupAllOfDevicesRequired(obj GroupAllOfDevices) error {
 	}
 
 	for _, el := range obj.Data {
-		if err := AssertDevice1Required(el); err != nil {
+		if err := AssertGroupDeviceContainerRequired(el); err != nil {
 			return err
 		}
 	}
 	return nil
 }
 
-// AssertGroupAllOfDevicesConstraints checks if the values respects the defined constraints
-func AssertGroupAllOfDevicesConstraints(obj GroupAllOfDevices) error {
+// AssertGroupDeviceContainerListConstraints checks if the values respects the defined constraints
+func AssertGroupDeviceContainerListConstraints(obj GroupDeviceContainerList) error {
 	for _, el := range obj.Data {
-		if err := AssertDevice1Constraints(el); err != nil {
+		if err := AssertGroupDeviceContainerConstraints(el); err != nil {
 			return err
 		}
 	}

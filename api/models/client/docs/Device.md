@@ -15,13 +15,13 @@ Name | Type | Description | Notes
 **MiruVersion** | **NullableString** |  | 
 **CreatedAt** | **time.Time** |  | 
 **SyncedAt** | **time.Time** |  | 
-**Group** | [**Group**](Group.md) |  | 
+**Group** | [**BaseGroup**](BaseGroup.md) |  | 
 
 ## Methods
 
 ### NewDevice
 
-`func NewDevice(object string, id string, name string, hardware string, operatingSystem NullableString, architecture NullableString, status string, lastReportedStatus string, miruVersion NullableString, createdAt time.Time, syncedAt time.Time, group Group, ) *Device`
+`func NewDevice(object string, id string, name string, hardware string, operatingSystem NullableString, architecture NullableString, status string, lastReportedStatus string, miruVersion NullableString, createdAt time.Time, syncedAt time.Time, group BaseGroup, ) *Device`
 
 NewDevice instantiates a new Device object
 This constructor will assign default values to properties that have it defined,
@@ -288,20 +288,20 @@ SetSyncedAt sets SyncedAt field to given value.
 
 ### GetGroup
 
-`func (o *Device) GetGroup() Group`
+`func (o *Device) GetGroup() BaseGroup`
 
 GetGroup returns the Group field if non-nil, zero value otherwise.
 
 ### GetGroupOk
 
-`func (o *Device) GetGroupOk() (*Group, bool)`
+`func (o *Device) GetGroupOk() (*BaseGroup, bool)`
 
 GetGroupOk returns a tuple with the Group field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGroup
 
-`func (o *Device) SetGroup(v Group)`
+`func (o *Device) SetGroup(v BaseGroup)`
 
 SetGroup sets Group field to given value.
 

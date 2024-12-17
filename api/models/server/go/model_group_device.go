@@ -17,7 +17,7 @@ import (
 
 
 
-type Device1 struct {
+type GroupDevice struct {
 
 	Object string `json:"object"`
 
@@ -41,13 +41,13 @@ type Device1 struct {
 
 	SyncedAt time.Time `json:"synced_at"`
 
-	Containers Device1AllOfContainers `json:"containers,omitempty"`
+	Containers GroupDeviceContainerList `json:"containers"`
 
-	Deployments Device1AllOfDeployments `json:"deployments,omitempty"`
+	Deployments GroupDeviceDeploymentList `json:"deployments"`
 }
 
-// AssertDevice1Required checks if the required fields are not zero-ed
-func AssertDevice1Required(obj Device1) error {
+// AssertGroupDeviceRequired checks if the required fields are not zero-ed
+func AssertGroupDeviceRequired(obj GroupDevice) error {
 	elements := map[string]interface{}{
 		"object": obj.Object,
 		"id": obj.Id,
@@ -60,6 +60,8 @@ func AssertDevice1Required(obj Device1) error {
 		"miru_version": obj.MiruVersion,
 		"created_at": obj.CreatedAt,
 		"synced_at": obj.SyncedAt,
+		"containers": obj.Containers,
+		"deployments": obj.Deployments,
 	}
 	for name, el := range elements {
 		if isZero := IsZeroValue(el); isZero {
@@ -67,21 +69,21 @@ func AssertDevice1Required(obj Device1) error {
 		}
 	}
 
-	if err := AssertDevice1AllOfContainersRequired(obj.Containers); err != nil {
+	if err := AssertGroupDeviceContainerListRequired(obj.Containers); err != nil {
 		return err
 	}
-	if err := AssertDevice1AllOfDeploymentsRequired(obj.Deployments); err != nil {
+	if err := AssertGroupDeviceDeploymentListRequired(obj.Deployments); err != nil {
 		return err
 	}
 	return nil
 }
 
-// AssertDevice1Constraints checks if the values respects the defined constraints
-func AssertDevice1Constraints(obj Device1) error {
-	if err := AssertDevice1AllOfContainersConstraints(obj.Containers); err != nil {
+// AssertGroupDeviceConstraints checks if the values respects the defined constraints
+func AssertGroupDeviceConstraints(obj GroupDevice) error {
+	if err := AssertGroupDeviceContainerListConstraints(obj.Containers); err != nil {
 		return err
 	}
-	if err := AssertDevice1AllOfDeploymentsConstraints(obj.Deployments); err != nil {
+	if err := AssertGroupDeviceDeploymentListConstraints(obj.Deployments); err != nil {
 		return err
 	}
 	return nil

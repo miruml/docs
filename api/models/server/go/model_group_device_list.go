@@ -13,15 +13,15 @@ package openapi
 
 
 
-type Device1AllOfDeployments struct {
+type GroupDeviceList struct {
 
 	Object string `json:"object"`
 
-	Data []BaseDeployment `json:"data"`
+	Data []GroupDevice `json:"data"`
 }
 
-// AssertDevice1AllOfDeploymentsRequired checks if the required fields are not zero-ed
-func AssertDevice1AllOfDeploymentsRequired(obj Device1AllOfDeployments) error {
+// AssertGroupDeviceListRequired checks if the required fields are not zero-ed
+func AssertGroupDeviceListRequired(obj GroupDeviceList) error {
 	elements := map[string]interface{}{
 		"object": obj.Object,
 		"data": obj.Data,
@@ -33,17 +33,17 @@ func AssertDevice1AllOfDeploymentsRequired(obj Device1AllOfDeployments) error {
 	}
 
 	for _, el := range obj.Data {
-		if err := AssertBaseDeploymentRequired(el); err != nil {
+		if err := AssertGroupDeviceRequired(el); err != nil {
 			return err
 		}
 	}
 	return nil
 }
 
-// AssertDevice1AllOfDeploymentsConstraints checks if the values respects the defined constraints
-func AssertDevice1AllOfDeploymentsConstraints(obj Device1AllOfDeployments) error {
+// AssertGroupDeviceListConstraints checks if the values respects the defined constraints
+func AssertGroupDeviceListConstraints(obj GroupDeviceList) error {
 	for _, el := range obj.Data {
-		if err := AssertBaseDeploymentConstraints(el); err != nil {
+		if err := AssertGroupDeviceConstraints(el); err != nil {
 			return err
 		}
 	}

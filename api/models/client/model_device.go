@@ -33,7 +33,7 @@ type Device struct {
 	MiruVersion NullableString `json:"miru_version"`
 	CreatedAt time.Time `json:"created_at"`
 	SyncedAt time.Time `json:"synced_at"`
-	Group Group `json:"group"`
+	Group BaseGroup `json:"group"`
 }
 
 type _Device Device
@@ -42,7 +42,7 @@ type _Device Device
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDevice(object string, id string, name string, hardware string, operatingSystem NullableString, architecture NullableString, status string, lastReportedStatus string, miruVersion NullableString, createdAt time.Time, syncedAt time.Time, group Group) *Device {
+func NewDevice(object string, id string, name string, hardware string, operatingSystem NullableString, architecture NullableString, status string, lastReportedStatus string, miruVersion NullableString, createdAt time.Time, syncedAt time.Time, group BaseGroup) *Device {
 	this := Device{}
 	this.Object = object
 	this.Id = id
@@ -338,9 +338,9 @@ func (o *Device) SetSyncedAt(v time.Time) {
 }
 
 // GetGroup returns the Group field value
-func (o *Device) GetGroup() Group {
+func (o *Device) GetGroup() BaseGroup {
 	if o == nil {
-		var ret Group
+		var ret BaseGroup
 		return ret
 	}
 
@@ -349,7 +349,7 @@ func (o *Device) GetGroup() Group {
 
 // GetGroupOk returns a tuple with the Group field value
 // and a boolean to check if the value has been set.
-func (o *Device) GetGroupOk() (*Group, bool) {
+func (o *Device) GetGroupOk() (*BaseGroup, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -357,7 +357,7 @@ func (o *Device) GetGroupOk() (*Group, bool) {
 }
 
 // SetGroup sets field value
-func (o *Device) SetGroup(v Group) {
+func (o *Device) SetGroup(v BaseGroup) {
 	o.Group = v
 }
 

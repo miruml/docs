@@ -21,7 +21,7 @@ type Group struct {
 
 	Name string `json:"name"`
 
-	Devices GroupAllOfDevices `json:"devices,omitempty"`
+	Devices GroupDeviceList `json:"devices,omitempty"`
 
 	GithubSources GitHubSourceList `json:"github_sources,omitempty"`
 }
@@ -39,7 +39,7 @@ func AssertGroupRequired(obj Group) error {
 		}
 	}
 
-	if err := AssertGroupAllOfDevicesRequired(obj.Devices); err != nil {
+	if err := AssertGroupDeviceListRequired(obj.Devices); err != nil {
 		return err
 	}
 	if err := AssertGitHubSourceListRequired(obj.GithubSources); err != nil {
@@ -50,7 +50,7 @@ func AssertGroupRequired(obj Group) error {
 
 // AssertGroupConstraints checks if the values respects the defined constraints
 func AssertGroupConstraints(obj Group) error {
-	if err := AssertGroupAllOfDevicesConstraints(obj.Devices); err != nil {
+	if err := AssertGroupDeviceListConstraints(obj.Devices); err != nil {
 		return err
 	}
 	if err := AssertGitHubSourceListConstraints(obj.GithubSources); err != nil {

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Object** | **string** |  | 
 **Id** | **string** |  | 
 **Name** | **string** |  | 
-**Devices** | Pointer to [**GroupAllOfDevices**](GroupAllOfDevices.md) |  | [optional] 
+**Devices** | Pointer to [**GroupDeviceList**](GroupDeviceList.md) |  | [optional] 
 **GithubSources** | Pointer to [**GitHubSourceList**](GitHubSourceList.md) |  | [optional] 
 
 ## Methods
@@ -91,20 +91,20 @@ SetName sets Name field to given value.
 
 ### GetDevices
 
-`func (o *Group) GetDevices() GroupAllOfDevices`
+`func (o *Group) GetDevices() GroupDeviceList`
 
 GetDevices returns the Devices field if non-nil, zero value otherwise.
 
 ### GetDevicesOk
 
-`func (o *Group) GetDevicesOk() (*GroupAllOfDevices, bool)`
+`func (o *Group) GetDevicesOk() (*GroupDeviceList, bool)`
 
 GetDevicesOk returns a tuple with the Devices field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDevices
 
-`func (o *Group) SetDevices(v GroupAllOfDevices)`
+`func (o *Group) SetDevices(v GroupDeviceList)`
 
 SetDevices sets Devices field to given value.
 

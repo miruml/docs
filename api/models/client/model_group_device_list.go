@@ -16,38 +16,38 @@ import (
 	"fmt"
 )
 
-// checks if the Device1AllOfDeployments type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &Device1AllOfDeployments{}
+// checks if the GroupDeviceList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GroupDeviceList{}
 
-// Device1AllOfDeployments struct for Device1AllOfDeployments
-type Device1AllOfDeployments struct {
+// GroupDeviceList struct for GroupDeviceList
+type GroupDeviceList struct {
 	Object string `json:"object"`
-	Data []BaseDeployment `json:"data"`
+	Data []GroupDevice `json:"data"`
 }
 
-type _Device1AllOfDeployments Device1AllOfDeployments
+type _GroupDeviceList GroupDeviceList
 
-// NewDevice1AllOfDeployments instantiates a new Device1AllOfDeployments object
+// NewGroupDeviceList instantiates a new GroupDeviceList object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDevice1AllOfDeployments(object string, data []BaseDeployment) *Device1AllOfDeployments {
-	this := Device1AllOfDeployments{}
+func NewGroupDeviceList(object string, data []GroupDevice) *GroupDeviceList {
+	this := GroupDeviceList{}
 	this.Object = object
 	this.Data = data
 	return &this
 }
 
-// NewDevice1AllOfDeploymentsWithDefaults instantiates a new Device1AllOfDeployments object
+// NewGroupDeviceListWithDefaults instantiates a new GroupDeviceList object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewDevice1AllOfDeploymentsWithDefaults() *Device1AllOfDeployments {
-	this := Device1AllOfDeployments{}
+func NewGroupDeviceListWithDefaults() *GroupDeviceList {
+	this := GroupDeviceList{}
 	return &this
 }
 
 // GetObject returns the Object field value
-func (o *Device1AllOfDeployments) GetObject() string {
+func (o *GroupDeviceList) GetObject() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -58,7 +58,7 @@ func (o *Device1AllOfDeployments) GetObject() string {
 
 // GetObjectOk returns a tuple with the Object field value
 // and a boolean to check if the value has been set.
-func (o *Device1AllOfDeployments) GetObjectOk() (*string, bool) {
+func (o *GroupDeviceList) GetObjectOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -66,14 +66,14 @@ func (o *Device1AllOfDeployments) GetObjectOk() (*string, bool) {
 }
 
 // SetObject sets field value
-func (o *Device1AllOfDeployments) SetObject(v string) {
+func (o *GroupDeviceList) SetObject(v string) {
 	o.Object = v
 }
 
 // GetData returns the Data field value
-func (o *Device1AllOfDeployments) GetData() []BaseDeployment {
+func (o *GroupDeviceList) GetData() []GroupDevice {
 	if o == nil {
-		var ret []BaseDeployment
+		var ret []GroupDevice
 		return ret
 	}
 
@@ -82,7 +82,7 @@ func (o *Device1AllOfDeployments) GetData() []BaseDeployment {
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *Device1AllOfDeployments) GetDataOk() ([]BaseDeployment, bool) {
+func (o *GroupDeviceList) GetDataOk() ([]GroupDevice, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -90,11 +90,11 @@ func (o *Device1AllOfDeployments) GetDataOk() ([]BaseDeployment, bool) {
 }
 
 // SetData sets field value
-func (o *Device1AllOfDeployments) SetData(v []BaseDeployment) {
+func (o *GroupDeviceList) SetData(v []GroupDevice) {
 	o.Data = v
 }
 
-func (o Device1AllOfDeployments) MarshalJSON() ([]byte, error) {
+func (o GroupDeviceList) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -102,14 +102,14 @@ func (o Device1AllOfDeployments) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o Device1AllOfDeployments) ToMap() (map[string]interface{}, error) {
+func (o GroupDeviceList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["object"] = o.Object
 	toSerialize["data"] = o.Data
 	return toSerialize, nil
 }
 
-func (o *Device1AllOfDeployments) UnmarshalJSON(data []byte) (err error) {
+func (o *GroupDeviceList) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -132,53 +132,53 @@ func (o *Device1AllOfDeployments) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varDevice1AllOfDeployments := _Device1AllOfDeployments{}
+	varGroupDeviceList := _GroupDeviceList{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varDevice1AllOfDeployments)
+	err = decoder.Decode(&varGroupDeviceList)
 
 	if err != nil {
 		return err
 	}
 
-	*o = Device1AllOfDeployments(varDevice1AllOfDeployments)
+	*o = GroupDeviceList(varGroupDeviceList)
 
 	return err
 }
 
-type NullableDevice1AllOfDeployments struct {
-	value *Device1AllOfDeployments
+type NullableGroupDeviceList struct {
+	value *GroupDeviceList
 	isSet bool
 }
 
-func (v NullableDevice1AllOfDeployments) Get() *Device1AllOfDeployments {
+func (v NullableGroupDeviceList) Get() *GroupDeviceList {
 	return v.value
 }
 
-func (v *NullableDevice1AllOfDeployments) Set(val *Device1AllOfDeployments) {
+func (v *NullableGroupDeviceList) Set(val *GroupDeviceList) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableDevice1AllOfDeployments) IsSet() bool {
+func (v NullableGroupDeviceList) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableDevice1AllOfDeployments) Unset() {
+func (v *NullableGroupDeviceList) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableDevice1AllOfDeployments(val *Device1AllOfDeployments) *NullableDevice1AllOfDeployments {
-	return &NullableDevice1AllOfDeployments{value: val, isSet: true}
+func NewNullableGroupDeviceList(val *GroupDeviceList) *NullableGroupDeviceList {
+	return &NullableGroupDeviceList{value: val, isSet: true}
 }
 
-func (v NullableDevice1AllOfDeployments) MarshalJSON() ([]byte, error) {
+func (v NullableGroupDeviceList) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableDevice1AllOfDeployments) UnmarshalJSON(src []byte) error {
+func (v *NullableGroupDeviceList) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

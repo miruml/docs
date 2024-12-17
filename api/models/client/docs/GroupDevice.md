@@ -1,4 +1,4 @@
-# Device1
+# GroupDevice
 
 ## Properties
 
@@ -15,327 +15,317 @@ Name | Type | Description | Notes
 **MiruVersion** | **NullableString** |  | 
 **CreatedAt** | **time.Time** |  | 
 **SyncedAt** | **time.Time** |  | 
-**Containers** | Pointer to [**Device1AllOfContainers**](Device1AllOfContainers.md) |  | [optional] 
-**Deployments** | Pointer to [**Device1AllOfDeployments**](Device1AllOfDeployments.md) |  | [optional] 
+**Containers** | [**GroupDeviceContainerList**](GroupDeviceContainerList.md) |  | 
+**Deployments** | [**GroupDeviceDeploymentList**](GroupDeviceDeploymentList.md) |  | 
 
 ## Methods
 
-### NewDevice1
+### NewGroupDevice
 
-`func NewDevice1(object string, id string, name string, hardware string, operatingSystem NullableString, architecture NullableString, status string, lastReportedStatus string, miruVersion NullableString, createdAt time.Time, syncedAt time.Time, ) *Device1`
+`func NewGroupDevice(object string, id string, name string, hardware string, operatingSystem NullableString, architecture NullableString, status string, lastReportedStatus string, miruVersion NullableString, createdAt time.Time, syncedAt time.Time, containers GroupDeviceContainerList, deployments GroupDeviceDeploymentList, ) *GroupDevice`
 
-NewDevice1 instantiates a new Device1 object
+NewGroupDevice instantiates a new GroupDevice object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewDevice1WithDefaults
+### NewGroupDeviceWithDefaults
 
-`func NewDevice1WithDefaults() *Device1`
+`func NewGroupDeviceWithDefaults() *GroupDevice`
 
-NewDevice1WithDefaults instantiates a new Device1 object
+NewGroupDeviceWithDefaults instantiates a new GroupDevice object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetObject
 
-`func (o *Device1) GetObject() string`
+`func (o *GroupDevice) GetObject() string`
 
 GetObject returns the Object field if non-nil, zero value otherwise.
 
 ### GetObjectOk
 
-`func (o *Device1) GetObjectOk() (*string, bool)`
+`func (o *GroupDevice) GetObjectOk() (*string, bool)`
 
 GetObjectOk returns a tuple with the Object field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetObject
 
-`func (o *Device1) SetObject(v string)`
+`func (o *GroupDevice) SetObject(v string)`
 
 SetObject sets Object field to given value.
 
 
 ### GetId
 
-`func (o *Device1) GetId() string`
+`func (o *GroupDevice) GetId() string`
 
 GetId returns the Id field if non-nil, zero value otherwise.
 
 ### GetIdOk
 
-`func (o *Device1) GetIdOk() (*string, bool)`
+`func (o *GroupDevice) GetIdOk() (*string, bool)`
 
 GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetId
 
-`func (o *Device1) SetId(v string)`
+`func (o *GroupDevice) SetId(v string)`
 
 SetId sets Id field to given value.
 
 
 ### GetName
 
-`func (o *Device1) GetName() string`
+`func (o *GroupDevice) GetName() string`
 
 GetName returns the Name field if non-nil, zero value otherwise.
 
 ### GetNameOk
 
-`func (o *Device1) GetNameOk() (*string, bool)`
+`func (o *GroupDevice) GetNameOk() (*string, bool)`
 
 GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetName
 
-`func (o *Device1) SetName(v string)`
+`func (o *GroupDevice) SetName(v string)`
 
 SetName sets Name field to given value.
 
 
 ### GetHardware
 
-`func (o *Device1) GetHardware() string`
+`func (o *GroupDevice) GetHardware() string`
 
 GetHardware returns the Hardware field if non-nil, zero value otherwise.
 
 ### GetHardwareOk
 
-`func (o *Device1) GetHardwareOk() (*string, bool)`
+`func (o *GroupDevice) GetHardwareOk() (*string, bool)`
 
 GetHardwareOk returns a tuple with the Hardware field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetHardware
 
-`func (o *Device1) SetHardware(v string)`
+`func (o *GroupDevice) SetHardware(v string)`
 
 SetHardware sets Hardware field to given value.
 
 
 ### GetOperatingSystem
 
-`func (o *Device1) GetOperatingSystem() string`
+`func (o *GroupDevice) GetOperatingSystem() string`
 
 GetOperatingSystem returns the OperatingSystem field if non-nil, zero value otherwise.
 
 ### GetOperatingSystemOk
 
-`func (o *Device1) GetOperatingSystemOk() (*string, bool)`
+`func (o *GroupDevice) GetOperatingSystemOk() (*string, bool)`
 
 GetOperatingSystemOk returns a tuple with the OperatingSystem field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOperatingSystem
 
-`func (o *Device1) SetOperatingSystem(v string)`
+`func (o *GroupDevice) SetOperatingSystem(v string)`
 
 SetOperatingSystem sets OperatingSystem field to given value.
 
 
 ### SetOperatingSystemNil
 
-`func (o *Device1) SetOperatingSystemNil(b bool)`
+`func (o *GroupDevice) SetOperatingSystemNil(b bool)`
 
  SetOperatingSystemNil sets the value for OperatingSystem to be an explicit nil
 
 ### UnsetOperatingSystem
-`func (o *Device1) UnsetOperatingSystem()`
+`func (o *GroupDevice) UnsetOperatingSystem()`
 
 UnsetOperatingSystem ensures that no value is present for OperatingSystem, not even an explicit nil
 ### GetArchitecture
 
-`func (o *Device1) GetArchitecture() string`
+`func (o *GroupDevice) GetArchitecture() string`
 
 GetArchitecture returns the Architecture field if non-nil, zero value otherwise.
 
 ### GetArchitectureOk
 
-`func (o *Device1) GetArchitectureOk() (*string, bool)`
+`func (o *GroupDevice) GetArchitectureOk() (*string, bool)`
 
 GetArchitectureOk returns a tuple with the Architecture field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetArchitecture
 
-`func (o *Device1) SetArchitecture(v string)`
+`func (o *GroupDevice) SetArchitecture(v string)`
 
 SetArchitecture sets Architecture field to given value.
 
 
 ### SetArchitectureNil
 
-`func (o *Device1) SetArchitectureNil(b bool)`
+`func (o *GroupDevice) SetArchitectureNil(b bool)`
 
  SetArchitectureNil sets the value for Architecture to be an explicit nil
 
 ### UnsetArchitecture
-`func (o *Device1) UnsetArchitecture()`
+`func (o *GroupDevice) UnsetArchitecture()`
 
 UnsetArchitecture ensures that no value is present for Architecture, not even an explicit nil
 ### GetStatus
 
-`func (o *Device1) GetStatus() string`
+`func (o *GroupDevice) GetStatus() string`
 
 GetStatus returns the Status field if non-nil, zero value otherwise.
 
 ### GetStatusOk
 
-`func (o *Device1) GetStatusOk() (*string, bool)`
+`func (o *GroupDevice) GetStatusOk() (*string, bool)`
 
 GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatus
 
-`func (o *Device1) SetStatus(v string)`
+`func (o *GroupDevice) SetStatus(v string)`
 
 SetStatus sets Status field to given value.
 
 
 ### GetLastReportedStatus
 
-`func (o *Device1) GetLastReportedStatus() string`
+`func (o *GroupDevice) GetLastReportedStatus() string`
 
 GetLastReportedStatus returns the LastReportedStatus field if non-nil, zero value otherwise.
 
 ### GetLastReportedStatusOk
 
-`func (o *Device1) GetLastReportedStatusOk() (*string, bool)`
+`func (o *GroupDevice) GetLastReportedStatusOk() (*string, bool)`
 
 GetLastReportedStatusOk returns a tuple with the LastReportedStatus field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastReportedStatus
 
-`func (o *Device1) SetLastReportedStatus(v string)`
+`func (o *GroupDevice) SetLastReportedStatus(v string)`
 
 SetLastReportedStatus sets LastReportedStatus field to given value.
 
 
 ### GetMiruVersion
 
-`func (o *Device1) GetMiruVersion() string`
+`func (o *GroupDevice) GetMiruVersion() string`
 
 GetMiruVersion returns the MiruVersion field if non-nil, zero value otherwise.
 
 ### GetMiruVersionOk
 
-`func (o *Device1) GetMiruVersionOk() (*string, bool)`
+`func (o *GroupDevice) GetMiruVersionOk() (*string, bool)`
 
 GetMiruVersionOk returns a tuple with the MiruVersion field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMiruVersion
 
-`func (o *Device1) SetMiruVersion(v string)`
+`func (o *GroupDevice) SetMiruVersion(v string)`
 
 SetMiruVersion sets MiruVersion field to given value.
 
 
 ### SetMiruVersionNil
 
-`func (o *Device1) SetMiruVersionNil(b bool)`
+`func (o *GroupDevice) SetMiruVersionNil(b bool)`
 
  SetMiruVersionNil sets the value for MiruVersion to be an explicit nil
 
 ### UnsetMiruVersion
-`func (o *Device1) UnsetMiruVersion()`
+`func (o *GroupDevice) UnsetMiruVersion()`
 
 UnsetMiruVersion ensures that no value is present for MiruVersion, not even an explicit nil
 ### GetCreatedAt
 
-`func (o *Device1) GetCreatedAt() time.Time`
+`func (o *GroupDevice) GetCreatedAt() time.Time`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *Device1) GetCreatedAtOk() (*time.Time, bool)`
+`func (o *GroupDevice) GetCreatedAtOk() (*time.Time, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *Device1) SetCreatedAt(v time.Time)`
+`func (o *GroupDevice) SetCreatedAt(v time.Time)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
 
 ### GetSyncedAt
 
-`func (o *Device1) GetSyncedAt() time.Time`
+`func (o *GroupDevice) GetSyncedAt() time.Time`
 
 GetSyncedAt returns the SyncedAt field if non-nil, zero value otherwise.
 
 ### GetSyncedAtOk
 
-`func (o *Device1) GetSyncedAtOk() (*time.Time, bool)`
+`func (o *GroupDevice) GetSyncedAtOk() (*time.Time, bool)`
 
 GetSyncedAtOk returns a tuple with the SyncedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSyncedAt
 
-`func (o *Device1) SetSyncedAt(v time.Time)`
+`func (o *GroupDevice) SetSyncedAt(v time.Time)`
 
 SetSyncedAt sets SyncedAt field to given value.
 
 
 ### GetContainers
 
-`func (o *Device1) GetContainers() Device1AllOfContainers`
+`func (o *GroupDevice) GetContainers() GroupDeviceContainerList`
 
 GetContainers returns the Containers field if non-nil, zero value otherwise.
 
 ### GetContainersOk
 
-`func (o *Device1) GetContainersOk() (*Device1AllOfContainers, bool)`
+`func (o *GroupDevice) GetContainersOk() (*GroupDeviceContainerList, bool)`
 
 GetContainersOk returns a tuple with the Containers field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetContainers
 
-`func (o *Device1) SetContainers(v Device1AllOfContainers)`
+`func (o *GroupDevice) SetContainers(v GroupDeviceContainerList)`
 
 SetContainers sets Containers field to given value.
 
-### HasContainers
-
-`func (o *Device1) HasContainers() bool`
-
-HasContainers returns a boolean if a field has been set.
 
 ### GetDeployments
 
-`func (o *Device1) GetDeployments() Device1AllOfDeployments`
+`func (o *GroupDevice) GetDeployments() GroupDeviceDeploymentList`
 
 GetDeployments returns the Deployments field if non-nil, zero value otherwise.
 
 ### GetDeploymentsOk
 
-`func (o *Device1) GetDeploymentsOk() (*Device1AllOfDeployments, bool)`
+`func (o *GroupDevice) GetDeploymentsOk() (*GroupDeviceDeploymentList, bool)`
 
 GetDeploymentsOk returns a tuple with the Deployments field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDeployments
 
-`func (o *Device1) SetDeployments(v Device1AllOfDeployments)`
+`func (o *GroupDevice) SetDeployments(v GroupDeviceDeploymentList)`
 
 SetDeployments sets Deployments field to given value.
 
-### HasDeployments
-
-`func (o *Device1) HasDeployments() bool`
-
-HasDeployments returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

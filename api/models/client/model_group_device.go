@@ -17,11 +17,11 @@ import (
 	"fmt"
 )
 
-// checks if the Device1 type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &Device1{}
+// checks if the GroupDevice type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GroupDevice{}
 
-// Device1 struct for Device1
-type Device1 struct {
+// GroupDevice struct for GroupDevice
+type GroupDevice struct {
 	Object string `json:"object"`
 	Id string `json:"id"`
 	Name string `json:"name"`
@@ -33,18 +33,18 @@ type Device1 struct {
 	MiruVersion NullableString `json:"miru_version"`
 	CreatedAt time.Time `json:"created_at"`
 	SyncedAt time.Time `json:"synced_at"`
-	Containers *Device1AllOfContainers `json:"containers,omitempty"`
-	Deployments *Device1AllOfDeployments `json:"deployments,omitempty"`
+	Containers GroupDeviceContainerList `json:"containers"`
+	Deployments GroupDeviceDeploymentList `json:"deployments"`
 }
 
-type _Device1 Device1
+type _GroupDevice GroupDevice
 
-// NewDevice1 instantiates a new Device1 object
+// NewGroupDevice instantiates a new GroupDevice object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDevice1(object string, id string, name string, hardware string, operatingSystem NullableString, architecture NullableString, status string, lastReportedStatus string, miruVersion NullableString, createdAt time.Time, syncedAt time.Time) *Device1 {
-	this := Device1{}
+func NewGroupDevice(object string, id string, name string, hardware string, operatingSystem NullableString, architecture NullableString, status string, lastReportedStatus string, miruVersion NullableString, createdAt time.Time, syncedAt time.Time, containers GroupDeviceContainerList, deployments GroupDeviceDeploymentList) *GroupDevice {
+	this := GroupDevice{}
 	this.Object = object
 	this.Id = id
 	this.Name = name
@@ -56,19 +56,21 @@ func NewDevice1(object string, id string, name string, hardware string, operatin
 	this.MiruVersion = miruVersion
 	this.CreatedAt = createdAt
 	this.SyncedAt = syncedAt
+	this.Containers = containers
+	this.Deployments = deployments
 	return &this
 }
 
-// NewDevice1WithDefaults instantiates a new Device1 object
+// NewGroupDeviceWithDefaults instantiates a new GroupDevice object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewDevice1WithDefaults() *Device1 {
-	this := Device1{}
+func NewGroupDeviceWithDefaults() *GroupDevice {
+	this := GroupDevice{}
 	return &this
 }
 
 // GetObject returns the Object field value
-func (o *Device1) GetObject() string {
+func (o *GroupDevice) GetObject() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -79,7 +81,7 @@ func (o *Device1) GetObject() string {
 
 // GetObjectOk returns a tuple with the Object field value
 // and a boolean to check if the value has been set.
-func (o *Device1) GetObjectOk() (*string, bool) {
+func (o *GroupDevice) GetObjectOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -87,12 +89,12 @@ func (o *Device1) GetObjectOk() (*string, bool) {
 }
 
 // SetObject sets field value
-func (o *Device1) SetObject(v string) {
+func (o *GroupDevice) SetObject(v string) {
 	o.Object = v
 }
 
 // GetId returns the Id field value
-func (o *Device1) GetId() string {
+func (o *GroupDevice) GetId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -103,7 +105,7 @@ func (o *Device1) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *Device1) GetIdOk() (*string, bool) {
+func (o *GroupDevice) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -111,12 +113,12 @@ func (o *Device1) GetIdOk() (*string, bool) {
 }
 
 // SetId sets field value
-func (o *Device1) SetId(v string) {
+func (o *GroupDevice) SetId(v string) {
 	o.Id = v
 }
 
 // GetName returns the Name field value
-func (o *Device1) GetName() string {
+func (o *GroupDevice) GetName() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -127,7 +129,7 @@ func (o *Device1) GetName() string {
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *Device1) GetNameOk() (*string, bool) {
+func (o *GroupDevice) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -135,12 +137,12 @@ func (o *Device1) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value
-func (o *Device1) SetName(v string) {
+func (o *GroupDevice) SetName(v string) {
 	o.Name = v
 }
 
 // GetHardware returns the Hardware field value
-func (o *Device1) GetHardware() string {
+func (o *GroupDevice) GetHardware() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -151,7 +153,7 @@ func (o *Device1) GetHardware() string {
 
 // GetHardwareOk returns a tuple with the Hardware field value
 // and a boolean to check if the value has been set.
-func (o *Device1) GetHardwareOk() (*string, bool) {
+func (o *GroupDevice) GetHardwareOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -159,13 +161,13 @@ func (o *Device1) GetHardwareOk() (*string, bool) {
 }
 
 // SetHardware sets field value
-func (o *Device1) SetHardware(v string) {
+func (o *GroupDevice) SetHardware(v string) {
 	o.Hardware = v
 }
 
 // GetOperatingSystem returns the OperatingSystem field value
 // If the value is explicit nil, the zero value for string will be returned
-func (o *Device1) GetOperatingSystem() string {
+func (o *GroupDevice) GetOperatingSystem() string {
 	if o == nil || o.OperatingSystem.Get() == nil {
 		var ret string
 		return ret
@@ -177,7 +179,7 @@ func (o *Device1) GetOperatingSystem() string {
 // GetOperatingSystemOk returns a tuple with the OperatingSystem field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Device1) GetOperatingSystemOk() (*string, bool) {
+func (o *GroupDevice) GetOperatingSystemOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -185,13 +187,13 @@ func (o *Device1) GetOperatingSystemOk() (*string, bool) {
 }
 
 // SetOperatingSystem sets field value
-func (o *Device1) SetOperatingSystem(v string) {
+func (o *GroupDevice) SetOperatingSystem(v string) {
 	o.OperatingSystem.Set(&v)
 }
 
 // GetArchitecture returns the Architecture field value
 // If the value is explicit nil, the zero value for string will be returned
-func (o *Device1) GetArchitecture() string {
+func (o *GroupDevice) GetArchitecture() string {
 	if o == nil || o.Architecture.Get() == nil {
 		var ret string
 		return ret
@@ -203,7 +205,7 @@ func (o *Device1) GetArchitecture() string {
 // GetArchitectureOk returns a tuple with the Architecture field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Device1) GetArchitectureOk() (*string, bool) {
+func (o *GroupDevice) GetArchitectureOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -211,12 +213,12 @@ func (o *Device1) GetArchitectureOk() (*string, bool) {
 }
 
 // SetArchitecture sets field value
-func (o *Device1) SetArchitecture(v string) {
+func (o *GroupDevice) SetArchitecture(v string) {
 	o.Architecture.Set(&v)
 }
 
 // GetStatus returns the Status field value
-func (o *Device1) GetStatus() string {
+func (o *GroupDevice) GetStatus() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -227,7 +229,7 @@ func (o *Device1) GetStatus() string {
 
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
-func (o *Device1) GetStatusOk() (*string, bool) {
+func (o *GroupDevice) GetStatusOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -235,12 +237,12 @@ func (o *Device1) GetStatusOk() (*string, bool) {
 }
 
 // SetStatus sets field value
-func (o *Device1) SetStatus(v string) {
+func (o *GroupDevice) SetStatus(v string) {
 	o.Status = v
 }
 
 // GetLastReportedStatus returns the LastReportedStatus field value
-func (o *Device1) GetLastReportedStatus() string {
+func (o *GroupDevice) GetLastReportedStatus() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -251,7 +253,7 @@ func (o *Device1) GetLastReportedStatus() string {
 
 // GetLastReportedStatusOk returns a tuple with the LastReportedStatus field value
 // and a boolean to check if the value has been set.
-func (o *Device1) GetLastReportedStatusOk() (*string, bool) {
+func (o *GroupDevice) GetLastReportedStatusOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -259,13 +261,13 @@ func (o *Device1) GetLastReportedStatusOk() (*string, bool) {
 }
 
 // SetLastReportedStatus sets field value
-func (o *Device1) SetLastReportedStatus(v string) {
+func (o *GroupDevice) SetLastReportedStatus(v string) {
 	o.LastReportedStatus = v
 }
 
 // GetMiruVersion returns the MiruVersion field value
 // If the value is explicit nil, the zero value for string will be returned
-func (o *Device1) GetMiruVersion() string {
+func (o *GroupDevice) GetMiruVersion() string {
 	if o == nil || o.MiruVersion.Get() == nil {
 		var ret string
 		return ret
@@ -277,7 +279,7 @@ func (o *Device1) GetMiruVersion() string {
 // GetMiruVersionOk returns a tuple with the MiruVersion field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Device1) GetMiruVersionOk() (*string, bool) {
+func (o *GroupDevice) GetMiruVersionOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -285,12 +287,12 @@ func (o *Device1) GetMiruVersionOk() (*string, bool) {
 }
 
 // SetMiruVersion sets field value
-func (o *Device1) SetMiruVersion(v string) {
+func (o *GroupDevice) SetMiruVersion(v string) {
 	o.MiruVersion.Set(&v)
 }
 
 // GetCreatedAt returns the CreatedAt field value
-func (o *Device1) GetCreatedAt() time.Time {
+func (o *GroupDevice) GetCreatedAt() time.Time {
 	if o == nil {
 		var ret time.Time
 		return ret
@@ -301,7 +303,7 @@ func (o *Device1) GetCreatedAt() time.Time {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
-func (o *Device1) GetCreatedAtOk() (*time.Time, bool) {
+func (o *GroupDevice) GetCreatedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -309,12 +311,12 @@ func (o *Device1) GetCreatedAtOk() (*time.Time, bool) {
 }
 
 // SetCreatedAt sets field value
-func (o *Device1) SetCreatedAt(v time.Time) {
+func (o *GroupDevice) SetCreatedAt(v time.Time) {
 	o.CreatedAt = v
 }
 
 // GetSyncedAt returns the SyncedAt field value
-func (o *Device1) GetSyncedAt() time.Time {
+func (o *GroupDevice) GetSyncedAt() time.Time {
 	if o == nil {
 		var ret time.Time
 		return ret
@@ -325,7 +327,7 @@ func (o *Device1) GetSyncedAt() time.Time {
 
 // GetSyncedAtOk returns a tuple with the SyncedAt field value
 // and a boolean to check if the value has been set.
-func (o *Device1) GetSyncedAtOk() (*time.Time, bool) {
+func (o *GroupDevice) GetSyncedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -333,75 +335,59 @@ func (o *Device1) GetSyncedAtOk() (*time.Time, bool) {
 }
 
 // SetSyncedAt sets field value
-func (o *Device1) SetSyncedAt(v time.Time) {
+func (o *GroupDevice) SetSyncedAt(v time.Time) {
 	o.SyncedAt = v
 }
 
-// GetContainers returns the Containers field value if set, zero value otherwise.
-func (o *Device1) GetContainers() Device1AllOfContainers {
-	if o == nil || IsNil(o.Containers) {
-		var ret Device1AllOfContainers
+// GetContainers returns the Containers field value
+func (o *GroupDevice) GetContainers() GroupDeviceContainerList {
+	if o == nil {
+		var ret GroupDeviceContainerList
 		return ret
 	}
-	return *o.Containers
+
+	return o.Containers
 }
 
-// GetContainersOk returns a tuple with the Containers field value if set, nil otherwise
+// GetContainersOk returns a tuple with the Containers field value
 // and a boolean to check if the value has been set.
-func (o *Device1) GetContainersOk() (*Device1AllOfContainers, bool) {
-	if o == nil || IsNil(o.Containers) {
+func (o *GroupDevice) GetContainersOk() (*GroupDeviceContainerList, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Containers, true
+	return &o.Containers, true
 }
 
-// HasContainers returns a boolean if a field has been set.
-func (o *Device1) HasContainers() bool {
-	if o != nil && !IsNil(o.Containers) {
-		return true
-	}
-
-	return false
+// SetContainers sets field value
+func (o *GroupDevice) SetContainers(v GroupDeviceContainerList) {
+	o.Containers = v
 }
 
-// SetContainers gets a reference to the given Device1AllOfContainers and assigns it to the Containers field.
-func (o *Device1) SetContainers(v Device1AllOfContainers) {
-	o.Containers = &v
-}
-
-// GetDeployments returns the Deployments field value if set, zero value otherwise.
-func (o *Device1) GetDeployments() Device1AllOfDeployments {
-	if o == nil || IsNil(o.Deployments) {
-		var ret Device1AllOfDeployments
+// GetDeployments returns the Deployments field value
+func (o *GroupDevice) GetDeployments() GroupDeviceDeploymentList {
+	if o == nil {
+		var ret GroupDeviceDeploymentList
 		return ret
 	}
-	return *o.Deployments
+
+	return o.Deployments
 }
 
-// GetDeploymentsOk returns a tuple with the Deployments field value if set, nil otherwise
+// GetDeploymentsOk returns a tuple with the Deployments field value
 // and a boolean to check if the value has been set.
-func (o *Device1) GetDeploymentsOk() (*Device1AllOfDeployments, bool) {
-	if o == nil || IsNil(o.Deployments) {
+func (o *GroupDevice) GetDeploymentsOk() (*GroupDeviceDeploymentList, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Deployments, true
+	return &o.Deployments, true
 }
 
-// HasDeployments returns a boolean if a field has been set.
-func (o *Device1) HasDeployments() bool {
-	if o != nil && !IsNil(o.Deployments) {
-		return true
-	}
-
-	return false
+// SetDeployments sets field value
+func (o *GroupDevice) SetDeployments(v GroupDeviceDeploymentList) {
+	o.Deployments = v
 }
 
-// SetDeployments gets a reference to the given Device1AllOfDeployments and assigns it to the Deployments field.
-func (o *Device1) SetDeployments(v Device1AllOfDeployments) {
-	o.Deployments = &v
-}
-
-func (o Device1) MarshalJSON() ([]byte, error) {
+func (o GroupDevice) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -409,7 +395,7 @@ func (o Device1) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o Device1) ToMap() (map[string]interface{}, error) {
+func (o GroupDevice) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["object"] = o.Object
 	toSerialize["id"] = o.Id
@@ -422,16 +408,12 @@ func (o Device1) ToMap() (map[string]interface{}, error) {
 	toSerialize["miru_version"] = o.MiruVersion.Get()
 	toSerialize["created_at"] = o.CreatedAt
 	toSerialize["synced_at"] = o.SyncedAt
-	if !IsNil(o.Containers) {
-		toSerialize["containers"] = o.Containers
-	}
-	if !IsNil(o.Deployments) {
-		toSerialize["deployments"] = o.Deployments
-	}
+	toSerialize["containers"] = o.Containers
+	toSerialize["deployments"] = o.Deployments
 	return toSerialize, nil
 }
 
-func (o *Device1) UnmarshalJSON(data []byte) (err error) {
+func (o *GroupDevice) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -447,6 +429,8 @@ func (o *Device1) UnmarshalJSON(data []byte) (err error) {
 		"miru_version",
 		"created_at",
 		"synced_at",
+		"containers",
+		"deployments",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -463,53 +447,53 @@ func (o *Device1) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varDevice1 := _Device1{}
+	varGroupDevice := _GroupDevice{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varDevice1)
+	err = decoder.Decode(&varGroupDevice)
 
 	if err != nil {
 		return err
 	}
 
-	*o = Device1(varDevice1)
+	*o = GroupDevice(varGroupDevice)
 
 	return err
 }
 
-type NullableDevice1 struct {
-	value *Device1
+type NullableGroupDevice struct {
+	value *GroupDevice
 	isSet bool
 }
 
-func (v NullableDevice1) Get() *Device1 {
+func (v NullableGroupDevice) Get() *GroupDevice {
 	return v.value
 }
 
-func (v *NullableDevice1) Set(val *Device1) {
+func (v *NullableGroupDevice) Set(val *GroupDevice) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableDevice1) IsSet() bool {
+func (v NullableGroupDevice) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableDevice1) Unset() {
+func (v *NullableGroupDevice) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableDevice1(val *Device1) *NullableDevice1 {
-	return &NullableDevice1{value: val, isSet: true}
+func NewNullableGroupDevice(val *GroupDevice) *NullableGroupDevice {
+	return &NullableGroupDevice{value: val, isSet: true}
 }
 
-func (v NullableDevice1) MarshalJSON() ([]byte, error) {
+func (v NullableGroupDevice) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableDevice1) UnmarshalJSON(src []byte) error {
+func (v *NullableGroupDevice) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -41,7 +41,7 @@ type Device struct {
 
 	SyncedAt time.Time `json:"synced_at"`
 
-	Group Group `json:"group"`
+	Group BaseGroup `json:"group"`
 }
 
 // AssertDeviceRequired checks if the required fields are not zero-ed
@@ -66,7 +66,7 @@ func AssertDeviceRequired(obj Device) error {
 		}
 	}
 
-	if err := AssertGroupRequired(obj.Group); err != nil {
+	if err := AssertBaseGroupRequired(obj.Group); err != nil {
 		return err
 	}
 	return nil
@@ -74,7 +74,7 @@ func AssertDeviceRequired(obj Device) error {
 
 // AssertDeviceConstraints checks if the values respects the defined constraints
 func AssertDeviceConstraints(obj Device) error {
-	if err := AssertGroupConstraints(obj.Group); err != nil {
+	if err := AssertBaseGroupConstraints(obj.Group); err != nil {
 		return err
 	}
 	return nil

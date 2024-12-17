@@ -13,15 +13,15 @@ package openapi
 
 
 
-type Device1AllOfContainers struct {
+type GroupDeviceDeploymentList struct {
 
 	Object string `json:"object"`
 
-	Data []Container `json:"data"`
+	Data []GroupDeviceDeployment `json:"data"`
 }
 
-// AssertDevice1AllOfContainersRequired checks if the required fields are not zero-ed
-func AssertDevice1AllOfContainersRequired(obj Device1AllOfContainers) error {
+// AssertGroupDeviceDeploymentListRequired checks if the required fields are not zero-ed
+func AssertGroupDeviceDeploymentListRequired(obj GroupDeviceDeploymentList) error {
 	elements := map[string]interface{}{
 		"object": obj.Object,
 		"data": obj.Data,
@@ -33,17 +33,17 @@ func AssertDevice1AllOfContainersRequired(obj Device1AllOfContainers) error {
 	}
 
 	for _, el := range obj.Data {
-		if err := AssertContainerRequired(el); err != nil {
+		if err := AssertGroupDeviceDeploymentRequired(el); err != nil {
 			return err
 		}
 	}
 	return nil
 }
 
-// AssertDevice1AllOfContainersConstraints checks if the values respects the defined constraints
-func AssertDevice1AllOfContainersConstraints(obj Device1AllOfContainers) error {
+// AssertGroupDeviceDeploymentListConstraints checks if the values respects the defined constraints
+func AssertGroupDeviceDeploymentListConstraints(obj GroupDeviceDeploymentList) error {
 	for _, el := range obj.Data {
-		if err := AssertContainerConstraints(el); err != nil {
+		if err := AssertGroupDeviceDeploymentConstraints(el); err != nil {
 			return err
 		}
 	}

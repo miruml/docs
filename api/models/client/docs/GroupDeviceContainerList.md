@@ -1,67 +1,67 @@
-# Device1AllOfContainers
+# GroupDeviceContainerList
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Object** | **string** |  | 
-**Data** | [**[]Container**](Container.md) |  | 
+**Data** | [**[]GroupDeviceContainer**](GroupDeviceContainer.md) |  | 
 
 ## Methods
 
-### NewDevice1AllOfContainers
+### NewGroupDeviceContainerList
 
-`func NewDevice1AllOfContainers(object string, data []Container, ) *Device1AllOfContainers`
+`func NewGroupDeviceContainerList(object string, data []GroupDeviceContainer, ) *GroupDeviceContainerList`
 
-NewDevice1AllOfContainers instantiates a new Device1AllOfContainers object
+NewGroupDeviceContainerList instantiates a new GroupDeviceContainerList object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewDevice1AllOfContainersWithDefaults
+### NewGroupDeviceContainerListWithDefaults
 
-`func NewDevice1AllOfContainersWithDefaults() *Device1AllOfContainers`
+`func NewGroupDeviceContainerListWithDefaults() *GroupDeviceContainerList`
 
-NewDevice1AllOfContainersWithDefaults instantiates a new Device1AllOfContainers object
+NewGroupDeviceContainerListWithDefaults instantiates a new GroupDeviceContainerList object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetObject
 
-`func (o *Device1AllOfContainers) GetObject() string`
+`func (o *GroupDeviceContainerList) GetObject() string`
 
 GetObject returns the Object field if non-nil, zero value otherwise.
 
 ### GetObjectOk
 
-`func (o *Device1AllOfContainers) GetObjectOk() (*string, bool)`
+`func (o *GroupDeviceContainerList) GetObjectOk() (*string, bool)`
 
 GetObjectOk returns a tuple with the Object field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetObject
 
-`func (o *Device1AllOfContainers) SetObject(v string)`
+`func (o *GroupDeviceContainerList) SetObject(v string)`
 
 SetObject sets Object field to given value.
 
 
 ### GetData
 
-`func (o *Device1AllOfContainers) GetData() []Container`
+`func (o *GroupDeviceContainerList) GetData() []GroupDeviceContainer`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *Device1AllOfContainers) GetDataOk() (*[]Container, bool)`
+`func (o *GroupDeviceContainerList) GetDataOk() (*[]GroupDeviceContainer, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *Device1AllOfContainers) SetData(v []Container)`
+`func (o *GroupDeviceContainerList) SetData(v []GroupDeviceContainer)`
 
 SetData sets Data field to given value.
 

@@ -28,56 +28,40 @@ components:
         - type: object
           properties:
             devices:
-              type: object
-              required:
-                - object
-                - data
-              properties:
-                object:
-                  type: string
-                  example: "list"
-                data:
-                  type: array
-                  items:
-                    $ref: "#/components/schemas/Device"
+              $ref: "#/components/schemas/GroupDeviceList"
             github_sources:
               $ref: "./gh-src.yaml#/components/schemas/GitHubSourceList"
 
+    GroupDeviceList:
+      title: Group Device List
+      type: object
+      required:
+        - object
+        - data
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/GroupDevice"
 
-    Device:
+    GroupDevice:
       allOf:
         - $ref: "./device.yaml#/components/schemas/BaseDevice"
         - type: object
+          required:
+            - containers
+            - deployments
           properties:
             containers:
-              type: object 
-              required:
-                - object
-                - data
-              properties:
-                object:
-                  type: string
-                  example: "list"
-                data:
-                  type: array
-                  items:
-                    $ref: "#/components/schemas/Container"
+              $ref: "#/components/schemas/GroupDeviceContainerList"
             deployments:
-              type: object
-              required:
-                - object
-                - data
-              properties:
-                object:
-                  type: string
-                  example: "list"
-                data:
-                  type: array
-                  items:
-                    $ref: "#/components/schemas/Deployment"
+              $ref: "#/components/schemas/GroupDeviceDeploymentList"
 
-    Container:
-      title: Container
+    GroupDeviceContainer:
+      title: Group Device Container
       type: object
       required:
         - object
@@ -93,9 +77,24 @@ components:
         status:
           type: string
           example: "running"
+
+    GroupDeviceContainerList:
+      title: Group Device Container List
+      type: object
+      required:
+        - object
+        - data
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/GroupDeviceContainer"
     
-    Deployment:
-      title: Deployment
+    GroupDeviceDeployment:
+      title: Group Device Deployment
       type: object
       required:
         - object
@@ -120,6 +119,20 @@ components:
           type: string
           example: "none"
 
+    GroupDeviceDeploymentList:
+      title: Group Device Deployment List
+      type: object
+      required:
+        - object
+        - data
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/GroupDeviceDeployment"
 
 
 paths: {}

@@ -24,7 +24,7 @@ type Group struct {
 	Object string `json:"object"`
 	Id string `json:"id"`
 	Name string `json:"name"`
-	Devices *GroupAllOfDevices `json:"devices,omitempty"`
+	Devices *GroupDeviceList `json:"devices,omitempty"`
 	GithubSources *GitHubSourceList `json:"github_sources,omitempty"`
 }
 
@@ -123,9 +123,9 @@ func (o *Group) SetName(v string) {
 }
 
 // GetDevices returns the Devices field value if set, zero value otherwise.
-func (o *Group) GetDevices() GroupAllOfDevices {
+func (o *Group) GetDevices() GroupDeviceList {
 	if o == nil || IsNil(o.Devices) {
-		var ret GroupAllOfDevices
+		var ret GroupDeviceList
 		return ret
 	}
 	return *o.Devices
@@ -133,7 +133,7 @@ func (o *Group) GetDevices() GroupAllOfDevices {
 
 // GetDevicesOk returns a tuple with the Devices field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Group) GetDevicesOk() (*GroupAllOfDevices, bool) {
+func (o *Group) GetDevicesOk() (*GroupDeviceList, bool) {
 	if o == nil || IsNil(o.Devices) {
 		return nil, false
 	}
@@ -149,8 +149,8 @@ func (o *Group) HasDevices() bool {
 	return false
 }
 
-// SetDevices gets a reference to the given GroupAllOfDevices and assigns it to the Devices field.
-func (o *Group) SetDevices(v GroupAllOfDevices) {
+// SetDevices gets a reference to the given GroupDeviceList and assigns it to the Devices field.
+func (o *Group) SetDevices(v GroupDeviceList) {
 	o.Devices = &v
 }
 
