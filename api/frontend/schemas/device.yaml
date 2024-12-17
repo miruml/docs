@@ -15,6 +15,7 @@ components:
         - operating_system
         - architecture
         - status
+        - last_reported_status
         - miru_version
         - created_at
         - synced_at
@@ -53,10 +54,6 @@ components:
         synced_at:
           type: string
           format: date-time
-        deployments:
-          type: array
-          items:
-            $ref: "./deployment.yaml#/components/schemas/Deployment"
         group:
           $ref: "./group.yaml#/components/schemas/Group"
 

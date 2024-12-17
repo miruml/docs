@@ -5,12 +5,13 @@ info:
 components: 
   schemas: 
 
-    Artifact:
-      title: Artifact 
+    ArtifactBase:
+      title: Artifact Base
       type: object
       required:
         - object
         - id
+        - digest
         - status
         - aarch64
         - x86_64
@@ -19,7 +20,6 @@ components:
         - failed_at
         - source_id
         - source_type
-        - images
         - registry_source
         - github_source
         - github_source_data
@@ -65,9 +65,7 @@ components:
           enum:
             - github 
             - registry
-        images:
-          $ref: "./image.yaml#/components/schemas/ImageList"
-          nullable: true
+
         registry_source:
           $ref: "./reg-src.yaml#/components/schemas/RegistrySource"
           nullable: true
@@ -77,6 +75,22 @@ components:
         github_source_data:
           $ref: "#/components/schemas/GitHubSourceData"
           nullable: true
+
+    Artifact:
+      title: Artifact
+      allOf:
+        - $ref: "#/components/schemas/ArtifactBase"
+        - type: object
+          required:
+            - images
+            - deployments
+          properties:
+            images:
+              $ref: "./image.yaml#/components/schemas/ImageList"
+              nullable: true
+            deployments:
+              $ref: "#/components/schemas/ArtifactDeploymentList"
+              nullable: true
 
     GroupArtifact:
       allOf:

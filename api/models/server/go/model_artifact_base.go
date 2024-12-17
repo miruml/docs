@@ -17,7 +17,7 @@ import (
 
 
 
-type Artifact struct {
+type ArtifactBase struct {
 
 	Object string `json:"object"`
 
@@ -48,14 +48,10 @@ type Artifact struct {
 	GithubSource GitHubSource `json:"github_source"`
 
 	GithubSourceData GitHubSourceData `json:"github_source_data"`
-
-	Images ImageList `json:"images"`
-
-	Deployments ArtifactDeploymentList `json:"deployments"`
 }
 
-// AssertArtifactRequired checks if the required fields are not zero-ed
-func AssertArtifactRequired(obj Artifact) error {
+// AssertArtifactBaseRequired checks if the required fields are not zero-ed
+func AssertArtifactBaseRequired(obj ArtifactBase) error {
 	elements := map[string]interface{}{
 		"object": obj.Object,
 		"id": obj.Id,
@@ -71,8 +67,6 @@ func AssertArtifactRequired(obj Artifact) error {
 		"registry_source": obj.RegistrySource,
 		"github_source": obj.GithubSource,
 		"github_source_data": obj.GithubSourceData,
-		"images": obj.Images,
-		"deployments": obj.Deployments,
 	}
 	for name, el := range elements {
 		if isZero := IsZeroValue(el); isZero {
@@ -92,17 +86,11 @@ func AssertArtifactRequired(obj Artifact) error {
 	if err := AssertGitHubSourceDataRequired(obj.GithubSourceData); err != nil {
 		return err
 	}
-	if err := AssertImageListRequired(obj.Images); err != nil {
-		return err
-	}
-	if err := AssertArtifactDeploymentListRequired(obj.Deployments); err != nil {
-		return err
-	}
 	return nil
 }
 
-// AssertArtifactConstraints checks if the values respects the defined constraints
-func AssertArtifactConstraints(obj Artifact) error {
+// AssertArtifactBaseConstraints checks if the values respects the defined constraints
+func AssertArtifactBaseConstraints(obj ArtifactBase) error {
 	if err := AssertUserConstraints(obj.CreatedBy); err != nil {
 		return err
 	}
@@ -113,12 +101,6 @@ func AssertArtifactConstraints(obj Artifact) error {
 		return err
 	}
 	if err := AssertGitHubSourceDataConstraints(obj.GithubSourceData); err != nil {
-		return err
-	}
-	if err := AssertImageListConstraints(obj.Images); err != nil {
-		return err
-	}
-	if err := AssertArtifactDeploymentListConstraints(obj.Deployments); err != nil {
 		return err
 	}
 	return nil

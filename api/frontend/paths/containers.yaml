@@ -1,0 +1,18 @@
+openapi: 3.0.3
+info:
+  title: Container Repositories 
+  version: ""
+paths:
+  /devices/{device_id}/containers:
+    get:
+      tags:
+        - Containers
+      parameters:
+        - $ref: "../../params.yaml#/components/parameters/device_id"
+      responses:
+        '200':
+          description: Successfully retrieved the containers for the device.
+          content:
+            application/json:
+              schema:
+                $ref: "../schemas/container.yaml#/components/schemas/ContainerList"

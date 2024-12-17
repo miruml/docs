@@ -25,6 +25,7 @@ paths:
         - Deployments
       parameters:
         - $ref: "../../params.yaml#/components/parameters/device_id"
+        - $ref: "../../params.yaml#/components/parameters/include_archived"
       responses:
         '200':
           description: Successfully retrieved the deployments.

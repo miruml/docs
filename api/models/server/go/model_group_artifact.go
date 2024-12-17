@@ -25,7 +25,7 @@ type GroupArtifact struct {
 
 	Status ArtifactStatus `json:"status"`
 
-	Digest string `json:"digest,omitempty"`
+	Digest string `json:"digest"`
 
 	Aarch64 bool `json:"aarch64"`
 
@@ -39,19 +39,19 @@ type GroupArtifact struct {
 
 	CreatedBy User `json:"created_by,omitempty"`
 
-	Deployments ArtifactDeploymentList `json:"deployments,omitempty"`
-
-	Images ImageList `json:"images"`
-
 	SourceId string `json:"source_id"`
 
 	SourceType string `json:"source_type"`
 
-	RegistrySource RegistrySource `json:"registry_source,omitempty"`
+	RegistrySource RegistrySource `json:"registry_source"`
 
-	GithubSource GitHubSource `json:"github_source,omitempty"`
+	GithubSource GitHubSource `json:"github_source"`
 
-	GithubSourceData GitHubSourceData `json:"github_source_data,omitempty"`
+	GithubSourceData GitHubSourceData `json:"github_source_data"`
+
+	Images ImageList `json:"images"`
+
+	Deployments ArtifactDeploymentList `json:"deployments"`
 
 	Staged bool `json:"staged"`
 }
@@ -62,14 +62,19 @@ func AssertGroupArtifactRequired(obj GroupArtifact) error {
 		"object": obj.Object,
 		"id": obj.Id,
 		"status": obj.Status,
+		"digest": obj.Digest,
 		"aarch64": obj.Aarch64,
 		"x86_64": obj.X8664,
 		"created_at": obj.CreatedAt,
 		"ready_at": obj.ReadyAt,
 		"failed_at": obj.FailedAt,
-		"images": obj.Images,
 		"source_id": obj.SourceId,
 		"source_type": obj.SourceType,
+		"registry_source": obj.RegistrySource,
+		"github_source": obj.GithubSource,
+		"github_source_data": obj.GithubSourceData,
+		"images": obj.Images,
+		"deployments": obj.Deployments,
 		"staged": obj.Staged,
 	}
 	for name, el := range elements {
@@ -81,12 +86,6 @@ func AssertGroupArtifactRequired(obj GroupArtifact) error {
 	if err := AssertUserRequired(obj.CreatedBy); err != nil {
 		return err
 	}
-	if err := AssertArtifactDeploymentListRequired(obj.Deployments); err != nil {
-		return err
-	}
-	if err := AssertImageListRequired(obj.Images); err != nil {
-		return err
-	}
 	if err := AssertRegistrySourceRequired(obj.RegistrySource); err != nil {
 		return err
 	}
@@ -94,6 +93,12 @@ func AssertGroupArtifactRequired(obj GroupArtifact) error {
 		return err
 	}
 	if err := AssertGitHubSourceDataRequired(obj.GithubSourceData); err != nil {
+		return err
+	}
+	if err := AssertImageListRequired(obj.Images); err != nil {
+		return err
+	}
+	if err := AssertArtifactDeploymentListRequired(obj.Deployments); err != nil {
 		return err
 	}
 	return nil
@@ -104,12 +109,6 @@ func AssertGroupArtifactConstraints(obj GroupArtifact) error {
 	if err := AssertUserConstraints(obj.CreatedBy); err != nil {
 		return err
 	}
-	if err := AssertArtifactDeploymentListConstraints(obj.Deployments); err != nil {
-		return err
-	}
-	if err := AssertImageListConstraints(obj.Images); err != nil {
-		return err
-	}
 	if err := AssertRegistrySourceConstraints(obj.RegistrySource); err != nil {
 		return err
 	}
@@ -117,6 +116,12 @@ func AssertGroupArtifactConstraints(obj GroupArtifact) error {
 		return err
 	}
 	if err := AssertGitHubSourceDataConstraints(obj.GithubSourceData); err != nil {
+		return err
+	}
+	if err := AssertImageListConstraints(obj.Images); err != nil {
+		return err
+	}
+	if err := AssertArtifactDeploymentListConstraints(obj.Deployments); err != nil {
 		return err
 	}
 	return nil

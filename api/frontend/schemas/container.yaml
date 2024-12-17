@@ -36,16 +36,18 @@ components:
         image_id:
           type: string
           example: "img_1234"
+          nullable: true
         image_tag:
           type: string
           example: "latest"
+          nullable: true
         image_digest:
           type: string
           example: "sha256:1234567890"
+          nullable: true
         docker_container_id:
           type: string
           example: "sha256:1234567890"
-          nullable: true
         created_at:
           type: string
           format: date-time
@@ -76,4 +78,16 @@ components:
           type: string
           example: "<some error message>"
           nullable: true
+
+    ContainerList:
+      title: Container List
+      type: object
+      properties:
+        object:
+          type: string
+          example: "container_list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Container"
 paths: {}

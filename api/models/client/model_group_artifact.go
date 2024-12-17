@@ -25,20 +25,20 @@ type GroupArtifact struct {
 	Object string `json:"object"`
 	Id string `json:"id"`
 	Status ArtifactStatus `json:"status"`
-	Digest *string `json:"digest,omitempty"`
+	Digest string `json:"digest"`
 	Aarch64 bool `json:"aarch64"`
 	X8664 bool `json:"x86_64"`
 	CreatedAt time.Time `json:"created_at"`
 	ReadyAt NullableTime `json:"ready_at"`
 	FailedAt NullableTime `json:"failed_at"`
 	CreatedBy *User `json:"created_by,omitempty"`
-	Deployments *ArtifactDeploymentList `json:"deployments,omitempty"`
-	Images ImageList `json:"images"`
 	SourceId string `json:"source_id"`
 	SourceType string `json:"source_type"`
-	RegistrySource *RegistrySource `json:"registry_source,omitempty"`
-	GithubSource *GitHubSource `json:"github_source,omitempty"`
-	GithubSourceData *GitHubSourceData `json:"github_source_data,omitempty"`
+	RegistrySource RegistrySource `json:"registry_source"`
+	GithubSource GitHubSource `json:"github_source"`
+	GithubSourceData GitHubSourceData `json:"github_source_data"`
+	Images ImageList `json:"images"`
+	Deployments ArtifactDeploymentList `json:"deployments"`
 	Staged bool `json:"staged"`
 }
 
@@ -48,19 +48,24 @@ type _GroupArtifact GroupArtifact
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGroupArtifact(object string, id string, status ArtifactStatus, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime, images ImageList, sourceId string, sourceType string, staged bool) *GroupArtifact {
+func NewGroupArtifact(object string, id string, status ArtifactStatus, digest string, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime, sourceId string, sourceType string, registrySource RegistrySource, githubSource GitHubSource, githubSourceData GitHubSourceData, images ImageList, deployments ArtifactDeploymentList, staged bool) *GroupArtifact {
 	this := GroupArtifact{}
 	this.Object = object
 	this.Id = id
 	this.Status = status
+	this.Digest = digest
 	this.Aarch64 = aarch64
 	this.X8664 = x8664
 	this.CreatedAt = createdAt
 	this.ReadyAt = readyAt
 	this.FailedAt = failedAt
-	this.Images = images
 	this.SourceId = sourceId
 	this.SourceType = sourceType
+	this.RegistrySource = registrySource
+	this.GithubSource = githubSource
+	this.GithubSourceData = githubSourceData
+	this.Images = images
+	this.Deployments = deployments
 	this.Staged = staged
 	return &this
 }
@@ -145,36 +150,28 @@ func (o *GroupArtifact) SetStatus(v ArtifactStatus) {
 	o.Status = v
 }
 
-// GetDigest returns the Digest field value if set, zero value otherwise.
+// GetDigest returns the Digest field value
 func (o *GroupArtifact) GetDigest() string {
-	if o == nil || IsNil(o.Digest) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Digest
+
+	return o.Digest
 }
 
-// GetDigestOk returns a tuple with the Digest field value if set, nil otherwise
+// GetDigestOk returns a tuple with the Digest field value
 // and a boolean to check if the value has been set.
 func (o *GroupArtifact) GetDigestOk() (*string, bool) {
-	if o == nil || IsNil(o.Digest) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Digest, true
+	return &o.Digest, true
 }
 
-// HasDigest returns a boolean if a field has been set.
-func (o *GroupArtifact) HasDigest() bool {
-	if o != nil && !IsNil(o.Digest) {
-		return true
-	}
-
-	return false
-}
-
-// SetDigest gets a reference to the given string and assigns it to the Digest field.
+// SetDigest sets field value
 func (o *GroupArtifact) SetDigest(v string) {
-	o.Digest = &v
+	o.Digest = v
 }
 
 // GetAarch64 returns the Aarch64 field value
@@ -333,62 +330,6 @@ func (o *GroupArtifact) SetCreatedBy(v User) {
 	o.CreatedBy = &v
 }
 
-// GetDeployments returns the Deployments field value if set, zero value otherwise.
-func (o *GroupArtifact) GetDeployments() ArtifactDeploymentList {
-	if o == nil || IsNil(o.Deployments) {
-		var ret ArtifactDeploymentList
-		return ret
-	}
-	return *o.Deployments
-}
-
-// GetDeploymentsOk returns a tuple with the Deployments field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GroupArtifact) GetDeploymentsOk() (*ArtifactDeploymentList, bool) {
-	if o == nil || IsNil(o.Deployments) {
-		return nil, false
-	}
-	return o.Deployments, true
-}
-
-// HasDeployments returns a boolean if a field has been set.
-func (o *GroupArtifact) HasDeployments() bool {
-	if o != nil && !IsNil(o.Deployments) {
-		return true
-	}
-
-	return false
-}
-
-// SetDeployments gets a reference to the given ArtifactDeploymentList and assigns it to the Deployments field.
-func (o *GroupArtifact) SetDeployments(v ArtifactDeploymentList) {
-	o.Deployments = &v
-}
-
-// GetImages returns the Images field value
-func (o *GroupArtifact) GetImages() ImageList {
-	if o == nil {
-		var ret ImageList
-		return ret
-	}
-
-	return o.Images
-}
-
-// GetImagesOk returns a tuple with the Images field value
-// and a boolean to check if the value has been set.
-func (o *GroupArtifact) GetImagesOk() (*ImageList, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Images, true
-}
-
-// SetImages sets field value
-func (o *GroupArtifact) SetImages(v ImageList) {
-	o.Images = v
-}
-
 // GetSourceId returns the SourceId field value
 func (o *GroupArtifact) GetSourceId() string {
 	if o == nil {
@@ -437,100 +378,124 @@ func (o *GroupArtifact) SetSourceType(v string) {
 	o.SourceType = v
 }
 
-// GetRegistrySource returns the RegistrySource field value if set, zero value otherwise.
+// GetRegistrySource returns the RegistrySource field value
 func (o *GroupArtifact) GetRegistrySource() RegistrySource {
-	if o == nil || IsNil(o.RegistrySource) {
+	if o == nil {
 		var ret RegistrySource
 		return ret
 	}
-	return *o.RegistrySource
+
+	return o.RegistrySource
 }
 
-// GetRegistrySourceOk returns a tuple with the RegistrySource field value if set, nil otherwise
+// GetRegistrySourceOk returns a tuple with the RegistrySource field value
 // and a boolean to check if the value has been set.
 func (o *GroupArtifact) GetRegistrySourceOk() (*RegistrySource, bool) {
-	if o == nil || IsNil(o.RegistrySource) {
+	if o == nil {
 		return nil, false
 	}
-	return o.RegistrySource, true
+	return &o.RegistrySource, true
 }
 
-// HasRegistrySource returns a boolean if a field has been set.
-func (o *GroupArtifact) HasRegistrySource() bool {
-	if o != nil && !IsNil(o.RegistrySource) {
-		return true
-	}
-
-	return false
-}
-
-// SetRegistrySource gets a reference to the given RegistrySource and assigns it to the RegistrySource field.
+// SetRegistrySource sets field value
 func (o *GroupArtifact) SetRegistrySource(v RegistrySource) {
-	o.RegistrySource = &v
+	o.RegistrySource = v
 }
 
-// GetGithubSource returns the GithubSource field value if set, zero value otherwise.
+// GetGithubSource returns the GithubSource field value
 func (o *GroupArtifact) GetGithubSource() GitHubSource {
-	if o == nil || IsNil(o.GithubSource) {
+	if o == nil {
 		var ret GitHubSource
 		return ret
 	}
-	return *o.GithubSource
+
+	return o.GithubSource
 }
 
-// GetGithubSourceOk returns a tuple with the GithubSource field value if set, nil otherwise
+// GetGithubSourceOk returns a tuple with the GithubSource field value
 // and a boolean to check if the value has been set.
 func (o *GroupArtifact) GetGithubSourceOk() (*GitHubSource, bool) {
-	if o == nil || IsNil(o.GithubSource) {
+	if o == nil {
 		return nil, false
 	}
-	return o.GithubSource, true
+	return &o.GithubSource, true
 }
 
-// HasGithubSource returns a boolean if a field has been set.
-func (o *GroupArtifact) HasGithubSource() bool {
-	if o != nil && !IsNil(o.GithubSource) {
-		return true
-	}
-
-	return false
-}
-
-// SetGithubSource gets a reference to the given GitHubSource and assigns it to the GithubSource field.
+// SetGithubSource sets field value
 func (o *GroupArtifact) SetGithubSource(v GitHubSource) {
-	o.GithubSource = &v
+	o.GithubSource = v
 }
 
-// GetGithubSourceData returns the GithubSourceData field value if set, zero value otherwise.
+// GetGithubSourceData returns the GithubSourceData field value
 func (o *GroupArtifact) GetGithubSourceData() GitHubSourceData {
-	if o == nil || IsNil(o.GithubSourceData) {
+	if o == nil {
 		var ret GitHubSourceData
 		return ret
 	}
-	return *o.GithubSourceData
+
+	return o.GithubSourceData
 }
 
-// GetGithubSourceDataOk returns a tuple with the GithubSourceData field value if set, nil otherwise
+// GetGithubSourceDataOk returns a tuple with the GithubSourceData field value
 // and a boolean to check if the value has been set.
 func (o *GroupArtifact) GetGithubSourceDataOk() (*GitHubSourceData, bool) {
-	if o == nil || IsNil(o.GithubSourceData) {
+	if o == nil {
 		return nil, false
 	}
-	return o.GithubSourceData, true
+	return &o.GithubSourceData, true
 }
 
-// HasGithubSourceData returns a boolean if a field has been set.
-func (o *GroupArtifact) HasGithubSourceData() bool {
-	if o != nil && !IsNil(o.GithubSourceData) {
-		return true
+// SetGithubSourceData sets field value
+func (o *GroupArtifact) SetGithubSourceData(v GitHubSourceData) {
+	o.GithubSourceData = v
+}
+
+// GetImages returns the Images field value
+func (o *GroupArtifact) GetImages() ImageList {
+	if o == nil {
+		var ret ImageList
+		return ret
 	}
 
-	return false
+	return o.Images
 }
 
-// SetGithubSourceData gets a reference to the given GitHubSourceData and assigns it to the GithubSourceData field.
-func (o *GroupArtifact) SetGithubSourceData(v GitHubSourceData) {
-	o.GithubSourceData = &v
+// GetImagesOk returns a tuple with the Images field value
+// and a boolean to check if the value has been set.
+func (o *GroupArtifact) GetImagesOk() (*ImageList, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Images, true
+}
+
+// SetImages sets field value
+func (o *GroupArtifact) SetImages(v ImageList) {
+	o.Images = v
+}
+
+// GetDeployments returns the Deployments field value
+func (o *GroupArtifact) GetDeployments() ArtifactDeploymentList {
+	if o == nil {
+		var ret ArtifactDeploymentList
+		return ret
+	}
+
+	return o.Deployments
+}
+
+// GetDeploymentsOk returns a tuple with the Deployments field value
+// and a boolean to check if the value has been set.
+func (o *GroupArtifact) GetDeploymentsOk() (*ArtifactDeploymentList, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Deployments, true
+}
+
+// SetDeployments sets field value
+func (o *GroupArtifact) SetDeployments(v ArtifactDeploymentList) {
+	o.Deployments = v
 }
 
 // GetStaged returns the Staged field value
@@ -570,9 +535,7 @@ func (o GroupArtifact) ToMap() (map[string]interface{}, error) {
 	toSerialize["object"] = o.Object
 	toSerialize["id"] = o.Id
 	toSerialize["status"] = o.Status
-	if !IsNil(o.Digest) {
-		toSerialize["digest"] = o.Digest
-	}
+	toSerialize["digest"] = o.Digest
 	toSerialize["aarch64"] = o.Aarch64
 	toSerialize["x86_64"] = o.X8664
 	toSerialize["created_at"] = o.CreatedAt
@@ -581,21 +544,13 @@ func (o GroupArtifact) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CreatedBy) {
 		toSerialize["created_by"] = o.CreatedBy
 	}
-	if !IsNil(o.Deployments) {
-		toSerialize["deployments"] = o.Deployments
-	}
-	toSerialize["images"] = o.Images
 	toSerialize["source_id"] = o.SourceId
 	toSerialize["source_type"] = o.SourceType
-	if !IsNil(o.RegistrySource) {
-		toSerialize["registry_source"] = o.RegistrySource
-	}
-	if !IsNil(o.GithubSource) {
-		toSerialize["github_source"] = o.GithubSource
-	}
-	if !IsNil(o.GithubSourceData) {
-		toSerialize["github_source_data"] = o.GithubSourceData
-	}
+	toSerialize["registry_source"] = o.RegistrySource
+	toSerialize["github_source"] = o.GithubSource
+	toSerialize["github_source_data"] = o.GithubSourceData
+	toSerialize["images"] = o.Images
+	toSerialize["deployments"] = o.Deployments
 	toSerialize["staged"] = o.Staged
 	return toSerialize, nil
 }
@@ -608,14 +563,19 @@ func (o *GroupArtifact) UnmarshalJSON(data []byte) (err error) {
 		"object",
 		"id",
 		"status",
+		"digest",
 		"aarch64",
 		"x86_64",
 		"created_at",
 		"ready_at",
 		"failed_at",
-		"images",
 		"source_id",
 		"source_type",
+		"registry_source",
+		"github_source",
+		"github_source_data",
+		"images",
+		"deployments",
 		"staged",
 	}
 

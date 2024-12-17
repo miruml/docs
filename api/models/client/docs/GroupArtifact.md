@@ -7,27 +7,27 @@ Name | Type | Description | Notes
 **Object** | **string** |  | 
 **Id** | **string** |  | 
 **Status** | [**ArtifactStatus**](ArtifactStatus.md) |  | 
-**Digest** | Pointer to **string** |  | [optional] 
+**Digest** | **string** |  | 
 **Aarch64** | **bool** |  | 
 **X8664** | **bool** |  | 
 **CreatedAt** | **time.Time** |  | 
 **ReadyAt** | **NullableTime** |  | 
 **FailedAt** | **NullableTime** |  | 
 **CreatedBy** | Pointer to [**User**](User.md) |  | [optional] 
-**Deployments** | Pointer to [**ArtifactDeploymentList**](ArtifactDeploymentList.md) |  | [optional] 
-**Images** | [**ImageList**](ImageList.md) |  | 
 **SourceId** | **string** |  | 
 **SourceType** | **string** |  | 
-**RegistrySource** | Pointer to [**RegistrySource**](RegistrySource.md) |  | [optional] 
-**GithubSource** | Pointer to [**GitHubSource**](GitHubSource.md) |  | [optional] 
-**GithubSourceData** | Pointer to [**GitHubSourceData**](GitHubSourceData.md) |  | [optional] 
+**RegistrySource** | [**RegistrySource**](RegistrySource.md) |  | 
+**GithubSource** | [**GitHubSource**](GitHubSource.md) |  | 
+**GithubSourceData** | [**GitHubSourceData**](GitHubSourceData.md) |  | 
+**Images** | [**ImageList**](ImageList.md) |  | 
+**Deployments** | [**ArtifactDeploymentList**](ArtifactDeploymentList.md) |  | 
 **Staged** | **bool** |  | 
 
 ## Methods
 
 ### NewGroupArtifact
 
-`func NewGroupArtifact(object string, id string, status ArtifactStatus, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime, images ImageList, sourceId string, sourceType string, staged bool, ) *GroupArtifact`
+`func NewGroupArtifact(object string, id string, status ArtifactStatus, digest string, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime, sourceId string, sourceType string, registrySource RegistrySource, githubSource GitHubSource, githubSourceData GitHubSourceData, images ImageList, deployments ArtifactDeploymentList, staged bool, ) *GroupArtifact`
 
 NewGroupArtifact instantiates a new GroupArtifact object
 This constructor will assign default values to properties that have it defined,
@@ -121,11 +121,6 @@ and a boolean to check if the value has been set.
 
 SetDigest sets Digest field to given value.
 
-### HasDigest
-
-`func (o *GroupArtifact) HasDigest() bool`
-
-HasDigest returns a boolean if a field has been set.
 
 ### GetAarch64
 
@@ -272,51 +267,6 @@ SetCreatedBy sets CreatedBy field to given value.
 
 HasCreatedBy returns a boolean if a field has been set.
 
-### GetDeployments
-
-`func (o *GroupArtifact) GetDeployments() ArtifactDeploymentList`
-
-GetDeployments returns the Deployments field if non-nil, zero value otherwise.
-
-### GetDeploymentsOk
-
-`func (o *GroupArtifact) GetDeploymentsOk() (*ArtifactDeploymentList, bool)`
-
-GetDeploymentsOk returns a tuple with the Deployments field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDeployments
-
-`func (o *GroupArtifact) SetDeployments(v ArtifactDeploymentList)`
-
-SetDeployments sets Deployments field to given value.
-
-### HasDeployments
-
-`func (o *GroupArtifact) HasDeployments() bool`
-
-HasDeployments returns a boolean if a field has been set.
-
-### GetImages
-
-`func (o *GroupArtifact) GetImages() ImageList`
-
-GetImages returns the Images field if non-nil, zero value otherwise.
-
-### GetImagesOk
-
-`func (o *GroupArtifact) GetImagesOk() (*ImageList, bool)`
-
-GetImagesOk returns a tuple with the Images field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetImages
-
-`func (o *GroupArtifact) SetImages(v ImageList)`
-
-SetImages sets Images field to given value.
-
-
 ### GetSourceId
 
 `func (o *GroupArtifact) GetSourceId() string`
@@ -376,11 +326,6 @@ and a boolean to check if the value has been set.
 
 SetRegistrySource sets RegistrySource field to given value.
 
-### HasRegistrySource
-
-`func (o *GroupArtifact) HasRegistrySource() bool`
-
-HasRegistrySource returns a boolean if a field has been set.
 
 ### GetGithubSource
 
@@ -401,11 +346,6 @@ and a boolean to check if the value has been set.
 
 SetGithubSource sets GithubSource field to given value.
 
-### HasGithubSource
-
-`func (o *GroupArtifact) HasGithubSource() bool`
-
-HasGithubSource returns a boolean if a field has been set.
 
 ### GetGithubSourceData
 
@@ -426,11 +366,46 @@ and a boolean to check if the value has been set.
 
 SetGithubSourceData sets GithubSourceData field to given value.
 
-### HasGithubSourceData
 
-`func (o *GroupArtifact) HasGithubSourceData() bool`
+### GetImages
 
-HasGithubSourceData returns a boolean if a field has been set.
+`func (o *GroupArtifact) GetImages() ImageList`
+
+GetImages returns the Images field if non-nil, zero value otherwise.
+
+### GetImagesOk
+
+`func (o *GroupArtifact) GetImagesOk() (*ImageList, bool)`
+
+GetImagesOk returns a tuple with the Images field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetImages
+
+`func (o *GroupArtifact) SetImages(v ImageList)`
+
+SetImages sets Images field to given value.
+
+
+### GetDeployments
+
+`func (o *GroupArtifact) GetDeployments() ArtifactDeploymentList`
+
+GetDeployments returns the Deployments field if non-nil, zero value otherwise.
+
+### GetDeploymentsOk
+
+`func (o *GroupArtifact) GetDeploymentsOk() (*ArtifactDeploymentList, bool)`
+
+GetDeploymentsOk returns a tuple with the Deployments field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeployments
+
+`func (o *GroupArtifact) SetDeployments(v ArtifactDeploymentList)`
+
+SetDeployments sets Deployments field to given value.
+
 
 ### GetStaged
 

@@ -29,6 +29,7 @@ components:
       required:
         - object
         - id
+        - device_id
         - artifact
         - status
         - activity_status
@@ -43,6 +44,7 @@ components:
         - stopped_at
         - removing_at
         - archived_at
+        - cooldown_ends_at
       properties:
         object:
           type: string
@@ -50,8 +52,11 @@ components:
         id:
           type: string
           example: "dep_1234"
+        device_id:
+          type: string
+          example: "dev_1234"
         artifact:
-          $ref: "./artifact.yaml#/components/schemas/Artifact"
+          $ref: "./artifact.yaml#/components/schemas/ArtifactBase"
         status:
           type: string
           example: "retrying"
@@ -112,7 +117,6 @@ components:
           type: string
           format: date-time
           example: "2024-11-03T14:19:50Z"
-          nullable: true
 
     DeploymentList:
       title: Deployment List

@@ -60,6 +60,20 @@ components:
       description: The unique identifier of the workspace
       schema:
         type: string
+    device_id:
+      name: device_id
+      in: path
+      required: true
+      description: The unique identifier of the device
+      schema:
+        type: string
+    deployment_id:
+      name: deployment_id
+      in: path
+      required: true
+      description: The unique identifier of the deployment
+      schema:
+        type: string
     page_size:
       name: page_size
       in: query
@@ -75,18 +89,11 @@ components:
       description: Whether to return only staged artifacts
       schema:
         type: boolean
-    device_id:
-      name: device_id
-      in: path
-      required: true
-      description: The unique identifier of the device
+    include_archived:
+      name: include_archived
+      in: query
+      required: false
+      description: Whether to include archived deployments
       schema:
-        type: string
-    deployment_id:
-      name: deployment_id
-      in: path
-      required: true
-      description: The unique identifier of the deployment
-      schema:
-        type: string
+        type: boolean
 paths: {}
