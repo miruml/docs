@@ -4,8 +4,8 @@ info:
   version: ""
 components: 
   schemas: 
-    Group:
-      title: Group
+    BaseGroup:
+      title: BaseGroup
       type: object
       required:
         - object
@@ -21,5 +21,56 @@ components:
         name:
           type: string
           example: "my-group"
+
+    Group:
+      allOf:
+        - $ref: "./group.yaml#/components/schemas/BaseGroup"
+        - type: object
+          properties:
+            devices:
+              type: object
+              required:
+                - object
+                - data
+              properties:
+                object:
+                  type: string
+                  example: "list"
+                data:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Device"
+
+    Device:
+      allOf:
+        - $ref: "./device.yaml#/components/schemas/BaseDevice"
+        - type: object
+          properties:
+            containers:
+              type: object 
+              required:
+                - object
+                - data
+              properties:
+                object:
+                  type: string
+                  example: "list"
+                data:
+                  type: array
+                  items:
+                    $ref: "./container.yaml#/components/schemas/Container"
+            deployments:
+              type: object
+              required:
+                - object
+                - data
+              properties:
+                object:
+                  type: string
+                  example: "list"
+                data:
+                  type: array
+                  items:
+                    $ref: "./deployment.yaml#/components/schemas/BaseDeployment"
 
 paths: {}

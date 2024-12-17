@@ -4,7 +4,7 @@ info:
   version: ""
 components: 
   schemas: 
-    Device:
+    BaseDevice:
       title: Device
       type: object
       required:
@@ -43,10 +43,14 @@ components:
           nullable: true
         status:
           type: string
+          example: "offline"
+        last_reported_status:
+          type: string
           example: "active"
         miru_version:
           type: string
           example: "0.5.1"
+          nullable: true
         created_at:
           type: string
           format: date-time
@@ -54,8 +58,14 @@ components:
         synced_at:
           type: string
           format: date-time
-        group:
-          $ref: "./group.yaml#/components/schemas/Group"
+    
+    Device:
+      allOf:
+        - $ref: "./device.yaml#/components/schemas/BaseDevice"
+        - type: object
+          properties:
+            group:
+              $ref: "./group.yaml#/components/schemas/Group"
 
 paths: {}
         

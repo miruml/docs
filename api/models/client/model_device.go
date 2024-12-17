@@ -29,7 +29,8 @@ type Device struct {
 	OperatingSystem NullableString `json:"operating_system"`
 	Architecture NullableString `json:"architecture"`
 	Status string `json:"status"`
-	MiruVersion string `json:"miru_version"`
+	LastReportedStatus string `json:"last_reported_status"`
+	MiruVersion NullableString `json:"miru_version"`
 	CreatedAt time.Time `json:"created_at"`
 	SyncedAt time.Time `json:"synced_at"`
 	Group Group `json:"group"`
@@ -41,7 +42,7 @@ type _Device Device
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDevice(object string, id string, name string, hardware string, operatingSystem NullableString, architecture NullableString, status string, miruVersion string, createdAt time.Time, syncedAt time.Time, group Group) *Device {
+func NewDevice(object string, id string, name string, hardware string, operatingSystem NullableString, architecture NullableString, status string, lastReportedStatus string, miruVersion NullableString, createdAt time.Time, syncedAt time.Time, group Group) *Device {
 	this := Device{}
 	this.Object = object
 	this.Id = id
@@ -50,6 +51,7 @@ func NewDevice(object string, id string, name string, hardware string, operating
 	this.OperatingSystem = operatingSystem
 	this.Architecture = architecture
 	this.Status = status
+	this.LastReportedStatus = lastReportedStatus
 	this.MiruVersion = miruVersion
 	this.CreatedAt = createdAt
 	this.SyncedAt = syncedAt
@@ -237,28 +239,54 @@ func (o *Device) SetStatus(v string) {
 	o.Status = v
 }
 
-// GetMiruVersion returns the MiruVersion field value
-func (o *Device) GetMiruVersion() string {
+// GetLastReportedStatus returns the LastReportedStatus field value
+func (o *Device) GetLastReportedStatus() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.MiruVersion
+	return o.LastReportedStatus
+}
+
+// GetLastReportedStatusOk returns a tuple with the LastReportedStatus field value
+// and a boolean to check if the value has been set.
+func (o *Device) GetLastReportedStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.LastReportedStatus, true
+}
+
+// SetLastReportedStatus sets field value
+func (o *Device) SetLastReportedStatus(v string) {
+	o.LastReportedStatus = v
+}
+
+// GetMiruVersion returns the MiruVersion field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *Device) GetMiruVersion() string {
+	if o == nil || o.MiruVersion.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.MiruVersion.Get()
 }
 
 // GetMiruVersionOk returns a tuple with the MiruVersion field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Device) GetMiruVersionOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.MiruVersion, true
+	return o.MiruVersion.Get(), o.MiruVersion.IsSet()
 }
 
 // SetMiruVersion sets field value
 func (o *Device) SetMiruVersion(v string) {
-	o.MiruVersion = v
+	o.MiruVersion.Set(&v)
 }
 
 // GetCreatedAt returns the CreatedAt field value
@@ -350,7 +378,8 @@ func (o Device) ToMap() (map[string]interface{}, error) {
 	toSerialize["operating_system"] = o.OperatingSystem.Get()
 	toSerialize["architecture"] = o.Architecture.Get()
 	toSerialize["status"] = o.Status
-	toSerialize["miru_version"] = o.MiruVersion
+	toSerialize["last_reported_status"] = o.LastReportedStatus
+	toSerialize["miru_version"] = o.MiruVersion.Get()
 	toSerialize["created_at"] = o.CreatedAt
 	toSerialize["synced_at"] = o.SyncedAt
 	toSerialize["group"] = o.Group
@@ -369,6 +398,7 @@ func (o *Device) UnmarshalJSON(data []byte) (err error) {
 		"operating_system",
 		"architecture",
 		"status",
+		"last_reported_status",
 		"miru_version",
 		"created_at",
 		"synced_at",

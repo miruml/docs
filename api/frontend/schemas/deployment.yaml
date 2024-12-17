@@ -23,7 +23,7 @@ components:
             type: string
             example: "device_1234"
 
-    Deployment:
+    BaseDeployment:
       title: Deployment
       type: object
       required:
@@ -55,8 +55,6 @@ components:
         device_id:
           type: string
           example: "dev_1234"
-        artifact:
-          $ref: "./artifact.yaml#/components/schemas/ArtifactBase"
         status:
           type: string
           example: "retrying"
@@ -117,6 +115,14 @@ components:
           type: string
           format: date-time
           example: "2024-11-03T14:19:50Z"
+
+    Deployment:
+      allOf:
+        - $ref: "./deployment.yaml#/components/schemas/BaseDeployment"
+        - type: object
+          properties:
+            artifact:
+              $ref: "./artifact.yaml#/components/schemas/Artifact"
 
     DeploymentList:
       title: Deployment List

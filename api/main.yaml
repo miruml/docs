@@ -74,6 +74,10 @@ paths:
   /sources/github/{github_source_id}/commits:
     $ref: './frontend/paths/gh-src.yaml#/paths/~1sources~1github~1{github_source_id}~1commits'
 
+  # groups
+  /groups/{group_id}:
+    $ref: './frontend/paths/group.yaml#/paths/~1groups~1{group_id}'
+
   # images
   /repositories/container/{container_repository_id}/images/external:
     $ref: './frontend/paths/images.yaml#/paths/~1repositories~1container~1{container_repository_id}~1images~1external'

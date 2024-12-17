@@ -33,7 +33,9 @@ type Device struct {
 
 	Status string `json:"status"`
 
-	MiruVersion string `json:"miru_version"`
+	LastReportedStatus string `json:"last_reported_status"`
+
+	MiruVersion *string `json:"miru_version"`
 
 	CreatedAt time.Time `json:"created_at"`
 
@@ -52,6 +54,7 @@ func AssertDeviceRequired(obj Device) error {
 		"operating_system": obj.OperatingSystem,
 		"architecture": obj.Architecture,
 		"status": obj.Status,
+		"last_reported_status": obj.LastReportedStatus,
 		"miru_version": obj.MiruVersion,
 		"created_at": obj.CreatedAt,
 		"synced_at": obj.SyncedAt,

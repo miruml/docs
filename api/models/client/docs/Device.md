@@ -11,7 +11,8 @@ Name | Type | Description | Notes
 **OperatingSystem** | **NullableString** |  | 
 **Architecture** | **NullableString** |  | 
 **Status** | **string** |  | 
-**MiruVersion** | **string** |  | 
+**LastReportedStatus** | **string** |  | 
+**MiruVersion** | **NullableString** |  | 
 **CreatedAt** | **time.Time** |  | 
 **SyncedAt** | **time.Time** |  | 
 **Group** | [**Group**](Group.md) |  | 
@@ -20,7 +21,7 @@ Name | Type | Description | Notes
 
 ### NewDevice
 
-`func NewDevice(object string, id string, name string, hardware string, operatingSystem NullableString, architecture NullableString, status string, miruVersion string, createdAt time.Time, syncedAt time.Time, group Group, ) *Device`
+`func NewDevice(object string, id string, name string, hardware string, operatingSystem NullableString, architecture NullableString, status string, lastReportedStatus string, miruVersion NullableString, createdAt time.Time, syncedAt time.Time, group Group, ) *Device`
 
 NewDevice instantiates a new Device object
 This constructor will assign default values to properties that have it defined,
@@ -195,6 +196,26 @@ and a boolean to check if the value has been set.
 SetStatus sets Status field to given value.
 
 
+### GetLastReportedStatus
+
+`func (o *Device) GetLastReportedStatus() string`
+
+GetLastReportedStatus returns the LastReportedStatus field if non-nil, zero value otherwise.
+
+### GetLastReportedStatusOk
+
+`func (o *Device) GetLastReportedStatusOk() (*string, bool)`
+
+GetLastReportedStatusOk returns a tuple with the LastReportedStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastReportedStatus
+
+`func (o *Device) SetLastReportedStatus(v string)`
+
+SetLastReportedStatus sets LastReportedStatus field to given value.
+
+
 ### GetMiruVersion
 
 `func (o *Device) GetMiruVersion() string`
@@ -215,6 +236,16 @@ and a boolean to check if the value has been set.
 SetMiruVersion sets MiruVersion field to given value.
 
 
+### SetMiruVersionNil
+
+`func (o *Device) SetMiruVersionNil(b bool)`
+
+ SetMiruVersionNil sets the value for MiruVersion to be an explicit nil
+
+### UnsetMiruVersion
+`func (o *Device) UnsetMiruVersion()`
+
+UnsetMiruVersion ensures that no value is present for MiruVersion, not even an explicit nil
 ### GetCreatedAt
 
 `func (o *Device) GetCreatedAt() time.Time`
