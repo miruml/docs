@@ -26,6 +26,7 @@ type Container struct {
 	Id string `json:"id"`
 	DeviceId string `json:"device_id"`
 	ImageId NullableString `json:"image_id"`
+	ImageName NullableString `json:"image_name,omitempty"`
 	ImageTag NullableString `json:"image_tag"`
 	ImageDigest NullableString `json:"image_digest"`
 	DockerContainerId string `json:"docker_container_id"`
@@ -169,6 +170,48 @@ func (o *Container) GetImageIdOk() (*string, bool) {
 // SetImageId sets field value
 func (o *Container) SetImageId(v string) {
 	o.ImageId.Set(&v)
+}
+
+// GetImageName returns the ImageName field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Container) GetImageName() string {
+	if o == nil || IsNil(o.ImageName.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ImageName.Get()
+}
+
+// GetImageNameOk returns a tuple with the ImageName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Container) GetImageNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ImageName.Get(), o.ImageName.IsSet()
+}
+
+// HasImageName returns a boolean if a field has been set.
+func (o *Container) HasImageName() bool {
+	if o != nil && o.ImageName.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetImageName gets a reference to the given NullableString and assigns it to the ImageName field.
+func (o *Container) SetImageName(v string) {
+	o.ImageName.Set(&v)
+}
+// SetImageNameNil sets the value for ImageName to be an explicit nil
+func (o *Container) SetImageNameNil() {
+	o.ImageName.Set(nil)
+}
+
+// UnsetImageName ensures that no value is present for ImageName, not even an explicit nil
+func (o *Container) UnsetImageName() {
+	o.ImageName.Unset()
 }
 
 // GetImageTag returns the ImageTag field value
@@ -457,6 +500,9 @@ func (o Container) ToMap() (map[string]interface{}, error) {
 	toSerialize["id"] = o.Id
 	toSerialize["device_id"] = o.DeviceId
 	toSerialize["image_id"] = o.ImageId.Get()
+	if o.ImageName.IsSet() {
+		toSerialize["image_name"] = o.ImageName.Get()
+	}
 	toSerialize["image_tag"] = o.ImageTag.Get()
 	toSerialize["image_digest"] = o.ImageDigest.Get()
 	toSerialize["docker_container_id"] = o.DockerContainerId

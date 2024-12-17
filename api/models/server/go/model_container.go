@@ -27,6 +27,8 @@ type Container struct {
 
 	ImageId *string `json:"image_id"`
 
+	ImageName *string `json:"image_name,omitempty"`
+
 	ImageTag *string `json:"image_tag"`
 
 	ImageDigest *string `json:"image_digest"`

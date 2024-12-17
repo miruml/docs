@@ -37,6 +37,10 @@ components:
           type: string
           example: "img_1234"
           nullable: true
+        image_name:
+          type: string
+          example: "my-image"
+          nullable: true
         image_tag:
           type: string
           example: "latest"
@@ -85,7 +89,7 @@ components:
       properties:
         object:
           type: string
-          example: "container_list"
+          example: "list"
         data:
           type: array
           items:

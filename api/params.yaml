@@ -89,11 +89,11 @@ components:
       description: Whether to return only staged artifacts
       schema:
         type: boolean
-    include_archived:
-      name: include_archived
+    on_device:
+      name: on_device
       in: query
       required: false
-      description: Whether to include archived deployments
+      description: Whether to include only on device deployments
       schema:
         type: boolean
 paths: {}

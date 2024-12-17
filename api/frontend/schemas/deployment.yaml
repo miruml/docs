@@ -127,7 +127,7 @@ components:
       properties:
         object:
           type: string
-          example: "deployment_list"
+          example: "list"
         data:
           type: array
           items:

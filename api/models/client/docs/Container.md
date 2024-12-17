@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Id** | **string** |  | 
 **DeviceId** | **string** |  | 
 **ImageId** | **NullableString** |  | 
+**ImageName** | Pointer to **NullableString** |  | [optional] 
 **ImageTag** | **NullableString** |  | 
 **ImageDigest** | **NullableString** |  | 
 **DockerContainerId** | **string** |  | 
@@ -129,6 +130,41 @@ SetImageId sets ImageId field to given value.
 `func (o *Container) UnsetImageId()`
 
 UnsetImageId ensures that no value is present for ImageId, not even an explicit nil
+### GetImageName
+
+`func (o *Container) GetImageName() string`
+
+GetImageName returns the ImageName field if non-nil, zero value otherwise.
+
+### GetImageNameOk
+
+`func (o *Container) GetImageNameOk() (*string, bool)`
+
+GetImageNameOk returns a tuple with the ImageName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetImageName
+
+`func (o *Container) SetImageName(v string)`
+
+SetImageName sets ImageName field to given value.
+
+### HasImageName
+
+`func (o *Container) HasImageName() bool`
+
+HasImageName returns a boolean if a field has been set.
+
+### SetImageNameNil
+
+`func (o *Container) SetImageNameNil(b bool)`
+
+ SetImageNameNil sets the value for ImageName to be an explicit nil
+
+### UnsetImageName
+`func (o *Container) UnsetImageName()`
+
+UnsetImageName ensures that no value is present for ImageName, not even an explicit nil
 ### GetImageTag
 
 `func (o *Container) GetImageTag() string`
