@@ -20,6 +20,10 @@ type Group struct {
 	Id string `json:"id"`
 
 	Name string `json:"name"`
+
+	Devices GroupAllOfDevices `json:"devices,omitempty"`
+
+	GithubSources GitHubSourceList `json:"github_sources,omitempty"`
 }
 
 // AssertGroupRequired checks if the required fields are not zero-ed
@@ -35,10 +39,22 @@ func AssertGroupRequired(obj Group) error {
 		}
 	}
 
+	if err := AssertGroupAllOfDevicesRequired(obj.Devices); err != nil {
+		return err
+	}
+	if err := AssertGitHubSourceListRequired(obj.GithubSources); err != nil {
+		return err
+	}
 	return nil
 }
 
 // AssertGroupConstraints checks if the values respects the defined constraints
 func AssertGroupConstraints(obj Group) error {
+	if err := AssertGroupAllOfDevicesConstraints(obj.Devices); err != nil {
+		return err
+	}
+	if err := AssertGitHubSourceListConstraints(obj.GithubSources); err != nil {
+		return err
+	}
 	return nil
 }

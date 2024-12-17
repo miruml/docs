@@ -17,7 +17,7 @@ import (
 
 
 
-type ArtifactBase struct {
+type ArtifactWithSourceData struct {
 
 	Object string `json:"object"`
 
@@ -42,10 +42,16 @@ type ArtifactBase struct {
 	SourceId string `json:"source_id"`
 
 	SourceType string `json:"source_type"`
+
+	RegistrySource RegistrySource `json:"registry_source"`
+
+	GithubSource GitHubSource `json:"github_source"`
+
+	GithubSourceData GitHubSourceData `json:"github_source_data"`
 }
 
-// AssertArtifactBaseRequired checks if the required fields are not zero-ed
-func AssertArtifactBaseRequired(obj ArtifactBase) error {
+// AssertArtifactWithSourceDataRequired checks if the required fields are not zero-ed
+func AssertArtifactWithSourceDataRequired(obj ArtifactWithSourceData) error {
 	elements := map[string]interface{}{
 		"object": obj.Object,
 		"id": obj.Id,
@@ -58,6 +64,9 @@ func AssertArtifactBaseRequired(obj ArtifactBase) error {
 		"failed_at": obj.FailedAt,
 		"source_id": obj.SourceId,
 		"source_type": obj.SourceType,
+		"registry_source": obj.RegistrySource,
+		"github_source": obj.GithubSource,
+		"github_source_data": obj.GithubSourceData,
 	}
 	for name, el := range elements {
 		if isZero := IsZeroValue(el); isZero {
@@ -68,12 +77,30 @@ func AssertArtifactBaseRequired(obj ArtifactBase) error {
 	if err := AssertUserRequired(obj.CreatedBy); err != nil {
 		return err
 	}
+	if err := AssertRegistrySourceRequired(obj.RegistrySource); err != nil {
+		return err
+	}
+	if err := AssertGitHubSourceRequired(obj.GithubSource); err != nil {
+		return err
+	}
+	if err := AssertGitHubSourceDataRequired(obj.GithubSourceData); err != nil {
+		return err
+	}
 	return nil
 }
 
-// AssertArtifactBaseConstraints checks if the values respects the defined constraints
-func AssertArtifactBaseConstraints(obj ArtifactBase) error {
+// AssertArtifactWithSourceDataConstraints checks if the values respects the defined constraints
+func AssertArtifactWithSourceDataConstraints(obj ArtifactWithSourceData) error {
 	if err := AssertUserConstraints(obj.CreatedBy); err != nil {
+		return err
+	}
+	if err := AssertRegistrySourceConstraints(obj.RegistrySource); err != nil {
+		return err
+	}
+	if err := AssertGitHubSourceConstraints(obj.GithubSource); err != nil {
+		return err
+	}
+	if err := AssertGitHubSourceDataConstraints(obj.GithubSourceData); err != nil {
 		return err
 	}
 	return nil

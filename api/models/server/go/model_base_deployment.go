@@ -17,7 +17,7 @@ import (
 
 
 
-type Deployment struct {
+type BaseDeployment struct {
 
 	Object string `json:"object"`
 
@@ -52,12 +52,10 @@ type Deployment struct {
 	ArchivedAt *time.Time `json:"archived_at"`
 
 	CooldownEndsAt time.Time `json:"cooldown_ends_at"`
-
-	Artifact ArtifactWithSourceData `json:"artifact"`
 }
 
-// AssertDeploymentRequired checks if the required fields are not zero-ed
-func AssertDeploymentRequired(obj Deployment) error {
+// AssertBaseDeploymentRequired checks if the required fields are not zero-ed
+func AssertBaseDeploymentRequired(obj BaseDeployment) error {
 	elements := map[string]interface{}{
 		"object": obj.Object,
 		"id": obj.Id,
@@ -76,7 +74,6 @@ func AssertDeploymentRequired(obj Deployment) error {
 		"removing_at": obj.RemovingAt,
 		"archived_at": obj.ArchivedAt,
 		"cooldown_ends_at": obj.CooldownEndsAt,
-		"artifact": obj.Artifact,
 	}
 	for name, el := range elements {
 		if isZero := IsZeroValue(el); isZero {
@@ -84,16 +81,10 @@ func AssertDeploymentRequired(obj Deployment) error {
 		}
 	}
 
-	if err := AssertArtifactWithSourceDataRequired(obj.Artifact); err != nil {
-		return err
-	}
 	return nil
 }
 
-// AssertDeploymentConstraints checks if the values respects the defined constraints
-func AssertDeploymentConstraints(obj Deployment) error {
-	if err := AssertArtifactWithSourceDataConstraints(obj.Artifact); err != nil {
-		return err
-	}
+// AssertBaseDeploymentConstraints checks if the values respects the defined constraints
+func AssertBaseDeploymentConstraints(obj BaseDeployment) error {
 	return nil
 }

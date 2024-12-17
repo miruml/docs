@@ -1,4 +1,4 @@
-# Deployment
+# BaseDeployment
 
 ## Properties
 
@@ -21,465 +21,444 @@ Name | Type | Description | Notes
 **RemovingAt** | **NullableTime** |  | 
 **ArchivedAt** | **NullableTime** |  | 
 **CooldownEndsAt** | **time.Time** |  | 
-**Artifact** | [**ArtifactWithSourceData**](ArtifactWithSourceData.md) |  | 
 
 ## Methods
 
-### NewDeployment
+### NewBaseDeployment
 
-`func NewDeployment(object string, id string, deviceId string, status string, activityStatus string, errorStatus string, targetStatus string, createdAt time.Time, downloadingAt NullableTime, downloadedAt NullableTime, bootingAt NullableTime, activeAt NullableTime, stoppingAt NullableTime, stoppedAt NullableTime, removingAt NullableTime, archivedAt NullableTime, cooldownEndsAt time.Time, artifact ArtifactWithSourceData, ) *Deployment`
+`func NewBaseDeployment(object string, id string, deviceId string, status string, activityStatus string, errorStatus string, targetStatus string, createdAt time.Time, downloadingAt NullableTime, downloadedAt NullableTime, bootingAt NullableTime, activeAt NullableTime, stoppingAt NullableTime, stoppedAt NullableTime, removingAt NullableTime, archivedAt NullableTime, cooldownEndsAt time.Time, ) *BaseDeployment`
 
-NewDeployment instantiates a new Deployment object
+NewBaseDeployment instantiates a new BaseDeployment object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewDeploymentWithDefaults
+### NewBaseDeploymentWithDefaults
 
-`func NewDeploymentWithDefaults() *Deployment`
+`func NewBaseDeploymentWithDefaults() *BaseDeployment`
 
-NewDeploymentWithDefaults instantiates a new Deployment object
+NewBaseDeploymentWithDefaults instantiates a new BaseDeployment object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetObject
 
-`func (o *Deployment) GetObject() string`
+`func (o *BaseDeployment) GetObject() string`
 
 GetObject returns the Object field if non-nil, zero value otherwise.
 
 ### GetObjectOk
 
-`func (o *Deployment) GetObjectOk() (*string, bool)`
+`func (o *BaseDeployment) GetObjectOk() (*string, bool)`
 
 GetObjectOk returns a tuple with the Object field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetObject
 
-`func (o *Deployment) SetObject(v string)`
+`func (o *BaseDeployment) SetObject(v string)`
 
 SetObject sets Object field to given value.
 
 
 ### GetId
 
-`func (o *Deployment) GetId() string`
+`func (o *BaseDeployment) GetId() string`
 
 GetId returns the Id field if non-nil, zero value otherwise.
 
 ### GetIdOk
 
-`func (o *Deployment) GetIdOk() (*string, bool)`
+`func (o *BaseDeployment) GetIdOk() (*string, bool)`
 
 GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetId
 
-`func (o *Deployment) SetId(v string)`
+`func (o *BaseDeployment) SetId(v string)`
 
 SetId sets Id field to given value.
 
 
 ### GetDeviceId
 
-`func (o *Deployment) GetDeviceId() string`
+`func (o *BaseDeployment) GetDeviceId() string`
 
 GetDeviceId returns the DeviceId field if non-nil, zero value otherwise.
 
 ### GetDeviceIdOk
 
-`func (o *Deployment) GetDeviceIdOk() (*string, bool)`
+`func (o *BaseDeployment) GetDeviceIdOk() (*string, bool)`
 
 GetDeviceIdOk returns a tuple with the DeviceId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDeviceId
 
-`func (o *Deployment) SetDeviceId(v string)`
+`func (o *BaseDeployment) SetDeviceId(v string)`
 
 SetDeviceId sets DeviceId field to given value.
 
 
 ### GetStatus
 
-`func (o *Deployment) GetStatus() string`
+`func (o *BaseDeployment) GetStatus() string`
 
 GetStatus returns the Status field if non-nil, zero value otherwise.
 
 ### GetStatusOk
 
-`func (o *Deployment) GetStatusOk() (*string, bool)`
+`func (o *BaseDeployment) GetStatusOk() (*string, bool)`
 
 GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatus
 
-`func (o *Deployment) SetStatus(v string)`
+`func (o *BaseDeployment) SetStatus(v string)`
 
 SetStatus sets Status field to given value.
 
 
 ### GetActivityStatus
 
-`func (o *Deployment) GetActivityStatus() string`
+`func (o *BaseDeployment) GetActivityStatus() string`
 
 GetActivityStatus returns the ActivityStatus field if non-nil, zero value otherwise.
 
 ### GetActivityStatusOk
 
-`func (o *Deployment) GetActivityStatusOk() (*string, bool)`
+`func (o *BaseDeployment) GetActivityStatusOk() (*string, bool)`
 
 GetActivityStatusOk returns a tuple with the ActivityStatus field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetActivityStatus
 
-`func (o *Deployment) SetActivityStatus(v string)`
+`func (o *BaseDeployment) SetActivityStatus(v string)`
 
 SetActivityStatus sets ActivityStatus field to given value.
 
 
 ### GetErrorStatus
 
-`func (o *Deployment) GetErrorStatus() string`
+`func (o *BaseDeployment) GetErrorStatus() string`
 
 GetErrorStatus returns the ErrorStatus field if non-nil, zero value otherwise.
 
 ### GetErrorStatusOk
 
-`func (o *Deployment) GetErrorStatusOk() (*string, bool)`
+`func (o *BaseDeployment) GetErrorStatusOk() (*string, bool)`
 
 GetErrorStatusOk returns a tuple with the ErrorStatus field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetErrorStatus
 
-`func (o *Deployment) SetErrorStatus(v string)`
+`func (o *BaseDeployment) SetErrorStatus(v string)`
 
 SetErrorStatus sets ErrorStatus field to given value.
 
 
 ### GetTargetStatus
 
-`func (o *Deployment) GetTargetStatus() string`
+`func (o *BaseDeployment) GetTargetStatus() string`
 
 GetTargetStatus returns the TargetStatus field if non-nil, zero value otherwise.
 
 ### GetTargetStatusOk
 
-`func (o *Deployment) GetTargetStatusOk() (*string, bool)`
+`func (o *BaseDeployment) GetTargetStatusOk() (*string, bool)`
 
 GetTargetStatusOk returns a tuple with the TargetStatus field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTargetStatus
 
-`func (o *Deployment) SetTargetStatus(v string)`
+`func (o *BaseDeployment) SetTargetStatus(v string)`
 
 SetTargetStatus sets TargetStatus field to given value.
 
 
 ### GetCreatedAt
 
-`func (o *Deployment) GetCreatedAt() time.Time`
+`func (o *BaseDeployment) GetCreatedAt() time.Time`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *Deployment) GetCreatedAtOk() (*time.Time, bool)`
+`func (o *BaseDeployment) GetCreatedAtOk() (*time.Time, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *Deployment) SetCreatedAt(v time.Time)`
+`func (o *BaseDeployment) SetCreatedAt(v time.Time)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
 
 ### GetDownloadingAt
 
-`func (o *Deployment) GetDownloadingAt() time.Time`
+`func (o *BaseDeployment) GetDownloadingAt() time.Time`
 
 GetDownloadingAt returns the DownloadingAt field if non-nil, zero value otherwise.
 
 ### GetDownloadingAtOk
 
-`func (o *Deployment) GetDownloadingAtOk() (*time.Time, bool)`
+`func (o *BaseDeployment) GetDownloadingAtOk() (*time.Time, bool)`
 
 GetDownloadingAtOk returns a tuple with the DownloadingAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDownloadingAt
 
-`func (o *Deployment) SetDownloadingAt(v time.Time)`
+`func (o *BaseDeployment) SetDownloadingAt(v time.Time)`
 
 SetDownloadingAt sets DownloadingAt field to given value.
 
 
 ### SetDownloadingAtNil
 
-`func (o *Deployment) SetDownloadingAtNil(b bool)`
+`func (o *BaseDeployment) SetDownloadingAtNil(b bool)`
 
  SetDownloadingAtNil sets the value for DownloadingAt to be an explicit nil
 
 ### UnsetDownloadingAt
-`func (o *Deployment) UnsetDownloadingAt()`
+`func (o *BaseDeployment) UnsetDownloadingAt()`
 
 UnsetDownloadingAt ensures that no value is present for DownloadingAt, not even an explicit nil
 ### GetDownloadedAt
 
-`func (o *Deployment) GetDownloadedAt() time.Time`
+`func (o *BaseDeployment) GetDownloadedAt() time.Time`
 
 GetDownloadedAt returns the DownloadedAt field if non-nil, zero value otherwise.
 
 ### GetDownloadedAtOk
 
-`func (o *Deployment) GetDownloadedAtOk() (*time.Time, bool)`
+`func (o *BaseDeployment) GetDownloadedAtOk() (*time.Time, bool)`
 
 GetDownloadedAtOk returns a tuple with the DownloadedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDownloadedAt
 
-`func (o *Deployment) SetDownloadedAt(v time.Time)`
+`func (o *BaseDeployment) SetDownloadedAt(v time.Time)`
 
 SetDownloadedAt sets DownloadedAt field to given value.
 
 
 ### SetDownloadedAtNil
 
-`func (o *Deployment) SetDownloadedAtNil(b bool)`
+`func (o *BaseDeployment) SetDownloadedAtNil(b bool)`
 
  SetDownloadedAtNil sets the value for DownloadedAt to be an explicit nil
 
 ### UnsetDownloadedAt
-`func (o *Deployment) UnsetDownloadedAt()`
+`func (o *BaseDeployment) UnsetDownloadedAt()`
 
 UnsetDownloadedAt ensures that no value is present for DownloadedAt, not even an explicit nil
 ### GetBootingAt
 
-`func (o *Deployment) GetBootingAt() time.Time`
+`func (o *BaseDeployment) GetBootingAt() time.Time`
 
 GetBootingAt returns the BootingAt field if non-nil, zero value otherwise.
 
 ### GetBootingAtOk
 
-`func (o *Deployment) GetBootingAtOk() (*time.Time, bool)`
+`func (o *BaseDeployment) GetBootingAtOk() (*time.Time, bool)`
 
 GetBootingAtOk returns a tuple with the BootingAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBootingAt
 
-`func (o *Deployment) SetBootingAt(v time.Time)`
+`func (o *BaseDeployment) SetBootingAt(v time.Time)`
 
 SetBootingAt sets BootingAt field to given value.
 
 
 ### SetBootingAtNil
 
-`func (o *Deployment) SetBootingAtNil(b bool)`
+`func (o *BaseDeployment) SetBootingAtNil(b bool)`
 
  SetBootingAtNil sets the value for BootingAt to be an explicit nil
 
 ### UnsetBootingAt
-`func (o *Deployment) UnsetBootingAt()`
+`func (o *BaseDeployment) UnsetBootingAt()`
 
 UnsetBootingAt ensures that no value is present for BootingAt, not even an explicit nil
 ### GetActiveAt
 
-`func (o *Deployment) GetActiveAt() time.Time`
+`func (o *BaseDeployment) GetActiveAt() time.Time`
 
 GetActiveAt returns the ActiveAt field if non-nil, zero value otherwise.
 
 ### GetActiveAtOk
 
-`func (o *Deployment) GetActiveAtOk() (*time.Time, bool)`
+`func (o *BaseDeployment) GetActiveAtOk() (*time.Time, bool)`
 
 GetActiveAtOk returns a tuple with the ActiveAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetActiveAt
 
-`func (o *Deployment) SetActiveAt(v time.Time)`
+`func (o *BaseDeployment) SetActiveAt(v time.Time)`
 
 SetActiveAt sets ActiveAt field to given value.
 
 
 ### SetActiveAtNil
 
-`func (o *Deployment) SetActiveAtNil(b bool)`
+`func (o *BaseDeployment) SetActiveAtNil(b bool)`
 
  SetActiveAtNil sets the value for ActiveAt to be an explicit nil
 
 ### UnsetActiveAt
-`func (o *Deployment) UnsetActiveAt()`
+`func (o *BaseDeployment) UnsetActiveAt()`
 
 UnsetActiveAt ensures that no value is present for ActiveAt, not even an explicit nil
 ### GetStoppingAt
 
-`func (o *Deployment) GetStoppingAt() time.Time`
+`func (o *BaseDeployment) GetStoppingAt() time.Time`
 
 GetStoppingAt returns the StoppingAt field if non-nil, zero value otherwise.
 
 ### GetStoppingAtOk
 
-`func (o *Deployment) GetStoppingAtOk() (*time.Time, bool)`
+`func (o *BaseDeployment) GetStoppingAtOk() (*time.Time, bool)`
 
 GetStoppingAtOk returns a tuple with the StoppingAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStoppingAt
 
-`func (o *Deployment) SetStoppingAt(v time.Time)`
+`func (o *BaseDeployment) SetStoppingAt(v time.Time)`
 
 SetStoppingAt sets StoppingAt field to given value.
 
 
 ### SetStoppingAtNil
 
-`func (o *Deployment) SetStoppingAtNil(b bool)`
+`func (o *BaseDeployment) SetStoppingAtNil(b bool)`
 
  SetStoppingAtNil sets the value for StoppingAt to be an explicit nil
 
 ### UnsetStoppingAt
-`func (o *Deployment) UnsetStoppingAt()`
+`func (o *BaseDeployment) UnsetStoppingAt()`
 
 UnsetStoppingAt ensures that no value is present for StoppingAt, not even an explicit nil
 ### GetStoppedAt
 
-`func (o *Deployment) GetStoppedAt() time.Time`
+`func (o *BaseDeployment) GetStoppedAt() time.Time`
 
 GetStoppedAt returns the StoppedAt field if non-nil, zero value otherwise.
 
 ### GetStoppedAtOk
 
-`func (o *Deployment) GetStoppedAtOk() (*time.Time, bool)`
+`func (o *BaseDeployment) GetStoppedAtOk() (*time.Time, bool)`
 
 GetStoppedAtOk returns a tuple with the StoppedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStoppedAt
 
-`func (o *Deployment) SetStoppedAt(v time.Time)`
+`func (o *BaseDeployment) SetStoppedAt(v time.Time)`
 
 SetStoppedAt sets StoppedAt field to given value.
 
 
 ### SetStoppedAtNil
 
-`func (o *Deployment) SetStoppedAtNil(b bool)`
+`func (o *BaseDeployment) SetStoppedAtNil(b bool)`
 
  SetStoppedAtNil sets the value for StoppedAt to be an explicit nil
 
 ### UnsetStoppedAt
-`func (o *Deployment) UnsetStoppedAt()`
+`func (o *BaseDeployment) UnsetStoppedAt()`
 
 UnsetStoppedAt ensures that no value is present for StoppedAt, not even an explicit nil
 ### GetRemovingAt
 
-`func (o *Deployment) GetRemovingAt() time.Time`
+`func (o *BaseDeployment) GetRemovingAt() time.Time`
 
 GetRemovingAt returns the RemovingAt field if non-nil, zero value otherwise.
 
 ### GetRemovingAtOk
 
-`func (o *Deployment) GetRemovingAtOk() (*time.Time, bool)`
+`func (o *BaseDeployment) GetRemovingAtOk() (*time.Time, bool)`
 
 GetRemovingAtOk returns a tuple with the RemovingAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRemovingAt
 
-`func (o *Deployment) SetRemovingAt(v time.Time)`
+`func (o *BaseDeployment) SetRemovingAt(v time.Time)`
 
 SetRemovingAt sets RemovingAt field to given value.
 
 
 ### SetRemovingAtNil
 
-`func (o *Deployment) SetRemovingAtNil(b bool)`
+`func (o *BaseDeployment) SetRemovingAtNil(b bool)`
 
  SetRemovingAtNil sets the value for RemovingAt to be an explicit nil
 
 ### UnsetRemovingAt
-`func (o *Deployment) UnsetRemovingAt()`
+`func (o *BaseDeployment) UnsetRemovingAt()`
 
 UnsetRemovingAt ensures that no value is present for RemovingAt, not even an explicit nil
 ### GetArchivedAt
 
-`func (o *Deployment) GetArchivedAt() time.Time`
+`func (o *BaseDeployment) GetArchivedAt() time.Time`
 
 GetArchivedAt returns the ArchivedAt field if non-nil, zero value otherwise.
 
 ### GetArchivedAtOk
 
-`func (o *Deployment) GetArchivedAtOk() (*time.Time, bool)`
+`func (o *BaseDeployment) GetArchivedAtOk() (*time.Time, bool)`
 
 GetArchivedAtOk returns a tuple with the ArchivedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetArchivedAt
 
-`func (o *Deployment) SetArchivedAt(v time.Time)`
+`func (o *BaseDeployment) SetArchivedAt(v time.Time)`
 
 SetArchivedAt sets ArchivedAt field to given value.
 
 
 ### SetArchivedAtNil
 
-`func (o *Deployment) SetArchivedAtNil(b bool)`
+`func (o *BaseDeployment) SetArchivedAtNil(b bool)`
 
  SetArchivedAtNil sets the value for ArchivedAt to be an explicit nil
 
 ### UnsetArchivedAt
-`func (o *Deployment) UnsetArchivedAt()`
+`func (o *BaseDeployment) UnsetArchivedAt()`
 
 UnsetArchivedAt ensures that no value is present for ArchivedAt, not even an explicit nil
 ### GetCooldownEndsAt
 
-`func (o *Deployment) GetCooldownEndsAt() time.Time`
+`func (o *BaseDeployment) GetCooldownEndsAt() time.Time`
 
 GetCooldownEndsAt returns the CooldownEndsAt field if non-nil, zero value otherwise.
 
 ### GetCooldownEndsAtOk
 
-`func (o *Deployment) GetCooldownEndsAtOk() (*time.Time, bool)`
+`func (o *BaseDeployment) GetCooldownEndsAtOk() (*time.Time, bool)`
 
 GetCooldownEndsAtOk returns a tuple with the CooldownEndsAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCooldownEndsAt
 
-`func (o *Deployment) SetCooldownEndsAt(v time.Time)`
+`func (o *BaseDeployment) SetCooldownEndsAt(v time.Time)`
 
 SetCooldownEndsAt sets CooldownEndsAt field to given value.
-
-
-### GetArtifact
-
-`func (o *Deployment) GetArtifact() ArtifactWithSourceData`
-
-GetArtifact returns the Artifact field if non-nil, zero value otherwise.
-
-### GetArtifactOk
-
-`func (o *Deployment) GetArtifactOk() (*ArtifactWithSourceData, bool)`
-
-GetArtifactOk returns a tuple with the Artifact field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetArtifact
-
-`func (o *Deployment) SetArtifact(v ArtifactWithSourceData)`
-
-SetArtifact sets Artifact field to given value.
 
 
 

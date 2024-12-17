@@ -43,6 +43,21 @@ components:
           type: boolean
           example: false
 
+    GitHubSourceList:
+      title: GitHub Source List
+      type: object
+      required:
+        - object
+        - data
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/GitHubSource"
+
     GitHubCommitter:
       title: GitHub Committer
       type: object

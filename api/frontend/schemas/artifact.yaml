@@ -66,20 +66,30 @@ components:
             - github 
             - registry
 
-        registry_source:
-          $ref: "./reg-src.yaml#/components/schemas/RegistrySource"
-          nullable: true
-        github_source:
-          $ref: "./gh-src.yaml#/components/schemas/GitHubSource"
-          nullable: true
-        github_source_data:
-          $ref: "#/components/schemas/GitHubSourceData"
-          nullable: true
+    ArtifactWithSourceData:
+      title: Artifact With Source Data
+      allOf:
+        - $ref: "#/components/schemas/ArtifactBase"
+        - type: object
+          required:
+            - registry_source
+            - github_source
+            - github_source_data
+          properties:
+            registry_source:
+              $ref: "./reg-src.yaml#/components/schemas/RegistrySource"
+              nullable: true
+            github_source:
+              $ref: "./gh-src.yaml#/components/schemas/GitHubSource"
+              nullable: true
+            github_source_data:
+              $ref: "#/components/schemas/GitHubSourceData"
+              nullable: true
 
     Artifact:
       title: Artifact
       allOf:
-        - $ref: "#/components/schemas/ArtifactBase"
+        - $ref: "#/components/schemas/ArtifactWithSourceData"
         - type: object
           required:
             - images
@@ -94,7 +104,6 @@ components:
 
     GroupArtifact:
       allOf:
-        - $ref: "#/components/schemas/Artifact"
         - type: object
           required:
             - staged
@@ -102,6 +111,7 @@ components:
             staged:
               type: boolean
               example: true
+        - $ref: "#/components/schemas/Artifact"
 
     GroupArtifactList:
       title: Group Artifact List

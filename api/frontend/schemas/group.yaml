@@ -40,6 +40,9 @@ components:
                   type: array
                   items:
                     $ref: "#/components/schemas/Device"
+            github_sources:
+              $ref: "./gh-src.yaml#/components/schemas/GitHubSourceList"
+
 
     Device:
       allOf:
@@ -58,7 +61,7 @@ components:
                 data:
                   type: array
                   items:
-                    $ref: "./container.yaml#/components/schemas/Container"
+                    $ref: "#/components/schemas/Container"
             deployments:
               type: object
               required:
@@ -71,6 +74,52 @@ components:
                 data:
                   type: array
                   items:
-                    $ref: "./deployment.yaml#/components/schemas/BaseDeployment"
+                    $ref: "#/components/schemas/Deployment"
+
+    Container:
+      title: Container
+      type: object
+      required:
+        - object
+        - id
+        - status
+      properties:
+        object:
+          type: string
+          example: "container"
+        id:
+          type: string
+          example: "container_1234"
+        status:
+          type: string
+          example: "running"
+    
+    Deployment:
+      title: Deployment
+      type: object
+      required:
+        - object
+        - id
+        - status
+        - activity_status
+        - error_status
+      properties:
+        object:
+          type: string
+          example: "deployment"
+        id:
+          type: string
+          example: "deployment_1234"
+        status:
+          type: string
+          example: "running"
+        activity_status:
+          type: string
+          example: "active"
+        error_status:
+          type: string
+          example: "none"
+
+
 
 paths: {}

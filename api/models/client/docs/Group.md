@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **Object** | **string** |  | 
 **Id** | **string** |  | 
 **Name** | **string** |  | 
+**Devices** | Pointer to [**GroupAllOfDevices**](GroupAllOfDevices.md) |  | [optional] 
+**GithubSources** | Pointer to [**GitHubSourceList**](GitHubSourceList.md) |  | [optional] 
 
 ## Methods
 
@@ -86,6 +88,56 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+
+### GetDevices
+
+`func (o *Group) GetDevices() GroupAllOfDevices`
+
+GetDevices returns the Devices field if non-nil, zero value otherwise.
+
+### GetDevicesOk
+
+`func (o *Group) GetDevicesOk() (*GroupAllOfDevices, bool)`
+
+GetDevicesOk returns a tuple with the Devices field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDevices
+
+`func (o *Group) SetDevices(v GroupAllOfDevices)`
+
+SetDevices sets Devices field to given value.
+
+### HasDevices
+
+`func (o *Group) HasDevices() bool`
+
+HasDevices returns a boolean if a field has been set.
+
+### GetGithubSources
+
+`func (o *Group) GetGithubSources() GitHubSourceList`
+
+GetGithubSources returns the GithubSources field if non-nil, zero value otherwise.
+
+### GetGithubSourcesOk
+
+`func (o *Group) GetGithubSourcesOk() (*GitHubSourceList, bool)`
+
+GetGithubSourcesOk returns a tuple with the GithubSources field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGithubSources
+
+`func (o *Group) SetGithubSources(v GitHubSourceList)`
+
+SetGithubSources sets GithubSources field to given value.
+
+### HasGithubSources
+
+`func (o *Group) HasGithubSources() bool`
+
+HasGithubSources returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

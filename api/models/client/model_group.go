@@ -24,6 +24,8 @@ type Group struct {
 	Object string `json:"object"`
 	Id string `json:"id"`
 	Name string `json:"name"`
+	Devices *GroupAllOfDevices `json:"devices,omitempty"`
+	GithubSources *GitHubSourceList `json:"github_sources,omitempty"`
 }
 
 type _Group Group
@@ -120,6 +122,70 @@ func (o *Group) SetName(v string) {
 	o.Name = v
 }
 
+// GetDevices returns the Devices field value if set, zero value otherwise.
+func (o *Group) GetDevices() GroupAllOfDevices {
+	if o == nil || IsNil(o.Devices) {
+		var ret GroupAllOfDevices
+		return ret
+	}
+	return *o.Devices
+}
+
+// GetDevicesOk returns a tuple with the Devices field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Group) GetDevicesOk() (*GroupAllOfDevices, bool) {
+	if o == nil || IsNil(o.Devices) {
+		return nil, false
+	}
+	return o.Devices, true
+}
+
+// HasDevices returns a boolean if a field has been set.
+func (o *Group) HasDevices() bool {
+	if o != nil && !IsNil(o.Devices) {
+		return true
+	}
+
+	return false
+}
+
+// SetDevices gets a reference to the given GroupAllOfDevices and assigns it to the Devices field.
+func (o *Group) SetDevices(v GroupAllOfDevices) {
+	o.Devices = &v
+}
+
+// GetGithubSources returns the GithubSources field value if set, zero value otherwise.
+func (o *Group) GetGithubSources() GitHubSourceList {
+	if o == nil || IsNil(o.GithubSources) {
+		var ret GitHubSourceList
+		return ret
+	}
+	return *o.GithubSources
+}
+
+// GetGithubSourcesOk returns a tuple with the GithubSources field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Group) GetGithubSourcesOk() (*GitHubSourceList, bool) {
+	if o == nil || IsNil(o.GithubSources) {
+		return nil, false
+	}
+	return o.GithubSources, true
+}
+
+// HasGithubSources returns a boolean if a field has been set.
+func (o *Group) HasGithubSources() bool {
+	if o != nil && !IsNil(o.GithubSources) {
+		return true
+	}
+
+	return false
+}
+
+// SetGithubSources gets a reference to the given GitHubSourceList and assigns it to the GithubSources field.
+func (o *Group) SetGithubSources(v GitHubSourceList) {
+	o.GithubSources = &v
+}
+
 func (o Group) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -133,6 +199,12 @@ func (o Group) ToMap() (map[string]interface{}, error) {
 	toSerialize["object"] = o.Object
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
+	if !IsNil(o.Devices) {
+		toSerialize["devices"] = o.Devices
+	}
+	if !IsNil(o.GithubSources) {
+		toSerialize["github_sources"] = o.GithubSources
+	}
 	return toSerialize, nil
 }
 

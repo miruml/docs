@@ -17,11 +17,11 @@ import (
 	"fmt"
 )
 
-// checks if the Deployment type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &Deployment{}
+// checks if the BaseDeployment type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BaseDeployment{}
 
-// Deployment struct for Deployment
-type Deployment struct {
+// BaseDeployment struct for BaseDeployment
+type BaseDeployment struct {
 	Object string `json:"object"`
 	Id string `json:"id"`
 	DeviceId string `json:"device_id"`
@@ -39,17 +39,16 @@ type Deployment struct {
 	RemovingAt NullableTime `json:"removing_at"`
 	ArchivedAt NullableTime `json:"archived_at"`
 	CooldownEndsAt time.Time `json:"cooldown_ends_at"`
-	Artifact ArtifactWithSourceData `json:"artifact"`
 }
 
-type _Deployment Deployment
+type _BaseDeployment BaseDeployment
 
-// NewDeployment instantiates a new Deployment object
+// NewBaseDeployment instantiates a new BaseDeployment object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeployment(object string, id string, deviceId string, status string, activityStatus string, errorStatus string, targetStatus string, createdAt time.Time, downloadingAt NullableTime, downloadedAt NullableTime, bootingAt NullableTime, activeAt NullableTime, stoppingAt NullableTime, stoppedAt NullableTime, removingAt NullableTime, archivedAt NullableTime, cooldownEndsAt time.Time, artifact ArtifactWithSourceData) *Deployment {
-	this := Deployment{}
+func NewBaseDeployment(object string, id string, deviceId string, status string, activityStatus string, errorStatus string, targetStatus string, createdAt time.Time, downloadingAt NullableTime, downloadedAt NullableTime, bootingAt NullableTime, activeAt NullableTime, stoppingAt NullableTime, stoppedAt NullableTime, removingAt NullableTime, archivedAt NullableTime, cooldownEndsAt time.Time) *BaseDeployment {
+	this := BaseDeployment{}
 	this.Object = object
 	this.Id = id
 	this.DeviceId = deviceId
@@ -67,20 +66,19 @@ func NewDeployment(object string, id string, deviceId string, status string, act
 	this.RemovingAt = removingAt
 	this.ArchivedAt = archivedAt
 	this.CooldownEndsAt = cooldownEndsAt
-	this.Artifact = artifact
 	return &this
 }
 
-// NewDeploymentWithDefaults instantiates a new Deployment object
+// NewBaseDeploymentWithDefaults instantiates a new BaseDeployment object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewDeploymentWithDefaults() *Deployment {
-	this := Deployment{}
+func NewBaseDeploymentWithDefaults() *BaseDeployment {
+	this := BaseDeployment{}
 	return &this
 }
 
 // GetObject returns the Object field value
-func (o *Deployment) GetObject() string {
+func (o *BaseDeployment) GetObject() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -91,7 +89,7 @@ func (o *Deployment) GetObject() string {
 
 // GetObjectOk returns a tuple with the Object field value
 // and a boolean to check if the value has been set.
-func (o *Deployment) GetObjectOk() (*string, bool) {
+func (o *BaseDeployment) GetObjectOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -99,12 +97,12 @@ func (o *Deployment) GetObjectOk() (*string, bool) {
 }
 
 // SetObject sets field value
-func (o *Deployment) SetObject(v string) {
+func (o *BaseDeployment) SetObject(v string) {
 	o.Object = v
 }
 
 // GetId returns the Id field value
-func (o *Deployment) GetId() string {
+func (o *BaseDeployment) GetId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -115,7 +113,7 @@ func (o *Deployment) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *Deployment) GetIdOk() (*string, bool) {
+func (o *BaseDeployment) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -123,12 +121,12 @@ func (o *Deployment) GetIdOk() (*string, bool) {
 }
 
 // SetId sets field value
-func (o *Deployment) SetId(v string) {
+func (o *BaseDeployment) SetId(v string) {
 	o.Id = v
 }
 
 // GetDeviceId returns the DeviceId field value
-func (o *Deployment) GetDeviceId() string {
+func (o *BaseDeployment) GetDeviceId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -139,7 +137,7 @@ func (o *Deployment) GetDeviceId() string {
 
 // GetDeviceIdOk returns a tuple with the DeviceId field value
 // and a boolean to check if the value has been set.
-func (o *Deployment) GetDeviceIdOk() (*string, bool) {
+func (o *BaseDeployment) GetDeviceIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -147,12 +145,12 @@ func (o *Deployment) GetDeviceIdOk() (*string, bool) {
 }
 
 // SetDeviceId sets field value
-func (o *Deployment) SetDeviceId(v string) {
+func (o *BaseDeployment) SetDeviceId(v string) {
 	o.DeviceId = v
 }
 
 // GetStatus returns the Status field value
-func (o *Deployment) GetStatus() string {
+func (o *BaseDeployment) GetStatus() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -163,7 +161,7 @@ func (o *Deployment) GetStatus() string {
 
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
-func (o *Deployment) GetStatusOk() (*string, bool) {
+func (o *BaseDeployment) GetStatusOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -171,12 +169,12 @@ func (o *Deployment) GetStatusOk() (*string, bool) {
 }
 
 // SetStatus sets field value
-func (o *Deployment) SetStatus(v string) {
+func (o *BaseDeployment) SetStatus(v string) {
 	o.Status = v
 }
 
 // GetActivityStatus returns the ActivityStatus field value
-func (o *Deployment) GetActivityStatus() string {
+func (o *BaseDeployment) GetActivityStatus() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -187,7 +185,7 @@ func (o *Deployment) GetActivityStatus() string {
 
 // GetActivityStatusOk returns a tuple with the ActivityStatus field value
 // and a boolean to check if the value has been set.
-func (o *Deployment) GetActivityStatusOk() (*string, bool) {
+func (o *BaseDeployment) GetActivityStatusOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -195,12 +193,12 @@ func (o *Deployment) GetActivityStatusOk() (*string, bool) {
 }
 
 // SetActivityStatus sets field value
-func (o *Deployment) SetActivityStatus(v string) {
+func (o *BaseDeployment) SetActivityStatus(v string) {
 	o.ActivityStatus = v
 }
 
 // GetErrorStatus returns the ErrorStatus field value
-func (o *Deployment) GetErrorStatus() string {
+func (o *BaseDeployment) GetErrorStatus() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -211,7 +209,7 @@ func (o *Deployment) GetErrorStatus() string {
 
 // GetErrorStatusOk returns a tuple with the ErrorStatus field value
 // and a boolean to check if the value has been set.
-func (o *Deployment) GetErrorStatusOk() (*string, bool) {
+func (o *BaseDeployment) GetErrorStatusOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -219,12 +217,12 @@ func (o *Deployment) GetErrorStatusOk() (*string, bool) {
 }
 
 // SetErrorStatus sets field value
-func (o *Deployment) SetErrorStatus(v string) {
+func (o *BaseDeployment) SetErrorStatus(v string) {
 	o.ErrorStatus = v
 }
 
 // GetTargetStatus returns the TargetStatus field value
-func (o *Deployment) GetTargetStatus() string {
+func (o *BaseDeployment) GetTargetStatus() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -235,7 +233,7 @@ func (o *Deployment) GetTargetStatus() string {
 
 // GetTargetStatusOk returns a tuple with the TargetStatus field value
 // and a boolean to check if the value has been set.
-func (o *Deployment) GetTargetStatusOk() (*string, bool) {
+func (o *BaseDeployment) GetTargetStatusOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -243,12 +241,12 @@ func (o *Deployment) GetTargetStatusOk() (*string, bool) {
 }
 
 // SetTargetStatus sets field value
-func (o *Deployment) SetTargetStatus(v string) {
+func (o *BaseDeployment) SetTargetStatus(v string) {
 	o.TargetStatus = v
 }
 
 // GetCreatedAt returns the CreatedAt field value
-func (o *Deployment) GetCreatedAt() time.Time {
+func (o *BaseDeployment) GetCreatedAt() time.Time {
 	if o == nil {
 		var ret time.Time
 		return ret
@@ -259,7 +257,7 @@ func (o *Deployment) GetCreatedAt() time.Time {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
-func (o *Deployment) GetCreatedAtOk() (*time.Time, bool) {
+func (o *BaseDeployment) GetCreatedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -267,13 +265,13 @@ func (o *Deployment) GetCreatedAtOk() (*time.Time, bool) {
 }
 
 // SetCreatedAt sets field value
-func (o *Deployment) SetCreatedAt(v time.Time) {
+func (o *BaseDeployment) SetCreatedAt(v time.Time) {
 	o.CreatedAt = v
 }
 
 // GetDownloadingAt returns the DownloadingAt field value
 // If the value is explicit nil, the zero value for time.Time will be returned
-func (o *Deployment) GetDownloadingAt() time.Time {
+func (o *BaseDeployment) GetDownloadingAt() time.Time {
 	if o == nil || o.DownloadingAt.Get() == nil {
 		var ret time.Time
 		return ret
@@ -285,7 +283,7 @@ func (o *Deployment) GetDownloadingAt() time.Time {
 // GetDownloadingAtOk returns a tuple with the DownloadingAt field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Deployment) GetDownloadingAtOk() (*time.Time, bool) {
+func (o *BaseDeployment) GetDownloadingAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -293,13 +291,13 @@ func (o *Deployment) GetDownloadingAtOk() (*time.Time, bool) {
 }
 
 // SetDownloadingAt sets field value
-func (o *Deployment) SetDownloadingAt(v time.Time) {
+func (o *BaseDeployment) SetDownloadingAt(v time.Time) {
 	o.DownloadingAt.Set(&v)
 }
 
 // GetDownloadedAt returns the DownloadedAt field value
 // If the value is explicit nil, the zero value for time.Time will be returned
-func (o *Deployment) GetDownloadedAt() time.Time {
+func (o *BaseDeployment) GetDownloadedAt() time.Time {
 	if o == nil || o.DownloadedAt.Get() == nil {
 		var ret time.Time
 		return ret
@@ -311,7 +309,7 @@ func (o *Deployment) GetDownloadedAt() time.Time {
 // GetDownloadedAtOk returns a tuple with the DownloadedAt field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Deployment) GetDownloadedAtOk() (*time.Time, bool) {
+func (o *BaseDeployment) GetDownloadedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -319,13 +317,13 @@ func (o *Deployment) GetDownloadedAtOk() (*time.Time, bool) {
 }
 
 // SetDownloadedAt sets field value
-func (o *Deployment) SetDownloadedAt(v time.Time) {
+func (o *BaseDeployment) SetDownloadedAt(v time.Time) {
 	o.DownloadedAt.Set(&v)
 }
 
 // GetBootingAt returns the BootingAt field value
 // If the value is explicit nil, the zero value for time.Time will be returned
-func (o *Deployment) GetBootingAt() time.Time {
+func (o *BaseDeployment) GetBootingAt() time.Time {
 	if o == nil || o.BootingAt.Get() == nil {
 		var ret time.Time
 		return ret
@@ -337,7 +335,7 @@ func (o *Deployment) GetBootingAt() time.Time {
 // GetBootingAtOk returns a tuple with the BootingAt field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Deployment) GetBootingAtOk() (*time.Time, bool) {
+func (o *BaseDeployment) GetBootingAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -345,13 +343,13 @@ func (o *Deployment) GetBootingAtOk() (*time.Time, bool) {
 }
 
 // SetBootingAt sets field value
-func (o *Deployment) SetBootingAt(v time.Time) {
+func (o *BaseDeployment) SetBootingAt(v time.Time) {
 	o.BootingAt.Set(&v)
 }
 
 // GetActiveAt returns the ActiveAt field value
 // If the value is explicit nil, the zero value for time.Time will be returned
-func (o *Deployment) GetActiveAt() time.Time {
+func (o *BaseDeployment) GetActiveAt() time.Time {
 	if o == nil || o.ActiveAt.Get() == nil {
 		var ret time.Time
 		return ret
@@ -363,7 +361,7 @@ func (o *Deployment) GetActiveAt() time.Time {
 // GetActiveAtOk returns a tuple with the ActiveAt field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Deployment) GetActiveAtOk() (*time.Time, bool) {
+func (o *BaseDeployment) GetActiveAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -371,13 +369,13 @@ func (o *Deployment) GetActiveAtOk() (*time.Time, bool) {
 }
 
 // SetActiveAt sets field value
-func (o *Deployment) SetActiveAt(v time.Time) {
+func (o *BaseDeployment) SetActiveAt(v time.Time) {
 	o.ActiveAt.Set(&v)
 }
 
 // GetStoppingAt returns the StoppingAt field value
 // If the value is explicit nil, the zero value for time.Time will be returned
-func (o *Deployment) GetStoppingAt() time.Time {
+func (o *BaseDeployment) GetStoppingAt() time.Time {
 	if o == nil || o.StoppingAt.Get() == nil {
 		var ret time.Time
 		return ret
@@ -389,7 +387,7 @@ func (o *Deployment) GetStoppingAt() time.Time {
 // GetStoppingAtOk returns a tuple with the StoppingAt field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Deployment) GetStoppingAtOk() (*time.Time, bool) {
+func (o *BaseDeployment) GetStoppingAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -397,13 +395,13 @@ func (o *Deployment) GetStoppingAtOk() (*time.Time, bool) {
 }
 
 // SetStoppingAt sets field value
-func (o *Deployment) SetStoppingAt(v time.Time) {
+func (o *BaseDeployment) SetStoppingAt(v time.Time) {
 	o.StoppingAt.Set(&v)
 }
 
 // GetStoppedAt returns the StoppedAt field value
 // If the value is explicit nil, the zero value for time.Time will be returned
-func (o *Deployment) GetStoppedAt() time.Time {
+func (o *BaseDeployment) GetStoppedAt() time.Time {
 	if o == nil || o.StoppedAt.Get() == nil {
 		var ret time.Time
 		return ret
@@ -415,7 +413,7 @@ func (o *Deployment) GetStoppedAt() time.Time {
 // GetStoppedAtOk returns a tuple with the StoppedAt field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Deployment) GetStoppedAtOk() (*time.Time, bool) {
+func (o *BaseDeployment) GetStoppedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -423,13 +421,13 @@ func (o *Deployment) GetStoppedAtOk() (*time.Time, bool) {
 }
 
 // SetStoppedAt sets field value
-func (o *Deployment) SetStoppedAt(v time.Time) {
+func (o *BaseDeployment) SetStoppedAt(v time.Time) {
 	o.StoppedAt.Set(&v)
 }
 
 // GetRemovingAt returns the RemovingAt field value
 // If the value is explicit nil, the zero value for time.Time will be returned
-func (o *Deployment) GetRemovingAt() time.Time {
+func (o *BaseDeployment) GetRemovingAt() time.Time {
 	if o == nil || o.RemovingAt.Get() == nil {
 		var ret time.Time
 		return ret
@@ -441,7 +439,7 @@ func (o *Deployment) GetRemovingAt() time.Time {
 // GetRemovingAtOk returns a tuple with the RemovingAt field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Deployment) GetRemovingAtOk() (*time.Time, bool) {
+func (o *BaseDeployment) GetRemovingAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -449,13 +447,13 @@ func (o *Deployment) GetRemovingAtOk() (*time.Time, bool) {
 }
 
 // SetRemovingAt sets field value
-func (o *Deployment) SetRemovingAt(v time.Time) {
+func (o *BaseDeployment) SetRemovingAt(v time.Time) {
 	o.RemovingAt.Set(&v)
 }
 
 // GetArchivedAt returns the ArchivedAt field value
 // If the value is explicit nil, the zero value for time.Time will be returned
-func (o *Deployment) GetArchivedAt() time.Time {
+func (o *BaseDeployment) GetArchivedAt() time.Time {
 	if o == nil || o.ArchivedAt.Get() == nil {
 		var ret time.Time
 		return ret
@@ -467,7 +465,7 @@ func (o *Deployment) GetArchivedAt() time.Time {
 // GetArchivedAtOk returns a tuple with the ArchivedAt field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Deployment) GetArchivedAtOk() (*time.Time, bool) {
+func (o *BaseDeployment) GetArchivedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -475,12 +473,12 @@ func (o *Deployment) GetArchivedAtOk() (*time.Time, bool) {
 }
 
 // SetArchivedAt sets field value
-func (o *Deployment) SetArchivedAt(v time.Time) {
+func (o *BaseDeployment) SetArchivedAt(v time.Time) {
 	o.ArchivedAt.Set(&v)
 }
 
 // GetCooldownEndsAt returns the CooldownEndsAt field value
-func (o *Deployment) GetCooldownEndsAt() time.Time {
+func (o *BaseDeployment) GetCooldownEndsAt() time.Time {
 	if o == nil {
 		var ret time.Time
 		return ret
@@ -491,7 +489,7 @@ func (o *Deployment) GetCooldownEndsAt() time.Time {
 
 // GetCooldownEndsAtOk returns a tuple with the CooldownEndsAt field value
 // and a boolean to check if the value has been set.
-func (o *Deployment) GetCooldownEndsAtOk() (*time.Time, bool) {
+func (o *BaseDeployment) GetCooldownEndsAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -499,35 +497,11 @@ func (o *Deployment) GetCooldownEndsAtOk() (*time.Time, bool) {
 }
 
 // SetCooldownEndsAt sets field value
-func (o *Deployment) SetCooldownEndsAt(v time.Time) {
+func (o *BaseDeployment) SetCooldownEndsAt(v time.Time) {
 	o.CooldownEndsAt = v
 }
 
-// GetArtifact returns the Artifact field value
-func (o *Deployment) GetArtifact() ArtifactWithSourceData {
-	if o == nil {
-		var ret ArtifactWithSourceData
-		return ret
-	}
-
-	return o.Artifact
-}
-
-// GetArtifactOk returns a tuple with the Artifact field value
-// and a boolean to check if the value has been set.
-func (o *Deployment) GetArtifactOk() (*ArtifactWithSourceData, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Artifact, true
-}
-
-// SetArtifact sets field value
-func (o *Deployment) SetArtifact(v ArtifactWithSourceData) {
-	o.Artifact = v
-}
-
-func (o Deployment) MarshalJSON() ([]byte, error) {
+func (o BaseDeployment) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -535,7 +509,7 @@ func (o Deployment) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o Deployment) ToMap() (map[string]interface{}, error) {
+func (o BaseDeployment) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["object"] = o.Object
 	toSerialize["id"] = o.Id
@@ -554,11 +528,10 @@ func (o Deployment) ToMap() (map[string]interface{}, error) {
 	toSerialize["removing_at"] = o.RemovingAt.Get()
 	toSerialize["archived_at"] = o.ArchivedAt.Get()
 	toSerialize["cooldown_ends_at"] = o.CooldownEndsAt
-	toSerialize["artifact"] = o.Artifact
 	return toSerialize, nil
 }
 
-func (o *Deployment) UnmarshalJSON(data []byte) (err error) {
+func (o *BaseDeployment) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -580,7 +553,6 @@ func (o *Deployment) UnmarshalJSON(data []byte) (err error) {
 		"removing_at",
 		"archived_at",
 		"cooldown_ends_at",
-		"artifact",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -597,53 +569,53 @@ func (o *Deployment) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varDeployment := _Deployment{}
+	varBaseDeployment := _BaseDeployment{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varDeployment)
+	err = decoder.Decode(&varBaseDeployment)
 
 	if err != nil {
 		return err
 	}
 
-	*o = Deployment(varDeployment)
+	*o = BaseDeployment(varBaseDeployment)
 
 	return err
 }
 
-type NullableDeployment struct {
-	value *Deployment
+type NullableBaseDeployment struct {
+	value *BaseDeployment
 	isSet bool
 }
 
-func (v NullableDeployment) Get() *Deployment {
+func (v NullableBaseDeployment) Get() *BaseDeployment {
 	return v.value
 }
 
-func (v *NullableDeployment) Set(val *Deployment) {
+func (v *NullableBaseDeployment) Set(val *BaseDeployment) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableDeployment) IsSet() bool {
+func (v NullableBaseDeployment) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableDeployment) Unset() {
+func (v *NullableBaseDeployment) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableDeployment(val *Deployment) *NullableDeployment {
-	return &NullableDeployment{value: val, isSet: true}
+func NewNullableBaseDeployment(val *BaseDeployment) *NullableBaseDeployment {
+	return &NullableBaseDeployment{value: val, isSet: true}
 }
 
-func (v NullableDeployment) MarshalJSON() ([]byte, error) {
+func (v NullableBaseDeployment) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableDeployment) UnmarshalJSON(src []byte) error {
+func (v *NullableBaseDeployment) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
