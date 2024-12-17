@@ -18,6 +18,9 @@ components:
         id:
           type: string
           example: "group_1234"
+        workspace_id:
+          type: string
+          example: "wsp_1234"
         name:
           type: string
           example: "my-group"

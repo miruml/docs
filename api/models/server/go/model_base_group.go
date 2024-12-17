@@ -19,6 +19,8 @@ type BaseGroup struct {
 
 	Id string `json:"id"`
 
+	WorkspaceId string `json:"workspace_id,omitempty"`
+
 	Name string `json:"name"`
 }
 

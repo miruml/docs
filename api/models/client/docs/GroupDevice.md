@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Object** | **string** |  | 
 **Id** | **string** |  | 
+**WorkspaceId** | Pointer to **string** |  | [optional] 
 **Name** | **string** |  | 
 **Hardware** | **string** |  | 
 **OperatingSystem** | **NullableString** |  | 
@@ -76,6 +77,31 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+
+### GetWorkspaceId
+
+`func (o *GroupDevice) GetWorkspaceId() string`
+
+GetWorkspaceId returns the WorkspaceId field if non-nil, zero value otherwise.
+
+### GetWorkspaceIdOk
+
+`func (o *GroupDevice) GetWorkspaceIdOk() (*string, bool)`
+
+GetWorkspaceIdOk returns a tuple with the WorkspaceId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWorkspaceId
+
+`func (o *GroupDevice) SetWorkspaceId(v string)`
+
+SetWorkspaceId sets WorkspaceId field to given value.
+
+### HasWorkspaceId
+
+`func (o *GroupDevice) HasWorkspaceId() bool`
+
+HasWorkspaceId returns a boolean if a field has been set.
 
 ### GetName
 

@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Object** | **string** |  | 
 **Id** | **string** |  | 
+**WorkspaceId** | Pointer to **string** |  | [optional] 
 **Name** | **string** |  | 
 **Devices** | Pointer to [**GroupDeviceList**](GroupDeviceList.md) |  | [optional] 
 **GithubSources** | Pointer to [**GitHubSourceList**](GitHubSourceList.md) |  | [optional] 
@@ -68,6 +69,31 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+
+### GetWorkspaceId
+
+`func (o *Group) GetWorkspaceId() string`
+
+GetWorkspaceId returns the WorkspaceId field if non-nil, zero value otherwise.
+
+### GetWorkspaceIdOk
+
+`func (o *Group) GetWorkspaceIdOk() (*string, bool)`
+
+GetWorkspaceIdOk returns a tuple with the WorkspaceId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWorkspaceId
+
+`func (o *Group) SetWorkspaceId(v string)`
+
+SetWorkspaceId sets WorkspaceId field to given value.
+
+### HasWorkspaceId
+
+`func (o *Group) HasWorkspaceId() bool`
+
+HasWorkspaceId returns a boolean if a field has been set.
 
 ### GetName
 

@@ -140,5 +140,42 @@ components:
           items:
             $ref: "./deployment.yaml#/components/schemas/Deployment"
 
+    DeploymentLog:
+      title: Deployment Log
+      type: object
+      required:
+        - timestamp
+        - level
+        - message
+        - code
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          example: "2024-11-03T14:19:50Z"
+        level:
+          type: string
+          example: "info"
+        message:
+          type: string
+          example: "Deployment started"
+        code:
+          type: string
+          example: "not_downloaded"
+    
+    DeploymentLogList:
+      title: Deployment Log List
+      type: object
+      required:
+        - object
+        - data
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "./deployment.yaml#/components/schemas/DeploymentLog"
 paths: {}
 

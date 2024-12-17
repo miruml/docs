@@ -24,6 +24,7 @@ var _ MappedNullable = &GroupDevice{}
 type GroupDevice struct {
 	Object string `json:"object"`
 	Id string `json:"id"`
+	WorkspaceId *string `json:"workspace_id,omitempty"`
 	Name string `json:"name"`
 	Hardware string `json:"hardware"`
 	OperatingSystem NullableString `json:"operating_system"`
@@ -115,6 +116,38 @@ func (o *GroupDevice) GetIdOk() (*string, bool) {
 // SetId sets field value
 func (o *GroupDevice) SetId(v string) {
 	o.Id = v
+}
+
+// GetWorkspaceId returns the WorkspaceId field value if set, zero value otherwise.
+func (o *GroupDevice) GetWorkspaceId() string {
+	if o == nil || IsNil(o.WorkspaceId) {
+		var ret string
+		return ret
+	}
+	return *o.WorkspaceId
+}
+
+// GetWorkspaceIdOk returns a tuple with the WorkspaceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GroupDevice) GetWorkspaceIdOk() (*string, bool) {
+	if o == nil || IsNil(o.WorkspaceId) {
+		return nil, false
+	}
+	return o.WorkspaceId, true
+}
+
+// HasWorkspaceId returns a boolean if a field has been set.
+func (o *GroupDevice) HasWorkspaceId() bool {
+	if o != nil && !IsNil(o.WorkspaceId) {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkspaceId gets a reference to the given string and assigns it to the WorkspaceId field.
+func (o *GroupDevice) SetWorkspaceId(v string) {
+	o.WorkspaceId = &v
 }
 
 // GetName returns the Name field value
@@ -399,6 +432,9 @@ func (o GroupDevice) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["object"] = o.Object
 	toSerialize["id"] = o.Id
+	if !IsNil(o.WorkspaceId) {
+		toSerialize["workspace_id"] = o.WorkspaceId
+	}
 	toSerialize["name"] = o.Name
 	toSerialize["hardware"] = o.Hardware
 	toSerialize["operating_system"] = o.OperatingSystem.Get()

@@ -23,6 +23,7 @@ var _ MappedNullable = &BaseGroup{}
 type BaseGroup struct {
 	Object string `json:"object"`
 	Id string `json:"id"`
+	WorkspaceId *string `json:"workspace_id,omitempty"`
 	Name string `json:"name"`
 }
 
@@ -96,6 +97,38 @@ func (o *BaseGroup) SetId(v string) {
 	o.Id = v
 }
 
+// GetWorkspaceId returns the WorkspaceId field value if set, zero value otherwise.
+func (o *BaseGroup) GetWorkspaceId() string {
+	if o == nil || IsNil(o.WorkspaceId) {
+		var ret string
+		return ret
+	}
+	return *o.WorkspaceId
+}
+
+// GetWorkspaceIdOk returns a tuple with the WorkspaceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BaseGroup) GetWorkspaceIdOk() (*string, bool) {
+	if o == nil || IsNil(o.WorkspaceId) {
+		return nil, false
+	}
+	return o.WorkspaceId, true
+}
+
+// HasWorkspaceId returns a boolean if a field has been set.
+func (o *BaseGroup) HasWorkspaceId() bool {
+	if o != nil && !IsNil(o.WorkspaceId) {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkspaceId gets a reference to the given string and assigns it to the WorkspaceId field.
+func (o *BaseGroup) SetWorkspaceId(v string) {
+	o.WorkspaceId = &v
+}
+
 // GetName returns the Name field value
 func (o *BaseGroup) GetName() string {
 	if o == nil {
@@ -132,6 +165,9 @@ func (o BaseGroup) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["object"] = o.Object
 	toSerialize["id"] = o.Id
+	if !IsNil(o.WorkspaceId) {
+		toSerialize["workspace_id"] = o.WorkspaceId
+	}
 	toSerialize["name"] = o.Name
 	return toSerialize, nil
 }

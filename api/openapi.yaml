@@ -252,6 +252,24 @@ paths:
           description: Successfully created the deployments.
       tags:
       - Deployments
+  /deployments/{deployment_id}/logs:
+    get:
+      parameters:
+      - description: The unique identifier of the deployment
+        in: path
+        name: deployment_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentLogList'
+          description: Successfully retrieved the deployment logs.
+      tags:
+      - Deployments
   /devices/{device_id}:
     get:
       parameters:
@@ -2225,6 +2243,31 @@ components:
       - device_ids
       title: Create Deployments
       type: object
+    DeploymentLogList:
+      example:
+        data:
+        - code: not_downloaded
+          level: info
+          message: Deployment started
+          timestamp: 2024-11-03T14:19:50Z
+        - code: not_downloaded
+          level: info
+          message: Deployment started
+          timestamp: 2024-11-03T14:19:50Z
+        object: list
+      properties:
+        object:
+          example: list
+          type: string
+        data:
+          items:
+            $ref: '#/components/schemas/DeploymentLog'
+          type: array
+      required:
+      - data
+      - object
+      title: Deployment Log List
+      type: object
     Device:
       allOf:
       - $ref: '#/components/schemas/BaseDevice'
@@ -2233,18 +2276,20 @@ components:
             $ref: '#/components/schemas/BaseGroup'
         type: object
       example:
-        name: my-device
         miru_version: 0.5.1
-        operating_system: ubuntu
         created_at: 2024-11-03T14:19:50Z
-        id: device_1234
         last_reported_status: active
+        workspace_id: wsp_1234
+        name: my-device
+        operating_system: ubuntu
+        id: device_1234
         object: device
         hardware: raspberry-pi
         architecture: arm64
         status: offline
         synced_at: 2000-01-23T04:56:07.000+00:00
         group:
+          workspace_id: wsp_1234
           name: my-group
           id: group_1234
           object: group
@@ -2485,11 +2530,13 @@ components:
             $ref: '#/components/schemas/GitHubSourceList'
         type: object
       example:
+        workspace_id: wsp_1234
         devices:
           data:
           - miru_version: 0.5.1
             created_at: 2024-11-03T14:19:50Z
             last_reported_status: active
+            workspace_id: wsp_1234
             deployments:
               data:
               - id: deployment_1234
@@ -2523,6 +2570,7 @@ components:
           - miru_version: 0.5.1
             created_at: 2024-11-03T14:19:50Z
             last_reported_status: active
+            workspace_id: wsp_1234
             deployments:
               data:
               - id: deployment_1234
@@ -2582,6 +2630,7 @@ components:
         - miru_version: 0.5.1
           created_at: 2024-11-03T14:19:50Z
           last_reported_status: active
+          workspace_id: wsp_1234
           deployments:
             data:
             - id: deployment_1234
@@ -2615,6 +2664,7 @@ components:
         - miru_version: 0.5.1
           created_at: 2024-11-03T14:19:50Z
           last_reported_status: active
+          workspace_id: wsp_1234
           deployments:
             data:
             - id: deployment_1234
@@ -2675,6 +2725,7 @@ components:
         miru_version: 0.5.1
         created_at: 2024-11-03T14:19:50Z
         last_reported_status: active
+        workspace_id: wsp_1234
         deployments:
           data:
           - id: deployment_1234
@@ -3656,6 +3707,33 @@ components:
       - target_status
       title: Deployment
       type: object
+    DeploymentLog:
+      example:
+        code: not_downloaded
+        level: info
+        message: Deployment started
+        timestamp: 2024-11-03T14:19:50Z
+      properties:
+        timestamp:
+          example: 2024-11-03T14:19:50Z
+          format: date-time
+          type: string
+        level:
+          example: info
+          type: string
+        message:
+          example: Deployment started
+          type: string
+        code:
+          example: not_downloaded
+          type: string
+      required:
+      - code
+      - level
+      - message
+      - timestamp
+      title: Deployment Log
+      type: object
     BaseDevice:
       properties:
         object:
@@ -3663,6 +3741,9 @@ components:
           type: string
         id:
           example: device_1234
+          type: string
+        workspace_id:
+          example: wsp_1234
           type: string
         name:
           example: my-device
@@ -3712,6 +3793,7 @@ components:
       type: object
     BaseGroup:
       example:
+        workspace_id: wsp_1234
         name: my-group
         id: group_1234
         object: group
@@ -3721,6 +3803,9 @@ components:
           type: string
         id:
           example: group_1234
+          type: string
+        workspace_id:
+          example: wsp_1234
           type: string
         name:
           example: my-group
