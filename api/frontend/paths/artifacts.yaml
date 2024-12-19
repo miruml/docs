@@ -28,7 +28,7 @@ paths:
           $ref: '../responses/generic.yaml#/components/responses/Forbidden'
         '404':
           $ref: '../responses/generic.yaml#/components/responses/NotFound'
-  /artifacts/{artifact_id}/compose_file:
+  /artifacts/{artifact_id}/deployment_files:
     get:
       tags:
         - Artifacts
@@ -36,11 +36,11 @@ paths:
         - $ref: '../../params.yaml#/components/parameters/artifact_id'
       responses:
         '200':
-          description: Successfully retrieved the compose file for the artifact.
+          description: Successfully retrieved the release files for the artifact.
           content:
             application/json:
               schema:
-                $ref: '../schemas/artifact.yaml#/components/schemas/ComposeFile'
+                $ref: '../schemas/artifact.yaml#/components/schemas/ArtifactDeploymentFiles'
   /groups/{group_id}/artifacts:
     get:
       tags:

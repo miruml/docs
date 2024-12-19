@@ -1,0 +1,4887 @@
+openapi: 3.0.3
+info:
+  title: Miru API
+  version: 0.1.0
+servers:
+- description: Local Development
+  url: "http://localhost:8080/{audience}/{version}"
+  variables:
+    audience:
+      default: internal
+      enum:
+      - internal
+      - internal/devices
+    version:
+      default: v1
+- description: Development
+  url: "https://dev.api.miruml.com/{audience}/{version}"
+  variables:
+    audience:
+      default: internal
+      enum:
+      - internal
+      - internal/devices
+    version:
+      default: v1
+- description: Production
+  url: "https://api.miruml.com/{audience}/{version}"
+  variables:
+    audience:
+      default: internal
+      enum:
+      - internal
+      - internal/devices
+    version:
+      default: v1
+security:
+- ClerkAuth: []
+paths:
+  /artifacts/{artifact_id}:
+    get:
+      parameters:
+      - description: The unique identifier of the artifact
+        in: path
+        name: artifact_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Artifact'
+          description: Successfully retrieved the artifact.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_1'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_2'
+          description: Not Found
+      tags:
+      - Artifacts
+  /artifacts/{artifact_id}/deployment_files:
+    get:
+      parameters:
+      - description: The unique identifier of the artifact
+        in: path
+        name: artifact_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtifactDeploymentFiles'
+          description: Successfully retrieved the release files for the artifact.
+      tags:
+      - Artifacts
+  /groups/{group_id}/artifacts:
+    get:
+      parameters:
+      - description: The unique identifier of the group
+        in: path
+        name: group_id
+        required: true
+        schema:
+          type: string
+      - description: Whether to return only staged artifacts
+        in: query
+        name: only_staged
+        required: false
+        schema:
+          type: boolean
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupArtifactList'
+          description: Successfully retrieved the artifacts for the group.
+      tags:
+      - Artifacts
+  /sources/registry/{registry_source_id}/artifacts:
+    post:
+      parameters:
+      - description: The unique identifier of the registry source
+        in: path
+        name: registry_source_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRegistrySourceArtifact'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Artifact'
+          description: Successfully created the artifact.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_3'
+          description: Unable to create artifact since another artifact with identical
+            content already exists
+      tags:
+      - Artifacts
+  /sources/github/{github_source_id}/artifacts:
+    post:
+      parameters:
+      - description: The unique identifier of the github source
+        in: path
+        name: github_source_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGitHubSourceArtifact'
+        required: true
+      responses:
+        "200":
+          description: Successfully queued the artifact for creation
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_3'
+          description: Unable to create artifact since another artifact with identical
+            content already exists
+      tags:
+      - Artifacts
+  /workspace/{workspace_id}/compose/verify:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyComposeFile'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifiedComposeFileResponse'
+          description: Successfully verified the compose file.
+      tags:
+      - Compose File
+  /devices/{device_id}/containers:
+    get:
+      parameters:
+      - description: The unique identifier of the device
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContainerList'
+          description: Successfully retrieved the containers for the device.
+      tags:
+      - Containers
+  /deployments/{deployment_id}:
+    get:
+      parameters:
+      - description: The unique identifier of the deployment
+        in: path
+        name: deployment_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+          description: Successfully retrieved the deployment.
+      tags:
+      - Deployments
+  /devices/{device_id}/deployments:
+    get:
+      parameters:
+      - description: The unique identifier of the device
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      - description: Whether to include only on device deployments
+        in: query
+        name: on_device
+        required: false
+        schema:
+          type: boolean
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentList'
+          description: Successfully retrieved the deployments.
+      tags:
+      - Deployments
+  /workspaces/{workspace_id}/deploy:
+    post:
+      parameters:
+      - description: The unique identifier of the workspace
+        in: path
+        name: workspace_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDeployments'
+        required: true
+      responses:
+        "200":
+          description: Successfully created the deployments.
+      tags:
+      - Deployments
+  /deployments/{deployment_id}/logs:
+    get:
+      parameters:
+      - description: The unique identifier of the deployment
+        in: path
+        name: deployment_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentLogList'
+          description: Successfully retrieved the deployment logs.
+      tags:
+      - Deployments
+  /devices/{device_id}:
+    get:
+      parameters:
+      - description: The unique identifier of the device
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+          description: Successfully retrieved the device.
+      tags:
+      - Devices
+  /sources/github/{github_source_id}/commits:
+    get:
+      parameters:
+      - description: The unique identifier of the workspace
+        in: path
+        name: workspace_id
+        required: true
+        schema:
+          type: string
+      - description: The unique identifier of the github source
+        in: path
+        name: github_source_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GitHubSourceCommits'
+          description: Successfully retrieved the commits for the GitHub source.
+      tags:
+      - GitHub Sources
+  /groups/{group_id}:
+    get:
+      parameters:
+      - description: The unique identifier of the group
+        in: path
+        name: group_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+          description: Successfully retrieved the group.
+      tags:
+      - Groups
+  /repositories/container/{container_repository_id}/images/external:
+    get:
+      parameters:
+      - description: The unique identifier of the container repository
+        in: path
+        name: container_repository_id
+        required: true
+        schema:
+          type: string
+      - description: The number of items to return per page
+        in: query
+        name: page_size
+        required: false
+        schema:
+          default: 25
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalContainerImageList'
+          description: Successfully retrieved the images for the repository.
+      tags:
+      - Container Images
+  /sources/registry/{registry_source_id}:
+    delete:
+      parameters:
+      - description: The unique identifier of the registry source
+        in: path
+        name: registry_source_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrySource'
+          description: Successfully deleted the registry source.
+      tags:
+      - Registry Sources
+    get:
+      parameters:
+      - description: The unique identifier of the registry source
+        in: path
+        name: registry_source_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrySource'
+          description: Successfully retrieved the registry source.
+      tags:
+      - Registry Sources
+    patch:
+      parameters:
+      - description: The unique identifier of the registry source
+        in: path
+        name: registry_source_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRegistrySource'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrySource'
+          description: Successfully retrieved the registry source.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidComposeFile'
+          description: The compose file is invalid.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepositoryNotFound'
+          description: The repository does not exist.
+      tags:
+      - Registry Sources
+  /sources/registry/{registry_source_id}/compose_file:
+    get:
+      parameters:
+      - description: The unique identifier of the registry source
+        in: path
+        name: registry_source_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComposeFile'
+          description: Successfully retrieved the compose file for the registry source.
+      tags:
+      - Registry Sources
+  /workspaces/{workspace_id}/sources/registry:
+    get:
+      parameters:
+      - description: The unique identifier of the workspace
+        in: path
+        name: workspace_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrySourceList'
+          description: Successfully retrieved the registry sources for the workspace.
+      tags:
+      - Registry Sources
+    post:
+      parameters:
+      - description: The unique identifier of the workspace
+        in: path
+        name: workspace_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRegistrySource'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrySource'
+          description: Successfully created the registry source for the workspace.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidComposeFile'
+          description: The compose file is invalid.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepositoryNotFound'
+          description: The repository does not exist.
+      tags:
+      - Registry Sources
+  /repositories/container/{container_repository_id}:
+    get:
+      parameters:
+      - description: The unique identifier of the container repository
+        in: path
+        name: container_repository_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContainerRepository'
+          description: Successfully retrieved the repository.
+      tags:
+      - Container Repositories
+  /integrations/dockerhub/{dockerhub_integration_id}/repositories/external:
+    get:
+      parameters:
+      - description: The unique identifier of the dockerhub integration
+        in: path
+        name: dockerhub_integration_id
+        required: true
+        schema:
+          type: string
+      - description: The number of items to return per page
+        in: query
+        name: page_size
+        required: false
+        schema:
+          default: 25
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalContainerRepositoryList'
+          description: Successfully retrieved the repositories for the dockerhub integration.
+      tags:
+      - Container Repositories
+  /integrations/gar/{gar_integration_id}/repositories/external:
+    get:
+      parameters:
+      - description: The unique identifier of the google artifact registry integration
+        in: path
+        name: gar_integration_id
+        required: true
+        schema:
+          type: string
+      - description: The number of items to return per page
+        in: query
+        name: page_size
+        required: false
+        schema:
+          default: 25
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalContainerRepositoryList'
+          description: Successfully retrieved the repositories for the google artifact
+            registry integration.
+      tags:
+      - Container Repositories
+  /workspaces/{workspace_id}/repositories/container/external:
+    get:
+      parameters:
+      - description: The unique identifier of the workspace
+        in: path
+        name: workspace_id
+        required: true
+        schema:
+          type: string
+      - description: The number of items to return per page
+        in: query
+        name: page_size
+        required: false
+        schema:
+          default: 25
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalContainerRepositoryList'
+          description: Successfully retrieved the repositories for the workspace.
+      tags:
+      - Container Repositories
+  /example/errors/400:
+    get:
+      description: This route doesn't actually exist. It's an example of a generic
+        400 error that any API route can return.
+      responses:
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_4'
+          description: Bad Request
+      tags:
+      - Generic Errors
+  /example/errors/401:
+    get:
+      description: This route doesn't actually exist. It's an example of a generic
+        401 error that any API route can return.
+      responses:
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+      tags:
+      - Generic Errors
+  /example/errors/403:
+    get:
+      description: This route doesn't actually exist. It's an example of a generic
+        403 error that any API route can return.
+      responses:
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_1'
+          description: Forbidden
+      tags:
+      - Generic Errors
+  /example/errors/404:
+    get:
+      description: This route doesn't actually exist. It's an example of a generic
+        404 error that any API route can return.
+      responses:
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_2'
+          description: Not Found
+      tags:
+      - Generic Errors
+components:
+  parameters:
+    artifact_id:
+      description: The unique identifier of the artifact
+      in: path
+      name: artifact_id
+      required: true
+      schema:
+        type: string
+    group_id:
+      description: The unique identifier of the group
+      in: path
+      name: group_id
+      required: true
+      schema:
+        type: string
+    only_staged:
+      description: Whether to return only staged artifacts
+      in: query
+      name: only_staged
+      required: false
+      schema:
+        type: boolean
+    registry_source_id:
+      description: The unique identifier of the registry source
+      in: path
+      name: registry_source_id
+      required: true
+      schema:
+        type: string
+    github_source_id:
+      description: The unique identifier of the github source
+      in: path
+      name: github_source_id
+      required: true
+      schema:
+        type: string
+    device_id:
+      description: The unique identifier of the device
+      in: path
+      name: device_id
+      required: true
+      schema:
+        type: string
+    deployment_id:
+      description: The unique identifier of the deployment
+      in: path
+      name: deployment_id
+      required: true
+      schema:
+        type: string
+    on_device:
+      description: Whether to include only on device deployments
+      in: query
+      name: on_device
+      required: false
+      schema:
+        type: boolean
+    workspace_id:
+      description: The unique identifier of the workspace
+      in: path
+      name: workspace_id
+      required: true
+      schema:
+        type: string
+    container_repository_id:
+      description: The unique identifier of the container repository
+      in: path
+      name: container_repository_id
+      required: true
+      schema:
+        type: string
+    page_size:
+      description: The number of items to return per page
+      in: query
+      name: page_size
+      required: false
+      schema:
+        default: 25
+        type: integer
+    dockerhub_integration_id:
+      description: The unique identifier of the dockerhub integration
+      in: path
+      name: dockerhub_integration_id
+      required: true
+      schema:
+        type: string
+    gar_integration_id:
+      description: The unique identifier of the google artifact registry integration
+      in: path
+      name: gar_integration_id
+      required: true
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: Unauthorized
+    Forbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_1'
+      description: Forbidden
+    NotFound:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+      description: Not Found
+    DuplicateArtifact:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_3'
+      description: Unable to create artifact since another artifact with identical
+        content already exists
+    InvalidComposeFile:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InvalidComposeFile'
+      description: The compose file is invalid.
+    RepositoryNotFound:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RepositoryNotFound'
+      description: The repository does not exist.
+    BadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_4'
+      description: Bad Request
+  schemas:
+    Artifact:
+      allOf:
+      - $ref: '#/components/schemas/ArtifactWithSourceData'
+      - properties:
+          images:
+            $ref: '#/components/schemas/ImageList'
+          deployments:
+            $ref: '#/components/schemas/ArtifactDeploymentList'
+        required:
+        - deployments
+        - images
+        type: object
+      example:
+        aarch64: true
+        images:
+          data:
+          - registry_url: us-central1-docker.pkg.dev/container-integration
+            name: django/nested/image/name
+            digest: sha256:123abc
+            account_login: container-integration
+            id: img_123
+            tag: latest
+            type: gar
+            uri: us-central1-docker.pkg.dev/container-integration/django/nested/image/name
+            object: image
+          - registry_url: us-central1-docker.pkg.dev/container-integration
+            name: django/nested/image/name
+            digest: sha256:123abc
+            account_login: container-integration
+            id: img_123
+            tag: latest
+            type: gar
+            uri: us-central1-docker.pkg.dev/container-integration/django/nested/image/name
+            object: image
+          object: list
+        registry_source:
+          aarch64: true
+          x86_64: false
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          repositories:
+            data:
+            - is_extra: true
+              registry_url: us-central1-docker.pkg.dev/container-integration
+              name: django
+              account_login: container-integration
+              compose_service: database
+              id: cont_repo_123
+              type: gar
+              uri: us-central1-docker.pkg.dev/container-integration/miru/django
+              object: container_repository
+            - is_extra: true
+              registry_url: us-central1-docker.pkg.dev/container-integration
+              name: django
+              account_login: container-integration
+              compose_service: database
+              id: cont_repo_123
+              type: gar
+              uri: us-central1-docker.pkg.dev/container-integration/miru/django
+              object: container_repository
+            object: list
+          name: Ad Display V2.2.1
+          created_at: 2000-01-23T04:56:07.000+00:00
+          id: reg_src_1234
+          object: registry_source
+        created_at: 2024-11-03T14:19:50Z
+        source_type: github
+        github_source_data:
+          build_path: valid/wordpress
+          head_commit:
+            id: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+            message: Update README.md
+            url: https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+          sender:
+            avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+            html_url: https://github.com/bensmidt
+            id: 1234
+            type: User
+            login: bensmidt
+          repository:
+            full_name: miruml/e2e-tests
+            pushed_at: 2024-11-03T14:19:50Z
+            html_url: https://github.com/miruml/e2e-tests
+            clone_url: https://github.com/miruml/e2e-tests.git
+            id: 819141000
+          branch: main
+        created_by:
+          last_name: Doe
+          id: usr_1234
+          first_name: John
+          object: user
+        github_source:
+          build_path: path/to/compose/file/
+          deleted: false
+          name: e2e-tests
+          repository_id: 12345
+          id: gh_src_123
+          branch: main
+          repository_name: bensmidt/e2e-tests
+          object: github_source
+        deployments:
+          data:
+          - device_id: device_1234
+            id: dep_1234
+            error_status: retrying
+            activity_status: booting
+            object: deployment
+            status: retrying
+          - device_id: device_1234
+            id: dep_1234
+            error_status: retrying
+            activity_status: booting
+            object: deployment
+            status: retrying
+          object: list
+        x86_64: false
+        ready_at: 2024-11-03T14:25:50Z
+        digest: dad036b
+        id: art_1234
+        failed_at: 2024-11-03T14:25:50Z
+        source_id: reg_src_1234
+        object: artifact
+        status: queued
+      title: Artifact
+    ArtifactWithSourceData:
+      allOf:
+      - $ref: '#/components/schemas/ArtifactBase'
+      - properties:
+          registry_source:
+            $ref: '#/components/schemas/RegistrySource'
+          github_source:
+            $ref: '#/components/schemas/GitHubSource'
+          github_source_data:
+            $ref: '#/components/schemas/GitHubSourceData'
+        required:
+        - github_source
+        - github_source_data
+        - registry_source
+        type: object
+      example:
+        aarch64: true
+        registry_source:
+          aarch64: true
+          x86_64: false
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          repositories:
+            data:
+            - is_extra: true
+              registry_url: us-central1-docker.pkg.dev/container-integration
+              name: django
+              account_login: container-integration
+              compose_service: database
+              id: cont_repo_123
+              type: gar
+              uri: us-central1-docker.pkg.dev/container-integration/miru/django
+              object: container_repository
+            - is_extra: true
+              registry_url: us-central1-docker.pkg.dev/container-integration
+              name: django
+              account_login: container-integration
+              compose_service: database
+              id: cont_repo_123
+              type: gar
+              uri: us-central1-docker.pkg.dev/container-integration/miru/django
+              object: container_repository
+            object: list
+          name: Ad Display V2.2.1
+          created_at: 2000-01-23T04:56:07.000+00:00
+          id: reg_src_1234
+          object: registry_source
+        created_at: 2024-11-03T14:19:50Z
+        source_type: github
+        github_source_data:
+          build_path: valid/wordpress
+          head_commit:
+            id: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+            message: Update README.md
+            url: https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+          sender:
+            avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+            html_url: https://github.com/bensmidt
+            id: 1234
+            type: User
+            login: bensmidt
+          repository:
+            full_name: miruml/e2e-tests
+            pushed_at: 2024-11-03T14:19:50Z
+            html_url: https://github.com/miruml/e2e-tests
+            clone_url: https://github.com/miruml/e2e-tests.git
+            id: 819141000
+          branch: main
+        created_by:
+          last_name: Doe
+          id: usr_1234
+          first_name: John
+          object: user
+        github_source:
+          build_path: path/to/compose/file/
+          deleted: false
+          name: e2e-tests
+          repository_id: 12345
+          id: gh_src_123
+          branch: main
+          repository_name: bensmidt/e2e-tests
+          object: github_source
+        x86_64: false
+        ready_at: 2024-11-03T14:25:50Z
+        digest: dad036b
+        id: art_1234
+        failed_at: 2024-11-03T14:25:50Z
+        source_id: reg_src_1234
+        object: artifact
+        status: queued
+      title: Artifact With Source Data
+    ArtifactBase:
+      properties:
+        object:
+          example: artifact
+          type: string
+        id:
+          example: art_1234
+          type: string
+        status:
+          $ref: '#/components/schemas/ArtifactStatus'
+        digest:
+          example: dad036b
+          type: string
+        aarch64:
+          example: true
+          type: boolean
+        x86_64:
+          example: false
+          type: boolean
+        created_at:
+          example: 2024-11-03T14:19:50Z
+          format: date-time
+          type: string
+        ready_at:
+          example: 2024-11-03T14:25:50Z
+          format: date-time
+          nullable: true
+          type: string
+        failed_at:
+          example: 2024-11-03T14:25:50Z
+          format: date-time
+          nullable: true
+          type: string
+        created_by:
+          $ref: '#/components/schemas/User'
+        source_id:
+          example: reg_src_1234
+          type: string
+        source_type:
+          enum:
+          - github
+          - registry
+          type: string
+      required:
+      - aarch64
+      - created_at
+      - digest
+      - failed_at
+      - github_source
+      - github_source_data
+      - id
+      - object
+      - ready_at
+      - registry_source
+      - source_id
+      - source_type
+      - status
+      - x86_64
+      title: Artifact Base
+      type: object
+    ArtifactStatus:
+      enum:
+      - queued
+      - verifying
+      - building
+      - storing
+      - ready
+      - failed
+      title: Artifact Status
+      type: string
+    GitHubSourceData:
+      example:
+        build_path: valid/wordpress
+        head_commit:
+          id: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+          message: Update README.md
+          url: https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+        sender:
+          avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+          html_url: https://github.com/bensmidt
+          id: 1234
+          type: User
+          login: bensmidt
+        repository:
+          full_name: miruml/e2e-tests
+          pushed_at: 2024-11-03T14:19:50Z
+          html_url: https://github.com/miruml/e2e-tests
+          clone_url: https://github.com/miruml/e2e-tests.git
+          id: 819141000
+        branch: main
+      properties:
+        sender:
+          $ref: '#/components/schemas/GitHubSourceDataSender'
+        branch:
+          example: main
+          type: string
+        build_path:
+          example: valid/wordpress
+          type: string
+        repository:
+          $ref: '#/components/schemas/GitHubSourceDataRepository'
+        head_commit:
+          $ref: '#/components/schemas/GitHubSourceDataHeadCommit'
+      required:
+      - branch
+      - build_path
+      - head_commit
+      - repository
+      - sender
+      title: GitHub Source Data
+      type: object
+    GitHubSourceDataSender:
+      example:
+        avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+        html_url: https://github.com/bensmidt
+        id: 1234
+        type: User
+        login: bensmidt
+      properties:
+        id:
+          example: 1234
+          format: int64
+          type: integer
+        type:
+          example: User
+          type: string
+        login:
+          example: bensmidt
+          type: string
+        html_url:
+          example: https://github.com/bensmidt
+          type: string
+        avatar_url:
+          example: https://avatars.githubusercontent.com/u/92611223?v=4
+          type: string
+      required:
+      - avatar_url
+      - html_url
+      - id
+      - login
+      - type
+      title: GitHub Source Data Sender
+      type: object
+    GitHubSourceDataRepository:
+      example:
+        full_name: miruml/e2e-tests
+        pushed_at: 2024-11-03T14:19:50Z
+        html_url: https://github.com/miruml/e2e-tests
+        clone_url: https://github.com/miruml/e2e-tests.git
+        id: 819141000
+      properties:
+        id:
+          example: 819141000
+          format: int64
+          type: integer
+        html_url:
+          example: https://github.com/miruml/e2e-tests
+          type: string
+        clone_url:
+          example: https://github.com/miruml/e2e-tests.git
+          type: string
+        full_name:
+          example: miruml/e2e-tests
+          type: string
+        pushed_at:
+          example: 2024-11-03T14:19:50Z
+          format: date-time
+          type: string
+      required:
+      - clone_url
+      - full_name
+      - html_url
+      - id
+      - pushed_at
+      title: GitHub Source Data Repository
+      type: object
+    GitHubSourceDataHeadCommit:
+      example:
+        id: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+        message: Update README.md
+        url: https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+      properties:
+        id:
+          example: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+          type: string
+        url:
+          example: https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+          type: string
+        message:
+          example: Update README.md
+          type: string
+      required:
+      - id
+      - message
+      - url
+      title: GitHub Source Data Head Commit
+      type: object
+    ArtifactDeploymentList:
+      example:
+        data:
+        - device_id: device_1234
+          id: dep_1234
+          error_status: retrying
+          activity_status: booting
+          object: deployment
+          status: retrying
+        - device_id: device_1234
+          id: dep_1234
+          error_status: retrying
+          activity_status: booting
+          object: deployment
+          status: retrying
+        object: list
+      properties:
+        object:
+          example: list
+          type: string
+        data:
+          items:
+            $ref: '#/components/schemas/ArtifactDeployment'
+          type: array
+      required:
+      - data
+      - object
+      title: Artifact Deployment List
+      type: object
+    ArtifactDeployment:
+      example:
+        device_id: device_1234
+        id: dep_1234
+        error_status: retrying
+        activity_status: booting
+        object: deployment
+        status: retrying
+      properties:
+        object:
+          example: deployment
+          type: string
+        id:
+          example: dep_1234
+          type: string
+        device_id:
+          example: device_1234
+          type: string
+        status:
+          example: retrying
+          type: string
+        activity_status:
+          example: booting
+          type: string
+        error_status:
+          example: retrying
+          type: string
+      required:
+      - activity_status
+      - device_id
+      - error_status
+      - id
+      - object
+      - status
+      title: Artifact Deployment
+      type: object
+    UnauthorizedError:
+      example:
+        code: invalid_clerk_auth
+        params: "{}"
+        message: Invalid Clerk authentication credentials
+      properties:
+        code:
+          example: invalid_clerk_auth
+          type: string
+        params:
+          type: object
+        message:
+          example: Invalid Clerk authentication credentials
+          type: string
+      required:
+      - code
+      - message
+      - params
+      title: Unauthorized
+      type: object
+    ForbiddenError:
+      example:
+        code: forbidden
+        params:
+          fix: <fix>
+          identity_id: <identity_id>
+          resource_type: <resource_type>
+          resource_id: <resource_id>
+          permission: <permission>
+          identity_type: <identity_type>
+        message: <identity_type> '<identity_id>' does not have '<permission>' permission
+          for <resource_type> '<resource_id>'
+      properties:
+        code:
+          example: forbidden
+          type: string
+        params:
+          $ref: '#/components/schemas/ForbiddenError_params'
+        message:
+          example: <identity_type> '<identity_id>' does not have '<permission>' permission
+            for <resource_type> '<resource_id>'
+          type: string
+      required:
+      - code
+      - message
+      - params
+      title: Forbidden
+      type: object
+    RecordNotFoundError:
+      example:
+        code: record_not_found
+        params:
+          record_id: <record_id>
+          record_type: <record_type>
+        message: <record_type> '<record_id>' not found
+      properties:
+        code:
+          example: record_not_found
+          type: string
+        params:
+          $ref: '#/components/schemas/RecordNotFoundError_params'
+        message:
+          example: <record_type> '<record_id>' not found
+          type: string
+      required:
+      - code
+      - message
+      - params
+      title: Record Not Found
+      type: object
+    ArtifactDeploymentFiles:
+      example:
+        env_file: |-
+          MIRU_REDIS_HOST=redis
+          MIRU_REDIS_PORT=6379
+        compose_file: |-
+          name: miru
+          services:
+            redis:
+            image: redis:latest
+            restart: always
+        object: artifact_deployment_files
+      properties:
+        object:
+          example: artifact_deployment_files
+          type: string
+        compose_file:
+          example: |-
+            name: miru
+            services:
+              redis:
+              image: redis:latest
+              restart: always
+          type: string
+        env_file:
+          example: |-
+            MIRU_REDIS_HOST=redis
+            MIRU_REDIS_PORT=6379
+          nullable: true
+          type: string
+      required:
+      - compose_file
+      - env_file
+      - object
+      title: Artifact Deployment Files
+    GroupArtifactList:
+      example:
+        data:
+        - aarch64: true
+          images:
+            data:
+            - registry_url: us-central1-docker.pkg.dev/container-integration
+              name: django/nested/image/name
+              digest: sha256:123abc
+              account_login: container-integration
+              id: img_123
+              tag: latest
+              type: gar
+              uri: us-central1-docker.pkg.dev/container-integration/django/nested/image/name
+              object: image
+            - registry_url: us-central1-docker.pkg.dev/container-integration
+              name: django/nested/image/name
+              digest: sha256:123abc
+              account_login: container-integration
+              id: img_123
+              tag: latest
+              type: gar
+              uri: us-central1-docker.pkg.dev/container-integration/django/nested/image/name
+              object: image
+            object: list
+          registry_source:
+            aarch64: true
+            x86_64: false
+            updated_at: 2000-01-23T04:56:07.000+00:00
+            repositories:
+              data:
+              - is_extra: true
+                registry_url: us-central1-docker.pkg.dev/container-integration
+                name: django
+                account_login: container-integration
+                compose_service: database
+                id: cont_repo_123
+                type: gar
+                uri: us-central1-docker.pkg.dev/container-integration/miru/django
+                object: container_repository
+              - is_extra: true
+                registry_url: us-central1-docker.pkg.dev/container-integration
+                name: django
+                account_login: container-integration
+                compose_service: database
+                id: cont_repo_123
+                type: gar
+                uri: us-central1-docker.pkg.dev/container-integration/miru/django
+                object: container_repository
+              object: list
+            name: Ad Display V2.2.1
+            created_at: 2000-01-23T04:56:07.000+00:00
+            id: reg_src_1234
+            object: registry_source
+          created_at: 2024-11-03T14:19:50Z
+          source_type: github
+          github_source_data:
+            build_path: valid/wordpress
+            head_commit:
+              id: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+              message: Update README.md
+              url: https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+            sender:
+              avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+              html_url: https://github.com/bensmidt
+              id: 1234
+              type: User
+              login: bensmidt
+            repository:
+              full_name: miruml/e2e-tests
+              pushed_at: 2024-11-03T14:19:50Z
+              html_url: https://github.com/miruml/e2e-tests
+              clone_url: https://github.com/miruml/e2e-tests.git
+              id: 819141000
+            branch: main
+          staged: true
+          created_by:
+            last_name: Doe
+            id: usr_1234
+            first_name: John
+            object: user
+          github_source:
+            build_path: path/to/compose/file/
+            deleted: false
+            name: e2e-tests
+            repository_id: 12345
+            id: gh_src_123
+            branch: main
+            repository_name: bensmidt/e2e-tests
+            object: github_source
+          deployments:
+            data:
+            - device_id: device_1234
+              id: dep_1234
+              error_status: retrying
+              activity_status: booting
+              object: deployment
+              status: retrying
+            - device_id: device_1234
+              id: dep_1234
+              error_status: retrying
+              activity_status: booting
+              object: deployment
+              status: retrying
+            object: list
+          x86_64: false
+          ready_at: 2024-11-03T14:25:50Z
+          digest: dad036b
+          id: art_1234
+          failed_at: 2024-11-03T14:25:50Z
+          source_id: reg_src_1234
+          object: artifact
+          status: queued
+        - aarch64: true
+          images:
+            data:
+            - registry_url: us-central1-docker.pkg.dev/container-integration
+              name: django/nested/image/name
+              digest: sha256:123abc
+              account_login: container-integration
+              id: img_123
+              tag: latest
+              type: gar
+              uri: us-central1-docker.pkg.dev/container-integration/django/nested/image/name
+              object: image
+            - registry_url: us-central1-docker.pkg.dev/container-integration
+              name: django/nested/image/name
+              digest: sha256:123abc
+              account_login: container-integration
+              id: img_123
+              tag: latest
+              type: gar
+              uri: us-central1-docker.pkg.dev/container-integration/django/nested/image/name
+              object: image
+            object: list
+          registry_source:
+            aarch64: true
+            x86_64: false
+            updated_at: 2000-01-23T04:56:07.000+00:00
+            repositories:
+              data:
+              - is_extra: true
+                registry_url: us-central1-docker.pkg.dev/container-integration
+                name: django
+                account_login: container-integration
+                compose_service: database
+                id: cont_repo_123
+                type: gar
+                uri: us-central1-docker.pkg.dev/container-integration/miru/django
+                object: container_repository
+              - is_extra: true
+                registry_url: us-central1-docker.pkg.dev/container-integration
+                name: django
+                account_login: container-integration
+                compose_service: database
+                id: cont_repo_123
+                type: gar
+                uri: us-central1-docker.pkg.dev/container-integration/miru/django
+                object: container_repository
+              object: list
+            name: Ad Display V2.2.1
+            created_at: 2000-01-23T04:56:07.000+00:00
+            id: reg_src_1234
+            object: registry_source
+          created_at: 2024-11-03T14:19:50Z
+          source_type: github
+          github_source_data:
+            build_path: valid/wordpress
+            head_commit:
+              id: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+              message: Update README.md
+              url: https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+            sender:
+              avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+              html_url: https://github.com/bensmidt
+              id: 1234
+              type: User
+              login: bensmidt
+            repository:
+              full_name: miruml/e2e-tests
+              pushed_at: 2024-11-03T14:19:50Z
+              html_url: https://github.com/miruml/e2e-tests
+              clone_url: https://github.com/miruml/e2e-tests.git
+              id: 819141000
+            branch: main
+          staged: true
+          created_by:
+            last_name: Doe
+            id: usr_1234
+            first_name: John
+            object: user
+          github_source:
+            build_path: path/to/compose/file/
+            deleted: false
+            name: e2e-tests
+            repository_id: 12345
+            id: gh_src_123
+            branch: main
+            repository_name: bensmidt/e2e-tests
+            object: github_source
+          deployments:
+            data:
+            - device_id: device_1234
+              id: dep_1234
+              error_status: retrying
+              activity_status: booting
+              object: deployment
+              status: retrying
+            - device_id: device_1234
+              id: dep_1234
+              error_status: retrying
+              activity_status: booting
+              object: deployment
+              status: retrying
+            object: list
+          x86_64: false
+          ready_at: 2024-11-03T14:25:50Z
+          digest: dad036b
+          id: art_1234
+          failed_at: 2024-11-03T14:25:50Z
+          source_id: reg_src_1234
+          object: artifact
+          status: queued
+        object: list
+      properties:
+        object:
+          example: list
+          type: string
+        data:
+          items:
+            $ref: '#/components/schemas/GroupArtifact'
+          type: array
+      required:
+      - data
+      - object
+      title: Group Artifact List
+      type: object
+    GroupArtifact:
+      allOf:
+      - $ref: '#/components/schemas/Artifact'
+      - properties:
+          staged:
+            example: true
+            type: boolean
+        required:
+        - staged
+        type: object
+      example:
+        aarch64: true
+        images:
+          data:
+          - registry_url: us-central1-docker.pkg.dev/container-integration
+            name: django/nested/image/name
+            digest: sha256:123abc
+            account_login: container-integration
+            id: img_123
+            tag: latest
+            type: gar
+            uri: us-central1-docker.pkg.dev/container-integration/django/nested/image/name
+            object: image
+          - registry_url: us-central1-docker.pkg.dev/container-integration
+            name: django/nested/image/name
+            digest: sha256:123abc
+            account_login: container-integration
+            id: img_123
+            tag: latest
+            type: gar
+            uri: us-central1-docker.pkg.dev/container-integration/django/nested/image/name
+            object: image
+          object: list
+        registry_source:
+          aarch64: true
+          x86_64: false
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          repositories:
+            data:
+            - is_extra: true
+              registry_url: us-central1-docker.pkg.dev/container-integration
+              name: django
+              account_login: container-integration
+              compose_service: database
+              id: cont_repo_123
+              type: gar
+              uri: us-central1-docker.pkg.dev/container-integration/miru/django
+              object: container_repository
+            - is_extra: true
+              registry_url: us-central1-docker.pkg.dev/container-integration
+              name: django
+              account_login: container-integration
+              compose_service: database
+              id: cont_repo_123
+              type: gar
+              uri: us-central1-docker.pkg.dev/container-integration/miru/django
+              object: container_repository
+            object: list
+          name: Ad Display V2.2.1
+          created_at: 2000-01-23T04:56:07.000+00:00
+          id: reg_src_1234
+          object: registry_source
+        created_at: 2024-11-03T14:19:50Z
+        source_type: github
+        github_source_data:
+          build_path: valid/wordpress
+          head_commit:
+            id: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+            message: Update README.md
+            url: https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+          sender:
+            avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+            html_url: https://github.com/bensmidt
+            id: 1234
+            type: User
+            login: bensmidt
+          repository:
+            full_name: miruml/e2e-tests
+            pushed_at: 2024-11-03T14:19:50Z
+            html_url: https://github.com/miruml/e2e-tests
+            clone_url: https://github.com/miruml/e2e-tests.git
+            id: 819141000
+          branch: main
+        staged: true
+        created_by:
+          last_name: Doe
+          id: usr_1234
+          first_name: John
+          object: user
+        github_source:
+          build_path: path/to/compose/file/
+          deleted: false
+          name: e2e-tests
+          repository_id: 12345
+          id: gh_src_123
+          branch: main
+          repository_name: bensmidt/e2e-tests
+          object: github_source
+        deployments:
+          data:
+          - device_id: device_1234
+            id: dep_1234
+            error_status: retrying
+            activity_status: booting
+            object: deployment
+            status: retrying
+          - device_id: device_1234
+            id: dep_1234
+            error_status: retrying
+            activity_status: booting
+            object: deployment
+            status: retrying
+          object: list
+        x86_64: false
+        ready_at: 2024-11-03T14:25:50Z
+        digest: dad036b
+        id: art_1234
+        failed_at: 2024-11-03T14:25:50Z
+        source_id: reg_src_1234
+        object: artifact
+        status: queued
+    CreateRegistrySourceArtifact:
+      example:
+        images:
+        - digest: sha256:1234567890
+          repository_id: cont_repo_1234
+          tag: v1.3.4
+        - digest: sha256:1234567890
+          repository_id: cont_repo_1234
+          tag: v1.3.4
+        allow_duplicate: false
+      properties:
+        allow_duplicate:
+          example: false
+          type: boolean
+        images:
+          items:
+            $ref: '#/components/schemas/CreateRegistrySourceArtifact_images_inner'
+          type: array
+      required:
+      - allow_duplicate
+      - groups
+      - images
+      title: Create Registry Source Artifact
+      type: object
+    DuplicateArtifact:
+      example:
+        code: duplicate_artifact
+        params:
+          duplicate_artifacts:
+          - art_1234
+          - art_1234
+        message: Artifacts with identical content already exist
+        debug_message: "2 artifacts with identical content already exist: art_1234,\
+          \ art_5678"
+      properties:
+        code:
+          example: duplicate_artifact
+          type: string
+        params:
+          $ref: '#/components/schemas/DuplicateArtifact_params'
+        message:
+          example: Artifacts with identical content already exist
+          type: string
+        debug_message:
+          example: "2 artifacts with identical content already exist: art_1234, art_5678"
+          type: string
+      required:
+      - code
+      - message
+      - params
+      title: DuplicateArtifactError
+      type: object
+    CreateGitHubSourceArtifact:
+      example:
+        commit_sha: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+        allow_duplicate: false
+      properties:
+        allow_duplicate:
+          example: false
+          type: boolean
+        commit_sha:
+          example: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+          type: string
+      required:
+      - allow_duplicate
+      - commit_sha
+      title: Create GitHub Source Artifact
+      type: object
+    VerifyComposeFile:
+      example:
+        content: |-
+          name: miru
+          services:
+            redis:
+            image: redis:latest
+            restart: always
+        object: compose_file
+      properties:
+        object:
+          example: compose_file
+          type: string
+        content:
+          example: |-
+            name: miru
+            services:
+              redis:
+              image: redis:latest
+              restart: always
+          type: string
+      required:
+      - content
+      - object
+      title: Validate Compose File
+      type: object
+    VerifiedComposeFileResponse:
+      example:
+        images:
+        - data:
+          - uploaded_at: 2021-01-01T00:00:00Z
+            bytes: 392510987
+            is_valid: false
+            digest: sha256:123abc
+            uri: docker.io/redis:latest
+            object: external_image
+            tags:
+            - latest
+            - v1.0.0
+            - stable
+          - uploaded_at: 2021-01-01T00:00:00Z
+            bytes: 392510987
+            is_valid: false
+            digest: sha256:123abc
+            uri: docker.io/redis:latest
+            object: external_image
+            tags:
+            - latest
+            - v1.0.0
+            - stable
+          object: list
+        - data:
+          - uploaded_at: 2021-01-01T00:00:00Z
+            bytes: 392510987
+            is_valid: false
+            digest: sha256:123abc
+            uri: docker.io/redis:latest
+            object: external_image
+            tags:
+            - latest
+            - v1.0.0
+            - stable
+          - uploaded_at: 2021-01-01T00:00:00Z
+            bytes: 392510987
+            is_valid: false
+            digest: sha256:123abc
+            uri: docker.io/redis:latest
+            object: external_image
+            tags:
+            - latest
+            - v1.0.0
+            - stable
+          object: list
+        is_valid: false
+        is_schema_valid: true
+        content: |-
+          name: miru
+          services:
+            redis:
+            image: redis:latest
+            restart: always
+        object: compose_file
+      properties:
+        object:
+          example: compose_file
+          type: string
+        content:
+          example: |-
+            name: miru
+            services:
+              redis:
+              image: redis:latest
+              restart: always
+          type: string
+        is_valid:
+          example: false
+          type: boolean
+        is_schema_valid:
+          example: true
+          type: boolean
+        images:
+          items:
+            $ref: '#/components/schemas/ComposeFileImageList'
+          type: array
+      required:
+      - content
+      - images
+      - is_schema_valid
+      - is_valid
+      - object
+      title: Verified Compose File Response
+      type: object
+    ComposeFileImageList:
+      example:
+        data:
+        - uploaded_at: 2021-01-01T00:00:00Z
+          bytes: 392510987
+          is_valid: false
+          digest: sha256:123abc
+          uri: docker.io/redis:latest
+          object: external_image
+          tags:
+          - latest
+          - v1.0.0
+          - stable
+        - uploaded_at: 2021-01-01T00:00:00Z
+          bytes: 392510987
+          is_valid: false
+          digest: sha256:123abc
+          uri: docker.io/redis:latest
+          object: external_image
+          tags:
+          - latest
+          - v1.0.0
+          - stable
+        object: list
+      properties:
+        object:
+          example: list
+          type: string
+        data:
+          items:
+            $ref: '#/components/schemas/ComposeFileImage'
+          type: array
+      required:
+      - data
+      - object
+      title: Compose File Image List
+      type: object
+    ComposeFileImage:
+      allOf:
+      - $ref: '#/components/schemas/ExternalContainerImage'
+      - properties:
+          is_valid:
+            example: false
+            type: boolean
+        required:
+        - is_valid
+        type: object
+      example:
+        uploaded_at: 2021-01-01T00:00:00Z
+        bytes: 392510987
+        is_valid: false
+        digest: sha256:123abc
+        uri: docker.io/redis:latest
+        object: external_image
+        tags:
+        - latest
+        - v1.0.0
+        - stable
+      title: Compose File Image
+    ContainerList:
+      example:
+        data:
+        - device_id: device_1234
+          finished_at: 2024-11-03T14:19:50Z
+          created_at: 2024-11-03T14:19:50Z
+          docker_container_id: sha256:1234567890
+          error: <some error message>
+          image_name: my-image
+          image_digest: sha256:1234567890
+          updated_at: 2024-11-03T14:19:50Z
+          target_status: running
+          exit_code: 0
+          started_at: 2024-11-03T14:19:50Z
+          id: cont_1234
+          image_tag: latest
+          image_id: img_1234
+          object: container
+          status: running
+        - device_id: device_1234
+          finished_at: 2024-11-03T14:19:50Z
+          created_at: 2024-11-03T14:19:50Z
+          docker_container_id: sha256:1234567890
+          error: <some error message>
+          image_name: my-image
+          image_digest: sha256:1234567890
+          updated_at: 2024-11-03T14:19:50Z
+          target_status: running
+          exit_code: 0
+          started_at: 2024-11-03T14:19:50Z
+          id: cont_1234
+          image_tag: latest
+          image_id: img_1234
+          object: container
+          status: running
+        object: list
+      properties:
+        object:
+          example: list
+          type: string
+        data:
+          items:
+            $ref: '#/components/schemas/Container'
+          type: array
+      required:
+      - data
+      - object
+      title: Container List
+      type: object
+    Container:
+      example:
+        device_id: device_1234
+        finished_at: 2024-11-03T14:19:50Z
+        created_at: 2024-11-03T14:19:50Z
+        docker_container_id: sha256:1234567890
+        error: <some error message>
+        image_name: my-image
+        image_digest: sha256:1234567890
+        updated_at: 2024-11-03T14:19:50Z
+        target_status: running
+        exit_code: 0
+        started_at: 2024-11-03T14:19:50Z
+        id: cont_1234
+        image_tag: latest
+        image_id: img_1234
+        object: container
+        status: running
+      properties:
+        object:
+          example: container
+          type: string
+        id:
+          example: cont_1234
+          type: string
+        device_id:
+          example: device_1234
+          type: string
+        image_id:
+          example: img_1234
+          nullable: true
+          type: string
+        image_name:
+          example: my-image
+          nullable: true
+          type: string
+        image_tag:
+          example: latest
+          nullable: true
+          type: string
+        image_digest:
+          example: sha256:1234567890
+          nullable: true
+          type: string
+        docker_container_id:
+          example: sha256:1234567890
+          type: string
+        created_at:
+          example: 2024-11-03T14:19:50Z
+          format: date-time
+          type: string
+        updated_at:
+          example: 2024-11-03T14:19:50Z
+          format: date-time
+          type: string
+        started_at:
+          example: 2024-11-03T14:19:50Z
+          format: date-time
+          type: string
+        finished_at:
+          example: 2024-11-03T14:19:50Z
+          format: date-time
+          nullable: true
+          type: string
+        status:
+          example: running
+          type: string
+        target_status:
+          example: running
+          type: string
+        exit_code:
+          example: 0
+          type: integer
+        error:
+          example: <some error message>
+          nullable: true
+          type: string
+      required:
+      - created_at
+      - device_id
+      - docker_container_id
+      - error
+      - exit_code
+      - finished_at
+      - id
+      - image_digest
+      - image_id
+      - image_tag
+      - object
+      - started_at
+      - status
+      - target_status
+      - updated_at
+      title: Container
+      type: object
+    Deployment:
+      allOf:
+      - $ref: '#/components/schemas/BaseDeployment'
+      - properties:
+          artifact:
+            $ref: '#/components/schemas/ArtifactWithSourceData'
+        required:
+        - artifact
+        type: object
+      example:
+        cooldown_ends_at: 2024-11-03T14:19:50Z
+        device_id: dev_1234
+        archived_at: 2024-11-03T14:19:50Z
+        stopping_at: 2024-11-03T14:19:50Z
+        downloading_at: 2024-11-03T14:19:50Z
+        created_at: 2024-11-03T14:19:50Z
+        booting_at: 2024-11-03T14:19:50Z
+        removing_at: 2024-11-03T14:19:50Z
+        artifact:
+          aarch64: true
+          registry_source:
+            aarch64: true
+            x86_64: false
+            updated_at: 2000-01-23T04:56:07.000+00:00
+            repositories:
+              data:
+              - is_extra: true
+                registry_url: us-central1-docker.pkg.dev/container-integration
+                name: django
+                account_login: container-integration
+                compose_service: database
+                id: cont_repo_123
+                type: gar
+                uri: us-central1-docker.pkg.dev/container-integration/miru/django
+                object: container_repository
+              - is_extra: true
+                registry_url: us-central1-docker.pkg.dev/container-integration
+                name: django
+                account_login: container-integration
+                compose_service: database
+                id: cont_repo_123
+                type: gar
+                uri: us-central1-docker.pkg.dev/container-integration/miru/django
+                object: container_repository
+              object: list
+            name: Ad Display V2.2.1
+            created_at: 2000-01-23T04:56:07.000+00:00
+            id: reg_src_1234
+            object: registry_source
+          created_at: 2024-11-03T14:19:50Z
+          source_type: github
+          github_source_data:
+            build_path: valid/wordpress
+            head_commit:
+              id: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+              message: Update README.md
+              url: https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+            sender:
+              avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+              html_url: https://github.com/bensmidt
+              id: 1234
+              type: User
+              login: bensmidt
+            repository:
+              full_name: miruml/e2e-tests
+              pushed_at: 2024-11-03T14:19:50Z
+              html_url: https://github.com/miruml/e2e-tests
+              clone_url: https://github.com/miruml/e2e-tests.git
+              id: 819141000
+            branch: main
+          created_by:
+            last_name: Doe
+            id: usr_1234
+            first_name: John
+            object: user
+          github_source:
+            build_path: path/to/compose/file/
+            deleted: false
+            name: e2e-tests
+            repository_id: 12345
+            id: gh_src_123
+            branch: main
+            repository_name: bensmidt/e2e-tests
+            object: github_source
+          x86_64: false
+          ready_at: 2024-11-03T14:25:50Z
+          digest: dad036b
+          id: art_1234
+          failed_at: 2024-11-03T14:25:50Z
+          source_id: reg_src_1234
+          object: artifact
+          status: queued
+        target_status: active
+        downloaded_at: 2024-11-03T14:19:50Z
+        id: dep_1234
+        error_status: retrying
+        active_at: 2024-11-03T14:19:50Z
+        stopped_at: 2024-11-03T14:19:50Z
+        activity_status: downloading
+        object: deployment
+        status: retrying
+    DeploymentList:
+      example:
+        data:
+        - cooldown_ends_at: 2024-11-03T14:19:50Z
+          device_id: dev_1234
+          archived_at: 2024-11-03T14:19:50Z
+          stopping_at: 2024-11-03T14:19:50Z
+          downloading_at: 2024-11-03T14:19:50Z
+          created_at: 2024-11-03T14:19:50Z
+          booting_at: 2024-11-03T14:19:50Z
+          removing_at: 2024-11-03T14:19:50Z
+          artifact:
+            aarch64: true
+            registry_source:
+              aarch64: true
+              x86_64: false
+              updated_at: 2000-01-23T04:56:07.000+00:00
+              repositories:
+                data:
+                - is_extra: true
+                  registry_url: us-central1-docker.pkg.dev/container-integration
+                  name: django
+                  account_login: container-integration
+                  compose_service: database
+                  id: cont_repo_123
+                  type: gar
+                  uri: us-central1-docker.pkg.dev/container-integration/miru/django
+                  object: container_repository
+                - is_extra: true
+                  registry_url: us-central1-docker.pkg.dev/container-integration
+                  name: django
+                  account_login: container-integration
+                  compose_service: database
+                  id: cont_repo_123
+                  type: gar
+                  uri: us-central1-docker.pkg.dev/container-integration/miru/django
+                  object: container_repository
+                object: list
+              name: Ad Display V2.2.1
+              created_at: 2000-01-23T04:56:07.000+00:00
+              id: reg_src_1234
+              object: registry_source
+            created_at: 2024-11-03T14:19:50Z
+            source_type: github
+            github_source_data:
+              build_path: valid/wordpress
+              head_commit:
+                id: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+                message: Update README.md
+                url: https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+              sender:
+                avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+                html_url: https://github.com/bensmidt
+                id: 1234
+                type: User
+                login: bensmidt
+              repository:
+                full_name: miruml/e2e-tests
+                pushed_at: 2024-11-03T14:19:50Z
+                html_url: https://github.com/miruml/e2e-tests
+                clone_url: https://github.com/miruml/e2e-tests.git
+                id: 819141000
+              branch: main
+            created_by:
+              last_name: Doe
+              id: usr_1234
+              first_name: John
+              object: user
+            github_source:
+              build_path: path/to/compose/file/
+              deleted: false
+              name: e2e-tests
+              repository_id: 12345
+              id: gh_src_123
+              branch: main
+              repository_name: bensmidt/e2e-tests
+              object: github_source
+            x86_64: false
+            ready_at: 2024-11-03T14:25:50Z
+            digest: dad036b
+            id: art_1234
+            failed_at: 2024-11-03T14:25:50Z
+            source_id: reg_src_1234
+            object: artifact
+            status: queued
+          target_status: active
+          downloaded_at: 2024-11-03T14:19:50Z
+          id: dep_1234
+          error_status: retrying
+          active_at: 2024-11-03T14:19:50Z
+          stopped_at: 2024-11-03T14:19:50Z
+          activity_status: downloading
+          object: deployment
+          status: retrying
+        - cooldown_ends_at: 2024-11-03T14:19:50Z
+          device_id: dev_1234
+          archived_at: 2024-11-03T14:19:50Z
+          stopping_at: 2024-11-03T14:19:50Z
+          downloading_at: 2024-11-03T14:19:50Z
+          created_at: 2024-11-03T14:19:50Z
+          booting_at: 2024-11-03T14:19:50Z
+          removing_at: 2024-11-03T14:19:50Z
+          artifact:
+            aarch64: true
+            registry_source:
+              aarch64: true
+              x86_64: false
+              updated_at: 2000-01-23T04:56:07.000+00:00
+              repositories:
+                data:
+                - is_extra: true
+                  registry_url: us-central1-docker.pkg.dev/container-integration
+                  name: django
+                  account_login: container-integration
+                  compose_service: database
+                  id: cont_repo_123
+                  type: gar
+                  uri: us-central1-docker.pkg.dev/container-integration/miru/django
+                  object: container_repository
+                - is_extra: true
+                  registry_url: us-central1-docker.pkg.dev/container-integration
+                  name: django
+                  account_login: container-integration
+                  compose_service: database
+                  id: cont_repo_123
+                  type: gar
+                  uri: us-central1-docker.pkg.dev/container-integration/miru/django
+                  object: container_repository
+                object: list
+              name: Ad Display V2.2.1
+              created_at: 2000-01-23T04:56:07.000+00:00
+              id: reg_src_1234
+              object: registry_source
+            created_at: 2024-11-03T14:19:50Z
+            source_type: github
+            github_source_data:
+              build_path: valid/wordpress
+              head_commit:
+                id: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+                message: Update README.md
+                url: https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+              sender:
+                avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+                html_url: https://github.com/bensmidt
+                id: 1234
+                type: User
+                login: bensmidt
+              repository:
+                full_name: miruml/e2e-tests
+                pushed_at: 2024-11-03T14:19:50Z
+                html_url: https://github.com/miruml/e2e-tests
+                clone_url: https://github.com/miruml/e2e-tests.git
+                id: 819141000
+              branch: main
+            created_by:
+              last_name: Doe
+              id: usr_1234
+              first_name: John
+              object: user
+            github_source:
+              build_path: path/to/compose/file/
+              deleted: false
+              name: e2e-tests
+              repository_id: 12345
+              id: gh_src_123
+              branch: main
+              repository_name: bensmidt/e2e-tests
+              object: github_source
+            x86_64: false
+            ready_at: 2024-11-03T14:25:50Z
+            digest: dad036b
+            id: art_1234
+            failed_at: 2024-11-03T14:25:50Z
+            source_id: reg_src_1234
+            object: artifact
+            status: queued
+          target_status: active
+          downloaded_at: 2024-11-03T14:19:50Z
+          id: dep_1234
+          error_status: retrying
+          active_at: 2024-11-03T14:19:50Z
+          stopped_at: 2024-11-03T14:19:50Z
+          activity_status: downloading
+          object: deployment
+          status: retrying
+        object: list
+      properties:
+        object:
+          example: list
+          type: string
+        data:
+          items:
+            $ref: '#/components/schemas/Deployment'
+          type: array
+      required:
+      - data
+      - object
+      title: Deployment List
+      type: object
+    CreateDeployments:
+      example:
+        artifact_ids:
+        - art_1234
+        - art_1234
+        device_ids:
+        - device_1234
+        - device_1234
+      properties:
+        artifact_ids:
+          items:
+            example: art_1234
+            type: string
+          type: array
+        device_ids:
+          items:
+            example: device_1234
+            type: string
+          type: array
+      required:
+      - artifact_ids
+      - device_ids
+      title: Create Deployments
+      type: object
+    DeploymentLogList:
+      example:
+        data:
+        - code: not_downloaded
+          level: info
+          message: Deployment started
+          timestamp: 2024-11-03T14:19:50Z
+        - code: not_downloaded
+          level: info
+          message: Deployment started
+          timestamp: 2024-11-03T14:19:50Z
+        object: list
+      properties:
+        object:
+          example: list
+          type: string
+        data:
+          items:
+            $ref: '#/components/schemas/DeploymentLog'
+          type: array
+      required:
+      - data
+      - object
+      title: Deployment Log List
+      type: object
+    Device:
+      allOf:
+      - $ref: '#/components/schemas/BaseDevice'
+      - properties:
+          group:
+            $ref: '#/components/schemas/BaseGroup'
+        type: object
+      example:
+        miru_version: 0.5.1
+        created_at: 2024-11-03T14:19:50Z
+        last_reported_status: active
+        workspace_id: wsp_1234
+        name: my-device
+        operating_system: ubuntu
+        id: device_1234
+        object: device
+        hardware: raspberry-pi
+        architecture: arm64
+        status: offline
+        synced_at: 2000-01-23T04:56:07.000+00:00
+        group:
+          workspace_id: wsp_1234
+          name: my-group
+          id: group_1234
+          object: group
+    GitHubSourceCommits:
+      example:
+        commits:
+          data:
+          - committer:
+              avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+              html_url: https://github.com/bensmidt
+              id: 92611223
+              login: bensmidt
+              type: User
+              object: github_account
+            pushed_at: 2024-01-01T00:00:00Z
+            html_url: https://github.com/bensmidt/test-repo/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+            is_built: true
+            message: Fixes a bug
+            sha: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+            object: github_commit
+            artifacts:
+              data:
+              - aarch64: true
+                created_at: 2024-11-03T14:19:50Z
+                source_type: github
+                github_source_data:
+                  build_path: valid/wordpress
+                  head_commit:
+                    id: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+                    message: Update README.md
+                    url: https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+                  sender:
+                    avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+                    html_url: https://github.com/bensmidt
+                    id: 1234
+                    type: User
+                    login: bensmidt
+                  repository:
+                    full_name: miruml/e2e-tests
+                    pushed_at: 2024-11-03T14:19:50Z
+                    html_url: https://github.com/miruml/e2e-tests
+                    clone_url: https://github.com/miruml/e2e-tests.git
+                    id: 819141000
+                  branch: main
+                created_by:
+                  last_name: Doe
+                  id: usr_1234
+                  first_name: John
+                  object: user
+                github_source:
+                  build_path: path/to/compose/file/
+                  deleted: false
+                  name: e2e-tests
+                  repository_id: 12345
+                  id: gh_src_123
+                  branch: main
+                  repository_name: bensmidt/e2e-tests
+                  object: github_source
+                x86_64: false
+                ready_at: 2024-11-03T14:25:50Z
+                digest: dad036b
+                id: art_1234
+                failed_at: 2024-11-03T14:25:50Z
+                source_id: reg_src_1234
+                object: artifact
+                status: queued
+              - aarch64: true
+                created_at: 2024-11-03T14:19:50Z
+                source_type: github
+                github_source_data:
+                  build_path: valid/wordpress
+                  head_commit:
+                    id: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+                    message: Update README.md
+                    url: https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+                  sender:
+                    avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+                    html_url: https://github.com/bensmidt
+                    id: 1234
+                    type: User
+                    login: bensmidt
+                  repository:
+                    full_name: miruml/e2e-tests
+                    pushed_at: 2024-11-03T14:19:50Z
+                    html_url: https://github.com/miruml/e2e-tests
+                    clone_url: https://github.com/miruml/e2e-tests.git
+                    id: 819141000
+                  branch: main
+                created_by:
+                  last_name: Doe
+                  id: usr_1234
+                  first_name: John
+                  object: user
+                github_source:
+                  build_path: path/to/compose/file/
+                  deleted: false
+                  name: e2e-tests
+                  repository_id: 12345
+                  id: gh_src_123
+                  branch: main
+                  repository_name: bensmidt/e2e-tests
+                  object: github_source
+                x86_64: false
+                ready_at: 2024-11-03T14:25:50Z
+                digest: dad036b
+                id: art_1234
+                failed_at: 2024-11-03T14:25:50Z
+                source_id: reg_src_1234
+                object: artifact
+                status: queued
+              object: list
+          - committer:
+              avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+              html_url: https://github.com/bensmidt
+              id: 92611223
+              login: bensmidt
+              type: User
+              object: github_account
+            pushed_at: 2024-01-01T00:00:00Z
+            html_url: https://github.com/bensmidt/test-repo/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+            is_built: true
+            message: Fixes a bug
+            sha: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+            object: github_commit
+            artifacts:
+              data:
+              - aarch64: true
+                created_at: 2024-11-03T14:19:50Z
+                source_type: github
+                github_source_data:
+                  build_path: valid/wordpress
+                  head_commit:
+                    id: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+                    message: Update README.md
+                    url: https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+                  sender:
+                    avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+                    html_url: https://github.com/bensmidt
+                    id: 1234
+                    type: User
+                    login: bensmidt
+                  repository:
+                    full_name: miruml/e2e-tests
+                    pushed_at: 2024-11-03T14:19:50Z
+                    html_url: https://github.com/miruml/e2e-tests
+                    clone_url: https://github.com/miruml/e2e-tests.git
+                    id: 819141000
+                  branch: main
+                created_by:
+                  last_name: Doe
+                  id: usr_1234
+                  first_name: John
+                  object: user
+                github_source:
+                  build_path: path/to/compose/file/
+                  deleted: false
+                  name: e2e-tests
+                  repository_id: 12345
+                  id: gh_src_123
+                  branch: main
+                  repository_name: bensmidt/e2e-tests
+                  object: github_source
+                x86_64: false
+                ready_at: 2024-11-03T14:25:50Z
+                digest: dad036b
+                id: art_1234
+                failed_at: 2024-11-03T14:25:50Z
+                source_id: reg_src_1234
+                object: artifact
+                status: queued
+              - aarch64: true
+                created_at: 2024-11-03T14:19:50Z
+                source_type: github
+                github_source_data:
+                  build_path: valid/wordpress
+                  head_commit:
+                    id: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+                    message: Update README.md
+                    url: https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+                  sender:
+                    avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+                    html_url: https://github.com/bensmidt
+                    id: 1234
+                    type: User
+                    login: bensmidt
+                  repository:
+                    full_name: miruml/e2e-tests
+                    pushed_at: 2024-11-03T14:19:50Z
+                    html_url: https://github.com/miruml/e2e-tests
+                    clone_url: https://github.com/miruml/e2e-tests.git
+                    id: 819141000
+                  branch: main
+                created_by:
+                  last_name: Doe
+                  id: usr_1234
+                  first_name: John
+                  object: user
+                github_source:
+                  build_path: path/to/compose/file/
+                  deleted: false
+                  name: e2e-tests
+                  repository_id: 12345
+                  id: gh_src_123
+                  branch: main
+                  repository_name: bensmidt/e2e-tests
+                  object: github_source
+                x86_64: false
+                ready_at: 2024-11-03T14:25:50Z
+                digest: dad036b
+                id: art_1234
+                failed_at: 2024-11-03T14:25:50Z
+                source_id: reg_src_1234
+                object: artifact
+                status: queued
+              object: list
+          object: list
+        repository:
+          full_name: bensmidt/e2e-tests
+          html_url: https://github.com/bensmidt/e2e-tests
+          name: e2e-tests
+          id: 1234567890
+          object: github_repository
+        branch: main
+        object: github_source_commits
+      properties:
+        object:
+          example: github_source_commits
+          type: string
+        repository:
+          $ref: '#/components/schemas/GitHubRepository'
+        branch:
+          example: main
+          type: string
+        commits:
+          $ref: '#/components/schemas/GitHubCommitList'
+      required:
+      - branch
+      - commits
+      - object
+      - repository
+      title: GitHubSourceCommits
+      type: object
+    GitHubRepository:
+      example:
+        full_name: bensmidt/e2e-tests
+        html_url: https://github.com/bensmidt/e2e-tests
+        name: e2e-tests
+        id: 1234567890
+        object: github_repository
+      properties:
+        id:
+          example: 1234567890
+          format: int64
+          type: integer
+        object:
+          example: github_repository
+          type: string
+        name:
+          example: e2e-tests
+          type: string
+        full_name:
+          example: bensmidt/e2e-tests
+          type: string
+        html_url:
+          example: https://github.com/bensmidt/e2e-tests
+          type: string
+      required:
+      - clone_url
+      - full_name
+      - html_url
+      - id
+      - name
+      - object
+      title: GitHub Repository
+      type: object
+    GitHubCommitList:
+      example:
+        data:
+        - committer:
+            avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+            html_url: https://github.com/bensmidt
+            id: 92611223
+            login: bensmidt
+            type: User
+            object: github_account
+          pushed_at: 2024-01-01T00:00:00Z
+          html_url: https://github.com/bensmidt/test-repo/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+          is_built: true
+          message: Fixes a bug
+          sha: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+          object: github_commit
+          artifacts:
+            data:
+            - aarch64: true
+              created_at: 2024-11-03T14:19:50Z
+              source_type: github
+              github_source_data:
+                build_path: valid/wordpress
+                head_commit:
+                  id: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+                  message: Update README.md
+                  url: https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+                sender:
+                  avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+                  html_url: https://github.com/bensmidt
+                  id: 1234
+                  type: User
+                  login: bensmidt
+                repository:
+                  full_name: miruml/e2e-tests
+                  pushed_at: 2024-11-03T14:19:50Z
+                  html_url: https://github.com/miruml/e2e-tests
+                  clone_url: https://github.com/miruml/e2e-tests.git
+                  id: 819141000
+                branch: main
+              created_by:
+                last_name: Doe
+                id: usr_1234
+                first_name: John
+                object: user
+              github_source:
+                build_path: path/to/compose/file/
+                deleted: false
+                name: e2e-tests
+                repository_id: 12345
+                id: gh_src_123
+                branch: main
+                repository_name: bensmidt/e2e-tests
+                object: github_source
+              x86_64: false
+              ready_at: 2024-11-03T14:25:50Z
+              digest: dad036b
+              id: art_1234
+              failed_at: 2024-11-03T14:25:50Z
+              source_id: reg_src_1234
+              object: artifact
+              status: queued
+            - aarch64: true
+              created_at: 2024-11-03T14:19:50Z
+              source_type: github
+              github_source_data:
+                build_path: valid/wordpress
+                head_commit:
+                  id: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+                  message: Update README.md
+                  url: https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+                sender:
+                  avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+                  html_url: https://github.com/bensmidt
+                  id: 1234
+                  type: User
+                  login: bensmidt
+                repository:
+                  full_name: miruml/e2e-tests
+                  pushed_at: 2024-11-03T14:19:50Z
+                  html_url: https://github.com/miruml/e2e-tests
+                  clone_url: https://github.com/miruml/e2e-tests.git
+                  id: 819141000
+                branch: main
+              created_by:
+                last_name: Doe
+                id: usr_1234
+                first_name: John
+                object: user
+              github_source:
+                build_path: path/to/compose/file/
+                deleted: false
+                name: e2e-tests
+                repository_id: 12345
+                id: gh_src_123
+                branch: main
+                repository_name: bensmidt/e2e-tests
+                object: github_source
+              x86_64: false
+              ready_at: 2024-11-03T14:25:50Z
+              digest: dad036b
+              id: art_1234
+              failed_at: 2024-11-03T14:25:50Z
+              source_id: reg_src_1234
+              object: artifact
+              status: queued
+            object: list
+        - committer:
+            avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+            html_url: https://github.com/bensmidt
+            id: 92611223
+            login: bensmidt
+            type: User
+            object: github_account
+          pushed_at: 2024-01-01T00:00:00Z
+          html_url: https://github.com/bensmidt/test-repo/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+          is_built: true
+          message: Fixes a bug
+          sha: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+          object: github_commit
+          artifacts:
+            data:
+            - aarch64: true
+              created_at: 2024-11-03T14:19:50Z
+              source_type: github
+              github_source_data:
+                build_path: valid/wordpress
+                head_commit:
+                  id: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+                  message: Update README.md
+                  url: https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+                sender:
+                  avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+                  html_url: https://github.com/bensmidt
+                  id: 1234
+                  type: User
+                  login: bensmidt
+                repository:
+                  full_name: miruml/e2e-tests
+                  pushed_at: 2024-11-03T14:19:50Z
+                  html_url: https://github.com/miruml/e2e-tests
+                  clone_url: https://github.com/miruml/e2e-tests.git
+                  id: 819141000
+                branch: main
+              created_by:
+                last_name: Doe
+                id: usr_1234
+                first_name: John
+                object: user
+              github_source:
+                build_path: path/to/compose/file/
+                deleted: false
+                name: e2e-tests
+                repository_id: 12345
+                id: gh_src_123
+                branch: main
+                repository_name: bensmidt/e2e-tests
+                object: github_source
+              x86_64: false
+              ready_at: 2024-11-03T14:25:50Z
+              digest: dad036b
+              id: art_1234
+              failed_at: 2024-11-03T14:25:50Z
+              source_id: reg_src_1234
+              object: artifact
+              status: queued
+            - aarch64: true
+              created_at: 2024-11-03T14:19:50Z
+              source_type: github
+              github_source_data:
+                build_path: valid/wordpress
+                head_commit:
+                  id: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+                  message: Update README.md
+                  url: https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+                sender:
+                  avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+                  html_url: https://github.com/bensmidt
+                  id: 1234
+                  type: User
+                  login: bensmidt
+                repository:
+                  full_name: miruml/e2e-tests
+                  pushed_at: 2024-11-03T14:19:50Z
+                  html_url: https://github.com/miruml/e2e-tests
+                  clone_url: https://github.com/miruml/e2e-tests.git
+                  id: 819141000
+                branch: main
+              created_by:
+                last_name: Doe
+                id: usr_1234
+                first_name: John
+                object: user
+              github_source:
+                build_path: path/to/compose/file/
+                deleted: false
+                name: e2e-tests
+                repository_id: 12345
+                id: gh_src_123
+                branch: main
+                repository_name: bensmidt/e2e-tests
+                object: github_source
+              x86_64: false
+              ready_at: 2024-11-03T14:25:50Z
+              digest: dad036b
+              id: art_1234
+              failed_at: 2024-11-03T14:25:50Z
+              source_id: reg_src_1234
+              object: artifact
+              status: queued
+            object: list
+        object: list
+      properties:
+        object:
+          example: list
+          type: string
+        data:
+          items:
+            $ref: '#/components/schemas/GitHubCommit'
+          type: array
+      required:
+      - data
+      - object
+      title: GitHub CommitList
+      type: object
+    GitHubCommit:
+      example:
+        committer:
+          avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+          html_url: https://github.com/bensmidt
+          id: 92611223
+          login: bensmidt
+          type: User
+          object: github_account
+        pushed_at: 2024-01-01T00:00:00Z
+        html_url: https://github.com/bensmidt/test-repo/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+        is_built: true
+        message: Fixes a bug
+        sha: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+        object: github_commit
+        artifacts:
+          data:
+          - aarch64: true
+            created_at: 2024-11-03T14:19:50Z
+            source_type: github
+            github_source_data:
+              build_path: valid/wordpress
+              head_commit:
+                id: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+                message: Update README.md
+                url: https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+              sender:
+                avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+                html_url: https://github.com/bensmidt
+                id: 1234
+                type: User
+                login: bensmidt
+              repository:
+                full_name: miruml/e2e-tests
+                pushed_at: 2024-11-03T14:19:50Z
+                html_url: https://github.com/miruml/e2e-tests
+                clone_url: https://github.com/miruml/e2e-tests.git
+                id: 819141000
+              branch: main
+            created_by:
+              last_name: Doe
+              id: usr_1234
+              first_name: John
+              object: user
+            github_source:
+              build_path: path/to/compose/file/
+              deleted: false
+              name: e2e-tests
+              repository_id: 12345
+              id: gh_src_123
+              branch: main
+              repository_name: bensmidt/e2e-tests
+              object: github_source
+            x86_64: false
+            ready_at: 2024-11-03T14:25:50Z
+            digest: dad036b
+            id: art_1234
+            failed_at: 2024-11-03T14:25:50Z
+            source_id: reg_src_1234
+            object: artifact
+            status: queued
+          - aarch64: true
+            created_at: 2024-11-03T14:19:50Z
+            source_type: github
+            github_source_data:
+              build_path: valid/wordpress
+              head_commit:
+                id: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+                message: Update README.md
+                url: https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+              sender:
+                avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+                html_url: https://github.com/bensmidt
+                id: 1234
+                type: User
+                login: bensmidt
+              repository:
+                full_name: miruml/e2e-tests
+                pushed_at: 2024-11-03T14:19:50Z
+                html_url: https://github.com/miruml/e2e-tests
+                clone_url: https://github.com/miruml/e2e-tests.git
+                id: 819141000
+              branch: main
+            created_by:
+              last_name: Doe
+              id: usr_1234
+              first_name: John
+              object: user
+            github_source:
+              build_path: path/to/compose/file/
+              deleted: false
+              name: e2e-tests
+              repository_id: 12345
+              id: gh_src_123
+              branch: main
+              repository_name: bensmidt/e2e-tests
+              object: github_source
+            x86_64: false
+            ready_at: 2024-11-03T14:25:50Z
+            digest: dad036b
+            id: art_1234
+            failed_at: 2024-11-03T14:25:50Z
+            source_id: reg_src_1234
+            object: artifact
+            status: queued
+          object: list
+      properties:
+        object:
+          example: github_commit
+          type: string
+        sha:
+          example: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+          type: string
+        message:
+          example: Fixes a bug
+          type: string
+        html_url:
+          example: https://github.com/bensmidt/test-repo/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+          type: string
+        pushed_at:
+          example: 2024-01-01T00:00:00Z
+          format: date-time
+          type: string
+        committer:
+          $ref: '#/components/schemas/GitHubCommitter'
+        is_built:
+          example: true
+          type: boolean
+        artifacts:
+          $ref: '#/components/schemas/ArtifactWithGitHubSourceDataList'
+      required:
+      - artifact_id
+      - committer
+      - html_url
+      - is_built
+      - message
+      - object
+      - pushed_at
+      - sha
+      title: GitHub Commit
+      type: object
+    GitHubCommitter:
+      example:
+        avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+        html_url: https://github.com/bensmidt
+        id: 92611223
+        login: bensmidt
+        type: User
+        object: github_account
+      properties:
+        id:
+          example: 92611223
+          format: int64
+          type: integer
+        object:
+          example: github_account
+          type: string
+        login:
+          example: bensmidt
+          type: string
+        type:
+          example: User
+          type: string
+        html_url:
+          example: https://github.com/bensmidt
+          type: string
+        avatar_url:
+          example: https://avatars.githubusercontent.com/u/92611223?v=4
+          type: string
+      required:
+      - avatar_url
+      - html_url
+      - id
+      - login
+      - object
+      - type
+      title: GitHub Committer
+      type: object
+    Group:
+      allOf:
+      - $ref: '#/components/schemas/BaseGroup'
+      - properties:
+          devices:
+            $ref: '#/components/schemas/GroupDeviceList'
+          github_sources:
+            $ref: '#/components/schemas/GitHubSourceList'
+        type: object
+      example:
+        workspace_id: wsp_1234
+        devices:
+          data:
+          - miru_version: 0.5.1
+            created_at: 2024-11-03T14:19:50Z
+            last_reported_status: active
+            workspace_id: wsp_1234
+            deployments:
+              data:
+              - id: deployment_1234
+                error_status: none
+                activity_status: active
+                object: deployment
+                status: running
+              - id: deployment_1234
+                error_status: none
+                activity_status: active
+                object: deployment
+                status: running
+              object: list
+            name: my-device
+            operating_system: ubuntu
+            containers:
+              data:
+              - id: container_1234
+                object: container
+                status: running
+              - id: container_1234
+                object: container
+                status: running
+              object: list
+            id: device_1234
+            object: device
+            hardware: raspberry-pi
+            architecture: arm64
+            status: offline
+            synced_at: 2000-01-23T04:56:07.000+00:00
+          - miru_version: 0.5.1
+            created_at: 2024-11-03T14:19:50Z
+            last_reported_status: active
+            workspace_id: wsp_1234
+            deployments:
+              data:
+              - id: deployment_1234
+                error_status: none
+                activity_status: active
+                object: deployment
+                status: running
+              - id: deployment_1234
+                error_status: none
+                activity_status: active
+                object: deployment
+                status: running
+              object: list
+            name: my-device
+            operating_system: ubuntu
+            containers:
+              data:
+              - id: container_1234
+                object: container
+                status: running
+              - id: container_1234
+                object: container
+                status: running
+              object: list
+            id: device_1234
+            object: device
+            hardware: raspberry-pi
+            architecture: arm64
+            status: offline
+            synced_at: 2000-01-23T04:56:07.000+00:00
+          object: list
+        name: my-group
+        id: group_1234
+        github_sources:
+          data:
+          - build_path: path/to/compose/file/
+            deleted: false
+            name: e2e-tests
+            repository_id: 12345
+            id: gh_src_123
+            branch: main
+            repository_name: bensmidt/e2e-tests
+            object: github_source
+          - build_path: path/to/compose/file/
+            deleted: false
+            name: e2e-tests
+            repository_id: 12345
+            id: gh_src_123
+            branch: main
+            repository_name: bensmidt/e2e-tests
+            object: github_source
+          object: list
+        object: group
+    GroupDeviceList:
+      example:
+        data:
+        - miru_version: 0.5.1
+          created_at: 2024-11-03T14:19:50Z
+          last_reported_status: active
+          workspace_id: wsp_1234
+          deployments:
+            data:
+            - id: deployment_1234
+              error_status: none
+              activity_status: active
+              object: deployment
+              status: running
+            - id: deployment_1234
+              error_status: none
+              activity_status: active
+              object: deployment
+              status: running
+            object: list
+          name: my-device
+          operating_system: ubuntu
+          containers:
+            data:
+            - id: container_1234
+              object: container
+              status: running
+            - id: container_1234
+              object: container
+              status: running
+            object: list
+          id: device_1234
+          object: device
+          hardware: raspberry-pi
+          architecture: arm64
+          status: offline
+          synced_at: 2000-01-23T04:56:07.000+00:00
+        - miru_version: 0.5.1
+          created_at: 2024-11-03T14:19:50Z
+          last_reported_status: active
+          workspace_id: wsp_1234
+          deployments:
+            data:
+            - id: deployment_1234
+              error_status: none
+              activity_status: active
+              object: deployment
+              status: running
+            - id: deployment_1234
+              error_status: none
+              activity_status: active
+              object: deployment
+              status: running
+            object: list
+          name: my-device
+          operating_system: ubuntu
+          containers:
+            data:
+            - id: container_1234
+              object: container
+              status: running
+            - id: container_1234
+              object: container
+              status: running
+            object: list
+          id: device_1234
+          object: device
+          hardware: raspberry-pi
+          architecture: arm64
+          status: offline
+          synced_at: 2000-01-23T04:56:07.000+00:00
+        object: list
+      properties:
+        object:
+          example: list
+          type: string
+        data:
+          items:
+            $ref: '#/components/schemas/GroupDevice'
+          type: array
+      required:
+      - data
+      - object
+      title: Group Device List
+      type: object
+    GroupDevice:
+      allOf:
+      - $ref: '#/components/schemas/BaseDevice'
+      - properties:
+          containers:
+            $ref: '#/components/schemas/GroupDeviceContainerList'
+          deployments:
+            $ref: '#/components/schemas/GroupDeviceDeploymentList'
+        required:
+        - containers
+        - deployments
+        type: object
+      example:
+        miru_version: 0.5.1
+        created_at: 2024-11-03T14:19:50Z
+        last_reported_status: active
+        workspace_id: wsp_1234
+        deployments:
+          data:
+          - id: deployment_1234
+            error_status: none
+            activity_status: active
+            object: deployment
+            status: running
+          - id: deployment_1234
+            error_status: none
+            activity_status: active
+            object: deployment
+            status: running
+          object: list
+        name: my-device
+        operating_system: ubuntu
+        containers:
+          data:
+          - id: container_1234
+            object: container
+            status: running
+          - id: container_1234
+            object: container
+            status: running
+          object: list
+        id: device_1234
+        object: device
+        hardware: raspberry-pi
+        architecture: arm64
+        status: offline
+        synced_at: 2000-01-23T04:56:07.000+00:00
+    GroupDeviceContainerList:
+      example:
+        data:
+        - id: container_1234
+          object: container
+          status: running
+        - id: container_1234
+          object: container
+          status: running
+        object: list
+      properties:
+        object:
+          example: list
+          type: string
+        data:
+          items:
+            $ref: '#/components/schemas/GroupDeviceContainer'
+          type: array
+      required:
+      - data
+      - object
+      title: Group Device Container List
+      type: object
+    GroupDeviceContainer:
+      example:
+        id: container_1234
+        object: container
+        status: running
+      properties:
+        object:
+          example: container
+          type: string
+        id:
+          example: container_1234
+          type: string
+        status:
+          example: running
+          type: string
+      required:
+      - id
+      - object
+      - status
+      title: Group Device Container
+      type: object
+    GroupDeviceDeploymentList:
+      example:
+        data:
+        - id: deployment_1234
+          error_status: none
+          activity_status: active
+          object: deployment
+          status: running
+        - id: deployment_1234
+          error_status: none
+          activity_status: active
+          object: deployment
+          status: running
+        object: list
+      properties:
+        object:
+          example: list
+          type: string
+        data:
+          items:
+            $ref: '#/components/schemas/GroupDeviceDeployment'
+          type: array
+      required:
+      - data
+      - object
+      title: Group Device Deployment List
+      type: object
+    GroupDeviceDeployment:
+      example:
+        id: deployment_1234
+        error_status: none
+        activity_status: active
+        object: deployment
+        status: running
+      properties:
+        object:
+          example: deployment
+          type: string
+        id:
+          example: deployment_1234
+          type: string
+        status:
+          example: running
+          type: string
+        activity_status:
+          example: active
+          type: string
+        error_status:
+          example: none
+          type: string
+      required:
+      - activity_status
+      - error_status
+      - id
+      - object
+      - status
+      title: Group Device Deployment
+      type: object
+    ExternalContainerImageList:
+      example:
+        data:
+        - uploaded_at: 2021-01-01T00:00:00Z
+          bytes: 392510987
+          digest: sha256:123abc
+          uri: docker.io/redis:latest
+          object: external_image
+          tags:
+          - latest
+          - v1.0.0
+          - stable
+        - uploaded_at: 2021-01-01T00:00:00Z
+          bytes: 392510987
+          digest: sha256:123abc
+          uri: docker.io/redis:latest
+          object: external_image
+          tags:
+          - latest
+          - v1.0.0
+          - stable
+        object: list
+      properties:
+        object:
+          example: list
+          type: string
+        data:
+          items:
+            $ref: '#/components/schemas/ExternalContainerImage'
+          type: array
+      required:
+      - data
+      - object
+      title: External Container Image List
+      type: object
+    ExternalContainerImage:
+      example:
+        uploaded_at: 2021-01-01T00:00:00Z
+        bytes: 392510987
+        digest: sha256:123abc
+        uri: docker.io/redis:latest
+        object: external_image
+        tags:
+        - latest
+        - v1.0.0
+        - stable
+      properties:
+        object:
+          example: external_image
+          type: string
+        digest:
+          example: sha256:123abc
+          type: string
+        tags:
+          example:
+          - latest
+          - v1.0.0
+          - stable
+          items:
+            example: latest
+            type: string
+          type: array
+        uri:
+          example: docker.io/redis:latest
+          type: string
+        bytes:
+          example: 392510987
+          format: int64
+          nullable: true
+          type: integer
+        uploaded_at:
+          example: 2021-01-01T00:00:00Z
+          format: date-time
+          type: string
+      required:
+      - bytes
+      - digest
+      - object
+      - tags
+      - uploaded_at
+      - uri
+      title: External Container Image
+      type: object
+    RegistrySource:
+      example:
+        aarch64: true
+        x86_64: false
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        repositories:
+          data:
+          - is_extra: true
+            registry_url: us-central1-docker.pkg.dev/container-integration
+            name: django
+            account_login: container-integration
+            compose_service: database
+            id: cont_repo_123
+            type: gar
+            uri: us-central1-docker.pkg.dev/container-integration/miru/django
+            object: container_repository
+          - is_extra: true
+            registry_url: us-central1-docker.pkg.dev/container-integration
+            name: django
+            account_login: container-integration
+            compose_service: database
+            id: cont_repo_123
+            type: gar
+            uri: us-central1-docker.pkg.dev/container-integration/miru/django
+            object: container_repository
+          object: list
+        name: Ad Display V2.2.1
+        created_at: 2000-01-23T04:56:07.000+00:00
+        id: reg_src_1234
+        object: registry_source
+      properties:
+        id:
+          example: reg_src_1234
+          type: string
+        object:
+          example: registry_source
+          type: string
+        name:
+          example: Ad Display V2.2.1
+          type: string
+        repositories:
+          $ref: '#/components/schemas/RegistrySourceContainerRepositoryList'
+        aarch64:
+          example: true
+          type: boolean
+        x86_64:
+          example: false
+          type: boolean
+        created_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      required:
+      - aarch64
+      - created_at
+      - id
+      - name
+      - object
+      - repositories
+      - updated_at
+      - x86_64
+      title: Registry Source
+      type: object
+    RegistrySourceContainerRepositoryList:
+      example:
+        data:
+        - is_extra: true
+          registry_url: us-central1-docker.pkg.dev/container-integration
+          name: django
+          account_login: container-integration
+          compose_service: database
+          id: cont_repo_123
+          type: gar
+          uri: us-central1-docker.pkg.dev/container-integration/miru/django
+          object: container_repository
+        - is_extra: true
+          registry_url: us-central1-docker.pkg.dev/container-integration
+          name: django
+          account_login: container-integration
+          compose_service: database
+          id: cont_repo_123
+          type: gar
+          uri: us-central1-docker.pkg.dev/container-integration/miru/django
+          object: container_repository
+        object: list
+      properties:
+        object:
+          example: list
+          type: string
+        data:
+          items:
+            $ref: '#/components/schemas/RegistrySourceContainerRepository'
+          type: array
+      required:
+      - data
+      - object
+      title: Registry Source Container Repository List
+      type: object
+    RegistrySourceContainerRepository:
+      example:
+        is_extra: true
+        registry_url: us-central1-docker.pkg.dev/container-integration
+        name: django
+        account_login: container-integration
+        compose_service: database
+        id: cont_repo_123
+        type: gar
+        uri: us-central1-docker.pkg.dev/container-integration/miru/django
+        object: container_repository
+      properties:
+        object:
+          example: container_repository
+          type: string
+        id:
+          example: cont_repo_123
+          type: string
+        registry_url:
+          example: us-central1-docker.pkg.dev/container-integration
+          type: string
+        account_login:
+          example: container-integration
+          type: string
+        name:
+          example: django
+          type: string
+        uri:
+          example: us-central1-docker.pkg.dev/container-integration/miru/django
+          type: string
+        type:
+          $ref: '#/components/schemas/ContainerRepositoryType'
+        is_extra:
+          example: true
+          type: boolean
+        compose_service:
+          example: database
+          nullable: true
+          type: string
+      required:
+      - account_login
+      - compose_service
+      - id
+      - is_extra
+      - name
+      - object
+      - registry_url
+      - type
+      - uri
+      title: Registry Source Container Repository
+      type: object
+    UpdateRegistrySource:
+      example:
+        aarch64: true
+        x86_64: false
+        extra_repositories:
+        - docker.io/redis
+        - us-central1-docker.pkg.dev/container-integration/miru/django
+        name: Ad Display V2.2.1
+        compose_file: |-
+          name: miru
+          services:
+            redis:
+            image: redis:latest
+            restart: always
+      properties:
+        name:
+          example: Ad Display V2.2.1
+          type: string
+        compose_file:
+          example: |-
+            name: miru
+            services:
+              redis:
+              image: redis:latest
+              restart: always
+          type: string
+        extra_repositories:
+          example:
+          - docker.io/redis
+          - us-central1-docker.pkg.dev/container-integration/miru/django
+          items:
+            type: string
+          type: array
+        aarch64:
+          example: true
+          type: boolean
+        x86_64:
+          example: false
+          type: boolean
+      required:
+      - aarch64
+      - compose_file
+      - extra_repositories
+      - name
+      - x86_64
+      title: Update Registry Source
+      type: object
+    InvalidComposeFile:
+      example:
+        code: invalid_compose_file
+        params:
+          error: <descriptive error message>
+        message: "Compose file is invalid: <descriptive error message>"
+      properties:
+        code:
+          example: invalid_compose_file
+          type: string
+        params:
+          $ref: '#/components/schemas/InvalidComposeFile_params'
+        message:
+          example: "Compose file is invalid: <descriptive error message>"
+          type: string
+      required:
+      - code
+      - message
+      - params
+      title: InvalidComposeFileError
+      type: object
+    RepositoryNotFound:
+      example:
+        code: repository_not_found
+        params:
+          registry_url: docker.io
+          registry_type: dockerhub
+          uri: docker.io/library/redis
+          repository_name: redis
+        message: Repository <repository-uri> (docker.io/library/redis) does not exist
+          using the credentials from your workspace. Please double check the repository
+          URI and the associated registry credentials.
+      properties:
+        code:
+          example: repository_not_found
+          type: string
+        params:
+          $ref: '#/components/schemas/RepositoryNotFound_params'
+        message:
+          example: Repository <repository-uri> (docker.io/library/redis) does not
+            exist using the credentials from your workspace. Please double check the
+            repository URI and the associated registry credentials.
+          type: string
+      required:
+      - code
+      - message
+      - params
+      title: RepositoryNotFoundError
+      type: object
+    ComposeFile:
+      example:
+        content: |-
+          name: miru
+          services:
+            redis:
+            image: redis:latest
+            restart: always
+        object: compose_file
+      properties:
+        object:
+          example: compose_file
+          type: string
+        content:
+          example: |-
+            name: miru
+            services:
+              redis:
+              image: redis:latest
+              restart: always
+          type: string
+      required:
+      - content
+      - object
+      title: Compose File
+    RegistrySourceList:
+      example:
+        data:
+        - aarch64: true
+          x86_64: false
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          repositories:
+            data:
+            - is_extra: true
+              registry_url: us-central1-docker.pkg.dev/container-integration
+              name: django
+              account_login: container-integration
+              compose_service: database
+              id: cont_repo_123
+              type: gar
+              uri: us-central1-docker.pkg.dev/container-integration/miru/django
+              object: container_repository
+            - is_extra: true
+              registry_url: us-central1-docker.pkg.dev/container-integration
+              name: django
+              account_login: container-integration
+              compose_service: database
+              id: cont_repo_123
+              type: gar
+              uri: us-central1-docker.pkg.dev/container-integration/miru/django
+              object: container_repository
+            object: list
+          name: Ad Display V2.2.1
+          created_at: 2000-01-23T04:56:07.000+00:00
+          id: reg_src_1234
+          object: registry_source
+        - aarch64: true
+          x86_64: false
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          repositories:
+            data:
+            - is_extra: true
+              registry_url: us-central1-docker.pkg.dev/container-integration
+              name: django
+              account_login: container-integration
+              compose_service: database
+              id: cont_repo_123
+              type: gar
+              uri: us-central1-docker.pkg.dev/container-integration/miru/django
+              object: container_repository
+            - is_extra: true
+              registry_url: us-central1-docker.pkg.dev/container-integration
+              name: django
+              account_login: container-integration
+              compose_service: database
+              id: cont_repo_123
+              type: gar
+              uri: us-central1-docker.pkg.dev/container-integration/miru/django
+              object: container_repository
+            object: list
+          name: Ad Display V2.2.1
+          created_at: 2000-01-23T04:56:07.000+00:00
+          id: reg_src_1234
+          object: registry_source
+        object: list
+      properties:
+        object:
+          example: list
+          type: string
+        data:
+          items:
+            $ref: '#/components/schemas/RegistrySource'
+          type: array
+      required:
+      - data
+      - object
+      title: Registry Source List
+      type: object
+    CreateRegistrySource:
+      example:
+        aarch64: true
+        x86_64: false
+        extra_repositories:
+        - docker.io/redis
+        - us-central1-docker.pkg.dev/container-integration/miru/django
+        name: Ad Display V2.2.1
+        compose_file: |-
+          name: miru
+          services:
+            redis:
+            image: redis:latest
+            restart: always
+      properties:
+        name:
+          example: Ad Display V2.2.1
+          type: string
+        compose_file:
+          example: |-
+            name: miru
+            services:
+              redis:
+              image: redis:latest
+              restart: always
+          type: string
+        extra_repositories:
+          example:
+          - docker.io/redis
+          - us-central1-docker.pkg.dev/container-integration/miru/django
+          items:
+            type: string
+          type: array
+        aarch64:
+          example: true
+          type: boolean
+        x86_64:
+          example: false
+          type: boolean
+      required:
+      - aarch64
+      - compose_file
+      - extra_repositories
+      - name
+      - x86_64
+      title: Create Registry Source
+      type: object
+    ContainerRepository:
+      example:
+        registry_url: us-central1-docker.pkg.dev/container-integration
+        name: django
+        account_login: container-integration
+        id: cont_repo_123
+        type: gar
+        uri: us-central1-docker.pkg.dev/container-integration/miru/django
+        object: container_repository
+      properties:
+        object:
+          example: container_repository
+          type: string
+        id:
+          example: cont_repo_123
+          type: string
+        registry_url:
+          example: us-central1-docker.pkg.dev/container-integration
+          type: string
+        account_login:
+          example: container-integration
+          type: string
+        name:
+          example: django
+          type: string
+        uri:
+          example: us-central1-docker.pkg.dev/container-integration/miru/django
+          type: string
+        type:
+          $ref: '#/components/schemas/ContainerRepositoryType'
+      required:
+      - account_login
+      - id
+      - name
+      - object
+      - registry_url
+      - type
+      - uri
+      title: Container Repository
+      type: object
+    ContainerRepositoryType:
+      enum:
+      - gar
+      - dockerhub
+      example: gar
+      title: Container Repository Type
+      type: string
+    ExternalContainerRepositoryList:
+      example:
+        data:
+        - registry_url: us-central1-docker.pkg.dev/container-integration
+          bytes: 506406741
+          name: django
+          account_login: container-integration
+          description: A repository for the miru/django image
+          type: gar
+          uri: us-central1-docker.pkg.dev/container-integration/miru/django
+          object: external_container_repository
+        - registry_url: us-central1-docker.pkg.dev/container-integration
+          bytes: 506406741
+          name: django
+          account_login: container-integration
+          description: A repository for the miru/django image
+          type: gar
+          uri: us-central1-docker.pkg.dev/container-integration/miru/django
+          object: external_container_repository
+        object: list
+      properties:
+        object:
+          example: list
+          type: string
+        data:
+          items:
+            $ref: '#/components/schemas/ExternalContainerRepository'
+          type: array
+      required:
+      - data
+      - object
+      title: External Container Repository List
+      type: object
+    ExternalContainerRepository:
+      example:
+        registry_url: us-central1-docker.pkg.dev/container-integration
+        bytes: 506406741
+        name: django
+        account_login: container-integration
+        description: A repository for the miru/django image
+        type: gar
+        uri: us-central1-docker.pkg.dev/container-integration/miru/django
+        object: external_container_repository
+      properties:
+        object:
+          example: external_container_repository
+          type: string
+        registry_url:
+          example: us-central1-docker.pkg.dev/container-integration
+          type: string
+        account_login:
+          example: container-integration
+          type: string
+        name:
+          example: django
+          type: string
+        uri:
+          example: us-central1-docker.pkg.dev/container-integration/miru/django
+          type: string
+        type:
+          $ref: '#/components/schemas/ContainerRepositoryType'
+        description:
+          example: A repository for the miru/django image
+          nullable: true
+          type: string
+        bytes:
+          description: The size of the repository in bytes
+          example: 506406741
+          format: int64
+          nullable: true
+          type: integer
+      required:
+      - account_login
+      - bytes
+      - description
+      - name
+      - object
+      - registry_url
+      - type
+      - uri
+      title: External Container Repository
+      type: object
+    BadRequestError:
+      example:
+        code: <error_code>
+        params: "{}"
+        message: <error_message>
+      properties:
+        code:
+          example: <error_code>
+          type: string
+        params:
+          type: object
+        message:
+          example: <error_message>
+          type: string
+      required:
+      - code
+      - message
+      - params
+      title: Bad Request
+      type: object
+    ImageList:
+      example:
+        data:
+        - registry_url: us-central1-docker.pkg.dev/container-integration
+          name: django/nested/image/name
+          digest: sha256:123abc
+          account_login: container-integration
+          id: img_123
+          tag: latest
+          type: gar
+          uri: us-central1-docker.pkg.dev/container-integration/django/nested/image/name
+          object: image
+        - registry_url: us-central1-docker.pkg.dev/container-integration
+          name: django/nested/image/name
+          digest: sha256:123abc
+          account_login: container-integration
+          id: img_123
+          tag: latest
+          type: gar
+          uri: us-central1-docker.pkg.dev/container-integration/django/nested/image/name
+          object: image
+        object: list
+      properties:
+        object:
+          example: list
+          type: string
+        data:
+          items:
+            $ref: '#/components/schemas/Image'
+          type: array
+      required:
+      - data
+      - object
+      title: Image List
+      type: object
+    Image:
+      example:
+        registry_url: us-central1-docker.pkg.dev/container-integration
+        name: django/nested/image/name
+        digest: sha256:123abc
+        account_login: container-integration
+        id: img_123
+        tag: latest
+        type: gar
+        uri: us-central1-docker.pkg.dev/container-integration/django/nested/image/name
+        object: image
+      properties:
+        object:
+          example: image
+          type: string
+        id:
+          example: img_123
+          type: string
+        registry_url:
+          example: us-central1-docker.pkg.dev/container-integration
+          type: string
+        account_login:
+          example: container-integration
+          type: string
+        name:
+          example: django/nested/image/name
+          type: string
+        uri:
+          example: us-central1-docker.pkg.dev/container-integration/django/nested/image/name
+          type: string
+        type:
+          example: gar
+          type: string
+        digest:
+          example: sha256:123abc
+          type: string
+        tag:
+          example: latest
+          type: string
+      required:
+      - account_login
+      - digest
+      - id
+      - name
+      - object
+      - registry_url
+      - tag
+      - type
+      - uri
+      title: Image
+      type: object
+    GitHubSource:
+      example:
+        build_path: path/to/compose/file/
+        deleted: false
+        name: e2e-tests
+        repository_id: 12345
+        id: gh_src_123
+        branch: main
+        repository_name: bensmidt/e2e-tests
+        object: github_source
+      properties:
+        id:
+          example: gh_src_123
+          type: string
+        object:
+          example: github_source
+          type: string
+        name:
+          example: e2e-tests
+          type: string
+        repository_id:
+          example: 12345
+          format: int64
+          type: integer
+        repository_name:
+          example: bensmidt/e2e-tests
+          type: string
+        branch:
+          example: main
+          type: string
+        build_path:
+          example: path/to/compose/file/
+          type: string
+        deleted:
+          example: false
+          type: boolean
+      required:
+      - branch
+      - build_path
+      - deleted
+      - id
+      - name
+      - object
+      - repository_id
+      - repository_name
+      title: GitHub Source
+      type: object
+    User:
+      example:
+        last_name: Doe
+        id: usr_1234
+        first_name: John
+        object: user
+      properties:
+        object:
+          example: user
+          type: string
+        id:
+          example: usr_1234
+          type: string
+        first_name:
+          example: John
+          type: string
+        last_name:
+          example: Doe
+          type: string
+      required:
+      - first_name
+      - id
+      - last_name
+      - object
+      title: User
+      type: object
+    BaseDeployment:
+      properties:
+        object:
+          example: deployment
+          type: string
+        id:
+          example: dep_1234
+          type: string
+        device_id:
+          example: dev_1234
+          type: string
+        status:
+          example: retrying
+          type: string
+        activity_status:
+          example: downloading
+          type: string
+        error_status:
+          example: retrying
+          type: string
+        target_status:
+          example: active
+          type: string
+        created_at:
+          example: 2024-11-03T14:19:50Z
+          format: date-time
+          type: string
+        downloading_at:
+          example: 2024-11-03T14:19:50Z
+          format: date-time
+          nullable: true
+          type: string
+        downloaded_at:
+          example: 2024-11-03T14:19:50Z
+          format: date-time
+          nullable: true
+          type: string
+        booting_at:
+          example: 2024-11-03T14:19:50Z
+          format: date-time
+          nullable: true
+          type: string
+        active_at:
+          example: 2024-11-03T14:19:50Z
+          format: date-time
+          nullable: true
+          type: string
+        stopping_at:
+          example: 2024-11-03T14:19:50Z
+          format: date-time
+          nullable: true
+          type: string
+        stopped_at:
+          example: 2024-11-03T14:19:50Z
+          format: date-time
+          nullable: true
+          type: string
+        removing_at:
+          example: 2024-11-03T14:19:50Z
+          format: date-time
+          nullable: true
+          type: string
+        archived_at:
+          example: 2024-11-03T14:19:50Z
+          format: date-time
+          nullable: true
+          type: string
+        cooldown_ends_at:
+          example: 2024-11-03T14:19:50Z
+          format: date-time
+          type: string
+      required:
+      - active_at
+      - activity_status
+      - archived_at
+      - booting_at
+      - cooldown_ends_at
+      - created_at
+      - device_id
+      - downloaded_at
+      - downloading_at
+      - error_status
+      - id
+      - object
+      - removing_at
+      - status
+      - stopped_at
+      - stopping_at
+      - target_status
+      title: Deployment
+      type: object
+    DeploymentLog:
+      example:
+        code: not_downloaded
+        level: info
+        message: Deployment started
+        timestamp: 2024-11-03T14:19:50Z
+      properties:
+        timestamp:
+          example: 2024-11-03T14:19:50Z
+          format: date-time
+          type: string
+        level:
+          example: info
+          type: string
+        message:
+          example: Deployment started
+          type: string
+        code:
+          example: not_downloaded
+          type: string
+      required:
+      - code
+      - level
+      - message
+      - timestamp
+      title: Deployment Log
+      type: object
+    BaseDevice:
+      properties:
+        object:
+          example: device
+          type: string
+        id:
+          example: device_1234
+          type: string
+        workspace_id:
+          example: wsp_1234
+          type: string
+        name:
+          example: my-device
+          type: string
+        hardware:
+          example: raspberry-pi
+          type: string
+        operating_system:
+          example: ubuntu
+          nullable: true
+          type: string
+        architecture:
+          example: arm64
+          nullable: true
+          type: string
+        status:
+          example: offline
+          type: string
+        last_reported_status:
+          example: active
+          type: string
+        miru_version:
+          example: 0.5.1
+          nullable: true
+          type: string
+        created_at:
+          example: 2024-11-03T14:19:50Z
+          format: date-time
+          type: string
+        synced_at:
+          format: date-time
+          type: string
+      required:
+      - architecture
+      - created_at
+      - group
+      - hardware
+      - id
+      - last_reported_status
+      - miru_version
+      - name
+      - object
+      - operating_system
+      - status
+      - synced_at
+      title: Device
+      type: object
+    BaseGroup:
+      example:
+        workspace_id: wsp_1234
+        name: my-group
+        id: group_1234
+        object: group
+      properties:
+        object:
+          example: group
+          type: string
+        id:
+          example: group_1234
+          type: string
+        workspace_id:
+          example: wsp_1234
+          type: string
+        name:
+          example: my-group
+          type: string
+      required:
+      - id
+      - name
+      - object
+      title: BaseGroup
+      type: object
+    ArtifactWithGitHubSourceDataList:
+      example:
+        data:
+        - aarch64: true
+          created_at: 2024-11-03T14:19:50Z
+          source_type: github
+          github_source_data:
+            build_path: valid/wordpress
+            head_commit:
+              id: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+              message: Update README.md
+              url: https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+            sender:
+              avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+              html_url: https://github.com/bensmidt
+              id: 1234
+              type: User
+              login: bensmidt
+            repository:
+              full_name: miruml/e2e-tests
+              pushed_at: 2024-11-03T14:19:50Z
+              html_url: https://github.com/miruml/e2e-tests
+              clone_url: https://github.com/miruml/e2e-tests.git
+              id: 819141000
+            branch: main
+          created_by:
+            last_name: Doe
+            id: usr_1234
+            first_name: John
+            object: user
+          github_source:
+            build_path: path/to/compose/file/
+            deleted: false
+            name: e2e-tests
+            repository_id: 12345
+            id: gh_src_123
+            branch: main
+            repository_name: bensmidt/e2e-tests
+            object: github_source
+          x86_64: false
+          ready_at: 2024-11-03T14:25:50Z
+          digest: dad036b
+          id: art_1234
+          failed_at: 2024-11-03T14:25:50Z
+          source_id: reg_src_1234
+          object: artifact
+          status: queued
+        - aarch64: true
+          created_at: 2024-11-03T14:19:50Z
+          source_type: github
+          github_source_data:
+            build_path: valid/wordpress
+            head_commit:
+              id: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+              message: Update README.md
+              url: https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+            sender:
+              avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+              html_url: https://github.com/bensmidt
+              id: 1234
+              type: User
+              login: bensmidt
+            repository:
+              full_name: miruml/e2e-tests
+              pushed_at: 2024-11-03T14:19:50Z
+              html_url: https://github.com/miruml/e2e-tests
+              clone_url: https://github.com/miruml/e2e-tests.git
+              id: 819141000
+            branch: main
+          created_by:
+            last_name: Doe
+            id: usr_1234
+            first_name: John
+            object: user
+          github_source:
+            build_path: path/to/compose/file/
+            deleted: false
+            name: e2e-tests
+            repository_id: 12345
+            id: gh_src_123
+            branch: main
+            repository_name: bensmidt/e2e-tests
+            object: github_source
+          x86_64: false
+          ready_at: 2024-11-03T14:25:50Z
+          digest: dad036b
+          id: art_1234
+          failed_at: 2024-11-03T14:25:50Z
+          source_id: reg_src_1234
+          object: artifact
+          status: queued
+        object: list
+      properties:
+        object:
+          example: list
+          type: string
+        data:
+          items:
+            $ref: '#/components/schemas/ArtifactWithGitHubSourceData'
+          type: array
+      required:
+      - data
+      - object
+      title: Artifact With GitHub Source Data List
+      type: object
+    ArtifactWithGitHubSourceData:
+      allOf:
+      - $ref: '#/components/schemas/ArtifactBase'
+      - properties:
+          github_source:
+            $ref: '#/components/schemas/GitHubSource'
+          github_source_data:
+            $ref: '#/components/schemas/GitHubSourceData'
+        required:
+        - github_source
+        - github_source_data
+        type: object
+      example:
+        aarch64: true
+        created_at: 2024-11-03T14:19:50Z
+        source_type: github
+        github_source_data:
+          build_path: valid/wordpress
+          head_commit:
+            id: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+            message: Update README.md
+            url: https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+          sender:
+            avatar_url: https://avatars.githubusercontent.com/u/92611223?v=4
+            html_url: https://github.com/bensmidt
+            id: 1234
+            type: User
+            login: bensmidt
+          repository:
+            full_name: miruml/e2e-tests
+            pushed_at: 2024-11-03T14:19:50Z
+            html_url: https://github.com/miruml/e2e-tests
+            clone_url: https://github.com/miruml/e2e-tests.git
+            id: 819141000
+          branch: main
+        created_by:
+          last_name: Doe
+          id: usr_1234
+          first_name: John
+          object: user
+        github_source:
+          build_path: path/to/compose/file/
+          deleted: false
+          name: e2e-tests
+          repository_id: 12345
+          id: gh_src_123
+          branch: main
+          repository_name: bensmidt/e2e-tests
+          object: github_source
+        x86_64: false
+        ready_at: 2024-11-03T14:25:50Z
+        digest: dad036b
+        id: art_1234
+        failed_at: 2024-11-03T14:25:50Z
+        source_id: reg_src_1234
+        object: artifact
+        status: queued
+      title: Artifact With GitHub Source Data
+    GitHubSourceList:
+      example:
+        data:
+        - build_path: path/to/compose/file/
+          deleted: false
+          name: e2e-tests
+          repository_id: 12345
+          id: gh_src_123
+          branch: main
+          repository_name: bensmidt/e2e-tests
+          object: github_source
+        - build_path: path/to/compose/file/
+          deleted: false
+          name: e2e-tests
+          repository_id: 12345
+          id: gh_src_123
+          branch: main
+          repository_name: bensmidt/e2e-tests
+          object: github_source
+        object: list
+      properties:
+        object:
+          example: list
+          type: string
+        data:
+          items:
+            $ref: '#/components/schemas/GitHubSource'
+          type: array
+      required:
+      - data
+      - object
+      title: GitHub Source List
+      type: object
+    Error:
+      example:
+        error:
+          code: invalid_clerk_auth
+          params: "{}"
+          message: Invalid Clerk authentication credentials
+      properties:
+        error:
+          $ref: '#/components/schemas/UnauthorizedError'
+      required:
+      - error
+      title: Error
+      type: object
+    Error_1:
+      example:
+        error:
+          code: forbidden
+          params:
+            fix: <fix>
+            identity_id: <identity_id>
+            resource_type: <resource_type>
+            resource_id: <resource_id>
+            permission: <permission>
+            identity_type: <identity_type>
+          message: <identity_type> '<identity_id>' does not have '<permission>' permission
+            for <resource_type> '<resource_id>'
+      properties:
+        error:
+          $ref: '#/components/schemas/ForbiddenError'
+      required:
+      - error
+      title: Error
+      type: object
+    Error_2:
+      example:
+        error:
+          code: record_not_found
+          params:
+            record_id: <record_id>
+            record_type: <record_type>
+          message: <record_type> '<record_id>' not found
+      properties:
+        error:
+          $ref: '#/components/schemas/RecordNotFoundError'
+      required:
+      - error
+      title: Error
+      type: object
+    Error_3:
+      example:
+        error:
+          code: duplicate_artifact
+          params:
+            duplicate_artifacts:
+            - art_1234
+            - art_1234
+          message: Artifacts with identical content already exist
+          debug_message: "2 artifacts with identical content already exist: art_1234,\
+            \ art_5678"
+      properties:
+        error:
+          $ref: '#/components/schemas/DuplicateArtifact'
+      required:
+      - error
+      title: Error
+      type: object
+    Error_4:
+      example:
+        error:
+          code: <error_code>
+          params: "{}"
+          message: <error_message>
+      properties:
+        error:
+          $ref: '#/components/schemas/BadRequestError'
+      required:
+      - error
+      title: Error
+      type: object
+    ForbiddenError_params:
+      example:
+        fix: <fix>
+        identity_id: <identity_id>
+        resource_type: <resource_type>
+        resource_id: <resource_id>
+        permission: <permission>
+        identity_type: <identity_type>
+      properties:
+        identity_id:
+          example: <identity_id>
+          type: string
+        identity_type:
+          example: <identity_type>
+          type: string
+        permission:
+          example: <permission>
+          type: string
+        resource_id:
+          example: <resource_id>
+          type: string
+        resource_type:
+          example: <resource_type>
+          type: string
+        fix:
+          example: <fix>
+          type: string
+      required:
+      - fix
+      - identity_id
+      - identity_type
+      - permission
+      - resource_id
+      - resource_type
+      type: object
+    RecordNotFoundError_params:
+      example:
+        record_id: <record_id>
+        record_type: <record_type>
+      properties:
+        record_id:
+          example: <record_id>
+          type: string
+        record_type:
+          example: <record_type>
+          type: string
+      type: object
+    CreateRegistrySourceArtifact_images_inner:
+      example:
+        digest: sha256:1234567890
+        repository_id: cont_repo_1234
+        tag: v1.3.4
+      properties:
+        repository_id:
+          example: cont_repo_1234
+          type: string
+        digest:
+          example: sha256:1234567890
+          type: string
+        tag:
+          example: v1.3.4
+          type: string
+      required:
+      - digest
+      - repository_id
+      - tag
+      type: object
+    DuplicateArtifact_params:
+      example:
+        duplicate_artifacts:
+        - art_1234
+        - art_1234
+      properties:
+        duplicate_artifacts:
+          items:
+            example: art_1234
+            type: object
+          type: array
+      required:
+      - duplicate_artifacts
+      type: object
+    InvalidComposeFile_params:
+      example:
+        error: <descriptive error message>
+      properties:
+        error:
+          example: <descriptive error message>
+          type: string
+      required:
+      - error
+      type: object
+    RepositoryNotFound_params:
+      example:
+        registry_url: docker.io
+        registry_type: dockerhub
+        uri: docker.io/library/redis
+        repository_name: redis
+      properties:
+        registry_type:
+          example: dockerhub
+          type: string
+        registry_url:
+          example: docker.io
+          type: string
+        repository_name:
+          example: redis
+          type: string
+        uri:
+          example: docker.io/library/redis
+          type: string
+      required:
+      - registry_type
+      - registry_url
+      - repository_name
+      - uri
+      type: object
+  securitySchemes:
+    ClerkAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

@@ -60,7 +60,7 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Image"
-      
+
     ExternalContainerImage:
       title: External Container Image 
       type: object 

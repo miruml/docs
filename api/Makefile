@@ -1,7 +1,7 @@
 all:
 	openapi-generator-cli generate -i main.yaml -g go-server -o ./all/server
 	openapi-generator-cli generate -i main.yaml -g go -o ./all/client
-	cp ./all/server/api/openapi.yaml ./openapi.yaml
+	swagger-cli bundle -o openapi.yaml -t yaml main.yaml
 
 models: 
 	openapi-generator-cli generate -i main.yaml -g go-server --global-property models -o ./models/server

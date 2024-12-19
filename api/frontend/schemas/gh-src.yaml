@@ -88,6 +88,7 @@ components:
         avatar_url:
           type: string
           example: "https://avatars.githubusercontent.com/u/92611223?v=4"
+
     GitHubCommit:
       title: GitHub Commit
       type: object
@@ -122,10 +123,9 @@ components:
         is_built:
           type: boolean
           example: true
-        artifact_id:
-          type: string
-          example: "art_123"
-          nullable: true
+        artifacts:
+          $ref: "./artifact.yaml#/components/schemas/ArtifactWithGitHubSourceDataList"
+
     GitHubCommitList:
       title: GitHub CommitList
       type: object
@@ -140,6 +140,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/GitHubCommit'
+
     GitHubRepository:
       title: GitHub Repository
       type: object
@@ -167,6 +168,7 @@ components:
         html_url:
           type: string
           example: "https://github.com/bensmidt/e2e-tests"
+
     GitHubSourceCommits:
       title: GitHubSourceCommits
       type: object
@@ -186,5 +188,6 @@ components:
           example: "main"
         commits:
           $ref: '#/components/schemas/GitHubCommitList'
+
 paths: {}
 

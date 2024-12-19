@@ -86,6 +86,9 @@ components:
     ContainerList:
       title: Container List
       type: object
+      required:
+        - object
+        - data
       properties:
         object:
           type: string
