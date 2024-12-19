@@ -77,9 +77,6 @@ paths:
                           - failed_at
                           - source_id
                           - source_type
-                          - registry_source
-                          - github_source
-                          - github_source_data
                         properties:
                           object:
                             type: string
@@ -120,27 +117,6 @@ paths:
                             format: date-time
                             example: '2024-11-03T14:25:50Z'
                             nullable: true
-                          created_by:
-                            title: User
-                            type: object
-                            required:
-                              - object
-                              - id
-                              - first_name
-                              - last_name
-                            properties:
-                              object:
-                                type: string
-                                example: user
-                              id:
-                                type: string
-                                example: usr_1234
-                              first_name:
-                                type: string
-                                example: John
-                              last_name:
-                                type: string
-                                example: Doe
                           source_id:
                             type: string
                             example: reg_src_1234
@@ -151,10 +127,13 @@ paths:
                               - registry
                       - type: object
                         required:
+                          - created_by
                           - registry_source
                           - github_source
                           - github_source_data
                         properties:
+                          created_by:
+                            $ref: '#/paths/~1deployments~1%7Bdeployment_id%7D/get/responses/200/content/application~1json/schema/allOf/1/properties/created_by'
                           registry_source:
                             $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/get/responses/200/content/application~1json/schema'
                             nullable: true
@@ -750,8 +729,30 @@ paths:
                         example: '2024-11-03T14:19:50Z'
                   - type: object
                     required:
+                      - created_by
                       - artifact
                     properties:
+                      created_by:
+                        title: User
+                        type: object
+                        required:
+                          - object
+                          - id
+                          - first_name
+                          - last_name
+                        properties:
+                          object:
+                            type: string
+                            example: user
+                          id:
+                            type: string
+                            example: usr_1234
+                          first_name:
+                            type: string
+                            example: John
+                          last_name:
+                            type: string
+                            example: Doe
                       artifact:
                         $ref: '#/paths/~1artifacts~1%7Bartifact_id%7D/get/responses/200/content/application~1json/schema/allOf/0'
   '/devices/{device_id}/deployments':
@@ -1303,10 +1304,13 @@ paths:
                                                 example: deployment_1234
                                               status:
                                                 type: string
-                                                example: running
+                                                example: active
                                               activity_status:
                                                 type: string
                                                 example: active
+                                              target_status:
+                                                type: string
+                                                example: actived
                                               error_status:
                                                 type: string
                                                 example: none

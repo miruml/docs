@@ -5,7 +5,7 @@ info:
 components: 
   schemas: 
 
-    ArtifactBase:
+    BaseArtifact:
       title: Artifact Base
       type: object
       required:
@@ -20,9 +20,6 @@ components:
         - failed_at
         - source_id
         - source_type
-        - registry_source
-        - github_source
-        - github_source_data
       properties: 
         object:
           type: string
@@ -55,8 +52,7 @@ components:
           format: date-time
           example: "2024-11-03T14:25:50Z"
           nullable: true
-        created_by:
-          $ref: "./user.yaml#/components/schemas/User"
+
         source_id:
           type: string
           example: "reg_src_1234"
@@ -69,7 +65,7 @@ components:
     ArtifactWithGitHubSourceData:
       title: Artifact With GitHub Source Data
       allOf:
-        - $ref: "#/components/schemas/ArtifactBase"
+        - $ref: "#/components/schemas/BaseArtifact"
         - type: object
           required:
             - github_source
@@ -99,13 +95,16 @@ components:
     ArtifactWithSourceData:
       title: Artifact With Source Data
       allOf:
-        - $ref: "#/components/schemas/ArtifactBase"
+        - $ref: "#/components/schemas/BaseArtifact"
         - type: object
           required:
+            - created_by
             - registry_source
             - github_source
             - github_source_data
           properties:
+            created_by:
+              $ref: "./user.yaml#/components/schemas/User"
             registry_source:
               $ref: "./reg-src.yaml#/components/schemas/RegistrySource"
               nullable: true

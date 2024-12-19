@@ -120,8 +120,11 @@ components:
         - $ref: "./deployment.yaml#/components/schemas/BaseDeployment"
         - type: object
           required:
+            - created_by
             - artifact
           properties:
+            created_by:
+              $ref: "./user.yaml#/components/schemas/User"
             artifact:
               $ref: "./artifact.yaml#/components/schemas/ArtifactWithSourceData"
 

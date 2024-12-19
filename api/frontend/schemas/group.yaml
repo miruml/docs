@@ -114,10 +114,13 @@ components:
           example: "deployment_1234"
         status:
           type: string
-          example: "running"
+          example: "active"
         activity_status:
           type: string
           example: "active"
+        target_status:
+          type: string
+          example: "actived"
         error_status:
           type: string
           example: "none"
