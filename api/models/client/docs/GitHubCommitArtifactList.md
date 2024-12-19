@@ -1,67 +1,67 @@
-# ArtifactWithGitHubSourceDataList
+# GitHubCommitArtifactList
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Object** | **string** |  | 
-**Data** | [**[]ArtifactWithGitHubSourceData**](ArtifactWithGitHubSourceData.md) |  | 
+**Data** | [**[]GitHubCommitArtifact**](GitHubCommitArtifact.md) |  | 
 
 ## Methods
 
-### NewArtifactWithGitHubSourceDataList
+### NewGitHubCommitArtifactList
 
-`func NewArtifactWithGitHubSourceDataList(object string, data []ArtifactWithGitHubSourceData, ) *ArtifactWithGitHubSourceDataList`
+`func NewGitHubCommitArtifactList(object string, data []GitHubCommitArtifact, ) *GitHubCommitArtifactList`
 
-NewArtifactWithGitHubSourceDataList instantiates a new ArtifactWithGitHubSourceDataList object
+NewGitHubCommitArtifactList instantiates a new GitHubCommitArtifactList object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewArtifactWithGitHubSourceDataListWithDefaults
+### NewGitHubCommitArtifactListWithDefaults
 
-`func NewArtifactWithGitHubSourceDataListWithDefaults() *ArtifactWithGitHubSourceDataList`
+`func NewGitHubCommitArtifactListWithDefaults() *GitHubCommitArtifactList`
 
-NewArtifactWithGitHubSourceDataListWithDefaults instantiates a new ArtifactWithGitHubSourceDataList object
+NewGitHubCommitArtifactListWithDefaults instantiates a new GitHubCommitArtifactList object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetObject
 
-`func (o *ArtifactWithGitHubSourceDataList) GetObject() string`
+`func (o *GitHubCommitArtifactList) GetObject() string`
 
 GetObject returns the Object field if non-nil, zero value otherwise.
 
 ### GetObjectOk
 
-`func (o *ArtifactWithGitHubSourceDataList) GetObjectOk() (*string, bool)`
+`func (o *GitHubCommitArtifactList) GetObjectOk() (*string, bool)`
 
 GetObjectOk returns a tuple with the Object field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetObject
 
-`func (o *ArtifactWithGitHubSourceDataList) SetObject(v string)`
+`func (o *GitHubCommitArtifactList) SetObject(v string)`
 
 SetObject sets Object field to given value.
 
 
 ### GetData
 
-`func (o *ArtifactWithGitHubSourceDataList) GetData() []ArtifactWithGitHubSourceData`
+`func (o *GitHubCommitArtifactList) GetData() []GitHubCommitArtifact`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *ArtifactWithGitHubSourceDataList) GetDataOk() (*[]ArtifactWithGitHubSourceData, bool)`
+`func (o *GitHubCommitArtifactList) GetDataOk() (*[]GitHubCommitArtifact, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *ArtifactWithGitHubSourceDataList) SetData(v []ArtifactWithGitHubSourceData)`
+`func (o *GitHubCommitArtifactList) SetData(v []GitHubCommitArtifact)`
 
 SetData sets Data field to given value.
 

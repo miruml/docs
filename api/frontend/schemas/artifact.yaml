@@ -62,36 +62,6 @@ components:
             - github 
             - registry
 
-    ArtifactWithGitHubSourceData:
-      title: Artifact With GitHub Source Data
-      allOf:
-        - $ref: "#/components/schemas/BaseArtifact"
-        - type: object
-          required:
-            - github_source
-            - github_source_data
-          properties:
-            github_source:
-              $ref: "./gh-src.yaml#/components/schemas/GitHubSource"
-            github_source_data:
-              $ref: "#/components/schemas/GitHubSourceData"
-
-    ArtifactWithGitHubSourceDataList:
-      title: Artifact With GitHub Source Data List
-      type: object
-      required:
-        - object
-        - data
-      properties:
-        object:
-          type: string
-          example: "list"
-        data:
-          type: array
-          items:
-            $ref: "#/components/schemas/ArtifactWithGitHubSourceData"
-    
-
     ArtifactWithSourceData:
       title: Artifact With Source Data
       allOf:

@@ -33,7 +33,7 @@ type GitHubCommit struct {
 
 	IsBuilt bool `json:"is_built"`
 
-	Artifacts ArtifactWithGitHubSourceDataList `json:"artifacts,omitempty"`
+	Artifacts GitHubCommitArtifactList `json:"artifacts,omitempty"`
 }
 
 // AssertGitHubCommitRequired checks if the required fields are not zero-ed
@@ -56,7 +56,7 @@ func AssertGitHubCommitRequired(obj GitHubCommit) error {
 	if err := AssertGitHubCommitterRequired(obj.Committer); err != nil {
 		return err
 	}
-	if err := AssertArtifactWithGitHubSourceDataListRequired(obj.Artifacts); err != nil {
+	if err := AssertGitHubCommitArtifactListRequired(obj.Artifacts); err != nil {
 		return err
 	}
 	return nil
@@ -67,7 +67,7 @@ func AssertGitHubCommitConstraints(obj GitHubCommit) error {
 	if err := AssertGitHubCommitterConstraints(obj.Committer); err != nil {
 		return err
 	}
-	if err := AssertArtifactWithGitHubSourceDataListConstraints(obj.Artifacts); err != nil {
+	if err := AssertGitHubCommitArtifactListConstraints(obj.Artifacts); err != nil {
 		return err
 	}
 	return nil

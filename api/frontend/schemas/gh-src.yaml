@@ -124,7 +124,41 @@ components:
           type: boolean
           example: true
         artifacts:
-          $ref: "./artifact.yaml#/components/schemas/ArtifactWithGitHubSourceDataList"
+          $ref: "#/components/schemas/GitHubCommitArtifactList"
+
+    GitHubCommitArtifactList:
+      title: GitHub Commit Artifact List
+      type: object
+      required:
+        - object
+        - data
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/GitHubCommitArtifact"
+
+    GitHubCommitArtifact:
+      title: GitHub Commit Artifact
+      type: object
+      required:
+        - id 
+        - object
+        - status
+      properties:
+        object:
+          type: string
+          example: "artifact"
+        id:
+          type: string
+          example: "art_123"
+        status:
+          type: string
+          example: "failed"
+
 
     GitHubCommitList:
       title: GitHub CommitList

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **PushedAt** | **time.Time** |  | 
 **Committer** | [**GitHubCommitter**](GitHubCommitter.md) |  | 
 **IsBuilt** | **bool** |  | 
-**Artifacts** | Pointer to [**ArtifactWithGitHubSourceDataList**](ArtifactWithGitHubSourceDataList.md) |  | [optional] 
+**Artifacts** | Pointer to [**GitHubCommitArtifactList**](GitHubCommitArtifactList.md) |  | [optional] 
 
 ## Methods
 
@@ -174,20 +174,20 @@ SetIsBuilt sets IsBuilt field to given value.
 
 ### GetArtifacts
 
-`func (o *GitHubCommit) GetArtifacts() ArtifactWithGitHubSourceDataList`
+`func (o *GitHubCommit) GetArtifacts() GitHubCommitArtifactList`
 
 GetArtifacts returns the Artifacts field if non-nil, zero value otherwise.
 
 ### GetArtifactsOk
 
-`func (o *GitHubCommit) GetArtifactsOk() (*ArtifactWithGitHubSourceDataList, bool)`
+`func (o *GitHubCommit) GetArtifactsOk() (*GitHubCommitArtifactList, bool)`
 
 GetArtifactsOk returns a tuple with the Artifacts field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetArtifacts
 
-`func (o *GitHubCommit) SetArtifacts(v ArtifactWithGitHubSourceDataList)`
+`func (o *GitHubCommit) SetArtifacts(v GitHubCommitArtifactList)`
 
 SetArtifacts sets Artifacts field to given value.
 

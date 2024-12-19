@@ -29,7 +29,7 @@ type GitHubCommit struct {
 	PushedAt time.Time `json:"pushed_at"`
 	Committer GitHubCommitter `json:"committer"`
 	IsBuilt bool `json:"is_built"`
-	Artifacts *ArtifactWithGitHubSourceDataList `json:"artifacts,omitempty"`
+	Artifacts *GitHubCommitArtifactList `json:"artifacts,omitempty"`
 }
 
 type _GitHubCommit GitHubCommit
@@ -227,9 +227,9 @@ func (o *GitHubCommit) SetIsBuilt(v bool) {
 }
 
 // GetArtifacts returns the Artifacts field value if set, zero value otherwise.
-func (o *GitHubCommit) GetArtifacts() ArtifactWithGitHubSourceDataList {
+func (o *GitHubCommit) GetArtifacts() GitHubCommitArtifactList {
 	if o == nil || IsNil(o.Artifacts) {
-		var ret ArtifactWithGitHubSourceDataList
+		var ret GitHubCommitArtifactList
 		return ret
 	}
 	return *o.Artifacts
@@ -237,7 +237,7 @@ func (o *GitHubCommit) GetArtifacts() ArtifactWithGitHubSourceDataList {
 
 // GetArtifactsOk returns a tuple with the Artifacts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GitHubCommit) GetArtifactsOk() (*ArtifactWithGitHubSourceDataList, bool) {
+func (o *GitHubCommit) GetArtifactsOk() (*GitHubCommitArtifactList, bool) {
 	if o == nil || IsNil(o.Artifacts) {
 		return nil, false
 	}
@@ -253,8 +253,8 @@ func (o *GitHubCommit) HasArtifacts() bool {
 	return false
 }
 
-// SetArtifacts gets a reference to the given ArtifactWithGitHubSourceDataList and assigns it to the Artifacts field.
-func (o *GitHubCommit) SetArtifacts(v ArtifactWithGitHubSourceDataList) {
+// SetArtifacts gets a reference to the given GitHubCommitArtifactList and assigns it to the Artifacts field.
+func (o *GitHubCommit) SetArtifacts(v GitHubCommitArtifactList) {
 	o.Artifacts = &v
 }
 
