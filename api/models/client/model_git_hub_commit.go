@@ -28,7 +28,6 @@ type GitHubCommit struct {
 	HtmlUrl string `json:"html_url"`
 	PushedAt time.Time `json:"pushed_at"`
 	Committer GitHubCommitter `json:"committer"`
-	IsBuilt bool `json:"is_built"`
 	Artifacts *GitHubCommitArtifactList `json:"artifacts,omitempty"`
 }
 
@@ -38,7 +37,7 @@ type _GitHubCommit GitHubCommit
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGitHubCommit(object string, sha string, message string, htmlUrl string, pushedAt time.Time, committer GitHubCommitter, isBuilt bool) *GitHubCommit {
+func NewGitHubCommit(object string, sha string, message string, htmlUrl string, pushedAt time.Time, committer GitHubCommitter) *GitHubCommit {
 	this := GitHubCommit{}
 	this.Object = object
 	this.Sha = sha
@@ -46,7 +45,6 @@ func NewGitHubCommit(object string, sha string, message string, htmlUrl string, 
 	this.HtmlUrl = htmlUrl
 	this.PushedAt = pushedAt
 	this.Committer = committer
-	this.IsBuilt = isBuilt
 	return &this
 }
 
@@ -202,30 +200,6 @@ func (o *GitHubCommit) SetCommitter(v GitHubCommitter) {
 	o.Committer = v
 }
 
-// GetIsBuilt returns the IsBuilt field value
-func (o *GitHubCommit) GetIsBuilt() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.IsBuilt
-}
-
-// GetIsBuiltOk returns a tuple with the IsBuilt field value
-// and a boolean to check if the value has been set.
-func (o *GitHubCommit) GetIsBuiltOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IsBuilt, true
-}
-
-// SetIsBuilt sets field value
-func (o *GitHubCommit) SetIsBuilt(v bool) {
-	o.IsBuilt = v
-}
-
 // GetArtifacts returns the Artifacts field value if set, zero value otherwise.
 func (o *GitHubCommit) GetArtifacts() GitHubCommitArtifactList {
 	if o == nil || IsNil(o.Artifacts) {
@@ -274,7 +248,6 @@ func (o GitHubCommit) ToMap() (map[string]interface{}, error) {
 	toSerialize["html_url"] = o.HtmlUrl
 	toSerialize["pushed_at"] = o.PushedAt
 	toSerialize["committer"] = o.Committer
-	toSerialize["is_built"] = o.IsBuilt
 	if !IsNil(o.Artifacts) {
 		toSerialize["artifacts"] = o.Artifacts
 	}
@@ -292,7 +265,6 @@ func (o *GitHubCommit) UnmarshalJSON(data []byte) (err error) {
 		"html_url",
 		"pushed_at",
 		"committer",
-		"is_built",
 	}
 
 	allProperties := make(map[string]interface{})

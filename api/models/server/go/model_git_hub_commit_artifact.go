@@ -20,6 +20,12 @@ type GitHubCommitArtifact struct {
 	Id string `json:"id"`
 
 	Status string `json:"status"`
+
+	Ready bool `json:"ready"`
+
+	Failed bool `json:"failed"`
+
+	InProgress bool `json:"in_progress"`
 }
 
 // AssertGitHubCommitArtifactRequired checks if the required fields are not zero-ed
@@ -28,6 +34,9 @@ func AssertGitHubCommitArtifactRequired(obj GitHubCommitArtifact) error {
 		"object": obj.Object,
 		"id": obj.Id,
 		"status": obj.Status,
+		"ready": obj.Ready,
+		"failed": obj.Failed,
+		"in_progress": obj.InProgress,
 	}
 	for name, el := range elements {
 		if isZero := IsZeroValue(el); isZero {

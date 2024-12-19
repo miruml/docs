@@ -7,12 +7,15 @@ Name | Type | Description | Notes
 **Object** | **string** |  | 
 **Id** | **string** |  | 
 **Status** | **string** |  | 
+**Ready** | **bool** |  | 
+**Failed** | **bool** |  | 
+**InProgress** | **bool** |  | 
 
 ## Methods
 
 ### NewGitHubCommitArtifact
 
-`func NewGitHubCommitArtifact(object string, id string, status string, ) *GitHubCommitArtifact`
+`func NewGitHubCommitArtifact(object string, id string, status string, ready bool, failed bool, inProgress bool, ) *GitHubCommitArtifact`
 
 NewGitHubCommitArtifact instantiates a new GitHubCommitArtifact object
 This constructor will assign default values to properties that have it defined,
@@ -85,6 +88,66 @@ and a boolean to check if the value has been set.
 `func (o *GitHubCommitArtifact) SetStatus(v string)`
 
 SetStatus sets Status field to given value.
+
+
+### GetReady
+
+`func (o *GitHubCommitArtifact) GetReady() bool`
+
+GetReady returns the Ready field if non-nil, zero value otherwise.
+
+### GetReadyOk
+
+`func (o *GitHubCommitArtifact) GetReadyOk() (*bool, bool)`
+
+GetReadyOk returns a tuple with the Ready field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReady
+
+`func (o *GitHubCommitArtifact) SetReady(v bool)`
+
+SetReady sets Ready field to given value.
+
+
+### GetFailed
+
+`func (o *GitHubCommitArtifact) GetFailed() bool`
+
+GetFailed returns the Failed field if non-nil, zero value otherwise.
+
+### GetFailedOk
+
+`func (o *GitHubCommitArtifact) GetFailedOk() (*bool, bool)`
+
+GetFailedOk returns a tuple with the Failed field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFailed
+
+`func (o *GitHubCommitArtifact) SetFailed(v bool)`
+
+SetFailed sets Failed field to given value.
+
+
+### GetInProgress
+
+`func (o *GitHubCommitArtifact) GetInProgress() bool`
+
+GetInProgress returns the InProgress field if non-nil, zero value otherwise.
+
+### GetInProgressOk
+
+`func (o *GitHubCommitArtifact) GetInProgressOk() (*bool, bool)`
+
+GetInProgressOk returns a tuple with the InProgress field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetInProgress
+
+`func (o *GitHubCommitArtifact) SetInProgress(v bool)`
+
+SetInProgress sets InProgress field to given value.
 
 
 

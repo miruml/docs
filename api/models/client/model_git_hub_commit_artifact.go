@@ -24,6 +24,9 @@ type GitHubCommitArtifact struct {
 	Object string `json:"object"`
 	Id string `json:"id"`
 	Status string `json:"status"`
+	Ready bool `json:"ready"`
+	Failed bool `json:"failed"`
+	InProgress bool `json:"in_progress"`
 }
 
 type _GitHubCommitArtifact GitHubCommitArtifact
@@ -32,11 +35,14 @@ type _GitHubCommitArtifact GitHubCommitArtifact
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGitHubCommitArtifact(object string, id string, status string) *GitHubCommitArtifact {
+func NewGitHubCommitArtifact(object string, id string, status string, ready bool, failed bool, inProgress bool) *GitHubCommitArtifact {
 	this := GitHubCommitArtifact{}
 	this.Object = object
 	this.Id = id
 	this.Status = status
+	this.Ready = ready
+	this.Failed = failed
+	this.InProgress = inProgress
 	return &this
 }
 
@@ -120,6 +126,78 @@ func (o *GitHubCommitArtifact) SetStatus(v string) {
 	o.Status = v
 }
 
+// GetReady returns the Ready field value
+func (o *GitHubCommitArtifact) GetReady() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Ready
+}
+
+// GetReadyOk returns a tuple with the Ready field value
+// and a boolean to check if the value has been set.
+func (o *GitHubCommitArtifact) GetReadyOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Ready, true
+}
+
+// SetReady sets field value
+func (o *GitHubCommitArtifact) SetReady(v bool) {
+	o.Ready = v
+}
+
+// GetFailed returns the Failed field value
+func (o *GitHubCommitArtifact) GetFailed() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Failed
+}
+
+// GetFailedOk returns a tuple with the Failed field value
+// and a boolean to check if the value has been set.
+func (o *GitHubCommitArtifact) GetFailedOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Failed, true
+}
+
+// SetFailed sets field value
+func (o *GitHubCommitArtifact) SetFailed(v bool) {
+	o.Failed = v
+}
+
+// GetInProgress returns the InProgress field value
+func (o *GitHubCommitArtifact) GetInProgress() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.InProgress
+}
+
+// GetInProgressOk returns a tuple with the InProgress field value
+// and a boolean to check if the value has been set.
+func (o *GitHubCommitArtifact) GetInProgressOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.InProgress, true
+}
+
+// SetInProgress sets field value
+func (o *GitHubCommitArtifact) SetInProgress(v bool) {
+	o.InProgress = v
+}
+
 func (o GitHubCommitArtifact) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -133,6 +211,9 @@ func (o GitHubCommitArtifact) ToMap() (map[string]interface{}, error) {
 	toSerialize["object"] = o.Object
 	toSerialize["id"] = o.Id
 	toSerialize["status"] = o.Status
+	toSerialize["ready"] = o.Ready
+	toSerialize["failed"] = o.Failed
+	toSerialize["in_progress"] = o.InProgress
 	return toSerialize, nil
 }
 
@@ -144,6 +225,9 @@ func (o *GitHubCommitArtifact) UnmarshalJSON(data []byte) (err error) {
 		"object",
 		"id",
 		"status",
+		"ready",
+		"failed",
+		"in_progress",
 	}
 
 	allProperties := make(map[string]interface{})

@@ -120,9 +120,6 @@ components:
           example: "2024-01-01T00:00:00Z"
         committer:
           $ref: '#/components/schemas/GitHubCommitter'
-        is_built:
-          type: boolean
-          example: true
         artifacts:
           $ref: "#/components/schemas/GitHubCommitArtifactList"
 
@@ -148,6 +145,9 @@ components:
         - id 
         - object
         - status
+        - ready
+        - failed
+        - in_progress
       properties:
         object:
           type: string
@@ -158,6 +158,15 @@ components:
         status:
           type: string
           example: "failed"
+        ready:
+          type: boolean
+          example: false
+        failed:
+          type: boolean
+          example: true
+        in_progress:
+          type: boolean
+          example: false
 
 
     GitHubCommitList:

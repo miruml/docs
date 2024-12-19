@@ -10,14 +10,13 @@ Name | Type | Description | Notes
 **HtmlUrl** | **string** |  | 
 **PushedAt** | **time.Time** |  | 
 **Committer** | [**GitHubCommitter**](GitHubCommitter.md) |  | 
-**IsBuilt** | **bool** |  | 
 **Artifacts** | Pointer to [**GitHubCommitArtifactList**](GitHubCommitArtifactList.md) |  | [optional] 
 
 ## Methods
 
 ### NewGitHubCommit
 
-`func NewGitHubCommit(object string, sha string, message string, htmlUrl string, pushedAt time.Time, committer GitHubCommitter, isBuilt bool, ) *GitHubCommit`
+`func NewGitHubCommit(object string, sha string, message string, htmlUrl string, pushedAt time.Time, committer GitHubCommitter, ) *GitHubCommit`
 
 NewGitHubCommit instantiates a new GitHubCommit object
 This constructor will assign default values to properties that have it defined,
@@ -150,26 +149,6 @@ and a boolean to check if the value has been set.
 `func (o *GitHubCommit) SetCommitter(v GitHubCommitter)`
 
 SetCommitter sets Committer field to given value.
-
-
-### GetIsBuilt
-
-`func (o *GitHubCommit) GetIsBuilt() bool`
-
-GetIsBuilt returns the IsBuilt field if non-nil, zero value otherwise.
-
-### GetIsBuiltOk
-
-`func (o *GitHubCommit) GetIsBuiltOk() (*bool, bool)`
-
-GetIsBuiltOk returns a tuple with the IsBuilt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetIsBuilt
-
-`func (o *GitHubCommit) SetIsBuilt(v bool)`
-
-SetIsBuilt sets IsBuilt field to given value.
 
 
 ### GetArtifacts

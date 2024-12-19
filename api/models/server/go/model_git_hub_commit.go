@@ -31,8 +31,6 @@ type GitHubCommit struct {
 
 	Committer GitHubCommitter `json:"committer"`
 
-	IsBuilt bool `json:"is_built"`
-
 	Artifacts GitHubCommitArtifactList `json:"artifacts,omitempty"`
 }
 
@@ -45,7 +43,6 @@ func AssertGitHubCommitRequired(obj GitHubCommit) error {
 		"html_url": obj.HtmlUrl,
 		"pushed_at": obj.PushedAt,
 		"committer": obj.Committer,
-		"is_built": obj.IsBuilt,
 	}
 	for name, el := range elements {
 		if isZero := IsZeroValue(el); isZero {
