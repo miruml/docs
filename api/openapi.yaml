@@ -551,7 +551,7 @@ paths:
           content:
             application/json:
               schema:
-                title: Verified Compose File Response
+                title: Verify Compose File Response
                 type: object
                 required:
                   - object
@@ -577,31 +577,62 @@ paths:
                   is_schema_valid:
                     type: boolean
                     example: true
+                  schema_error:
+                    type: string
+                    example: <reason why compose file is malformed>
                   images:
-                    type: array
-                    items:
-                      title: Compose File Image List
-                      type: object
-                      required:
-                        - object
-                        - data
-                      properties:
-                        object:
-                          type: string
-                          example: list
-                        data:
-                          type: array
-                          items:
-                            title: Compose File Image
-                            allOf:
-                              - $ref: '#/paths/~1repositories~1container~1%7Bcontainer_repository_id%7D~1images~1external/get/responses/200/content/application~1json/schema/properties/data/items'
-                              - type: object
-                                required:
-                                  - is_valid
-                                properties:
-                                  is_valid:
-                                    type: boolean
-                                    example: false
+                    title: Compose File Image List
+                    type: object
+                    required:
+                      - object
+                      - data
+                    properties:
+                      object:
+                        type: string
+                        example: list
+                      data:
+                        type: array
+                        items:
+                          title: Compose File Image
+                          type: object
+                          required:
+                            - object
+                            - compose_reference
+                            - registry_url
+                            - registry_type
+                            - name
+                            - digest
+                            - tag
+                            - is_valid
+                            - error
+                          properties:
+                            object:
+                              type: string
+                              example: external_image
+                            compose_reference:
+                              type: string
+                              example: 'redis:latest'
+                            registry_url:
+                              type: string
+                              example: docker.io
+                            registry_type:
+                              type: string
+                              example: gar
+                            name:
+                              type: string
+                              example: redis
+                            digest:
+                              type: string
+                              example: 'sha256:123abc'
+                            tag:
+                              type: string
+                              example: latest
+                            is_valid:
+                              type: boolean
+                              example: false
+                            error:
+                              type: string
+                              example: <reason why image is not valid>
   '/devices/{device_id}/containers':
     get:
       tags:

@@ -12,7 +12,6 @@ package openapi
 
 import (
 	"encoding/json"
-	"time"
 	"bytes"
 	"fmt"
 )
@@ -23,12 +22,14 @@ var _ MappedNullable = &ComposeFileImage{}
 // ComposeFileImage struct for ComposeFileImage
 type ComposeFileImage struct {
 	Object string `json:"object"`
+	ComposeReference string `json:"compose_reference"`
+	RegistryUrl string `json:"registry_url"`
+	RegistryType string `json:"registry_type"`
+	Name string `json:"name"`
 	Digest string `json:"digest"`
-	Tags []string `json:"tags"`
-	Uri string `json:"uri"`
-	Bytes NullableInt64 `json:"bytes"`
-	UploadedAt time.Time `json:"uploaded_at"`
+	Tag string `json:"tag"`
 	IsValid bool `json:"is_valid"`
+	Error string `json:"error"`
 }
 
 type _ComposeFileImage ComposeFileImage
@@ -37,15 +38,17 @@ type _ComposeFileImage ComposeFileImage
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewComposeFileImage(object string, digest string, tags []string, uri string, bytes NullableInt64, uploadedAt time.Time, isValid bool) *ComposeFileImage {
+func NewComposeFileImage(object string, composeReference string, registryUrl string, registryType string, name string, digest string, tag string, isValid bool, error_ string) *ComposeFileImage {
 	this := ComposeFileImage{}
 	this.Object = object
+	this.ComposeReference = composeReference
+	this.RegistryUrl = registryUrl
+	this.RegistryType = registryType
+	this.Name = name
 	this.Digest = digest
-	this.Tags = tags
-	this.Uri = uri
-	this.Bytes = bytes
-	this.UploadedAt = uploadedAt
+	this.Tag = tag
 	this.IsValid = isValid
+	this.Error = error_
 	return &this
 }
 
@@ -81,6 +84,102 @@ func (o *ComposeFileImage) SetObject(v string) {
 	o.Object = v
 }
 
+// GetComposeReference returns the ComposeReference field value
+func (o *ComposeFileImage) GetComposeReference() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ComposeReference
+}
+
+// GetComposeReferenceOk returns a tuple with the ComposeReference field value
+// and a boolean to check if the value has been set.
+func (o *ComposeFileImage) GetComposeReferenceOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ComposeReference, true
+}
+
+// SetComposeReference sets field value
+func (o *ComposeFileImage) SetComposeReference(v string) {
+	o.ComposeReference = v
+}
+
+// GetRegistryUrl returns the RegistryUrl field value
+func (o *ComposeFileImage) GetRegistryUrl() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.RegistryUrl
+}
+
+// GetRegistryUrlOk returns a tuple with the RegistryUrl field value
+// and a boolean to check if the value has been set.
+func (o *ComposeFileImage) GetRegistryUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.RegistryUrl, true
+}
+
+// SetRegistryUrl sets field value
+func (o *ComposeFileImage) SetRegistryUrl(v string) {
+	o.RegistryUrl = v
+}
+
+// GetRegistryType returns the RegistryType field value
+func (o *ComposeFileImage) GetRegistryType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.RegistryType
+}
+
+// GetRegistryTypeOk returns a tuple with the RegistryType field value
+// and a boolean to check if the value has been set.
+func (o *ComposeFileImage) GetRegistryTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.RegistryType, true
+}
+
+// SetRegistryType sets field value
+func (o *ComposeFileImage) SetRegistryType(v string) {
+	o.RegistryType = v
+}
+
+// GetName returns the Name field value
+func (o *ComposeFileImage) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *ComposeFileImage) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *ComposeFileImage) SetName(v string) {
+	o.Name = v
+}
+
 // GetDigest returns the Digest field value
 func (o *ComposeFileImage) GetDigest() string {
 	if o == nil {
@@ -105,102 +204,28 @@ func (o *ComposeFileImage) SetDigest(v string) {
 	o.Digest = v
 }
 
-// GetTags returns the Tags field value
-func (o *ComposeFileImage) GetTags() []string {
-	if o == nil {
-		var ret []string
-		return ret
-	}
-
-	return o.Tags
-}
-
-// GetTagsOk returns a tuple with the Tags field value
-// and a boolean to check if the value has been set.
-func (o *ComposeFileImage) GetTagsOk() ([]string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Tags, true
-}
-
-// SetTags sets field value
-func (o *ComposeFileImage) SetTags(v []string) {
-	o.Tags = v
-}
-
-// GetUri returns the Uri field value
-func (o *ComposeFileImage) GetUri() string {
+// GetTag returns the Tag field value
+func (o *ComposeFileImage) GetTag() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Uri
+	return o.Tag
 }
 
-// GetUriOk returns a tuple with the Uri field value
+// GetTagOk returns a tuple with the Tag field value
 // and a boolean to check if the value has been set.
-func (o *ComposeFileImage) GetUriOk() (*string, bool) {
+func (o *ComposeFileImage) GetTagOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Uri, true
+	return &o.Tag, true
 }
 
-// SetUri sets field value
-func (o *ComposeFileImage) SetUri(v string) {
-	o.Uri = v
-}
-
-// GetBytes returns the Bytes field value
-// If the value is explicit nil, the zero value for int64 will be returned
-func (o *ComposeFileImage) GetBytes() int64 {
-	if o == nil || o.Bytes.Get() == nil {
-		var ret int64
-		return ret
-	}
-
-	return *o.Bytes.Get()
-}
-
-// GetBytesOk returns a tuple with the Bytes field value
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ComposeFileImage) GetBytesOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Bytes.Get(), o.Bytes.IsSet()
-}
-
-// SetBytes sets field value
-func (o *ComposeFileImage) SetBytes(v int64) {
-	o.Bytes.Set(&v)
-}
-
-// GetUploadedAt returns the UploadedAt field value
-func (o *ComposeFileImage) GetUploadedAt() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.UploadedAt
-}
-
-// GetUploadedAtOk returns a tuple with the UploadedAt field value
-// and a boolean to check if the value has been set.
-func (o *ComposeFileImage) GetUploadedAtOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.UploadedAt, true
-}
-
-// SetUploadedAt sets field value
-func (o *ComposeFileImage) SetUploadedAt(v time.Time) {
-	o.UploadedAt = v
+// SetTag sets field value
+func (o *ComposeFileImage) SetTag(v string) {
+	o.Tag = v
 }
 
 // GetIsValid returns the IsValid field value
@@ -227,6 +252,30 @@ func (o *ComposeFileImage) SetIsValid(v bool) {
 	o.IsValid = v
 }
 
+// GetError returns the Error field value
+func (o *ComposeFileImage) GetError() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Error
+}
+
+// GetErrorOk returns a tuple with the Error field value
+// and a boolean to check if the value has been set.
+func (o *ComposeFileImage) GetErrorOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Error, true
+}
+
+// SetError sets field value
+func (o *ComposeFileImage) SetError(v string) {
+	o.Error = v
+}
+
 func (o ComposeFileImage) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -238,12 +287,14 @@ func (o ComposeFileImage) MarshalJSON() ([]byte, error) {
 func (o ComposeFileImage) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["object"] = o.Object
+	toSerialize["compose_reference"] = o.ComposeReference
+	toSerialize["registry_url"] = o.RegistryUrl
+	toSerialize["registry_type"] = o.RegistryType
+	toSerialize["name"] = o.Name
 	toSerialize["digest"] = o.Digest
-	toSerialize["tags"] = o.Tags
-	toSerialize["uri"] = o.Uri
-	toSerialize["bytes"] = o.Bytes.Get()
-	toSerialize["uploaded_at"] = o.UploadedAt
+	toSerialize["tag"] = o.Tag
 	toSerialize["is_valid"] = o.IsValid
+	toSerialize["error"] = o.Error
 	return toSerialize, nil
 }
 
@@ -253,12 +304,14 @@ func (o *ComposeFileImage) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"object",
+		"compose_reference",
+		"registry_url",
+		"registry_type",
+		"name",
 		"digest",
-		"tags",
-		"uri",
-		"bytes",
-		"uploaded_at",
+		"tag",
 		"is_valid",
+		"error",
 	}
 
 	allProperties := make(map[string]interface{})

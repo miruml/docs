@@ -13,7 +13,7 @@ package openapi
 
 
 
-type VerifiedComposeFileResponse struct {
+type VerifyComposeFileResponse struct {
 
 	Object string `json:"object"`
 
@@ -23,11 +23,13 @@ type VerifiedComposeFileResponse struct {
 
 	IsSchemaValid bool `json:"is_schema_valid"`
 
-	Images []ComposeFileImageList `json:"images"`
+	SchemaError string `json:"schema_error,omitempty"`
+
+	Images ComposeFileImageList `json:"images"`
 }
 
-// AssertVerifiedComposeFileResponseRequired checks if the required fields are not zero-ed
-func AssertVerifiedComposeFileResponseRequired(obj VerifiedComposeFileResponse) error {
+// AssertVerifyComposeFileResponseRequired checks if the required fields are not zero-ed
+func AssertVerifyComposeFileResponseRequired(obj VerifyComposeFileResponse) error {
 	elements := map[string]interface{}{
 		"object": obj.Object,
 		"content": obj.Content,
@@ -41,20 +43,16 @@ func AssertVerifiedComposeFileResponseRequired(obj VerifiedComposeFileResponse) 
 		}
 	}
 
-	for _, el := range obj.Images {
-		if err := AssertComposeFileImageListRequired(el); err != nil {
-			return err
-		}
+	if err := AssertComposeFileImageListRequired(obj.Images); err != nil {
+		return err
 	}
 	return nil
 }
 
-// AssertVerifiedComposeFileResponseConstraints checks if the values respects the defined constraints
-func AssertVerifiedComposeFileResponseConstraints(obj VerifiedComposeFileResponse) error {
-	for _, el := range obj.Images {
-		if err := AssertComposeFileImageListConstraints(el); err != nil {
-			return err
-		}
+// AssertVerifyComposeFileResponseConstraints checks if the values respects the defined constraints
+func AssertVerifyComposeFileResponseConstraints(obj VerifyComposeFileResponse) error {
+	if err := AssertComposeFileImageListConstraints(obj.Images); err != nil {
+		return err
 	}
 	return nil
 }

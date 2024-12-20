@@ -11,39 +11,41 @@
 package openapi
 
 
-import (
-	"time"
-)
-
 
 
 type ComposeFileImage struct {
 
 	Object string `json:"object"`
 
+	ComposeReference string `json:"compose_reference"`
+
+	RegistryUrl string `json:"registry_url"`
+
+	RegistryType string `json:"registry_type"`
+
+	Name string `json:"name"`
+
 	Digest string `json:"digest"`
 
-	Tags []string `json:"tags"`
-
-	Uri string `json:"uri"`
-
-	Bytes *int64 `json:"bytes"`
-
-	UploadedAt time.Time `json:"uploaded_at"`
+	Tag string `json:"tag"`
 
 	IsValid bool `json:"is_valid"`
+
+	Error string `json:"error"`
 }
 
 // AssertComposeFileImageRequired checks if the required fields are not zero-ed
 func AssertComposeFileImageRequired(obj ComposeFileImage) error {
 	elements := map[string]interface{}{
 		"object": obj.Object,
+		"compose_reference": obj.ComposeReference,
+		"registry_url": obj.RegistryUrl,
+		"registry_type": obj.RegistryType,
+		"name": obj.Name,
 		"digest": obj.Digest,
-		"tags": obj.Tags,
-		"uri": obj.Uri,
-		"bytes": obj.Bytes,
-		"uploaded_at": obj.UploadedAt,
+		"tag": obj.Tag,
 		"is_valid": obj.IsValid,
+		"error": obj.Error,
 	}
 	for name, el := range elements {
 		if isZero := IsZeroValue(el); isZero {

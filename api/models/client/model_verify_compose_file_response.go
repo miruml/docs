@@ -16,26 +16,27 @@ import (
 	"fmt"
 )
 
-// checks if the VerifiedComposeFileResponse type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &VerifiedComposeFileResponse{}
+// checks if the VerifyComposeFileResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &VerifyComposeFileResponse{}
 
-// VerifiedComposeFileResponse struct for VerifiedComposeFileResponse
-type VerifiedComposeFileResponse struct {
+// VerifyComposeFileResponse struct for VerifyComposeFileResponse
+type VerifyComposeFileResponse struct {
 	Object string `json:"object"`
 	Content string `json:"content"`
 	IsValid bool `json:"is_valid"`
 	IsSchemaValid bool `json:"is_schema_valid"`
-	Images []ComposeFileImageList `json:"images"`
+	SchemaError *string `json:"schema_error,omitempty"`
+	Images ComposeFileImageList `json:"images"`
 }
 
-type _VerifiedComposeFileResponse VerifiedComposeFileResponse
+type _VerifyComposeFileResponse VerifyComposeFileResponse
 
-// NewVerifiedComposeFileResponse instantiates a new VerifiedComposeFileResponse object
+// NewVerifyComposeFileResponse instantiates a new VerifyComposeFileResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVerifiedComposeFileResponse(object string, content string, isValid bool, isSchemaValid bool, images []ComposeFileImageList) *VerifiedComposeFileResponse {
-	this := VerifiedComposeFileResponse{}
+func NewVerifyComposeFileResponse(object string, content string, isValid bool, isSchemaValid bool, images ComposeFileImageList) *VerifyComposeFileResponse {
+	this := VerifyComposeFileResponse{}
 	this.Object = object
 	this.Content = content
 	this.IsValid = isValid
@@ -44,16 +45,16 @@ func NewVerifiedComposeFileResponse(object string, content string, isValid bool,
 	return &this
 }
 
-// NewVerifiedComposeFileResponseWithDefaults instantiates a new VerifiedComposeFileResponse object
+// NewVerifyComposeFileResponseWithDefaults instantiates a new VerifyComposeFileResponse object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewVerifiedComposeFileResponseWithDefaults() *VerifiedComposeFileResponse {
-	this := VerifiedComposeFileResponse{}
+func NewVerifyComposeFileResponseWithDefaults() *VerifyComposeFileResponse {
+	this := VerifyComposeFileResponse{}
 	return &this
 }
 
 // GetObject returns the Object field value
-func (o *VerifiedComposeFileResponse) GetObject() string {
+func (o *VerifyComposeFileResponse) GetObject() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -64,7 +65,7 @@ func (o *VerifiedComposeFileResponse) GetObject() string {
 
 // GetObjectOk returns a tuple with the Object field value
 // and a boolean to check if the value has been set.
-func (o *VerifiedComposeFileResponse) GetObjectOk() (*string, bool) {
+func (o *VerifyComposeFileResponse) GetObjectOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -72,12 +73,12 @@ func (o *VerifiedComposeFileResponse) GetObjectOk() (*string, bool) {
 }
 
 // SetObject sets field value
-func (o *VerifiedComposeFileResponse) SetObject(v string) {
+func (o *VerifyComposeFileResponse) SetObject(v string) {
 	o.Object = v
 }
 
 // GetContent returns the Content field value
-func (o *VerifiedComposeFileResponse) GetContent() string {
+func (o *VerifyComposeFileResponse) GetContent() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -88,7 +89,7 @@ func (o *VerifiedComposeFileResponse) GetContent() string {
 
 // GetContentOk returns a tuple with the Content field value
 // and a boolean to check if the value has been set.
-func (o *VerifiedComposeFileResponse) GetContentOk() (*string, bool) {
+func (o *VerifyComposeFileResponse) GetContentOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -96,12 +97,12 @@ func (o *VerifiedComposeFileResponse) GetContentOk() (*string, bool) {
 }
 
 // SetContent sets field value
-func (o *VerifiedComposeFileResponse) SetContent(v string) {
+func (o *VerifyComposeFileResponse) SetContent(v string) {
 	o.Content = v
 }
 
 // GetIsValid returns the IsValid field value
-func (o *VerifiedComposeFileResponse) GetIsValid() bool {
+func (o *VerifyComposeFileResponse) GetIsValid() bool {
 	if o == nil {
 		var ret bool
 		return ret
@@ -112,7 +113,7 @@ func (o *VerifiedComposeFileResponse) GetIsValid() bool {
 
 // GetIsValidOk returns a tuple with the IsValid field value
 // and a boolean to check if the value has been set.
-func (o *VerifiedComposeFileResponse) GetIsValidOk() (*bool, bool) {
+func (o *VerifyComposeFileResponse) GetIsValidOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -120,12 +121,12 @@ func (o *VerifiedComposeFileResponse) GetIsValidOk() (*bool, bool) {
 }
 
 // SetIsValid sets field value
-func (o *VerifiedComposeFileResponse) SetIsValid(v bool) {
+func (o *VerifyComposeFileResponse) SetIsValid(v bool) {
 	o.IsValid = v
 }
 
 // GetIsSchemaValid returns the IsSchemaValid field value
-func (o *VerifiedComposeFileResponse) GetIsSchemaValid() bool {
+func (o *VerifyComposeFileResponse) GetIsSchemaValid() bool {
 	if o == nil {
 		var ret bool
 		return ret
@@ -136,7 +137,7 @@ func (o *VerifiedComposeFileResponse) GetIsSchemaValid() bool {
 
 // GetIsSchemaValidOk returns a tuple with the IsSchemaValid field value
 // and a boolean to check if the value has been set.
-func (o *VerifiedComposeFileResponse) GetIsSchemaValidOk() (*bool, bool) {
+func (o *VerifyComposeFileResponse) GetIsSchemaValidOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -144,14 +145,46 @@ func (o *VerifiedComposeFileResponse) GetIsSchemaValidOk() (*bool, bool) {
 }
 
 // SetIsSchemaValid sets field value
-func (o *VerifiedComposeFileResponse) SetIsSchemaValid(v bool) {
+func (o *VerifyComposeFileResponse) SetIsSchemaValid(v bool) {
 	o.IsSchemaValid = v
 }
 
+// GetSchemaError returns the SchemaError field value if set, zero value otherwise.
+func (o *VerifyComposeFileResponse) GetSchemaError() string {
+	if o == nil || IsNil(o.SchemaError) {
+		var ret string
+		return ret
+	}
+	return *o.SchemaError
+}
+
+// GetSchemaErrorOk returns a tuple with the SchemaError field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VerifyComposeFileResponse) GetSchemaErrorOk() (*string, bool) {
+	if o == nil || IsNil(o.SchemaError) {
+		return nil, false
+	}
+	return o.SchemaError, true
+}
+
+// HasSchemaError returns a boolean if a field has been set.
+func (o *VerifyComposeFileResponse) HasSchemaError() bool {
+	if o != nil && !IsNil(o.SchemaError) {
+		return true
+	}
+
+	return false
+}
+
+// SetSchemaError gets a reference to the given string and assigns it to the SchemaError field.
+func (o *VerifyComposeFileResponse) SetSchemaError(v string) {
+	o.SchemaError = &v
+}
+
 // GetImages returns the Images field value
-func (o *VerifiedComposeFileResponse) GetImages() []ComposeFileImageList {
+func (o *VerifyComposeFileResponse) GetImages() ComposeFileImageList {
 	if o == nil {
-		var ret []ComposeFileImageList
+		var ret ComposeFileImageList
 		return ret
 	}
 
@@ -160,19 +193,19 @@ func (o *VerifiedComposeFileResponse) GetImages() []ComposeFileImageList {
 
 // GetImagesOk returns a tuple with the Images field value
 // and a boolean to check if the value has been set.
-func (o *VerifiedComposeFileResponse) GetImagesOk() ([]ComposeFileImageList, bool) {
+func (o *VerifyComposeFileResponse) GetImagesOk() (*ComposeFileImageList, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Images, true
+	return &o.Images, true
 }
 
 // SetImages sets field value
-func (o *VerifiedComposeFileResponse) SetImages(v []ComposeFileImageList) {
+func (o *VerifyComposeFileResponse) SetImages(v ComposeFileImageList) {
 	o.Images = v
 }
 
-func (o VerifiedComposeFileResponse) MarshalJSON() ([]byte, error) {
+func (o VerifyComposeFileResponse) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -180,17 +213,20 @@ func (o VerifiedComposeFileResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o VerifiedComposeFileResponse) ToMap() (map[string]interface{}, error) {
+func (o VerifyComposeFileResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["object"] = o.Object
 	toSerialize["content"] = o.Content
 	toSerialize["is_valid"] = o.IsValid
 	toSerialize["is_schema_valid"] = o.IsSchemaValid
+	if !IsNil(o.SchemaError) {
+		toSerialize["schema_error"] = o.SchemaError
+	}
 	toSerialize["images"] = o.Images
 	return toSerialize, nil
 }
 
-func (o *VerifiedComposeFileResponse) UnmarshalJSON(data []byte) (err error) {
+func (o *VerifyComposeFileResponse) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -216,53 +252,53 @@ func (o *VerifiedComposeFileResponse) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varVerifiedComposeFileResponse := _VerifiedComposeFileResponse{}
+	varVerifyComposeFileResponse := _VerifyComposeFileResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varVerifiedComposeFileResponse)
+	err = decoder.Decode(&varVerifyComposeFileResponse)
 
 	if err != nil {
 		return err
 	}
 
-	*o = VerifiedComposeFileResponse(varVerifiedComposeFileResponse)
+	*o = VerifyComposeFileResponse(varVerifyComposeFileResponse)
 
 	return err
 }
 
-type NullableVerifiedComposeFileResponse struct {
-	value *VerifiedComposeFileResponse
+type NullableVerifyComposeFileResponse struct {
+	value *VerifyComposeFileResponse
 	isSet bool
 }
 
-func (v NullableVerifiedComposeFileResponse) Get() *VerifiedComposeFileResponse {
+func (v NullableVerifyComposeFileResponse) Get() *VerifyComposeFileResponse {
 	return v.value
 }
 
-func (v *NullableVerifiedComposeFileResponse) Set(val *VerifiedComposeFileResponse) {
+func (v *NullableVerifyComposeFileResponse) Set(val *VerifyComposeFileResponse) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableVerifiedComposeFileResponse) IsSet() bool {
+func (v NullableVerifyComposeFileResponse) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableVerifiedComposeFileResponse) Unset() {
+func (v *NullableVerifyComposeFileResponse) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableVerifiedComposeFileResponse(val *VerifiedComposeFileResponse) *NullableVerifiedComposeFileResponse {
-	return &NullableVerifiedComposeFileResponse{value: val, isSet: true}
+func NewNullableVerifyComposeFileResponse(val *VerifyComposeFileResponse) *NullableVerifyComposeFileResponse {
+	return &NullableVerifyComposeFileResponse{value: val, isSet: true}
 }
 
-func (v NullableVerifiedComposeFileResponse) MarshalJSON() ([]byte, error) {
+func (v NullableVerifyComposeFileResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableVerifiedComposeFileResponse) UnmarshalJSON(src []byte) error {
+func (v *NullableVerifyComposeFileResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

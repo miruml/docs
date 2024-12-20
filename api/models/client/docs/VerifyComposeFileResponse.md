@@ -1,4 +1,4 @@
-# VerifiedComposeFileResponse
+# VerifyComposeFileResponse
 
 ## Properties
 
@@ -8,123 +8,149 @@ Name | Type | Description | Notes
 **Content** | **string** |  | 
 **IsValid** | **bool** |  | 
 **IsSchemaValid** | **bool** |  | 
-**Images** | [**[]ComposeFileImageList**](ComposeFileImageList.md) |  | 
+**SchemaError** | Pointer to **string** |  | [optional] 
+**Images** | [**ComposeFileImageList**](ComposeFileImageList.md) |  | 
 
 ## Methods
 
-### NewVerifiedComposeFileResponse
+### NewVerifyComposeFileResponse
 
-`func NewVerifiedComposeFileResponse(object string, content string, isValid bool, isSchemaValid bool, images []ComposeFileImageList, ) *VerifiedComposeFileResponse`
+`func NewVerifyComposeFileResponse(object string, content string, isValid bool, isSchemaValid bool, images ComposeFileImageList, ) *VerifyComposeFileResponse`
 
-NewVerifiedComposeFileResponse instantiates a new VerifiedComposeFileResponse object
+NewVerifyComposeFileResponse instantiates a new VerifyComposeFileResponse object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewVerifiedComposeFileResponseWithDefaults
+### NewVerifyComposeFileResponseWithDefaults
 
-`func NewVerifiedComposeFileResponseWithDefaults() *VerifiedComposeFileResponse`
+`func NewVerifyComposeFileResponseWithDefaults() *VerifyComposeFileResponse`
 
-NewVerifiedComposeFileResponseWithDefaults instantiates a new VerifiedComposeFileResponse object
+NewVerifyComposeFileResponseWithDefaults instantiates a new VerifyComposeFileResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetObject
 
-`func (o *VerifiedComposeFileResponse) GetObject() string`
+`func (o *VerifyComposeFileResponse) GetObject() string`
 
 GetObject returns the Object field if non-nil, zero value otherwise.
 
 ### GetObjectOk
 
-`func (o *VerifiedComposeFileResponse) GetObjectOk() (*string, bool)`
+`func (o *VerifyComposeFileResponse) GetObjectOk() (*string, bool)`
 
 GetObjectOk returns a tuple with the Object field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetObject
 
-`func (o *VerifiedComposeFileResponse) SetObject(v string)`
+`func (o *VerifyComposeFileResponse) SetObject(v string)`
 
 SetObject sets Object field to given value.
 
 
 ### GetContent
 
-`func (o *VerifiedComposeFileResponse) GetContent() string`
+`func (o *VerifyComposeFileResponse) GetContent() string`
 
 GetContent returns the Content field if non-nil, zero value otherwise.
 
 ### GetContentOk
 
-`func (o *VerifiedComposeFileResponse) GetContentOk() (*string, bool)`
+`func (o *VerifyComposeFileResponse) GetContentOk() (*string, bool)`
 
 GetContentOk returns a tuple with the Content field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetContent
 
-`func (o *VerifiedComposeFileResponse) SetContent(v string)`
+`func (o *VerifyComposeFileResponse) SetContent(v string)`
 
 SetContent sets Content field to given value.
 
 
 ### GetIsValid
 
-`func (o *VerifiedComposeFileResponse) GetIsValid() bool`
+`func (o *VerifyComposeFileResponse) GetIsValid() bool`
 
 GetIsValid returns the IsValid field if non-nil, zero value otherwise.
 
 ### GetIsValidOk
 
-`func (o *VerifiedComposeFileResponse) GetIsValidOk() (*bool, bool)`
+`func (o *VerifyComposeFileResponse) GetIsValidOk() (*bool, bool)`
 
 GetIsValidOk returns a tuple with the IsValid field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIsValid
 
-`func (o *VerifiedComposeFileResponse) SetIsValid(v bool)`
+`func (o *VerifyComposeFileResponse) SetIsValid(v bool)`
 
 SetIsValid sets IsValid field to given value.
 
 
 ### GetIsSchemaValid
 
-`func (o *VerifiedComposeFileResponse) GetIsSchemaValid() bool`
+`func (o *VerifyComposeFileResponse) GetIsSchemaValid() bool`
 
 GetIsSchemaValid returns the IsSchemaValid field if non-nil, zero value otherwise.
 
 ### GetIsSchemaValidOk
 
-`func (o *VerifiedComposeFileResponse) GetIsSchemaValidOk() (*bool, bool)`
+`func (o *VerifyComposeFileResponse) GetIsSchemaValidOk() (*bool, bool)`
 
 GetIsSchemaValidOk returns a tuple with the IsSchemaValid field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIsSchemaValid
 
-`func (o *VerifiedComposeFileResponse) SetIsSchemaValid(v bool)`
+`func (o *VerifyComposeFileResponse) SetIsSchemaValid(v bool)`
 
 SetIsSchemaValid sets IsSchemaValid field to given value.
 
 
+### GetSchemaError
+
+`func (o *VerifyComposeFileResponse) GetSchemaError() string`
+
+GetSchemaError returns the SchemaError field if non-nil, zero value otherwise.
+
+### GetSchemaErrorOk
+
+`func (o *VerifyComposeFileResponse) GetSchemaErrorOk() (*string, bool)`
+
+GetSchemaErrorOk returns a tuple with the SchemaError field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSchemaError
+
+`func (o *VerifyComposeFileResponse) SetSchemaError(v string)`
+
+SetSchemaError sets SchemaError field to given value.
+
+### HasSchemaError
+
+`func (o *VerifyComposeFileResponse) HasSchemaError() bool`
+
+HasSchemaError returns a boolean if a field has been set.
+
 ### GetImages
 
-`func (o *VerifiedComposeFileResponse) GetImages() []ComposeFileImageList`
+`func (o *VerifyComposeFileResponse) GetImages() ComposeFileImageList`
 
 GetImages returns the Images field if non-nil, zero value otherwise.
 
 ### GetImagesOk
 
-`func (o *VerifiedComposeFileResponse) GetImagesOk() (*[]ComposeFileImageList, bool)`
+`func (o *VerifyComposeFileResponse) GetImagesOk() (*ComposeFileImageList, bool)`
 
 GetImagesOk returns a tuple with the Images field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetImages
 
-`func (o *VerifiedComposeFileResponse) SetImages(v []ComposeFileImageList)`
+`func (o *VerifyComposeFileResponse) SetImages(v ComposeFileImageList)`
 
 SetImages sets Images field to given value.
 

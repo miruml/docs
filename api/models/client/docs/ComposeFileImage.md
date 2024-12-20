@@ -5,18 +5,20 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Object** | **string** |  | 
+**ComposeReference** | **string** |  | 
+**RegistryUrl** | **string** |  | 
+**RegistryType** | **string** |  | 
+**Name** | **string** |  | 
 **Digest** | **string** |  | 
-**Tags** | **[]string** |  | 
-**Uri** | **string** |  | 
-**Bytes** | **NullableInt64** |  | 
-**UploadedAt** | **time.Time** |  | 
+**Tag** | **string** |  | 
 **IsValid** | **bool** |  | 
+**Error** | **string** |  | 
 
 ## Methods
 
 ### NewComposeFileImage
 
-`func NewComposeFileImage(object string, digest string, tags []string, uri string, bytes NullableInt64, uploadedAt time.Time, isValid bool, ) *ComposeFileImage`
+`func NewComposeFileImage(object string, composeReference string, registryUrl string, registryType string, name string, digest string, tag string, isValid bool, error_ string, ) *ComposeFileImage`
 
 NewComposeFileImage instantiates a new ComposeFileImage object
 This constructor will assign default values to properties that have it defined,
@@ -51,6 +53,86 @@ and a boolean to check if the value has been set.
 SetObject sets Object field to given value.
 
 
+### GetComposeReference
+
+`func (o *ComposeFileImage) GetComposeReference() string`
+
+GetComposeReference returns the ComposeReference field if non-nil, zero value otherwise.
+
+### GetComposeReferenceOk
+
+`func (o *ComposeFileImage) GetComposeReferenceOk() (*string, bool)`
+
+GetComposeReferenceOk returns a tuple with the ComposeReference field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetComposeReference
+
+`func (o *ComposeFileImage) SetComposeReference(v string)`
+
+SetComposeReference sets ComposeReference field to given value.
+
+
+### GetRegistryUrl
+
+`func (o *ComposeFileImage) GetRegistryUrl() string`
+
+GetRegistryUrl returns the RegistryUrl field if non-nil, zero value otherwise.
+
+### GetRegistryUrlOk
+
+`func (o *ComposeFileImage) GetRegistryUrlOk() (*string, bool)`
+
+GetRegistryUrlOk returns a tuple with the RegistryUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRegistryUrl
+
+`func (o *ComposeFileImage) SetRegistryUrl(v string)`
+
+SetRegistryUrl sets RegistryUrl field to given value.
+
+
+### GetRegistryType
+
+`func (o *ComposeFileImage) GetRegistryType() string`
+
+GetRegistryType returns the RegistryType field if non-nil, zero value otherwise.
+
+### GetRegistryTypeOk
+
+`func (o *ComposeFileImage) GetRegistryTypeOk() (*string, bool)`
+
+GetRegistryTypeOk returns a tuple with the RegistryType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRegistryType
+
+`func (o *ComposeFileImage) SetRegistryType(v string)`
+
+SetRegistryType sets RegistryType field to given value.
+
+
+### GetName
+
+`func (o *ComposeFileImage) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *ComposeFileImage) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *ComposeFileImage) SetName(v string)`
+
+SetName sets Name field to given value.
+
+
 ### GetDigest
 
 `func (o *ComposeFileImage) GetDigest() string`
@@ -71,94 +153,24 @@ and a boolean to check if the value has been set.
 SetDigest sets Digest field to given value.
 
 
-### GetTags
+### GetTag
 
-`func (o *ComposeFileImage) GetTags() []string`
+`func (o *ComposeFileImage) GetTag() string`
 
-GetTags returns the Tags field if non-nil, zero value otherwise.
+GetTag returns the Tag field if non-nil, zero value otherwise.
 
-### GetTagsOk
+### GetTagOk
 
-`func (o *ComposeFileImage) GetTagsOk() (*[]string, bool)`
+`func (o *ComposeFileImage) GetTagOk() (*string, bool)`
 
-GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
+GetTagOk returns a tuple with the Tag field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetTags
+### SetTag
 
-`func (o *ComposeFileImage) SetTags(v []string)`
+`func (o *ComposeFileImage) SetTag(v string)`
 
-SetTags sets Tags field to given value.
-
-
-### GetUri
-
-`func (o *ComposeFileImage) GetUri() string`
-
-GetUri returns the Uri field if non-nil, zero value otherwise.
-
-### GetUriOk
-
-`func (o *ComposeFileImage) GetUriOk() (*string, bool)`
-
-GetUriOk returns a tuple with the Uri field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUri
-
-`func (o *ComposeFileImage) SetUri(v string)`
-
-SetUri sets Uri field to given value.
-
-
-### GetBytes
-
-`func (o *ComposeFileImage) GetBytes() int64`
-
-GetBytes returns the Bytes field if non-nil, zero value otherwise.
-
-### GetBytesOk
-
-`func (o *ComposeFileImage) GetBytesOk() (*int64, bool)`
-
-GetBytesOk returns a tuple with the Bytes field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetBytes
-
-`func (o *ComposeFileImage) SetBytes(v int64)`
-
-SetBytes sets Bytes field to given value.
-
-
-### SetBytesNil
-
-`func (o *ComposeFileImage) SetBytesNil(b bool)`
-
- SetBytesNil sets the value for Bytes to be an explicit nil
-
-### UnsetBytes
-`func (o *ComposeFileImage) UnsetBytes()`
-
-UnsetBytes ensures that no value is present for Bytes, not even an explicit nil
-### GetUploadedAt
-
-`func (o *ComposeFileImage) GetUploadedAt() time.Time`
-
-GetUploadedAt returns the UploadedAt field if non-nil, zero value otherwise.
-
-### GetUploadedAtOk
-
-`func (o *ComposeFileImage) GetUploadedAtOk() (*time.Time, bool)`
-
-GetUploadedAtOk returns a tuple with the UploadedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUploadedAt
-
-`func (o *ComposeFileImage) SetUploadedAt(v time.Time)`
-
-SetUploadedAt sets UploadedAt field to given value.
+SetTag sets Tag field to given value.
 
 
 ### GetIsValid
@@ -179,6 +191,26 @@ and a boolean to check if the value has been set.
 `func (o *ComposeFileImage) SetIsValid(v bool)`
 
 SetIsValid sets IsValid field to given value.
+
+
+### GetError
+
+`func (o *ComposeFileImage) GetError() string`
+
+GetError returns the Error field if non-nil, zero value otherwise.
+
+### GetErrorOk
+
+`func (o *ComposeFileImage) GetErrorOk() (*string, bool)`
+
+GetErrorOk returns a tuple with the Error field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetError
+
+`func (o *ComposeFileImage) SetError(v string)`
+
+SetError sets Error field to given value.
 
 
 

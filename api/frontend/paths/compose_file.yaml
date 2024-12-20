@@ -19,4 +19,4 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "../schemas/compose_file.yaml#/components/schemas/VerifiedComposeFileResponse"
+                $ref: "../schemas/compose_file.yaml#/components/schemas/VerifyComposeFileResponse"

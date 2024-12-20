@@ -19,8 +19,8 @@ components:
           type: string
           example: "name: miru\nservices:\n  redis:\n  image: redis:latest\n  restart: always"
 
-    VerifiedComposeFileResponse:
-      title: Verified Compose File Response
+    VerifyComposeFileResponse:
+      title: Verify Compose File Response
       type: object
       required:
         - object
@@ -41,22 +41,53 @@ components:
         is_schema_valid:
           type: boolean
           example: true
+        schema_error:
+          type: string
+          example: "<reason why compose file is malformed>"
         images:
-          type: array
-          items:
-            $ref: "#/components/schemas/ComposeFileImageList"
+          $ref: "#/components/schemas/ComposeFileImageList"
 
     ComposeFileImage:
       title: Compose File Image
-      allOf:
-        - $ref: "./image.yaml#/components/schemas/ExternalContainerImage"
-        - type: object
-          required:
-            - is_valid
-          properties:
-            is_valid:
-              type: boolean
-              example: false 
+      type: object
+      required:
+        - object
+        - compose_reference
+        - registry_url
+        - registry_type
+        - name
+        - digest
+        - tag
+        - is_valid
+        - error
+      properties:
+        object:
+          type: string
+          example: "external_image"
+        compose_reference:
+          type: string
+          example: "redis:latest"
+        registry_url:
+          type: string
+          example: "docker.io"
+        registry_type:
+          type: string
+          example: "gar"
+        name:
+          type: string
+          example: "redis"
+        digest:
+          type: string
+          example: "sha256:123abc"
+        tag:
+          type: string
+          example: "latest"
+        is_valid:
+          type: boolean
+          example: false 
+        error:
+          type: string
+          example: "<reason why image is not valid>"
 
     ComposeFileImageList:
       title: Compose File Image List
