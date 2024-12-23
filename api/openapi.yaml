@@ -528,16 +528,13 @@ paths:
         content:
           application/json:
             schema:
-              title: Validate Compose File
+              title: Verify Compose File
               type: object
               required:
-                - object
-                - content
+                - compose_file
+                - architecture
               properties:
-                object:
-                  type: string
-                  example: compose_file
-                content:
+                compose_file:
                   type: string
                   example: |-
                     name: miru
@@ -545,6 +542,9 @@ paths:
                       redis:
                       image: redis:latest
                       restart: always
+                architecture:
+                  type: string
+                  example: arm64
       responses:
         '200':
           description: Successfully verified the compose file.
@@ -598,12 +598,15 @@ paths:
                           required:
                             - object
                             - compose_reference
+                            - image_uri
+                            - repository_uri
                             - registry_url
                             - registry_type
                             - name
                             - digest
                             - tag
-                            - is_valid
+                            - is_image_valid
+                            - is_repository_valid
                             - error
                           properties:
                             object:
@@ -612,6 +615,12 @@ paths:
                             compose_reference:
                               type: string
                               example: 'redis:latest'
+                            image_uri:
+                              type: string
+                              example: 'docker.io/redis:latest'
+                            repository_uri:
+                              type: string
+                              example: docker.io/redis
                             registry_url:
                               type: string
                               example: docker.io
@@ -627,7 +636,10 @@ paths:
                             tag:
                               type: string
                               example: latest
-                            is_valid:
+                            is_image_valid:
+                              type: boolean
+                              example: false
+                            is_repository_valid:
                               type: boolean
                               example: false
                             error:

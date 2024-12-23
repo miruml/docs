@@ -6,19 +6,22 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Object** | **string** |  | 
 **ComposeReference** | **string** |  | 
+**ImageUri** | **string** |  | 
+**RepositoryUri** | **string** |  | 
 **RegistryUrl** | **string** |  | 
 **RegistryType** | **string** |  | 
 **Name** | **string** |  | 
 **Digest** | **string** |  | 
 **Tag** | **string** |  | 
-**IsValid** | **bool** |  | 
+**IsImageValid** | **bool** |  | 
+**IsRepositoryValid** | **bool** |  | 
 **Error** | **string** |  | 
 
 ## Methods
 
 ### NewComposeFileImage
 
-`func NewComposeFileImage(object string, composeReference string, registryUrl string, registryType string, name string, digest string, tag string, isValid bool, error_ string, ) *ComposeFileImage`
+`func NewComposeFileImage(object string, composeReference string, imageUri string, repositoryUri string, registryUrl string, registryType string, name string, digest string, tag string, isImageValid bool, isRepositoryValid bool, error_ string, ) *ComposeFileImage`
 
 NewComposeFileImage instantiates a new ComposeFileImage object
 This constructor will assign default values to properties that have it defined,
@@ -71,6 +74,46 @@ and a boolean to check if the value has been set.
 `func (o *ComposeFileImage) SetComposeReference(v string)`
 
 SetComposeReference sets ComposeReference field to given value.
+
+
+### GetImageUri
+
+`func (o *ComposeFileImage) GetImageUri() string`
+
+GetImageUri returns the ImageUri field if non-nil, zero value otherwise.
+
+### GetImageUriOk
+
+`func (o *ComposeFileImage) GetImageUriOk() (*string, bool)`
+
+GetImageUriOk returns a tuple with the ImageUri field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetImageUri
+
+`func (o *ComposeFileImage) SetImageUri(v string)`
+
+SetImageUri sets ImageUri field to given value.
+
+
+### GetRepositoryUri
+
+`func (o *ComposeFileImage) GetRepositoryUri() string`
+
+GetRepositoryUri returns the RepositoryUri field if non-nil, zero value otherwise.
+
+### GetRepositoryUriOk
+
+`func (o *ComposeFileImage) GetRepositoryUriOk() (*string, bool)`
+
+GetRepositoryUriOk returns a tuple with the RepositoryUri field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRepositoryUri
+
+`func (o *ComposeFileImage) SetRepositoryUri(v string)`
+
+SetRepositoryUri sets RepositoryUri field to given value.
 
 
 ### GetRegistryUrl
@@ -173,24 +216,44 @@ and a boolean to check if the value has been set.
 SetTag sets Tag field to given value.
 
 
-### GetIsValid
+### GetIsImageValid
 
-`func (o *ComposeFileImage) GetIsValid() bool`
+`func (o *ComposeFileImage) GetIsImageValid() bool`
 
-GetIsValid returns the IsValid field if non-nil, zero value otherwise.
+GetIsImageValid returns the IsImageValid field if non-nil, zero value otherwise.
 
-### GetIsValidOk
+### GetIsImageValidOk
 
-`func (o *ComposeFileImage) GetIsValidOk() (*bool, bool)`
+`func (o *ComposeFileImage) GetIsImageValidOk() (*bool, bool)`
 
-GetIsValidOk returns a tuple with the IsValid field if it's non-nil, zero value otherwise
+GetIsImageValidOk returns a tuple with the IsImageValid field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIsValid
+### SetIsImageValid
 
-`func (o *ComposeFileImage) SetIsValid(v bool)`
+`func (o *ComposeFileImage) SetIsImageValid(v bool)`
 
-SetIsValid sets IsValid field to given value.
+SetIsImageValid sets IsImageValid field to given value.
+
+
+### GetIsRepositoryValid
+
+`func (o *ComposeFileImage) GetIsRepositoryValid() bool`
+
+GetIsRepositoryValid returns the IsRepositoryValid field if non-nil, zero value otherwise.
+
+### GetIsRepositoryValidOk
+
+`func (o *ComposeFileImage) GetIsRepositoryValidOk() (*bool, bool)`
+
+GetIsRepositoryValidOk returns a tuple with the IsRepositoryValid field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsRepositoryValid
+
+`func (o *ComposeFileImage) SetIsRepositoryValid(v bool)`
+
+SetIsRepositoryValid sets IsRepositoryValid field to given value.
 
 
 ### GetError

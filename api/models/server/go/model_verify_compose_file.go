@@ -15,16 +15,16 @@ package openapi
 
 type VerifyComposeFile struct {
 
-	Object string `json:"object"`
+	ComposeFile string `json:"compose_file"`
 
-	Content string `json:"content"`
+	Architecture string `json:"architecture"`
 }
 
 // AssertVerifyComposeFileRequired checks if the required fields are not zero-ed
 func AssertVerifyComposeFileRequired(obj VerifyComposeFile) error {
 	elements := map[string]interface{}{
-		"object": obj.Object,
-		"content": obj.Content,
+		"compose_file": obj.ComposeFile,
+		"architecture": obj.Architecture,
 	}
 	for name, el := range elements {
 		if isZero := IsZeroValue(el); isZero {

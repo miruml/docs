@@ -21,8 +21,8 @@ var _ MappedNullable = &VerifyComposeFile{}
 
 // VerifyComposeFile struct for VerifyComposeFile
 type VerifyComposeFile struct {
-	Object string `json:"object"`
-	Content string `json:"content"`
+	ComposeFile string `json:"compose_file"`
+	Architecture string `json:"architecture"`
 }
 
 type _VerifyComposeFile VerifyComposeFile
@@ -31,10 +31,10 @@ type _VerifyComposeFile VerifyComposeFile
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVerifyComposeFile(object string, content string) *VerifyComposeFile {
+func NewVerifyComposeFile(composeFile string, architecture string) *VerifyComposeFile {
 	this := VerifyComposeFile{}
-	this.Object = object
-	this.Content = content
+	this.ComposeFile = composeFile
+	this.Architecture = architecture
 	return &this
 }
 
@@ -46,52 +46,52 @@ func NewVerifyComposeFileWithDefaults() *VerifyComposeFile {
 	return &this
 }
 
-// GetObject returns the Object field value
-func (o *VerifyComposeFile) GetObject() string {
+// GetComposeFile returns the ComposeFile field value
+func (o *VerifyComposeFile) GetComposeFile() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Object
+	return o.ComposeFile
 }
 
-// GetObjectOk returns a tuple with the Object field value
+// GetComposeFileOk returns a tuple with the ComposeFile field value
 // and a boolean to check if the value has been set.
-func (o *VerifyComposeFile) GetObjectOk() (*string, bool) {
+func (o *VerifyComposeFile) GetComposeFileOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Object, true
+	return &o.ComposeFile, true
 }
 
-// SetObject sets field value
-func (o *VerifyComposeFile) SetObject(v string) {
-	o.Object = v
+// SetComposeFile sets field value
+func (o *VerifyComposeFile) SetComposeFile(v string) {
+	o.ComposeFile = v
 }
 
-// GetContent returns the Content field value
-func (o *VerifyComposeFile) GetContent() string {
+// GetArchitecture returns the Architecture field value
+func (o *VerifyComposeFile) GetArchitecture() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Content
+	return o.Architecture
 }
 
-// GetContentOk returns a tuple with the Content field value
+// GetArchitectureOk returns a tuple with the Architecture field value
 // and a boolean to check if the value has been set.
-func (o *VerifyComposeFile) GetContentOk() (*string, bool) {
+func (o *VerifyComposeFile) GetArchitectureOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Content, true
+	return &o.Architecture, true
 }
 
-// SetContent sets field value
-func (o *VerifyComposeFile) SetContent(v string) {
-	o.Content = v
+// SetArchitecture sets field value
+func (o *VerifyComposeFile) SetArchitecture(v string) {
+	o.Architecture = v
 }
 
 func (o VerifyComposeFile) MarshalJSON() ([]byte, error) {
@@ -104,8 +104,8 @@ func (o VerifyComposeFile) MarshalJSON() ([]byte, error) {
 
 func (o VerifyComposeFile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["object"] = o.Object
-	toSerialize["content"] = o.Content
+	toSerialize["compose_file"] = o.ComposeFile
+	toSerialize["architecture"] = o.Architecture
 	return toSerialize, nil
 }
 
@@ -114,8 +114,8 @@ func (o *VerifyComposeFile) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"object",
-		"content",
+		"compose_file",
+		"architecture",
 	}
 
 	allProperties := make(map[string]interface{})

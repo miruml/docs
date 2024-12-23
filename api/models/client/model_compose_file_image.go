@@ -23,12 +23,15 @@ var _ MappedNullable = &ComposeFileImage{}
 type ComposeFileImage struct {
 	Object string `json:"object"`
 	ComposeReference string `json:"compose_reference"`
+	ImageUri string `json:"image_uri"`
+	RepositoryUri string `json:"repository_uri"`
 	RegistryUrl string `json:"registry_url"`
 	RegistryType string `json:"registry_type"`
 	Name string `json:"name"`
 	Digest string `json:"digest"`
 	Tag string `json:"tag"`
-	IsValid bool `json:"is_valid"`
+	IsImageValid bool `json:"is_image_valid"`
+	IsRepositoryValid bool `json:"is_repository_valid"`
 	Error string `json:"error"`
 }
 
@@ -38,16 +41,19 @@ type _ComposeFileImage ComposeFileImage
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewComposeFileImage(object string, composeReference string, registryUrl string, registryType string, name string, digest string, tag string, isValid bool, error_ string) *ComposeFileImage {
+func NewComposeFileImage(object string, composeReference string, imageUri string, repositoryUri string, registryUrl string, registryType string, name string, digest string, tag string, isImageValid bool, isRepositoryValid bool, error_ string) *ComposeFileImage {
 	this := ComposeFileImage{}
 	this.Object = object
 	this.ComposeReference = composeReference
+	this.ImageUri = imageUri
+	this.RepositoryUri = repositoryUri
 	this.RegistryUrl = registryUrl
 	this.RegistryType = registryType
 	this.Name = name
 	this.Digest = digest
 	this.Tag = tag
-	this.IsValid = isValid
+	this.IsImageValid = isImageValid
+	this.IsRepositoryValid = isRepositoryValid
 	this.Error = error_
 	return &this
 }
@@ -106,6 +112,54 @@ func (o *ComposeFileImage) GetComposeReferenceOk() (*string, bool) {
 // SetComposeReference sets field value
 func (o *ComposeFileImage) SetComposeReference(v string) {
 	o.ComposeReference = v
+}
+
+// GetImageUri returns the ImageUri field value
+func (o *ComposeFileImage) GetImageUri() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ImageUri
+}
+
+// GetImageUriOk returns a tuple with the ImageUri field value
+// and a boolean to check if the value has been set.
+func (o *ComposeFileImage) GetImageUriOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ImageUri, true
+}
+
+// SetImageUri sets field value
+func (o *ComposeFileImage) SetImageUri(v string) {
+	o.ImageUri = v
+}
+
+// GetRepositoryUri returns the RepositoryUri field value
+func (o *ComposeFileImage) GetRepositoryUri() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.RepositoryUri
+}
+
+// GetRepositoryUriOk returns a tuple with the RepositoryUri field value
+// and a boolean to check if the value has been set.
+func (o *ComposeFileImage) GetRepositoryUriOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.RepositoryUri, true
+}
+
+// SetRepositoryUri sets field value
+func (o *ComposeFileImage) SetRepositoryUri(v string) {
+	o.RepositoryUri = v
 }
 
 // GetRegistryUrl returns the RegistryUrl field value
@@ -228,28 +282,52 @@ func (o *ComposeFileImage) SetTag(v string) {
 	o.Tag = v
 }
 
-// GetIsValid returns the IsValid field value
-func (o *ComposeFileImage) GetIsValid() bool {
+// GetIsImageValid returns the IsImageValid field value
+func (o *ComposeFileImage) GetIsImageValid() bool {
 	if o == nil {
 		var ret bool
 		return ret
 	}
 
-	return o.IsValid
+	return o.IsImageValid
 }
 
-// GetIsValidOk returns a tuple with the IsValid field value
+// GetIsImageValidOk returns a tuple with the IsImageValid field value
 // and a boolean to check if the value has been set.
-func (o *ComposeFileImage) GetIsValidOk() (*bool, bool) {
+func (o *ComposeFileImage) GetIsImageValidOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.IsValid, true
+	return &o.IsImageValid, true
 }
 
-// SetIsValid sets field value
-func (o *ComposeFileImage) SetIsValid(v bool) {
-	o.IsValid = v
+// SetIsImageValid sets field value
+func (o *ComposeFileImage) SetIsImageValid(v bool) {
+	o.IsImageValid = v
+}
+
+// GetIsRepositoryValid returns the IsRepositoryValid field value
+func (o *ComposeFileImage) GetIsRepositoryValid() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.IsRepositoryValid
+}
+
+// GetIsRepositoryValidOk returns a tuple with the IsRepositoryValid field value
+// and a boolean to check if the value has been set.
+func (o *ComposeFileImage) GetIsRepositoryValidOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IsRepositoryValid, true
+}
+
+// SetIsRepositoryValid sets field value
+func (o *ComposeFileImage) SetIsRepositoryValid(v bool) {
+	o.IsRepositoryValid = v
 }
 
 // GetError returns the Error field value
@@ -288,12 +366,15 @@ func (o ComposeFileImage) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["object"] = o.Object
 	toSerialize["compose_reference"] = o.ComposeReference
+	toSerialize["image_uri"] = o.ImageUri
+	toSerialize["repository_uri"] = o.RepositoryUri
 	toSerialize["registry_url"] = o.RegistryUrl
 	toSerialize["registry_type"] = o.RegistryType
 	toSerialize["name"] = o.Name
 	toSerialize["digest"] = o.Digest
 	toSerialize["tag"] = o.Tag
-	toSerialize["is_valid"] = o.IsValid
+	toSerialize["is_image_valid"] = o.IsImageValid
+	toSerialize["is_repository_valid"] = o.IsRepositoryValid
 	toSerialize["error"] = o.Error
 	return toSerialize, nil
 }
@@ -305,12 +386,15 @@ func (o *ComposeFileImage) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"object",
 		"compose_reference",
+		"image_uri",
+		"repository_uri",
 		"registry_url",
 		"registry_type",
 		"name",
 		"digest",
 		"tag",
-		"is_valid",
+		"is_image_valid",
+		"is_repository_valid",
 		"error",
 	}
 

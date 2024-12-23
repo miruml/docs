@@ -19,6 +19,10 @@ type ComposeFileImage struct {
 
 	ComposeReference string `json:"compose_reference"`
 
+	ImageUri string `json:"image_uri"`
+
+	RepositoryUri string `json:"repository_uri"`
+
 	RegistryUrl string `json:"registry_url"`
 
 	RegistryType string `json:"registry_type"`
@@ -29,7 +33,9 @@ type ComposeFileImage struct {
 
 	Tag string `json:"tag"`
 
-	IsValid bool `json:"is_valid"`
+	IsImageValid bool `json:"is_image_valid"`
+
+	IsRepositoryValid bool `json:"is_repository_valid"`
 
 	Error string `json:"error"`
 }
@@ -39,12 +45,15 @@ func AssertComposeFileImageRequired(obj ComposeFileImage) error {
 	elements := map[string]interface{}{
 		"object": obj.Object,
 		"compose_reference": obj.ComposeReference,
+		"image_uri": obj.ImageUri,
+		"repository_uri": obj.RepositoryUri,
 		"registry_url": obj.RegistryUrl,
 		"registry_type": obj.RegistryType,
 		"name": obj.Name,
 		"digest": obj.Digest,
 		"tag": obj.Tag,
-		"is_valid": obj.IsValid,
+		"is_image_valid": obj.IsImageValid,
+		"is_repository_valid": obj.IsRepositoryValid,
 		"error": obj.Error,
 	}
 	for name, el := range elements {
