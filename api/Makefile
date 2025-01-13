@@ -11,3 +11,7 @@ clean:
 	rm -rf ./all ./models
 
 rebuild: clean all
+
+rebundle:
+	rm -f openapi.yaml
+	swagger-cli bundle -o openapi.yaml -t yaml main.yaml
