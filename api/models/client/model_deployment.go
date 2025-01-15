@@ -39,7 +39,7 @@ type Deployment struct {
 	RemovingAt NullableTime `json:"removing_at"`
 	ArchivedAt NullableTime `json:"archived_at"`
 	CooldownEndsAt time.Time `json:"cooldown_ends_at"`
-	CreatedBy User `json:"created_by"`
+	CreatedBy NullableUser `json:"created_by"`
 	Artifact ArtifactWithSourceData `json:"artifact"`
 }
 
@@ -49,7 +49,7 @@ type _Deployment Deployment
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeployment(object string, id string, deviceId string, status string, activityStatus string, errorStatus string, targetStatus string, createdAt time.Time, downloadingAt NullableTime, downloadedAt NullableTime, bootingAt NullableTime, activeAt NullableTime, stoppingAt NullableTime, stoppedAt NullableTime, removingAt NullableTime, archivedAt NullableTime, cooldownEndsAt time.Time, createdBy User, artifact ArtifactWithSourceData) *Deployment {
+func NewDeployment(object string, id string, deviceId string, status string, activityStatus string, errorStatus string, targetStatus string, createdAt time.Time, downloadingAt NullableTime, downloadedAt NullableTime, bootingAt NullableTime, activeAt NullableTime, stoppingAt NullableTime, stoppedAt NullableTime, removingAt NullableTime, archivedAt NullableTime, cooldownEndsAt time.Time, createdBy NullableUser, artifact ArtifactWithSourceData) *Deployment {
 	this := Deployment{}
 	this.Object = object
 	this.Id = id
@@ -506,27 +506,29 @@ func (o *Deployment) SetCooldownEndsAt(v time.Time) {
 }
 
 // GetCreatedBy returns the CreatedBy field value
+// If the value is explicit nil, the zero value for User will be returned
 func (o *Deployment) GetCreatedBy() User {
-	if o == nil {
+	if o == nil || o.CreatedBy.Get() == nil {
 		var ret User
 		return ret
 	}
 
-	return o.CreatedBy
+	return *o.CreatedBy.Get()
 }
 
 // GetCreatedByOk returns a tuple with the CreatedBy field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Deployment) GetCreatedByOk() (*User, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CreatedBy, true
+	return o.CreatedBy.Get(), o.CreatedBy.IsSet()
 }
 
 // SetCreatedBy sets field value
 func (o *Deployment) SetCreatedBy(v User) {
-	o.CreatedBy = v
+	o.CreatedBy.Set(&v)
 }
 
 // GetArtifact returns the Artifact field value
@@ -580,7 +582,7 @@ func (o Deployment) ToMap() (map[string]interface{}, error) {
 	toSerialize["removing_at"] = o.RemovingAt.Get()
 	toSerialize["archived_at"] = o.ArchivedAt.Get()
 	toSerialize["cooldown_ends_at"] = o.CooldownEndsAt
-	toSerialize["created_by"] = o.CreatedBy
+	toSerialize["created_by"] = o.CreatedBy.Get()
 	toSerialize["artifact"] = o.Artifact
 	return toSerialize, nil
 }

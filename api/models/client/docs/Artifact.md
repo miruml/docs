@@ -15,10 +15,10 @@ Name | Type | Description | Notes
 **FailedAt** | **NullableTime** |  | 
 **SourceId** | **string** |  | 
 **SourceType** | **string** |  | 
-**CreatedBy** | [**User**](User.md) |  | 
-**RegistrySource** | [**RegistrySource**](RegistrySource.md) |  | 
-**GithubSource** | [**GitHubSource**](GitHubSource.md) |  | 
-**GithubSourceData** | [**GitHubSourceData**](GitHubSourceData.md) |  | 
+**CreatedBy** | [**NullableUser**](User.md) |  | 
+**RegistrySource** | [**NullableRegistrySource**](RegistrySource.md) |  | 
+**GithubSource** | [**NullableGitHubSource**](GitHubSource.md) |  | 
+**GithubSourceData** | [**NullableGitHubSourceData**](GitHubSourceData.md) |  | 
 **Images** | [**ImageList**](ImageList.md) |  | 
 **Deployments** | [**ArtifactDeploymentList**](ArtifactDeploymentList.md) |  | 
 
@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 
 ### NewArtifact
 
-`func NewArtifact(object string, id string, status ArtifactStatus, digest string, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime, sourceId string, sourceType string, createdBy User, registrySource RegistrySource, githubSource GitHubSource, githubSourceData GitHubSourceData, images ImageList, deployments ArtifactDeploymentList, ) *Artifact`
+`func NewArtifact(object string, id string, status ArtifactStatus, digest string, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime, sourceId string, sourceType string, createdBy NullableUser, registrySource NullableRegistrySource, githubSource NullableGitHubSource, githubSourceData NullableGitHubSourceData, images ImageList, deployments ArtifactDeploymentList, ) *Artifact`
 
 NewArtifact instantiates a new Artifact object
 This constructor will assign default values to properties that have it defined,
@@ -301,6 +301,16 @@ and a boolean to check if the value has been set.
 SetCreatedBy sets CreatedBy field to given value.
 
 
+### SetCreatedByNil
+
+`func (o *Artifact) SetCreatedByNil(b bool)`
+
+ SetCreatedByNil sets the value for CreatedBy to be an explicit nil
+
+### UnsetCreatedBy
+`func (o *Artifact) UnsetCreatedBy()`
+
+UnsetCreatedBy ensures that no value is present for CreatedBy, not even an explicit nil
 ### GetRegistrySource
 
 `func (o *Artifact) GetRegistrySource() RegistrySource`
@@ -321,6 +331,16 @@ and a boolean to check if the value has been set.
 SetRegistrySource sets RegistrySource field to given value.
 
 
+### SetRegistrySourceNil
+
+`func (o *Artifact) SetRegistrySourceNil(b bool)`
+
+ SetRegistrySourceNil sets the value for RegistrySource to be an explicit nil
+
+### UnsetRegistrySource
+`func (o *Artifact) UnsetRegistrySource()`
+
+UnsetRegistrySource ensures that no value is present for RegistrySource, not even an explicit nil
 ### GetGithubSource
 
 `func (o *Artifact) GetGithubSource() GitHubSource`
@@ -341,6 +361,16 @@ and a boolean to check if the value has been set.
 SetGithubSource sets GithubSource field to given value.
 
 
+### SetGithubSourceNil
+
+`func (o *Artifact) SetGithubSourceNil(b bool)`
+
+ SetGithubSourceNil sets the value for GithubSource to be an explicit nil
+
+### UnsetGithubSource
+`func (o *Artifact) UnsetGithubSource()`
+
+UnsetGithubSource ensures that no value is present for GithubSource, not even an explicit nil
 ### GetGithubSourceData
 
 `func (o *Artifact) GetGithubSourceData() GitHubSourceData`
@@ -361,6 +391,16 @@ and a boolean to check if the value has been set.
 SetGithubSourceData sets GithubSourceData field to given value.
 
 
+### SetGithubSourceDataNil
+
+`func (o *Artifact) SetGithubSourceDataNil(b bool)`
+
+ SetGithubSourceDataNil sets the value for GithubSourceData to be an explicit nil
+
+### UnsetGithubSourceData
+`func (o *Artifact) UnsetGithubSourceData()`
+
+UnsetGithubSourceData ensures that no value is present for GithubSourceData, not even an explicit nil
 ### GetImages
 
 `func (o *Artifact) GetImages() ImageList`

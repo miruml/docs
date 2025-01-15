@@ -133,100 +133,105 @@ paths:
                           - github_source_data
                         properties:
                           created_by:
-                            $ref: '#/paths/~1deployments~1%7Bdeployment_id%7D/get/responses/200/content/application~1json/schema/allOf/1/properties/created_by'
+                            allOf:
+                              - $ref: '#/paths/~1deployments~1%7Bdeployment_id%7D/get/responses/200/content/application~1json/schema/allOf/1/properties/created_by/allOf/0'
+                            nullable: true
                           registry_source:
-                            $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/get/responses/200/content/application~1json/schema'
+                            allOf:
+                              - $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/get/responses/200/content/application~1json/schema'
                             nullable: true
                           github_source:
-                            $ref: '#/paths/~1groups~1%7Bgroup_id%7D/get/responses/200/content/application~1json/schema/allOf/1/properties/github_sources/properties/data/items'
+                            allOf:
+                              - $ref: '#/paths/~1groups~1%7Bgroup_id%7D/get/responses/200/content/application~1json/schema/allOf/1/properties/github_sources/properties/data/items'
                             nullable: true
                           github_source_data:
+                            allOf:
+                              - title: GitHub Source Data
+                                type: object
+                                required:
+                                  - sender
+                                  - branch
+                                  - build_path
+                                  - repository
+                                  - head_commit
+                                properties:
+                                  sender:
+                                    title: GitHub Source Data Sender
+                                    type: object
+                                    required:
+                                      - id
+                                      - type
+                                      - login
+                                      - html_url
+                                      - avatar_url
+                                    properties:
+                                      id:
+                                        type: integer
+                                        example: 1234
+                                        format: int64
+                                      type:
+                                        type: string
+                                        example: User
+                                      login:
+                                        type: string
+                                        example: bensmidt
+                                      html_url:
+                                        type: string
+                                        example: 'https://github.com/bensmidt'
+                                      avatar_url:
+                                        type: string
+                                        example: 'https://avatars.githubusercontent.com/u/92611223?v=4'
+                                  branch:
+                                    type: string
+                                    example: main
+                                  build_path:
+                                    type: string
+                                    example: valid/wordpress
+                                  repository:
+                                    title: GitHub Source Data Repository
+                                    type: object
+                                    required:
+                                      - id
+                                      - html_url
+                                      - clone_url
+                                      - full_name
+                                      - pushed_at
+                                    properties:
+                                      id:
+                                        type: integer
+                                        example: 819141000
+                                        format: int64
+                                      html_url:
+                                        type: string
+                                        example: 'https://github.com/miruml/e2e-tests'
+                                      clone_url:
+                                        type: string
+                                        example: 'https://github.com/miruml/e2e-tests.git'
+                                      full_name:
+                                        type: string
+                                        example: miruml/e2e-tests
+                                      pushed_at:
+                                        type: string
+                                        format: date-time
+                                        example: '2024-11-03T14:19:50Z'
+                                  head_commit:
+                                    title: GitHub Source Data Head Commit
+                                    type: object
+                                    required:
+                                      - id
+                                      - url
+                                      - message
+                                    properties:
+                                      id:
+                                        type: string
+                                        example: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+                                      url:
+                                        type: string
+                                        example: 'https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03'
+                                      message:
+                                        type: string
+                                        example: Update README.md
                             nullable: true
-                            title: GitHub Source Data
-                            type: object
-                            required:
-                              - sender
-                              - branch
-                              - build_path
-                              - repository
-                              - head_commit
-                            properties:
-                              sender:
-                                title: GitHub Source Data Sender
-                                type: object
-                                required:
-                                  - id
-                                  - type
-                                  - login
-                                  - html_url
-                                  - avatar_url
-                                properties:
-                                  id:
-                                    type: integer
-                                    example: 1234
-                                    format: int64
-                                  type:
-                                    type: string
-                                    example: User
-                                  login:
-                                    type: string
-                                    example: bensmidt
-                                  html_url:
-                                    type: string
-                                    example: 'https://github.com/bensmidt'
-                                  avatar_url:
-                                    type: string
-                                    example: 'https://avatars.githubusercontent.com/u/92611223?v=4'
-                              branch:
-                                type: string
-                                example: main
-                              build_path:
-                                type: string
-                                example: valid/wordpress
-                              repository:
-                                title: GitHub Source Data Repository
-                                type: object
-                                required:
-                                  - id
-                                  - html_url
-                                  - clone_url
-                                  - full_name
-                                  - pushed_at
-                                properties:
-                                  id:
-                                    type: integer
-                                    example: 819141000
-                                    format: int64
-                                  html_url:
-                                    type: string
-                                    example: 'https://github.com/miruml/e2e-tests'
-                                  clone_url:
-                                    type: string
-                                    example: 'https://github.com/miruml/e2e-tests.git'
-                                  full_name:
-                                    type: string
-                                    example: miruml/e2e-tests
-                                  pushed_at:
-                                    type: string
-                                    format: date-time
-                                    example: '2024-11-03T14:19:50Z'
-                              head_commit:
-                                title: GitHub Source Data Head Commit
-                                type: object
-                                required:
-                                  - id
-                                  - url
-                                  - message
-                                properties:
-                                  id:
-                                    type: string
-                                    example: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
-                                  url:
-                                    type: string
-                                    example: 'https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03'
-                                  message:
-                                    type: string
-                                    example: Update README.md
                   - type: object
                     required:
                       - images
@@ -860,26 +865,28 @@ paths:
                       - artifact
                     properties:
                       created_by:
-                        title: User
-                        type: object
-                        required:
-                          - object
-                          - id
-                          - first_name
-                          - last_name
-                        properties:
-                          object:
-                            type: string
-                            example: user
-                          id:
-                            type: string
-                            example: usr_1234
-                          first_name:
-                            type: string
-                            example: John
-                          last_name:
-                            type: string
-                            example: Doe
+                        allOf:
+                          - title: User
+                            type: object
+                            required:
+                              - object
+                              - id
+                              - first_name
+                              - last_name
+                            properties:
+                              object:
+                                type: string
+                                example: user
+                              id:
+                                type: string
+                                example: usr_1234
+                              first_name:
+                                type: string
+                                example: John
+                              last_name:
+                                type: string
+                                example: Doe
+                        nullable: true
                       artifact:
                         $ref: '#/paths/~1artifacts~1%7Bartifact_id%7D/get/responses/200/content/application~1json/schema/allOf/0'
   '/devices/{device_id}/deployments':

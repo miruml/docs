@@ -94,7 +94,6 @@ components:
           type: integer
           format: int64
           example: 392510987
-          nullable: true
         uploaded_at:
           type: string
           example: "2021-01-01T00:00:00Z"

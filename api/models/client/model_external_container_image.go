@@ -26,7 +26,7 @@ type ExternalContainerImage struct {
 	Digest string `json:"digest"`
 	Tags []string `json:"tags"`
 	Uri string `json:"uri"`
-	Bytes NullableInt64 `json:"bytes"`
+	Bytes int64 `json:"bytes"`
 	UploadedAt time.Time `json:"uploaded_at"`
 }
 
@@ -36,7 +36,7 @@ type _ExternalContainerImage ExternalContainerImage
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExternalContainerImage(object string, digest string, tags []string, uri string, bytes NullableInt64, uploadedAt time.Time) *ExternalContainerImage {
+func NewExternalContainerImage(object string, digest string, tags []string, uri string, bytes int64, uploadedAt time.Time) *ExternalContainerImage {
 	this := ExternalContainerImage{}
 	this.Object = object
 	this.Digest = digest
@@ -152,29 +152,27 @@ func (o *ExternalContainerImage) SetUri(v string) {
 }
 
 // GetBytes returns the Bytes field value
-// If the value is explicit nil, the zero value for int64 will be returned
 func (o *ExternalContainerImage) GetBytes() int64 {
-	if o == nil || o.Bytes.Get() == nil {
+	if o == nil {
 		var ret int64
 		return ret
 	}
 
-	return *o.Bytes.Get()
+	return o.Bytes
 }
 
 // GetBytesOk returns a tuple with the Bytes field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ExternalContainerImage) GetBytesOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Bytes.Get(), o.Bytes.IsSet()
+	return &o.Bytes, true
 }
 
 // SetBytes sets field value
 func (o *ExternalContainerImage) SetBytes(v int64) {
-	o.Bytes.Set(&v)
+	o.Bytes = v
 }
 
 // GetUploadedAt returns the UploadedAt field value
@@ -215,7 +213,7 @@ func (o ExternalContainerImage) ToMap() (map[string]interface{}, error) {
 	toSerialize["digest"] = o.Digest
 	toSerialize["tags"] = o.Tags
 	toSerialize["uri"] = o.Uri
-	toSerialize["bytes"] = o.Bytes.Get()
+	toSerialize["bytes"] = o.Bytes
 	toSerialize["uploaded_at"] = o.UploadedAt
 	return toSerialize, nil
 }

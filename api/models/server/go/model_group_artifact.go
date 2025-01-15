@@ -41,13 +41,13 @@ type GroupArtifact struct {
 
 	SourceType string `json:"source_type"`
 
-	CreatedBy User `json:"created_by"`
+	CreatedBy *User `json:"created_by"`
 
-	RegistrySource RegistrySource `json:"registry_source"`
+	RegistrySource *RegistrySource `json:"registry_source"`
 
-	GithubSource GitHubSource `json:"github_source"`
+	GithubSource *GitHubSource `json:"github_source"`
 
-	GithubSourceData GitHubSourceData `json:"github_source_data"`
+	GithubSourceData *GitHubSourceData `json:"github_source_data"`
 
 	Images ImageList `json:"images"`
 
@@ -84,17 +84,25 @@ func AssertGroupArtifactRequired(obj GroupArtifact) error {
 		}
 	}
 
-	if err := AssertUserRequired(obj.CreatedBy); err != nil {
-		return err
+	if obj.CreatedBy != nil {
+		if err := AssertUserRequired(*obj.CreatedBy); err != nil {
+			return err
+		}
 	}
-	if err := AssertRegistrySourceRequired(obj.RegistrySource); err != nil {
-		return err
+	if obj.RegistrySource != nil {
+		if err := AssertRegistrySourceRequired(*obj.RegistrySource); err != nil {
+			return err
+		}
 	}
-	if err := AssertGitHubSourceRequired(obj.GithubSource); err != nil {
-		return err
+	if obj.GithubSource != nil {
+		if err := AssertGitHubSourceRequired(*obj.GithubSource); err != nil {
+			return err
+		}
 	}
-	if err := AssertGitHubSourceDataRequired(obj.GithubSourceData); err != nil {
-		return err
+	if obj.GithubSourceData != nil {
+		if err := AssertGitHubSourceDataRequired(*obj.GithubSourceData); err != nil {
+			return err
+		}
 	}
 	if err := AssertImageListRequired(obj.Images); err != nil {
 		return err
@@ -107,18 +115,26 @@ func AssertGroupArtifactRequired(obj GroupArtifact) error {
 
 // AssertGroupArtifactConstraints checks if the values respects the defined constraints
 func AssertGroupArtifactConstraints(obj GroupArtifact) error {
-	if err := AssertUserConstraints(obj.CreatedBy); err != nil {
-		return err
-	}
-	if err := AssertRegistrySourceConstraints(obj.RegistrySource); err != nil {
-		return err
-	}
-	if err := AssertGitHubSourceConstraints(obj.GithubSource); err != nil {
-		return err
-	}
-	if err := AssertGitHubSourceDataConstraints(obj.GithubSourceData); err != nil {
-		return err
-	}
+    if obj.CreatedBy != nil {
+     	if err := AssertUserConstraints(*obj.CreatedBy); err != nil {
+     		return err
+     	}
+    }
+    if obj.RegistrySource != nil {
+     	if err := AssertRegistrySourceConstraints(*obj.RegistrySource); err != nil {
+     		return err
+     	}
+    }
+    if obj.GithubSource != nil {
+     	if err := AssertGitHubSourceConstraints(*obj.GithubSource); err != nil {
+     		return err
+     	}
+    }
+    if obj.GithubSourceData != nil {
+     	if err := AssertGitHubSourceDataConstraints(*obj.GithubSourceData); err != nil {
+     		return err
+     	}
+    }
 	if err := AssertImageListConstraints(obj.Images); err != nil {
 		return err
 	}

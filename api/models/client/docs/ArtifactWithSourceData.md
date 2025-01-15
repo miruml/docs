@@ -15,16 +15,16 @@ Name | Type | Description | Notes
 **FailedAt** | **NullableTime** |  | 
 **SourceId** | **string** |  | 
 **SourceType** | **string** |  | 
-**CreatedBy** | [**User**](User.md) |  | 
-**RegistrySource** | [**RegistrySource**](RegistrySource.md) |  | 
-**GithubSource** | [**GitHubSource**](GitHubSource.md) |  | 
-**GithubSourceData** | [**GitHubSourceData**](GitHubSourceData.md) |  | 
+**CreatedBy** | [**NullableUser**](User.md) |  | 
+**RegistrySource** | [**NullableRegistrySource**](RegistrySource.md) |  | 
+**GithubSource** | [**NullableGitHubSource**](GitHubSource.md) |  | 
+**GithubSourceData** | [**NullableGitHubSourceData**](GitHubSourceData.md) |  | 
 
 ## Methods
 
 ### NewArtifactWithSourceData
 
-`func NewArtifactWithSourceData(object string, id string, status ArtifactStatus, digest string, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime, sourceId string, sourceType string, createdBy User, registrySource RegistrySource, githubSource GitHubSource, githubSourceData GitHubSourceData, ) *ArtifactWithSourceData`
+`func NewArtifactWithSourceData(object string, id string, status ArtifactStatus, digest string, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime, sourceId string, sourceType string, createdBy NullableUser, registrySource NullableRegistrySource, githubSource NullableGitHubSource, githubSourceData NullableGitHubSourceData, ) *ArtifactWithSourceData`
 
 NewArtifactWithSourceData instantiates a new ArtifactWithSourceData object
 This constructor will assign default values to properties that have it defined,
@@ -299,6 +299,16 @@ and a boolean to check if the value has been set.
 SetCreatedBy sets CreatedBy field to given value.
 
 
+### SetCreatedByNil
+
+`func (o *ArtifactWithSourceData) SetCreatedByNil(b bool)`
+
+ SetCreatedByNil sets the value for CreatedBy to be an explicit nil
+
+### UnsetCreatedBy
+`func (o *ArtifactWithSourceData) UnsetCreatedBy()`
+
+UnsetCreatedBy ensures that no value is present for CreatedBy, not even an explicit nil
 ### GetRegistrySource
 
 `func (o *ArtifactWithSourceData) GetRegistrySource() RegistrySource`
@@ -319,6 +329,16 @@ and a boolean to check if the value has been set.
 SetRegistrySource sets RegistrySource field to given value.
 
 
+### SetRegistrySourceNil
+
+`func (o *ArtifactWithSourceData) SetRegistrySourceNil(b bool)`
+
+ SetRegistrySourceNil sets the value for RegistrySource to be an explicit nil
+
+### UnsetRegistrySource
+`func (o *ArtifactWithSourceData) UnsetRegistrySource()`
+
+UnsetRegistrySource ensures that no value is present for RegistrySource, not even an explicit nil
 ### GetGithubSource
 
 `func (o *ArtifactWithSourceData) GetGithubSource() GitHubSource`
@@ -339,6 +359,16 @@ and a boolean to check if the value has been set.
 SetGithubSource sets GithubSource field to given value.
 
 
+### SetGithubSourceNil
+
+`func (o *ArtifactWithSourceData) SetGithubSourceNil(b bool)`
+
+ SetGithubSourceNil sets the value for GithubSource to be an explicit nil
+
+### UnsetGithubSource
+`func (o *ArtifactWithSourceData) UnsetGithubSource()`
+
+UnsetGithubSource ensures that no value is present for GithubSource, not even an explicit nil
 ### GetGithubSourceData
 
 `func (o *ArtifactWithSourceData) GetGithubSourceData() GitHubSourceData`
@@ -359,6 +389,16 @@ and a boolean to check if the value has been set.
 SetGithubSourceData sets GithubSourceData field to given value.
 
 
+### SetGithubSourceDataNil
+
+`func (o *ArtifactWithSourceData) SetGithubSourceDataNil(b bool)`
+
+ SetGithubSourceDataNil sets the value for GithubSourceData to be an explicit nil
+
+### UnsetGithubSourceData
+`func (o *ArtifactWithSourceData) UnsetGithubSourceData()`
+
+UnsetGithubSourceData ensures that no value is present for GithubSourceData, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

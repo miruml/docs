@@ -8,14 +8,14 @@ Name | Type | Description | Notes
 **Digest** | **string** |  | 
 **Tags** | **[]string** |  | 
 **Uri** | **string** |  | 
-**Bytes** | **NullableInt64** |  | 
+**Bytes** | **int64** |  | 
 **UploadedAt** | **time.Time** |  | 
 
 ## Methods
 
 ### NewExternalContainerImage
 
-`func NewExternalContainerImage(object string, digest string, tags []string, uri string, bytes NullableInt64, uploadedAt time.Time, ) *ExternalContainerImage`
+`func NewExternalContainerImage(object string, digest string, tags []string, uri string, bytes int64, uploadedAt time.Time, ) *ExternalContainerImage`
 
 NewExternalContainerImage instantiates a new ExternalContainerImage object
 This constructor will assign default values to properties that have it defined,
@@ -130,16 +130,6 @@ and a boolean to check if the value has been set.
 SetBytes sets Bytes field to given value.
 
 
-### SetBytesNil
-
-`func (o *ExternalContainerImage) SetBytesNil(b bool)`
-
- SetBytesNil sets the value for Bytes to be an explicit nil
-
-### UnsetBytes
-`func (o *ExternalContainerImage) UnsetBytes()`
-
-UnsetBytes ensures that no value is present for Bytes, not even an explicit nil
 ### GetUploadedAt
 
 `func (o *ExternalContainerImage) GetUploadedAt() time.Time`

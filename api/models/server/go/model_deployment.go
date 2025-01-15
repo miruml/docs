@@ -53,7 +53,7 @@ type Deployment struct {
 
 	CooldownEndsAt time.Time `json:"cooldown_ends_at"`
 
-	CreatedBy User `json:"created_by"`
+	CreatedBy *User `json:"created_by"`
 
 	Artifact ArtifactWithSourceData `json:"artifact"`
 }
@@ -87,8 +87,10 @@ func AssertDeploymentRequired(obj Deployment) error {
 		}
 	}
 
-	if err := AssertUserRequired(obj.CreatedBy); err != nil {
-		return err
+	if obj.CreatedBy != nil {
+		if err := AssertUserRequired(*obj.CreatedBy); err != nil {
+			return err
+		}
 	}
 	if err := AssertArtifactWithSourceDataRequired(obj.Artifact); err != nil {
 		return err
@@ -98,9 +100,11 @@ func AssertDeploymentRequired(obj Deployment) error {
 
 // AssertDeploymentConstraints checks if the values respects the defined constraints
 func AssertDeploymentConstraints(obj Deployment) error {
-	if err := AssertUserConstraints(obj.CreatedBy); err != nil {
-		return err
-	}
+    if obj.CreatedBy != nil {
+     	if err := AssertUserConstraints(*obj.CreatedBy); err != nil {
+     		return err
+     	}
+    }
 	if err := AssertArtifactWithSourceDataConstraints(obj.Artifact); err != nil {
 		return err
 	}

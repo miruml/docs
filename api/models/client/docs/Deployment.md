@@ -21,14 +21,14 @@ Name | Type | Description | Notes
 **RemovingAt** | **NullableTime** |  | 
 **ArchivedAt** | **NullableTime** |  | 
 **CooldownEndsAt** | **time.Time** |  | 
-**CreatedBy** | [**User**](User.md) |  | 
+**CreatedBy** | [**NullableUser**](User.md) |  | 
 **Artifact** | [**ArtifactWithSourceData**](ArtifactWithSourceData.md) |  | 
 
 ## Methods
 
 ### NewDeployment
 
-`func NewDeployment(object string, id string, deviceId string, status string, activityStatus string, errorStatus string, targetStatus string, createdAt time.Time, downloadingAt NullableTime, downloadedAt NullableTime, bootingAt NullableTime, activeAt NullableTime, stoppingAt NullableTime, stoppedAt NullableTime, removingAt NullableTime, archivedAt NullableTime, cooldownEndsAt time.Time, createdBy User, artifact ArtifactWithSourceData, ) *Deployment`
+`func NewDeployment(object string, id string, deviceId string, status string, activityStatus string, errorStatus string, targetStatus string, createdAt time.Time, downloadingAt NullableTime, downloadedAt NullableTime, bootingAt NullableTime, activeAt NullableTime, stoppingAt NullableTime, stoppedAt NullableTime, removingAt NullableTime, archivedAt NullableTime, cooldownEndsAt time.Time, createdBy NullableUser, artifact ArtifactWithSourceData, ) *Deployment`
 
 NewDeployment instantiates a new Deployment object
 This constructor will assign default values to properties that have it defined,
@@ -483,6 +483,16 @@ and a boolean to check if the value has been set.
 SetCreatedBy sets CreatedBy field to given value.
 
 
+### SetCreatedByNil
+
+`func (o *Deployment) SetCreatedByNil(b bool)`
+
+ SetCreatedByNil sets the value for CreatedBy to be an explicit nil
+
+### UnsetCreatedBy
+`func (o *Deployment) UnsetCreatedBy()`
+
+UnsetCreatedBy ensures that no value is present for CreatedBy, not even an explicit nil
 ### GetArtifact
 
 `func (o *Deployment) GetArtifact() ArtifactWithSourceData`

@@ -27,7 +27,7 @@ type ExternalContainerImage struct {
 
 	Uri string `json:"uri"`
 
-	Bytes *int64 `json:"bytes"`
+	Bytes int64 `json:"bytes"`
 
 	UploadedAt time.Time `json:"uploaded_at"`
 }

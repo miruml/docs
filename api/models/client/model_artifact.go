@@ -33,10 +33,10 @@ type Artifact struct {
 	FailedAt NullableTime `json:"failed_at"`
 	SourceId string `json:"source_id"`
 	SourceType string `json:"source_type"`
-	CreatedBy User `json:"created_by"`
-	RegistrySource RegistrySource `json:"registry_source"`
-	GithubSource GitHubSource `json:"github_source"`
-	GithubSourceData GitHubSourceData `json:"github_source_data"`
+	CreatedBy NullableUser `json:"created_by"`
+	RegistrySource NullableRegistrySource `json:"registry_source"`
+	GithubSource NullableGitHubSource `json:"github_source"`
+	GithubSourceData NullableGitHubSourceData `json:"github_source_data"`
 	Images ImageList `json:"images"`
 	Deployments ArtifactDeploymentList `json:"deployments"`
 }
@@ -47,7 +47,7 @@ type _Artifact Artifact
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewArtifact(object string, id string, status ArtifactStatus, digest string, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime, sourceId string, sourceType string, createdBy User, registrySource RegistrySource, githubSource GitHubSource, githubSourceData GitHubSourceData, images ImageList, deployments ArtifactDeploymentList) *Artifact {
+func NewArtifact(object string, id string, status ArtifactStatus, digest string, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime, sourceId string, sourceType string, createdBy NullableUser, registrySource NullableRegistrySource, githubSource NullableGitHubSource, githubSourceData NullableGitHubSourceData, images ImageList, deployments ArtifactDeploymentList) *Artifact {
 	this := Artifact{}
 	this.Object = object
 	this.Id = id
@@ -346,99 +346,107 @@ func (o *Artifact) SetSourceType(v string) {
 }
 
 // GetCreatedBy returns the CreatedBy field value
+// If the value is explicit nil, the zero value for User will be returned
 func (o *Artifact) GetCreatedBy() User {
-	if o == nil {
+	if o == nil || o.CreatedBy.Get() == nil {
 		var ret User
 		return ret
 	}
 
-	return o.CreatedBy
+	return *o.CreatedBy.Get()
 }
 
 // GetCreatedByOk returns a tuple with the CreatedBy field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Artifact) GetCreatedByOk() (*User, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CreatedBy, true
+	return o.CreatedBy.Get(), o.CreatedBy.IsSet()
 }
 
 // SetCreatedBy sets field value
 func (o *Artifact) SetCreatedBy(v User) {
-	o.CreatedBy = v
+	o.CreatedBy.Set(&v)
 }
 
 // GetRegistrySource returns the RegistrySource field value
+// If the value is explicit nil, the zero value for RegistrySource will be returned
 func (o *Artifact) GetRegistrySource() RegistrySource {
-	if o == nil {
+	if o == nil || o.RegistrySource.Get() == nil {
 		var ret RegistrySource
 		return ret
 	}
 
-	return o.RegistrySource
+	return *o.RegistrySource.Get()
 }
 
 // GetRegistrySourceOk returns a tuple with the RegistrySource field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Artifact) GetRegistrySourceOk() (*RegistrySource, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RegistrySource, true
+	return o.RegistrySource.Get(), o.RegistrySource.IsSet()
 }
 
 // SetRegistrySource sets field value
 func (o *Artifact) SetRegistrySource(v RegistrySource) {
-	o.RegistrySource = v
+	o.RegistrySource.Set(&v)
 }
 
 // GetGithubSource returns the GithubSource field value
+// If the value is explicit nil, the zero value for GitHubSource will be returned
 func (o *Artifact) GetGithubSource() GitHubSource {
-	if o == nil {
+	if o == nil || o.GithubSource.Get() == nil {
 		var ret GitHubSource
 		return ret
 	}
 
-	return o.GithubSource
+	return *o.GithubSource.Get()
 }
 
 // GetGithubSourceOk returns a tuple with the GithubSource field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Artifact) GetGithubSourceOk() (*GitHubSource, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.GithubSource, true
+	return o.GithubSource.Get(), o.GithubSource.IsSet()
 }
 
 // SetGithubSource sets field value
 func (o *Artifact) SetGithubSource(v GitHubSource) {
-	o.GithubSource = v
+	o.GithubSource.Set(&v)
 }
 
 // GetGithubSourceData returns the GithubSourceData field value
+// If the value is explicit nil, the zero value for GitHubSourceData will be returned
 func (o *Artifact) GetGithubSourceData() GitHubSourceData {
-	if o == nil {
+	if o == nil || o.GithubSourceData.Get() == nil {
 		var ret GitHubSourceData
 		return ret
 	}
 
-	return o.GithubSourceData
+	return *o.GithubSourceData.Get()
 }
 
 // GetGithubSourceDataOk returns a tuple with the GithubSourceData field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Artifact) GetGithubSourceDataOk() (*GitHubSourceData, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.GithubSourceData, true
+	return o.GithubSourceData.Get(), o.GithubSourceData.IsSet()
 }
 
 // SetGithubSourceData sets field value
 func (o *Artifact) SetGithubSourceData(v GitHubSourceData) {
-	o.GithubSourceData = v
+	o.GithubSourceData.Set(&v)
 }
 
 // GetImages returns the Images field value
@@ -510,10 +518,10 @@ func (o Artifact) ToMap() (map[string]interface{}, error) {
 	toSerialize["failed_at"] = o.FailedAt.Get()
 	toSerialize["source_id"] = o.SourceId
 	toSerialize["source_type"] = o.SourceType
-	toSerialize["created_by"] = o.CreatedBy
-	toSerialize["registry_source"] = o.RegistrySource
-	toSerialize["github_source"] = o.GithubSource
-	toSerialize["github_source_data"] = o.GithubSourceData
+	toSerialize["created_by"] = o.CreatedBy.Get()
+	toSerialize["registry_source"] = o.RegistrySource.Get()
+	toSerialize["github_source"] = o.GithubSource.Get()
+	toSerialize["github_source_data"] = o.GithubSourceData.Get()
 	toSerialize["images"] = o.Images
 	toSerialize["deployments"] = o.Deployments
 	return toSerialize, nil
