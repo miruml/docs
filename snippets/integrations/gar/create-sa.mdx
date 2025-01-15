@@ -12,17 +12,6 @@ Fill in the service account name and description before clicking **Create and Co
 
 <img src="/images/integrations/gar/gcp-fill-sa-details-form.png" style={{borderRadius: '7px'}} />
 
-
-Search for the **Service Account Token Creator** role and add it to the service account. This will allow `miru` to create temporary tokens with the same permissions as the service account itself, allowing temporary (1 hour long) tokens to be distributed to your devices for authenticating to Google Artifact Registry.
-
-<img src="/images/integrations/gar/gcp-add-sa-roles.png" style={{borderRadius: '7px'}} />
-
-<Warning> For the **Service Account Token Creator Role** to work properly, please ensure that the [IAM Service Account Credentials API](https://console.cloud.google.com/apis/library/iamcredentials.googleapis.com) is enabled for your Google Cloud project by clicking [this link](https://console.cloud.google.com/apis/library/iamcredentials.googleapis.com) (double check the selected Google Cloud Project) and selecting the **Enable** button. </Warning>
-
-Click **Continue** to update the service account policies.
-
-<img src="/images/integrations/gar/gcp-add-sa-roles2.png" style={{borderRadius: '7px'}} />
-
 Finally, click **Done** to create the service account. 
 
-For now this service account has no permissions to access any of your Google Cloud resources. We'll later grant it access to your chosen Artifact Registry repositories in [Grant Access to Artifact Registry Repositories](http://docs.miruml.com/pages/integrations/gar#grant-access-to-artifact-registry-repositories).
+Currently, this service account has no permissions to access any resources in your Google Cloud project. The following steps show you how to add permissions to the service account so that it can access desired Artifact Registry repositories.

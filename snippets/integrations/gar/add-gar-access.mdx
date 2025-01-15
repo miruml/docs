@@ -1,5 +1,3 @@
-`miru` is connected to your Google Cloud Project via the service account you just created. However, the service account does not yet have access to your Artifact Registry.
-
 To grant a service account access to repositories in your Artifact Registry, navigate to the [Artifact Registry Page](https://console.cloud.google.com/projectselector2/artifacts) in Google Cloud Console and select the same Google Cloud project as the service account you connected to `miru` with. For us that's **container-integration**.
 
 <img src="/images/integrations/gar/gcp-gar-proj-select.png" style={{borderRadius: '7px'}} />
@@ -20,11 +18,9 @@ You should now see your service account listed with the **Artifact Registry Read
 
 <img src="/images/integrations/gar/gcp-gar-added-sa.png" style={{borderRadius: '7px'}} />
 
-To revoke `miru` access to a repository, click the **Delete** button next to the role.
+Congratulations! You've successfully connected `miru` to a Google Artifact Registry repository. `miru` will have read-only access to selected repositories in your Artifact Registry. If you want to add repositories from a different Google Cloud project, please create a separate service account for that project, add it to `miru`, and grant access to the chosen repositories. 
 
-Congratulations! You've successfully connected `miru` with your Google Artifact Registry. `miru` will have read-only access to selected repositories in your Artifact Registry. If you want to add repositories from a different Google Cloud project, please create a separate service account for that project, add it to `miru`, and grant access to the chosen repositories. 
-
-To use an image from your Google Artifact repository, simple specify the image reference in your **docker-compose.yml** file that is tracked by `miru`.
+To use an image from your Google Artifact repository, simply specify the image reference in your **docker-compose.yml** file.
 
 ```yaml
 <compose-service>:

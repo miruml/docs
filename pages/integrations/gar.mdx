@@ -4,9 +4,10 @@ description: 'Deploy Docker images from your private Google Artifact Registry re
 ---
 
 import CreateSA from '/snippets/integrations/gar/create-sa.mdx';
+import AddTokenCreatorRole from '/snippets/integrations/gar/add-token-creator-role.mdx'
+import AddGARPermissions from '/snippets/integrations/gar/add-gar-access.mdx';
 import ProvisionKey from '/snippets/integrations/gar/provision-key.mdx';
 import AddSAToMiru from '/snippets/integrations/gar/add-sa-to-miru.mdx';
-import AddGARPermissions from '/snippets/integrations/gar/add-gar-access.mdx';
 
 Instead of using public Docker Hub images like we did with `mongo:4.2.0` image in [Prepare your Application](http://docs.miruml.com/pages/quickstart#prepare-your-application), you can use private images located in your Google Artifact Registry repository. 
 
@@ -17,13 +18,17 @@ To do so, we need to create a service account in your Google Cloud project, add 
   <Accordion icon = 'file-user' title = 'Create a Service Account' id = 'create-sa'>
     <CreateSA />
   </Accordion>
+  <Accordion icon = 'lock' title = 'Add the Service Token Creator Role' id = 'add-token-creator-role'>
+  <AddTokenCreatorRole/>
+  </Accordion> 
+  <Accordion icon = 'lock' title = 'Grant Access to Artifact Registry Repositories' id = 'add-gar-access'>
+  <AddGARPermissions />
+  </Accordion>
   <Accordion icon = 'key' title = 'Provision a Key for the Service Account' id = 'provision-key'>
     <ProvisionKey />
   </Accordion>
   <Accordion icon = 'plus' title = 'Add the Service Account to miru' id = 'add-sa-to-miru'>
     <AddSAToMiru />
   </Accordion>
-  <Accordion icon = 'lock' title = 'Grant Access to Artifact Registry Repositories' id = 'add-gar-access'>
-    <AddGARPermissions />
-  </Accordion>
+
 </AccordionGroup>
