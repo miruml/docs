@@ -15,7 +15,7 @@ package openapi
 
 type Error4 struct {
 
-	Error BadRequestError `json:"error"`
+	Error RecordNotFoundError `json:"error"`
 }
 
 // AssertError4Required checks if the required fields are not zero-ed
@@ -29,7 +29,7 @@ func AssertError4Required(obj Error4) error {
 		}
 	}
 
-	if err := AssertBadRequestErrorRequired(obj.Error); err != nil {
+	if err := AssertRecordNotFoundErrorRequired(obj.Error); err != nil {
 		return err
 	}
 	return nil
@@ -37,7 +37,7 @@ func AssertError4Required(obj Error4) error {
 
 // AssertError4Constraints checks if the values respects the defined constraints
 func AssertError4Constraints(obj Error4) error {
-	if err := AssertBadRequestErrorConstraints(obj.Error); err != nil {
+	if err := AssertRecordNotFoundErrorConstraints(obj.Error); err != nil {
 		return err
 	}
 	return nil

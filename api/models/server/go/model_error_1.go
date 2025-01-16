@@ -15,7 +15,7 @@ package openapi
 
 type Error1 struct {
 
-	Error ForbiddenError `json:"error"`
+	Error BadRequestError `json:"error"`
 }
 
 // AssertError1Required checks if the required fields are not zero-ed
@@ -29,7 +29,7 @@ func AssertError1Required(obj Error1) error {
 		}
 	}
 
-	if err := AssertForbiddenErrorRequired(obj.Error); err != nil {
+	if err := AssertBadRequestErrorRequired(obj.Error); err != nil {
 		return err
 	}
 	return nil
@@ -37,7 +37,7 @@ func AssertError1Required(obj Error1) error {
 
 // AssertError1Constraints checks if the values respects the defined constraints
 func AssertError1Constraints(obj Error1) error {
-	if err := AssertForbiddenErrorConstraints(obj.Error); err != nil {
+	if err := AssertBadRequestErrorConstraints(obj.Error); err != nil {
 		return err
 	}
 	return nil

@@ -12,6 +12,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
 	"bytes"
 	"fmt"
 )
@@ -23,10 +24,12 @@ var _ MappedNullable = &ArtifactDeployment{}
 type ArtifactDeployment struct {
 	Object string `json:"object"`
 	Id string `json:"id"`
-	DeviceId string `json:"device_id"`
+	Device *ArtifactDeploymentDevice `json:"device,omitempty"`
 	Status string `json:"status"`
 	ActivityStatus string `json:"activity_status"`
 	ErrorStatus string `json:"error_status"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	FinishedAt NullableTime `json:"finished_at,omitempty"`
 }
 
 type _ArtifactDeployment ArtifactDeployment
@@ -35,11 +38,10 @@ type _ArtifactDeployment ArtifactDeployment
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewArtifactDeployment(object string, id string, deviceId string, status string, activityStatus string, errorStatus string) *ArtifactDeployment {
+func NewArtifactDeployment(object string, id string, status string, activityStatus string, errorStatus string) *ArtifactDeployment {
 	this := ArtifactDeployment{}
 	this.Object = object
 	this.Id = id
-	this.DeviceId = deviceId
 	this.Status = status
 	this.ActivityStatus = activityStatus
 	this.ErrorStatus = errorStatus
@@ -102,28 +104,36 @@ func (o *ArtifactDeployment) SetId(v string) {
 	o.Id = v
 }
 
-// GetDeviceId returns the DeviceId field value
-func (o *ArtifactDeployment) GetDeviceId() string {
-	if o == nil {
-		var ret string
+// GetDevice returns the Device field value if set, zero value otherwise.
+func (o *ArtifactDeployment) GetDevice() ArtifactDeploymentDevice {
+	if o == nil || IsNil(o.Device) {
+		var ret ArtifactDeploymentDevice
 		return ret
 	}
-
-	return o.DeviceId
+	return *o.Device
 }
 
-// GetDeviceIdOk returns a tuple with the DeviceId field value
+// GetDeviceOk returns a tuple with the Device field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ArtifactDeployment) GetDeviceIdOk() (*string, bool) {
-	if o == nil {
+func (o *ArtifactDeployment) GetDeviceOk() (*ArtifactDeploymentDevice, bool) {
+	if o == nil || IsNil(o.Device) {
 		return nil, false
 	}
-	return &o.DeviceId, true
+	return o.Device, true
 }
 
-// SetDeviceId sets field value
-func (o *ArtifactDeployment) SetDeviceId(v string) {
-	o.DeviceId = v
+// HasDevice returns a boolean if a field has been set.
+func (o *ArtifactDeployment) HasDevice() bool {
+	if o != nil && !IsNil(o.Device) {
+		return true
+	}
+
+	return false
+}
+
+// SetDevice gets a reference to the given ArtifactDeploymentDevice and assigns it to the Device field.
+func (o *ArtifactDeployment) SetDevice(v ArtifactDeploymentDevice) {
+	o.Device = &v
 }
 
 // GetStatus returns the Status field value
@@ -198,6 +208,80 @@ func (o *ArtifactDeployment) SetErrorStatus(v string) {
 	o.ErrorStatus = v
 }
 
+// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+func (o *ArtifactDeployment) GetCreatedAt() time.Time {
+	if o == nil || IsNil(o.CreatedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ArtifactDeployment) GetCreatedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CreatedAt) {
+		return nil, false
+	}
+	return o.CreatedAt, true
+}
+
+// HasCreatedAt returns a boolean if a field has been set.
+func (o *ArtifactDeployment) HasCreatedAt() bool {
+	if o != nil && !IsNil(o.CreatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+func (o *ArtifactDeployment) SetCreatedAt(v time.Time) {
+	o.CreatedAt = &v
+}
+
+// GetFinishedAt returns the FinishedAt field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ArtifactDeployment) GetFinishedAt() time.Time {
+	if o == nil || IsNil(o.FinishedAt.Get()) {
+		var ret time.Time
+		return ret
+	}
+	return *o.FinishedAt.Get()
+}
+
+// GetFinishedAtOk returns a tuple with the FinishedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ArtifactDeployment) GetFinishedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.FinishedAt.Get(), o.FinishedAt.IsSet()
+}
+
+// HasFinishedAt returns a boolean if a field has been set.
+func (o *ArtifactDeployment) HasFinishedAt() bool {
+	if o != nil && o.FinishedAt.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetFinishedAt gets a reference to the given NullableTime and assigns it to the FinishedAt field.
+func (o *ArtifactDeployment) SetFinishedAt(v time.Time) {
+	o.FinishedAt.Set(&v)
+}
+// SetFinishedAtNil sets the value for FinishedAt to be an explicit nil
+func (o *ArtifactDeployment) SetFinishedAtNil() {
+	o.FinishedAt.Set(nil)
+}
+
+// UnsetFinishedAt ensures that no value is present for FinishedAt, not even an explicit nil
+func (o *ArtifactDeployment) UnsetFinishedAt() {
+	o.FinishedAt.Unset()
+}
+
 func (o ArtifactDeployment) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -210,10 +294,18 @@ func (o ArtifactDeployment) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["object"] = o.Object
 	toSerialize["id"] = o.Id
-	toSerialize["device_id"] = o.DeviceId
+	if !IsNil(o.Device) {
+		toSerialize["device"] = o.Device
+	}
 	toSerialize["status"] = o.Status
 	toSerialize["activity_status"] = o.ActivityStatus
 	toSerialize["error_status"] = o.ErrorStatus
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if o.FinishedAt.IsSet() {
+		toSerialize["finished_at"] = o.FinishedAt.Get()
+	}
 	return toSerialize, nil
 }
 
@@ -224,7 +316,6 @@ func (o *ArtifactDeployment) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"object",
 		"id",
-		"device_id",
 		"status",
 		"activity_status",
 		"error_status",

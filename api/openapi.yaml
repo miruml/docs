@@ -291,54 +291,81 @@ paths:
                                 tag:
                                   type: string
                                   example: latest
-                      deployments:
-                        nullable: true
-                        title: Artifact Deployment List
-                        type: object
-                        required:
-                          - object
-                          - data
-                        properties:
-                          object:
-                            type: string
-                            example: list
-                          data:
-                            type: array
-                            items:
-                              title: Artifact Deployment
-                              type: object
-                              required:
-                                - object
-                                - id
-                                - device_id
-                                - status
-                                - activity_status
-                                - error_status
-                              properties:
-                                object:
-                                  type: string
-                                  example: deployment
-                                id:
-                                  type: string
-                                  example: dep_1234
-                                device_id:
-                                  type: string
-                                  example: device_1234
-                                status:
-                                  type: string
-                                  example: retrying
-                                activity_status:
-                                  type: string
-                                  example: booting
-                                error_status:
-                                  type: string
-                                  example: retrying
-        '401':
-          $ref: '#/paths/~1example~1errors~1401/get/responses/401'
-        '403':
-          $ref: '#/paths/~1example~1errors~1403/get/responses/403'
-        '404':
-          $ref: '#/paths/~1example~1errors~1404/get/responses/404'
+  '/artifacts/{artifact_id}/deployments':
+    get:
+      tags:
+        - Artifacts
+      parameters:
+        - $ref: '#/paths/~1artifacts~1%7Bartifact_id%7D/get/parameters/0'
+      responses:
+        '200':
+          description: Successfuly retrieved the artifact's deployments
+          content:
+            application/json:
+              schema:
+                title: Artifact Deployment List
+                type: object
+                required:
+                  - object
+                  - data
+                properties:
+                  object:
+                    type: string
+                    example: list
+                  data:
+                    type: array
+                    items:
+                      title: Artifact Deployment
+                      type: object
+                      required:
+                        - object
+                        - id
+                        - device_id
+                        - status
+                        - activity_status
+                        - error_status
+                      properties:
+                        object:
+                          type: string
+                          example: deployment
+                        id:
+                          type: string
+                          example: dep_1234
+                        device:
+                          title: ArtifactDeployment Device
+                          type: object
+                          required:
+                            - object
+                            - id
+                            - name
+                          properties:
+                            object:
+                              type: string
+                              example: device
+                            id:
+                              type: string
+                              example: device_1234
+                            name:
+                              type: string
+                              example: Raspberry Pi 4
+                        status:
+                          type: string
+                          example: retrying
+                        activity_status:
+                          type: string
+                          example: booting
+                        error_status:
+                          type: string
+                          example: retrying
+                        created_at:
+                          type: string
+                          format: date-time
+                          example: '2024-12-05T14:25:50Z'
+                        finished_at:
+                          type: string
+                          format: date-time
+                          example: '2024-12-05T14:25:50Z'
+                          nullable: true
   '/artifacts/{artifact_id}/deployment_files':
     get:
       tags:
@@ -1484,7 +1511,6 @@ paths:
                           type: integer
                           format: int64
                           example: 392510987
-                          nullable: true
                         uploaded_at:
                           type: string
                           example: '2021-01-01T00:00:00Z'

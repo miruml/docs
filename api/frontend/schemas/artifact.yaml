@@ -102,9 +102,6 @@ components:
             images:
               $ref: "./image.yaml#/components/schemas/ImageList"
               nullable: true
-            deployments:
-              $ref: "#/components/schemas/ArtifactDeploymentList"
-              nullable: true
 
     GroupArtifact:
       allOf:
@@ -315,9 +312,8 @@ components:
         id:
           type: string
           example: "dep_1234"
-        device_id:
-          type: string
-          example: "device_1234"
+        device:
+          $ref: '#/components/schemas/ArtifactDeploymentDevice'
         status:
           type: string
           example: "retrying"
@@ -327,6 +323,33 @@ components:
         error_status:
           type: string
           example: "retrying"
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-12-05T14:25:50Z"
+        finished_at:
+          type: string
+          format: date-time
+          example: "2024-12-05T14:25:50Z"
+          nullable: true
+
+    ArtifactDeploymentDevice:
+      title: ArtifactDeployment Device
+      type: object
+      required: 
+        - object
+        - id
+        - name
+      properties:
+        object:
+          type: string
+          example: "device"
+        id:
+          type: string
+          example: "device_1234"
+        name:
+          type: string
+          example: "Raspberry Pi 4"
 
     ArtifactDeploymentList: 
       title: Artifact Deployment List

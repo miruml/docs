@@ -50,8 +50,6 @@ type Artifact struct {
 	GithubSourceData *GitHubSourceData `json:"github_source_data"`
 
 	Images ImageList `json:"images"`
-
-	Deployments ArtifactDeploymentList `json:"deployments"`
 }
 
 // AssertArtifactRequired checks if the required fields are not zero-ed
@@ -73,7 +71,6 @@ func AssertArtifactRequired(obj Artifact) error {
 		"github_source": obj.GithubSource,
 		"github_source_data": obj.GithubSourceData,
 		"images": obj.Images,
-		"deployments": obj.Deployments,
 	}
 	for name, el := range elements {
 		if isZero := IsZeroValue(el); isZero {
@@ -104,9 +101,6 @@ func AssertArtifactRequired(obj Artifact) error {
 	if err := AssertImageListRequired(obj.Images); err != nil {
 		return err
 	}
-	if err := AssertArtifactDeploymentListRequired(obj.Deployments); err != nil {
-		return err
-	}
 	return nil
 }
 
@@ -133,9 +127,6 @@ func AssertArtifactConstraints(obj Artifact) error {
      	}
     }
 	if err := AssertImageListConstraints(obj.Images); err != nil {
-		return err
-	}
-	if err := AssertArtifactDeploymentListConstraints(obj.Deployments); err != nil {
 		return err
 	}
 	return nil

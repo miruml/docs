@@ -51,8 +51,6 @@ type GroupArtifact struct {
 
 	Images ImageList `json:"images"`
 
-	Deployments ArtifactDeploymentList `json:"deployments"`
-
 	Staged bool `json:"staged"`
 }
 
@@ -75,7 +73,6 @@ func AssertGroupArtifactRequired(obj GroupArtifact) error {
 		"github_source": obj.GithubSource,
 		"github_source_data": obj.GithubSourceData,
 		"images": obj.Images,
-		"deployments": obj.Deployments,
 		"staged": obj.Staged,
 	}
 	for name, el := range elements {
@@ -107,9 +104,6 @@ func AssertGroupArtifactRequired(obj GroupArtifact) error {
 	if err := AssertImageListRequired(obj.Images); err != nil {
 		return err
 	}
-	if err := AssertArtifactDeploymentListRequired(obj.Deployments); err != nil {
-		return err
-	}
 	return nil
 }
 
@@ -136,9 +130,6 @@ func AssertGroupArtifactConstraints(obj GroupArtifact) error {
      	}
     }
 	if err := AssertImageListConstraints(obj.Images); err != nil {
-		return err
-	}
-	if err := AssertArtifactDeploymentListConstraints(obj.Deployments); err != nil {
 		return err
 	}
 	return nil

@@ -20,13 +20,12 @@ Name | Type | Description | Notes
 **GithubSource** | [**NullableGitHubSource**](GitHubSource.md) |  | 
 **GithubSourceData** | [**NullableGitHubSourceData**](GitHubSourceData.md) |  | 
 **Images** | [**ImageList**](ImageList.md) |  | 
-**Deployments** | [**ArtifactDeploymentList**](ArtifactDeploymentList.md) |  | 
 
 ## Methods
 
 ### NewArtifact
 
-`func NewArtifact(object string, id string, status ArtifactStatus, digest string, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime, sourceId string, sourceType string, createdBy NullableUser, registrySource NullableRegistrySource, githubSource NullableGitHubSource, githubSourceData NullableGitHubSourceData, images ImageList, deployments ArtifactDeploymentList, ) *Artifact`
+`func NewArtifact(object string, id string, status ArtifactStatus, digest string, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime, sourceId string, sourceType string, createdBy NullableUser, registrySource NullableRegistrySource, githubSource NullableGitHubSource, githubSourceData NullableGitHubSourceData, images ImageList, ) *Artifact`
 
 NewArtifact instantiates a new Artifact object
 This constructor will assign default values to properties that have it defined,
@@ -419,26 +418,6 @@ and a boolean to check if the value has been set.
 `func (o *Artifact) SetImages(v ImageList)`
 
 SetImages sets Images field to given value.
-
-
-### GetDeployments
-
-`func (o *Artifact) GetDeployments() ArtifactDeploymentList`
-
-GetDeployments returns the Deployments field if non-nil, zero value otherwise.
-
-### GetDeploymentsOk
-
-`func (o *Artifact) GetDeploymentsOk() (*ArtifactDeploymentList, bool)`
-
-GetDeploymentsOk returns a tuple with the Deployments field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDeployments
-
-`func (o *Artifact) SetDeployments(v ArtifactDeploymentList)`
-
-SetDeployments sets Deployments field to given value.
 
 
 

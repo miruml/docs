@@ -45,6 +45,8 @@ paths:
   # artifacts
   /artifacts/{artifact_id}:
     $ref: './frontend/paths/artifacts.yaml#/paths/~1artifacts~1{artifact_id}'
+  /artifacts/{artifact_id}/deployments:
+    $ref: './frontend/paths/artifacts.yaml#/paths/~1artifacts~1{artifact_id}~1deployments'
   /artifacts/{artifact_id}/deployment_files:
     $ref: './frontend/paths/artifacts.yaml#/paths/~1artifacts~1{artifact_id}~1deployment_files'
   /groups/{group_id}/artifacts:

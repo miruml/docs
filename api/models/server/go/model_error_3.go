@@ -15,7 +15,7 @@ package openapi
 
 type Error3 struct {
 
-	Error DuplicateArtifact `json:"error"`
+	Error ForbiddenError `json:"error"`
 }
 
 // AssertError3Required checks if the required fields are not zero-ed
@@ -29,7 +29,7 @@ func AssertError3Required(obj Error3) error {
 		}
 	}
 
-	if err := AssertDuplicateArtifactRequired(obj.Error); err != nil {
+	if err := AssertForbiddenErrorRequired(obj.Error); err != nil {
 		return err
 	}
 	return nil
@@ -37,7 +37,7 @@ func AssertError3Required(obj Error3) error {
 
 // AssertError3Constraints checks if the values respects the defined constraints
 func AssertError3Constraints(obj Error3) error {
-	if err := AssertDuplicateArtifactConstraints(obj.Error); err != nil {
+	if err := AssertForbiddenErrorConstraints(obj.Error); err != nil {
 		return err
 	}
 	return nil

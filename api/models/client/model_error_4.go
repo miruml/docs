@@ -21,7 +21,7 @@ var _ MappedNullable = &Error4{}
 
 // Error4 struct for Error4
 type Error4 struct {
-	Error BadRequestError `json:"error"`
+	Error RecordNotFoundError `json:"error"`
 }
 
 type _Error4 Error4
@@ -30,7 +30,7 @@ type _Error4 Error4
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewError4(error_ BadRequestError) *Error4 {
+func NewError4(error_ RecordNotFoundError) *Error4 {
 	this := Error4{}
 	this.Error = error_
 	return &this
@@ -45,9 +45,9 @@ func NewError4WithDefaults() *Error4 {
 }
 
 // GetError returns the Error field value
-func (o *Error4) GetError() BadRequestError {
+func (o *Error4) GetError() RecordNotFoundError {
 	if o == nil {
-		var ret BadRequestError
+		var ret RecordNotFoundError
 		return ret
 	}
 
@@ -56,7 +56,7 @@ func (o *Error4) GetError() BadRequestError {
 
 // GetErrorOk returns a tuple with the Error field value
 // and a boolean to check if the value has been set.
-func (o *Error4) GetErrorOk() (*BadRequestError, bool) {
+func (o *Error4) GetErrorOk() (*RecordNotFoundError, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -64,7 +64,7 @@ func (o *Error4) GetErrorOk() (*BadRequestError, bool) {
 }
 
 // SetError sets field value
-func (o *Error4) SetError(v BadRequestError) {
+func (o *Error4) SetError(v RecordNotFoundError) {
 	o.Error = v
 }
 

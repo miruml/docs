@@ -11,6 +11,10 @@
 package openapi
 
 
+import (
+	"time"
+)
+
 
 
 type ArtifactDeployment struct {
@@ -19,13 +23,17 @@ type ArtifactDeployment struct {
 
 	Id string `json:"id"`
 
-	DeviceId string `json:"device_id"`
+	Device ArtifactDeploymentDevice `json:"device,omitempty"`
 
 	Status string `json:"status"`
 
 	ActivityStatus string `json:"activity_status"`
 
 	ErrorStatus string `json:"error_status"`
+
+	CreatedAt time.Time `json:"created_at,omitempty"`
+
+	FinishedAt *time.Time `json:"finished_at,omitempty"`
 }
 
 // AssertArtifactDeploymentRequired checks if the required fields are not zero-ed
@@ -33,7 +41,6 @@ func AssertArtifactDeploymentRequired(obj ArtifactDeployment) error {
 	elements := map[string]interface{}{
 		"object": obj.Object,
 		"id": obj.Id,
-		"device_id": obj.DeviceId,
 		"status": obj.Status,
 		"activity_status": obj.ActivityStatus,
 		"error_status": obj.ErrorStatus,
@@ -44,10 +51,16 @@ func AssertArtifactDeploymentRequired(obj ArtifactDeployment) error {
 		}
 	}
 
+	if err := AssertArtifactDeploymentDeviceRequired(obj.Device); err != nil {
+		return err
+	}
 	return nil
 }
 
 // AssertArtifactDeploymentConstraints checks if the values respects the defined constraints
 func AssertArtifactDeploymentConstraints(obj ArtifactDeployment) error {
+	if err := AssertArtifactDeploymentDeviceConstraints(obj.Device); err != nil {
+		return err
+	}
 	return nil
 }

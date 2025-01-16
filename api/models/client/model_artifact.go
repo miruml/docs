@@ -38,7 +38,6 @@ type Artifact struct {
 	GithubSource NullableGitHubSource `json:"github_source"`
 	GithubSourceData NullableGitHubSourceData `json:"github_source_data"`
 	Images ImageList `json:"images"`
-	Deployments ArtifactDeploymentList `json:"deployments"`
 }
 
 type _Artifact Artifact
@@ -47,7 +46,7 @@ type _Artifact Artifact
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewArtifact(object string, id string, status ArtifactStatus, digest string, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime, sourceId string, sourceType string, createdBy NullableUser, registrySource NullableRegistrySource, githubSource NullableGitHubSource, githubSourceData NullableGitHubSourceData, images ImageList, deployments ArtifactDeploymentList) *Artifact {
+func NewArtifact(object string, id string, status ArtifactStatus, digest string, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime, sourceId string, sourceType string, createdBy NullableUser, registrySource NullableRegistrySource, githubSource NullableGitHubSource, githubSourceData NullableGitHubSourceData, images ImageList) *Artifact {
 	this := Artifact{}
 	this.Object = object
 	this.Id = id
@@ -65,7 +64,6 @@ func NewArtifact(object string, id string, status ArtifactStatus, digest string,
 	this.GithubSource = githubSource
 	this.GithubSourceData = githubSourceData
 	this.Images = images
-	this.Deployments = deployments
 	return &this
 }
 
@@ -473,30 +471,6 @@ func (o *Artifact) SetImages(v ImageList) {
 	o.Images = v
 }
 
-// GetDeployments returns the Deployments field value
-func (o *Artifact) GetDeployments() ArtifactDeploymentList {
-	if o == nil {
-		var ret ArtifactDeploymentList
-		return ret
-	}
-
-	return o.Deployments
-}
-
-// GetDeploymentsOk returns a tuple with the Deployments field value
-// and a boolean to check if the value has been set.
-func (o *Artifact) GetDeploymentsOk() (*ArtifactDeploymentList, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Deployments, true
-}
-
-// SetDeployments sets field value
-func (o *Artifact) SetDeployments(v ArtifactDeploymentList) {
-	o.Deployments = v
-}
-
 func (o Artifact) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -523,7 +497,6 @@ func (o Artifact) ToMap() (map[string]interface{}, error) {
 	toSerialize["github_source"] = o.GithubSource.Get()
 	toSerialize["github_source_data"] = o.GithubSourceData.Get()
 	toSerialize["images"] = o.Images
-	toSerialize["deployments"] = o.Deployments
 	return toSerialize, nil
 }
 
@@ -548,7 +521,6 @@ func (o *Artifact) UnmarshalJSON(data []byte) (err error) {
 		"github_source",
 		"github_source_data",
 		"images",
-		"deployments",
 	}
 
 	allProperties := make(map[string]interface{})

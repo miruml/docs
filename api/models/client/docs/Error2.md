@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Error** | [**RecordNotFoundError**](RecordNotFoundError.md) |  | 
+**Error** | [**UnauthorizedError**](UnauthorizedError.md) |  | 
 
 ## Methods
 
 ### NewError2
 
-`func NewError2(error_ RecordNotFoundError, ) *Error2`
+`func NewError2(error_ UnauthorizedError, ) *Error2`
 
 NewError2 instantiates a new Error2 object
 This constructor will assign default values to properties that have it defined,
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetError
 
-`func (o *Error2) GetError() RecordNotFoundError`
+`func (o *Error2) GetError() UnauthorizedError`
 
 GetError returns the Error field if non-nil, zero value otherwise.
 
 ### GetErrorOk
 
-`func (o *Error2) GetErrorOk() (*RecordNotFoundError, bool)`
+`func (o *Error2) GetErrorOk() (*UnauthorizedError, bool)`
 
 GetErrorOk returns a tuple with the Error field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetError
 
-`func (o *Error2) SetError(v RecordNotFoundError)`
+`func (o *Error2) SetError(v UnauthorizedError)`
 
 SetError sets Error field to given value.
 

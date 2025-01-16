@@ -21,7 +21,7 @@ var _ MappedNullable = &Error{}
 
 // Error struct for Error
 type Error struct {
-	Error UnauthorizedError `json:"error"`
+	Error DuplicateArtifact `json:"error"`
 }
 
 type _Error Error
@@ -30,7 +30,7 @@ type _Error Error
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewError(error_ UnauthorizedError) *Error {
+func NewError(error_ DuplicateArtifact) *Error {
 	this := Error{}
 	this.Error = error_
 	return &this
@@ -45,9 +45,9 @@ func NewErrorWithDefaults() *Error {
 }
 
 // GetError returns the Error field value
-func (o *Error) GetError() UnauthorizedError {
+func (o *Error) GetError() DuplicateArtifact {
 	if o == nil {
-		var ret UnauthorizedError
+		var ret DuplicateArtifact
 		return ret
 	}
 
@@ -56,7 +56,7 @@ func (o *Error) GetError() UnauthorizedError {
 
 // GetErrorOk returns a tuple with the Error field value
 // and a boolean to check if the value has been set.
-func (o *Error) GetErrorOk() (*UnauthorizedError, bool) {
+func (o *Error) GetErrorOk() (*DuplicateArtifact, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -64,7 +64,7 @@ func (o *Error) GetErrorOk() (*UnauthorizedError, bool) {
 }
 
 // SetError sets field value
-func (o *Error) SetError(v UnauthorizedError) {
+func (o *Error) SetError(v DuplicateArtifact) {
 	o.Error = v
 }
 

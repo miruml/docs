@@ -38,7 +38,6 @@ type GroupArtifact struct {
 	GithubSource NullableGitHubSource `json:"github_source"`
 	GithubSourceData NullableGitHubSourceData `json:"github_source_data"`
 	Images ImageList `json:"images"`
-	Deployments ArtifactDeploymentList `json:"deployments"`
 	Staged bool `json:"staged"`
 }
 
@@ -48,7 +47,7 @@ type _GroupArtifact GroupArtifact
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGroupArtifact(object string, id string, status ArtifactStatus, digest string, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime, sourceId string, sourceType string, createdBy NullableUser, registrySource NullableRegistrySource, githubSource NullableGitHubSource, githubSourceData NullableGitHubSourceData, images ImageList, deployments ArtifactDeploymentList, staged bool) *GroupArtifact {
+func NewGroupArtifact(object string, id string, status ArtifactStatus, digest string, aarch64 bool, x8664 bool, createdAt time.Time, readyAt NullableTime, failedAt NullableTime, sourceId string, sourceType string, createdBy NullableUser, registrySource NullableRegistrySource, githubSource NullableGitHubSource, githubSourceData NullableGitHubSourceData, images ImageList, staged bool) *GroupArtifact {
 	this := GroupArtifact{}
 	this.Object = object
 	this.Id = id
@@ -66,7 +65,6 @@ func NewGroupArtifact(object string, id string, status ArtifactStatus, digest st
 	this.GithubSource = githubSource
 	this.GithubSourceData = githubSourceData
 	this.Images = images
-	this.Deployments = deployments
 	this.Staged = staged
 	return &this
 }
@@ -475,30 +473,6 @@ func (o *GroupArtifact) SetImages(v ImageList) {
 	o.Images = v
 }
 
-// GetDeployments returns the Deployments field value
-func (o *GroupArtifact) GetDeployments() ArtifactDeploymentList {
-	if o == nil {
-		var ret ArtifactDeploymentList
-		return ret
-	}
-
-	return o.Deployments
-}
-
-// GetDeploymentsOk returns a tuple with the Deployments field value
-// and a boolean to check if the value has been set.
-func (o *GroupArtifact) GetDeploymentsOk() (*ArtifactDeploymentList, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Deployments, true
-}
-
-// SetDeployments sets field value
-func (o *GroupArtifact) SetDeployments(v ArtifactDeploymentList) {
-	o.Deployments = v
-}
-
 // GetStaged returns the Staged field value
 func (o *GroupArtifact) GetStaged() bool {
 	if o == nil {
@@ -549,7 +523,6 @@ func (o GroupArtifact) ToMap() (map[string]interface{}, error) {
 	toSerialize["github_source"] = o.GithubSource.Get()
 	toSerialize["github_source_data"] = o.GithubSourceData.Get()
 	toSerialize["images"] = o.Images
-	toSerialize["deployments"] = o.Deployments
 	toSerialize["staged"] = o.Staged
 	return toSerialize, nil
 }
@@ -575,7 +548,6 @@ func (o *GroupArtifact) UnmarshalJSON(data []byte) (err error) {
 		"github_source",
 		"github_source_data",
 		"images",
-		"deployments",
 		"staged",
 	}
 

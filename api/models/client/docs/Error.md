@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Error** | [**UnauthorizedError**](UnauthorizedError.md) |  | 
+**Error** | [**DuplicateArtifact**](DuplicateArtifact.md) |  | 
 
 ## Methods
 
 ### NewError
 
-`func NewError(error_ UnauthorizedError, ) *Error`
+`func NewError(error_ DuplicateArtifact, ) *Error`
 
 NewError instantiates a new Error object
 This constructor will assign default values to properties that have it defined,
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetError
 
-`func (o *Error) GetError() UnauthorizedError`
+`func (o *Error) GetError() DuplicateArtifact`
 
 GetError returns the Error field if non-nil, zero value otherwise.
 
 ### GetErrorOk
 
-`func (o *Error) GetErrorOk() (*UnauthorizedError, bool)`
+`func (o *Error) GetErrorOk() (*DuplicateArtifact, bool)`
 
 GetErrorOk returns a tuple with the Error field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetError
 
-`func (o *Error) SetError(v UnauthorizedError)`
+`func (o *Error) SetError(v DuplicateArtifact)`
 
 SetError sets Error field to given value.
 

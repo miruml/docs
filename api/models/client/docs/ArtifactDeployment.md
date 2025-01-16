@@ -6,16 +6,18 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Object** | **string** |  | 
 **Id** | **string** |  | 
-**DeviceId** | **string** |  | 
+**Device** | Pointer to [**ArtifactDeploymentDevice**](ArtifactDeploymentDevice.md) |  | [optional] 
 **Status** | **string** |  | 
 **ActivityStatus** | **string** |  | 
 **ErrorStatus** | **string** |  | 
+**CreatedAt** | Pointer to **time.Time** |  | [optional] 
+**FinishedAt** | Pointer to **NullableTime** |  | [optional] 
 
 ## Methods
 
 ### NewArtifactDeployment
 
-`func NewArtifactDeployment(object string, id string, deviceId string, status string, activityStatus string, errorStatus string, ) *ArtifactDeployment`
+`func NewArtifactDeployment(object string, id string, status string, activityStatus string, errorStatus string, ) *ArtifactDeployment`
 
 NewArtifactDeployment instantiates a new ArtifactDeployment object
 This constructor will assign default values to properties that have it defined,
@@ -70,25 +72,30 @@ and a boolean to check if the value has been set.
 SetId sets Id field to given value.
 
 
-### GetDeviceId
+### GetDevice
 
-`func (o *ArtifactDeployment) GetDeviceId() string`
+`func (o *ArtifactDeployment) GetDevice() ArtifactDeploymentDevice`
 
-GetDeviceId returns the DeviceId field if non-nil, zero value otherwise.
+GetDevice returns the Device field if non-nil, zero value otherwise.
 
-### GetDeviceIdOk
+### GetDeviceOk
 
-`func (o *ArtifactDeployment) GetDeviceIdOk() (*string, bool)`
+`func (o *ArtifactDeployment) GetDeviceOk() (*ArtifactDeploymentDevice, bool)`
 
-GetDeviceIdOk returns a tuple with the DeviceId field if it's non-nil, zero value otherwise
+GetDeviceOk returns a tuple with the Device field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDeviceId
+### SetDevice
 
-`func (o *ArtifactDeployment) SetDeviceId(v string)`
+`func (o *ArtifactDeployment) SetDevice(v ArtifactDeploymentDevice)`
 
-SetDeviceId sets DeviceId field to given value.
+SetDevice sets Device field to given value.
 
+### HasDevice
+
+`func (o *ArtifactDeployment) HasDevice() bool`
+
+HasDevice returns a boolean if a field has been set.
 
 ### GetStatus
 
@@ -150,6 +157,66 @@ and a boolean to check if the value has been set.
 SetErrorStatus sets ErrorStatus field to given value.
 
 
+### GetCreatedAt
+
+`func (o *ArtifactDeployment) GetCreatedAt() time.Time`
+
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+
+### GetCreatedAtOk
+
+`func (o *ArtifactDeployment) GetCreatedAtOk() (*time.Time, bool)`
+
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedAt
+
+`func (o *ArtifactDeployment) SetCreatedAt(v time.Time)`
+
+SetCreatedAt sets CreatedAt field to given value.
+
+### HasCreatedAt
+
+`func (o *ArtifactDeployment) HasCreatedAt() bool`
+
+HasCreatedAt returns a boolean if a field has been set.
+
+### GetFinishedAt
+
+`func (o *ArtifactDeployment) GetFinishedAt() time.Time`
+
+GetFinishedAt returns the FinishedAt field if non-nil, zero value otherwise.
+
+### GetFinishedAtOk
+
+`func (o *ArtifactDeployment) GetFinishedAtOk() (*time.Time, bool)`
+
+GetFinishedAtOk returns a tuple with the FinishedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFinishedAt
+
+`func (o *ArtifactDeployment) SetFinishedAt(v time.Time)`
+
+SetFinishedAt sets FinishedAt field to given value.
+
+### HasFinishedAt
+
+`func (o *ArtifactDeployment) HasFinishedAt() bool`
+
+HasFinishedAt returns a boolean if a field has been set.
+
+### SetFinishedAtNil
+
+`func (o *ArtifactDeployment) SetFinishedAtNil(b bool)`
+
+ SetFinishedAtNil sets the value for FinishedAt to be an explicit nil
+
+### UnsetFinishedAt
+`func (o *ArtifactDeployment) UnsetFinishedAt()`
+
+UnsetFinishedAt ensures that no value is present for FinishedAt, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

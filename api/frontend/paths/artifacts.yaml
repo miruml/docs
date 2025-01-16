@@ -22,12 +22,19 @@ paths:
             application/json:
               schema:
                 $ref: '../schemas/artifact.yaml#/components/schemas/Artifact'
-        '401':
-          $ref: '../responses/generic.yaml#/components/responses/Unauthorized'
-        '403':
-          $ref: '../responses/generic.yaml#/components/responses/Forbidden'
-        '404':
-          $ref: '../responses/generic.yaml#/components/responses/NotFound'
+  /artifacts/{artifact_id}/deployments:
+    get:
+      tags:
+        - Artifacts
+      parameters:
+        - $ref: '../../params.yaml#/components/parameters/artifact_id'
+      responses:
+        '200':
+          description: Successfuly retrieved the artifact's deployments
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/artifact.yaml#/components/schemas/ArtifactDeploymentList'
   /artifacts/{artifact_id}/deployment_files:
     get:
       tags:

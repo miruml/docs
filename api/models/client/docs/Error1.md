@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Error** | [**ForbiddenError**](ForbiddenError.md) |  | 
+**Error** | [**BadRequestError**](BadRequestError.md) |  | 
 
 ## Methods
 
 ### NewError1
 
-`func NewError1(error_ ForbiddenError, ) *Error1`
+`func NewError1(error_ BadRequestError, ) *Error1`
 
 NewError1 instantiates a new Error1 object
 This constructor will assign default values to properties that have it defined,
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetError
 
-`func (o *Error1) GetError() ForbiddenError`
+`func (o *Error1) GetError() BadRequestError`
 
 GetError returns the Error field if non-nil, zero value otherwise.
 
 ### GetErrorOk
 
-`func (o *Error1) GetErrorOk() (*ForbiddenError, bool)`
+`func (o *Error1) GetErrorOk() (*BadRequestError, bool)`
 
 GetErrorOk returns a tuple with the Error field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetError
 
-`func (o *Error1) SetError(v ForbiddenError)`
+`func (o *Error1) SetError(v BadRequestError)`
 
 SetError sets Error field to given value.
 

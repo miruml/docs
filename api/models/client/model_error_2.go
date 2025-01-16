@@ -21,7 +21,7 @@ var _ MappedNullable = &Error2{}
 
 // Error2 struct for Error2
 type Error2 struct {
-	Error RecordNotFoundError `json:"error"`
+	Error UnauthorizedError `json:"error"`
 }
 
 type _Error2 Error2
@@ -30,7 +30,7 @@ type _Error2 Error2
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewError2(error_ RecordNotFoundError) *Error2 {
+func NewError2(error_ UnauthorizedError) *Error2 {
 	this := Error2{}
 	this.Error = error_
 	return &this
@@ -45,9 +45,9 @@ func NewError2WithDefaults() *Error2 {
 }
 
 // GetError returns the Error field value
-func (o *Error2) GetError() RecordNotFoundError {
+func (o *Error2) GetError() UnauthorizedError {
 	if o == nil {
-		var ret RecordNotFoundError
+		var ret UnauthorizedError
 		return ret
 	}
 
@@ -56,7 +56,7 @@ func (o *Error2) GetError() RecordNotFoundError {
 
 // GetErrorOk returns a tuple with the Error field value
 // and a boolean to check if the value has been set.
-func (o *Error2) GetErrorOk() (*RecordNotFoundError, bool) {
+func (o *Error2) GetErrorOk() (*UnauthorizedError, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -64,7 +64,7 @@ func (o *Error2) GetErrorOk() (*RecordNotFoundError, bool) {
 }
 
 // SetError sets field value
-func (o *Error2) SetError(v RecordNotFoundError) {
+func (o *Error2) SetError(v UnauthorizedError) {
 	o.Error = v
 }
 
