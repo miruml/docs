@@ -235,7 +235,6 @@ paths:
                   - type: object
                     required:
                       - images
-                      - deployments
                     properties:
                       images:
                         nullable: true
@@ -421,10 +420,52 @@ paths:
                         - type: object
                           required:
                             - staged
+                            - deployments
                           properties:
                             staged:
                               type: boolean
                               example: true
+                            deployments:
+                              title: Artifact Deployment List
+                              type: object
+                              required:
+                                - object
+                                - data
+                              properties:
+                                object:
+                                  type: string
+                                  example: list
+                                data:
+                                  type: array
+                                  items:
+                                    title: Artifact Deployment
+                                    type: object
+                                    required:
+                                      - object
+                                      - id
+                                      - device_id
+                                      - status
+                                      - activity_status
+                                      - error_status
+                                    properties:
+                                      object:
+                                        type: string
+                                        example: deployment
+                                      id:
+                                        type: string
+                                        example: dep_1234
+                                      device_id:
+                                        type: string
+                                        example: device_1234
+                                      status:
+                                        type: string
+                                        example: retrying
+                                      activity_status:
+                                        type: string
+                                        example: booting
+                                      error_status:
+                                        type: string
+                                        example: retrying
   '/sources/registry/{registry_source_id}/artifacts':
     post:
       tags:

@@ -97,11 +97,57 @@ components:
         - type: object
           required:
             - images
-            - deployments
           properties:
             images:
               $ref: "./image.yaml#/components/schemas/ImageList"
               nullable: true
+
+
+
+    GroupArtifactDeployment:
+      title: Artifact Deployment
+      type: object
+      required:
+        - object
+        - id 
+        - device_id
+        - status
+        - activity_status
+        - error_status
+      properties:
+        object:
+          type: string
+          example: "deployment"
+        id:
+          type: string
+          example: "dep_1234"
+        device_id:
+          type: string
+          example: "device_1234"
+        status:
+          type: string
+          example: "retrying"
+        activity_status:
+          type: string
+          example: "booting"
+        error_status:
+          type: string
+          example: "retrying"
+
+    GroupArtifactDeploymentList: 
+      title: Artifact Deployment List
+      type: object
+      required:
+        - object
+        - data
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/GroupArtifactDeployment"
 
     GroupArtifact:
       allOf:
@@ -109,10 +155,13 @@ components:
         - type: object
           required:
             - staged
+            - deployments
           properties:
             staged:
               type: boolean
               example: true
+            deployments:
+              $ref: "#/components/schemas/GroupArtifactDeploymentList"
 
     GroupArtifactList:
       title: Group Artifact List
