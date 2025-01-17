@@ -28,8 +28,12 @@ type ArtifactDeployment struct {
 	Status string `json:"status"`
 	ActivityStatus string `json:"activity_status"`
 	ErrorStatus string `json:"error_status"`
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	FinishedAt NullableTime `json:"finished_at,omitempty"`
+	CreatedBy NullableUser `json:"created_by"`
+	CreatedAt time.Time `json:"created_at"`
+	StartedAt NullableTime `json:"started_at"`
+	FinishedAt NullableTime `json:"finished_at"`
+	RemovedAt NullableTime `json:"removed_at"`
+	OnDevice bool `json:"on_device"`
 }
 
 type _ArtifactDeployment ArtifactDeployment
@@ -38,13 +42,19 @@ type _ArtifactDeployment ArtifactDeployment
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewArtifactDeployment(object string, id string, status string, activityStatus string, errorStatus string) *ArtifactDeployment {
+func NewArtifactDeployment(object string, id string, status string, activityStatus string, errorStatus string, createdBy NullableUser, createdAt time.Time, startedAt NullableTime, finishedAt NullableTime, removedAt NullableTime, onDevice bool) *ArtifactDeployment {
 	this := ArtifactDeployment{}
 	this.Object = object
 	this.Id = id
 	this.Status = status
 	this.ActivityStatus = activityStatus
 	this.ErrorStatus = errorStatus
+	this.CreatedBy = createdBy
+	this.CreatedAt = createdAt
+	this.StartedAt = startedAt
+	this.FinishedAt = finishedAt
+	this.RemovedAt = removedAt
+	this.OnDevice = onDevice
 	return &this
 }
 
@@ -208,48 +218,94 @@ func (o *ArtifactDeployment) SetErrorStatus(v string) {
 	o.ErrorStatus = v
 }
 
-// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *ArtifactDeployment) GetCreatedAt() time.Time {
-	if o == nil || IsNil(o.CreatedAt) {
-		var ret time.Time
+// GetCreatedBy returns the CreatedBy field value
+// If the value is explicit nil, the zero value for User will be returned
+func (o *ArtifactDeployment) GetCreatedBy() User {
+	if o == nil || o.CreatedBy.Get() == nil {
+		var ret User
 		return ret
 	}
-	return *o.CreatedAt
+
+	return *o.CreatedBy.Get()
 }
 
-// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// GetCreatedByOk returns a tuple with the CreatedBy field value
 // and a boolean to check if the value has been set.
-func (o *ArtifactDeployment) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.CreatedAt) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ArtifactDeployment) GetCreatedByOk() (*User, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CreatedAt, true
+	return o.CreatedBy.Get(), o.CreatedBy.IsSet()
 }
 
-// HasCreatedAt returns a boolean if a field has been set.
-func (o *ArtifactDeployment) HasCreatedAt() bool {
-	if o != nil && !IsNil(o.CreatedAt) {
-		return true
-	}
-
-	return false
+// SetCreatedBy sets field value
+func (o *ArtifactDeployment) SetCreatedBy(v User) {
+	o.CreatedBy.Set(&v)
 }
 
-// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
-func (o *ArtifactDeployment) SetCreatedAt(v time.Time) {
-	o.CreatedAt = &v
-}
-
-// GetFinishedAt returns the FinishedAt field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ArtifactDeployment) GetFinishedAt() time.Time {
-	if o == nil || IsNil(o.FinishedAt.Get()) {
+// GetCreatedAt returns the CreatedAt field value
+func (o *ArtifactDeployment) GetCreatedAt() time.Time {
+	if o == nil {
 		var ret time.Time
 		return ret
 	}
+
+	return o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value
+// and a boolean to check if the value has been set.
+func (o *ArtifactDeployment) GetCreatedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CreatedAt, true
+}
+
+// SetCreatedAt sets field value
+func (o *ArtifactDeployment) SetCreatedAt(v time.Time) {
+	o.CreatedAt = v
+}
+
+// GetStartedAt returns the StartedAt field value
+// If the value is explicit nil, the zero value for time.Time will be returned
+func (o *ArtifactDeployment) GetStartedAt() time.Time {
+	if o == nil || o.StartedAt.Get() == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return *o.StartedAt.Get()
+}
+
+// GetStartedAtOk returns a tuple with the StartedAt field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ArtifactDeployment) GetStartedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.StartedAt.Get(), o.StartedAt.IsSet()
+}
+
+// SetStartedAt sets field value
+func (o *ArtifactDeployment) SetStartedAt(v time.Time) {
+	o.StartedAt.Set(&v)
+}
+
+// GetFinishedAt returns the FinishedAt field value
+// If the value is explicit nil, the zero value for time.Time will be returned
+func (o *ArtifactDeployment) GetFinishedAt() time.Time {
+	if o == nil || o.FinishedAt.Get() == nil {
+		var ret time.Time
+		return ret
+	}
+
 	return *o.FinishedAt.Get()
 }
 
-// GetFinishedAtOk returns a tuple with the FinishedAt field value if set, nil otherwise
+// GetFinishedAtOk returns a tuple with the FinishedAt field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ArtifactDeployment) GetFinishedAtOk() (*time.Time, bool) {
@@ -259,27 +315,59 @@ func (o *ArtifactDeployment) GetFinishedAtOk() (*time.Time, bool) {
 	return o.FinishedAt.Get(), o.FinishedAt.IsSet()
 }
 
-// HasFinishedAt returns a boolean if a field has been set.
-func (o *ArtifactDeployment) HasFinishedAt() bool {
-	if o != nil && o.FinishedAt.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetFinishedAt gets a reference to the given NullableTime and assigns it to the FinishedAt field.
+// SetFinishedAt sets field value
 func (o *ArtifactDeployment) SetFinishedAt(v time.Time) {
 	o.FinishedAt.Set(&v)
 }
-// SetFinishedAtNil sets the value for FinishedAt to be an explicit nil
-func (o *ArtifactDeployment) SetFinishedAtNil() {
-	o.FinishedAt.Set(nil)
+
+// GetRemovedAt returns the RemovedAt field value
+// If the value is explicit nil, the zero value for time.Time will be returned
+func (o *ArtifactDeployment) GetRemovedAt() time.Time {
+	if o == nil || o.RemovedAt.Get() == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return *o.RemovedAt.Get()
 }
 
-// UnsetFinishedAt ensures that no value is present for FinishedAt, not even an explicit nil
-func (o *ArtifactDeployment) UnsetFinishedAt() {
-	o.FinishedAt.Unset()
+// GetRemovedAtOk returns a tuple with the RemovedAt field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ArtifactDeployment) GetRemovedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.RemovedAt.Get(), o.RemovedAt.IsSet()
+}
+
+// SetRemovedAt sets field value
+func (o *ArtifactDeployment) SetRemovedAt(v time.Time) {
+	o.RemovedAt.Set(&v)
+}
+
+// GetOnDevice returns the OnDevice field value
+func (o *ArtifactDeployment) GetOnDevice() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.OnDevice
+}
+
+// GetOnDeviceOk returns a tuple with the OnDevice field value
+// and a boolean to check if the value has been set.
+func (o *ArtifactDeployment) GetOnDeviceOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.OnDevice, true
+}
+
+// SetOnDevice sets field value
+func (o *ArtifactDeployment) SetOnDevice(v bool) {
+	o.OnDevice = v
 }
 
 func (o ArtifactDeployment) MarshalJSON() ([]byte, error) {
@@ -300,12 +388,12 @@ func (o ArtifactDeployment) ToMap() (map[string]interface{}, error) {
 	toSerialize["status"] = o.Status
 	toSerialize["activity_status"] = o.ActivityStatus
 	toSerialize["error_status"] = o.ErrorStatus
-	if !IsNil(o.CreatedAt) {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.FinishedAt.IsSet() {
-		toSerialize["finished_at"] = o.FinishedAt.Get()
-	}
+	toSerialize["created_by"] = o.CreatedBy.Get()
+	toSerialize["created_at"] = o.CreatedAt
+	toSerialize["started_at"] = o.StartedAt.Get()
+	toSerialize["finished_at"] = o.FinishedAt.Get()
+	toSerialize["removed_at"] = o.RemovedAt.Get()
+	toSerialize["on_device"] = o.OnDevice
 	return toSerialize, nil
 }
 
@@ -319,6 +407,12 @@ func (o *ArtifactDeployment) UnmarshalJSON(data []byte) (err error) {
 		"status",
 		"activity_status",
 		"error_status",
+		"created_by",
+		"created_at",
+		"started_at",
+		"finished_at",
+		"removed_at",
+		"on_device",
 	}
 
 	allProperties := make(map[string]interface{})

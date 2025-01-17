@@ -10,14 +10,18 @@ Name | Type | Description | Notes
 **Status** | **string** |  | 
 **ActivityStatus** | **string** |  | 
 **ErrorStatus** | **string** |  | 
-**CreatedAt** | Pointer to **time.Time** |  | [optional] 
-**FinishedAt** | Pointer to **NullableTime** |  | [optional] 
+**CreatedBy** | [**NullableUser**](User.md) |  | 
+**CreatedAt** | **time.Time** |  | 
+**StartedAt** | **NullableTime** |  | 
+**FinishedAt** | **NullableTime** |  | 
+**RemovedAt** | **NullableTime** |  | 
+**OnDevice** | **bool** |  | 
 
 ## Methods
 
 ### NewArtifactDeployment
 
-`func NewArtifactDeployment(object string, id string, status string, activityStatus string, errorStatus string, ) *ArtifactDeployment`
+`func NewArtifactDeployment(object string, id string, status string, activityStatus string, errorStatus string, createdBy NullableUser, createdAt time.Time, startedAt NullableTime, finishedAt NullableTime, removedAt NullableTime, onDevice bool, ) *ArtifactDeployment`
 
 NewArtifactDeployment instantiates a new ArtifactDeployment object
 This constructor will assign default values to properties that have it defined,
@@ -157,6 +161,36 @@ and a boolean to check if the value has been set.
 SetErrorStatus sets ErrorStatus field to given value.
 
 
+### GetCreatedBy
+
+`func (o *ArtifactDeployment) GetCreatedBy() User`
+
+GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
+
+### GetCreatedByOk
+
+`func (o *ArtifactDeployment) GetCreatedByOk() (*User, bool)`
+
+GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedBy
+
+`func (o *ArtifactDeployment) SetCreatedBy(v User)`
+
+SetCreatedBy sets CreatedBy field to given value.
+
+
+### SetCreatedByNil
+
+`func (o *ArtifactDeployment) SetCreatedByNil(b bool)`
+
+ SetCreatedByNil sets the value for CreatedBy to be an explicit nil
+
+### UnsetCreatedBy
+`func (o *ArtifactDeployment) UnsetCreatedBy()`
+
+UnsetCreatedBy ensures that no value is present for CreatedBy, not even an explicit nil
 ### GetCreatedAt
 
 `func (o *ArtifactDeployment) GetCreatedAt() time.Time`
@@ -176,12 +210,37 @@ and a boolean to check if the value has been set.
 
 SetCreatedAt sets CreatedAt field to given value.
 
-### HasCreatedAt
 
-`func (o *ArtifactDeployment) HasCreatedAt() bool`
+### GetStartedAt
 
-HasCreatedAt returns a boolean if a field has been set.
+`func (o *ArtifactDeployment) GetStartedAt() time.Time`
 
+GetStartedAt returns the StartedAt field if non-nil, zero value otherwise.
+
+### GetStartedAtOk
+
+`func (o *ArtifactDeployment) GetStartedAtOk() (*time.Time, bool)`
+
+GetStartedAtOk returns a tuple with the StartedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStartedAt
+
+`func (o *ArtifactDeployment) SetStartedAt(v time.Time)`
+
+SetStartedAt sets StartedAt field to given value.
+
+
+### SetStartedAtNil
+
+`func (o *ArtifactDeployment) SetStartedAtNil(b bool)`
+
+ SetStartedAtNil sets the value for StartedAt to be an explicit nil
+
+### UnsetStartedAt
+`func (o *ArtifactDeployment) UnsetStartedAt()`
+
+UnsetStartedAt ensures that no value is present for StartedAt, not even an explicit nil
 ### GetFinishedAt
 
 `func (o *ArtifactDeployment) GetFinishedAt() time.Time`
@@ -201,11 +260,6 @@ and a boolean to check if the value has been set.
 
 SetFinishedAt sets FinishedAt field to given value.
 
-### HasFinishedAt
-
-`func (o *ArtifactDeployment) HasFinishedAt() bool`
-
-HasFinishedAt returns a boolean if a field has been set.
 
 ### SetFinishedAtNil
 
@@ -217,6 +271,56 @@ HasFinishedAt returns a boolean if a field has been set.
 `func (o *ArtifactDeployment) UnsetFinishedAt()`
 
 UnsetFinishedAt ensures that no value is present for FinishedAt, not even an explicit nil
+### GetRemovedAt
+
+`func (o *ArtifactDeployment) GetRemovedAt() time.Time`
+
+GetRemovedAt returns the RemovedAt field if non-nil, zero value otherwise.
+
+### GetRemovedAtOk
+
+`func (o *ArtifactDeployment) GetRemovedAtOk() (*time.Time, bool)`
+
+GetRemovedAtOk returns a tuple with the RemovedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemovedAt
+
+`func (o *ArtifactDeployment) SetRemovedAt(v time.Time)`
+
+SetRemovedAt sets RemovedAt field to given value.
+
+
+### SetRemovedAtNil
+
+`func (o *ArtifactDeployment) SetRemovedAtNil(b bool)`
+
+ SetRemovedAtNil sets the value for RemovedAt to be an explicit nil
+
+### UnsetRemovedAt
+`func (o *ArtifactDeployment) UnsetRemovedAt()`
+
+UnsetRemovedAt ensures that no value is present for RemovedAt, not even an explicit nil
+### GetOnDevice
+
+`func (o *ArtifactDeployment) GetOnDevice() bool`
+
+GetOnDevice returns the OnDevice field if non-nil, zero value otherwise.
+
+### GetOnDeviceOk
+
+`func (o *ArtifactDeployment) GetOnDeviceOk() (*bool, bool)`
+
+GetOnDeviceOk returns a tuple with the OnDevice field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOnDevice
+
+`func (o *ArtifactDeployment) SetOnDevice(v bool)`
+
+SetOnDevice sets OnDevice field to given value.
+
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

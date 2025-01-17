@@ -348,7 +348,9 @@ paths:
                           type: string
                           example: retrying
                         created_by:
-                          $ref: '#/paths/~1deployments~1%7Bdeployment_id%7D/get/responses/200/content/application~1json/schema/allOf/1/properties/created_by/allOf/0'
+                          allOf:
+                            - $ref: '#/paths/~1deployments~1%7Bdeployment_id%7D/get/responses/200/content/application~1json/schema/allOf/1/properties/created_by/allOf/0'
+                          nullable: true
                         created_at:
                           type: string
                           format: date-time
