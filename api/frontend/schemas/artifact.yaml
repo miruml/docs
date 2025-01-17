@@ -313,7 +313,7 @@ components:
           type: string
           example: "dep_1234"
         device:
-          $ref: '#/components/schemas/ArtifactDeploymentDevice'
+          $ref: "./device.yaml#/components/schemas/Device"
         status:
           type: string
           example: "retrying"

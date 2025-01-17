@@ -332,22 +332,7 @@ paths:
                           type: string
                           example: dep_1234
                         device:
-                          title: ArtifactDeployment Device
-                          type: object
-                          required:
-                            - object
-                            - id
-                            - name
-                          properties:
-                            object:
-                              type: string
-                              example: device
-                            id:
-                              type: string
-                              example: device_1234
-                            name:
-                              type: string
-                              example: Raspberry Pi 4
+                          $ref: '#/paths/~1devices~1%7Bdevice_id%7D/get/responses/200/content/application~1json/schema'
                         status:
                           type: string
                           example: retrying
