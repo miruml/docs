@@ -354,6 +354,12 @@ components:
         - status
         - activity_status
         - error_status
+        - created_by
+        - created_at
+        - started_at
+        - finished_at
+        - removed_at
+        - on_device
       properties:
         object:
           type: string
@@ -372,15 +378,30 @@ components:
         error_status:
           type: string
           example: "retrying"
+        created_by:
+          $ref: "./user.yaml#/components/schemas/User"
         created_at:
           type: string
           format: date-time
           example: "2024-12-05T14:25:50Z"
+        started_at:
+          type: string
+          format: date-time
+          example: "2024-12-05T14:25:50Z"
+          nullable: true
         finished_at:
           type: string
           format: date-time
           example: "2024-12-05T14:25:50Z"
           nullable: true
+        removed_at:
+          type: string
+          format: date-time
+          example: "2024-12-05T14:25:50Z"
+          nullable: true
+        on_device:
+          type: boolean
+          example: true
 
     ArtifactDeploymentDevice:
       title: ArtifactDeployment Device
