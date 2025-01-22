@@ -350,15 +350,14 @@ components:
       required:
         - object
         - id 
-        - device_id
+        - device
         - status
         - activity_status
         - error_status
         - created_by
         - created_at
         - started_at
-        - finished_at
-        - removed_at
+        - stopped_at 
         - on_device
       properties:
         object:

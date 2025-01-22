@@ -360,12 +360,7 @@ paths:
                           format: date-time
                           example: '2024-12-05T14:25:50Z'
                           nullable: true
-                        finished_at:
-                          type: string
-                          format: date-time
-                          example: '2024-12-05T14:25:50Z'
-                          nullable: true
-                        removed_at:
+                        stopped_at:
                           type: string
                           format: date-time
                           example: '2024-12-05T14:25:50Z'
