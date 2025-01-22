@@ -1,0 +1,466 @@
+openapi: 3.0.3
+info:
+  title: Artifact Schemas
+  version: ""
+components: 
+  schemas: 
+
+    BaseArtifact:
+      title: Artifact Base
+      type: object
+      required:
+        - object
+        - id
+        - digest
+        - status
+        - aarch64
+        - x86_64
+        - created_at
+        - ready_at
+        - failed_at
+        - source_id
+        - source_type
+      properties: 
+        object:
+          type: string
+          example: "artifact"
+        id: 
+          type: string
+          example: "art_1234"
+        status:
+          $ref: "#/components/schemas/ArtifactStatus"
+        digest:
+          type: string
+          example: "dad036b"
+        aarch64:
+          type: boolean
+          example: true
+        x86_64:
+          type: boolean
+          example: false
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-11-03T14:19:50Z"
+        ready_at:
+          type: string
+          format: date-time
+          example: "2024-11-03T14:25:50Z"
+          nullable: true
+        failed_at:
+          type: string
+          format: date-time
+          example: "2024-11-03T14:25:50Z"
+          nullable: true
+
+        source_id:
+          type: string
+          example: "reg_src_1234"
+        source_type:
+          type: string
+          enum:
+            - github 
+            - registry
+
+    ArtifactWithSourceData:
+      title: Artifact With Source Data
+      allOf:
+        - $ref: "#/components/schemas/BaseArtifact"
+        - type: object
+          required:
+            - created_by
+            - registry_source
+            - github_source
+            - github_source_data
+          properties:
+            created_by:
+              allOf:
+                - $ref: "./user.yaml#/components/schemas/User"
+              nullable: true
+            registry_source:
+              allOf:
+                - $ref: "./reg-src.yaml#/components/schemas/RegistrySource"
+              nullable: true
+            github_source:
+              allOf:
+                - $ref: "./gh-src.yaml#/components/schemas/GitHubSource"
+              nullable: true
+            github_source_data:
+              allOf:
+                - $ref: "#/components/schemas/GitHubSourceData"
+              nullable: true
+
+    Artifact:
+      title: Artifact
+      allOf:
+        - $ref: "#/components/schemas/ArtifactWithSourceData"
+        - type: object
+          required:
+            - images
+          properties:
+            images:
+              $ref: "./image.yaml#/components/schemas/ImageList"
+              nullable: true
+
+
+
+    GroupArtifactDeployment:
+      title: Artifact Deployment
+      type: object
+      required:
+        - object
+        - id 
+        - device_id
+        - status
+        - activity_status
+        - error_status
+      properties:
+        object:
+          type: string
+          example: "deployment"
+        id:
+          type: string
+          example: "dep_1234"
+        device_id:
+          type: string
+          example: "device_1234"
+        status:
+          type: string
+          example: "retrying"
+        activity_status:
+          type: string
+          example: "booting"
+        error_status:
+          type: string
+          example: "retrying"
+
+    GroupArtifactDeploymentList: 
+      title: Artifact Deployment List
+      type: object
+      required:
+        - object
+        - data
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/GroupArtifactDeployment"
+
+    GroupArtifact:
+      allOf:
+        - $ref: "#/components/schemas/Artifact"
+        - type: object
+          required:
+            - staged
+            - deployments
+          properties:
+            staged:
+              type: boolean
+              example: true
+            deployments:
+              $ref: "#/components/schemas/GroupArtifactDeploymentList"
+
+    GroupArtifactList:
+      title: Group Artifact List
+      type: object
+      required:
+        - object
+        - data
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/GroupArtifact"
+    
+    ArtifactList:
+      title: Artifact List
+      type: object
+      required:
+        - object
+        - data
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Artifact"
+
+    ArtifactStatus:
+      title: Artifact Status
+      type: string
+      enum:
+        - queued
+        - verifying 
+        - building
+        - storing 
+        - ready 
+        - failed
+
+    GitHubSourceDataHeadCommit:
+      title: GitHub Source Data Head Commit
+      type: object
+      required:
+        - id
+        - url
+        - message
+      properties: 
+        id:
+          type: string
+          example: "94d8a2681f1ef81b0362cdb77bf37691bc1d2b03"
+        url: 
+          type: string
+          example: "https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03"
+        message: 
+          type: string
+          example: "Update README.md"
+
+    GitHubSourceDataRepository:
+      title: GitHub Source Data Repository
+      type: object
+      required:
+        - id
+        - html_url
+        - clone_url
+        - full_name
+        - pushed_at
+      properties: 
+        id:
+          type: integer
+          example: 819141000
+          format: int64
+        html_url:
+          type: string
+          example: "https://github.com/miruml/e2e-tests"
+        clone_url:
+          type: string
+          example: "https://github.com/miruml/e2e-tests.git"
+        full_name:
+          type: string
+          example: "miruml/e2e-tests"
+        pushed_at:
+          type: string
+          format: date-time
+          example: "2024-11-03T14:19:50Z"
+
+    GitHubSourceDataSender:
+      title: GitHub Source Data Sender
+      type: object
+      required:
+        - id
+        - type
+        - login
+        - html_url
+        - avatar_url
+      properties: 
+        id: 
+          type: integer
+          example: 1234
+          format: int64
+        type:
+          type: string
+          example: "User"
+        login:
+          type: string
+          example: "bensmidt"
+        html_url:
+          type: string
+          example: "https://github.com/bensmidt"
+        avatar_url:
+          type: string
+          example: "https://avatars.githubusercontent.com/u/92611223?v=4"
+
+    GitHubSourceData:
+      title: GitHub Source Data
+      type: object
+      required:
+        - sender
+        - branch
+        - build_path
+        - repository
+        - head_commit
+      properties: 
+        sender:
+          $ref: "#/components/schemas/GitHubSourceDataSender"
+        branch:
+          type: string
+          example: "main"
+        build_path:
+          type: string
+          example: "valid/wordpress"
+        repository:
+          $ref: "#/components/schemas/GitHubSourceDataRepository"
+        head_commit:
+          $ref: "#/components/schemas/GitHubSourceDataHeadCommit"
+
+    CreateRegistrySourceArtifact:
+      title: Create Registry Source Artifact
+      type: object
+      required:
+        - allow_duplicate
+        - images
+        - groups
+      properties: 
+        allow_duplicate:
+          type: boolean
+          example: false
+        images:
+          type: array
+          items:
+            type: object
+            required:
+              - repository_id
+              - digest
+              - tag
+            properties: 
+              repository_id:
+                type: string
+                example: "cont_repo_1234"
+              digest:
+                type: string
+                example: "sha256:1234567890"
+              tag:
+                type: string
+                example: "v1.3.4"
+
+    CreateGitHubSourceArtifact:
+      title: Create GitHub Source Artifact
+      type: object
+      required:
+        - allow_duplicate
+        - commit_sha
+      properties:
+        allow_duplicate:
+          type: boolean
+          example: false
+        commit_sha:
+          type: string
+          example: "94d8a2681f1ef81b0362cdb77bf37691bc1d2b03"
+    
+    ArtifactDeployment:
+      title: Artifact Deployment
+      type: object
+      required:
+        - object
+        - id 
+        - device
+        - status
+        - activity_status
+        - error_status
+        - created_by
+        - created_at
+        - started_at
+        - stopped_at 
+        - on_device
+      properties:
+        object:
+          type: string
+          example: "deployment"
+        id:
+          type: string
+          example: "dep_1234"
+        device:
+          $ref: "./device.yaml#/components/schemas/Device"
+        status:
+          type: string
+          example: "retrying"
+        activity_status:
+          type: string
+          example: "booting"
+        error_status:
+          type: string
+          example: "retrying"
+        created_by:
+          allOf:
+            - $ref: "./user.yaml#/components/schemas/User"
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-12-05T14:25:50Z"
+        started_at:
+          type: string
+          format: date-time
+          example: "2024-12-05T14:25:50Z"
+          nullable: true
+        stopped_at: 
+          type: string
+          format: date-time
+          example: "2024-12-05T14:25:50Z"
+          nullable: true
+        on_device:
+          type: boolean
+          example: true
+
+    ArtifactDeploymentDevice:
+      title: ArtifactDeployment Device
+      type: object
+      required: 
+        - object
+        - id
+        - name
+      properties:
+        object:
+          type: string
+          example: "device"
+        id:
+          type: string
+          example: "device_1234"
+        name:
+          type: string
+          example: "Raspberry Pi 4"
+
+    ArtifactDeploymentList: 
+      title: Artifact Deployment List
+      type: object
+      required:
+        - object
+        - data
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/ArtifactDeployment"
+
+    ComposeFile:
+      title: Compose File
+      required:
+        - object
+        - content 
+      properties:
+        object:
+          type: string
+          example: "compose_file"
+        content:
+          type: string
+          example: "name: miru\nservices:\n  redis:\n  image: redis:latest\n  restart: always"
+
+    ArtifactDeploymentFiles:
+      title: Artifact Deployment Files
+      required:
+        - object
+        - compose_file
+        - env_file
+      properties:
+        object:
+          type: string
+          example: "artifact_deployment_files"
+        compose_file:
+          type: string
+          example: "name: miru\nservices:\n  redis:\n  image: redis:latest\n  restart: always"
+        env_file:
+          type: string
+          example: "MIRU_REDIS_HOST=redis\nMIRU_REDIS_PORT=6379"
+          nullable: true
+    
+paths: {}

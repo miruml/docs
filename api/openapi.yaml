@@ -1,0 +1,2221 @@
+openapi: 3.0.3
+info:
+  title: Miru API
+  version: 0.1.0
+servers:
+  - url: 'http://localhost:8080/{audience}/{version}'
+    description: Local Development
+    variables:
+      audience:
+        default: internal
+        enum:
+          - internal
+          - internal/devices
+      version:
+        default: v1
+  - url: 'https://dev.api.miruml.com/{audience}/{version}'
+    description: Development
+    variables:
+      audience:
+        default: internal
+        enum:
+          - internal
+          - internal/devices
+      version:
+        default: v1
+  - url: 'https://api.miruml.com/{audience}/{version}'
+    description: Production
+    variables:
+      audience:
+        default: internal
+        enum:
+          - internal
+          - internal/devices
+      version:
+        default: v1
+components:
+  securitySchemes:
+    ClerkAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - ClerkAuth: []
+paths:
+  '/artifacts/{artifact_id}':
+    get:
+      tags:
+        - Artifacts
+      parameters:
+        - name: artifact_id
+          in: path
+          required: true
+          description: The unique identifier of the artifact
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the artifact.
+          content:
+            application/json:
+              schema:
+                title: Artifact
+                allOf:
+                  - title: Artifact With Source Data
+                    allOf:
+                      - title: Artifact Base
+                        type: object
+                        required:
+                          - object
+                          - id
+                          - digest
+                          - status
+                          - aarch64
+                          - x86_64
+                          - created_at
+                          - ready_at
+                          - failed_at
+                          - source_id
+                          - source_type
+                        properties:
+                          object:
+                            type: string
+                            example: artifact
+                          id:
+                            type: string
+                            example: art_1234
+                          status:
+                            title: Artifact Status
+                            type: string
+                            enum:
+                              - queued
+                              - verifying
+                              - building
+                              - storing
+                              - ready
+                              - failed
+                          digest:
+                            type: string
+                            example: dad036b
+                          aarch64:
+                            type: boolean
+                            example: true
+                          x86_64:
+                            type: boolean
+                            example: false
+                          created_at:
+                            type: string
+                            format: date-time
+                            example: '2024-11-03T14:19:50Z'
+                          ready_at:
+                            type: string
+                            format: date-time
+                            example: '2024-11-03T14:25:50Z'
+                            nullable: true
+                          failed_at:
+                            type: string
+                            format: date-time
+                            example: '2024-11-03T14:25:50Z'
+                            nullable: true
+                          source_id:
+                            type: string
+                            example: reg_src_1234
+                          source_type:
+                            type: string
+                            enum:
+                              - github
+                              - registry
+                      - type: object
+                        required:
+                          - created_by
+                          - registry_source
+                          - github_source
+                          - github_source_data
+                        properties:
+                          created_by:
+                            allOf:
+                              - $ref: '#/paths/~1deployments~1%7Bdeployment_id%7D/get/responses/200/content/application~1json/schema/allOf/1/properties/created_by/allOf/0'
+                            nullable: true
+                          registry_source:
+                            allOf:
+                              - $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/get/responses/200/content/application~1json/schema'
+                            nullable: true
+                          github_source:
+                            allOf:
+                              - $ref: '#/paths/~1groups~1%7Bgroup_id%7D/get/responses/200/content/application~1json/schema/allOf/1/properties/github_sources/properties/data/items'
+                            nullable: true
+                          github_source_data:
+                            allOf:
+                              - title: GitHub Source Data
+                                type: object
+                                required:
+                                  - sender
+                                  - branch
+                                  - build_path
+                                  - repository
+                                  - head_commit
+                                properties:
+                                  sender:
+                                    title: GitHub Source Data Sender
+                                    type: object
+                                    required:
+                                      - id
+                                      - type
+                                      - login
+                                      - html_url
+                                      - avatar_url
+                                    properties:
+                                      id:
+                                        type: integer
+                                        example: 1234
+                                        format: int64
+                                      type:
+                                        type: string
+                                        example: User
+                                      login:
+                                        type: string
+                                        example: bensmidt
+                                      html_url:
+                                        type: string
+                                        example: 'https://github.com/bensmidt'
+                                      avatar_url:
+                                        type: string
+                                        example: 'https://avatars.githubusercontent.com/u/92611223?v=4'
+                                  branch:
+                                    type: string
+                                    example: main
+                                  build_path:
+                                    type: string
+                                    example: valid/wordpress
+                                  repository:
+                                    title: GitHub Source Data Repository
+                                    type: object
+                                    required:
+                                      - id
+                                      - html_url
+                                      - clone_url
+                                      - full_name
+                                      - pushed_at
+                                    properties:
+                                      id:
+                                        type: integer
+                                        example: 819141000
+                                        format: int64
+                                      html_url:
+                                        type: string
+                                        example: 'https://github.com/miruml/e2e-tests'
+                                      clone_url:
+                                        type: string
+                                        example: 'https://github.com/miruml/e2e-tests.git'
+                                      full_name:
+                                        type: string
+                                        example: miruml/e2e-tests
+                                      pushed_at:
+                                        type: string
+                                        format: date-time
+                                        example: '2024-11-03T14:19:50Z'
+                                  head_commit:
+                                    title: GitHub Source Data Head Commit
+                                    type: object
+                                    required:
+                                      - id
+                                      - url
+                                      - message
+                                    properties:
+                                      id:
+                                        type: string
+                                        example: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+                                      url:
+                                        type: string
+                                        example: 'https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03'
+                                      message:
+                                        type: string
+                                        example: Update README.md
+                            nullable: true
+                  - type: object
+                    required:
+                      - images
+                    properties:
+                      images:
+                        nullable: true
+                        title: Image List
+                        type: object
+                        required:
+                          - object
+                          - data
+                        properties:
+                          object:
+                            type: string
+                            example: list
+                          data:
+                            type: array
+                            items:
+                              title: Image
+                              type: object
+                              required:
+                                - object
+                                - id
+                                - registry_url
+                                - account_login
+                                - name
+                                - uri
+                                - type
+                                - digest
+                                - tag
+                              properties:
+                                object:
+                                  type: string
+                                  example: image
+                                id:
+                                  type: string
+                                  example: img_123
+                                registry_url:
+                                  type: string
+                                  example: us-central1-docker.pkg.dev/container-integration
+                                account_login:
+                                  type: string
+                                  example: container-integration
+                                name:
+                                  type: string
+                                  example: django/nested/image/name
+                                uri:
+                                  type: string
+                                  example: us-central1-docker.pkg.dev/container-integration/django/nested/image/name
+                                type:
+                                  type: string
+                                  example: gar
+                                digest:
+                                  type: string
+                                  example: 'sha256:123abc'
+                                tag:
+                                  type: string
+                                  example: latest
+  '/artifacts/{artifact_id}/deployments':
+    get:
+      tags:
+        - Artifacts
+      parameters:
+        - $ref: '#/paths/~1artifacts~1%7Bartifact_id%7D/get/parameters/0'
+      responses:
+        '200':
+          description: Successfuly retrieved the artifact's deployments
+          content:
+            application/json:
+              schema:
+                title: Artifact Deployment List
+                type: object
+                required:
+                  - object
+                  - data
+                properties:
+                  object:
+                    type: string
+                    example: list
+                  data:
+                    type: array
+                    items:
+                      title: Artifact Deployment
+                      type: object
+                      required:
+                        - object
+                        - id
+                        - device_id
+                        - status
+                        - activity_status
+                        - error_status
+                        - created_by
+                        - created_at
+                        - started_at
+                        - finished_at
+                        - removed_at
+                        - on_device
+                      properties:
+                        object:
+                          type: string
+                          example: deployment
+                        id:
+                          type: string
+                          example: dep_1234
+                        device:
+                          $ref: '#/paths/~1devices~1%7Bdevice_id%7D/get/responses/200/content/application~1json/schema'
+                        status:
+                          type: string
+                          example: retrying
+                        activity_status:
+                          type: string
+                          example: booting
+                        error_status:
+                          type: string
+                          example: retrying
+                        created_by:
+                          allOf:
+                            - $ref: '#/paths/~1deployments~1%7Bdeployment_id%7D/get/responses/200/content/application~1json/schema/allOf/1/properties/created_by/allOf/0'
+                          nullable: true
+                        created_at:
+                          type: string
+                          format: date-time
+                          example: '2024-12-05T14:25:50Z'
+                        started_at:
+                          type: string
+                          format: date-time
+                          example: '2024-12-05T14:25:50Z'
+                          nullable: true
+                        stopped_at:
+                          type: string
+                          format: date-time
+                          example: '2024-12-05T14:25:50Z'
+                          nullable: true
+                        on_device:
+                          type: boolean
+                          example: true
+  '/artifacts/{artifact_id}/deployment_files':
+    get:
+      tags:
+        - Artifacts
+      parameters:
+        - $ref: '#/paths/~1artifacts~1%7Bartifact_id%7D/get/parameters/0'
+      responses:
+        '200':
+          description: Successfully retrieved the release files for the artifact.
+          content:
+            application/json:
+              schema:
+                title: Artifact Deployment Files
+                required:
+                  - object
+                  - compose_file
+                  - env_file
+                properties:
+                  object:
+                    type: string
+                    example: artifact_deployment_files
+                  compose_file:
+                    type: string
+                    example: |-
+                      name: miru
+                      services:
+                        redis:
+                        image: redis:latest
+                        restart: always
+                  env_file:
+                    type: string
+                    example: |-
+                      MIRU_REDIS_HOST=redis
+                      MIRU_REDIS_PORT=6379
+                    nullable: true
+  '/groups/{group_id}/artifacts':
+    get:
+      tags:
+        - Artifacts
+      parameters:
+        - $ref: '#/paths/~1groups~1%7Bgroup_id%7D/get/parameters/0'
+        - name: only_staged
+          in: query
+          required: false
+          description: Whether to return only staged artifacts
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Successfully retrieved the artifacts for the group.
+          content:
+            application/json:
+              schema:
+                title: Group Artifact List
+                type: object
+                required:
+                  - object
+                  - data
+                properties:
+                  object:
+                    type: string
+                    example: list
+                  data:
+                    type: array
+                    items:
+                      allOf:
+                        - $ref: '#/paths/~1artifacts~1%7Bartifact_id%7D/get/responses/200/content/application~1json/schema'
+                        - type: object
+                          required:
+                            - staged
+                            - deployments
+                          properties:
+                            staged:
+                              type: boolean
+                              example: true
+                            deployments:
+                              title: Artifact Deployment List
+                              type: object
+                              required:
+                                - object
+                                - data
+                              properties:
+                                object:
+                                  type: string
+                                  example: list
+                                data:
+                                  type: array
+                                  items:
+                                    title: Artifact Deployment
+                                    type: object
+                                    required:
+                                      - object
+                                      - id
+                                      - device_id
+                                      - status
+                                      - activity_status
+                                      - error_status
+                                    properties:
+                                      object:
+                                        type: string
+                                        example: deployment
+                                      id:
+                                        type: string
+                                        example: dep_1234
+                                      device_id:
+                                        type: string
+                                        example: device_1234
+                                      status:
+                                        type: string
+                                        example: retrying
+                                      activity_status:
+                                        type: string
+                                        example: booting
+                                      error_status:
+                                        type: string
+                                        example: retrying
+  '/sources/registry/{registry_source_id}/artifacts':
+    post:
+      tags:
+        - Artifacts
+      parameters:
+        - $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/get/parameters/0'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              title: Create Registry Source Artifact
+              type: object
+              required:
+                - allow_duplicate
+                - images
+                - groups
+              properties:
+                allow_duplicate:
+                  type: boolean
+                  example: false
+                images:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - repository_id
+                      - digest
+                      - tag
+                    properties:
+                      repository_id:
+                        type: string
+                        example: cont_repo_1234
+                      digest:
+                        type: string
+                        example: 'sha256:1234567890'
+                      tag:
+                        type: string
+                        example: v1.3.4
+      responses:
+        '200':
+          description: Successfully created the artifact.
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1artifacts~1%7Bartifact_id%7D/get/responses/200/content/application~1json/schema'
+        '409':
+          $ref: '#/paths/~1sources~1github~1%7Bgithub_source_id%7D~1artifacts/post/responses/409'
+  '/sources/github/{github_source_id}/artifacts':
+    post:
+      tags:
+        - Artifacts
+      parameters:
+        - $ref: '#/paths/~1sources~1github~1%7Bgithub_source_id%7D~1commits/get/parameters/1'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              title: Create GitHub Source Artifact
+              type: object
+              required:
+                - allow_duplicate
+                - commit_sha
+              properties:
+                allow_duplicate:
+                  type: boolean
+                  example: false
+                commit_sha:
+                  type: string
+                  example: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+      responses:
+        '200':
+          description: Successfully queued the artifact for creation
+        '409':
+          description: Unable to create artifact since another artifact with identical content already exists
+          content:
+            application/json:
+              schema:
+                title: Error
+                type: object
+                required:
+                  - error
+                properties:
+                  error:
+                    title: DuplicateArtifactError
+                    type: object
+                    required:
+                      - code
+                      - params
+                      - message
+                    properties:
+                      code:
+                        type: string
+                        example: duplicate_artifact
+                      params:
+                        type: object
+                        required:
+                          - duplicate_artifacts
+                        properties:
+                          duplicate_artifacts:
+                            type: array
+                            items:
+                              type: object
+                              example: art_1234
+                      message:
+                        type: string
+                        example: Artifacts with identical content already exist
+                      debug_message:
+                        type: string
+                        example: '2 artifacts with identical content already exist: art_1234, art_5678'
+  '/workspace/{workspace_id}/compose/verify':
+    post:
+      tags:
+        - Compose File
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              title: Verify Compose File
+              type: object
+              required:
+                - compose_file
+                - architecture
+              properties:
+                compose_file:
+                  type: string
+                  example: |-
+                    name: miru
+                    services:
+                      redis:
+                      image: redis:latest
+                      restart: always
+                architecture:
+                  type: string
+                  example: arm64
+      responses:
+        '200':
+          description: Successfully verified the compose file.
+          content:
+            application/json:
+              schema:
+                title: Verify Compose File Response
+                type: object
+                required:
+                  - object
+                  - content
+                  - is_valid
+                  - is_schema_valid
+                  - images
+                properties:
+                  object:
+                    type: string
+                    example: compose_file
+                  content:
+                    type: string
+                    example: |-
+                      name: miru
+                      services:
+                        redis:
+                        image: redis:latest
+                        restart: always
+                  is_valid:
+                    type: boolean
+                    example: false
+                  is_schema_valid:
+                    type: boolean
+                    example: true
+                  schema_error:
+                    type: string
+                    example: <reason why compose file is malformed>
+                  images:
+                    title: Compose File Image List
+                    type: object
+                    required:
+                      - object
+                      - data
+                    properties:
+                      object:
+                        type: string
+                        example: list
+                      data:
+                        type: array
+                        items:
+                          title: Compose File Image
+                          type: object
+                          required:
+                            - object
+                            - compose_reference
+                            - image_uri
+                            - repository_uri
+                            - registry_url
+                            - registry_type
+                            - name
+                            - digest
+                            - tag
+                            - is_image_valid
+                            - is_repository_valid
+                            - error
+                          properties:
+                            object:
+                              type: string
+                              example: external_image
+                            compose_reference:
+                              type: string
+                              example: 'redis:latest'
+                            image_uri:
+                              type: string
+                              example: 'docker.io/redis:latest'
+                            repository_uri:
+                              type: string
+                              example: docker.io/redis
+                            registry_url:
+                              type: string
+                              example: docker.io
+                            registry_type:
+                              type: string
+                              example: gar
+                            name:
+                              type: string
+                              example: redis
+                            digest:
+                              type: string
+                              example: 'sha256:123abc'
+                            tag:
+                              type: string
+                              example: latest
+                            is_image_valid:
+                              type: boolean
+                              example: false
+                            is_repository_valid:
+                              type: boolean
+                              example: false
+                            error:
+                              type: string
+                              example: <reason why image is not valid>
+  '/devices/{device_id}/containers':
+    get:
+      tags:
+        - Containers
+      parameters:
+        - $ref: '#/paths/~1devices~1%7Bdevice_id%7D/get/parameters/0'
+      responses:
+        '200':
+          description: Successfully retrieved the containers for the device.
+          content:
+            application/json:
+              schema:
+                title: Container List
+                type: object
+                required:
+                  - object
+                  - data
+                properties:
+                  object:
+                    type: string
+                    example: list
+                  data:
+                    type: array
+                    items:
+                      title: Container
+                      type: object
+                      required:
+                        - object
+                        - id
+                        - device_id
+                        - image_id
+                        - image_tag
+                        - image_digest
+                        - docker_container_id
+                        - created_at
+                        - updated_at
+                        - started_at
+                        - finished_at
+                        - status
+                        - target_status
+                        - exit_code
+                        - error
+                      properties:
+                        object:
+                          type: string
+                          example: container
+                        id:
+                          type: string
+                          example: cont_1234
+                        device_id:
+                          type: string
+                          example: device_1234
+                        image_id:
+                          type: string
+                          example: img_1234
+                          nullable: true
+                        image_name:
+                          type: string
+                          example: my-image
+                          nullable: true
+                        image_tag:
+                          type: string
+                          example: latest
+                          nullable: true
+                        image_digest:
+                          type: string
+                          example: 'sha256:1234567890'
+                          nullable: true
+                        docker_container_id:
+                          type: string
+                          example: 'sha256:1234567890'
+                        created_at:
+                          type: string
+                          format: date-time
+                          example: '2024-11-03T14:19:50Z'
+                        updated_at:
+                          type: string
+                          format: date-time
+                          example: '2024-11-03T14:19:50Z'
+                        started_at:
+                          type: string
+                          format: date-time
+                          example: '2024-11-03T14:19:50Z'
+                        finished_at:
+                          type: string
+                          format: date-time
+                          example: '2024-11-03T14:19:50Z'
+                          nullable: true
+                        status:
+                          type: string
+                          example: running
+                        target_status:
+                          type: string
+                          example: running
+                        exit_code:
+                          type: integer
+                          example: 0
+                        error:
+                          type: string
+                          example: <some error message>
+                          nullable: true
+  '/deployments/{deployment_id}':
+    get:
+      tags:
+        - Deployments
+      parameters:
+        - name: deployment_id
+          in: path
+          required: true
+          description: The unique identifier of the deployment
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the deployment.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - title: Deployment
+                    type: object
+                    required:
+                      - object
+                      - id
+                      - device_id
+                      - status
+                      - activity_status
+                      - error_status
+                      - target_status
+                      - created_at
+                      - downloading_at
+                      - downloaded_at
+                      - booting_at
+                      - active_at
+                      - stopping_at
+                      - stopped_at
+                      - removing_at
+                      - archived_at
+                      - cooldown_ends_at
+                    properties:
+                      object:
+                        type: string
+                        example: deployment
+                      id:
+                        type: string
+                        example: dep_1234
+                      device_id:
+                        type: string
+                        example: dev_1234
+                      status:
+                        type: string
+                        example: retrying
+                      activity_status:
+                        type: string
+                        example: downloading
+                      error_status:
+                        type: string
+                        example: retrying
+                      target_status:
+                        type: string
+                        example: active
+                      created_at:
+                        type: string
+                        format: date-time
+                        example: '2024-11-03T14:19:50Z'
+                      downloading_at:
+                        type: string
+                        format: date-time
+                        example: '2024-11-03T14:19:50Z'
+                        nullable: true
+                      downloaded_at:
+                        type: string
+                        format: date-time
+                        example: '2024-11-03T14:19:50Z'
+                        nullable: true
+                      booting_at:
+                        type: string
+                        format: date-time
+                        example: '2024-11-03T14:19:50Z'
+                        nullable: true
+                      active_at:
+                        type: string
+                        format: date-time
+                        example: '2024-11-03T14:19:50Z'
+                        nullable: true
+                      stopping_at:
+                        type: string
+                        format: date-time
+                        example: '2024-11-03T14:19:50Z'
+                        nullable: true
+                      stopped_at:
+                        type: string
+                        format: date-time
+                        example: '2024-11-03T14:19:50Z'
+                        nullable: true
+                      removing_at:
+                        type: string
+                        format: date-time
+                        example: '2024-11-03T14:19:50Z'
+                        nullable: true
+                      archived_at:
+                        type: string
+                        format: date-time
+                        example: '2024-11-03T14:19:50Z'
+                        nullable: true
+                      cooldown_ends_at:
+                        type: string
+                        format: date-time
+                        example: '2024-11-03T14:19:50Z'
+                  - type: object
+                    required:
+                      - created_by
+                      - artifact
+                    properties:
+                      created_by:
+                        allOf:
+                          - title: User
+                            type: object
+                            required:
+                              - object
+                              - id
+                              - first_name
+                              - last_name
+                            properties:
+                              object:
+                                type: string
+                                example: user
+                              id:
+                                type: string
+                                example: usr_1234
+                              first_name:
+                                type: string
+                                example: John
+                              last_name:
+                                type: string
+                                example: Doe
+                        nullable: true
+                      artifact:
+                        $ref: '#/paths/~1artifacts~1%7Bartifact_id%7D/get/responses/200/content/application~1json/schema/allOf/0'
+  '/devices/{device_id}/deployments':
+    get:
+      tags:
+        - Deployments
+      parameters:
+        - $ref: '#/paths/~1devices~1%7Bdevice_id%7D/get/parameters/0'
+        - name: on_device
+          in: query
+          required: false
+          description: Whether to include only on device deployments
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Successfully retrieved the deployments.
+          content:
+            application/json:
+              schema:
+                title: Deployment List
+                type: object
+                required:
+                  - object
+                  - data
+                properties:
+                  object:
+                    type: string
+                    example: list
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/paths/~1deployments~1%7Bdeployment_id%7D/get/responses/200/content/application~1json/schema'
+  '/workspaces/{workspace_id}/deploy':
+    post:
+      tags:
+        - Deployments
+      parameters:
+        - name: workspace_id
+          in: path
+          required: true
+          description: The unique identifier of the workspace
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              title: Create Deployments
+              type: object
+              required:
+                - artifact_ids
+                - device_ids
+              properties:
+                artifact_ids:
+                  type: array
+                  items:
+                    type: string
+                    example: art_1234
+                device_ids:
+                  type: array
+                  items:
+                    type: string
+                    example: device_1234
+      responses:
+        '200':
+          description: Successfully created the deployments.
+  '/deployments/{deployment_id}/logs':
+    get:
+      tags:
+        - Deployments
+      parameters:
+        - $ref: '#/paths/~1deployments~1%7Bdeployment_id%7D/get/parameters/0'
+      responses:
+        '200':
+          description: Successfully retrieved the deployment logs.
+          content:
+            application/json:
+              schema:
+                title: Deployment Log List
+                type: object
+                required:
+                  - object
+                  - data
+                properties:
+                  object:
+                    type: string
+                    example: list
+                  data:
+                    type: array
+                    items:
+                      title: Deployment Log
+                      type: object
+                      required:
+                        - timestamp
+                        - level
+                        - message
+                        - code
+                      properties:
+                        timestamp:
+                          type: string
+                          format: date-time
+                          example: '2024-11-03T14:19:50Z'
+                        level:
+                          type: string
+                          example: info
+                        message:
+                          type: string
+                          example: Deployment started
+                        code:
+                          type: string
+                          example: not_downloaded
+  '/devices/{device_id}':
+    get:
+      tags:
+        - Devices
+      parameters:
+        - name: device_id
+          in: path
+          required: true
+          description: The unique identifier of the device
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the device.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - title: Device
+                    type: object
+                    required:
+                      - object
+                      - id
+                      - name
+                      - hardware
+                      - operating_system
+                      - architecture
+                      - status
+                      - last_reported_status
+                      - miru_version
+                      - created_at
+                      - synced_at
+                      - group
+                    properties:
+                      object:
+                        type: string
+                        example: device
+                      id:
+                        type: string
+                        example: device_1234
+                      workspace_id:
+                        type: string
+                        example: wsp_1234
+                      name:
+                        type: string
+                        example: my-device
+                      hardware:
+                        type: string
+                        example: raspberry-pi
+                      operating_system:
+                        type: string
+                        example: ubuntu
+                        nullable: true
+                      architecture:
+                        type: string
+                        example: arm64
+                        nullable: true
+                      status:
+                        type: string
+                        example: offline
+                      last_reported_status:
+                        type: string
+                        example: active
+                      miru_version:
+                        type: string
+                        example: 0.5.1
+                        nullable: true
+                      created_at:
+                        type: string
+                        format: date-time
+                        example: '2024-11-03T14:19:50Z'
+                      synced_at:
+                        type: string
+                        format: date-time
+                  - type: object
+                    properties:
+                      group:
+                        $ref: '#/paths/~1groups~1%7Bgroup_id%7D/get/responses/200/content/application~1json/schema/allOf/0'
+  '/sources/github/{github_source_id}/commits':
+    get:
+      tags:
+        - GitHub Sources
+      parameters:
+        - $ref: '#/paths/~1workspaces~1%7Bworkspace_id%7D~1deploy/post/parameters/0'
+        - name: github_source_id
+          in: path
+          required: true
+          description: The unique identifier of the github source
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the commits for the GitHub source.
+          content:
+            application/json:
+              schema:
+                title: GitHubSourceCommits
+                type: object
+                required:
+                  - object
+                  - repository
+                  - commits
+                  - branch
+                properties:
+                  object:
+                    type: string
+                    example: github_source_commits
+                  repository:
+                    title: GitHub Repository
+                    type: object
+                    required:
+                      - object
+                      - id
+                      - name
+                      - full_name
+                      - html_url
+                      - clone_url
+                    properties:
+                      id:
+                        type: integer
+                        format: int64
+                        example: 1234567890
+                      object:
+                        type: string
+                        example: github_repository
+                      name:
+                        type: string
+                        example: e2e-tests
+                      full_name:
+                        type: string
+                        example: bensmidt/e2e-tests
+                      html_url:
+                        type: string
+                        example: 'https://github.com/bensmidt/e2e-tests'
+                  branch:
+                    type: string
+                    example: main
+                  commits:
+                    title: GitHub CommitList
+                    type: object
+                    required:
+                      - object
+                      - data
+                    properties:
+                      object:
+                        type: string
+                        example: list
+                      data:
+                        type: array
+                        items:
+                          title: GitHub Commit
+                          type: object
+                          required:
+                            - object
+                            - sha
+                            - message
+                            - html_url
+                            - pushed_at
+                            - committer
+                            - is_built
+                            - artifact_id
+                          properties:
+                            object:
+                              type: string
+                              example: github_commit
+                            sha:
+                              type: string
+                              example: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
+                            message:
+                              type: string
+                              example: Fixes a bug
+                            html_url:
+                              type: string
+                              example: 'https://github.com/bensmidt/test-repo/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03'
+                            pushed_at:
+                              type: string
+                              format: date-time
+                              example: '2024-01-01T00:00:00Z'
+                            committer:
+                              title: GitHub Committer
+                              type: object
+                              required:
+                                - id
+                                - object
+                                - login
+                                - type
+                                - html_url
+                                - avatar_url
+                              properties:
+                                id:
+                                  type: integer
+                                  format: int64
+                                  example: 92611223
+                                object:
+                                  type: string
+                                  example: github_account
+                                login:
+                                  type: string
+                                  example: bensmidt
+                                type:
+                                  type: string
+                                  example: User
+                                html_url:
+                                  type: string
+                                  example: 'https://github.com/bensmidt'
+                                avatar_url:
+                                  type: string
+                                  example: 'https://avatars.githubusercontent.com/u/92611223?v=4'
+                            artifacts:
+                              title: GitHub Commit Artifact List
+                              type: object
+                              required:
+                                - object
+                                - data
+                              properties:
+                                object:
+                                  type: string
+                                  example: list
+                                data:
+                                  type: array
+                                  items:
+                                    title: GitHub Commit Artifact
+                                    type: object
+                                    required:
+                                      - id
+                                      - object
+                                      - status
+                                      - ready
+                                      - failed
+                                      - in_progress
+                                    properties:
+                                      object:
+                                        type: string
+                                        example: artifact
+                                      id:
+                                        type: string
+                                        example: art_123
+                                      status:
+                                        type: string
+                                        example: failed
+                                      ready:
+                                        type: boolean
+                                        example: false
+                                      failed:
+                                        type: boolean
+                                        example: true
+                                      in_progress:
+                                        type: boolean
+                                        example: false
+  '/groups/{group_id}':
+    get:
+      tags:
+        - Groups
+      parameters:
+        - name: group_id
+          in: path
+          required: true
+          description: The unique identifier of the group
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the group.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - title: BaseGroup
+                    type: object
+                    required:
+                      - object
+                      - id
+                      - name
+                    properties:
+                      object:
+                        type: string
+                        example: group
+                      id:
+                        type: string
+                        example: group_1234
+                      workspace_id:
+                        type: string
+                        example: wsp_1234
+                      name:
+                        type: string
+                        example: my-group
+                  - type: object
+                    properties:
+                      devices:
+                        title: Group Device List
+                        type: object
+                        required:
+                          - object
+                          - data
+                        properties:
+                          object:
+                            type: string
+                            example: list
+                          data:
+                            type: array
+                            items:
+                              allOf:
+                                - $ref: '#/paths/~1devices~1%7Bdevice_id%7D/get/responses/200/content/application~1json/schema/allOf/0'
+                                - type: object
+                                  required:
+                                    - containers
+                                    - deployments
+                                  properties:
+                                    containers:
+                                      title: Group Device Container List
+                                      type: object
+                                      required:
+                                        - object
+                                        - data
+                                      properties:
+                                        object:
+                                          type: string
+                                          example: list
+                                        data:
+                                          type: array
+                                          items:
+                                            title: Group Device Container
+                                            type: object
+                                            required:
+                                              - object
+                                              - id
+                                              - status
+                                            properties:
+                                              object:
+                                                type: string
+                                                example: container
+                                              id:
+                                                type: string
+                                                example: container_1234
+                                              status:
+                                                type: string
+                                                example: running
+                                    deployments:
+                                      title: Group Device Deployment List
+                                      type: object
+                                      required:
+                                        - object
+                                        - data
+                                      properties:
+                                        object:
+                                          type: string
+                                          example: list
+                                        data:
+                                          type: array
+                                          items:
+                                            title: Group Device Deployment
+                                            type: object
+                                            required:
+                                              - object
+                                              - id
+                                              - status
+                                              - activity_status
+                                              - error_status
+                                            properties:
+                                              object:
+                                                type: string
+                                                example: deployment
+                                              id:
+                                                type: string
+                                                example: deployment_1234
+                                              status:
+                                                type: string
+                                                example: active
+                                              activity_status:
+                                                type: string
+                                                example: active
+                                              target_status:
+                                                type: string
+                                                example: actived
+                                              error_status:
+                                                type: string
+                                                example: none
+                      github_sources:
+                        title: GitHub Source List
+                        type: object
+                        required:
+                          - object
+                          - data
+                        properties:
+                          object:
+                            type: string
+                            example: list
+                          data:
+                            type: array
+                            items:
+                              title: GitHub Source
+                              type: object
+                              required:
+                                - id
+                                - object
+                                - name
+                                - repository_id
+                                - repository_name
+                                - branch
+                                - build_path
+                                - deleted
+                              properties:
+                                id:
+                                  type: string
+                                  example: gh_src_123
+                                object:
+                                  type: string
+                                  example: github_source
+                                name:
+                                  type: string
+                                  example: e2e-tests
+                                repository_id:
+                                  type: integer
+                                  format: int64
+                                  example: '12345'
+                                repository_name:
+                                  type: string
+                                  example: bensmidt/e2e-tests
+                                branch:
+                                  type: string
+                                  example: main
+                                build_path:
+                                  type: string
+                                  example: path/to/compose/file/
+                                deleted:
+                                  type: boolean
+                                  example: false
+  '/repositories/container/{container_repository_id}/images/external':
+    get:
+      tags:
+        - Container Images
+      parameters:
+        - $ref: '#/paths/~1repositories~1container~1%7Bcontainer_repository_id%7D/get/parameters/0'
+        - $ref: '#/paths/~1workspaces~1%7Bworkspace_id%7D~1repositories~1container~1external/get/parameters/1'
+      responses:
+        '200':
+          description: Successfully retrieved the images for the repository.
+          content:
+            application/json:
+              schema:
+                title: External Container Image List
+                type: object
+                required:
+                  - object
+                  - data
+                properties:
+                  object:
+                    type: string
+                    example: list
+                  data:
+                    type: array
+                    items:
+                      title: External Container Image
+                      type: object
+                      required:
+                        - object
+                        - digest
+                        - tags
+                        - uri
+                        - bytes
+                        - uploaded_at
+                      properties:
+                        object:
+                          type: string
+                          example: external_image
+                        digest:
+                          type: string
+                          example: 'sha256:123abc'
+                        tags:
+                          type: array
+                          items:
+                            type: string
+                            example: latest
+                          example:
+                            - latest
+                            - v1.0.0
+                            - stable
+                        uri:
+                          type: string
+                          example: 'docker.io/redis:latest'
+                        bytes:
+                          type: integer
+                          format: int64
+                          example: 392510987
+                        uploaded_at:
+                          type: string
+                          example: '2021-01-01T00:00:00Z'
+                          format: date-time
+  '/sources/registry/{registry_source_id}':
+    get:
+      tags:
+        - Registry Sources
+      parameters:
+        - name: registry_source_id
+          in: path
+          required: true
+          description: The unique identifier of the registry source
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the registry source.
+          content:
+            application/json:
+              schema:
+                title: Registry Source
+                type: object
+                required:
+                  - id
+                  - object
+                  - name
+                  - repositories
+                  - aarch64
+                  - x86_64
+                  - created_at
+                  - updated_at
+                properties:
+                  id:
+                    type: string
+                    example: reg_src_1234
+                  object:
+                    type: string
+                    example: registry_source
+                  name:
+                    type: string
+                    example: Ad Display V2.2.1
+                  repositories:
+                    title: Registry Source Container Repository List
+                    type: object
+                    required:
+                      - object
+                      - data
+                    properties:
+                      object:
+                        type: string
+                        example: list
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          title: Registry Source Container Repository
+                          required:
+                            - object
+                            - id
+                            - registry_url
+                            - account_login
+                            - name
+                            - uri
+                            - type
+                            - is_extra
+                            - compose_service
+                          properties:
+                            object:
+                              type: string
+                              example: container_repository
+                            id:
+                              type: string
+                              example: cont_repo_123
+                            registry_url:
+                              type: string
+                              example: us-central1-docker.pkg.dev/container-integration
+                            account_login:
+                              type: string
+                              example: container-integration
+                            name:
+                              type: string
+                              example: django
+                            uri:
+                              type: string
+                              example: us-central1-docker.pkg.dev/container-integration/miru/django
+                            type:
+                              $ref: '#/paths/~1repositories~1container~1%7Bcontainer_repository_id%7D/get/responses/200/content/application~1json/schema/properties/type'
+                            is_extra:
+                              type: boolean
+                              example: true
+                            compose_service:
+                              type: string
+                              example: database
+                              nullable: true
+                  aarch64:
+                    type: boolean
+                    example: true
+                  x86_64:
+                    type: boolean
+                    example: false
+                  created_at:
+                    type: string
+                    format: date-time
+                    example: '2024-10-26 20:00:23.742537+00'
+                  updated_at:
+                    type: string
+                    format: date-time
+                    example: '2024-10-26 20:00:23.742537+00'
+    patch:
+      tags:
+        - Registry Sources
+      parameters:
+        - $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/get/parameters/0'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              title: Update Registry Source
+              type: object
+              required:
+                - name
+                - compose_file
+                - extra_repositories
+                - aarch64
+                - x86_64
+              properties:
+                name:
+                  type: string
+                  example: Ad Display V2.2.1
+                compose_file:
+                  type: string
+                  example: |-
+                    name: miru
+                    services:
+                      redis:
+                      image: redis:latest
+                      restart: always
+                extra_repositories:
+                  type: array
+                  items:
+                    type: string
+                  example:
+                    - docker.io/redis
+                    - us-central1-docker.pkg.dev/container-integration/miru/django
+                aarch64:
+                  type: boolean
+                  example: true
+                x86_64:
+                  type: boolean
+                  example: false
+      responses:
+        '200':
+          description: Successfully retrieved the registry source.
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/get/responses/200/content/application~1json/schema'
+        '400':
+          description: The compose file is invalid.
+          content:
+            application/json:
+              schema:
+                title: InvalidComposeFileError
+                type: object
+                required:
+                  - code
+                  - params
+                  - message
+                properties:
+                  code:
+                    type: string
+                    example: invalid_compose_file
+                  params:
+                    type: object
+                    required:
+                      - error
+                    properties:
+                      error:
+                        type: string
+                        example: <descriptive error message>
+                  message:
+                    type: string
+                    example: 'Compose file is invalid: <descriptive error message>'
+        '404':
+          description: The repository does not exist.
+          content:
+            application/json:
+              schema:
+                title: RepositoryNotFoundError
+                type: object
+                required:
+                  - code
+                  - params
+                  - message
+                properties:
+                  code:
+                    type: string
+                    example: repository_not_found
+                  params:
+                    type: object
+                    required:
+                      - registry_type
+                      - registry_url
+                      - repository_name
+                      - uri
+                    properties:
+                      registry_type:
+                        type: string
+                        example: dockerhub
+                      registry_url:
+                        type: string
+                        example: docker.io
+                      repository_name:
+                        type: string
+                        example: redis
+                      uri:
+                        type: string
+                        example: docker.io/library/redis
+                  message:
+                    type: string
+                    example: Repository <repository-uri> (docker.io/library/redis) does not exist using the credentials from your workspace. Please double check the repository URI and the associated registry credentials.
+    delete:
+      tags:
+        - Registry Sources
+      parameters:
+        - $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/get/parameters/0'
+      responses:
+        '200':
+          description: Successfully deleted the registry source.
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/get/responses/200/content/application~1json/schema'
+  '/sources/registry/{registry_source_id}/compose_file':
+    get:
+      tags:
+        - Registry Sources
+      parameters:
+        - $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/get/parameters/0'
+      responses:
+        '200':
+          description: Successfully retrieved the compose file for the registry source.
+          content:
+            application/json:
+              schema:
+                title: Compose File
+                required:
+                  - object
+                  - content
+                properties:
+                  object:
+                    type: string
+                    example: compose_file
+                  content:
+                    type: string
+                    example: |-
+                      name: miru
+                      services:
+                        redis:
+                        image: redis:latest
+                        restart: always
+  '/workspaces/{workspace_id}/sources/registry':
+    get:
+      tags:
+        - Registry Sources
+      parameters:
+        - $ref: '#/paths/~1workspaces~1%7Bworkspace_id%7D~1deploy/post/parameters/0'
+      responses:
+        '200':
+          description: Successfully retrieved the registry sources for the workspace.
+          content:
+            application/json:
+              schema:
+                title: Registry Source List
+                type: object
+                required:
+                  - object
+                  - data
+                properties:
+                  object:
+                    type: string
+                    example: list
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/get/responses/200/content/application~1json/schema'
+    post:
+      tags:
+        - Registry Sources
+      parameters:
+        - $ref: '#/paths/~1workspaces~1%7Bworkspace_id%7D~1deploy/post/parameters/0'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              title: Create Registry Source
+              type: object
+              required:
+                - name
+                - compose_file
+                - extra_repositories
+                - aarch64
+                - x86_64
+              properties:
+                name:
+                  type: string
+                  example: Ad Display V2.2.1
+                compose_file:
+                  type: string
+                  example: |-
+                    name: miru
+                    services:
+                      redis:
+                      image: redis:latest
+                      restart: always
+                extra_repositories:
+                  type: array
+                  items:
+                    type: string
+                  example:
+                    - docker.io/redis
+                    - us-central1-docker.pkg.dev/container-integration/miru/django
+                aarch64:
+                  type: boolean
+                  example: true
+                x86_64:
+                  type: boolean
+                  example: false
+      responses:
+        '200':
+          description: Successfully created the registry source for the workspace.
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/get/responses/200/content/application~1json/schema'
+        '400':
+          $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/patch/responses/400'
+        '404':
+          $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/patch/responses/404'
+  '/repositories/container/{container_repository_id}':
+    get:
+      tags:
+        - Container Repositories
+      parameters:
+        - name: container_repository_id
+          in: path
+          required: true
+          description: The unique identifier of the container repository
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the repository.
+          content:
+            application/json:
+              schema:
+                title: Container Repository
+                type: object
+                required:
+                  - object
+                  - id
+                  - registry_url
+                  - account_login
+                  - name
+                  - uri
+                  - type
+                properties:
+                  object:
+                    type: string
+                    example: container_repository
+                  id:
+                    type: string
+                    example: cont_repo_123
+                  registry_url:
+                    type: string
+                    example: us-central1-docker.pkg.dev/container-integration
+                  account_login:
+                    type: string
+                    example: container-integration
+                  name:
+                    type: string
+                    example: django
+                  uri:
+                    type: string
+                    example: us-central1-docker.pkg.dev/container-integration/miru/django
+                  type:
+                    title: Container Repository Type
+                    type: string
+                    enum:
+                      - gar
+                      - dockerhub
+                    example: gar
+  '/integrations/dockerhub/{dockerhub_integration_id}/repositories/external':
+    get:
+      tags:
+        - Container Repositories
+      parameters:
+        - name: dockerhub_integration_id
+          in: path
+          required: true
+          description: The unique identifier of the dockerhub integration
+          schema:
+            type: string
+        - $ref: '#/paths/~1workspaces~1%7Bworkspace_id%7D~1repositories~1container~1external/get/parameters/1'
+      responses:
+        '200':
+          description: Successfully retrieved the repositories for the dockerhub integration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1workspaces~1%7Bworkspace_id%7D~1repositories~1container~1external/get/responses/200/content/application~1json/schema'
+  '/integrations/gar/{gar_integration_id}/repositories/external':
+    get:
+      tags:
+        - Container Repositories
+      parameters:
+        - name: gar_integration_id
+          in: path
+          required: true
+          description: The unique identifier of the google artifact registry integration
+          schema:
+            type: string
+        - $ref: '#/paths/~1workspaces~1%7Bworkspace_id%7D~1repositories~1container~1external/get/parameters/1'
+      responses:
+        '200':
+          description: Successfully retrieved the repositories for the google artifact registry integration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1workspaces~1%7Bworkspace_id%7D~1repositories~1container~1external/get/responses/200/content/application~1json/schema'
+  '/workspaces/{workspace_id}/repositories/container/external':
+    get:
+      tags:
+        - Container Repositories
+      parameters:
+        - $ref: '#/paths/~1workspaces~1%7Bworkspace_id%7D~1deploy/post/parameters/0'
+        - name: page_size
+          in: query
+          required: false
+          description: The number of items to return per page
+          schema:
+            type: integer
+            default: 25
+      responses:
+        '200':
+          description: Successfully retrieved the repositories for the workspace.
+          content:
+            application/json:
+              schema:
+                title: External Container Repository List
+                type: object
+                required:
+                  - object
+                  - data
+                properties:
+                  object:
+                    type: string
+                    example: list
+                  data:
+                    type: array
+                    items:
+                      title: External Container Repository
+                      type: object
+                      required:
+                        - object
+                        - registry_url
+                        - account_login
+                        - name
+                        - uri
+                        - type
+                        - description
+                        - bytes
+                      properties:
+                        object:
+                          type: string
+                          example: external_container_repository
+                        registry_url:
+                          type: string
+                          example: us-central1-docker.pkg.dev/container-integration
+                        account_login:
+                          type: string
+                          example: container-integration
+                        name:
+                          type: string
+                          example: django
+                        uri:
+                          type: string
+                          example: us-central1-docker.pkg.dev/container-integration/miru/django
+                        type:
+                          $ref: '#/paths/~1repositories~1container~1%7Bcontainer_repository_id%7D/get/responses/200/content/application~1json/schema/properties/type'
+                        description:
+                          type: string
+                          example: A repository for the miru/django image
+                          nullable: true
+                        bytes:
+                          type: integer
+                          format: int64
+                          description: The size of the repository in bytes
+                          example: 506406741
+                          nullable: true
+  /example/errors/400:
+    get:
+      description: This route doesn't actually exist. It's an example of a generic 400 error that any API route can return.
+      tags:
+        - Generic Errors
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                title: Error
+                type: object
+                required:
+                  - error
+                properties:
+                  error:
+                    title: Bad Request
+                    type: object
+                    required:
+                      - code
+                      - params
+                      - message
+                    properties:
+                      code:
+                        type: string
+                        example: <error_code>
+                      params:
+                        type: object
+                      message:
+                        type: string
+                        example: <error_message>
+  /example/errors/401:
+    get:
+      description: This route doesn't actually exist. It's an example of a generic 401 error that any API route can return.
+      tags:
+        - Generic Errors
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                title: Error
+                type: object
+                required:
+                  - error
+                properties:
+                  error:
+                    title: Unauthorized
+                    type: object
+                    required:
+                      - code
+                      - params
+                      - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_clerk_auth
+                      params:
+                        type: object
+                      message:
+                        type: string
+                        example: Invalid Clerk authentication credentials
+  /example/errors/403:
+    get:
+      description: This route doesn't actually exist. It's an example of a generic 403 error that any API route can return.
+      tags:
+        - Generic Errors
+      responses:
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                title: Error
+                type: object
+                required:
+                  - error
+                properties:
+                  error:
+                    title: Forbidden
+                    type: object
+                    required:
+                      - code
+                      - params
+                      - message
+                    properties:
+                      code:
+                        type: string
+                        example: forbidden
+                      params:
+                        type: object
+                        required:
+                          - identity_id
+                          - identity_type
+                          - permission
+                          - resource_id
+                          - resource_type
+                          - fix
+                        properties:
+                          identity_id:
+                            type: string
+                            example: <identity_id>
+                          identity_type:
+                            type: string
+                            example: <identity_type>
+                          permission:
+                            type: string
+                            example: <permission>
+                          resource_id:
+                            type: string
+                            example: <resource_id>
+                          resource_type:
+                            type: string
+                            example: <resource_type>
+                          fix:
+                            type: string
+                            example: <fix>
+                      message:
+                        type: string
+                        example: <identity_type> '<identity_id>' does not have '<permission>' permission for <resource_type> '<resource_id>'
+  /example/errors/404:
+    get:
+      description: This route doesn't actually exist. It's an example of a generic 404 error that any API route can return.
+      tags:
+        - Generic Errors
+      responses:
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                title: Error
+                type: object
+                required:
+                  - error
+                properties:
+                  error:
+                    title: Record Not Found
+                    type: object
+                    required:
+                      - code
+                      - params
+                      - message
+                    properties:
+                      code:
+                        type: string
+                        example: record_not_found
+                      params:
+                        type: object
+                        properties:
+                          record_id:
+                            type: string
+                            example: <record_id>
+                          record_type:
+                            type: string
+                            example: <record_type>
+                      message:
+                        type: string
+                        example: <record_type> '<record_id>' not found

@@ -1,0 +1,99 @@
+openapi: 3.0.3
+info:
+  title: Registry Sources 
+  version: 0.1.0
+components:
+  parameters:
+    artifact_id:
+      name: artifact_id
+      in: path
+      required: true
+      description: The unique identifier of the artifact
+      schema:
+        type: string
+    github_source_id:
+      name: github_source_id
+      in: path
+      required: true
+      description: The unique identifier of the github source
+      schema:
+        type: string
+    dockerhub_integration_id:
+      name: dockerhub_integration_id
+      in: path
+      required: true
+      description: The unique identifier of the dockerhub integration
+      schema:
+        type: string
+    gar_integration_id:
+      name: gar_integration_id
+      in: path
+      required: true
+      description: The unique identifier of the google artifact registry integration
+      schema:
+        type: string
+    registry_source_id:
+      name: registry_source_id
+      in: path
+      required: true
+      description: The unique identifier of the registry source
+      schema:
+        type: string
+    container_repository_id:
+      name: container_repository_id
+      in: path
+      required: true
+      description: The unique identifier of the container repository
+      schema:
+        type: string
+    group_id:
+      name: group_id
+      in: path
+      required: true
+      description: The unique identifier of the group
+      schema:
+        type: string
+    workspace_id:
+      name: workspace_id 
+      in: path
+      required: true
+      description: The unique identifier of the workspace
+      schema:
+        type: string
+    device_id:
+      name: device_id
+      in: path
+      required: true
+      description: The unique identifier of the device
+      schema:
+        type: string
+    deployment_id:
+      name: deployment_id
+      in: path
+      required: true
+      description: The unique identifier of the deployment
+      schema:
+        type: string
+    page_size:
+      name: page_size
+      in: query
+      required: false
+      description: The number of items to return per page
+      schema:
+        type: integer
+        default: 25
+    only_staged:
+      name: only_staged
+      in: query
+      required: false
+      description: Whether to return only staged artifacts
+      schema:
+        type: boolean
+    on_device:
+      name: on_device
+      in: query
+      required: false
+      description: Whether to include only on device deployments
+      schema:
+        type: boolean
+paths: {}

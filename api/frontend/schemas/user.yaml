@@ -1,0 +1,30 @@
+openapi: 3.0.3
+info:
+  title: User Schemas
+  version: ""
+components: 
+  schemas: 
+
+    User:
+      title: User
+      type: object
+      required:
+        - object
+        - id
+        - first_name
+        - last_name
+      properties:
+        object:
+          type: string
+          example: "user"
+        id:
+          type: string
+          example: "usr_1234"
+        first_name:
+          type: string
+          example: "John"
+        last_name:
+          type: string
+          example: "Doe"
+
+paths: {}

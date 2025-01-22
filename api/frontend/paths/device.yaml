@@ -1,0 +1,18 @@
+openapi: 3.0.3
+info:
+  title: Device Schemas
+  version: ""
+paths:
+  /devices/{device_id}:
+    get:
+      tags:
+        - Devices
+      parameters:
+        - $ref: "../../params.yaml#/components/parameters/device_id"
+      responses:
+        '200':
+          description: Successfully retrieved the device.
+          content:
+            application/json:
+              schema:
+                $ref: "../schemas/device.yaml#/components/schemas/Device"

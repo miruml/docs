@@ -1,0 +1,18 @@
+openapi: 3.0.3
+info:
+  title: Artifacts
+  version: ""
+paths:
+  /groups/{group_id}:
+    get:
+      tags:
+        - Groups
+      parameters:
+        - $ref: "../../params.yaml#/components/parameters/group_id"
+      responses:
+        '200':
+          description: Successfully retrieved the group.
+          content:
+            application/json:
+              schema:
+                $ref: "../schemas/group.yaml#/components/schemas/Group"

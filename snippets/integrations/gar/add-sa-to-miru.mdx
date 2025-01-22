@@ -1,0 +1,17 @@
+Before adding the service account to `miru`, please ensure that the **IAM Service Account Credentials API** is enabled for your Google Cloud project. To do so, navigate to the [IAM Service Account Credentials API](https://console.cloud.google.com/apis/library/iamcredentials.googleapis.com) page in Google Cloud Console and click the **Enable** button.
+
+<img src="/images/integrations/gar/gcp-enable-sa-creds-api.png" style={{borderRadius: '7px'}} />
+
+Navigate to the [Google Artifact Registry Page](https://app.miruml.com/integrations/gar) in `miru`. Click the **Add Service Account** button to add the service account we just created.
+
+<img src="/images/integrations/gar/click-add-sa.png" style={{borderRadius: '7px'}} />
+
+Click **Select File** and upload the JSON key file downloaded from Google Cloud. Then click **Connect**.
+
+<img src="/images/integrations/gar/upload-sa-creds.png" style={{borderRadius: '7px'}} />
+
+You should now see the service account we just created in the list of service accounts on the Google Artifacts Integration page.
+
+<img src="/images/integrations/gar/one-connection.png" style={{borderRadius: '7px'}} />
+
+<Warning> Be sure to delete the JSON key file after you've uploaded it to `miru`. This key file can grant access to your Google Cloud project resources and should not be shared with anyone else. </Warning>

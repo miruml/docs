@@ -1,0 +1,63 @@
+openapi: 3.0.3
+info:
+  title: Deployment Schemas
+  version: ""
+paths:
+  /workspaces/{workspace_id}/deploy:
+    post:
+      tags:
+        - Deployments
+      parameters:
+        - $ref: "../../params.yaml#/components/parameters/workspace_id"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/deployment.yaml#/components/schemas/CreateDeployments"
+      responses:
+        '200':
+          description: Successfully created the deployments.
+  
+  /devices/{device_id}/deployments:
+    get:
+      tags:
+        - Deployments
+      parameters:
+        - $ref: "../../params.yaml#/components/parameters/device_id"
+        - $ref: "../../params.yaml#/components/parameters/on_device"
+      responses:
+        '200':
+          description: Successfully retrieved the deployments.
+          content:
+            application/json:
+              schema:
+                $ref: "../schemas/deployment.yaml#/components/schemas/DeploymentList"
+
+  /deployments/{deployment_id}:
+    get:
+      tags:
+        - Deployments
+      parameters:
+        - $ref: "../../params.yaml#/components/parameters/deployment_id"
+      responses:
+        '200':
+          description: Successfully retrieved the deployment.
+          content:
+            application/json:
+              schema:
+                $ref: "../schemas/deployment.yaml#/components/schemas/Deployment"
+
+  /deployments/{deployment_id}/logs:
+    get:
+      tags:
+        - Deployments
+      parameters:
+        - $ref: "../../params.yaml#/components/parameters/deployment_id"
+      responses:
+        '200':
+          description: Successfully retrieved the deployment logs.
+          content:
+            application/json:
+              schema:
+                $ref: "../schemas/deployment.yaml#/components/schemas/DeploymentLogList"

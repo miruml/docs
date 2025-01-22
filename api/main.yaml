@@ -1,0 +1,120 @@
+openapi: 3.0.3
+info:
+  title: Miru API
+  version: 0.1.0
+servers:
+  - url: http://localhost:8080/{audience}/{version}
+    description: Local Development 
+    variables:
+      audience:
+        default: internal
+        enum:
+          - internal
+          - internal/devices
+      version:
+        default: v1
+  - url: https://dev.api.miruml.com/{audience}/{version}
+    description: Development 
+    variables:
+      audience:
+        default: internal
+        enum:
+          - internal
+          - internal/devices
+      version:
+        default: v1
+  - url: https://api.miruml.com/{audience}/{version}
+    description: Production
+    variables:
+      audience:
+        default: internal
+        enum:
+          - internal
+          - internal/devices
+      version:
+        default: v1
+components:
+  securitySchemes:
+    ClerkAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT # Optional, indicates token format
+security:
+  - ClerkAuth: []
+paths: 
+  # artifacts
+  /artifacts/{artifact_id}:
+    $ref: './frontend/paths/artifacts.yaml#/paths/~1artifacts~1{artifact_id}'
+  /artifacts/{artifact_id}/deployments:
+    $ref: './frontend/paths/artifacts.yaml#/paths/~1artifacts~1{artifact_id}~1deployments'
+  /artifacts/{artifact_id}/deployment_files:
+    $ref: './frontend/paths/artifacts.yaml#/paths/~1artifacts~1{artifact_id}~1deployment_files'
+  /groups/{group_id}/artifacts:
+    $ref: './frontend/paths/artifacts.yaml#/paths/~1groups~1{group_id}~1artifacts'
+  /sources/registry/{registry_source_id}/artifacts:
+    $ref: './frontend/paths/artifacts.yaml#/paths/~1sources~1registry~1{registry_source_id}~1artifacts'
+  /sources/github/{github_source_id}/artifacts:
+    $ref: './frontend/paths/artifacts.yaml#/paths/~1sources~1github~1{github_source_id}~1artifacts'
+
+  # compose file
+  /workspace/{workspace_id}/compose/verify:
+    $ref: './frontend/paths/compose_file.yaml#/paths/~1workspace~1{workspace_id}~1compose~1verify'
+
+  # containers
+  /devices/{device_id}/containers:
+    $ref: './frontend/paths/containers.yaml#/paths/~1devices~1{device_id}~1containers'
+
+  # deployments
+  /deployments/{deployment_id}:
+    $ref: './frontend/paths/deployments.yaml#/paths/~1deployments~1{deployment_id}'
+  /devices/{device_id}/deployments:
+    $ref: './frontend/paths/deployments.yaml#/paths/~1devices~1{device_id}~1deployments'
+  /workspaces/{workspace_id}/deploy:
+    $ref: './frontend/paths/deployments.yaml#/paths/~1workspaces~1{workspace_id}~1deploy'
+  /deployments/{deployment_id}/logs:
+    $ref: './frontend/paths/deployments.yaml#/paths/~1deployments~1{deployment_id}~1logs'
+
+  # devices
+  /devices/{device_id}:
+    $ref: './frontend/paths/device.yaml#/paths/~1devices~1{device_id}'
+
+  # github sources
+  /sources/github/{github_source_id}/commits:
+    $ref: './frontend/paths/gh-src.yaml#/paths/~1sources~1github~1{github_source_id}~1commits'
+
+  # groups
+  /groups/{group_id}:
+    $ref: './frontend/paths/group.yaml#/paths/~1groups~1{group_id}'
+
+  # images
+  /repositories/container/{container_repository_id}/images/external:
+    $ref: './frontend/paths/images.yaml#/paths/~1repositories~1container~1{container_repository_id}~1images~1external'
+
+  # registry sources
+  /sources/registry/{registry_source_id}:
+    $ref: './frontend/paths/reg-srcs.yaml#/paths/~1sources~1registry~1{registry_source_id}'
+  /sources/registry/{registry_source_id}/compose_file:
+    $ref: './frontend/paths/reg-srcs.yaml#/paths/~1sources~1registry~1{registry_source_id}~1compose_file'
+  /workspaces/{workspace_id}/sources/registry:
+    $ref: './frontend/paths/reg-srcs.yaml#/paths/~1workspaces~1{workspace_id}~1sources~1registry'
+
+
+  # repositories
+  /repositories/container/{container_repository_id}:
+    $ref: './frontend/paths/cont-repos.yaml#/paths/~1repositories~1container~1{container_repository_id}'
+  /integrations/dockerhub/{dockerhub_integration_id}/repositories/external:
+    $ref: './frontend/paths/cont-repos.yaml#/paths/~1integrations~1dockerhub~1{dockerhub_integration_id}~1repositories~1external'
+  /integrations/gar/{gar_integration_id}/repositories/external:
+    $ref: './frontend/paths/cont-repos.yaml#/paths/~1integrations~1gar~1{gar_integration_id}~1repositories~1external'
+  /workspaces/{workspace_id}/repositories/container/external:
+    $ref: './frontend/paths/cont-repos.yaml#/paths/~1workspaces~1{workspace_id}~1repositories~1container~1external'
+
+  # error examples
+  /example/errors/400:
+    $ref: './frontend/paths/err-examples.yaml#/paths/~1example~1errors~1400'
+  /example/errors/401:
+    $ref: './frontend/paths/err-examples.yaml#/paths/~1example~1errors~1401'
+  /example/errors/403:
+    $ref: './frontend/paths/err-examples.yaml#/paths/~1example~1errors~1403'
+  /example/errors/404:
+    $ref: './frontend/paths/err-examples.yaml#/paths/~1example~1errors~1404'

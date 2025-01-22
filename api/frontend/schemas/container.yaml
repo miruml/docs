@@ -1,0 +1,100 @@
+openapi: 3.0.3
+info:
+  title: GitHub Schemas
+  version: ""
+components:
+  schemas:
+    Container:
+      title: Container
+      type: object
+      required:
+        - object
+        - id
+        - device_id
+        - image_id
+        - image_tag
+        - image_digest
+        - docker_container_id
+        - created_at
+        - updated_at
+        - started_at
+        - finished_at
+        - status
+        - target_status
+        - exit_code
+        - error
+      properties:
+        object:
+          type: string
+          example: "container"
+        id:
+          type: string
+          example: "cont_1234"
+        device_id:
+          type: string
+          example: "device_1234"
+        image_id:
+          type: string
+          example: "img_1234"
+          nullable: true
+        image_name:
+          type: string
+          example: "my-image"
+          nullable: true
+        image_tag:
+          type: string
+          example: "latest"
+          nullable: true
+        image_digest:
+          type: string
+          example: "sha256:1234567890"
+          nullable: true
+        docker_container_id:
+          type: string
+          example: "sha256:1234567890"
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-11-03T14:19:50Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2024-11-03T14:19:50Z"
+        started_at:
+          type: string
+          format: date-time
+          example: "2024-11-03T14:19:50Z"
+        finished_at:
+          type: string
+          format: date-time
+          example: "2024-11-03T14:19:50Z"
+          nullable: true
+        status:
+          type: string
+          example: "running"
+        target_status:
+          type: string
+          example: "running"
+        exit_code:
+          type: integer
+          example: 0
+        error:
+          type: string
+          example: "<some error message>"
+          nullable: true
+
+    ContainerList:
+      title: Container List
+      type: object
+      required:
+        - object
+        - data
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Container"
+paths: {}

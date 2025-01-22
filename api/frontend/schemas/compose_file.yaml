@@ -1,0 +1,119 @@
+openapi: 3.0.3
+info:
+  title: Compose File
+  version: ""
+components:
+  schemas:
+
+    VerifyComposeFile:
+      title: Verify Compose File
+      type: object
+      required:
+        - compose_file 
+        - architecture
+      properties:
+        compose_file:
+          type: string
+          example: "name: miru\nservices:\n  redis:\n  image: redis:latest\n  restart: always"
+        architecture:
+          type: string
+          example: "arm64"
+
+    VerifyComposeFileResponse:
+      title: Verify Compose File Response
+      type: object
+      required:
+        - object
+        - content
+        - is_valid
+        - is_schema_valid
+        - images
+      properties:
+        object:
+          type: string
+          example: "compose_file"
+        content:
+          type: string
+          example: "name: miru\nservices:\n  redis:\n  image: redis:latest\n  restart: always"
+        is_valid: 
+          type: boolean
+          example: false 
+        is_schema_valid:
+          type: boolean
+          example: true
+        schema_error:
+          type: string
+          example: "<reason why compose file is malformed>"
+        images:
+          $ref: "#/components/schemas/ComposeFileImageList"
+
+    ComposeFileImage:
+      title: Compose File Image
+      type: object
+      required:
+        - object
+        - compose_reference
+        - image_uri
+        - repository_uri
+        - registry_url
+        - registry_type
+        - name
+        - digest
+        - tag
+        - is_image_valid
+        - is_repository_valid
+        - error
+      properties:
+        object:
+          type: string
+          example: "external_image"
+        compose_reference:
+          type: string
+          example: "redis:latest"
+        image_uri:
+          type: string
+          example: "docker.io/redis:latest"
+        repository_uri:
+          type: string
+          example: "docker.io/redis"
+        registry_url:
+          type: string
+          example: "docker.io"
+        registry_type:
+          type: string
+          example: "gar"
+        name:
+          type: string
+          example: "redis"
+        digest:
+          type: string
+          example: "sha256:123abc"
+        tag:
+          type: string
+          example: "latest"
+        is_image_valid:
+          type: boolean
+          example: false 
+        is_repository_valid:
+          type: boolean
+          example: false
+        error:
+          type: string
+          example: "<reason why image is not valid>"
+
+    ComposeFileImageList:
+      title: Compose File Image List
+      type: object
+      required:
+        - object
+        - data
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/ComposeFileImage"
+
+paths: {}

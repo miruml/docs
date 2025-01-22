@@ -1,0 +1,80 @@
+openapi: 3.0.3
+info:
+  title: Artifacts
+  version: ""
+components:
+  schemas:
+    InvalidComposeFile:
+      title: InvalidComposeFileError
+      type: object
+      required:
+        - code
+        - params
+        - message
+      properties:
+        code:
+          type: string
+          example: "invalid_compose_file"
+        params:
+          type: object
+          required:
+            - error
+          properties:
+            error:
+              type: string
+              example: "<descriptive error message>"
+        message:
+          type: string
+          example: "Compose file is invalid: <descriptive error message>"
+
+    RepositoryNotFound:
+      title: RepositoryNotFoundError
+      type: object
+      required:
+        - code
+        - params
+        - message
+      properties:
+        code:
+          type: string
+          example: "repository_not_found"
+        params:
+          type: object
+          required:
+            - registry_type
+            - registry_url
+            - repository_name
+            - uri
+          properties:
+            registry_type:
+              type: string
+              example: "dockerhub"
+            registry_url:
+              type: string
+              example: "docker.io"
+            repository_name:
+              type: string
+              example: "redis"
+            uri:
+              type: string
+              example: "docker.io/library/redis"
+        message:
+          type: string
+          example: Repository <repository-uri> (docker.io/library/redis) does not exist using the credentials from your workspace. Please double check the repository URI and the associated registry credentials.
+
+    UniqueNameViolation:
+      title: UniqueNameViolation
+      type: object
+      required:
+        - code
+        - params
+        - message
+      properties:
+        code:
+          type: string
+          example: "unique_name_violation"
+        params:
+          type: object
+          
+
+paths: {}

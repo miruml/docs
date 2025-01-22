@@ -1,0 +1,102 @@
+openapi: 3.0.3
+info:
+  title: Artifacts
+  version: ""
+components:
+  schemas:
+    CreateRegistrySourceArtifactErrors:
+      oneOf:
+        - $ref: '../errors/artifacts.yaml#/components/schemas/DuplicateArtifact'
+        - $ref: '../errors/generic.yaml#/components/schemas/BadRequestError'
+paths:
+  /artifacts/{artifact_id}:
+    get:
+      tags:
+        - Artifacts
+      parameters:
+        - $ref: '../../params.yaml#/components/parameters/artifact_id'
+      responses:
+        '200':
+          description: Successfully retrieved the artifact.
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/artifact.yaml#/components/schemas/Artifact'
+  /artifacts/{artifact_id}/deployments:
+    get:
+      tags:
+        - Artifacts
+      parameters:
+        - $ref: '../../params.yaml#/components/parameters/artifact_id'
+      responses:
+        '200':
+          description: Successfuly retrieved the artifact's deployments
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/artifact.yaml#/components/schemas/ArtifactDeploymentList'
+  /artifacts/{artifact_id}/deployment_files:
+    get:
+      tags:
+        - Artifacts
+      parameters:
+        - $ref: '../../params.yaml#/components/parameters/artifact_id'
+      responses:
+        '200':
+          description: Successfully retrieved the release files for the artifact.
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/artifact.yaml#/components/schemas/ArtifactDeploymentFiles'
+  /groups/{group_id}/artifacts:
+    get:
+      tags:
+        - Artifacts
+      parameters:
+        - $ref: '../../params.yaml#/components/parameters/group_id'
+        - $ref: '../../params.yaml#/components/parameters/only_staged'
+      responses:
+        '200':
+          description: Successfully retrieved the artifacts for the group.
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/artifact.yaml#/components/schemas/GroupArtifactList'
+  /sources/registry/{registry_source_id}/artifacts:
+    post:
+      tags:
+        - Artifacts
+      parameters:
+        - $ref: '../../params.yaml#/components/parameters/registry_source_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/artifact.yaml#/components/schemas/CreateRegistrySourceArtifact'
+      responses:
+        '200':
+          description: Successfully created the artifact.
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/artifact.yaml#/components/schemas/Artifact'
+        '409':
+          $ref: '../responses/artifacts.yaml#/components/responses/DuplicateArtifact'
+  /sources/github/{github_source_id}/artifacts:
+    post:
+      tags:
+        - Artifacts
+      parameters:
+        - $ref: '../../params.yaml#/components/parameters/github_source_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/artifact.yaml#/components/schemas/CreateGitHubSourceArtifact'
+      responses:
+        '200':
+          description: Successfully queued the artifact for creation
+        '409':
+          $ref: '../responses/artifacts.yaml#/components/responses/DuplicateArtifact'

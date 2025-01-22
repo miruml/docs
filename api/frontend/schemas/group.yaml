@@ -1,0 +1,144 @@
+openapi: 3.0.3
+info:
+  title: Deploy Schemas
+  version: ""
+components: 
+  schemas: 
+    BaseGroup:
+      title: BaseGroup
+      type: object
+      required:
+        - object
+        - id
+        - name
+      properties:
+        object:
+          type: string
+          example: "group"
+        id:
+          type: string
+          example: "group_1234"
+        workspace_id:
+          type: string
+          example: "wsp_1234"
+        name:
+          type: string
+          example: "my-group"
+
+    Group:
+      allOf:
+        - $ref: "./group.yaml#/components/schemas/BaseGroup"
+        - type: object
+          properties:
+            devices:
+              $ref: "#/components/schemas/GroupDeviceList"
+            github_sources:
+              $ref: "./gh-src.yaml#/components/schemas/GitHubSourceList"
+
+    GroupDeviceList:
+      title: Group Device List
+      type: object
+      required:
+        - object
+        - data
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/GroupDevice"
+
+    GroupDevice:
+      allOf:
+        - $ref: "./device.yaml#/components/schemas/BaseDevice"
+        - type: object
+          required:
+            - containers
+            - deployments
+          properties:
+            containers:
+              $ref: "#/components/schemas/GroupDeviceContainerList"
+            deployments:
+              $ref: "#/components/schemas/GroupDeviceDeploymentList"
+
+    GroupDeviceContainer:
+      title: Group Device Container
+      type: object
+      required:
+        - object
+        - id
+        - status
+      properties:
+        object:
+          type: string
+          example: "container"
+        id:
+          type: string
+          example: "container_1234"
+        status:
+          type: string
+          example: "running"
+
+    GroupDeviceContainerList:
+      title: Group Device Container List
+      type: object
+      required:
+        - object
+        - data
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/GroupDeviceContainer"
+    
+    GroupDeviceDeployment:
+      title: Group Device Deployment
+      type: object
+      required:
+        - object
+        - id
+        - status
+        - activity_status
+        - error_status
+      properties:
+        object:
+          type: string
+          example: "deployment"
+        id:
+          type: string
+          example: "deployment_1234"
+        status:
+          type: string
+          example: "active"
+        activity_status:
+          type: string
+          example: "active"
+        target_status:
+          type: string
+          example: "actived"
+        error_status:
+          type: string
+          example: "none"
+
+    GroupDeviceDeploymentList:
+      title: Group Device Deployment List
+      type: object
+      required:
+        - object
+        - data
+      properties:
+        object:
+          type: string
+          example: "list"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/GroupDeviceDeployment"
+
+
+paths: {}

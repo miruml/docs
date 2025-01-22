@@ -1,0 +1,22 @@
+openapi: 3.0.3
+info:
+  title: Compose File 
+  version: ""
+paths:
+  /workspace/{workspace_id}/compose/verify:
+    post:
+      tags:
+        - Compose File
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/compose_file.yaml#/components/schemas/VerifyComposeFile"
+      responses:
+        '200':
+          description: Successfully verified the compose file.
+          content:
+            application/json:
+              schema:
+                $ref: "../schemas/compose_file.yaml#/components/schemas/VerifyComposeFileResponse"
