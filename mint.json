@@ -27,84 +27,28 @@
     },
     "navigation": [
         {
-            "group": "Getting Started",
+            "group": "Basics",
             "pages": [
                 "pages/introduction",
                 "pages/core-concepts",
-                "pages/quickstart",
-                "pages/faq"
-            ]
-        },
-        {
-            "group": "Usage",
-            "pages": [
-
                 {
-                    "group": "Deployments",
+                    "group": "Workflow Walkthrough",
                     "pages": [
-                        "pages/deployments/sources",
-                        "pages/deployments/artifacts",
-                        "pages/deployments/deployments"
+                        "pages/workflow-walkthrough/overview",
+                        "pages/workflow-walkthrough/example-application",
+                        "pages/workflow-walkthrough/local-development",
+                        "pages/workflow-walkthrough/upload-a-config-schema",
+                        "pages/workflow-walkthrough/store-tag-data",
+                        "pages/workflow-walkthrough/define-a-policy",
+                        "pages/workflow-walkthrough/deploy"
                     ]
                 },
                 {
-                    "group": "Jobs",
+                    "group": "Getting Started",
                     "pages": [
-                        "pages/core-concepts/creating-jobs",
-                        "pages/core-concepts/running-jobs"
-                    ]
-                },
-                "pages/configurations/configurations",
-                {
-                    "group": "Integrations",
-                    "pages": [
-                        "pages/integrations/dockerhub",
-                        "pages/integrations/gar"
-                    ]
-                },
-                {
-                    "group": "Device Agent",
-                    "pages": [
-                        "pages/miru-agent/installation",
-                        "pages/miru-agent/commands"
-                    ]
-                },
-                {
-                    "group": "Tutorials",
-                    "pages": [
-                        "pages/tutorials/web-app",
-                        "pages/tutorials/pytorch"
-                    ]
-                }
-            ]
-        },
-        {
-            "group": "System Overview",
-            "pages": [
-                {
-                    "group": "Communication",
-                    "pages": [
-                        "pages/communication/https",
-                        "pages/communication/mqtt"
-                    ]
-                },
-                {
-                    "group": "Device Agent",
-                    "pages": [
-                        "pages/miru-agent/overview"
-                    ]
-                },
-                {
-                    "group": "Security",
-                    "pages": [
-                        {
-                            "group": "Authentication",
-                            "pages": [
-                                "pages/authentication/devices",
-                                "pages/authentication/users"
-                            ]
-                        },
-                        "pages/security/"
+                        "pages/getting-started/miru-cli",
+                        "pages/getting-started/miru-sdk",
+                        "pages/getting-started/create-a-client"
                     ]
                 }
             ]
