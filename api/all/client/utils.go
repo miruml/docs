@@ -16,8 +16,6 @@ import (
 	"fmt"
 	"reflect"
 	"time"
-
-	base_utils "miruml/backend/internal/utils/base"
 )
 
 // PtrBool is a helper routine that returns a pointer to given boolean value.
@@ -265,10 +263,6 @@ type NullableString struct {
 	isSet bool
 }
 
-func (v NullableString) Equals(other NullableString) bool {
-	return base_utils.EqPointerVals(v.value, other.value) && v.isSet == other.isSet
-}
-
 func (v NullableString) Get() *string {
 	return v.value
 }
@@ -303,10 +297,6 @@ func (v *NullableString) UnmarshalJSON(src []byte) error {
 type NullableTime struct {
 	value *time.Time
 	isSet bool
-}
-
-func (v NullableTime) Equals(other NullableTime) bool {
-	return base_utils.EqPointerVals(v.value, other.value) && v.isSet == other.isSet
 }
 
 func (v NullableTime) Get() *time.Time {

@@ -102,8 +102,6 @@ components:
               $ref: "./image.yaml#/components/schemas/ImageList"
               nullable: true
 
-
-
     GroupArtifactDeployment:
       title: Artifact Deployment
       type: object

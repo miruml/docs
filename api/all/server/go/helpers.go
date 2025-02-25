@@ -14,6 +14,14 @@ import (
 	"reflect"
 )
 
+// Response return a ImplResponse struct filled
+func Response(code int, body interface{}) ImplResponse {
+	return ImplResponse {
+		Code: code,
+		Body: body,
+	}
+}
+
 // IsZeroValue checks if the val is the zero-ed value.
 func IsZeroValue(val interface{}) bool {
 	return val == nil || reflect.DeepEqual(val, reflect.Zero(reflect.TypeOf(val)).Interface())
