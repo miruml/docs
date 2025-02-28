@@ -1,16 +1,26 @@
 ---
-title: 'Config Schemas'
+title: 'Defining Schemas'
 ---
 
+import ConcreteConfigDefinition from '/snippets/concrete-config-definition.mdx';
+import ConfigDefinition from '/snippets/config-definition.mdx';
 import ConfigSchemaDefinition from '/snippets/config-schema-definition.mdx';
 
-## What is a config schema?
+To begin we need to cover some terminology surrounding configurations.
+
+## Terminology
+
+<ConcreteConfigDefinition />
 
 <ConfigSchemaDefinition />
 
-## Define your config schemas
+<ConfigDefinition />
 
-Miru requires you to define a config schema for each of your [configs](/pages/core-concepts#config). These schemas are used to validate concrete configs before they are deployed, effectively preventing runtime application errors. These schemas live in your git repository (preferably in the same repository as the code consuming the config) to minimize versioning errors between code and configurations.
+With these definitions out of the way, let's begin.
+
+## Defining Config Schemas
+
+Miru requires you to define a config schema to deploy a concrete config. These schemas are used to validate concrete configs before they are deployed, effectively preventing runtime application errors. These schemas **live in your git repository** (preferably in the same repository as the code consuming the config) to minimize versioning errors between code and configurations.
 
 Let's say your application uses a "motion control" config to configure the motion of your robot. Your application might have the following directory structure.
 
@@ -181,6 +191,6 @@ Schema is now available for use in production deployments.
 
 After running `miru upload`, you'll be able to see your config schema in the Miru dashboard along with the git information and the version number.
 
-<img src="/images/product-tour/motion-control-schema-list.png" style={{borderRadius: '7px'}}/>
+<img src="/images/product-outline/motion-control-schema-list.png" style={{borderRadius: '7px'}}/>
 
 We recommend using the `miru upload` command in your CI pipeline to automatically upload your config schemas to Miru. Miru will know if a config schema has changed and will not create new a config schema if it has already been uploaded in a previous commit.

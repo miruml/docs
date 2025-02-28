@@ -1,14 +1,14 @@
 <Steps>
-  <Step title="Define Config Schemas">
-    The development workflow starts with defining your [config schemas](/pages/core-concepts#config-schema). These schemas live in your git repository and are versioned alongside your code to minimize versioning errors between code and configurations. Once ready to deploy a new application, you can easily upload your config schemas to Miru via the Miru CLI or your CI pipeline.
+  <Step title="Define Schemas">
+    You begin in your local development environment, defining the [config schemas](/pages/core-concepts#config-schema) for your application. These schemas live in your git repository alongside your code to minimize versioning errors between code and configurations. Once ready to deploy a new application, you'll upload your config schemas to Miru via the Miru CLI or your CI pipeline.
   </Step>
-  <Step title="Add Configuration Data">
+  <Step title="Set Configuration Data">
     Unlike your config schemas, configuration data used to produce a [concrete config](/pages/core-concepts#concrete-config) is not versioned in your git repository. Instead, configuration data is stored in the cloud and can be edited via the Miru Web Application or programmatically via the [Miru REST API](/api-reference).
   </Step>
-  <Step title="Define Config Policies">
-    With your config schemas defined and configuration data at hand, you'll create [policies](/pages/core-concepts#policy) that specify how your configuration data is evaluated to produce the concrete configs deployed to [clients](/pages/core-concepts#client) in your fleet. Like configuration data, policies live in the cloud and can be edited via the Miru Web Application or programmatically via the Miru REST API.
+  <Step title="Create Policies">
+    With your config schemas defined and configuration data at hand, you'll create [policies](/pages/core-concepts#policy) that specify how your configuration data is evaluated to produce the concrete configs deployed to [clients](/pages/core-concepts#client) in your fleet. Like configuration data, policies live in the cloud and can be edited via the Miru dashboard or programmatically via the Miru REST API.
   </Step>
   <Step title="Deploy">
-    Finally, concrete configs are deployed to clients via the [Miru SDK](/pages/guides/sdk). The SDK is responsible for fetching updated configurations from the cloud and making them readily available to your application. The SDK is available in a variety of languages, simplifying the process of deploying configurations to your fleet.
+    Finally, concrete configs are deployed to clients via the [Miru SDK](/pages/guides/sdk). The SDK is responsible for fetching updated configurations from the cloud and making them readily available to your application. The SDK is available in a variety of languages.
   </Step>
 </Steps>

@@ -18,16 +18,16 @@
             "pages": [
               "pages/introduction",
               {
-                "group": "Product Tour",
+                "group": "Core Concepts",
                 "pages": [
-                  "pages/product-tour/overview",
-                  "pages/product-tour/config-schemas",
-                  "pages/product-tour/config-data",
-                  "pages/product-tour/policies",
-                  "pages/product-tour/deployment"
+                  "pages/core-concepts/overview",
+                  "pages/core-concepts/defining-schemas",
+                  "pages/core-concepts/setting-tags",
+                  "pages/core-concepts/creating-policies",
+                  "pages/core-concepts/deploying-configs"
                 ]
               },
-              "pages/core-concepts",
+              "pages/vocabulary",
               {
                 "group": "Getting Started",
                 "pages": [
