@@ -63,7 +63,7 @@ This simplifies "hot-reloading" (refreshing parameters while the application is 
 However, we understand that using this method may require some serious refactoring or may be untenable depending on the architecture of your application. In such cases, using the SDK to update your file system will work just fine.
 
 ## Evaluating Concrete Configs
-To identify the concrete config that the SDK should pull from the cloud, Miru uses two inputs. The first is the config slug. This is string identifier defined by you for identifying a specific config. For instance, we've defined the `motion-control` slug for our Motion Control config.
+To identify the concrete config that the SDK should pull from the cloud, Miru uses two inputs. The first is the config slug. This is string identifier defined by you for identifying a specific config. For instance, we've defined the `motion-control-config` slug for our Motion Control config.
 
 The second input is the desired config schema's contents. When you upload a config schema to Miru, SHA-256 is used to generate a hash of the config schema's content, known as the config schema's digest. Together the config slug and the digest uniquely identify the config schema being requested by the SDK in the cloud. In turn, this config schema references a policy which specifies the evaluation logic for a client's concrete config.
 
@@ -77,7 +77,7 @@ The upshot of all this is that to pull the proper concrete config, you simply ne
 
 When deploying a new version of code that has a breaking schema change, the SDK will simply pull the correct concrete config from the cloud by evaluating the config schema / config slug pair defined in the code. Thus, configs are trivially versioned in lockstep with your code. No complicated deployment pipeline attempting to deploy configs with compatible code versions.
 
-## Networking Caching 
+## Networking & Caching 
 It's expected that your clients will not have a constant internet connection. To account for this, the SDK caches its concrete configs in both memory and disk. The SDK will simply return the latest known cache values for a config while the network is offline and will update the cache as soon as the network is available.
 
 It's also expected that your clients may suddenly lose power or may be restarted. Since the cache is persisted on disk, it is also available in the event the client loses power or is restarted. It will simply read the latest cache values for a config when the device is powered back on.
@@ -85,4 +85,4 @@ It's also expected that your clients may suddenly lose power or may be restarted
 ## Conclusion
 You've now seen how Miru configs work at a high level. We defined our config schemas in a git repository, uploaded them to Miru, stored configuration data in clients and tags, created policies to evaluate this data for each client, and then deployed a concrete config to a client.
 
-Of course, this was just a high level overview. To begin using Miru continue to the [getting started](/pages/getting-started) guide where we'll walk through a simple example with code that you can follow along with.
+Of course, this was just a high level overview. To begin using Miru, continue to the [getting started](/pages/getting-started) guide where we'll walk through a simple example with code that you can follow along with.
