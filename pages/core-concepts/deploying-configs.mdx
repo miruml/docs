@@ -65,6 +65,35 @@ However, we understand that using this method may require some serious refactori
 ## Evaluating Concrete Configs
 To identify the concrete config that the SDK should pull from the cloud, Miru uses two inputs. The first is the config slug. This is string identifier defined by you for identifying a specific config. For instance, we've defined the `motion-control-config` slug for our Motion Control config.
 
+<CodeGroup>
+```python Python
+motion_control_config = client.get_config(
+    # the config slug
+    slug="motion-control-config",
+    # the config schema's contents
+    schema_file="./config-schemas/motion-control-schema.yaml",
+)
+```
+
+```rust Rust
+let motion_control_config = client.get_config(
+    // the config slug
+    "motion-control-config",
+    // the config schema's contents
+    "./config-schemas/motion-control-schema.yaml"
+);
+```
+
+```cpp C++
+auto motion_control_config = client->getConfig(
+    // the config slug
+    "motion-control-config",
+    // the config schema's contents
+    "./config-schemas/motion-control-schema.yaml"
+);
+```
+</CodeGroup>
+
 The second input is the desired config schema's contents. When you upload a config schema to Miru, SHA-256 is used to generate a hash of the config schema's content, known as the config schema's digest. Together the config slug and the digest uniquely identify the config schema being requested by the SDK in the cloud. In turn, this config schema references a policy which specifies the evaluation logic for a client's concrete config.
 
 <img height="200" src="/images/core-concepts/motion-control-schema-list-zoomed.png" style={{borderRadius: '7px'}}/>
