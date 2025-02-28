@@ -1,0 +1,105 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Miru",
+  "colors": {
+    "primary": "#0D9373",
+    "light": "#07C983",
+    "dark": "#0D9373"
+  },
+  "favicon": "/miru-favicon.svg",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Docs",
+        "groups": [
+          {
+            "group": "Basics",
+            "pages": [
+              "pages/introduction",
+              {
+                "group": "Product Tour",
+                "pages": [
+                  "pages/product-tour/overview",
+                  "pages/product-tour/config-schemas",
+                  "pages/product-tour/config-data",
+                  "pages/product-tour/policies",
+                  "pages/product-tour/deployment"
+                ]
+              },
+              "pages/core-concepts",
+              {
+                "group": "Getting Started",
+                "pages": [
+                  "pages/getting-started/overview",
+                  "pages/getting-started/install-cli",
+                  "pages/getting-started/example-app",
+                  "pages/getting-started/setup-sdk",
+                  "pages/getting-started/create-a-config-schema",
+                  "pages/getting-started/create-a-client",
+                  "pages/getting-started/create-a-tag",
+                  "pages/getting-started/create-a-policy",
+                  "pages/getting-started/deploy"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "pages/guides/sdk",
+              "pages/guides/cli",
+              "pages/guides/tags",
+              "pages/guides/policies",
+              "pages/guides/config-schemas"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "SDKs",
+        "groups": [
+          {
+            "group": "SDK Reference",
+            "pages": [
+              "pages/sdk-reference/cpp",
+              "pages/sdk-reference/python",
+              "pages/sdk-reference/rust"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API",
+        "openapi": "./api/openapi.yaml"
+      }
+    ]
+  },
+  "logo": {
+    "light": "/logo/dark.png",
+    "dark": "/logo/light.png"
+  },
+  "appearance": {
+    "default": "dark"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Talk to a Founder",
+        "href": "https://cal.com/vedantnair/30min"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Dashboard",
+      "href": "https://app.miruml.com"
+    }
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/mirurobotics",
+      "github": "https://github.com/miruml",
+      "linkedin": "https://www.linkedin.com/company/miruml/"
+    }
+  }
+}

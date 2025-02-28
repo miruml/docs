@@ -1,0 +1,53 @@
+---
+title: 'Python'
+---
+
+### Install
+
+```bash
+pip install miru-config-client
+```
+
+### Import
+
+```bash
+import miruconfigclient as miru
+```
+
+### Initialize the Client
+
+Option 1: SDK Key
+```python
+client = miru.Client(
+    sdk_key="<your-sdk-key>",
+    client_id="<your-client-id>",
+)
+```
+
+Option 2: Certificate
+```python
+client = miru.Client(
+   ca_file="./path/to/ca.pem",
+   cert_file="./path/to/cert.pem",
+   key_file="./path/to/key.pem",
+)
+```
+
+### Retrieve a Config
+
+Option 1: Write the config to the filesystem
+```python
+client.write_config(
+    slug="motion-control-config",
+    schema_file="./path/to/config/schema.yaml",
+    dest_file="./path/to/place/config.yaml",
+)
+```
+
+Option 2: Get the config as a dictionary
+```python
+motion_control_config = client.get_config(
+    slug="motion-control-config",
+    schema_file="./path/to/config/schema.yaml",
+)
+```

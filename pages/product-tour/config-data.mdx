@@ -1,0 +1,39 @@
+---
+title: 'Configuration Data'
+---
+
+import ClientDefinition from '/snippets/client-definition.mdx';
+import MetadataDefinition from '/snippets/metadata-definition.mdx';
+import MetadataSchemaDefinition from '/snippets/metadata-schema-definition.mdx';
+import TagAndTagTypeDefinition from '/snippets/tag-and-tag-type-definition.mdx';
+
+## Cloud-Based
+Unlike your config schemas, configuration data is **not stored in a git repository**. Instead, configuration data is **stored in the cloud** and is accessible via the Miru dashboard or programmatically via the Miru REST API. Miru uses the concepts of **clients**, **tags**, and **metadata** to structure how your configuration data is stored and used. Tags and metadata are decoupled from the structure of the concrete configs deployed to your devices. Think of tags and metadata as a simple datastore for configuration data. This data is then referenced by policies to distribute concrete configs in the desired format.
+
+## Clients
+
+<ClientDefinition />
+
+<img height="200" src="/images/product-tour/client-list.png" style={{borderRadius: '7px'}}/>
+
+You'll have many clients in your fleet, each requiring unique configurations for the end effectors, hardware, customers, etc. that the client is associated with. To effectively manage this data, Miru uses the concepts of **tag types** and **tags** to group clients together in a logical way.
+
+## Tags
+
+<TagAndTagTypeDefinition />
+
+Tags aren't just grouping clients together though. They also store metadata so that you can associate arbitrary data with your clients. Instead of storing data about each client individually, you store data in a tag and then associate that data with a client by tagging the client with the desired tags.
+
+## Metadata
+
+<MetadataDefinition />
+
+<MetadataSchemaDefinition />
+
+## Defining Configuration Data
+Tags and their metadata are completely defined by you. We showed examples with the `hardware`, `accelerometer`, and `environment` tag types. However, you can define any tag type you want and create any amount of tags for each tag type.
+
+Similarly, a metadata's schema is completely defined by you. We showed simple examples of metadata and their schemas for a client storing the `robot_id` and the `hardware` tags storing supported features like `jump`, `spin`, and `backflip`. However, you can define any metadata you want, tayloring it to the needs of your application.
+
+Tags and metadata give you a flexible scaffolding to define the configuration data that is unique to your application. We've not yet talked about how this configuration data is formatted to your config schemas and distributed to your clients. This is where policies come in.
+

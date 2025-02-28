@@ -1,0 +1,46 @@
+---
+title: 'Rust'
+---
+
+## Install
+```bash
+cargo add miru-config-client
+```
+
+## Initialize
+Option 1: SDK Key
+```rust
+use miru_config_client::{Client};
+
+let client = Client::new_from_sdk_key(
+    "your-sdk-key",
+    "your-client-id",
+);
+```
+
+Option 2: Certificate
+```rust
+let client = Client::new_from_certificate(
+    "./path/to/ca.pem",
+    "./path/to/cert.pem",
+    "./path/to/key.pem",
+);
+```
+
+## Retrieve a Config
+Option 1: Write the config to the filesystem
+```rust
+client.write_config(
+    "motion-control-config",
+    "./path/to/config/schema.yaml",
+    "./path/to/place/config.yaml"
+);
+```
+
+Option 2: Get the config as a struct
+```rust
+let motion_control_config = client.get_config(
+    "motion-control-config",
+    "./path/to/config/schema.yaml"
+);
+```

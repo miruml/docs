@@ -1,0 +1,7 @@
+A **policy** is a set of **overrides** which hierarchically evaluate to a concrete config. Policies have two components:
+1. A policy schema
+2. A hierarchically set of overrides
+
+When deploying a concrete config to a client, the client will require the concrete config to adhere to a particular config schema. In Miru, this config schema will refer to a policy that takes the client's tags as input and outputs the client's unique concrete config for deployment. Below you can see that the config schema `v8` of the Motion Control config is using the `v4` Policy.
+
+<img src="/images/product-tour/motion-control-schema-list-zoomed.png" style={{borderRadius: '7px'}}/>

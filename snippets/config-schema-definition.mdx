@@ -1,0 +1,53 @@
+A **config schema** defines the constraints on a [concrete config](/pages/core-concepts#concrete-config). Miru uses [JSON Schema](https://json-schema.org/), a popular open-source configuration language for defining the valid fields, types, and values in a JSON or YAML file. Here is an example of a config schema written in JSON Schema.
+
+<Accordion title="Config Schema Example">
+```yaml
+$schema: "https://json-schema.org/draft/2020-12/schema"
+type: object
+properties:
+  speed:
+    type: integer
+    minimum: 1
+    default: 10
+  features:
+    type: object
+    properties:
+      spin:
+        type: boolean
+        default: true
+      jump:
+        type: boolean
+        default: false
+      backflip:
+        type: boolean
+        default: false
+    required: [spin, jump, backflip]
+  accelerometer:
+    type: object
+    properties:
+      id:
+        type: string
+      offsets:
+        type: object
+        properties:
+          x:
+            type: number
+          y:
+            type: number
+          z:
+            type: number
+        required: [x, y, z]
+      scaling_factor:
+        type: object
+        properties:
+          x:
+            type: number
+          y:
+            type: number
+          z:
+            type: number
+        required: [x, y, z]
+    required: [id, offsets, scaling_factor]
+required: [device_id, speed, features, accelerometer]
+```
+</Accordion>

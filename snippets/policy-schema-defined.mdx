@@ -1,0 +1,58 @@
+A **policy schema** defines the constraints on the output of a given policy. As with a config schema or a metadata schema, policy schemas are written in a configuration language like JSON Schema. Here is an example policy schema:
+
+<Accordion title="Policy Schema Example">
+```yaml
+$schema: "https://json-schema.org/draft/2020-12/schema"
+type: object
+properties:
+  mode:
+    type: string
+	default: "normal"
+  maxSpeed:
+    type: integer
+    minimum: 1
+    default: 1
+  features:
+    type: object
+    properties:
+      spin:
+        type: boolean
+        default: true
+      jump:
+        type: boolean
+        default: false
+      backflip:
+        type: boolean
+        default: false
+    required: [spin, jump, backflip]
+  accelerometer:
+    type: object
+    properties:
+      id:
+        type: string
+      offsets:
+        type: object
+        properties:
+          x:
+            type: number
+          y:
+            type: number
+          z:
+            type: number
+        required: [x, y, z]
+      scaling_factor:
+        type: object
+        properties:
+          x:
+            type: number
+          y:
+            type: number
+          z:
+            type: number
+        required: [x, y, z]
+    required: [id, offsets, scaling_factor]
+required: [device_id, speed, features, accelerometer]
+```
+</Accordion>
+
+Although config schemas and policy schemas interact with each other, they serve different purposes. When deploying a concrete config to a client, the client will require the concrete config to adhere to a particular config schema. In Miru, this config schema will refer to a policy which determines the concrete config deployed to the client. Config schemas can only reference a policy if the config schema is compatible with the policy's schema. Thus, the policy schema constrains the output of a policy to ensure it is compatible with any config schemas using the policy.

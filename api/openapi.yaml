@@ -2,2220 +2,2443 @@ openapi: 3.0.3
 info:
   title: Miru API
   version: 0.1.0
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
 servers:
-  - url: 'http://localhost:8080/{audience}/{version}'
-    description: Local Development
-    variables:
-      audience:
-        default: internal
-        enum:
-          - internal
-          - internal/devices
-      version:
-        default: v1
-  - url: 'https://dev.api.miruml.com/{audience}/{version}'
+  - url: https://dev.api.miruml.com/{audience}/{version}
     description: Development
     variables:
       audience:
         default: internal
         enum:
           - internal
-          - internal/devices
       version:
         default: v1
-  - url: 'https://api.miruml.com/{audience}/{version}'
+  - url: https://api.miruml.com/{audience}/{version}
     description: Production
     variables:
       audience:
         default: internal
         enum:
           - internal
-          - internal/devices
       version:
         default: v1
+security:
+  - ClerkAuth: []
+paths:
+  /clients/{client_id}:
+    get:
+      tags:
+        - Clients
+      summary: Get a client
+      operationId: getClient
+      parameters:
+        - $ref: '#/components/parameters/client_id'
+      responses:
+        '200':
+          description: Successfully retrieved the client.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+    put:
+      tags:
+        - Clients
+      summary: Update a client
+      operationId: updateClient
+      parameters:
+        - $ref: '#/components/parameters/client_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateClientRequest'
+      responses:
+        '200':
+          description: Successfully updated the client.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+    delete:
+      tags:
+        - Clients
+      summary: Delete a client
+      operationId: deleteClient
+      parameters:
+        - $ref: '#/components/parameters/client_id'
+      responses:
+        '200':
+          description: Successfully deleted the client.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+  /workspaces/{workspace_id}/clients:
+    post:
+      tags:
+        - Clients
+      summary: Create a client
+      operationId: createClient
+      parameters:
+        - $ref: '#/components/parameters/workspace_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateClientRequest'
+      responses:
+        '200':
+          description: Successfully created the client.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+    get:
+      tags:
+        - Clients
+      summary: List clients in a workspace
+      operationId: getClients
+      parameters:
+        - $ref: '#/components/parameters/workspace_id'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/tag_list'
+        - $ref: '#/components/parameters/order_by'
+      responses:
+        '200':
+          description: Successfully retrieved the clients.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientList'
+  /clients/tags:
+    post:
+      tags:
+        - Client Tags
+      summary: Tag a client
+      operationId: addTagsToClient
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagClientsRequest'
+      responses:
+        '200':
+          description: Successfully added the tags to the client.
+    delete:
+      tags:
+        - Client Tags
+      summary: Remove tags from a client
+      operationId: deleteClientTags
+      parameters:
+        - $ref: '#/components/parameters/client_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteClientTagsRequest'
+      responses:
+        '200':
+          description: Successfully deleted the tags.
+  /configs/concrete/{concrete_config_id}:
+    get:
+      tags:
+        - Concrete Configs
+      summary: Get a concrete config
+      operationId: getConcreteConfig
+      parameters:
+        - $ref: '#/components/parameters/concrete_config_id'
+      responses:
+        '200':
+          description: Successfully retrieved the concrete config.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConcreteConfig'
+  /workspaces/{workspace_id}/configs/concrete:
+    get:
+      tags:
+        - Concrete Configs
+      summary: List concrete configs in a workspace
+      operationId: listConcreteConfigs
+      parameters:
+        - $ref: '#/components/parameters/workspace_id'
+        - $ref: '#/components/parameters/client_list'
+        - $ref: '#/components/parameters/config_list'
+        - $ref: '#/components/parameters/config_schema_list'
+        - $ref: '#/components/parameters/git_repository_list'
+        - $ref: '#/components/parameters/branch_list'
+        - $ref: '#/components/parameters/commit_sha_list'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/parameters-order_by'
+      responses:
+        '200':
+          description: Successfully got the concrete config.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConcreteConfigList'
+  /configs/{config_id}:
+    get:
+      tags:
+        - Configs
+      summary: Get a config
+      operationId: getConfig
+      parameters:
+        - $ref: '#/components/parameters/config_id'
+      responses:
+        '200':
+          description: Successfully retrieved the config.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Config'
+    put:
+      tags:
+        - Configs
+      summary: Update a config
+      operationId: updateConfig
+      parameters:
+        - $ref: '#/components/parameters/config_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateConfigRequest'
+      responses:
+        '200':
+          description: Successfully updated the config.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Config'
+    delete:
+      tags:
+        - Configs
+      summary: Delete a config
+      operationId: deleteConfig
+      parameters:
+        - $ref: '#/components/parameters/config_id'
+      responses:
+        '200':
+          description: Successfully deleted the config.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Config'
+  /workspaces/{workspace_id}/configs:
+    post:
+      tags:
+        - Configs
+      summary: Create a config
+      operationId: createConfig
+      parameters:
+        - $ref: '#/components/parameters/workspace_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateConfigRequest'
+      responses:
+        '200':
+          description: Successfully created the config.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Config'
+    get:
+      tags:
+        - Configs
+      summary: List the configs in a workspace
+      operationId: getConfigs
+      parameters:
+        - $ref: '#/components/parameters/workspace_id'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/order_by'
+      responses:
+        '200':
+          description: Successfully retrieved the configs.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigList'
+  /configs/schemas/{config_schema_id}:
+    get:
+      tags:
+        - Config Schemas
+      summary: Get a config schema
+      operationId: getConfigSchema
+      parameters:
+        - $ref: '#/components/parameters/config_schema_id'
+      responses:
+        '200':
+          description: Successfully retrieved the config schema.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigSchema'
+    put:
+      tags:
+        - Config Schemas
+      summary: Update a config schema
+      operationId: updateConfigSchema
+      parameters:
+        - $ref: '#/components/parameters/config_schema_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateConfigSchemaRequest'
+      responses:
+        '200':
+          description: Successfully updated the config schema.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigSchema'
+    delete:
+      tags:
+        - Config Schemas
+      summary: Delete a config schema
+      operationId: deleteConfigSchema
+      parameters:
+        - $ref: '#/components/parameters/config_schema_id'
+      responses:
+        '200':
+          description: Successfully deleted the config schema.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigSchema'
+  /workspaces/{workspace_id}/configs/schemas:
+    post:
+      tags:
+        - Config Schemas
+      summary: Create a config schema
+      operationId: createConfigSchema
+      parameters:
+        - $ref: '#/components/parameters/workspace_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateConfigSchemaRequest'
+      responses:
+        '200':
+          description: Successfully created the config schema.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigSchema'
+    get:
+      tags:
+        - Config Schemas
+      summary: List the config schemas for a workspace
+      operationId: listConfigSchemas
+      parameters:
+        - $ref: '#/components/parameters/workspace_id'
+        - $ref: '#/components/parameters/git_repository_list'
+        - $ref: '#/components/parameters/branch_list'
+        - $ref: '#/components/parameters/commit_sha_list'
+        - $ref: '#/components/parameters/config_list'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/components-parameters-order_by'
+      responses:
+        '200':
+          description: Successfully retrieved the config schema.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigSchemaList'
+  /configs/schemas/{config_schema_id}/commits:
+    get:
+      tags:
+        - Git Commits
+      summary: Get the git commits for a config schema
+      operationId: getGitCommits
+      parameters:
+        - $ref: '#/components/parameters/config_schema_id'
+        - $ref: '#/components/parameters/git_repository_list'
+        - $ref: '#/components/parameters/branch_list'
+        - $ref: '#/components/parameters/commit_sha_list'
+        - $ref: '#/components/parameters/config_schema_list'
+        - $ref: '#/components/parameters/config_list'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/git-commits_components-parameters-order_by'
+      responses:
+        '200':
+          description: Successfully retrieved the git commits for a config schema.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GitCommitList'
+  /overrides/{override_id}:
+    get:
+      tags:
+        - Overrides
+      summary: Get an override
+      operationId: getOverride
+      parameters:
+        - $ref: '#/components/parameters/override_id'
+      responses:
+        '200':
+          description: Successfully retrieved the override.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Override'
+    put:
+      tags:
+        - Overrides
+      summary: Update an override
+      operationId: updateOverride
+      parameters:
+        - $ref: '#/components/parameters/override_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOverrideRequest'
+      responses:
+        '200':
+          description: Successfully updated the override.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Override'
+    delete:
+      tags:
+        - Overrides
+      summary: Delete an override
+      operationId: deleteOverride
+      parameters:
+        - $ref: '#/components/parameters/override_id'
+      responses:
+        '200':
+          description: Successfully deleted the override.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Override'
+  /policies/{policy_id}/overrides:
+    post:
+      tags:
+        - Overrides
+      summary: Create an override
+      operationId: createOverride
+      parameters:
+        - $ref: '#/components/parameters/policy_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOverrideRequest'
+      responses:
+        '200':
+          description: Successfully created the override.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Override'
+    get:
+      tags:
+        - Overrides
+      summary: List the overrides in a policy
+      operationId: listOverrides
+      parameters:
+        - $ref: '#/components/parameters/policy_id'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/overrides_components-parameters-order_by'
+      responses:
+        '200':
+          description: Successfully retrieved the overrides.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OverrideList'
+  /policies/{policy_id}:
+    get:
+      tags:
+        - Policies
+      summary: Get a policy
+      operationId: getPolicy
+      parameters:
+        - $ref: '#/components/parameters/policy_id'
+      responses:
+        '200':
+          description: Successfully retrieved the policy.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+    put:
+      tags:
+        - Policies
+      summary: Update a policy
+      operationId: updatePolicy
+      parameters:
+        - $ref: '#/components/parameters/policy_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePolicyRequest'
+      responses:
+        '200':
+          description: Successfully updated the policy.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+    delete:
+      tags:
+        - Policies
+      summary: Delete a policy
+      operationId: deletePolicy
+      parameters:
+        - $ref: '#/components/parameters/policy_id'
+      responses:
+        '200':
+          description: Successfully deleted the policy.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+  /configs/{config_id}/policies:
+    post:
+      tags:
+        - Policies
+      summary: Create a policy
+      operationId: createPolicy
+      parameters:
+        - $ref: '#/components/parameters/config_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePolicyRequest'
+      responses:
+        '200':
+          description: Successfully created the policy.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+  /workspaces/{workspace_id}/policies:
+    get:
+      tags:
+        - Policies
+      summary: List the policies in a workspace
+      operationId: listPolicies
+      parameters:
+        - $ref: '#/components/parameters/workspace_id'
+        - $ref: '#/components/parameters/config_list'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/order_by'
+      responses:
+        '200':
+          description: Successfully retrieved the policies.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyList'
+  /tag_types/{tag_type_id}:
+    get:
+      tags:
+        - Tag Types
+      summary: Get a tag type
+      operationId: getTagType
+      parameters:
+        - $ref: '#/components/parameters/tag_type_id'
+      responses:
+        '200':
+          description: Successfully retrieved the tag type.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagType'
+    put:
+      tags:
+        - Tag Types
+      summary: Update a tag type
+      operationId: updateTagType
+      parameters:
+        - $ref: '#/components/parameters/tag_type_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTagTypeRequest'
+      responses:
+        '200':
+          description: Successfully updated the tag type.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagType'
+    delete:
+      tags:
+        - Tag Types
+      summary: Delete a tag type
+      operationId: deleteTagType
+      parameters:
+        - $ref: '#/components/parameters/tag_type_id'
+      responses:
+        '200':
+          description: Successfully deleted the tag type.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagType'
+  /workspaces/{workspace_id}/tag_types:
+    post:
+      tags:
+        - Tag Types
+      summary: Create a tag type
+      operationId: createTagType
+      parameters:
+        - $ref: '#/components/parameters/workspace_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTagTypeRequest'
+      responses:
+        '200':
+          description: Successfully retrieved the tag type.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagType'
+    get:
+      tags:
+        - Tag Types
+      summary: List the tag types in a workspace
+      operationId: getTagTypes
+      parameters:
+        - $ref: '#/components/parameters/workspace_id'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/order_by'
+      responses:
+        '200':
+          description: Successfully retrieved the tag types.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagTypeList'
+  /tags/{tag_id}:
+    get:
+      tags:
+        - Tags
+      summary: Get a tag
+      operationId: getTag
+      parameters:
+        - $ref: '#/components/parameters/tag_id'
+      responses:
+        '200':
+          description: Successfully retrieved the tag.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+    put:
+      tags:
+        - Tags
+      summary: Update a tag
+      operationId: updateTag
+      parameters:
+        - $ref: '#/components/parameters/tag_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTagRequest'
+      responses:
+        '200':
+          description: Successfully updated the tag.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+    delete:
+      tags:
+        - Tags
+      summary: Delete a tag
+      operationId: deleteTag
+      parameters:
+        - $ref: '#/components/parameters/tag_id'
+      responses:
+        '200':
+          description: Successfully deleted the tag.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+  /tag_types/{tag_type_id}/tags:
+    post:
+      tags:
+        - Tags
+      summary: Create a tag
+      operationId: createTag
+      parameters:
+        - $ref: '#/components/parameters/tag_type_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTagRequest'
+      responses:
+        '200':
+          description: Successfully created the tag.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+  /workspaces/{workspace_id}/tags:
+    get:
+      tags:
+        - Tags
+      summary: List the tags in a workspace
+      operationId: getTags
+      parameters:
+        - $ref: '#/components/parameters/workspace_id'
+        - $ref: '#/components/parameters/tag_type_list'
+        - $ref: '#/components/parameters/client_list'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/order_by'
+      responses:
+        '200':
+          description: Successfully retrieved the tags.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagList'
+  /users/{clerk_id}:
+    get:
+      tags:
+        - Users
+      summary: Get a user
+      operationId: getUser
+      parameters:
+        - $ref: '#/components/parameters/clerk_id'
+      responses:
+        '200':
+          description: Successfully retrieved the user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    put:
+      tags:
+        - Users
+      summary: Update a user
+      operationId: updateUser
+      parameters:
+        - $ref: '#/components/parameters/clerk_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+      responses:
+        '200':
+          description: Successfully updated the user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /workspaces/{workspace_id}:
+    get:
+      tags:
+        - Workspaces
+      summary: Get a workspace
+      operationId: getWorkspace
+      parameters:
+        - $ref: '#/components/parameters/workspace_id'
+      responses:
+        '200':
+          description: Successfully retrieved the workspace.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+    put:
+      tags:
+        - Workspaces
+      summary: Update a workspace
+      operationId: updateWorkspace
+      parameters:
+        - $ref: '#/components/parameters/workspace_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWorkspaceRequest'
+      responses:
+        '200':
+          description: Successfully updated the workspace.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
 components:
   securitySchemes:
     ClerkAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
-security:
-  - ClerkAuth: []
-paths:
-  '/artifacts/{artifact_id}':
-    get:
-      tags:
-        - Artifacts
-      parameters:
-        - name: artifact_id
-          in: path
-          required: true
-          description: The unique identifier of the artifact
-          schema:
+  parameters:
+    client_id:
+      name: client_id
+      in: path
+      required: true
+      description: The unique identifier of the client
+      schema:
+        type: string
+        example: cli_123
+    workspace_id:
+      name: workspace_id
+      in: path
+      required: true
+      description: The unique identifier of the workspace
+      schema:
+        type: string
+        example: wsp_123
+    page:
+      name: page
+      in: query
+      required: false
+      description: The page number to return
+      schema:
+        type: integer
+        default: 1
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: The number of items to return
+      schema:
+        type: integer
+        default: 10
+        maximum: 100
+    tag_list:
+      name: tag[]
+      in: query
+      required: false
+      description: The tags to filter by
+      schema:
+        type: array
+        items:
+          type: string
+          example: tag_123
+      style: form
+      explode: true
+    order_by:
+      name: order_by
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - created_at:asc
+          - created_at:desc
+          - updated_at:asc
+          - updated_at:desc
+          - name:asc
+          - name:desc
+    concrete_config_id:
+      name: concrete_config_id
+      in: path
+      required: true
+      description: The unique identifier of the concrete config
+      schema:
+        type: string
+        example: cncr_cfg_123
+    client_list:
+      name: client[]
+      in: query
+      required: false
+      description: The client to filter by
+      schema:
+        type: array
+        items:
+          type: string
+          example: cli_123
+      style: form
+      explode: true
+    config_list:
+      name: config[]
+      in: query
+      required: false
+      description: The config to filter by
+      schema:
+        type: array
+        items:
+          type: string
+          example: cfg_123
+      style: form
+      explode: true
+    config_schema_list:
+      name: config_schema[]
+      in: query
+      required: false
+      description: The config schema to filter by
+      schema:
+        type: array
+        items:
+          type: array
+          items:
             type: string
-      responses:
-        '200':
-          description: Successfully retrieved the artifact.
-          content:
-            application/json:
-              schema:
-                title: Artifact
-                allOf:
-                  - title: Artifact With Source Data
-                    allOf:
-                      - title: Artifact Base
-                        type: object
-                        required:
-                          - object
-                          - id
-                          - digest
-                          - status
-                          - aarch64
-                          - x86_64
-                          - created_at
-                          - ready_at
-                          - failed_at
-                          - source_id
-                          - source_type
-                        properties:
-                          object:
-                            type: string
-                            example: artifact
-                          id:
-                            type: string
-                            example: art_1234
-                          status:
-                            title: Artifact Status
-                            type: string
-                            enum:
-                              - queued
-                              - verifying
-                              - building
-                              - storing
-                              - ready
-                              - failed
-                          digest:
-                            type: string
-                            example: dad036b
-                          aarch64:
-                            type: boolean
-                            example: true
-                          x86_64:
-                            type: boolean
-                            example: false
-                          created_at:
-                            type: string
-                            format: date-time
-                            example: '2024-11-03T14:19:50Z'
-                          ready_at:
-                            type: string
-                            format: date-time
-                            example: '2024-11-03T14:25:50Z'
-                            nullable: true
-                          failed_at:
-                            type: string
-                            format: date-time
-                            example: '2024-11-03T14:25:50Z'
-                            nullable: true
-                          source_id:
-                            type: string
-                            example: reg_src_1234
-                          source_type:
-                            type: string
-                            enum:
-                              - github
-                              - registry
-                      - type: object
-                        required:
-                          - created_by
-                          - registry_source
-                          - github_source
-                          - github_source_data
-                        properties:
-                          created_by:
-                            allOf:
-                              - $ref: '#/paths/~1deployments~1%7Bdeployment_id%7D/get/responses/200/content/application~1json/schema/allOf/1/properties/created_by/allOf/0'
-                            nullable: true
-                          registry_source:
-                            allOf:
-                              - $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/get/responses/200/content/application~1json/schema'
-                            nullable: true
-                          github_source:
-                            allOf:
-                              - $ref: '#/paths/~1groups~1%7Bgroup_id%7D/get/responses/200/content/application~1json/schema/allOf/1/properties/github_sources/properties/data/items'
-                            nullable: true
-                          github_source_data:
-                            allOf:
-                              - title: GitHub Source Data
-                                type: object
-                                required:
-                                  - sender
-                                  - branch
-                                  - build_path
-                                  - repository
-                                  - head_commit
-                                properties:
-                                  sender:
-                                    title: GitHub Source Data Sender
-                                    type: object
-                                    required:
-                                      - id
-                                      - type
-                                      - login
-                                      - html_url
-                                      - avatar_url
-                                    properties:
-                                      id:
-                                        type: integer
-                                        example: 1234
-                                        format: int64
-                                      type:
-                                        type: string
-                                        example: User
-                                      login:
-                                        type: string
-                                        example: bensmidt
-                                      html_url:
-                                        type: string
-                                        example: 'https://github.com/bensmidt'
-                                      avatar_url:
-                                        type: string
-                                        example: 'https://avatars.githubusercontent.com/u/92611223?v=4'
-                                  branch:
-                                    type: string
-                                    example: main
-                                  build_path:
-                                    type: string
-                                    example: valid/wordpress
-                                  repository:
-                                    title: GitHub Source Data Repository
-                                    type: object
-                                    required:
-                                      - id
-                                      - html_url
-                                      - clone_url
-                                      - full_name
-                                      - pushed_at
-                                    properties:
-                                      id:
-                                        type: integer
-                                        example: 819141000
-                                        format: int64
-                                      html_url:
-                                        type: string
-                                        example: 'https://github.com/miruml/e2e-tests'
-                                      clone_url:
-                                        type: string
-                                        example: 'https://github.com/miruml/e2e-tests.git'
-                                      full_name:
-                                        type: string
-                                        example: miruml/e2e-tests
-                                      pushed_at:
-                                        type: string
-                                        format: date-time
-                                        example: '2024-11-03T14:19:50Z'
-                                  head_commit:
-                                    title: GitHub Source Data Head Commit
-                                    type: object
-                                    required:
-                                      - id
-                                      - url
-                                      - message
-                                    properties:
-                                      id:
-                                        type: string
-                                        example: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
-                                      url:
-                                        type: string
-                                        example: 'https://github.com/miruml/e2e-tests/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03'
-                                      message:
-                                        type: string
-                                        example: Update README.md
-                            nullable: true
-                  - type: object
-                    required:
-                      - images
-                    properties:
-                      images:
-                        nullable: true
-                        title: Image List
-                        type: object
-                        required:
-                          - object
-                          - data
-                        properties:
-                          object:
-                            type: string
-                            example: list
-                          data:
-                            type: array
-                            items:
-                              title: Image
-                              type: object
-                              required:
-                                - object
-                                - id
-                                - registry_url
-                                - account_login
-                                - name
-                                - uri
-                                - type
-                                - digest
-                                - tag
-                              properties:
-                                object:
-                                  type: string
-                                  example: image
-                                id:
-                                  type: string
-                                  example: img_123
-                                registry_url:
-                                  type: string
-                                  example: us-central1-docker.pkg.dev/container-integration
-                                account_login:
-                                  type: string
-                                  example: container-integration
-                                name:
-                                  type: string
-                                  example: django/nested/image/name
-                                uri:
-                                  type: string
-                                  example: us-central1-docker.pkg.dev/container-integration/django/nested/image/name
-                                type:
-                                  type: string
-                                  example: gar
-                                digest:
-                                  type: string
-                                  example: 'sha256:123abc'
-                                tag:
-                                  type: string
-                                  example: latest
-  '/artifacts/{artifact_id}/deployments':
-    get:
-      tags:
-        - Artifacts
-      parameters:
-        - $ref: '#/paths/~1artifacts~1%7Bartifact_id%7D/get/parameters/0'
-      responses:
-        '200':
-          description: Successfuly retrieved the artifact's deployments
-          content:
-            application/json:
-              schema:
-                title: Artifact Deployment List
-                type: object
-                required:
-                  - object
-                  - data
-                properties:
-                  object:
-                    type: string
-                    example: list
-                  data:
-                    type: array
-                    items:
-                      title: Artifact Deployment
-                      type: object
-                      required:
-                        - object
-                        - id
-                        - device_id
-                        - status
-                        - activity_status
-                        - error_status
-                        - created_by
-                        - created_at
-                        - started_at
-                        - finished_at
-                        - removed_at
-                        - on_device
-                      properties:
-                        object:
-                          type: string
-                          example: deployment
-                        id:
-                          type: string
-                          example: dep_1234
-                        device:
-                          $ref: '#/paths/~1devices~1%7Bdevice_id%7D/get/responses/200/content/application~1json/schema'
-                        status:
-                          type: string
-                          example: retrying
-                        activity_status:
-                          type: string
-                          example: booting
-                        error_status:
-                          type: string
-                          example: retrying
-                        created_by:
-                          allOf:
-                            - $ref: '#/paths/~1deployments~1%7Bdeployment_id%7D/get/responses/200/content/application~1json/schema/allOf/1/properties/created_by/allOf/0'
-                          nullable: true
-                        created_at:
-                          type: string
-                          format: date-time
-                          example: '2024-12-05T14:25:50Z'
-                        started_at:
-                          type: string
-                          format: date-time
-                          example: '2024-12-05T14:25:50Z'
-                          nullable: true
-                        stopped_at:
-                          type: string
-                          format: date-time
-                          example: '2024-12-05T14:25:50Z'
-                          nullable: true
-                        on_device:
-                          type: boolean
-                          example: true
-  '/artifacts/{artifact_id}/deployment_files':
-    get:
-      tags:
-        - Artifacts
-      parameters:
-        - $ref: '#/paths/~1artifacts~1%7Bartifact_id%7D/get/parameters/0'
-      responses:
-        '200':
-          description: Successfully retrieved the release files for the artifact.
-          content:
-            application/json:
-              schema:
-                title: Artifact Deployment Files
-                required:
-                  - object
-                  - compose_file
-                  - env_file
-                properties:
-                  object:
-                    type: string
-                    example: artifact_deployment_files
-                  compose_file:
-                    type: string
-                    example: |-
-                      name: miru
-                      services:
-                        redis:
-                        image: redis:latest
-                        restart: always
-                  env_file:
-                    type: string
-                    example: |-
-                      MIRU_REDIS_HOST=redis
-                      MIRU_REDIS_PORT=6379
-                    nullable: true
-  '/groups/{group_id}/artifacts':
-    get:
-      tags:
-        - Artifacts
-      parameters:
-        - $ref: '#/paths/~1groups~1%7Bgroup_id%7D/get/parameters/0'
-        - name: only_staged
-          in: query
-          required: false
-          description: Whether to return only staged artifacts
-          schema:
-            type: boolean
-      responses:
-        '200':
-          description: Successfully retrieved the artifacts for the group.
-          content:
-            application/json:
-              schema:
-                title: Group Artifact List
-                type: object
-                required:
-                  - object
-                  - data
-                properties:
-                  object:
-                    type: string
-                    example: list
-                  data:
-                    type: array
-                    items:
-                      allOf:
-                        - $ref: '#/paths/~1artifacts~1%7Bartifact_id%7D/get/responses/200/content/application~1json/schema'
-                        - type: object
-                          required:
-                            - staged
-                            - deployments
-                          properties:
-                            staged:
-                              type: boolean
-                              example: true
-                            deployments:
-                              title: Artifact Deployment List
-                              type: object
-                              required:
-                                - object
-                                - data
-                              properties:
-                                object:
-                                  type: string
-                                  example: list
-                                data:
-                                  type: array
-                                  items:
-                                    title: Artifact Deployment
-                                    type: object
-                                    required:
-                                      - object
-                                      - id
-                                      - device_id
-                                      - status
-                                      - activity_status
-                                      - error_status
-                                    properties:
-                                      object:
-                                        type: string
-                                        example: deployment
-                                      id:
-                                        type: string
-                                        example: dep_1234
-                                      device_id:
-                                        type: string
-                                        example: device_1234
-                                      status:
-                                        type: string
-                                        example: retrying
-                                      activity_status:
-                                        type: string
-                                        example: booting
-                                      error_status:
-                                        type: string
-                                        example: retrying
-  '/sources/registry/{registry_source_id}/artifacts':
-    post:
-      tags:
-        - Artifacts
-      parameters:
-        - $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/get/parameters/0'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              title: Create Registry Source Artifact
-              type: object
-              required:
-                - allow_duplicate
-                - images
-                - groups
-              properties:
-                allow_duplicate:
-                  type: boolean
-                  example: false
-                images:
-                  type: array
-                  items:
-                    type: object
-                    required:
-                      - repository_id
-                      - digest
-                      - tag
-                    properties:
-                      repository_id:
-                        type: string
-                        example: cont_repo_1234
-                      digest:
-                        type: string
-                        example: 'sha256:1234567890'
-                      tag:
-                        type: string
-                        example: v1.3.4
-      responses:
-        '200':
-          description: Successfully created the artifact.
-          content:
-            application/json:
-              schema:
-                $ref: '#/paths/~1artifacts~1%7Bartifact_id%7D/get/responses/200/content/application~1json/schema'
-        '409':
-          $ref: '#/paths/~1sources~1github~1%7Bgithub_source_id%7D~1artifacts/post/responses/409'
-  '/sources/github/{github_source_id}/artifacts':
-    post:
-      tags:
-        - Artifacts
-      parameters:
-        - $ref: '#/paths/~1sources~1github~1%7Bgithub_source_id%7D~1commits/get/parameters/1'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              title: Create GitHub Source Artifact
-              type: object
-              required:
-                - allow_duplicate
-                - commit_sha
-              properties:
-                allow_duplicate:
-                  type: boolean
-                  example: false
-                commit_sha:
-                  type: string
-                  example: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
-      responses:
-        '200':
-          description: Successfully queued the artifact for creation
-        '409':
-          description: Unable to create artifact since another artifact with identical content already exists
-          content:
-            application/json:
-              schema:
-                title: Error
-                type: object
-                required:
-                  - error
-                properties:
-                  error:
-                    title: DuplicateArtifactError
-                    type: object
-                    required:
-                      - code
-                      - params
-                      - message
-                    properties:
-                      code:
-                        type: string
-                        example: duplicate_artifact
-                      params:
-                        type: object
-                        required:
-                          - duplicate_artifacts
-                        properties:
-                          duplicate_artifacts:
-                            type: array
-                            items:
-                              type: object
-                              example: art_1234
-                      message:
-                        type: string
-                        example: Artifacts with identical content already exist
-                      debug_message:
-                        type: string
-                        example: '2 artifacts with identical content already exist: art_1234, art_5678'
-  '/workspace/{workspace_id}/compose/verify':
-    post:
-      tags:
-        - Compose File
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              title: Verify Compose File
-              type: object
-              required:
-                - compose_file
-                - architecture
-              properties:
-                compose_file:
-                  type: string
-                  example: |-
-                    name: miru
-                    services:
-                      redis:
-                      image: redis:latest
-                      restart: always
-                architecture:
-                  type: string
-                  example: arm64
-      responses:
-        '200':
-          description: Successfully verified the compose file.
-          content:
-            application/json:
-              schema:
-                title: Verify Compose File Response
-                type: object
-                required:
-                  - object
-                  - content
-                  - is_valid
-                  - is_schema_valid
-                  - images
-                properties:
-                  object:
-                    type: string
-                    example: compose_file
-                  content:
-                    type: string
-                    example: |-
-                      name: miru
-                      services:
-                        redis:
-                        image: redis:latest
-                        restart: always
-                  is_valid:
-                    type: boolean
-                    example: false
-                  is_schema_valid:
-                    type: boolean
-                    example: true
-                  schema_error:
-                    type: string
-                    example: <reason why compose file is malformed>
-                  images:
-                    title: Compose File Image List
-                    type: object
-                    required:
-                      - object
-                      - data
-                    properties:
-                      object:
-                        type: string
-                        example: list
-                      data:
-                        type: array
-                        items:
-                          title: Compose File Image
-                          type: object
-                          required:
-                            - object
-                            - compose_reference
-                            - image_uri
-                            - repository_uri
-                            - registry_url
-                            - registry_type
-                            - name
-                            - digest
-                            - tag
-                            - is_image_valid
-                            - is_repository_valid
-                            - error
-                          properties:
-                            object:
-                              type: string
-                              example: external_image
-                            compose_reference:
-                              type: string
-                              example: 'redis:latest'
-                            image_uri:
-                              type: string
-                              example: 'docker.io/redis:latest'
-                            repository_uri:
-                              type: string
-                              example: docker.io/redis
-                            registry_url:
-                              type: string
-                              example: docker.io
-                            registry_type:
-                              type: string
-                              example: gar
-                            name:
-                              type: string
-                              example: redis
-                            digest:
-                              type: string
-                              example: 'sha256:123abc'
-                            tag:
-                              type: string
-                              example: latest
-                            is_image_valid:
-                              type: boolean
-                              example: false
-                            is_repository_valid:
-                              type: boolean
-                              example: false
-                            error:
-                              type: string
-                              example: <reason why image is not valid>
-  '/devices/{device_id}/containers':
-    get:
-      tags:
-        - Containers
-      parameters:
-        - $ref: '#/paths/~1devices~1%7Bdevice_id%7D/get/parameters/0'
-      responses:
-        '200':
-          description: Successfully retrieved the containers for the device.
-          content:
-            application/json:
-              schema:
-                title: Container List
-                type: object
-                required:
-                  - object
-                  - data
-                properties:
-                  object:
-                    type: string
-                    example: list
-                  data:
-                    type: array
-                    items:
-                      title: Container
-                      type: object
-                      required:
-                        - object
-                        - id
-                        - device_id
-                        - image_id
-                        - image_tag
-                        - image_digest
-                        - docker_container_id
-                        - created_at
-                        - updated_at
-                        - started_at
-                        - finished_at
-                        - status
-                        - target_status
-                        - exit_code
-                        - error
-                      properties:
-                        object:
-                          type: string
-                          example: container
-                        id:
-                          type: string
-                          example: cont_1234
-                        device_id:
-                          type: string
-                          example: device_1234
-                        image_id:
-                          type: string
-                          example: img_1234
-                          nullable: true
-                        image_name:
-                          type: string
-                          example: my-image
-                          nullable: true
-                        image_tag:
-                          type: string
-                          example: latest
-                          nullable: true
-                        image_digest:
-                          type: string
-                          example: 'sha256:1234567890'
-                          nullable: true
-                        docker_container_id:
-                          type: string
-                          example: 'sha256:1234567890'
-                        created_at:
-                          type: string
-                          format: date-time
-                          example: '2024-11-03T14:19:50Z'
-                        updated_at:
-                          type: string
-                          format: date-time
-                          example: '2024-11-03T14:19:50Z'
-                        started_at:
-                          type: string
-                          format: date-time
-                          example: '2024-11-03T14:19:50Z'
-                        finished_at:
-                          type: string
-                          format: date-time
-                          example: '2024-11-03T14:19:50Z'
-                          nullable: true
-                        status:
-                          type: string
-                          example: running
-                        target_status:
-                          type: string
-                          example: running
-                        exit_code:
-                          type: integer
-                          example: 0
-                        error:
-                          type: string
-                          example: <some error message>
-                          nullable: true
-  '/deployments/{deployment_id}':
-    get:
-      tags:
-        - Deployments
-      parameters:
-        - name: deployment_id
-          in: path
-          required: true
-          description: The unique identifier of the deployment
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Successfully retrieved the deployment.
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - title: Deployment
-                    type: object
-                    required:
-                      - object
-                      - id
-                      - device_id
-                      - status
-                      - activity_status
-                      - error_status
-                      - target_status
-                      - created_at
-                      - downloading_at
-                      - downloaded_at
-                      - booting_at
-                      - active_at
-                      - stopping_at
-                      - stopped_at
-                      - removing_at
-                      - archived_at
-                      - cooldown_ends_at
-                    properties:
-                      object:
-                        type: string
-                        example: deployment
-                      id:
-                        type: string
-                        example: dep_1234
-                      device_id:
-                        type: string
-                        example: dev_1234
-                      status:
-                        type: string
-                        example: retrying
-                      activity_status:
-                        type: string
-                        example: downloading
-                      error_status:
-                        type: string
-                        example: retrying
-                      target_status:
-                        type: string
-                        example: active
-                      created_at:
-                        type: string
-                        format: date-time
-                        example: '2024-11-03T14:19:50Z'
-                      downloading_at:
-                        type: string
-                        format: date-time
-                        example: '2024-11-03T14:19:50Z'
-                        nullable: true
-                      downloaded_at:
-                        type: string
-                        format: date-time
-                        example: '2024-11-03T14:19:50Z'
-                        nullable: true
-                      booting_at:
-                        type: string
-                        format: date-time
-                        example: '2024-11-03T14:19:50Z'
-                        nullable: true
-                      active_at:
-                        type: string
-                        format: date-time
-                        example: '2024-11-03T14:19:50Z'
-                        nullable: true
-                      stopping_at:
-                        type: string
-                        format: date-time
-                        example: '2024-11-03T14:19:50Z'
-                        nullable: true
-                      stopped_at:
-                        type: string
-                        format: date-time
-                        example: '2024-11-03T14:19:50Z'
-                        nullable: true
-                      removing_at:
-                        type: string
-                        format: date-time
-                        example: '2024-11-03T14:19:50Z'
-                        nullable: true
-                      archived_at:
-                        type: string
-                        format: date-time
-                        example: '2024-11-03T14:19:50Z'
-                        nullable: true
-                      cooldown_ends_at:
-                        type: string
-                        format: date-time
-                        example: '2024-11-03T14:19:50Z'
-                  - type: object
-                    required:
-                      - created_by
-                      - artifact
-                    properties:
-                      created_by:
-                        allOf:
-                          - title: User
-                            type: object
-                            required:
-                              - object
-                              - id
-                              - first_name
-                              - last_name
-                            properties:
-                              object:
-                                type: string
-                                example: user
-                              id:
-                                type: string
-                                example: usr_1234
-                              first_name:
-                                type: string
-                                example: John
-                              last_name:
-                                type: string
-                                example: Doe
-                        nullable: true
-                      artifact:
-                        $ref: '#/paths/~1artifacts~1%7Bartifact_id%7D/get/responses/200/content/application~1json/schema/allOf/0'
-  '/devices/{device_id}/deployments':
-    get:
-      tags:
-        - Deployments
-      parameters:
-        - $ref: '#/paths/~1devices~1%7Bdevice_id%7D/get/parameters/0'
-        - name: on_device
-          in: query
-          required: false
-          description: Whether to include only on device deployments
-          schema:
-            type: boolean
-      responses:
-        '200':
-          description: Successfully retrieved the deployments.
-          content:
-            application/json:
-              schema:
-                title: Deployment List
-                type: object
-                required:
-                  - object
-                  - data
-                properties:
-                  object:
-                    type: string
-                    example: list
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/paths/~1deployments~1%7Bdeployment_id%7D/get/responses/200/content/application~1json/schema'
-  '/workspaces/{workspace_id}/deploy':
-    post:
-      tags:
-        - Deployments
-      parameters:
-        - name: workspace_id
-          in: path
-          required: true
-          description: The unique identifier of the workspace
-          schema:
-            type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              title: Create Deployments
-              type: object
-              required:
-                - artifact_ids
-                - device_ids
-              properties:
-                artifact_ids:
-                  type: array
-                  items:
-                    type: string
-                    example: art_1234
-                device_ids:
-                  type: array
-                  items:
-                    type: string
-                    example: device_1234
-      responses:
-        '200':
-          description: Successfully created the deployments.
-  '/deployments/{deployment_id}/logs':
-    get:
-      tags:
-        - Deployments
-      parameters:
-        - $ref: '#/paths/~1deployments~1%7Bdeployment_id%7D/get/parameters/0'
-      responses:
-        '200':
-          description: Successfully retrieved the deployment logs.
-          content:
-            application/json:
-              schema:
-                title: Deployment Log List
-                type: object
-                required:
-                  - object
-                  - data
-                properties:
-                  object:
-                    type: string
-                    example: list
-                  data:
-                    type: array
-                    items:
-                      title: Deployment Log
-                      type: object
-                      required:
-                        - timestamp
-                        - level
-                        - message
-                        - code
-                      properties:
-                        timestamp:
-                          type: string
-                          format: date-time
-                          example: '2024-11-03T14:19:50Z'
-                        level:
-                          type: string
-                          example: info
-                        message:
-                          type: string
-                          example: Deployment started
-                        code:
-                          type: string
-                          example: not_downloaded
-  '/devices/{device_id}':
-    get:
-      tags:
-        - Devices
-      parameters:
-        - name: device_id
-          in: path
-          required: true
-          description: The unique identifier of the device
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Successfully retrieved the device.
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - title: Device
-                    type: object
-                    required:
-                      - object
-                      - id
-                      - name
-                      - hardware
-                      - operating_system
-                      - architecture
-                      - status
-                      - last_reported_status
-                      - miru_version
-                      - created_at
-                      - synced_at
-                      - group
-                    properties:
-                      object:
-                        type: string
-                        example: device
-                      id:
-                        type: string
-                        example: device_1234
-                      workspace_id:
-                        type: string
-                        example: wsp_1234
-                      name:
-                        type: string
-                        example: my-device
-                      hardware:
-                        type: string
-                        example: raspberry-pi
-                      operating_system:
-                        type: string
-                        example: ubuntu
-                        nullable: true
-                      architecture:
-                        type: string
-                        example: arm64
-                        nullable: true
-                      status:
-                        type: string
-                        example: offline
-                      last_reported_status:
-                        type: string
-                        example: active
-                      miru_version:
-                        type: string
-                        example: 0.5.1
-                        nullable: true
-                      created_at:
-                        type: string
-                        format: date-time
-                        example: '2024-11-03T14:19:50Z'
-                      synced_at:
-                        type: string
-                        format: date-time
-                  - type: object
-                    properties:
-                      group:
-                        $ref: '#/paths/~1groups~1%7Bgroup_id%7D/get/responses/200/content/application~1json/schema/allOf/0'
-  '/sources/github/{github_source_id}/commits':
-    get:
-      tags:
-        - GitHub Sources
-      parameters:
-        - $ref: '#/paths/~1workspaces~1%7Bworkspace_id%7D~1deploy/post/parameters/0'
-        - name: github_source_id
-          in: path
-          required: true
-          description: The unique identifier of the github source
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Successfully retrieved the commits for the GitHub source.
-          content:
-            application/json:
-              schema:
-                title: GitHubSourceCommits
-                type: object
-                required:
-                  - object
-                  - repository
-                  - commits
-                  - branch
-                properties:
-                  object:
-                    type: string
-                    example: github_source_commits
-                  repository:
-                    title: GitHub Repository
-                    type: object
-                    required:
-                      - object
-                      - id
-                      - name
-                      - full_name
-                      - html_url
-                      - clone_url
-                    properties:
-                      id:
-                        type: integer
-                        format: int64
-                        example: 1234567890
-                      object:
-                        type: string
-                        example: github_repository
-                      name:
-                        type: string
-                        example: e2e-tests
-                      full_name:
-                        type: string
-                        example: bensmidt/e2e-tests
-                      html_url:
-                        type: string
-                        example: 'https://github.com/bensmidt/e2e-tests'
-                  branch:
-                    type: string
-                    example: main
-                  commits:
-                    title: GitHub CommitList
-                    type: object
-                    required:
-                      - object
-                      - data
-                    properties:
-                      object:
-                        type: string
-                        example: list
-                      data:
-                        type: array
-                        items:
-                          title: GitHub Commit
-                          type: object
-                          required:
-                            - object
-                            - sha
-                            - message
-                            - html_url
-                            - pushed_at
-                            - committer
-                            - is_built
-                            - artifact_id
-                          properties:
-                            object:
-                              type: string
-                              example: github_commit
-                            sha:
-                              type: string
-                              example: 94d8a2681f1ef81b0362cdb77bf37691bc1d2b03
-                            message:
-                              type: string
-                              example: Fixes a bug
-                            html_url:
-                              type: string
-                              example: 'https://github.com/bensmidt/test-repo/commit/94d8a2681f1ef81b0362cdb77bf37691bc1d2b03'
-                            pushed_at:
-                              type: string
-                              format: date-time
-                              example: '2024-01-01T00:00:00Z'
-                            committer:
-                              title: GitHub Committer
-                              type: object
-                              required:
-                                - id
-                                - object
-                                - login
-                                - type
-                                - html_url
-                                - avatar_url
-                              properties:
-                                id:
-                                  type: integer
-                                  format: int64
-                                  example: 92611223
-                                object:
-                                  type: string
-                                  example: github_account
-                                login:
-                                  type: string
-                                  example: bensmidt
-                                type:
-                                  type: string
-                                  example: User
-                                html_url:
-                                  type: string
-                                  example: 'https://github.com/bensmidt'
-                                avatar_url:
-                                  type: string
-                                  example: 'https://avatars.githubusercontent.com/u/92611223?v=4'
-                            artifacts:
-                              title: GitHub Commit Artifact List
-                              type: object
-                              required:
-                                - object
-                                - data
-                              properties:
-                                object:
-                                  type: string
-                                  example: list
-                                data:
-                                  type: array
-                                  items:
-                                    title: GitHub Commit Artifact
-                                    type: object
-                                    required:
-                                      - id
-                                      - object
-                                      - status
-                                      - ready
-                                      - failed
-                                      - in_progress
-                                    properties:
-                                      object:
-                                        type: string
-                                        example: artifact
-                                      id:
-                                        type: string
-                                        example: art_123
-                                      status:
-                                        type: string
-                                        example: failed
-                                      ready:
-                                        type: boolean
-                                        example: false
-                                      failed:
-                                        type: boolean
-                                        example: true
-                                      in_progress:
-                                        type: boolean
-                                        example: false
-  '/groups/{group_id}':
-    get:
-      tags:
-        - Groups
-      parameters:
-        - name: group_id
-          in: path
-          required: true
-          description: The unique identifier of the group
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Successfully retrieved the group.
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - title: BaseGroup
-                    type: object
-                    required:
-                      - object
-                      - id
-                      - name
-                    properties:
-                      object:
-                        type: string
-                        example: group
-                      id:
-                        type: string
-                        example: group_1234
-                      workspace_id:
-                        type: string
-                        example: wsp_1234
-                      name:
-                        type: string
-                        example: my-group
-                  - type: object
-                    properties:
-                      devices:
-                        title: Group Device List
-                        type: object
-                        required:
-                          - object
-                          - data
-                        properties:
-                          object:
-                            type: string
-                            example: list
-                          data:
-                            type: array
-                            items:
-                              allOf:
-                                - $ref: '#/paths/~1devices~1%7Bdevice_id%7D/get/responses/200/content/application~1json/schema/allOf/0'
-                                - type: object
-                                  required:
-                                    - containers
-                                    - deployments
-                                  properties:
-                                    containers:
-                                      title: Group Device Container List
-                                      type: object
-                                      required:
-                                        - object
-                                        - data
-                                      properties:
-                                        object:
-                                          type: string
-                                          example: list
-                                        data:
-                                          type: array
-                                          items:
-                                            title: Group Device Container
-                                            type: object
-                                            required:
-                                              - object
-                                              - id
-                                              - status
-                                            properties:
-                                              object:
-                                                type: string
-                                                example: container
-                                              id:
-                                                type: string
-                                                example: container_1234
-                                              status:
-                                                type: string
-                                                example: running
-                                    deployments:
-                                      title: Group Device Deployment List
-                                      type: object
-                                      required:
-                                        - object
-                                        - data
-                                      properties:
-                                        object:
-                                          type: string
-                                          example: list
-                                        data:
-                                          type: array
-                                          items:
-                                            title: Group Device Deployment
-                                            type: object
-                                            required:
-                                              - object
-                                              - id
-                                              - status
-                                              - activity_status
-                                              - error_status
-                                            properties:
-                                              object:
-                                                type: string
-                                                example: deployment
-                                              id:
-                                                type: string
-                                                example: deployment_1234
-                                              status:
-                                                type: string
-                                                example: active
-                                              activity_status:
-                                                type: string
-                                                example: active
-                                              target_status:
-                                                type: string
-                                                example: actived
-                                              error_status:
-                                                type: string
-                                                example: none
-                      github_sources:
-                        title: GitHub Source List
-                        type: object
-                        required:
-                          - object
-                          - data
-                        properties:
-                          object:
-                            type: string
-                            example: list
-                          data:
-                            type: array
-                            items:
-                              title: GitHub Source
-                              type: object
-                              required:
-                                - id
-                                - object
-                                - name
-                                - repository_id
-                                - repository_name
-                                - branch
-                                - build_path
-                                - deleted
-                              properties:
-                                id:
-                                  type: string
-                                  example: gh_src_123
-                                object:
-                                  type: string
-                                  example: github_source
-                                name:
-                                  type: string
-                                  example: e2e-tests
-                                repository_id:
-                                  type: integer
-                                  format: int64
-                                  example: '12345'
-                                repository_name:
-                                  type: string
-                                  example: bensmidt/e2e-tests
-                                branch:
-                                  type: string
-                                  example: main
-                                build_path:
-                                  type: string
-                                  example: path/to/compose/file/
-                                deleted:
-                                  type: boolean
-                                  example: false
-  '/repositories/container/{container_repository_id}/images/external':
-    get:
-      tags:
-        - Container Images
-      parameters:
-        - $ref: '#/paths/~1repositories~1container~1%7Bcontainer_repository_id%7D/get/parameters/0'
-        - $ref: '#/paths/~1workspaces~1%7Bworkspace_id%7D~1repositories~1container~1external/get/parameters/1'
-      responses:
-        '200':
-          description: Successfully retrieved the images for the repository.
-          content:
-            application/json:
-              schema:
-                title: External Container Image List
-                type: object
-                required:
-                  - object
-                  - data
-                properties:
-                  object:
-                    type: string
-                    example: list
-                  data:
-                    type: array
-                    items:
-                      title: External Container Image
-                      type: object
-                      required:
-                        - object
-                        - digest
-                        - tags
-                        - uri
-                        - bytes
-                        - uploaded_at
-                      properties:
-                        object:
-                          type: string
-                          example: external_image
-                        digest:
-                          type: string
-                          example: 'sha256:123abc'
-                        tags:
-                          type: array
-                          items:
-                            type: string
-                            example: latest
-                          example:
-                            - latest
-                            - v1.0.0
-                            - stable
-                        uri:
-                          type: string
-                          example: 'docker.io/redis:latest'
-                        bytes:
-                          type: integer
-                          format: int64
-                          example: 392510987
-                        uploaded_at:
-                          type: string
-                          example: '2021-01-01T00:00:00Z'
-                          format: date-time
-  '/sources/registry/{registry_source_id}':
-    get:
-      tags:
-        - Registry Sources
-      parameters:
-        - name: registry_source_id
-          in: path
-          required: true
-          description: The unique identifier of the registry source
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Successfully retrieved the registry source.
-          content:
-            application/json:
-              schema:
-                title: Registry Source
-                type: object
-                required:
-                  - id
-                  - object
-                  - name
-                  - repositories
-                  - aarch64
-                  - x86_64
-                  - created_at
-                  - updated_at
-                properties:
-                  id:
-                    type: string
-                    example: reg_src_1234
-                  object:
-                    type: string
-                    example: registry_source
-                  name:
-                    type: string
-                    example: Ad Display V2.2.1
-                  repositories:
-                    title: Registry Source Container Repository List
-                    type: object
-                    required:
-                      - object
-                      - data
-                    properties:
-                      object:
-                        type: string
-                        example: list
-                      data:
-                        type: array
-                        items:
-                          type: object
-                          title: Registry Source Container Repository
-                          required:
-                            - object
-                            - id
-                            - registry_url
-                            - account_login
-                            - name
-                            - uri
-                            - type
-                            - is_extra
-                            - compose_service
-                          properties:
-                            object:
-                              type: string
-                              example: container_repository
-                            id:
-                              type: string
-                              example: cont_repo_123
-                            registry_url:
-                              type: string
-                              example: us-central1-docker.pkg.dev/container-integration
-                            account_login:
-                              type: string
-                              example: container-integration
-                            name:
-                              type: string
-                              example: django
-                            uri:
-                              type: string
-                              example: us-central1-docker.pkg.dev/container-integration/miru/django
-                            type:
-                              $ref: '#/paths/~1repositories~1container~1%7Bcontainer_repository_id%7D/get/responses/200/content/application~1json/schema/properties/type'
-                            is_extra:
-                              type: boolean
-                              example: true
-                            compose_service:
-                              type: string
-                              example: database
-                              nullable: true
-                  aarch64:
-                    type: boolean
-                    example: true
-                  x86_64:
-                    type: boolean
-                    example: false
-                  created_at:
-                    type: string
-                    format: date-time
-                    example: '2024-10-26 20:00:23.742537+00'
-                  updated_at:
-                    type: string
-                    format: date-time
-                    example: '2024-10-26 20:00:23.742537+00'
-    patch:
-      tags:
-        - Registry Sources
-      parameters:
-        - $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/get/parameters/0'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              title: Update Registry Source
-              type: object
-              required:
-                - name
-                - compose_file
-                - extra_repositories
-                - aarch64
-                - x86_64
-              properties:
-                name:
-                  type: string
-                  example: Ad Display V2.2.1
-                compose_file:
-                  type: string
-                  example: |-
-                    name: miru
-                    services:
-                      redis:
-                      image: redis:latest
-                      restart: always
-                extra_repositories:
-                  type: array
-                  items:
-                    type: string
-                  example:
-                    - docker.io/redis
-                    - us-central1-docker.pkg.dev/container-integration/miru/django
-                aarch64:
-                  type: boolean
-                  example: true
-                x86_64:
-                  type: boolean
-                  example: false
-      responses:
-        '200':
-          description: Successfully retrieved the registry source.
-          content:
-            application/json:
-              schema:
-                $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/get/responses/200/content/application~1json/schema'
-        '400':
-          description: The compose file is invalid.
-          content:
-            application/json:
-              schema:
-                title: InvalidComposeFileError
-                type: object
-                required:
-                  - code
-                  - params
-                  - message
-                properties:
-                  code:
-                    type: string
-                    example: invalid_compose_file
-                  params:
-                    type: object
-                    required:
-                      - error
-                    properties:
-                      error:
-                        type: string
-                        example: <descriptive error message>
-                  message:
-                    type: string
-                    example: 'Compose file is invalid: <descriptive error message>'
-        '404':
-          description: The repository does not exist.
-          content:
-            application/json:
-              schema:
-                title: RepositoryNotFoundError
-                type: object
-                required:
-                  - code
-                  - params
-                  - message
-                properties:
-                  code:
-                    type: string
-                    example: repository_not_found
-                  params:
-                    type: object
-                    required:
-                      - registry_type
-                      - registry_url
-                      - repository_name
-                      - uri
-                    properties:
-                      registry_type:
-                        type: string
-                        example: dockerhub
-                      registry_url:
-                        type: string
-                        example: docker.io
-                      repository_name:
-                        type: string
-                        example: redis
-                      uri:
-                        type: string
-                        example: docker.io/library/redis
-                  message:
-                    type: string
-                    example: Repository <repository-uri> (docker.io/library/redis) does not exist using the credentials from your workspace. Please double check the repository URI and the associated registry credentials.
-    delete:
-      tags:
-        - Registry Sources
-      parameters:
-        - $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/get/parameters/0'
-      responses:
-        '200':
-          description: Successfully deleted the registry source.
-          content:
-            application/json:
-              schema:
-                $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/get/responses/200/content/application~1json/schema'
-  '/sources/registry/{registry_source_id}/compose_file':
-    get:
-      tags:
-        - Registry Sources
-      parameters:
-        - $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/get/parameters/0'
-      responses:
-        '200':
-          description: Successfully retrieved the compose file for the registry source.
-          content:
-            application/json:
-              schema:
-                title: Compose File
-                required:
-                  - object
-                  - content
-                properties:
-                  object:
-                    type: string
-                    example: compose_file
-                  content:
-                    type: string
-                    example: |-
-                      name: miru
-                      services:
-                        redis:
-                        image: redis:latest
-                        restart: always
-  '/workspaces/{workspace_id}/sources/registry':
-    get:
-      tags:
-        - Registry Sources
-      parameters:
-        - $ref: '#/paths/~1workspaces~1%7Bworkspace_id%7D~1deploy/post/parameters/0'
-      responses:
-        '200':
-          description: Successfully retrieved the registry sources for the workspace.
-          content:
-            application/json:
-              schema:
-                title: Registry Source List
-                type: object
-                required:
-                  - object
-                  - data
-                properties:
-                  object:
-                    type: string
-                    example: list
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/get/responses/200/content/application~1json/schema'
-    post:
-      tags:
-        - Registry Sources
-      parameters:
-        - $ref: '#/paths/~1workspaces~1%7Bworkspace_id%7D~1deploy/post/parameters/0'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              title: Create Registry Source
-              type: object
-              required:
-                - name
-                - compose_file
-                - extra_repositories
-                - aarch64
-                - x86_64
-              properties:
-                name:
-                  type: string
-                  example: Ad Display V2.2.1
-                compose_file:
-                  type: string
-                  example: |-
-                    name: miru
-                    services:
-                      redis:
-                      image: redis:latest
-                      restart: always
-                extra_repositories:
-                  type: array
-                  items:
-                    type: string
-                  example:
-                    - docker.io/redis
-                    - us-central1-docker.pkg.dev/container-integration/miru/django
-                aarch64:
-                  type: boolean
-                  example: true
-                x86_64:
-                  type: boolean
-                  example: false
-      responses:
-        '200':
-          description: Successfully created the registry source for the workspace.
-          content:
-            application/json:
-              schema:
-                $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/get/responses/200/content/application~1json/schema'
-        '400':
-          $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/patch/responses/400'
-        '404':
-          $ref: '#/paths/~1sources~1registry~1%7Bregistry_source_id%7D/patch/responses/404'
-  '/repositories/container/{container_repository_id}':
-    get:
-      tags:
-        - Container Repositories
-      parameters:
-        - name: container_repository_id
-          in: path
-          required: true
-          description: The unique identifier of the container repository
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Successfully retrieved the repository.
-          content:
-            application/json:
-              schema:
-                title: Container Repository
-                type: object
-                required:
-                  - object
-                  - id
-                  - registry_url
-                  - account_login
-                  - name
-                  - uri
-                  - type
-                properties:
-                  object:
-                    type: string
-                    example: container_repository
-                  id:
-                    type: string
-                    example: cont_repo_123
-                  registry_url:
-                    type: string
-                    example: us-central1-docker.pkg.dev/container-integration
-                  account_login:
-                    type: string
-                    example: container-integration
-                  name:
-                    type: string
-                    example: django
-                  uri:
-                    type: string
-                    example: us-central1-docker.pkg.dev/container-integration/miru/django
-                  type:
-                    title: Container Repository Type
-                    type: string
-                    enum:
-                      - gar
-                      - dockerhub
-                    example: gar
-  '/integrations/dockerhub/{dockerhub_integration_id}/repositories/external':
-    get:
-      tags:
-        - Container Repositories
-      parameters:
-        - name: dockerhub_integration_id
-          in: path
-          required: true
-          description: The unique identifier of the dockerhub integration
-          schema:
-            type: string
-        - $ref: '#/paths/~1workspaces~1%7Bworkspace_id%7D~1repositories~1container~1external/get/parameters/1'
-      responses:
-        '200':
-          description: Successfully retrieved the repositories for the dockerhub integration.
-          content:
-            application/json:
-              schema:
-                $ref: '#/paths/~1workspaces~1%7Bworkspace_id%7D~1repositories~1container~1external/get/responses/200/content/application~1json/schema'
-  '/integrations/gar/{gar_integration_id}/repositories/external':
-    get:
-      tags:
-        - Container Repositories
-      parameters:
-        - name: gar_integration_id
-          in: path
-          required: true
-          description: The unique identifier of the google artifact registry integration
-          schema:
-            type: string
-        - $ref: '#/paths/~1workspaces~1%7Bworkspace_id%7D~1repositories~1container~1external/get/parameters/1'
-      responses:
-        '200':
-          description: Successfully retrieved the repositories for the google artifact registry integration.
-          content:
-            application/json:
-              schema:
-                $ref: '#/paths/~1workspaces~1%7Bworkspace_id%7D~1repositories~1container~1external/get/responses/200/content/application~1json/schema'
-  '/workspaces/{workspace_id}/repositories/container/external':
-    get:
-      tags:
-        - Container Repositories
-      parameters:
-        - $ref: '#/paths/~1workspaces~1%7Bworkspace_id%7D~1deploy/post/parameters/0'
-        - name: page_size
-          in: query
-          required: false
-          description: The number of items to return per page
-          schema:
-            type: integer
-            default: 25
-      responses:
-        '200':
-          description: Successfully retrieved the repositories for the workspace.
-          content:
-            application/json:
-              schema:
-                title: External Container Repository List
-                type: object
-                required:
-                  - object
-                  - data
-                properties:
-                  object:
-                    type: string
-                    example: list
-                  data:
-                    type: array
-                    items:
-                      title: External Container Repository
-                      type: object
-                      required:
-                        - object
-                        - registry_url
-                        - account_login
-                        - name
-                        - uri
-                        - type
-                        - description
-                        - bytes
-                      properties:
-                        object:
-                          type: string
-                          example: external_container_repository
-                        registry_url:
-                          type: string
-                          example: us-central1-docker.pkg.dev/container-integration
-                        account_login:
-                          type: string
-                          example: container-integration
-                        name:
-                          type: string
-                          example: django
-                        uri:
-                          type: string
-                          example: us-central1-docker.pkg.dev/container-integration/miru/django
-                        type:
-                          $ref: '#/paths/~1repositories~1container~1%7Bcontainer_repository_id%7D/get/responses/200/content/application~1json/schema/properties/type'
-                        description:
-                          type: string
-                          example: A repository for the miru/django image
-                          nullable: true
-                        bytes:
-                          type: integer
-                          format: int64
-                          description: The size of the repository in bytes
-                          example: 506406741
-                          nullable: true
-  /example/errors/400:
-    get:
-      description: This route doesn't actually exist. It's an example of a generic 400 error that any API route can return.
-      tags:
-        - Generic Errors
-      responses:
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                title: Error
-                type: object
-                required:
-                  - error
-                properties:
-                  error:
-                    title: Bad Request
-                    type: object
-                    required:
-                      - code
-                      - params
-                      - message
-                    properties:
-                      code:
-                        type: string
-                        example: <error_code>
-                      params:
-                        type: object
-                      message:
-                        type: string
-                        example: <error_message>
-  /example/errors/401:
-    get:
-      description: This route doesn't actually exist. It's an example of a generic 401 error that any API route can return.
-      tags:
-        - Generic Errors
-      responses:
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                title: Error
-                type: object
-                required:
-                  - error
-                properties:
-                  error:
-                    title: Unauthorized
-                    type: object
-                    required:
-                      - code
-                      - params
-                      - message
-                    properties:
-                      code:
-                        type: string
-                        example: invalid_clerk_auth
-                      params:
-                        type: object
-                      message:
-                        type: string
-                        example: Invalid Clerk authentication credentials
-  /example/errors/403:
-    get:
-      description: This route doesn't actually exist. It's an example of a generic 403 error that any API route can return.
-      tags:
-        - Generic Errors
-      responses:
-        '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                title: Error
-                type: object
-                required:
-                  - error
-                properties:
-                  error:
-                    title: Forbidden
-                    type: object
-                    required:
-                      - code
-                      - params
-                      - message
-                    properties:
-                      code:
-                        type: string
-                        example: forbidden
-                      params:
-                        type: object
-                        required:
-                          - identity_id
-                          - identity_type
-                          - permission
-                          - resource_id
-                          - resource_type
-                          - fix
-                        properties:
-                          identity_id:
-                            type: string
-                            example: <identity_id>
-                          identity_type:
-                            type: string
-                            example: <identity_type>
-                          permission:
-                            type: string
-                            example: <permission>
-                          resource_id:
-                            type: string
-                            example: <resource_id>
-                          resource_type:
-                            type: string
-                            example: <resource_type>
-                          fix:
-                            type: string
-                            example: <fix>
-                      message:
-                        type: string
-                        example: <identity_type> '<identity_id>' does not have '<permission>' permission for <resource_type> '<resource_id>'
-  /example/errors/404:
-    get:
-      description: This route doesn't actually exist. It's an example of a generic 404 error that any API route can return.
-      tags:
-        - Generic Errors
-      responses:
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                title: Error
-                type: object
-                required:
-                  - error
-                properties:
-                  error:
-                    title: Record Not Found
-                    type: object
-                    required:
-                      - code
-                      - params
-                      - message
-                    properties:
-                      code:
-                        type: string
-                        example: record_not_found
-                      params:
-                        type: object
-                        properties:
-                          record_id:
-                            type: string
-                            example: <record_id>
-                          record_type:
-                            type: string
-                            example: <record_type>
-                      message:
-                        type: string
-                        example: <record_type> '<record_id>' not found
+            example: cfg_sch_123
+      style: form
+      explode: true
+    git_repository_list:
+      name: repository[]
+      in: query
+      required: false
+      description: The repository to filter by
+      schema:
+        type: array
+        items:
+          type: string
+          example: miruml/backend
+      style: form
+      explode: true
+    branch_list:
+      name: branch[]
+      in: query
+      required: false
+      description: The branch to filter by
+      schema:
+        type: array
+        items:
+          type: string
+          example: main
+      style: form
+      explode: true
+    commit_sha_list:
+      name: commit_sha[]
+      in: query
+      required: false
+      description: The commit sha to filter by
+      schema:
+        type: array
+        items:
+          type: string
+          example: 1a2b3c4d
+      style: form
+      explode: true
+    parameters-order_by:
+      name: order_by
+      in: query
+      required: false
+      description: The field to order by and the direction. Format field:direction where direction is either 'asc' or 'desc'
+      schema:
+        type: string
+        enum:
+          - created_at:asc
+          - created_at:desc
+        example: created_at:desc
+    config_id:
+      name: config_id
+      in: path
+      required: true
+      description: The unique identifier of the config
+      schema:
+        type: string
+        example: cfg_123
+    config_schema_id:
+      name: config_schema_id
+      in: path
+      required: true
+      description: The unique identifier of the config schema
+      schema:
+        type: string
+        example: cfg_sch_123
+    components-parameters-order_by:
+      name: order_by
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - created_at:asc
+          - created_at:desc
+          - updated_at:asc
+          - updated_at:desc
+          - name:asc
+          - name:desc
+          - version:asc
+          - version:desc
+    git-commits_components-parameters-order_by:
+      name: order_by
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - created_at:asc
+          - created_at:desc
+          - updated_at:asc
+          - updated_at:desc
+    override_id:
+      name: override_id
+      in: path
+      required: true
+      description: The unique identifier of the override
+      schema:
+        type: string
+        example: ovrd_123
+    policy_id:
+      name: policy_id
+      in: path
+      required: true
+      description: The unique identifier of the policy
+      schema:
+        type: string
+        example: rlst_123
+    overrides_components-parameters-order_by:
+      name: order_by
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - created_at:asc
+          - created_at:desc
+          - updated_at:asc
+          - updated_at:desc
+          - hierarchy_position:asc
+          - hierarchy_position:desc
+          - name:asc
+          - name:desc
+    tag_type_id:
+      name: tag_type_id
+      in: path
+      required: true
+      description: The unique identifier of the tag type
+      schema:
+        type: string
+        example: tag_type_123
+    tag_id:
+      name: tag_id
+      in: path
+      required: true
+      description: The unique identifier of the tag
+      schema:
+        type: string
+        example: tag_123
+    tag_type_list:
+      name: tag_type[]
+      in: query
+      required: false
+      description: The tag type to filter by
+      schema:
+        type: array
+        items:
+          type: string
+          example: tag_type_123
+      style: form
+      explode: true
+    clerk_id:
+      name: clerk_id
+      in: path
+      required: true
+      description: The unique identifier of the user in Clerk
+      schema:
+        type: string
+        example: user_123
+  schemas:
+    BillingPlan:
+      type: string
+      enum:
+        - hobby
+        - startup
+        - enterprise
+      x-enum-varnames:
+        - BILLING_PLAN_HOBBY
+        - BILLING_PLAN_STARTUP
+        - BILLING_PLAN_ENTERPRISE
+    Workspace:
+      title: Workspace
+      type: object
+      required:
+        - object
+        - id
+        - name
+      properties:
+        object:
+          type: string
+          enum:
+            - workspace
+          example: workspace
+        id:
+          type: string
+          example: wrk_1234
+        name:
+          type: string
+          example: Acme, Inc.
+        billing_plan:
+          $ref: '#/components/schemas/BillingPlan'
+    User:
+      title: User
+      type: object
+      required:
+        - object
+        - id
+        - email
+        - first_name
+        - last_name
+        - created_at
+        - updated_at
+        - workspace_id
+        - workspace
+      properties:
+        object:
+          type: string
+          enum:
+            - user
+          example: user
+        id:
+          type: string
+          example: usr_1234
+        email:
+          type: string
+          example: ben@miruml.com
+        first_name:
+          type: string
+          example: Ben
+          nullable: true
+        last_name:
+          type: string
+          example: Smidt
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        workspace_id:
+          type: string
+          example: wks_1234
+        workspace:
+          allOf:
+            - $ref: '#/components/schemas/Workspace'
+          nullable: true
+          example: null
+    PaginatedList:
+      title: Paginated List
+      type: object
+      required:
+        - object
+        - total_count
+        - limit
+        - offset
+        - page
+        - next_page
+        - previous_page
+        - has_more
+        - data
+      properties:
+        object:
+          type: string
+          enum:
+            - list
+          example: list
+        total_count:
+          type: integer
+          format: int64
+          example: 15
+        limit:
+          type: integer
+          example: 25
+        offset:
+          type: integer
+          example: 0
+          nullable: true
+        next:
+          type: string
+          example: null
+          nullable: true
+        previous:
+          type: string
+          example: null
+          nullable: true
+        has_more:
+          type: boolean
+          example: false
+    TagType:
+      title: Tag Type
+      type: object
+      required:
+        - object
+        - id
+        - name
+        - created_at
+        - updated_at
+        - created_by_id
+        - updated_by_id
+        - created_by
+        - updated_by
+        - schema
+      properties:
+        object:
+          type: string
+          enum:
+            - tag_type
+          example: tag_type
+        id:
+          type: string
+          example: tag_type_123
+        name:
+          type: string
+          example: Customer
+          description: name of the tag type
+        created_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        created_by_id:
+          type: string
+          example: usr_123
+          nullable: true
+        updated_by_id:
+          type: string
+          example: usr_123
+          nullable: true
+        created_by:
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
+          example: null
+        updated_by:
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
+          example: null
+        schema:
+          type: object
+          example:
+            $schema: https://json-schema.org/draft/2020-12/schema
+            type: object
+            properties:
+              device_id:
+                type: string
+                tag_type_field_id: tag_type_field_123
+              speed:
+                type: integer
+                minimum: 1
+                default: 10
+                tag_type_field_id: tag_type_field_456
+            required:
+              - device_id
+              - speed
+    Tag:
+      title: Tag
+      type: object
+      required:
+        - object
+        - id
+        - name
+        - created_at
+        - updated_at
+        - created_by_id
+        - updated_by_id
+        - tag_type_id
+        - created_by
+        - updated_by
+        - tag_type
+        - metadata
+      properties:
+        object:
+          type: string
+          enum:
+            - tag
+          example: tag
+        id:
+          type: string
+          example: tag_123
+        name:
+          type: string
+          example: Apple
+        created_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        created_by_id:
+          type: string
+          example: usr_123
+          nullable: true
+        updated_by_id:
+          type: string
+          example: usr_123
+          nullable: true
+        tag_type_id:
+          type: string
+          example: tag_type_123
+        created_by:
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
+          example: null
+        updated_by:
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
+          example: null
+        tag_type:
+          allOf:
+            - $ref: '#/components/schemas/TagType'
+          nullable: true
+          example: null
+        metadata:
+          type: object
+          example:
+            device_id: device_123
+            speed: 10
+          nullable: true
+    TagList:
+      title: Tag List
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/PaginatedList'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Tag'
+    Client:
+      title: Client
+      type: object
+      required:
+        - object
+        - id
+        - name
+        - created_at
+        - updated_at
+        - created_by_id
+        - updated_by_id
+        - created_by
+        - updated_by
+        - tags
+      properties:
+        object:
+          type: string
+          enum:
+            - client
+          example: client
+        id:
+          type: string
+          example: cli_123
+        name:
+          type: string
+          example: My Client
+        created_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        created_by_id:
+          type: string
+          example: usr_123
+          nullable: true
+        updated_by_id:
+          type: string
+          example: usr_123
+          nullable: true
+        created_by:
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
+          example: null
+        updated_by:
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
+          example: null
+        tags:
+          allOf:
+            - $ref: '#/components/schemas/TagList'
+          nullable: true
+          example:
+            object: list
+            total_count: -1
+            limit: -1
+            page: -1
+            next_page: null
+            previous_page: null
+            has_more: false
+            data: []
+    UpdateClientRequest:
+      title: Update Client Request
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: Robot 1
+    ClientList:
+      title: Client List
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/PaginatedList'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Client'
+    CreateClientRequest:
+      title: Create Client Request
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: Robot 1
+    TagClientsRequest:
+      title: Add Clients to Tag Request
+      type: object
+      required:
+        - tags
+      properties:
+        tags:
+          type: array
+          items:
+            type: object
+            properties:
+              client_id:
+                type: string
+                example: cli_123
+              tag_id:
+                type: string
+                example: tag_123
+    DeleteClientTagsRequest:
+      title: Delete Clients from Tag Request
+      type: object
+      required:
+        - tags
+      properties:
+        tags:
+          type: array
+          items:
+            type: object
+            properties:
+              client_id:
+                type: string
+                example: cli_123
+              tag_id:
+                type: string
+                example: tag_123
+    ConfigSchema:
+      title: Config Schema
+      type: object
+      required:
+        - object
+        - id
+        - name
+        - version
+        - created_at
+        - updated_at
+        - digest
+        - created_by_id
+        - updated_by_id
+        - schema_id
+        - policy_id
+        - config_id
+        - created_by
+        - updated_by
+        - schema
+        - policy
+        - config
+        - git_commits
+      properties:
+        object:
+          type: string
+          enum:
+            - config_schema
+          example: config_schema
+        id:
+          type: string
+          example: cfg_sch_123
+        version:
+          type: integer
+          example: 2
+        created_at:
+          type: string
+          example: '2021-01-01T00:00:00Z'
+        updated_at:
+          type: string
+          example: '2021-01-01T00:00:00Z'
+        digest:
+          type: string
+          example: '1234567890'
+        created_by_id:
+          type: string
+          example: usr_123
+          nullable: true
+        updated_by_id:
+          type: string
+          example: usr_123
+          nullable: true
+        policy_id:
+          type: string
+          example: policy_123
+        config_id:
+          type: string
+          example: config_123
+        created_by:
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
+          example: null
+        updated_by:
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
+          example: null
+        schema:
+          type: object
+          example:
+            $schema: https://json-schema.org/draft/2020-12/schema
+            type: object
+            properties:
+              device_id:
+                type: string
+              speed:
+                type: integer
+                minimum: 1
+                default: 10
+            required:
+              - device_id
+              - speed
+          nullable: true
+        policy:
+          allOf:
+            - $ref: '#/components/schemas/Policy'
+          example: null
+        config:
+          allOf:
+            - $ref: '#/components/schemas/Config'
+          example: null
+        git_commits:
+          $ref: '#/components/schemas/GitCommitList'
+    ConfigSchemaList:
+      title: Base Config Schema List
+      allOf:
+        - $ref: '#/components/schemas/PaginatedList'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/ConfigSchema'
+    Policy:
+      title: Policy
+      type: object
+      required:
+        - object
+        - id
+        - name
+        - created_at
+        - updated_at
+        - created_by_id
+        - updated_by_id
+        - config_id
+        - created_by
+        - updated_by
+        - config
+        - schema
+        - overrides
+        - config_schemas
+      properties:
+        object:
+          type: string
+          enum:
+            - policy
+          example: policy
+        id:
+          type: string
+          example: policy_123
+        name:
+          type: string
+          example: My Policy
+        created_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        created_by_id:
+          type: string
+          example: usr_123
+          nullable: true
+        updated_by_id:
+          type: string
+          example: usr_123
+          nullable: true
+        config_id:
+          type: string
+          example: config_123
+        config:
+          allOf:
+            - $ref: '#/components/schemas/Config'
+          nullable: true
+          example: null
+        created_by:
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
+          example: null
+        updated_by:
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
+          example: null
+        schema:
+          type: object
+          example:
+            $schema: https://json-schema.org/draft/2020-12/schema
+            type: object
+            properties:
+              device_id:
+                type: string
+              speed:
+                type: integer
+                minimum: 1
+                default: 10
+            required:
+              - device_id
+              - speed
+        overrides:
+          allOf:
+            - $ref: '#/components/schemas/OverrideList'
+          nullable: true
+          example:
+            object: list
+            total_count: -1
+            limit: -1
+            page: -1
+            next_page: null
+            previous_page: null
+            has_more: false
+            data: []
+        config_schemas:
+          allOf:
+            - $ref: '#/components/schemas/ConfigSchemaList'
+          nullable: true
+          example:
+            object: list
+            total_count: -1
+            limit: -1
+            page: -1
+            next_page: null
+            previous_page: null
+            has_more: false
+            data: []
+    PolicyList:
+      title: PolicyList
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/PaginatedList'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Policy'
+    Config:
+      title: Config
+      type: object
+      required:
+        - object
+        - id
+        - name
+        - created_at
+        - updated_at
+        - created_by_id
+        - updated_by_id
+        - created_by
+        - updated_by
+        - schemas
+        - policies
+      properties:
+        object:
+          type: string
+          enum:
+            - config
+          example: config
+        id:
+          type: string
+          example: cfg_123
+        name:
+          type: string
+          example: My Config
+        created_at:
+          type: string
+          example: '2021-01-01T00:00:00Z'
+        updated_at:
+          type: string
+          example: '2021-01-01T00:00:00Z'
+        created_by_id:
+          type: string
+          example: usr_123
+          nullable: true
+        updated_by_id:
+          type: string
+          example: usr_123
+          nullable: true
+        created_by:
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
+          example: null
+        updated_by:
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
+          example: null
+        schemas:
+          allOf:
+            - $ref: '#/components/schemas/ConfigSchemaList'
+          nullable: true
+          example:
+            object: list
+            total_count: -1
+            limit: -1
+            page: -1
+            next_page: null
+            previous_page: null
+            has_more: false
+            data: []
+        policies:
+          allOf:
+            - $ref: '#/components/schemas/PolicyList'
+          nullable: true
+          example:
+            object: list
+            total_count: -1
+            limit: -1
+            page: -1
+            next_page: null
+            previous_page: null
+            has_more: false
+            data: []
+    List:
+      title: List
+      type: object
+      required:
+        - object
+        - data
+      properties:
+        object:
+          type: string
+          enum:
+            - list
+          example: list
+    TagTypeField:
+      title: Tag Type Field
+      type: object
+      required:
+        - object
+        - id
+        - field
+        - name
+        - created_at
+        - updated_at
+        - created_by_id
+        - updated_by_id
+        - created_by
+        - updated_by
+        - tag_type
+      properties:
+        object:
+          type: string
+          enum:
+            - tag_type_field
+          example: tag_type_field
+        id:
+          type: string
+          example: tag_type_field_123
+        field:
+          type: string
+          example: device_id
+        name:
+          type: string
+          example: Customer
+        created_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        created_by_id:
+          type: string
+          example: usr_123
+          nullable: true
+        updated_by_id:
+          type: string
+          example: usr_123
+          nullable: true
+        created_by:
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
+          example: null
+        updated_by:
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
+          example: null
+        tag_type:
+          allOf:
+            - $ref: '#/components/schemas/TagType'
+          nullable: true
+          example: null
+    OverrideKeyValuePairs:
+      title: OverrideKeyValuePairs
+      type: object
+      required:
+        - object
+        - id
+        - key
+        - created_at
+        - updated_at
+        - created_by_id
+        - updated_by_id
+        - tag_type_field_id
+        - created_by
+        - updated_by
+        - tag_type_field
+      properties:
+        object:
+          type: string
+          enum:
+            - override_key_value_pair
+          example: override_key_value_pair
+        id:
+          type: string
+          example: ovrd_kvp_123
+        key:
+          type: string
+          example: device_id
+        created_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        created_by_id:
+          type: string
+          example: user_123
+        updated_by_id:
+          type: string
+          example: user_123
+        tag_type_field_id:
+          type: string
+          example: tag_type_field_123
+        created_by:
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
+          example: null
+        updated_by:
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
+          example: null
+        tag_type_field:
+          allOf:
+            - $ref: '#/components/schemas/TagTypeField'
+          nullable: true
+    OverrideKeyValuePairList:
+      title: OverrideKeyValuePairList
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/List'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/OverrideKeyValuePairs'
+    Override:
+      title: Override
+      type: object
+      required:
+        - object
+        - id
+        - name
+        - hierarchy_position
+        - created_at
+        - updated_at
+        - created_by_id
+        - updated_by_id
+        - key_value_pairs_id
+        - created_by
+        - updated_by
+        - key_value_pairs
+      properties:
+        object:
+          type: string
+          enum:
+            - override
+          example: override
+        id:
+          type: string
+          example: override_123
+        name:
+          type: string
+          example: Customer Override
+        hierarchy_position:
+          type: integer
+          example: 3
+        created_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        created_by_id:
+          type: string
+          example: user_123
+        updated_by_id:
+          type: string
+          example: user_123
+        created_by:
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
+          example: null
+        updated_by:
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
+          example: null
+        key_value_pairs:
+          $ref: '#/components/schemas/OverrideKeyValuePairList'
+    OverrideList:
+      title: OverrideList
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/PaginatedList'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Override'
+    GitCommit:
+      title: Git Commit
+      type: object
+      required:
+        - id
+        - commit_sha
+        - commit_message
+        - branch
+        - repository
+        - origin
+        - repo_filepath
+        - url
+        - created_at
+        - updated_at
+        - created_by_id
+        - updated_by_id
+        - created_by
+        - updated_by
+      properties:
+        object:
+          type: string
+          enum:
+            - git_commit
+          example: git_commit
+        id:
+          type: string
+          example: git_commit_123
+        commit_sha:
+          type: string
+          example: '1234567890'
+        commit_message:
+          type: string
+          example: Add basic motion configurations
+        branch:
+          type: string
+          example: main
+        repository:
+          type: string
+          example: user/repo
+        origin:
+          type: string
+          example: git@github.com:user/repo.git
+        repo_filepath:
+          type: string
+          example: /path/to/config.yaml
+        url:
+          type: string
+          example: https://github.com/user/repo/blob/main/path/to/config.yaml
+        created_at:
+          type: string
+          example: '2021-01-01T00:00:00Z'
+        updated_at:
+          type: string
+          example: '2021-01-01T00:00:00Z'
+        created_by_id:
+          type: string
+          example: usr_123
+          nullable: true
+        updated_by_id:
+          type: string
+          example: usr_123
+          nullable: true
+        created_by:
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
+          example: null
+        updated_by:
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
+          example: null
+    GitCommitList:
+      title: Git Commit List
+      allOf:
+        - $ref: '#/components/schemas/PaginatedList'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/GitCommit'
+    ConcreteConfig:
+      title: Concrete Config
+      type: object
+      required:
+        - object
+        - id
+        - created_at
+        - created_by_id
+        - client_id
+        - schema_id
+        - created_by
+        - client
+        - schema
+        - configuration
+      properties:
+        object:
+          type: string
+          enum:
+            - concrete_config
+          example: concrete_config
+        id:
+          type: string
+          example: cncr_cfg_123
+        created_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        created_by_id:
+          type: string
+          example: usr_123
+          nullable: true
+        client_id:
+          type: string
+          example: cli_123
+        schema_id:
+          type: string
+          example: cfg_sch_123
+        created_by:
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
+          example: null
+        client:
+          allOf:
+            - $ref: '#/components/schemas/Client'
+          nullable: true
+          example: null
+        schema:
+          allOf:
+            - $ref: '#/components/schemas/ConfigSchema'
+          nullable: true
+          example: null
+        configuration:
+          type: object
+          example:
+            device_id: device_23jt0321p9123434gsdf
+            speed: 100
+          nullable: true
+    ConcreteConfigList:
+      title: Concrete Config List
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/PaginatedList'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/ConcreteConfig'
+    UpdateConfigRequest:
+      title: UpdateConfigRequest
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: My Config
+    ConfigList:
+      title: ConfigList
+      allOf:
+        - $ref: '#/components/schemas/PaginatedList'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Config'
+    CreateConfigRequest:
+      title: CreateConfigRequest
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: My Config
+    UpdateConfigSchemaRequest:
+      title: UpdateConfigSchemaRequest
+      type: object
+      required:
+        - name
+        - policy_id
+      properties:
+        name:
+          type: string
+        policy_id:
+          type: string
+          example: policy_123
+    CreateConfigSchemaRequest:
+      title: Create Config Schema Request
+      type: object
+      required:
+        - name
+        - schema
+        - git_commit
+        - git_branch
+        - git_origin
+        - git_repository_filepath
+      properties:
+        name:
+          type: string
+          example: Robot 1
+        schema:
+          type: object
+          example:
+            $schema: https://json-schema.org/draft/2020-12/schema
+            type: object
+            properties:
+              device_id:
+                type: string
+              speed:
+                type: integer
+                minimum: 1
+                default: 10
+            required:
+              - device_id
+              - speed
+        git_commit:
+          type: string
+          example: '1234567890'
+        git_branch:
+          type: string
+          example: main
+        git_origin:
+          type: string
+          example: https://github.com/robot1/robot1.git
+        git_repository_filepath:
+          type: string
+          example: robot1/robot1.json
+    UpdateOverrideRequest:
+      title: Update Override
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the override
+        key_value_pairs:
+          type: object
+          description: The key value pairs to override
+          properties:
+            id:
+              type: string
+              example: ovrd_kvp_123
+            key:
+              type: string
+              example: calibrations.offset.x
+            tag_type_field_id:
+              type: string
+              example: tag_type_fld_123
+    CreateOverrideRequest:
+      title: Create Override
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the override
+        key_value_pairs:
+          type: object
+          description: The key value pairs to override
+          properties:
+            id:
+              type: string
+              example: ovrd_kvp_123
+            key:
+              type: string
+              example: calibrations.offset.x
+            tag_type_field_id:
+              type: string
+              example: tag_type_fld_123
+    UpdatePolicyRequest:
+      title: Update Policy
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the policy
+        schema:
+          type: object
+          example:
+            $schema: https://json-schema.org/draft/2020-12/schema
+            type: object
+            properties:
+              device_id:
+                type: string
+              speed:
+                type: integer
+                minimum: 1
+                default: 10
+            required:
+              - device_id
+              - speed
+    CreatePolicyRequest:
+      title: Create Policy
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the policy
+        schema:
+          type: object
+          example:
+            $schema: https://json-schema.org/draft/2020-12/schema
+            type: object
+            properties:
+              device_id:
+                type: string
+              speed:
+                type: integer
+                minimum: 1
+                default: 10
+            required:
+              - device_id
+              - speed
+        config_id:
+          type: string
+          example: cfg_123
+    UpdateTagTypeRequest:
+      title: Update Tag Type Request
+      type: object
+      required:
+        - name
+        - schema
+      properties:
+        name:
+          type: string
+          example: Customer
+        schema:
+          type: object
+          example:
+            $schema: https://json-schema.org/draft/2020-12/schema
+            type: object
+            properties:
+              device_id:
+                type: string
+                tag_type_field_id: tag_type_field_123
+              speed:
+                type: integer
+                minimum: 1
+                default: 10
+                tag_type_field_id: tag_type_field_456
+            required:
+              - device_id
+              - speed
+    TagTypeList:
+      title: Tag Type List
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/PaginatedList'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/TagType'
+    CreateTagTypeRequest:
+      title: Create Tag Type Request
+      type: object
+      required:
+        - name
+        - schema
+      properties:
+        name:
+          type: string
+          example: Customer
+        schema:
+          type: object
+          example:
+            $schema: https://json-schema.org/draft/2020-12/schema
+            type: object
+            properties:
+              device_id:
+                type: string
+              speed:
+                type: integer
+                minimum: 1
+                default: 10
+            required:
+              - device_id
+              - speed
+    UpdateTagRequest:
+      title: Update Tag Request
+      type: object
+      required:
+        - metadata
+      properties:
+        metadata:
+          type: object
+          example:
+            device_id: device_123
+            speed: 10
+    CreateTagRequest:
+      title: Create Tag Request
+      type: object
+      required:
+        - name
+        - metadata
+      properties:
+        name:
+          type: string
+          example: Apple
+        metadata:
+          type: object
+          example:
+            device_id: device_123
+            speed: 10
+    UpdateUserRequest:
+      title: Update User Request
+      type: object
+      required:
+        - first_name
+        - last_name
+        - use_case
+        - onboarded
+      properties:
+        first_name:
+          type: string
+          example: Ben
+        last_name:
+          type: string
+          example: Smidt
+        use_case:
+          type: string
+          example: developer
+        onboarded:
+          type: boolean
+          example: true
+    UpdateWorkspaceRequest:
+      title: Update Workspace Request
+      type: object
+      required:
+        - name
+        - billing_plan
+      properties:
+        name:
+          type: string
+          example: Acme, Inc.
+        billing_plan:
+          $ref: '#/components/schemas/BillingPlan'
