@@ -27,31 +27,7 @@
                   "pages/core-concepts/deploying-configs"
                 ]
               },
-              "pages/vocabulary",
-              {
-                "group": "Getting Started",
-                "pages": [
-                  "pages/getting-started/overview",
-                  "pages/getting-started/install-cli",
-                  "pages/getting-started/example-app",
-                  "pages/getting-started/setup-sdk",
-                  "pages/getting-started/create-a-config-schema",
-                  "pages/getting-started/create-a-client",
-                  "pages/getting-started/create-a-tag",
-                  "pages/getting-started/create-a-policy",
-                  "pages/getting-started/deploy"
-                ]
-              }
-            ]
-          },
-          {
-            "group": "Guides",
-            "pages": [
-              "pages/guides/sdk",
-              "pages/guides/cli",
-              "pages/guides/tags",
-              "pages/guides/policies",
-              "pages/guides/config-schemas"
+              "pages/vocabulary"
             ]
           }
         ]
@@ -68,10 +44,6 @@
             ]
           }
         ]
-      },
-      {
-        "tab": "API",
-        "openapi": "./api/openapi.yaml"
       }
     ]
   },

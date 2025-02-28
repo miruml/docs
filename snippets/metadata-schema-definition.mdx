@@ -1,13 +1,13 @@
 A **metadata schema** defines the constraints on the metadata. As with a config schema, metadata schemas are written in a configuration language like JSON Schema. So the following JSON Schema is a plausible metadata schema for the `robot_id` metadata we associated with our client in the previous section.
 
 <Accordion title="Client Metadata Schema Example">
-  <img height="200" src="/images/core-concepts/client-metadata-schema.png" style={{borderRadius: '7px'}}/>
+  <img height="200" src="/images/vocabulary/client-metadata-schema.png" style={{borderRadius: '7px'}}/>
 </Accordion>
 
 Miru requires every tag type to have a metadata schema, describing what constitutes valid metadata for any tag of that tag type. For instance, your `hardware` tag type may have the following metadata schema to specify the features (jump, spin, backflip) supported by your hardware:
 
 <Accordion title="Hardware Tag Type Metadata Schema Example">
-  <img src="/images/core-concepts/hardware-tag-type-metadata-schema.png" style={{borderRadius: '7px'}}/>
+  <img src="/images/vocabulary/hardware-tag-type-metadata-schema.png" style={{borderRadius: '7px'}}/>
 </Accordion>
 
 Any tags of the `hardware` tag type can only store metadata that adheres to the `hardware` metadata schema.

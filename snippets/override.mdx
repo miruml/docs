@@ -1,6 +1,6 @@
 The second part of a policy is its overrides. An **override** references tag metadata that "overrides" the current evaluation of a policy. Here is a `hardware` override example.
 
-<img height="200" src="/images/core-concepts/hardware-override.png" style={{borderRadius: '7px'}}/>
+<img height="200" src="/images/vocabulary/hardware-override.png" style={{borderRadius: '7px'}}/>
 
 On the left is the default values placed in our policy schema. On the right is the hardware override, which references the `supports_jump`, `supports_spin`, and `supports_backflip` fields in the metadata schema for the `hardware` tag type. An override does not need to specify all the fields in a policy schema, only a subset of the policy schema fields. However it cannot specify fields that are not present in the policy schema.
 
@@ -8,6 +8,6 @@ Given a particular tag we'd be able to evaluate the metadata values for the `sup
 
 Overrides are chained together in a hierarchical manner to define a policy's evaluation of a concrete config for a client. The client's tags are used to determine the specific values referenced by an override.
 
-<img height="200" src="/images/core-concepts/policy-override.png" style={{borderRadius: '7px'}}/>
+<img height="200" src="/images/vocabulary/policy-override.png" style={{borderRadius: '7px'}}/>
 
 By combining tags with overrides, policies grant a concise yet flexible way to deploy different configurations to each of your clients.

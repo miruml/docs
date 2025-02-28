@@ -111,57 +111,90 @@ required: [device_id, speed, features, accelerometer]
 </Accordion>
 
 ## Local Development 
-Miru provides an [SDK](/pages/guides/sdk) for deploying concrete configs to your devices in production. 
+Miru provides an [SDK](/pages/guides/sdk) for deploying concrete configs to your devices in production. We'll cover this more in depth later but the key point to know here is that the SDK pulls concrete configs from the cloud.
 
 <CodeGroup>
 ```python Python
-[INSERT CODE]
+motion_control_config = client.get_config(
+    slug="motion-control-config",
+    schema_file="./config-schemas/motion-control-schema.yaml",
+)
 ```
 
 ```rust Rust
-[INSERT CODE]
+let motion_control_config = client.get_config(
+    "motion-control-config",
+    "./config-schemas/motion-control-schema.yaml"
+);
 ```
 
 ```cpp C++
-[INSERT CODE]
+auto motion_control_config = client->getConfig(
+    "motion-control-config",
+    "./config-schemas/motion-control-schema.yaml"
+);
 ```
 </CodeGroup>
 
-It's critical that an SDK allows you to easily iterate through concrete config values in your local development environment while providing a production-ready interface for deployment. The SDK accepts a boolean argument to determine whether it should use the concrete config values defined on the local file system (development) or fetch them from the cloud (production).
+However, it's critical that an SDK allows you to easily iterate through concrete config values in your local development environment as well. The SDK accepts a boolean argument to determine whether it should use a file on the local file system (development) or fetch values from the cloud (production).
 
 <CodeGroup>
 ```python Python
-[INSERT CODE]
+motion_control_config = client.get_config(
+    # ... other parameters that don't matter for development
+    development_file="./configs/motion-control-config.yaml",
+    development=true,
+)
 ```
 
 ```rust Rust
-[INSERT CODE]
+let motion_control_config = client.get_config(
+    // ... other parameters that don't matter for development
+    "./configs/motion-control-config.yaml",
+    true,
+);
 ```
 
 ```cpp C++
-[INSERT CODE]
+auto motion_control_config = client->getConfig(
+    // ... other parameters that don't matter for development
+    "./configs/motion-control-config.yaml",
+    true,
+);
 ```
 </CodeGroup>
 
-This allows you to quickly change concrete config values in your local development environment while reading in the concrete config values from the cloud in production.
+This allows you to quickly iterate through values in development using a file on your filesystem while providing the same interface for fetching config values from the cloud in production.
 
-You are not required to use the config values of the Miru SDK directly when in production. Instead you can have the SDK update a file on the filesystem with the desired config. 
+It's important to note that, although not recommended, you are not required to use the config values returned by the Miru SDK in production either. Instead you can tell the SDK to update a file on your filesystem with the desired config. 
 
 <CodeGroup>
 ```python Python
-[INSERT CODE]
+client.write_config(
+    slug="motion-control-config",
+    schema_file="./path/to/config/schema.yaml",
+    dest_file="./path/to/place/config.yaml",
+)
 ```
 
 ```rust Rust
-[INSERT CODE]
+client.write_config(
+    "motion-control-config",
+    "./config-schemas/motion-control-schema.yaml",
+    "./configs/motion-control-config.yaml",
+)
 ```
 
 ```cpp C++
-[INSERT CODE]
+client->writeConfig(
+    "motion-control-config",
+    "./path/to/config/schema.yaml",
+    "./path/to/place/config.yaml",
+);
 ```
 </CodeGroup>
 
-Then you can then read the concrete config from the file system as normal, whether in development or production.
+If using this method, you can update a file with a concrete config and then read the concrete config from the file system in your code as normal.
 
 ## Uploading the Config Schema
 
@@ -191,6 +224,6 @@ Schema is now available for use in production deployments.
 
 After running `miru upload`, you'll be able to see your config schema in the Miru dashboard along with the git information and the version number.
 
-<img src="/images/product-outline/motion-control-schema-list.png" style={{borderRadius: '7px'}}/>
+<img src="/images/core-concepts/motion-control-schema-list.png" style={{borderRadius: '7px'}}/>
 
 We recommend using the `miru upload` command in your CI pipeline to automatically upload your config schemas to Miru. Miru will know if a config schema has changed and will not create new a config schema if it has already been uploaded in a previous commit.
