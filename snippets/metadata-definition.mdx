@@ -1,11 +1,9 @@
-**Metadata** is data that is stored about a particular client or tag. Maybe your robot can only support certain features based on the hardware it is running. You can store this information as metadata for each tag in your `hardware` tag type. For example, maybe your robots running the `NVIDIA Jetson Orin Nano` hardware type can only support the `jump` and `spin` features but not the `backflip` feature. You can store this information as metadata in Miru.
+**Metadata** is data stored about a particular client or tag. Maybe your robot can only support certain features based on the hardware it is running. You can store this information as metadata for each tag in your `hardware` tag type. 
 
-<Accordion title="Hardware Tag Metadata Example">
-  <img height="200" src="/images/vocabulary/jetson-orin-nano-tag-metadata.png" style={{borderRadius: '7px'}}/>
-</Accordion>
+For example, maybe your robots running the `NVIDIA Jetson Orin Nano` hardware type can only support the `jump` and `spin` features but not the `backflip` feature. You can store this information as metadata in Miru.
+
+<img height="200" src="/images/vocabulary/jetson-orin-nano-tag-metadata.png" style={{borderRadius: '7px'}}/>
 
 Similarly you may want to store data that is unique to each of your clients, such as an ID. Miru allows you to store arbitrary metadata for each client as well. Here we're storing `robot_id` as metadata for our client.
 
-<Accordion title="Client Metadata Example">
-  <img height="200" src="/images/vocabulary/client-metadata.png" style={{borderRadius: '7px'}}/>
-</Accordion>
+<img height="200" src="/images/vocabulary/client-metadata.png" style={{borderRadius: '7px'}}/>

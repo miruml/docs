@@ -55,4 +55,6 @@ required: [device_id, speed, features, accelerometer]
 ```
 </Accordion>
 
-Although config schemas and policy schemas interact with each other, they serve different purposes. As mentioned above, config schemas refer to a policy for evaluating a concrete config for a client. Config schemas can only refer to a policy if the config schema is compatible with the policy's schema. Thus, the policy schema constrains the output of a policy to ensure it is compatible with any config schemas using the policy.
+Although config schemas and policy schemas interact with each other, they serve different purposes. 
+
+Config schemas refer to a policy for evaluating a concrete config for a client. Config schemas can only refer to a policy if the config schema is compatible with the policy's schema. Thus, the policy schema constrains the output of a policy to ensure it is compatible with any config schemas using the policy.

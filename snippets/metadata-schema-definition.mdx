@@ -1,15 +1,13 @@
-A **metadata schema** defines the constraints on the metadata. As with a config schema, metadata schemas are written in a configuration language like JSON Schema. So the following JSON Schema is a plausible metadata schema for the `robot_id` metadata we associated with our client in the previous section.
+A **metadata schema** defines the constraints on the metadata. As with a config schema, metadata schemas are written in a configuration language like JSON Schema. 
 
-<Accordion title="Client Metadata Schema Example">
-  <img height="200" src="/images/vocabulary/client-metadata-schema.png" style={{borderRadius: '7px'}}/>
-</Accordion>
+The following JSON Schema is a plausible metadata schema for the `robot_id` metadata we associated with our client in the previous section.
+
+<img height="200" src="/images/vocabulary/client-metadata-schema.png" style={{borderRadius: '7px'}}/>
 
 Miru requires every tag type to have a metadata schema, describing what constitutes valid metadata for any tag of that tag type. For instance, your `hardware` tag type may have the following metadata schema to specify the features (jump, spin, backflip) supported by your hardware.
 
-<Accordion title="Hardware Tag Type Metadata Schema Example">
-  <img src="/images/vocabulary/hardware-tag-type-metadata-schema.png" style={{borderRadius: '7px'}}/>
-</Accordion>
+<img src="/images/vocabulary/hardware-tag-type-metadata-schema.png" style={{borderRadius: '7px'}}/>
 
 Any tags of the `hardware` tag type can only store metadata that adheres to the `hardware` metadata schema.
 
-Metadata schemas look eerily similar to config schemas but they serve different purposes. A metadata schema does not describe or enforce any constraints on the concrete configs that are consumed by clients. Metadata schemas are only used for describing what constitutes valid metadata, effectively structuring the metadata stored for clients and tags. 
+Metadata schemas look eerily similar to config schemas but they serve different purposes. A metadata schema does not describe or enforce any constraints on the concrete configs that are deployed to clients. Metadata schemas are only used for describing what constitutes valid metadata, effectively structuring the metadata stored for clients and tags. 

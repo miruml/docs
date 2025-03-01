@@ -1,24 +1,27 @@
 ---
-title: 'Defining Schemas'
+title: 'Creating Schemas'
 ---
 
 import ConcreteConfigDefinition from '/snippets/concrete-config-definition.mdx';
 import ConfigDefinition from '/snippets/config-definition.mdx';
 import ConfigSchemaDefinition from '/snippets/config-schema-definition.mdx';
 
-To begin we need to cover some terminology surrounding configurations.
+To begin we need to define Miru's vocabulary surrounding configurations.
 
-## Terminology
+## Vocabulary
 
+### Concrete Configs
 <ConcreteConfigDefinition />
 
+### Config Schemas
 <ConfigSchemaDefinition />
 
+### Configs
 <ConfigDefinition />
 
 With these definitions out of the way, let's begin.
 
-## Defining Config Schemas
+## Creating Config Schemas
 
 Miru requires you to define a config schema to deploy a config. These schemas are used to validate concrete configs before they are deployed, effectively preventing runtime application errors. Config schemas **live in your git repository** (preferably in the same repository as the code consuming the config) to minimize versioning errors between code and configurations.
 
@@ -196,7 +199,7 @@ client->writeConfig(
 
 If using this method, you can update a file with a concrete config and then read the concrete config from the file system in your code as normal.
 
-## Uploading the Config Schema
+## Uploading a Config Schema
 
 You've finished a sprint and are ready to deploy your code and configurations to your fleet. The first step is uploading your config schemas to the cloud. Miru provides a [CLI](/pages/guides/cli) to accomplish this.
 

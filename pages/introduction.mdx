@@ -18,18 +18,32 @@ Robots have a plethora of application configurations stemming from various sourc
 These configurations quickly become difficult to manage on a variety of dimensions.
 
 ### Complex Groupings
-Many configurations are shared by different groupings of robots in your fleet. For example, certain functionality may be enabled or disabled for a given robot depending on the hardware variant, customer, or test environment that the robot belongs to. These variations often overlap in complex ways. Hardware variants may be spread across different customers and customers may opt in to be beta testers for early releases. These complex relationships make it difficult to express the configurations a robot should have as well as safely alter the configurations for robots in your fleet. 
+Many configurations are shared by different groupings of robots in your fleet. For example, certain functionality may be enabled or disabled for a given robot depending on the hardware variant, customer, or test environment that the robot belongs to. 
+
+These variations often overlap in complex ways. Hardware variants may be spread across different customers and customers may opt in to be beta testers for early releases. 
+
+These complex relationships make it difficult to express the configurations a robot should have as well as safely alter the configurations for robots in your fleet. 
 
 ### Configuration Volume
-Robots often require unique configurations, especially calibrations for end effectors and grippers. With such volume, associating robots with their correct calibration data can be tricky and error prone. Even more, determining information about the configurations currently in use by your fleet, how those configurations have changed over time, and how configurations compare between robots in your fleet becomes a difficult task (even with only 10 or 20 robots). 
+Robots often require unique configurations, especially calibrations for end effectors and grippers. With such volume, associating robots with their correct calibration data can be tricky and error prone. 
+
+Even more, determining information about the configurations currently in use by your fleet, how those configurations have changed over time, and how configurations compare between robots in your fleet becomes a difficult task (even with only 10 or 20 robots). 
 
 ### Robot as the Source of Truth
-For many robotics teams, the robot serves as the source of truth for configurations. While many configurations may be defined in the cloud and deployed to the fleet, some configurations are locally edited on a robot and later backed up to the cloud. For instance, robots may be recalibrated at some regular interval. This data is first stored directly on the device and then later backed up to the cloud (if at all). 
+For many robotics teams, the robot serves as the source of truth for configurations. While many configurations may be defined in the cloud and deployed to the fleet, some configurations are locally edited on a robot and later backed up to the cloud. 
 
-Furthermore, it's expected that robots lose internet connection so configurations that are locally edited on a robot cannot always be immediately synced to the cloud. This requires an involved syncing mechanism so that locally edited configurations are synced to the cloud and configurations set in the cloud are synced to the robot. Tracking the history of configurations and who made them thus becomes more challenging due to the origins of configurations in both the cloud and on the robot.
+For instance, robots may be recalibrated at some regular interval. This data is first stored directly on the device and then later backed up to the cloud (if at all). 
+
+Furthermore, it's expected that robots lose internet connection so configurations that are locally edited on a robot cannot always be immediately synced to the cloud. This requires an involved syncing mechanism so that locally edited configurations are synced to the cloud and configurations set in the cloud are synced to the robot. 
+
+Tracking the history of configurations and who made them thus becomes more challenging due to the origins of configurations in both the cloud and on the robot.
 
 ### User Facing Configurations
-A final dimension of complexity is the need to expose configurations to users of a robot. While this is wildly use case dependent, it's not uncommon for users to be able to change configurations on a robot that affect the robot's behavior. This adds another layer to tracking the history of configurations and who made them as third parties (namely your users) are now involved as well. Questions about who is even allowed to change a configuration become more pressing. More interesting product questions around what configurations users are selecting and how the performance of a robot is affected by certain configurations begin to surface as well.
+A final dimension of complexity is the need to expose configurations to users of a robot. While this is wildly use case dependent, it's not uncommon for users to be able to change configurations on a robot that affect the robot's behavior.
+
+This adds another layer to tracking the history of configurations and who made them as third parties (namely your users) are now involved as well. Questions about who is even allowed to change a configuration become more pressing. 
+
+More interesting product questions around what configurations users are selecting and how the performance of a robot is affected by certain configurations begin to surface as well.
 
 ## Miru's Solution
 Miru is a purpose-built solution for managing the complexities of application configurations in robotics. We put the developer first, prioritizing simplicity and developer experience. As brief primer, there are four stages in the lifecycle of configuration management with Miru.
@@ -42,8 +56,8 @@ We recommend you begin with the [core concepts](/pages/core-concepts). This will
 
 If you're ready to get your hands dirty, we still recommend reading through the [core concepts](/pages/core-concepts) first before following the [getting started](/pages/getting-started) guide.
 
-For detailed guides on using specific parts of Miru, refer to the [guides](/pages/guides) section.
+{/* For detailed guides on using specific parts of Miru, refer to the [guides](/pages/guides) section. */}
 
 For information on the Miru SDK for a particular language, refer to the [SDK reference](/pages/sdk-reference) for that particular language.
 
-For information on using Miru's REST API, refer to the [REST API reference](/api-reference).
+{/* For information on using Miru's REST API, refer to the [REST API reference](/api-reference). */}

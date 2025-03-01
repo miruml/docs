@@ -94,7 +94,9 @@ auto motion_control_config = client->getConfig(
 ```
 </CodeGroup>
 
-The second input is the desired config schema's contents. When you upload a config schema to Miru, SHA-256 is used to generate a hash of the config schema's content, known as the config schema's digest. Together the config slug and the digest uniquely identify the config schema being requested by the SDK in the cloud. In turn, this config schema references a policy which specifies the evaluation logic for a client's concrete config.
+The second input is the desired config schema's contents. When you upload a config schema to Miru, SHA-256 is used to generate a hash of the config schema's content, known as the config schema's digest. 
+
+Together the config slug and the digest uniquely identify the config schema being requested by the SDK in the cloud. In turn, this config schema references a policy which specifies the evaluation logic for a client's concrete config.
 
 <img height="200" src="/images/core-concepts/motion-control-schema-list-zoomed.png" style={{borderRadius: '7px'}}/>
 
@@ -104,7 +106,9 @@ Here we see config schema version `v8` referencing policy version `v4`. Using th
 
 The upshot of all this is that to pull the proper concrete config, you simply need to pass the SDK the config schema contents and the the config slug (the SDK authentication will properly identify the client). Since your config schema is already in your codebase, passing in the config schema contents is trivial and the config slug is just a string identifier defined by you that rarely changes, if at all.
 
-When deploying a new version of code that has a breaking schema change, the SDK will simply pull the correct concrete config from the cloud by evaluating the config schema / config slug pair defined in the code. Thus, configs are trivially versioned in lockstep with your code. No complicated deployment pipeline attempting to deploy configs with compatible code versions.
+When deploying a new version of code that has a breaking schema change, the SDK will simply pull the correct concrete config from the cloud by evaluating the config schema / config slug pair defined in the code. 
+
+This trivially versions your configurations in lockstep with your code. No complicated deployment pipeline attempting to deploy configs with compatible code versions.
 
 ## Networking & Caching 
 It's expected that your clients will not have a constant internet connection. To account for this, the SDK caches its concrete configs in both memory and disk. The SDK will simply return the latest known cache values for a config while the network is offline and will update the cache as soon as the network is available.

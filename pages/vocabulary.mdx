@@ -6,6 +6,7 @@ import ClientDefinition from '/snippets/client-definition.mdx';
 import ConcreteConfigDefinition from '/snippets/concrete-config-definition.mdx';
 import ConfigDefinition from '/snippets/config-definition.mdx';
 import ConfigSchemaDefinition from '/snippets/config-schema-definition.mdx';
+import SchemaLanguages from '/snippets/schema-languages.mdx';
 import MetadataDefinition from '/snippets/metadata-definition.mdx';
 import MetadataSchemaDefinition from '/snippets/metadata-schema-definition.mdx';
 import Override from '/snippets/override.mdx';
@@ -22,13 +23,7 @@ This page defines the key terminology used in Miru and should be used as a quick
 
 ## Config Schema
 <ConfigSchemaDefinition />
-
-Miru officially supports JSON Schema, which is widely used and supports [code generation](https://quicktype.io/) in a variety of languages. However, we will be adding support for other configuration languages in the near future. Here are some popular ones:
-- [CUE Language](https://cuelang.org/)
-- [Pkl](https://pkl-lang.org/index.html)
-- [Type Schema](https://typeschema.org/)
-- [JSON Type Definition](https://jsontypedef.com/)
-- [Dhall](https://dhall-lang.org/)
+<SchemaLanguages />
 
 ## Config
 <ConfigDefinition />

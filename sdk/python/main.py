@@ -10,11 +10,9 @@ def main():
     )
 
     motion_control_config: Config[MotionControl] = client.init_config(
-        slug="Motion Control Config",
+        slug="motion-control-config",
         schema_file="./path/to/development/file",
         data=MotionControl,
-        development=True,
-        development_file="./path/to/development/file",
     )
 
     # Retrieve data from the config
