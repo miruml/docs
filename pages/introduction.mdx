@@ -8,42 +8,42 @@ import MiruWorkflowOverview from '/snippets/miru-workflow-overview.mdx';
 Welcome! Miru is an application configuration management solution for robotics teams. We provide tools for engineers to define, deploy, and manage application configurations for their robots.
 
 ## Difficulties of Configurations
-Robots have a plethora of application configurations stemming from various sources. Here are some of the most common.
+Robots rely on application configurations stemming from a variety of sources. Some common types include:
 
-- **Calibrations** - various end effectors, grippers, sensors, etc., require calibrations unique to each unit.
-- **Hardware Variability** - robots may run on different devices or systems, requiring configurations to set the appropriate software dependencies and functionalities the hardware supports.
-- **User Preferences** - end users of a robot may require (or desire) different robot behaviors.
-- **Testing & Development** - testing, beta, and production robots use configurations to test and roll out new features.
+- **Calibrations**: Each end effector, gripper, and sensor requires unique calibration settings.
+- **Hardware Variability**: Hardware variants use configurations to set the appropriate software dependencies and functionalities supported by the hardware.
+- **User Preferences**: End users may require different settings.
+- **Testing & Development**: Test beds and beta robots leverage configurations for feature flagging and experimentation.
 
 These configurations quickly become difficult to manage on a variety of dimensions.
 
 ### Complex Groupings
-Many configurations are shared by different groupings of robots in your fleet. For example, certain functionalities may be enabled or disabled for a given robot depending on the hardware variant, customer, or test environment that the robot belongs to. 
+Configurations are shared by different groups of robots in your fleet. For example, robots may be grouped by hardware variant, customer, or test environment. These groups often overlap in complex ways.
 
-These variations often overlap in complex ways. Hardware variants may be spread across different customers, and customers may opt in to be beta testers for early releases. 
+A single customer may have multiple hardware variants. Some customers may choose to beta test early releases. Other customers may want to stick with the latest stable release for as long as possible.
 
-These complex relationships make it difficult to express the configurations a robot should have and to alter the configurations for robots in your fleet safely. 
+Because of these overlapping relationships, it can be difficult to define a robot's configuration and safely update it across the fleet.
 
 ### Configuration Volume
-Robots often require unique configurations for each unit, especially calibrations for end effectors and grippers. With such volume, associating robots with their correct configurations is tricky and error-prone. 
+Robots often require unique configurations for each unit, such as calibrations for end effectors or exposure settings for cameras. 
 
-Even more, determining information about the configurations currently in use by your fleet, how those configurations have changed over time, and how configurations compare between robots in your fleet becomes difficult (even with only 10 or 20 robots). 
+Given the volume of configurations, associating robots with their correct configurations can be error-prone. 
+
+These errors compound when needing to track which configurations are in use, monitor changes over time, and compare configurations across robots--even in fleets of just 10 or 20 robots. 
 
 ### Robot as the Source of Truth
-For many robotics teams, the robot is the source of truth for configurations. 
+Robots are the source of truth for configurations, not the cloud. While many configurations are defined in the cloud and deployed to the fleet, some are locally edited on a robot and later backed up to the cloud.  
 
-While many configurations may be defined in the cloud and deployed to the fleet, some configurations are locally edited on a robot and later backed up to the cloud. For instance, robots may be recalibrated at regular intervals. This data is stored directly on the device and later backed up to the cloud (if at all). 
+For example, when a LIDAR sensor is recalibrated, its new configuration is saved on the device first and may only be backed up to the cloud if necessary. 
 
-It's expected that robots lose internet connection, so configurations locally edited on a robot cannot always be immediately synced to the cloud. This requires an involved syncing mechanism so that locally edited configurations are synced to the cloud and configurations set in the cloud are synced to the robot. 
+Since robots can lose network connectivity or power, locally edited configurations cannot always be immediately synced to the cloud.  
 
-Tracking the history of configurations and who made them thus becomes more challenging due to the origins of configurations in both the cloud and on the robot.
+This bidirectional flow of data—where configurations can come from either the cloud or the robot—makes tracking their history and origin more challenging.
 
 ### User-Facing Configurations
-A final dimension of complexity is the need to expose configurations to robot users. While this is wildly use-case dependent, it's common to allow users to alter configurations that affect the robot's behavior.
+The last layer of complexity is exposing configurations to end-users. While the specifics of the interaction depend on the use case, it's common for technicians or customers to modify configurations that impact the robot's behavior.  
 
-This adds another layer to tracking the history of configurations and who made them, as third parties (namely your users) are now involved as well. Questions about who is even allowed to change a configuration become more pressing. 
-
-More interesting product questions around what configurations users are selecting and how the performance of a robot is affected by certain configurations begin to surface as well.
+This makes questions around permissions—who is allowed to modify configurations—more critical. At the same time, tracking the history of configuration changes and identifying who made them becomes more challenging as third parties (i.e., users) are involved. Maintaining an audit trail—who modified what, when, and why—becomes essential.
 
 ## Miru's Solution
 Miru is a purpose-built solution for managing the complexities of application configurations in robotics. We put the developer first, prioritizing simplicity and developer experience. 
@@ -54,12 +54,12 @@ As a brief primer, there are four stages in the configuration management lifecyc
 
 ## Where to start?
 
-We recommend you begin with the [core concepts](/pages/core-concepts). This will give you a concise understanding of Miru's core offering and how Miru can help your team manage application configurations. 
+Start with the [core concepts](/pages/core-concepts), which provides a concise overview of Miru's core offering.
 
-If you're ready to get your hands dirty, we still recommend reading through the [core concepts](/pages/core-concepts) first before following the [getting started](/pages/getting-started) guide.
+If you're ready to get started, we still recommend reading through the [core concepts](/pages/core-concepts) before following the [getting started](/pages/getting-started) guide.
 
 {/* For detailed guides on using specific parts of Miru, refer to the [guides](/pages/guides) section. */}
 
-For information on the Miru SDK for a particular language, refer to the [SDK reference](/pages/sdk-reference) for that particular language.
+For information on the Miru SDK, refer to the [SDK reference](/pages/sdk-reference).
 
 {/* For information on using Miru's REST API, refer to the [REST API reference](/api-reference). */}
