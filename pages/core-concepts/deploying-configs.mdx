@@ -3,9 +3,9 @@ title: 'Deploying Configs'
 ---
 
 ## SDK
-Miru provides an SDK to use for deploying configs to your devices. The SDK is available in a variety of languages which you can find in the [SDK reference](/pages/sdk-reference).
+Miru provides an SDK for deploying configs to your devices. The SDK is available in various languages, which you can find in the [SDK reference](/pages/sdk-reference).
 
-There are two primary methods of using the SDK. The first is by using the SDK to update concrete configs on your file system. On boot, simply use the SDK to upload the concrete configs for your application or at some regular interval to refresh configs while the code is running.
+There are two primary methods of using the SDK. The first is to update concrete configs on your file system. On boot, simply use the SDK to upload the concrete configs for your application or at some regular interval to refresh configs while the code is running.
 
 <CodeGroup>
 ```python Python
@@ -33,7 +33,7 @@ client->writeConfig(
 ```
 </CodeGroup>
 
-Although this method is simple and requires relatively little refactoring (if any) to use Miru configs, it is not the recommended method. Instead, we recommend you use values returned by the SDK directly.
+Although this method is simple and requires relatively little refactoring (if any) to use Miru configs, it is not recommended. Instead, we recommend using values returned by the SDK directly.
 
 <CodeGroup>
 ```python Python
@@ -58,12 +58,12 @@ auto motion_control_config = client->getConfig(
 ```
 </CodeGroup>
 
-This simplifies "hot-reloading" (refreshing parameters while the application is still running) so you don't need to write any custom code to refresh configs.
+This simplifies "hot-reloading" (refreshing parameters while the application is still running), so you don't need to write any custom code to refresh configs.
 
-However, we understand that using this method may require some serious refactoring or may be untenable depending on the architecture of your application. In such cases, using the SDK to update your file system will work just fine.
+However, we understand that depending on the architecture of your application, this may require some serious refactoring. In such cases, using the SDK to update your file system will work just fine.
 
 ## Evaluating Concrete Configs
-To identify the concrete config that the SDK should pull from the cloud, Miru uses two inputs. The first is the config slug. This is string identifier defined by you for identifying a specific config. For instance, we've defined the `motion-control-config` slug for our Motion Control config.
+Miru uses two inputs to identify the concrete config that the SDK should pull from the cloud. The first is the config slug. This is a string identifier defined by you for identifying a specific config. For instance, we've defined the `motion-control-config` slug for our Motion Control config.
 
 <CodeGroup>
 ```python Python
@@ -94,28 +94,28 @@ auto motion_control_config = client->getConfig(
 ```
 </CodeGroup>
 
-The second input is the desired config schema's contents. When you upload a config schema to Miru, SHA-256 is used to generate a hash of the config schema's content, known as the config schema's digest. 
+The second input is the desired config schema's contents. When you upload a config schema to Miru, a hash of the config schema's content is generated. This hash is known as the config schema's digest. 
 
-Together the config slug and the digest uniquely identify the config schema being requested by the SDK in the cloud. In turn, this config schema references a policy which specifies the evaluation logic for a client's concrete config.
+Together, the config slug and the config schema digest uniquely identify the config schema being requested by the SDK in the cloud. In turn, this config schema references a policy that evaluates a client's tags to produce the correct concrete config.
 
 <img height="200" src="/images/core-concepts/motion-control-schema-list-zoomed.png" style={{borderRadius: '7px'}}/>
 
-Here we see config schema version `v8` referencing policy version `v4`. Using the tags associated with the client making the request, the policy is evaluated to produce a concrete config that is returned to the SDK.
+Here, we see config schema version `v8` referencing policy version `v4`. Using the tags associated with the client making the request, the policy is evaluated to produce a concrete config that is returned to the SDK.
 
 <img height="200" src="/images/core-concepts/policy-override.png" style={{borderRadius: '7px'}}/>
 
-The upshot of all this is that to pull the proper concrete config, you simply need to pass the SDK the config schema contents and the the config slug (the SDK authentication will properly identify the client). Since your config schema is already in your codebase, passing in the config schema contents is trivial and the config slug is just a string identifier defined by you that rarely changes, if at all.
+The upshot of all this is that to pull the proper concrete config, you simply need to pass the SDK the config schema contents and the config slug (the SDK authentication will properly identify the client). Since the config schema file is already in your codebase, passing in the config schema contents is trivial, and the config slug is a string identifier that can be statically referenced in your codebase
 
-When deploying a new version of code that has a breaking schema change, the SDK will simply pull the correct concrete config from the cloud by evaluating the config schema / config slug pair defined in the code. 
+When deploying a new version of code with a breaking schema change, the SDK will simply pull the correct concrete config from the cloud by evaluating the config schema digest/config slug pair defined in the code. 
 
 This trivially versions your configurations in lockstep with your code. No complicated deployment pipeline attempting to deploy configs with compatible code versions.
 
 ## Networking & Caching 
 It's expected that your clients will not have a constant internet connection. To account for this, the SDK caches its concrete configs in both memory and disk. The SDK will simply return the latest known cache values for a config while the network is offline and will update the cache as soon as the network is available.
 
-It's also expected that your clients may suddenly lose power or may be restarted. Since the cache is persisted on disk, it is also available in the event the client loses power or is restarted. It will simply read the latest cache values for a config when the device is powered back on.
+It's also expected that your clients may suddenly lose power or may be restarted. Since the cache persists on disk, it is available in the event the client loses power or is restarted.
 
 ## Conclusion
 You've now seen how Miru configs work at a high level. We defined our config schemas in a git repository, uploaded them to Miru, stored configuration data in clients and tags, created policies to evaluate this data for each client, and then deployed a concrete config to a client.
 
-Of course, this was just a high level overview. To begin using Miru, continue to the [getting started](/pages/getting-started) guide where we'll walk through a simple example with code that you can follow along with.
+Of course, this was just a high-level overview. To begin using Miru, continue to the [getting started](/pages/getting-started) guide, where we'll walk through a simple example with code that you can follow along with.

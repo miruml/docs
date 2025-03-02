@@ -2,13 +2,13 @@ The second part of a policy is its overrides. An **override** references tag met
 
 <img height="200" src="/images/vocabulary/hardware-override.png" style={{borderRadius: '7px'}}/>
 
-On the left is the default values placed in our policy schema. On the right is the hardware override, which references the `supports_jump`, `supports_spin`, and `supports_backflip` fields in the metadata schema for the `hardware` tag type. 
+The default values in our policy schema are shown on the left. On the right is our hardware override, which references the `supports_jump`, `supports_spin`, and `supports_backflip` fields in the metadata schema for the `hardware` tag type. 
 
-An override does not need to specify all the fields in a policy schema, only a subset of the policy schema fields. However it cannot specify fields that are not present in the policy schema.
+An override does not need to specify all the fields in a policy schema, only a subset of the policy schema fields. However, it cannot specify fields not present in the policy schema.
 
-Given a particular tag we'd be able to evaluate the metadata values for the `supports_jump`, `supports_spin`, and `supports_backflip` in the hardware override to specific values. Given the `NVIDIA Jetson Orin Nano` tag, our hardware override would use `features.jump: true`, `features.spin: true`, and `features.backflip: false`. This would override the default values in the policy schema, changing `features.spin` from `false` to `true`.
+Given a particular tag, we'd be able to evaluate the metadata values for the `supports_jump`, `supports_spin`, and `supports_backflip` in the hardware override to specific values. Given the `NVIDIA Jetson Orin Nano` tag, our hardware override would use `features.jump: true`, `features.spin: true`, and `features.backflip: false`. This would override the default values in the policy schema, changing `features.spin` from `false` to `true`.
 
-Overrides are chained together in a hierarchical manner to define a policy's evaluation of a concrete config for a client. The client's tags are used to determine the specific values referenced by an override.
+Overrides are hierarchically chained to define a policy's evaluation of a concrete config for a client. The client's tags determine the specific values referenced by an override.
 
 <img height="200" src="/images/vocabulary/policy-override.png" style={{borderRadius: '7px'}}/>
 
