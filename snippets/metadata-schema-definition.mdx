@@ -1,10 +1,10 @@
 A **metadata schema** defines the constraints on the metadata. 
 
-Metadata schemas are written in a configuration language like JSON Schema. The following JSON Schema is a plausible metadata schema for the `robot_id` metadata we associated with our client in the previous section.
+Metadata schemas are written in a configuration language like JSON Schema. The following JSON Schema is a plausible metadata schema for the `robot_id` metadata we showed above.
 
 <img height="200" src="/images/vocabulary/client-metadata-schema.png" style={{borderRadius: '7px'}}/>
 
-Miru requires every tag type to have a metadata schema describing what constitutes valid metadata for any tag of that tag type. For instance, your `hardware` tag type may have the following metadata schema to specify the features (jump, spin, backflip) supported by your hardware.
+Miru requires every tag type to have a metadata schema describing what constitutes valid metadata for any tag of that tag type. For instance, the `hardware` tag type may have the following metadata schema to specify the features (jump, spin, backflip) supported by a given hardware.
 
 <img src="/images/vocabulary/hardware-tag-type-metadata-schema.png" style={{borderRadius: '7px'}}/>
 
