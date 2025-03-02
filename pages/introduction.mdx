@@ -5,15 +5,15 @@ title: 'Introduction'
 import MiruWorkflowOverview from '/snippets/miru-workflow-overview.mdx';
 
 ## Welcome
-Welcome to Miru! **[Miru](https://configs.miruml.com/configs)** is an application configuration management solution for robotics teams. Miru provides tools for engineers to define, deploy, and manage application configurations for their robots in a simple, reliable, and scalable manner.
+Welcome! Miru is an application configuration management solution for robotics teams. We provide tools for engineers to define, deploy, and manage application configurations for their robots.
 
 ## Difficulties of Configurations
 Robots have a plethora of application configurations stemming from various sources. Here are some of the most common.
 
 - **Calibrations** - various end effectors, grippers, sensors, etc., require calibrations unique to each unit.
-- **Hardware Variability** - different devices or systems may be used, requiring configurations to set the appropriate software dependencies and functionalities the hardware supports.
-- **User Preferences** - end users of a robot may require or desire different configurations for the same application.
-- **Testing & Development** - testing, beta, and production robots require different configurations for testing and rolling out new features.
+- **Hardware Variability** - robots may run on different devices or systems, requiring configurations to set the appropriate software dependencies and functionalities the hardware supports.
+- **User Preferences** - end users of a robot may require (or desire) different robot behaviors.
+- **Testing & Development** - testing, beta, and production robots use configurations to test and roll out new features.
 
 These configurations quickly become difficult to manage on a variety of dimensions.
 
@@ -25,14 +25,14 @@ These variations often overlap in complex ways. Hardware variants may be spread 
 These complex relationships make it difficult to express the configurations a robot should have and to alter the configurations for robots in your fleet safely. 
 
 ### Configuration Volume
-Robots often require unique configurations, especially calibrations for end effectors and grippers. With such volume, associating robots with their correct calibration data can be tricky and error-prone. 
+Robots often require unique configurations for each unit, especially calibrations for end effectors and grippers. With such volume, associating robots with their correct configurations is tricky and error-prone. 
 
 Even more, determining information about the configurations currently in use by your fleet, how those configurations have changed over time, and how configurations compare between robots in your fleet becomes difficult (even with only 10 or 20 robots). 
 
 ### Robot as the Source of Truth
-For many robotics teams, the robot is the source of truth for configurations. While many configurations may be defined in the cloud and deployed to the fleet, some configurations are locally edited on a robot and later backed up to the cloud. 
+For many robotics teams, the robot is the source of truth for configurations. 
 
-For instance, robots may be recalibrated at regular intervals. This data is stored directly on the device and later backed up to the cloud (if at all). 
+While many configurations may be defined in the cloud and deployed to the fleet, some configurations are locally edited on a robot and later backed up to the cloud. For instance, robots may be recalibrated at regular intervals. This data is stored directly on the device and later backed up to the cloud (if at all). 
 
 It's expected that robots lose internet connection, so configurations locally edited on a robot cannot always be immediately synced to the cloud. This requires an involved syncing mechanism so that locally edited configurations are synced to the cloud and configurations set in the cloud are synced to the robot. 
 
