@@ -6,7 +6,7 @@ import ConcreteConfigDefinition from '/snippets/concrete-config-definition.mdx';
 import ConfigDefinition from '/snippets/config-definition.mdx';
 import ConfigSchemaDefinition from '/snippets/config-schema-definition.mdx';
 
-To begin we need to define Miru's vocabulary surrounding configurations.
+To begin, we need to define Miru's vocabulary surrounding configurations.
 
 ## Vocabulary
 
@@ -23,7 +23,7 @@ With these definitions out of the way, let's begin.
 
 ## Creating Config Schemas
 
-Miru requires you to define a config schema to deploy a config. These schemas are used to validate concrete configs before they are deployed, effectively preventing runtime application errors. Config schemas **live in your git repository** (preferably in the same repository as the code consuming the config) to minimize versioning errors between code and configurations.
+Miru requires you to define a config schema to deploy a config. These schemas validate concrete configs before deployment, effectively preventing runtime application errors. Config schemas **live in your git repository** (preferably in the same repository as the code consuming the config) to minimize versioning errors between code and configurations.
 
 Let's say your application uses a "motion control" config to configure the motion of your robot. Your application might have the following directory structure.
 
@@ -37,7 +37,7 @@ config-schemas/
 └── ...
 ```
 
-The `motion-control-config.yaml` file defines concrete config values for **development use only**. As a developer you should be able to define and edit configurations in your local development environment quickly and easily. The `motion-control-config.yaml` file serves this purpose exactly. The file will not be uploaded to the cloud nor will it be used in any way to deploy concrete configs to your devices in production. It is strictly for local development purposes.
+The `motion-control-config.yaml` file defines concrete config values for **development use only**. As a developer, you should be able to define and edit configurations in your local development environment quickly and easily. The `motion-control-config.yaml` file serves this purpose exactly. The file will not be uploaded to the cloud or used to deploy concrete configs to your production devices. It is strictly for local development purposes.
 
 The `motion-control-schema.yaml` file defines the schema for the concrete `motion-control-config.yaml` config, specifying the constraints on the parameters it can instantiate.
 
@@ -114,7 +114,7 @@ required: [device_id, speed, features, accelerometer]
 </Accordion>
 
 ## Local Development 
-Miru provides an [SDK](/pages/guides/sdk) for deploying configs. We'll cover this more in depth later but the key point to know here is that the SDK pulls concrete configs from the cloud.
+Miru provides an [SDK](/pages/guides/sdk) for deploying configs. We'll cover this more in-depth later, but the key point to know here is that the SDK pulls concrete configs from the cloud.
 
 <CodeGroup>
 ```python Python
@@ -169,7 +169,7 @@ auto motion_control_config = client->getConfig(
 
 This allows you to quickly iterate through values in development without ever leaving your IDE while providing the same SDK interface for fetching config values from the cloud when deploying in production.
 
-It's important to note that, although not recommended, you are not required to use the config values returned by the Miru SDK in production either. Instead you can tell the SDK to update a file on your filesystem with the desired config. 
+It's important to note that, although not recommended, you are not required to use the config values returned by the Miru SDK in production either. Instead, you can tell the SDK to update a file on your file system with the desired config. 
 
 <CodeGroup>
 ```python Python
@@ -209,7 +209,7 @@ miru upload \
 --config-schema-path="./configs/motion-control-schema.yaml"
 ```
 
-The `miru upload` command collects some git information to help you version control and track your config schemas when viewing them in the Miru dashboard. It's important to note that Miru **does not have access to your git repository**. The git information is simply extracted from the git repository where the `miru upload` command is run from.
+The `miru upload` command collects some git information to help you version control and track your config schemas when viewing them in the Miru dashboard. It's important to note that Miru **does not have access to your git repository**. The git information is extracted from the git repository where the `miru upload` command is run from.
 
 ```bash
 $ miru upload --config-slug="motion-control-config" --config-schema-path="./configs/motion-control-schema.yaml"
@@ -225,8 +225,8 @@ branch: origin/main
 Schema is now available for use in production deployments.
 ```
 
-After running `miru upload`, you'll be able to see your config schema in the Miru dashboard along with the git information and the version number.
+After running `miru upload`, you'll be able to see your config schema in the Miru dashboard alongside the git information and the version number.
 
 <img src="/images/core-concepts/motion-control-schema-list.png" style={{borderRadius: '7px'}}/>
 
-We recommend using the `miru upload` command in your CI pipeline to automatically upload your config schemas to Miru. Miru will know if a config schema has changed and will not create new a config schema if it has already been uploaded in a previous commit.
+We recommend using the `miru upload` command in your CI pipeline to upload your config schemas automatically. Miru will know if a config schema has changed and will not create a new config schema if it has already been uploaded in a previous commit.
