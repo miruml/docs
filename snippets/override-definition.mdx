@@ -1,10 +1,10 @@
-The second part of a policy is its overrides. An **override** references tag metadata that "overrides" the current evaluation of a policy. Here is a `hardware` override example.
+The second part of a policy is its overrides. An **override** references tag metadata that _overrides_ the current evaluation of a policy. Here is a `hardware` override example.
 
 <img height="200" src="/images/vocabulary/hardware-override.png" style={{borderRadius: '7px'}}/>
 
 The default values in the policy schema are shown on the left. On the right is the hardware override, which references the `supports_jump`, `supports_spin`, and `supports_backflip` fields in the metadata schema for the `hardware` tag type. 
 
-Overrides are completely named and defined by you. An override does not need to specify all the fields in a policy schema, only a subset of the policy schema fields. However, it cannot specify fields not present in the policy schema.
+Overrides are wholly defined by you. An override only needs to specify a subset of the policy schema fields. However, it cannot specify fields which are not present in the policy schema.
 
 Policies can only be evaluated given a particular tag. For instance, the `features.jump`, `features.spin`, and `features.backflip` fields in the hardware override reference the `supports_jump`, `supports_spin`, and `supports_backflip` fields in the metadata schema for the `hardware` tag type.
 

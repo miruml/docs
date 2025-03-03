@@ -5,7 +5,7 @@ title: 'Deploying Configs'
 ## SDK
 Miru provides an SDK for deploying configs to your devices. 
 
-There are two primary methods of using the SDK. The first is to update concrete configs on your file system. On application boot or at some regular interval, use the SDK to download concrete configs to a file on the file system.
+There are two primary methods of using the SDK. The first is to update Concrete Configs on your file system. On application boot (or some other regular interval), use the SDK to download Concrete Configs to a file on the file system.
 
 <CodeGroup>
 ```python Python
@@ -33,7 +33,7 @@ client->writeConfig(
 ```
 </CodeGroup>
 
-This method is simple and requires relatively little refactoring (if any). However it requires you to write the code for refreshing the concrete config on your file system. If "hot-reloading" is required by your application, we recommend using values returned by the SDK directly.
+This method requires you to write the code for refreshing the Concrete Config on your file system. If "hot-reloading" is required by your application, we recommend using values returned by the SDK directly.
 
 <CodeGroup>
 ```python Python
@@ -61,8 +61,9 @@ auto motion_control_config = client->getConfig(
 This simplifies refresh logic so you don't need to write any custom code to refresh configs.
 
 ## Evaluating Concrete Configs
-Miru uses two inputs to identify the concrete config that the SDK should pull from the cloud. The first is the config slug. This is a string identifier defined by you for identifying a specific config. For instance, the Motion Control config might use `motion-control-config` for its slug .
+Miru uses two inputs to determine which Concrete Config the SDK should pull from the cloud.
 
+The first is the Config Slug, a user-defined string identifier for a specific configuration. For example, the Motion Control config might have the slug `motion-control-config`.
 <CodeGroup>
 ```python Python
 motion_control_config = client.get_config(
@@ -92,9 +93,9 @@ auto motion_control_config = client->getConfig(
 ```
 </CodeGroup>
 
-The second input is the contents of the desired config schema. When uploading a config schema to Miru, a hash of the config schema's contents is generated. This hash is known as the config schema's digest. 
+The second input is the Config Schema Digest, a unique hash generated from the contents of a Config Schema when it is uploaded to Miru.
 
-Together, the config slug and the config schema digest identify the config and its schema requested by the SDK in the cloud . In turn, this config schema references a policy that evaluates a client's tags to produce the correct concrete config.
+Together, the config slug and config schema digest specify the configuration and schema requested by the SDK. The referenced config schema then points to a policy that evaluates a client’s tags to generate the appropriate Concrete Config.
 
 <img height="200" src="/images/core-concepts/motion-control-schema-list-zoomed.png" style={{borderRadius: '7px'}}/>
 
@@ -102,18 +103,18 @@ Here, config schema version `v8` references policy version `v4`. Policy `v4` is 
 
 <img height="200" src="/images/core-concepts/policy-override.png" style={{borderRadius: '7px'}}/>
 
-The upshot of all this is that to pull the proper concrete config, you simply need to pass the SDK the config schema contents and the config slug (the SDK authentication will properly identify the client). Since the config schema file is already in your codebase, passing in the config schema contents is trivial, and the config slug can be statically defined in your codebase
+The upshot is that to retrieve the correct Concrete Config, you only need to provide the SDK with two inputs: the config schema contents and the config slug. The SDK's authentication mechanism will automatically identify the client. Since the config schema file is already part of your codebase, passing its contents is straightforward, and the config slug can be statically defined in your code.  
 
-When deploying a new version of code with a breaking schema change, the SDK pulls the correct concrete config from the cloud by evaluating the config schema digest/config slug pair defined in the code. 
+When deploying a new version of code that includes a breaking schema change, the SDK determines the correct Concrete Config by evaluating the config schema digest/config slug pair embedded in the code.  
 
-This trivially versions your configurations in lockstep with your code. No complicated deployment pipeline attempting to deploy configs with compatible code versions.
+This approach naturally versions your configurations alongside your code—eliminating the need for a complex deployment pipeline to synchronize config updates with code versions.  
 
 ## Networking & Caching 
-It's expected that clients will not have a stable internet connection. The SDK caches concrete configs in both memory and disk. The SDK returns the latest known cache values for a concrete config while the network is offline and updates the cache as soon as the network is available.
+It's expected that clients will not have a stable internet connection. The SDK caches Concrete Configs in both memory and disk. The SDK returns the latest known cache values for a Concrete Config while the network is offline and updates the cache as soon as the network is available.
 
-It's also expected that clients may suddenly lose power or be restarted. Since the cache persists on disk, it is still available in the event the client loses power and has no internet connection.
+It's also expected that clients may suddenly lose power or be restarted. Since the cache persists on disk, it is still available in the event of network disconnection or power loss.
 
 ## Conclusion
-This concludes the core concepts guide, which walked through Miru's core offering. We defined config schemas in a git repository, uploaded them to Miru, stored configuration data in clients and tags, created policies, and then deployed a concrete config to a client.
+This concludes the core concepts guide, which walked through Miru's core offering. We defined Config Schemas in a Git repository, uploaded them to Miru, stored configuration data in clients and tags, created policies, and then deployed a concrete config to a client.
 
 Of course, this was just a high-level overview. To begin using Miru, continue to the [getting started](/pages/getting-started) guide, where installation and usage are fully explained with an example to follow along with.
