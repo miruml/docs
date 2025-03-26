@@ -27,7 +27,23 @@
                   "pages/core-concepts/deploying-configs"
                 ]
               },
-              "pages/vocabulary"
+              "pages/vocabulary",
+              {
+                "group": "Getting Started",
+                "pages": [
+                  "pages/getting-started/create-account",
+                  "pages/getting-started/sample-app",
+                  "pages/getting-started/setup-sdk",
+                  "pages/getting-started/install-cli",
+                  "pages/getting-started/create-a-config",
+                  "pages/getting-started/upload-the-schema",
+                  "pages/getting-started/create-client",
+                  "pages/getting-started/create-tags",
+                  "pages/getting-started/define-policy",
+                  "pages/getting-started/local-testing",
+                  "pages/getting-started/deploy"
+                ]
+              }
             ]
           }
         ]

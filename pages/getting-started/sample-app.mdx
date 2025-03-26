@@ -5,7 +5,7 @@ title: 'Sample Application'
 import SchemaLanguages from '/snippets/schema-languages.mdx';
 
 ## Clone the Application
-This guide will use a sample application for demonstration purposes. To follow along, clone the [getting started repository](https://github.com/miru-io/getting-started) and navigate to the directory for the language you'd like to use.
+This guide uses a sample application for demonstration purposes. To follow along, clone the [getting started repository](https://github.com/miru-io/getting-started) and navigate to the directory for the language you'd like to use.
 
 ```bash
 git clone https://github.com/miruml/getting-started.git
@@ -16,7 +16,7 @@ cd getting-started/<language-of-choice>
 ```
 
 ## Application Overview
-The application is extremely simple. It defines one config, the "motion control" config, which is simply printed to standard output. 
+The application is extremely simple. It defines one config, the "motion control" config, which is read with the Miru SDK and printed to standard output. 
 
 <CodeGroup>
 ```python Python
@@ -33,9 +33,9 @@ The application is extremely simple. It defines one config, the "motion control"
 ```
 </CodeGroup>
 
-The application has two configuration related folders, one for the config schemas and one for concrete configs used in local development. This structure is for demonstration purposes. You can place the schemas and configs anywhere in your project.
+The application has two configuration related folders, one for config schemas and one for concrete configs used in local development. This structure is for demonstration purposes. You can place the schemas and configs anywhere in your project.
 
-The "motion control" concrete config for local development is located at `.../<language-of-choice>/dev-configs/motion-control.yaml` and contains the following values:
+The concrete "motion control" config for local development is located at `.../<language-of-choice>/dev-configs/motion-control.yaml` and contains the following data.
 
 ```yaml [expandable]
 speed: 10
@@ -55,7 +55,7 @@ accelerometer:
     z: 0.99
 ```
 
-The config schema for the "motion control" config is located at `.../<language-of-choice>/schemas/motion-control.yaml` and is written in JSON Schema.
+The config schema for the "motion control" config is located at `.../<language-of-choice>/schemas/motion-control.yaml` and is defined in JSON Schema as the following.
 
 ```yaml [expandable]
 $schema: "https://json-schema.org/draft/2020-12/schema"
@@ -113,8 +113,16 @@ required: [device_id, speed, features, accelerometer]
 
 Each language has a slightly different setup process for install dependencies and ensuring the application is executable. Navigate to the language specific guide for some quick setup instructions.
 
-### Python
+<Tabs>
+  <Tab title="Python">
+    [PYTHON SETUP INSTRUCTIONS]
+  </Tab>
 
-### Rust
+  <Tab title="Rust">
+    [RUST SETUP INSTRUCTIONS]
+  </Tab>
 
-### C++
+  <Tab title="C++">
+    [C++ SETUP INSTRUCTIONS]
+  </Tab>
+</Tabs>
