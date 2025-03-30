@@ -1,0 +1,42 @@
+### Command
+
+```bash
+miru schema push PATH...
+```
+
+### Description
+
+Upload one or more config schemas to miru.
+
+This command will:
+- Validate the provided config schema files
+- Collect local git information (commit, branch, and remote URL)
+- Identify the miru config from the $miru_config_slug field in the config schema. The config schema must have this field defined at the root of the schema definition.
+- Upload the config schema to miru
+
+
+
+### Examples
+
+```bash Single Schema
+miru schema push ./path/to/config/schema.yaml
+```
+
+
+```bash Multiple Schemas
+miru schema push \
+	./path/to/config/schema1.yaml \
+	./path/to/config/schema2.yaml
+```
+### Options
+
+```
+  -h, --help   help for push
+```
+
+### Options inherited from parent commands
+
+```
+  -q, --quiet   suppress output except errors
+```
+

@@ -27,23 +27,23 @@
                   "pages/core-concepts/deploying-configs"
                 ]
               },
-              "pages/vocabulary",
               {
-                "group": "Getting Started",
+                "group": "Get Started",
                 "pages": [
-                  "pages/getting-started/create-account",
-                  "pages/getting-started/sample-app",
-                  "pages/getting-started/setup-sdk",
-                  "pages/getting-started/install-cli",
-                  "pages/getting-started/create-a-config",
-                  "pages/getting-started/upload-the-schema",
-                  "pages/getting-started/create-client",
-                  "pages/getting-started/create-tags",
-                  "pages/getting-started/define-policy",
-                  "pages/getting-started/local-testing",
-                  "pages/getting-started/deploy"
+                  "pages/get-started/create-account",
+                  "pages/get-started/sample-app",
+                  "pages/get-started/setup-sdk",
+                  "pages/get-started/install-cli",
+                  "pages/get-started/create-a-config",
+                  "pages/get-started/upload-the-schema",
+                  "pages/get-started/create-client",
+                  "pages/get-started/create-tags",
+                  "pages/get-started/define-policy",
+                  "pages/get-started/local-testing",
+                  "pages/get-started/deploy"
                 ]
-              }
+              },
+              "pages/vocabulary"
             ]
           }
         ]
@@ -57,6 +57,24 @@
               "pages/sdk-reference/cpp",
               "pages/sdk-reference/python",
               "pages/sdk-reference/rust"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "CLI",
+        "groups": [
+          {
+            "group": "CLI Reference",
+            "pages": [
+              "pages/cli-reference/introduction",
+              "pages/cli-reference/login"
+            ]
+          },
+          {
+            "group": "Schemas",
+            "pages": [
+              "pages/cli-reference/schema-push"
             ]
           }
         ]

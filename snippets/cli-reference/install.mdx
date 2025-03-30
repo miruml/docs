@@ -1,0 +1,46 @@
+From the command-line, use the install script or Homebrew to install the CLI.
+
+<Tabs>
+    <Tab title="Linux">
+        ```bash
+        curl -fsSL https://raw.githubusercontent.com/miruml/cli/main/install.sh | sh
+        ```
+
+        Review the contents of the installation script [here](https://github.com/miruml/cli/blob/main/install.sh).
+    </Tab>
+
+    <Tab title="MacOS">
+        ```bash
+        brew install miruml/cli/miru
+        ```
+    </Tab>
+</Tabs>
+
+Verify the CLI is installed by invoking the help menu
+```bash
+miru --help
+```
+
+You should see a message similar to the following
+
+```
+Configuration Management for Robotics 🤖.
+		
+For more information on using miru, please visit https://docs.miruml.com
+
+Usage:
+  miru
+  miru [command]
+
+Available Commands:
+  completion  Generate the autocompletion script for the specified shell
+  help        Help about any command
+  login       Login to Miru
+  schema      Manage config schemas
+
+Flags:
+  -h, --help    help for miru
+  -q, --quiet   suppress output except errors
+
+Use "miru [command] --help" for more information about a command.
+```
