@@ -31,16 +31,13 @@
                 "group": "Get Started",
                 "pages": [
                   "pages/get-started/create-account",
-                  "pages/get-started/sample-app",
-                  "pages/get-started/setup-sdk",
                   "pages/get-started/install-cli",
-                  "pages/get-started/create-a-config",
-                  "pages/get-started/upload-the-schema",
+                  "pages/get-started/sample-app",
+                  "pages/get-started/create-config",
+                  "pages/get-started/push-schema",
                   "pages/get-started/create-client",
-                  "pages/get-started/create-tags",
-                  "pages/get-started/define-policy",
-                  "pages/get-started/local-testing",
-                  "pages/get-started/deploy"
+                  "pages/get-started/create-tag",
+                  "pages/get-started/define-overrides"
                 ]
               },
               "pages/vocabulary"
@@ -67,8 +64,8 @@
           {
             "group": "CLI Reference",
             "pages": [
-              "pages/cli-reference/introduction",
-              "pages/cli-reference/login"
+              "pages/cli-reference/intro",
+              "pages/cli-reference/get-started"
             ]
           },
           {
