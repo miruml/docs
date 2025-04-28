@@ -1,108 +1,108 @@
 {
-  "$schema": "https://mintlify.com/docs.json",
-  "theme": "willow",
-  "name": "Miru",
-  "colors": {
-    "primary": "#059669",
-    "light": "#07C983",
-    "dark": "#0D9373"
-  },
-  "favicon": "/miru-favicon.svg",
-  "navigation": {
-    "tabs": [
-      {
-        "tab": "Docs",
-        "groups": [
-          {
-            "group": "Basics",
-            "pages": [
-              "pages/introduction",
-              {
-                "group": "Core Concepts",
-                "pages": [
-                  "pages/core-concepts/overview",
-                  "pages/core-concepts/creating-schemas",
-                  "pages/core-concepts/setting-tags",
-                  "pages/core-concepts/defining-policies",
-                  "pages/core-concepts/deploying-configs"
+    "$schema": "https://mintlify.com/docs.json",
+    "theme": "maple",
+    "name": "Miru",
+    "colors": {
+        "primary": "#059669",
+        "light": "#34d399",
+        "dark": "#065f46"
+    },
+    "favicon": "/miru-favicon.svg",
+    "navigation": {
+        "tabs": [
+            {
+                "tab": "Docs",
+                "groups": [
+                    {
+                        "group": "Basics",
+                        "pages": [
+                            "pages/introduction",
+                            {
+                                "group": "Core Concepts",
+                                "pages": [
+                                    "pages/core-concepts/overview",
+                                    "pages/core-concepts/creating-schemas",
+                                    "pages/core-concepts/setting-tags",
+                                    "pages/core-concepts/defining-policies",
+                                    "pages/core-concepts/deploying-configs"
+                                ]
+                            },
+                            "pages/vocabulary"
+                        ]
+                    },
+                    {
+                        "group": "Getting Started",
+                        "pages": [
+                            "pages/getting-started/create-account",
+                            "pages/getting-started/install-cli",
+                            "pages/getting-started/sample-config",
+                            "pages/getting-started/create-config",
+                            "pages/getting-started/push-schema",
+                            "pages/getting-started/create-client",
+                            "pages/getting-started/create-tag",
+                            "pages/getting-started/define-overrides"
+                        ]
+                    }
                 ]
-              },
-              "pages/vocabulary"
-            ]
-          },
-          {
-            "group": "Getting Started",
-            "pages": [
-                  "pages/getting-started/create-account",
-                  "pages/getting-started/install-cli",
-                  "pages/getting-started/sample-app",
-                  "pages/getting-started/create-config",
-                  "pages/getting-started/push-schema",
-                  "pages/getting-started/create-client",
-                  "pages/getting-started/create-tag",
-                  "pages/getting-started/define-overrides"
+            },
+            {
+                "tab": "SDK",
+                "groups": [
+                    {
+                        "group": "SDK Reference",
+                        "pages": [
+                            "pages/sdk-reference/cpp",
+                            "pages/sdk-reference/python",
+                            "pages/sdk-reference/rust"
+                        ]
+                    }
                 ]
-          }
+            },
+            {
+                "tab": "CLI",
+                "groups": [
+                    {
+                        "group": "CLI Reference",
+                        "pages": [
+                            "pages/cli-reference/intro",
+                            "pages/cli-reference/get-started"
+                        ]
+                    },
+                    {
+                        "group": "Schemas",
+                        "pages": [
+                            "pages/cli-reference/schema-push"
+                        ]
+                    }
+                ]
+            }
         ]
-      },
-      {
-        "tab": "SDK",
-        "groups": [
-          {
-            "group": "SDK Reference",
-            "pages": [
-              "pages/sdk-reference/cpp",
-              "pages/sdk-reference/python",
-              "pages/sdk-reference/rust"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "CLI",
-        "groups": [
-          {
-            "group": "CLI Reference",
-            "pages": [
-              "pages/cli-reference/intro",
-              "pages/cli-reference/get-started"
-            ]
-          },
-          {
-            "group": "Schemas",
-            "pages": [
-              "pages/cli-reference/schema-push"
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "logo": {
-    "light": "/logo/dark.png",
-    "dark": "/logo/light.png"
-  },
-  "appearance": {
-    "default": "dark"
-  },
-  "navbar": {
-    "links": [
-      {
-        "label": "Talk to a Founder",
-        "href": "https://cal.com/vedantnair/30min"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://app.miruml.com"
+    },
+    "logo": {
+        "light": "/logo/dark.png",
+        "dark": "/logo/light.png"
+    },
+    "appearance": {
+        "default": "dark"
+    },
+    "navbar": {
+        "links": [
+            {
+                "label": "Talk to a Founder",
+                "href": "https://cal.com/vedantnair/30min"
+            }
+        ],
+        "primary": {
+            "type": "button",
+            "label": "Dashboard",
+            "href": "https://configs.miruml.com/login"
+        }
+    },
+    "footer": {
+        "socials": {
+            "x": "https://x.com/mirurobotics",
+            "github": "https://github.com/miruml",
+            "linkedin": "https://www.linkedin.com/company/miruml/"
+        }
     }
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/mirurobotics",
-      "github": "https://github.com/miruml",
-      "linkedin": "https://www.linkedin.com/company/miruml/"
-    }
-  }
 }
