@@ -1,9 +1,54 @@
 ---
-title: 'Push a Schema'
+title: 'Push the Schema'
 ---
 
-- Config schema is already defined in the example application
-- JSON Schema use is required for now
-- your responsibility to ensure the schema is valid with your application
-    - supply code recommendations for ensuring the schema is valid with your develompent
+This guide assumes you've read the core concepts section on 
+[Creating Schemas](/pages/core-concepts/creating-schemas#uploading-a-config-schema).
+
+### Commit Changes
+Before pushing the schema to Miru, commit any changes to your repository. The CLI needs 
+a clean working directory to track schema versions properly.
+
+If you've modified the repository after cloning it, commit your changes:
+
+```bash
+git add .
+git commit -m "miru getting started guide"
+```
+
+### Push to Miru
+Now that we've committed our changes, let's push the schema:
+
+```bash
+miru schema push ./schemas/robot-features.schema.yaml
+```
+
+You'll see a confirmation message that your schema was uploaded.
+
+```bash
+📦 Attempting to push 1 config schemas...
+
+🏁 Successfully pushed schema for robot-features config
+     commit: aae386cd68f34b0372215ec3847d94b9caaeb57a
+     branch: main
+     origin: git@github.com:miruml/getting-started.git
+     git file path: schemas/robot-features.schema.yaml
+
+
+✅ Successfully uploaded 1 config schemas
+```
+
+Visit the [Configs page](https://configs.miruml.com/configs) and click on 
+`Robot Features` config to verify your schema was uploaded successfully.
+
+<Frame>
+    <img 
+        src="/images/getting-started/success-schema-push.png" 
+        alt="Successful Schema Push" 
+    />
+</Frame>
+
+<Info>
+    For more details, see the [CLI Reference](/pages/cli-reference/schema-push).
+</Info>
 

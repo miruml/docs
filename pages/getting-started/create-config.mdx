@@ -2,3 +2,41 @@
 title: 'Create a Config'
 ---
 
+This guide assumes you've read the core concepts section on 
+[Creating Schemas](/pages/core-concepts/creating-schemas).
+
+## Create Config
+After cloning the [getting-started](/pages/getting-started/sample-config.mdx) repository, create a new
+[Config](/pages/vocabulary#config) on the [Configs page](https://configs.miruml.com/configs).
+
+<Frame>
+    <img 
+        src="/images/getting-started/create-config-page.png" 
+        alt="Create Config Page" 
+    />
+</Frame>
+
+Click `+ New Config` and name the config `Robot Features` with slug `robot-features`.
+
+<Frame>
+    <img
+        src="/images/getting-started/create-config-form.png" 
+        alt="Create Config Form" 
+    />
+</Frame>
+
+## Config Slug
+The config slug is a unique identifier for your config in your workspace. It's used by 
+both the CLI and SDK to link your schema to the right config.
+
+Your JSON Schema file must include a `$miru_config_slug` field at the root level. We've
+already included this field in the example schema.
+
+```yaml robot-features.schema.yaml
+$miru_config_slug: "robot-features"
+---
+```
+
+<Warning>
+    Config slugs are permanent and cannot be changed after creation.
+</Warning>

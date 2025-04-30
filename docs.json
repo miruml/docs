@@ -9,9 +9,10 @@
     },
     "favicon": "/miru-favicon.svg",
     "navigation": {
-        "tabs": [
+        "dropdowns": [
             {
-                "tab": "Docs",
+                "dropdown": "Documentation",
+                "icon": "book-open",
                 "groups": [
                     {
                         "group": "Basics",
@@ -35,18 +36,19 @@
                         "pages": [
                             "pages/getting-started/create-account",
                             "pages/getting-started/install-cli",
-                            "pages/getting-started/sample-config",
+                            "pages/getting-started/starter-repo",
                             "pages/getting-started/create-config",
                             "pages/getting-started/push-schema",
                             "pages/getting-started/create-client",
-                            "pages/getting-started/create-tag",
+                            "pages/getting-started/create-tags",
                             "pages/getting-started/define-overrides"
                         ]
                     }
                 ]
             },
             {
-                "tab": "SDK",
+                "dropdown": "SDK Reference",
+                "icon": "code",
                 "groups": [
                     {
                         "group": "SDK Reference",
@@ -59,7 +61,8 @@
                 ]
             },
             {
-                "tab": "CLI",
+                "dropdown": "CLI Reference",
+                "icon": "terminal",    
                 "groups": [
                     {
                         "group": "CLI Reference",
@@ -77,6 +80,9 @@
                 ]
             }
         ]
+    },
+    "icons": {
+        "library": "lucide"
     },
     "logo": {
         "light": "/logo/dark.png",
@@ -100,9 +106,9 @@
     },
     "footer": {
         "socials": {
+            "linkedin": "https://www.linkedin.com/company/miruml/",
             "x": "https://x.com/mirurobotics",
-            "github": "https://github.com/miruml",
-            "linkedin": "https://www.linkedin.com/company/miruml/"
+            "github": "https://github.com/miruml"
         }
     }
 }

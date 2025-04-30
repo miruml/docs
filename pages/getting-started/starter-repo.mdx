@@ -1,0 +1,103 @@
+---
+title: 'Starter Repository'
+---
+
+import SchemaLanguages from '/snippets/schema-languages.mdx';
+
+We've created some examples schemas and configurations to help you get started. 
+
+## Clone the Repository
+To follow along, clone the [getting-started](https://github.com/miruml/getting-started) repository.
+
+```bash
+git clone https://github.com/miruml/getting-started.git
+```
+
+## Repository Contents
+
+The repository contains two directories:
+- `schemas/`: Contains configuration schema definitions
+- `configs/`: Contains concrete configuration files for local development
+
+Note: This is just an example structure - schemas and configs can be located anywhere.
+
+
+### Configuration Schema
+
+`/schemas/robot-features.schema.yaml` defines the JSON Schema that defines a set of 
+basic feature toggles and behavior parameters for a robot, such as:
+- Enabling autonomy
+- Maximum payload
+- Emergency stop sensitivity
+- Telemetry intervals
+
+We'll use this schema as the basis for our getting started guide.
+
+```yaml robot-features.schema.yaml [expandable]
+$miru_config_slug: "robot-features"
+$schema: "https://json-schema.org/draft/2020-12/schema"
+type: object
+properties:
+  enable_autonomy:
+    type: boolean
+    default: true
+  enable_remote_control:
+    type: boolean
+    default: true
+  max_payload_kg:
+    type: number
+    minimum: 0
+    maximum: 100
+    default: 10.0
+  preferred_speed_mode:
+    type: string
+    enum:
+      - slow
+      - normal
+      - fast
+    default: "normal"
+  emergency_stop_sensitivity:
+    type: number
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.8
+  telemetry:
+    type: object
+    properties:
+      upload_interval_sec:
+        type: integer
+        minimum: 10
+        maximum: 600
+        default: 60
+      heartbeat_interval_sec:
+        type: integer
+        minimum: 1
+        maximum: 60
+        default: 10
+    required:
+      - upload_interval_sec
+      - heartbeat_interval_sec
+required:
+  - enable_autonomy
+  - enable_remote_control
+  - max_payload_kg
+  - preferred_speed_mode
+  - emergency_stop_sensitivity
+  - telemetry
+```
+
+### Development Configuration
+
+`/configs/robot-features.yaml` uses the schema to define a concrete 
+configuration used for local development, such as:
+
+```yaml robot-features.yaml [expandable]
+enable_autonomy: true
+enable_remote_control: false
+max_payload_kg: 8.5
+preferred_speed_mode: "normal"
+emergency_stop_sensitivity: 0.9
+telemetry:
+  upload_interval_sec: 45
+  heartbeat_interval_sec: 15
+```
