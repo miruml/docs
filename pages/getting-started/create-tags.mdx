@@ -5,12 +5,103 @@ title: 'Create Tags'
 This guide assumes you've read the core concepts section on 
 [Setting Tags](/pages/core-concepts/setting-tags).
 
-## Creating Tag Types
+## Tag Types
+Miru uses [tag types](/pages/vocabulary#tag-types-%26-tags) to organize related tags that share a metadata schema.
 
-### Defining Tag Type Schema
+
+### Create Tag Types
+For this guide, you’ll create three tag types
+- Customer
+- Environment
+- Hardware
+
+Click `+ New Tag Type` to open the create tag type form to get started.
+
+<Frame>
+    <img
+        src="/images/getting-started/create-tag-type-page.png" 
+        alt="Create Tag Type Page" 
+    />
+</Frame>
+
+### Metadata Schema
+Each tag type can have a metadata schema that defines required fields for all tags 
+of that type. This ensures consistent metadata for tags when used in overrides.
+
+Here are the metadata schemas for the three tag types we’re creating:
+
+<CodeGroup>
+
+```yaml customer
+title: Customer Metadata
+type: object
+properties:
+  telemetry_interval_sec:
+    type: integer
+required:
+  - telemetry_interval_sec
+```
+
+```yaml environment
+title: Environment Metadata
+type: object
+properties:
+  telemetry_interval_sec:
+    type: integer
+  emergency_stop_sensitivity:
+    type: number
+    minimum: 0.0
+    maximum: 1.0
+required:
+  - telemetry_interval_sec
+```
+
+```yaml hardware
+title: Hardware Metadata
+type: object
+properties:
+  payload_capacity:
+    type: number
+  default_speed_mode:
+    type: string
+    enum: [slow, normal, fast]
+required:
+  - payload_capacity
+  - default_speed_mode
+```
+
+</CodeGroup>
+
+You can **upload** these schemas from the [tag-types directory](https://github.com/miruml/getting-started/tree/main/tag-types) 
+in the getting-started repository, or define and edit them directly in the UI.
+
+<Frame>
+    <img
+        src="/images/getting-started/upload-metadata-schema.png" 
+        alt="Upload Metadata Schema" 
+    />
+</Frame>
+
+Let's upload `/tag-types/customer.yaml` to create the Customer tag type:
 
 
-## Creating Tags
+<Frame>
+    <img
+        src="/images/getting-started/create-customer-tag-type.png" 
+        alt="Create Customer Tag Type" 
+    />
+</Frame>
+
+<Note>
+    Repeat this process for the Environment and Hardware tag types.
+</Note>
+
+## Tags
+Now we can create tags to categorize clients and define metadata for overrides.
+
+### Create Tags
+Click `+ New Tag` to open the create tag form.
+
 <Frame>
     <img
         src="/images/getting-started/create-tag-page.png" 
@@ -18,6 +109,81 @@ This guide assumes you've read the core concepts section on
     />
 </Frame>
 
-### Setting Tag Metadata
+### Setting Metadata
+
+Use the following values when creating your tags.
+
+<CodeGroup>
+
+```yaml customer
+# Tag: Standard
+telemetry_interval_sec: 60
+
+# Tag: Premium
+telemetry_interval_sec: 30
+```
+
+```yaml environment
+# Tag: Development
+emergency_stop_sensitivity: 0.9
+telemetry_interval_sec: 45
+
+# Tag: Production
+emergency_stop_sensitivity: 0.6
+telemetry_interval_sec: 120
+```
+
+```yaml hardware
+# Tag: Raspberry Pi 4 Model B
+default_speed_mode: slow
+payload_capacity: 5.0
+
+# Tag: NVIDIA Jetson Orin Nano
+default_speed_mode: normal
+payload_capacity: 10.0
+
+# Tag: NVIDIA Jetson Orin AGX
+default_speed_mode: fast
+payload_capacity: 20.0
+```
+
+</CodeGroup>
+
+Example form for the `Standard` tag of the Customer tag type:
+
+<Frame>
+    <img
+        src="/images/getting-started/create-customer-tag-form.png" 
+        alt="Create Tag Form" 
+    />
+</Frame>
+
+<Note>
+    Repeat this process for the Environment and Hardware tag types.
+</Note>
 
 ## Tagging Clients
+Let's revisit the [Clients page](https://configs.miruml.com/clients). Click the
+`+ Tags` button for the `Robot 1` client.
+<Frame>
+    <img
+        src="/images/getting-started/tag-client-button.png" 
+        alt="Create Tag Form" 
+    />
+</Frame>
+
+Using the select tags dropdown, we'll tag the `Robot 1` client with the 
+- `Standard` tag of the Customer tag type.
+- `Development` tag of the Environment tag type.
+- `NVIDIA Jetson Orin Nano` tag of the Hardware tag type.
+
+<Frame>
+    <img
+        src="/images/getting-started/tag-client-form.png" 
+        alt="Tag Client Form" 
+    />
+</Frame>
+
+<Note>
+    Each client may only have one tag per tag type.
+</Note>
