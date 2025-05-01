@@ -41,7 +41,9 @@
                             "pages/getting-started/push-schema",
                             "pages/getting-started/create-client",
                             "pages/getting-started/create-tags",
-                            "pages/getting-started/define-overrides"
+                            "pages/getting-started/define-overrides",
+                            "pages/getting-started/create-account",
+                            "pages/getting-started/install-cli"
                         ]
                     }
                 ]
