@@ -34,14 +34,14 @@
                     {
                         "group": "Getting Started",
                         "pages": [
+                            "pages/getting-started/create-account",
+                            "pages/getting-started/install-cli",
                             "pages/getting-started/starter-repo",
                             "pages/getting-started/create-config",
                             "pages/getting-started/push-schema",
                             "pages/getting-started/create-client",
                             "pages/getting-started/create-tags",
-                            "pages/getting-started/define-overrides",
-                            "pages/getting-started/create-account",
-                            "pages/getting-started/install-cli"
+                            "pages/getting-started/define-overrides"
                         ]
                     }
                 ]
