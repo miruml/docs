@@ -19,55 +19,52 @@ The repository contains two directories:
 - `schemas/`: Contains configuration schema definitions
 - `configs/`: Contains concrete configuration files for local development
 
-Note: This is just an example structure - schemas and configs can be located anywhere.
-
+<Note>
+    This is just an example structure - schemas and configs can be located anywhere.
+</Note>
 
 ### Configuration Schema
 
-`/schemas/robot-features.schema.yaml` defines the JSON Schema that defines a set of 
-basic feature toggles and behavior parameters for a robot, such as:
+`/schemas/mobility.schema.yaml` defines the JSON Schema used to configure how a 
+robot moves and communicates. It includes key parameters such as:
 - Enabling autonomy
 - Maximum payload
 - Emergency stop sensitivity
 - Telemetry intervals
 
-We'll use this schema as the basis for our getting started guide.
+We'll use this schema as the basis for our getting started guide to demonstrate how to 
+define, override, and deploy configuration data with Miru.
 
-```yaml robot-features.schema.yaml [expandable]
-$miru_config_slug: "robot-features"
+```yaml mobility.schema.yaml [expandable]
+$miru_config_slug: "mobility"
 $schema: "https://json-schema.org/draft/2020-12/schema"
+title: Mobility
 type: object
 properties:
-  enable_autonomy:
-    type: boolean
-    default: true
-  enable_remote_control:
-    type: boolean
-    default: true
-  max_payload_kg:
+  max_linear_speed_mps:
     type: number
-    minimum: 0
-    maximum: 100
-    default: 10.0
-  preferred_speed_mode:
+    minimum: 0.1
+    maximum: 5.0
+    default: 1.2
+  max_angular_speed_radps:
+    type: number
+    minimum: 0.1
+    maximum: 3.0
+    default: 1.0
+  obstacle_avoidance_enabled:
+    type: boolean
+    default: true
+  navigation_mode:
     type: string
-    enum:
-      - slow
-      - normal
-      - fast
-    default: "normal"
-  emergency_stop_sensitivity:
-    type: number
-    minimum: 0.0
-    maximum: 1.0
-    default: 0.8
+    enum: [conservative, balanced, aggressive]
+    default: balanced
   telemetry:
     type: object
     properties:
       upload_interval_sec:
         type: integer
         minimum: 10
-        maximum: 600
+        maximum: 300
         default: 60
       heartbeat_interval_sec:
         type: integer
@@ -78,26 +75,24 @@ properties:
       - upload_interval_sec
       - heartbeat_interval_sec
 required:
-  - enable_autonomy
-  - enable_remote_control
-  - max_payload_kg
-  - preferred_speed_mode
-  - emergency_stop_sensitivity
+  - max_linear_speed_mps
+  - max_angular_speed_radps
+  - obstacle_avoidance_enabled
+  - navigation_mode
   - telemetry
 ```
 
 ### Development Configuration
 
-`/configs/robot-features.yaml` uses the schema to define a concrete 
+`/configs/mobility.yaml` uses the schema to define a concrete 
 configuration used for local development, such as:
 
-```yaml robot-features.yaml [expandable]
-enable_autonomy: true
-enable_remote_control: false
-max_payload_kg: 8.5
-preferred_speed_mode: "normal"
-emergency_stop_sensitivity: 0.9
+```yaml mobility.yaml [expandable]
+max_linear_speed_mps: 1.2
+max_angular_speed_radps: 1.0
+obstacle_avoidance_enabled: true
+navigation_mode: balanced
 telemetry:
-  upload_interval_sec: 45
-  heartbeat_interval_sec: 15
+  upload_interval_sec: 60
+  heartbeat_interval_sec: 10
 ```

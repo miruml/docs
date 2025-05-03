@@ -10,10 +10,11 @@ Miru uses [tag types](/pages/vocabulary#tag-types-%26-tags) to organize related 
 
 
 ### Create Tag Types
-For this guide, you’ll create three tag types
-- Customer
-- Environment
-- Hardware
+Let's navigate to the [Tags page](https://configs.miruml.com/tags). We'll walk through
+creating three tag types:
+- `deployment_env`
+- `region`
+- `robot_model`
 
 Click `+ New Tag Type` to open the create tag type form to get started.
 
@@ -25,55 +26,12 @@ Click `+ New Tag Type` to open the create tag type form to get started.
 </Frame>
 
 ### Metadata Schema
-Each tag type can have a metadata schema that defines required fields for all tags 
-of that type. This ensures consistent metadata for tags when used in overrides.
+Each tag type can define a metadata schema that outlines required or optional fields 
+for all tags of that type. 
 
-Here are the metadata schemas for the three tag types we’re creating:
-
-<CodeGroup>
-
-```yaml customer
-title: Customer Metadata
-type: object
-properties:
-  telemetry_interval_sec:
-    type: integer
-required:
-  - telemetry_interval_sec
-```
-
-```yaml environment
-title: Environment Metadata
-type: object
-properties:
-  telemetry_interval_sec:
-    type: integer
-  emergency_stop_sensitivity:
-    type: number
-    minimum: 0.0
-    maximum: 1.0
-required:
-  - telemetry_interval_sec
-```
-
-```yaml hardware
-title: Hardware Metadata
-type: object
-properties:
-  payload_capacity:
-    type: number
-  default_speed_mode:
-    type: string
-    enum: [slow, normal, fast]
-required:
-  - payload_capacity
-  - default_speed_mode
-```
-
-</CodeGroup>
-
-You can **upload** these schemas from the [tag-types directory](https://github.com/miruml/getting-started/tree/main/tag-types) 
-in the getting-started repository, or define and edit them directly in the UI.
+We've provided all the metadata schemas in the [tag-types directory](https://github.com/miruml/getting-started/tree/main/tag-types) 
+of the getting-started repository. You can **upload** these schemas or 
+define them directly in the UI.
 
 <Frame>
     <img
@@ -82,25 +40,82 @@ in the getting-started repository, or define and edit them directly in the UI.
     />
 </Frame>
 
-Let's upload `/tag-types/customer.yaml` to create the Customer tag type:
+These are the metadata schemas for each tag type:
 
+<CodeGroup>
+
+```yaml deployment_env [expandable]
+title: deployment_env
+type: object
+properties:
+  obstacle_avoidance_enabled:
+    type: boolean
+  navigation_mode:
+    type: string
+    enum: [conservative, balanced, aggressive]
+  telemetry_upload_interval_sec:
+    type: integer
+    minimum: 10
+    maximum: 300
+required:
+  - obstacle_avoidance_enabled
+  - navigation_mode
+```
+
+```yaml region [expandable]
+title: region
+type: object
+properties:
+  telemetry_upload_interval_sec:
+    type: integer
+    minimum: 10
+    maximum: 300
+  heartbeat_interval_sec:
+    type: integer
+    minimum: 1
+    maximum: 60
+required:
+  - telemetry_upload_interval_sec
+  - heartbeat_interval_sec
+```
+
+```yaml robot_model [expandable]
+title: robot_model
+type: object
+properties:
+  max_linear_speed_mps:
+    type: number
+    minimum: 0.1
+    maximum: 5.0
+  max_angular_speed_radps:
+    type: number
+    minimum: 0.1
+    maximum: 3.0
+required:
+  - max_linear_speed_mps
+  - max_angular_speed_radps
+```
+</CodeGroup>
+
+Upload `deployment_env.schema.yaml` to create the `deployment_env` tag type.
 
 <Frame>
     <img
-        src="/images/getting-started/create-customer-tag-type.png" 
-        alt="Create Customer Tag Type" 
+        src="/images/getting-started/create-tag-type-form.png" 
+        alt="Create Tag Type Form" 
     />
 </Frame>
 
 <Note>
-    Repeat this process for the Environment and Hardware tag types.
+    Repeat this process for the `region` and `robot_model` tag types.
 </Note>
 
 ## Tags
-Now we can create tags to categorize clients and define metadata for overrides.
+Now we can create tags to categorize [clients](/pages/vocabulary#client) and 
+define metadata for [overrides](/pages/vocabulary#override).
 
 ### Create Tags
-Click `+ New Tag` to open the create tag form.
+Navigate to the `deployment_env` page and click `+ New Tag` to create a tag.
 
 <Frame>
     <img
@@ -111,56 +126,36 @@ Click `+ New Tag` to open the create tag form.
 
 ### Setting Metadata
 
-Use the following values when creating your tags.
+We'll create a tag for each tag type. Use the following values when creating your tags.
 
-<CodeGroup>
+<Tabs>
+    <Tab title="deployment_env">
+        <Frame>
+            <img
+                src="/images/getting-started/create-tag-depl-env.png" 
+                alt="Create Tag Page for deployment_env" 
+            />
+        </Frame>
+    </Tab>
+    <Tab title="region">
+        <Frame>
+            <img
+                src="/images/getting-started/create-tag-region.png" 
+                alt="Create Tag Page for region" 
+            />
+        </Frame>
+    </Tab>
+    <Tab title="robot_model">
+        <Frame>
+            <img
+                src="/images/getting-started/create-tag-robot-model.png" 
+                alt="Create Tag Page for robot_model" 
+            />
+        </Frame>
+    </Tab>
+</Tabs>
 
-```yaml customer
-# Tag: Standard
-telemetry_interval_sec: 60
 
-# Tag: Premium
-telemetry_interval_sec: 30
-```
-
-```yaml environment
-# Tag: Development
-emergency_stop_sensitivity: 0.9
-telemetry_interval_sec: 45
-
-# Tag: Production
-emergency_stop_sensitivity: 0.6
-telemetry_interval_sec: 120
-```
-
-```yaml hardware
-# Tag: Raspberry Pi 4 Model B
-default_speed_mode: slow
-payload_capacity: 5.0
-
-# Tag: NVIDIA Jetson Orin Nano
-default_speed_mode: normal
-payload_capacity: 10.0
-
-# Tag: NVIDIA Jetson Orin AGX
-default_speed_mode: fast
-payload_capacity: 20.0
-```
-
-</CodeGroup>
-
-Example form for the `Standard` tag of the Customer tag type:
-
-<Frame>
-    <img
-        src="/images/getting-started/create-customer-tag-form.png" 
-        alt="Create Tag Form" 
-    />
-</Frame>
-
-<Note>
-    Repeat this process for the Environment and Hardware tag types.
-</Note>
 
 ## Tagging Clients
 Let's revisit the [Clients page](https://configs.miruml.com/clients). Click the
@@ -173,9 +168,9 @@ Let's revisit the [Clients page](https://configs.miruml.com/clients). Click the
 </Frame>
 
 Using the select tags dropdown, we'll tag the `Robot 1` client with the 
-- `Standard` tag of the Customer tag type.
-- `Development` tag of the Environment tag type.
-- `NVIDIA Jetson Orin Nano` tag of the Hardware tag type.
+- `Outdoors` tag of the Deployment Environment tag type.
+- `US-West` tag of the Region tag type.
+- `Turtlebot 4` tag of the Robot Model tag type.
 
 <Frame>
     <img
@@ -184,6 +179,6 @@ Using the select tags dropdown, we'll tag the `Robot 1` client with the
     />
 </Frame>
 
-<Note>
-    Each client may only have one tag per tag type.
-</Note>
+<Info>
+    Each client may only have **one tag per tag type**.
+</Info>

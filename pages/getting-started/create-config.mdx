@@ -16,27 +16,28 @@ After cloning the [getting-started](/pages/getting-started/sample-config.mdx) re
     />
 </Frame>
 
-Click `+ New Config` and name the config `Robot Features` with slug `robot-features`.
+Click `+ New Config` and name the config `Mobility` with slug `mobility`.
 
 <Frame>
     <img
-        src="/images/getting-started/create-config-form.png" 
-        alt="Create Config Form" 
+        src="/images/getting-started/create-config-dialog.png" 
+        alt="Create Config Dialog" 
     />
 </Frame>
+
+<Warning>
+    Config slugs are permanent and cannot be changed after creation.
+</Warning>
 
 ## Config Slug
 The config slug is a unique identifier for your config in your workspace. It's used by 
 both the CLI and SDK to link your schema to the right config.
 
 Your JSON Schema file must include a `$miru_config_slug` field at the root level. We've
-already included this field in the example schema.
+already included this field in `mobility.schema.yaml`.
 
-```yaml robot-features.schema.yaml
-$miru_config_slug: "robot-features"
+```yaml mobility.schema.yaml
+$miru_config_slug: "mobility"
 ---
 ```
 
-<Warning>
-    Config slugs are permanent and cannot be changed after creation.
-</Warning>
