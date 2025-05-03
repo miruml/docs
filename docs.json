@@ -67,8 +67,8 @@
                     {
                         "group": "CLI Reference",
                         "pages": [
-                            "pages/cli-reference/intro",
-                            "pages/cli-reference/get-started"
+                            "pages/cli-reference/install",
+                            "pages/cli-reference/login"
                         ]
                     },
                     {
