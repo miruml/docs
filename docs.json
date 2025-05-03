@@ -17,31 +17,35 @@
                     {
                         "group": "Basics",
                         "pages": [
-                            "pages/introduction",
+                            "docs/basics/introduction",
                             {
                                 "group": "Core Concepts",
                                 "pages": [
-                                    "pages/core-concepts/overview",
-                                    "pages/core-concepts/creating-schemas",
-                                    "pages/core-concepts/setting-tags",
-                                    "pages/core-concepts/defining-policies",
-                                    "pages/core-concepts/deploying-configs"
+                                    "docs/basics/core-concepts/overview",
+                                    "docs/basics/core-concepts/creating-schemas",
+                                    "docs/basics/core-concepts/setting-tags",
+                                    "docs/basics/core-concepts/defining-policies",
+                                    "docs/basics/core-concepts/deploying-configs"
                                 ]
                             },
-                            "pages/vocabulary"
+                            "docs/basics/vocabulary",
+                            {
+                                "group": "Getting Started",
+                                "pages": [
+                                    "docs/basics/getting-started/overview",
+                                    "docs/basics/getting-started/push-schema",
+                                    "docs/basics/getting-started/create-tags",
+                                    "docs/basics/getting-started/define-overrides",
+                                    "docs/basics/getting-started/install-agent"
+                                ]
+                            }
                         ]
                     },
+
                     {
-                        "group": "Getting Started",
+                        "group": "Agent / SDK",
                         "pages": [
-                            "pages/getting-started/create-account",
-                            "pages/getting-started/install-cli",
-                            "pages/getting-started/starter-repo",
-                            "pages/getting-started/create-config",
-                            "pages/getting-started/push-schema",
-                            "pages/getting-started/create-client",
-                            "pages/getting-started/create-tags",
-                            "pages/getting-started/define-overrides"
+                            "docs/agent-sdk/install-agent"
                         ]
                     }
                 ]
@@ -51,11 +55,10 @@
                 "icon": "code",
                 "groups": [
                     {
-                        "group": "SDK Reference",
+                        "group": "C++",
                         "pages": [
-                            "pages/sdk-reference/cpp",
-                            "pages/sdk-reference/python",
-                            "pages/sdk-reference/rust"
+                            "docs/sdk-reference/cpp/integrate",
+                            "docs/sdk-reference/cpp/quickstart"
                         ]
                     }
                 ]
@@ -65,16 +68,16 @@
                 "icon": "terminal",    
                 "groups": [
                     {
-                        "group": "CLI Reference",
+                        "group": "Basics",
                         "pages": [
-                            "pages/cli-reference/install",
-                            "pages/cli-reference/login"
+                            "docs/cli-reference/install",
+                            "docs/cli-reference/login"
                         ]
                     },
                     {
                         "group": "Schemas",
                         "pages": [
-                            "pages/cli-reference/schema-push"
+                            "docs/cli-reference/schema-push"
                         ]
                     }
                 ]

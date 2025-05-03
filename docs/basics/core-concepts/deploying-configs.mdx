@@ -1,0 +1,119 @@
+---
+title: 'Deploying Configs'
+---
+
+## SDK
+Miru provides an SDK for deploying configs to your devices. 
+
+There are two primary methods of using the SDK. The first is to update concrete configs on your file system. On application boot or at some regular interval, use the SDK to download concrete configs to a file on the file system.
+
+<CodeGroup>
+```python Python
+client.write_config(
+    slug="motion-control-config",
+    schema_file="./path/to/config/schema.yaml",
+    dest_file="./path/to/place/config.yaml",
+)
+```
+
+```rust Rust
+client.write_config(
+    "motion-control-config",
+    "./config-schemas/motion-control-schema.yaml",
+    "./configs/motion-control-config.yaml",
+)
+```
+
+```cpp C++
+client->writeConfig(
+    "motion-control-config",
+    "./path/to/config/schema.yaml",
+    "./path/to/place/config.yaml",
+);
+```
+</CodeGroup>
+
+This method is simple and requires relatively little refactoring (if any). However it requires you to write the code for refreshing the concrete config on your file system. If "hot-reloading" is required by your application, we recommend using values returned by the SDK directly.
+
+<CodeGroup>
+```python Python
+motion_control_config = client.get_config(
+    slug="motion-control-config",
+    schema_file="./config-schemas/motion-control-schema.yaml",
+)
+```
+
+```rust Rust
+let motion_control_config = client.get_config(
+    "motion-control-config",
+    "./config-schemas/motion-control-schema.yaml"
+);
+```
+
+```cpp C++
+auto motion_control_config = client->getConfig(
+    "motion-control-config",
+    "./config-schemas/motion-control-schema.yaml"
+);
+```
+</CodeGroup>
+
+This simplifies refresh logic so you don't need to write any custom code to refresh configs.
+
+## Evaluating Concrete Configs
+Miru uses two inputs to identify the concrete config that the SDK should pull from the cloud. The first is the config slug. This is a string identifier defined by you for identifying a specific config. For instance, the Motion Control config might use `motion-control-config` for its slug .
+
+<CodeGroup>
+```python Python
+motion_control_config = client.get_config(
+    # the config slug
+    slug="motion-control-config",
+    # the config schema's contents
+    schema_file="./config-schemas/motion-control-schema.yaml",
+)
+```
+
+```rust Rust
+let motion_control_config = client.get_config(
+    // the config slug
+    "motion-control-config",
+    // the config schema's contents
+    "./config-schemas/motion-control-schema.yaml"
+);
+```
+
+```cpp C++
+auto motion_control_config = client->getConfig(
+    // the config slug
+    "motion-control-config",
+    // the config schema's contents
+    "./config-schemas/motion-control-schema.yaml"
+);
+```
+</CodeGroup>
+
+The second input is the contents of the desired config schema. When uploading a config schema to Miru, a hash of the config schema's contents is generated. This hash is known as the config schema's digest. 
+
+Together, the config slug and the config schema digest identify the config and its schema requested by the SDK in the cloud . In turn, this config schema references a policy that evaluates a client's tags to produce the correct concrete config.
+
+<img height="200" src="/images/core-concepts/motion-control-schema-list-zoomed.png" style={{borderRadius: '7px'}}/>
+
+Here, config schema version `v8` references policy version `v4`. Policy `v4` is evaluated with the tags associated with the client making the request to produce the concrete config returned by the SDK.
+
+<img height="200" src="/images/core-concepts/policy-override.png" style={{borderRadius: '7px'}}/>
+
+The upshot of all this is that to pull the proper concrete config, you simply need to pass the SDK the config schema contents and the config slug (the SDK authentication will properly identify the client). Since the config schema file is already in your codebase, passing in the config schema contents is trivial, and the config slug can be statically defined in your codebase
+
+When deploying a new version of code with a breaking schema change, the SDK pulls the correct concrete config from the cloud by evaluating the config schema digest/config slug pair defined in the code. 
+
+This trivially versions your configurations in lockstep with your code. No complicated deployment pipeline attempting to deploy configs with compatible code versions.
+
+## Networking & Caching 
+It's expected that clients will not have a stable internet connection. The SDK caches concrete configs in both memory and disk. The SDK returns the latest known cache values for a concrete config while the network is offline and updates the cache as soon as the network is available.
+
+It's also expected that clients may suddenly lose power or be restarted. Since the cache persists on disk, it is still available in the event the client loses power and has no internet connection.
+
+## Conclusion
+This concludes the core concepts guide, which walked through Miru's core offering. We defined config schemas in a git repository, uploaded them to Miru, stored configuration data in clients and tags, created policies, and then deployed a concrete config to a client.
+
+Of course, this was just a high-level overview. To begin using Miru, continue to the [getting started](/docs/basics/getting-started) guide, where installation and usage are fully explained with an example to follow along with.
