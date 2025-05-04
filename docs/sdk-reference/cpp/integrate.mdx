@@ -2,77 +2,14 @@
 title: 'Integrate'
 ---
 
-The Miru C++ SDK relies on CMake for integration. The [build requirements](https://github.com/miruml/cpp-sdk?tab=readme-ov-file#build-requirements) and [build options](https://github.com/miruml/cpp-sdk?tab=readme-ov-file#cmake-options) can be found in the official [C++ SDK repository](https://github.com/miruml/cpp-sdk).
+import FirstUseWarning from '/snippets/first-use-warning.mdx';
+import Integrate from '/snippets/sdk-reference/cpp/integrate.mdx';
+import SupportedPlatforms from '/snippets/sdk-reference/cpp/supported-platforms.mdx';
+
+<FirstUseWarning />
 
 ### Integrate
-<Tabs>
-    <Tab title="FetchContent">
-        Include the FetchContent module in your CMake file.
-
-        ```CMake
-        # this should be somewhere in your cmake file
-        include(FetchContent)
-
-        ...
-
-        # set the desired miru options (feel free to change these)
-        set(MIRU_FETCH_BOOST ON)
-        set(MIRU_BUILD_TESTS OFF)
-        set(MIRU_BUILD_EXAMPLES ON)
-
-        FetchContent_Declare(
-            miru
-            GIT_REPOSITORY https://github.com/miruml/cpp-sdk.git  # Replace with actual repo URL
-            GIT_TAG v0.1.0 # replace with desired tag/branch/commit
-        )
-
-        FetchContent_MakeAvailable(miru)
-
-        ...
-
-        # link the miru sdk 
-        target_link_libraries(your-app PRIVATE miru::miru)
-        ```
-    </Tab>
-
-    <Tab title="add_subdirectory">
-        You can also clone the repository locally and add it as a subdirectory to your project.
-
-        Clone the repository into your desired directory
-        ```bash
-        # replace with desired tag
-        git clone -b v0.1.0 https://github.com/miruml/cpp-sdk.git
-        ```
-
-        ```CMake
-        # set the desired miru options (feel free to change these)
-        set(MIRU_FETCH_BOOST ON)
-        set(MIRU_BUILD_TESTS OFF)
-        set(MIRU_BUILD_EXAMPLES ON)
-
-        add_subdirectory("path/to/miru/sdk/repo", "${CMAKE_BINARY_DIR}/miru")
-
-        ...
-
-        # link the miru sdk
-        target_link_libraries(your-app PRIVATE miru::miru)
-        ```
-    </Tab>
-</Tabs>
-
-<Note>
-    Support for more integration methods and package managers is coming soon.
-</Note>
+<Integrate />
 
 ### Supported Platforms
-
-The Miru C++ SDK has been tested and verified to work on the following operating systems:
-
-- Ubuntu 20.04 LTS
-- Ubuntu 22.04 LTS
-- Ubuntu 24.04 LTS
-- NVIDIA Jetson (JetPack 5.1)
-- NVIDIA Jetson (JetPack 6.1)
-- Raspberry Pi OS (64-bit)
-
-Other Linux distributions and versions should also work, but have not been explicitly tested.
+<SupportedPlatforms />

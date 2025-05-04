@@ -29,10 +29,10 @@ Click `+ New Config` and name the config `Mobility` with slug `mobility`.
 </Warning>
 
 ### Config Slugs
-The config slug is a unique identifier for a config. It's used by both the CLI and SDK to link your schema to the right config.
+The config slug is a unique identifier for a config. It's used by both the CLI and SDK to link a config schema to its corresponding config.
 
-Your JSON Schema file must include a `$miru_config_slug` field at the root level. We've
-included this field for you in `mobility.schema.yaml`.
+Thus all config schemas must include the `$miru_config_slug` field at the root level. We've
+already included this field in `mobility.schema.yaml`.
 
 ```yaml mobility.schema.yaml
 $miru_config_slug: "mobility"
@@ -41,7 +41,7 @@ $miru_config_slug: "mobility"
 
 ### Install the CLI
 
-Schemas are pushed via the Miru command-line interface (CLI). We'll need to install the CLI and login to continue.
+Schemas are pushed via the Miru command-line interface (CLI).
 
 <InstallInstructions />
 
@@ -73,8 +73,8 @@ You'll see a confirmation message that your schema was successfully pushed.
 ✅ Successfully uploaded 1 config schemas
 ```
 
-Visit the [Configs](https://configs.miruml.com/configs) page and click into the 
-`Mobility` config to verify your schema was uploaded successfully.
+Visit the [Configs page](https://configs.miruml.com/configs) and click into the 
+`Mobility` config to verify the schema was uploaded successfully.
 
 <Frame>
     <img 

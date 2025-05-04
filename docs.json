@@ -51,19 +51,6 @@
                 ]
             },
             {
-                "dropdown": "SDK Reference",
-                "icon": "code",
-                "groups": [
-                    {
-                        "group": "C++",
-                        "pages": [
-                            "docs/sdk-reference/cpp/integrate",
-                            "docs/sdk-reference/cpp/quickstart"
-                        ]
-                    }
-                ]
-            },
-            {
                 "dropdown": "CLI Reference",
                 "icon": "terminal",    
                 "groups": [
@@ -78,6 +65,19 @@
                         "group": "Schemas",
                         "pages": [
                             "docs/cli-reference/schema-push"
+                        ]
+                    }
+                ]
+            },
+            {
+                "dropdown": "SDK Reference",
+                "icon": "code",
+                "groups": [
+                    {
+                        "group": "C++",
+                        "pages": [
+                            "docs/sdk-reference/cpp/integrate",
+                            "docs/sdk-reference/cpp/quickstart"
                         ]
                     }
                 ]
