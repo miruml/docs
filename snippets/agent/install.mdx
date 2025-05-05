@@ -5,6 +5,34 @@ Run the following installation command in your terminal.
 curl -fsSL https://raw.githubusercontent.com/miruml/agent/main/manual-install.sh | sh
 ```
 
-<Info>
-The script requires `curl`, `tar`, `grep`, and `cut` to be installed and sudo privileges may be required
-</Info>
+The script requires `curl` to be installed and sudo privileges may be required. 
+
+Review the contents of the [installation](https://github.com/miruml/agent/blob/main/manual-deb-install.sh) and [activation](https://github.com/miruml/agent/blob/main/activate.sh) scripts [here](https://github.com/miruml/agent).
+
+The script downloads the Miru agent debian package and installs the agent as a `systemd` service. It then downloads and executes the activation script, waiting for a client activation token to be provided.
+
+To retrieve a client activation token, navigate to the [Clients page](https://configs.miruml.com/clients) and click the ellipses (three dots) to the right of the client to activate.
+
+<Frame>
+    <img src="/images/getting-started/list-clients-page.png" />
+</Frame>
+
+Click the `Token` tab and copy the token.
+
+<Frame>
+    <img src="/images/getting-started/client-activation-token.png" />
+</Frame>
+
+Paste the token into the [activation script](https://github.com/miruml/agent/blob/main/activate.sh).
+
+```bash
+To authenticate the miru agent, you'll need to retrieve the authentication token from https://configs.miruml.com/clients for the client you want to authenticate as.
+
+ Enter Authentication Token › *******
+```
+
+A message will confirm that the agent has been activated for the specified client.
+
+```bash
+Successfully activated the miru agent as the Robot 1 client!
+```
