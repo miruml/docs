@@ -4,109 +4,114 @@ title: 'Creating Schemas'
 
 ## Configs
 
-Applications have a variety of configurations serving different purposes. Below are some [configs](/docs/basics/vocabulary#config) for a fictional robot. Each config is responsible for a particular aspect of the robot's behavior.
+Applications have a variety of configurations serving different purposes. Below are 
+some [configs](/docs/basics/vocabulary#config) for a fictional robot. Each config is 
+responsible for a particular aspect of the robot's behavior.
 
-<img src="/images/core-concepts/config-list.png" style={{borderRadius: '7px'}}/>
+<Frame>
+    <img src="/images/core-concepts/config-list.png"/>
+</Frame>
 
-Every config has a history of [config schemas](/docs/basics/vocabulary#config-schema) and a history of [concrete configs](/docs/basics/vocabulary#concrete-config) deployed to robots. Below are the config schemas for the Motion Control config.
+Every config has a history of [config schemas](/docs/basics/vocabulary#config-schema) 
+and a history of [concrete configs](/docs/basics/vocabulary#concrete-config) deployed 
+to robots. Below are the config schemas for the `Mobility` config.
 
-<img src="/images/core-concepts/motion-control-schema-list.png" style={{borderRadius: '7px'}}/>
+<Frame>
+    <img src="/images/core-concepts/mobility-schema-list.png"/>
+</Frame>
 
 ## Config Schemas
-Miru requires the use of config schemas. These schemas validate concrete configs before deployment, preventing runtime application errors. 
+Miru requires the use of config schemas. These schemas validate concrete configs before 
+deployment, preventing runtime application errors. 
 
-Config schemas **live in a git repository** (preferably in the same repository as the code consuming the config to minimize versioning errors between code and configurations).
+Config schemas **live in a git repository** (preferably in the same repository as the 
+code consuming the config to minimize versioning errors between code and configurations).
 
 As an example, let's say our application has the following directory structure.
 
 ```
 src/...
-concrete-configs/
-├── motion-control.yaml
+configs/
+├── mobility.yaml
 └── ...
-config-schemas/
-├── motion-control.schema.yaml
+schemas/
+├── mobility.schema.yaml
 └── ...
 ```
 
-<Accordion title="motion-control.yaml">
-```yaml
-speed: 10
-features:
-  spin: true
-  jump: true
-  backflip: false
-accelerometer:
-  id: acc_id_1
-  offsets:
-    x: 0.1
-    y: 0.13
-    z: -0.04
-  scaling_factor:
-    x: 1.0
-    y: 1.02
-    z: 0.99
-```
-</Accordion>
+<Note>
+    This is just an example structure - schemas and configs can be located anywhere.
+</Note>
 
-<Accordion title="motion-control.schema.yaml">
-```yaml
+`mobility.schema.yaml` specifies the possible values for the `mobility.yaml` concrete 
+config. On the other hand, `mobility.yaml` defines actual concrete config values. 
+
+<CodeGroup>
+```yaml mobility.schema.yaml [expandable]
 $schema: "https://json-schema.org/draft/2020-12/schema"
+title: Mobility
 type: object
 properties:
-  speed:
-    type: integer
-    minimum: 1
-    default: 10
-  features:
+  max_linear_speed_mps:
+    type: number
+    minimum: 0.1
+    maximum: 5.0
+    default: 1.2
+  max_angular_speed_radps:
+    type: number
+    minimum: 0.1
+    maximum: 3.0
+    default: 1.0
+  obstacle_avoidance_enabled:
+    type: boolean
+    default: true
+  navigation_mode:
+    type: string
+    enum: [conservative, balanced, aggressive]
+    default: balanced
+  telemetry:
     type: object
     properties:
-      spin:
-        type: boolean
-        default: true
-      jump:
-        type: boolean
-        default: false
-      backflip:
-        type: boolean
-        default: false
-    required: [spin, jump, backflip]
-  accelerometer:
-    type: object
-    properties:
-      id:
-        type: string
-      offsets:
-        type: object
-        properties:
-          x:
-            type: number
-          y:
-            type: number
-          z:
-            type: number
-        required: [x, y, z]
-      scaling_factor:
-        type: object
-        properties:
-          x:
-            type: number
-          y:
-            type: number
-          z:
-            type: number
-        required: [x, y, z]
-    required: [id, offsets, scaling_factor]
-required: [device_id, speed, features, accelerometer]
+      upload_interval_sec:
+        type: integer
+        minimum: 10
+        maximum: 300
+        default: 60
+      heartbeat_interval_sec:
+        type: integer
+        minimum: 1
+        maximum: 60
+        default: 10
+    required:
+      - upload_interval_sec
+      - heartbeat_interval_sec
+required:
+  - max_linear_speed_mps
+  - max_angular_speed_radps
+  - obstacle_avoidance_enabled
+  - navigation_mode
+  - telemetry
 ```
-</Accordion>
 
-`motion-control.schema.yaml` specifies the possible values for the `motion-control.yaml` concrete config. On the other hand, `motion-control.yaml` defines actual concrete config values. 
+```yaml mobility.yaml [expandable]
+max_linear_speed_mps: 1.2
+max_angular_speed_radps: 1.0
+obstacle_avoidance_enabled: true
+navigation_mode: balanced
+telemetry:
+  upload_interval_sec: 60
+  heartbeat_interval_sec: 10
+```
+</CodeGroup>
 
 ## Miru SDK
-However, concrete configs defined in a git repository are for **development use only**. In production, concrete configs are defined in the cloud and retrieved from the [Miru Agent](/docs/agent-sdk) running on the robot (more on this later) .
+However, concrete configs defined in a git repository are for **development use only**. 
+In production, concrete configs are defined in the cloud and retrieved from the 
+[Miru Agent](/docs/agent-sdk) running on the robot (more on this later) .
 
-In development, quickly defining and editing configurations is essential. `motion-control.yaml` supplies concrete config values via the local file system for quick iteration. `motion-control.yaml` is never uploaded to the cloud or deployed to production robots.
+In development, quickly defining and editing configurations is essential. 
+`mobility.yaml` supplies concrete config values via the local file system for 
+quick iteration. `mobility.yaml` is never uploaded to the cloud or deployed to production robots.
 
 To support both development and production scenarios, Miru provides an [SDK](/docs/sdk-reference). Below is a code snippet of the SDK in development.
 
@@ -114,19 +119,21 @@ To support both development and production scenarios, Miru provides an [SDK](/do
 ```cpp C++
 // instantiate the config from the file system
 auto config = miru::config::Config::from_file(
-    "/path/to/concrete-configs/motion-control.yaml",
-    "/path/to/config-schemas/motion-control.schema.yaml"
+    "/path/to/configs/mobility.yaml",
+    "/path/to/schemas/mobility.schema.yaml"
 );
 
 // retrieve a parameter from the config
-std::string config_slug = "motion-control";
+std::string config_slug = "mobility";
 std::string parameter_name = config_slug + "." + "an_integer";
 auto parameter = miru::query::get_param(config, parameter_name);
 int value = parameter.as_int();
 ```
 </CodeGroup>
 
-In production, the SDK retrieves the concrete config from the Miru agent running on the robot. The agent is a lightweight `systemd` service that provides the SDK with the concrete configs over a unix socket.
+In production, the SDK retrieves the concrete config from the Miru agent running on the 
+robot. The agent is a lightweight `systemd` service that provides the SDK with the 
+concrete configs over a unix socket.
 
 Below is a code snippet of the SDK in production.
 
@@ -134,11 +141,11 @@ Below is a code snippet of the SDK in production.
 ```cpp C++
 // instantiate the config from the agent
 auto config = miru::config::Config::from_agent(
-    "/path/to/config-schemas/motion-control.schema.yaml"
+    "/path/to/schemas/mobility.schema.yaml"
 );
 
 // retrieve a parameter from the config
-std::string config_slug = "motion-control";
+std::string config_slug = "mobility";
 std::string parameter_name = config_slug + "." + "an_integer";
 auto parameter = miru::query::get_param(config, parameter_name);
 int value = parameter.as_int();
@@ -147,12 +154,12 @@ int value = parameter.as_int();
 
 More will be said about the Miru agent in coming sections. For now, the key takeaway is that the development workflow leverages the local file system for consuming concrete configs via the Miru SDK.
 
-## Uploading a Config Schema
+## Pushing a Schema
 
 Once ready to deploy new configurations to production, config schemas are uploaded to the cloud using the Miru [CLI](/docs/cli-reference).
 
 ```bash
-miru schema push ./path/to/config-schemas/motion-control.schema.yaml
+miru schema push ./path/to/schemas/mobility.schema.yaml
 ```
 
 The CLI collects some git information to help version and track config schemas when viewing them in the Miru dashboard. Miru **does not have access to your git repository**. The git information is extracted from the git repository where the CLI is run.
@@ -170,8 +177,14 @@ The CLI collects some git information to help version and track config schemas w
 ✅ Successfully uploaded 1 config schemas
 ```
 
-After executing `miru schema push`, config schemas are available in the Miru dashboard.
+After executing `miru schema push`, config schemas are available in the dashboard.
 
-<img src="/images/core-concepts/motion-control-schema-list.png" style={{borderRadius: '7px'}}/>
+<Frame>
+    <img src="/images/core-concepts/mobility-schema-list.png"/>
+</Frame>
 
-We recommend using the `miru schema push` command in your CI pipeline to upload your config schemas automatically. Miru will know if a config schema has changed and will not create a new config schema if it has already been uploaded in a previous commit.
+<Note>
+    We recommend using the `miru schema push` command in your CI pipeline to upload your 
+    config schemas automatically. Miru will know if a config schema has changed and will 
+    not create a new config schema if it has already been uploaded in a previous commit.
+</Note>

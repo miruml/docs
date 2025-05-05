@@ -1,13 +1,26 @@
 A **metadata schema** defines the constraints on the metadata. 
 
-Metadata schemas are written in a configuration language like JSON Schema. The following JSON Schema is a plausible metadata schema for the `robot_id` metadata we showed above.
+Metadata schemas are written in a configuration language like JSON Schema. The 
+following JSON Schema is a plausible metadata schema for the `robot_id` metadata we 
+showed above.
 
-<img height="200" src="/images/vocabulary/client-metadata-schema.png" style={{borderRadius: '7px'}}/>
+<Frame>
+    <img src="/images/vocabulary/client-metadata-schema.png" />
+</Frame>
 
-Miru requires every tag type to have a metadata schema describing what constitutes valid metadata for any tag of that tag type. For instance, the `hardware` tag type may have the following metadata schema to specify the features (jump, spin, backflip) supported by a given hardware.
+Miru requires every tag type to have a metadata schema describing what constitutes 
+valid metadata for any tag of that tag type. For instance, the `hardware` tag type may 
+have the following metadata schema to specify the features (jump, spin, backflip) 
+supported by a given hardware.
 
-<img src="/images/vocabulary/hardware-tag-type-metadata-schema.png" style={{borderRadius: '7px'}}/>
+<Frame>
+    <img src="/images/vocabulary/hardware-tag-type-metadata-schema.png" />
+</Frame>
 
-Any tags of the `hardware` tag type can only store metadata that adheres to the `hardware` metadata schema.
+Any tags of the `hardware` tag type can only store metadata that adheres to the 
+`hardware` metadata schema.
 
-Metadata schemas look eerily similar to config schemas but serve a different purpose. A metadata schema does not describe or enforce any constraints on the concrete configs that are deployed to clients. Metadata schemas only describe what constitutes valid metadata, effectively structuring the metadata stored for clients and tags. 
+Metadata schemas look eerily similar to config schemas but serve a different purpose. 
+A metadata schema does not describe or enforce any constraints on the concrete configs 
+that are deployed to clients. Metadata schemas only describe what constitutes valid 
+metadata, effectively structuring the metadata stored for clients and tags. 

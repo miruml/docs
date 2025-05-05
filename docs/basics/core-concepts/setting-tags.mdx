@@ -8,21 +8,30 @@ import MetadataSchemaDefinition from '/snippets/vocabulary/metadata-schema-defin
 import TagAndTagTypeDefinition from '/snippets/vocabulary/tag-and-tag-type-definition.mdx';
 
 ## Cloud-Based
-Unlike config schemas, configuration data is not stored in a git repository. Instead, configuration data is **stored in the cloud** and is accessible via the Miru dashboard or programmatically via the Miru REST API. 
+Unlike config schemas, configuration data is not stored in a git repository. Instead, 
+configuration data is **stored in the cloud** and is accessible via the Miru dashboard 
+or programmatically via the Miru REST API. 
 
-Miru uses the concepts of **clients**, **tags**, and **metadata** to structure how configuration data is stored and used. 
+Miru uses the concepts of **clients**, **tags**, and **metadata** to structure how 
+configuration data is stored and used. 
 
-Think of tags and metadata as a datastore for configuration data. This data is then referenced by policies to distribute concrete configs in the format of a particular config schema.
+Think of tags and metadata as a datastore for configuration data. This data is then 
+referenced by overrides to render concrete configs in the format of a particular 
+config schema.
 
 ## Clients
 
 <ClientDefinition />
 
-<img height="200" src="/images/core-concepts/client-list.png" style={{borderRadius: '7px'}}/>
+<Frame>
+    <img src="/images/core-concepts/client-list.png" />
+</Frame>
 
 ## Tags
 
-Groups of clients share configurations based on criteria like hardware, customers, location, etc. Miru uses the concepts of **tag types** and **tags** to group clients in a logical way.
+Groups of clients share configurations based on criteria like hardware, customers, 
+location, etc. Miru uses the concepts of **tag types** and **tags** to group clients 
+in a logical way.
 
 <TagAndTagTypeDefinition />
 
@@ -32,8 +41,16 @@ Groups of clients share configurations based on criteria like hardware, customer
 <MetadataSchemaDefinition />
 
 ## Customization
-Tags are completely defined by you. We gave examples with the `hardware`, `accelerometer`, and `environment` tag types. However, you can define any tag type you want and create any amount of tags for each tag type.
+**Tags are completely defined by you.** We gave examples with the `hardware`, 
+`accelerometer`, and `environment` tag types. However, you can define any tag type you 
+want and create any amount of tags for each tag type.
 
-This flexibility allows you to tailor tags to the needs of your application. Maybe your customers don't have unique configurations. A customer tag type would be unnecessary then. You may have many different sensor types. Defining a tag type for each sensor type would then prove useful.
+This flexibility allows you to tailor tags to the needs of your application. Maybe your 
+customers don't have unique configurations. A customer tag type would be unnecessary 
+then. You may have many different sensor types. Defining a tag type for each sensor 
+type would then prove useful.
 
-The metadata stored for clients and tags are also completely defined by you. We showed simple examples of metadata and their schemas: a client storing a `robot_id` and `hardware` tags storing supported features like `jump`, `spin`, and `backflip`. However, you can define the metadata custom to your application.
+The metadata stored for clients and tags are also completely defined by you. We showed 
+simple examples of metadata and their schemas: a client storing a `robot_id` and 
+`hardware` tags storing supported features like `jump`, `spin`, and `backflip`. 
+However, you can define the metadata custom to your application.
