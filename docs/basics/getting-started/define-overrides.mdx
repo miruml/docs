@@ -2,7 +2,7 @@
 title: 'Define Overrides'
 ---
 
-### Creating an Override
+## Creating an Override
 
 Navigate to the `Mobility` config and click `+ Create` to open the overrides page.
 
@@ -49,7 +49,7 @@ Click the `+ Add Override` to create these two overrides.
     The numbers show override priority (left to right). Later overrides take precedence when determining the final configuration
 </Info>
 
-You should now see the overrides.
+Here is the final screen after creating the overrides.
 
 <Frame>
     <img
@@ -58,11 +58,11 @@ You should now see the overrides.
     />
 </Frame>
 
-### Setting Key-Value Pairs
+## Defining the Overrides
 
-<Tabs>
-    <Tab title="Mobility Settings">
-        1. Click the `+ Override` button next to `max_angular_speed_radps`.
+### Mobility Settings
+
+1. Click the `+ Override` button next to `max_angular_speed_radps`.
         <Frame>
             <img
                 src="/images/getting-started/override-mobility-override-button.png" 
@@ -88,7 +88,7 @@ You should now see the overrides.
            - `telemetry.upload_interval_sec`
 
 
-        Once you've set all the key-value pairs, your `Mobility Settings` override 
+        Once all the key-value pairs have been set, the `Mobility Settings` override 
         should match the example below.
 
         <Frame>
@@ -97,29 +97,83 @@ You should now see the overrides.
                 alt="Override Mobility Settings" 
             />
         </Frame>
-    </Tab>
-    <Tab title="Telemetry Settings">
 
-        1. Click the `+ Override` button next to `heartbeat_interval_sec`.
+### Telemetry Settings
+1. Click the `+ Override` button next to `heartbeat_interval_sec`.
         
         <Frame>
             <img
-                src="/images/getting-started/override-telemetry-override-button.png" 
+                src="/images/getting-started/override-telemetry-kvp-button.png" 
                 alt="Override Telemetry Settings" 
             />
         </Frame>
         
-        2. In the modal that appears, navigate to the `deployment_env` tag type and select `heartbeat_interval_sec`.
+        2. In the modal that appears, navigate to the `region` tag type and select `heartbeat_interval_sec`.
+
+        <Frame>
+            <img
+                src="/images/getting-started/override-telemetry-ttf-select.png" 
+                alt="Override Telemetry Settings" 
+            />
+        </Frame>
         
-        3. Repeat this process for `telemetry_upload_interval_sec`, also found under the `deployment_env` tag type.
-        
+        3. Repeat this process by overriding `telemetry.upload_interval_sec` in the Config Schema
+        with the `telemetry_upload_interval_sec` metadata found in the `region` tag type.
+
+        Once all the key-value pairs have been set, the `Telemetry Settings` override should match the example below.
         <Frame>
             <img
                 src="/images/getting-started/override-telemetry-complete.png" 
                 alt="Override Telemetry Settings" 
             />
         </Frame>
-    </Tab>
-</Tabs>
 
-### Rendering Final Config
+
+## Rendering Final Config
+
+After defining the `Mobility Settings` and `Telemetry Settings` overrides, click 
+`Done` to switch back to render mode.
+
+<Frame>
+    <img
+        src="/images/getting-started/overrides-list-render-mode.png" 
+        alt="Overrides List" 
+    />
+</Frame>
+
+Click the `Render` button at the top of the page to open the dropdown menu.
+
+<Frame>
+    <img
+        src="/images/getting-started/overrides-render-menu.png" 
+        alt="Overrides Render Menu" 
+    />
+</Frame>
+
+Select `Robot 1` as the client. The tags of the client will be used in the overrides to 
+determine the final configuration.
+
+<Frame>
+    <img
+        src="/images/getting-started/overrides-render-menu-client-selected.png" 
+        alt="Overrides Render Menu Client Selected" 
+    />
+</Frame>
+
+Click `Render` and to view the Concrete Config that will be deployed to the client.
+
+<Frame>
+    <img
+        src="/images/getting-started/override-concrete-config.png" 
+        alt="Override Concrete Config" 
+    />
+</Frame>
+
+Congratulations! You've successfully defined overrides for the `Mobility` Config.
+
+<Frame>
+    <img
+        src="/images/getting-started/overrides-rendered-concrete-config.png" 
+        alt="Override Concrete Config" 
+    />
+</Frame>
