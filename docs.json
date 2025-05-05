@@ -34,7 +34,7 @@
                                 "pages": [
                                     "docs/basics/getting-started/overview",
                                     "docs/basics/getting-started/push-schema",
-                                    "docs/basics/getting-started/create-tags",
+                                    "docs/basics/getting-started/tag-clients",
                                     "docs/basics/getting-started/define-overrides",
                                     "docs/basics/getting-started/deploy"
                                 ]

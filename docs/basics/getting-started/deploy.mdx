@@ -6,10 +6,12 @@ import InstallAgent from '/snippets/agent/install.mdx';
 import VerifyAgent from '/snippets/agent/verify.mdx';
 import AgentSupportedPlatforms from '/snippets/agent/supported-platforms.mdx';
 
-## SDK in Development
-To begin using the Miru C++ SDK, navigate to the `/cpp` directory of the [getting-started](https://github.com/miruml/getting-started) repository.
+With a valid concrete config for `Robot 1` available for the `v1` schema of the `Mobility` config, it's time to deploy.
 
-Build the CMake project.
+## SDK in Development
+To begin using the Miru C++ SDK, navigate to the `/cpp` directory of the [getting-started](https://github.com/miruml/getting-started) repository cloned at the beginning of the guide.
+
+Build the CMake project (you can find the build requirements [here](https://github.com/miruml/cpp-sdk?tab=readme-ov-file#build-requirements)).
 
 ```bash
 cmake -B build -S .
@@ -24,7 +26,43 @@ The [from_file](https://github.com/miruml/getting-started/tree/main/cpp/examples
 ./build/examples/from_file/from-file
 ```
 
-The example simply reads in a concrete config from the file system and lists the parameters inside. Make sure you read the code and examine the output to understand what's going on.
+The example simply reads in a concrete config from the file system and lists the parameters inside. You should see the following output:
+
+```bash [expandable]
+$ ./build/examples/from_file/from-file
+
+Printing Parameters From File
+=============================
+Name: mobility.max_angular_speed_radps
+Key: max_angular_speed_radps
+Type: scalar
+Value: "1.0"
+
+Name: mobility.max_linear_speed_mps
+Key: max_linear_speed_mps
+Type: scalar
+Value: "1.2"
+
+Name: mobility.navigation_mode
+Key: navigation_mode
+Type: scalar
+Value: "balanced"
+
+Name: mobility.obstacle_avoidance_enabled
+Key: obstacle_avoidance_enabled
+Type: scalar
+Value: "true"
+
+Name: mobility.telemetry.heartbeat_interval_sec
+Key: heartbeat_interval_sec
+Type: scalar
+Value: "10"
+
+Name: mobility.telemetry.upload_interval_sec
+Key: upload_interval_sec
+Type: scalar
+Value: "60"
+```
 
 
 ## Miru Agent
@@ -48,6 +86,42 @@ The [from_agent](https://github.com/miruml/getting-started/tree/main/cpp/example
 ./build/examples/from_agent/from-agent
 ```
 
-As before, the example simply reads in a concrete config from the agent and lists the parameters inside.
+As before, the example simply reads in a concrete config from the agent and lists the parameters inside. You should see the following output:
 
-For more information on the Miru C++ SDK, visit the [SDK Reference](/docs/sdk-reference) documentation. Additional SDK examples can be found in the official [C++ SDK](https://github.com/miruml/cpp-sdk/tree/main/examples) repository.
+```bash [expandable]
+$ ./build/examples/from_agent/from-agent
+
+Parameters from Agent
+=====================
+Name: mobility.max_angular_speed_radps
+Key: max_angular_speed_radps
+Type: int
+Value: 2
+
+Name: mobility.max_linear_speed_mps
+Key: max_linear_speed_mps
+Type: double
+Value: 2.500000
+
+Name: mobility.navigation_mode
+Key: navigation_mode
+Type: string
+Value: "aggressive"
+
+Name: mobility.obstacle_avoidance_enabled
+Key: obstacle_avoidance_enabled
+Type: bool
+Value: false
+
+Name: mobility.telemetry.heartbeat_interval_sec
+Key: heartbeat_interval_sec
+Type: int
+Value: 15
+
+Name: mobility.telemetry.upload_interval_sec
+Key: upload_interval_sec
+Type: int
+Value: 45
+```
+
+For more information on the Miru C++ SDK, visit the [SDK Reference](/docs/sdk-reference) documentation. In depth SDK usage examples can be found in the official [C++ SDK](https://github.com/miruml/cpp-sdk/tree/main/examples) repository.
