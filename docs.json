@@ -18,6 +18,7 @@
                         "group": "Basics",
                         "pages": [
                             "docs/basics/introduction",
+                            "docs/basics/vocabulary",
                             {
                                 "group": "Core Concepts",
                                 "pages": [
@@ -25,10 +26,9 @@
                                     "docs/basics/core-concepts/creating-schemas",
                                     "docs/basics/core-concepts/setting-tags",
                                     "docs/basics/core-concepts/defining-policies",
-                                    "docs/basics/core-concepts/deploying-configs"
+                                    "docs/basics/core-concepts/deployment"
                                 ]
                             },
-                            "docs/basics/vocabulary",
                             {
                                 "group": "Getting Started",
                                 "pages": [
