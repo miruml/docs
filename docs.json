@@ -17,55 +17,32 @@
                     {
                         "group": "Basics",
                         "pages": [
-                            "docs/basics/introduction",
-                            "docs/basics/vocabulary",
+                            "pages/introduction",
                             {
                                 "group": "Core Concepts",
                                 "pages": [
-                                    "docs/basics/core-concepts/overview",
-                                    "docs/basics/core-concepts/creating-schemas",
-                                    "docs/basics/core-concepts/setting-tags",
-                                    "docs/basics/core-concepts/overrides",
-                                    "docs/basics/core-concepts/deployment"
+                                    "pages/core-concepts/overview",
+                                    "pages/core-concepts/creating-schemas",
+                                    "pages/core-concepts/setting-tags",
+                                    "pages/core-concepts/defining-policies",
+                                    "pages/core-concepts/deploying-configs"
                                 ]
                             },
-                            {
-                                "group": "Getting Started",
-                                "pages": [
-                                    "docs/basics/getting-started/overview",
-                                    "docs/basics/getting-started/push-schema",
-                                    "docs/basics/getting-started/tag-clients",
-                                    "docs/basics/getting-started/define-overrides",
-                                    "docs/basics/getting-started/deploy"
-                                ]
-                            },
-                            "docs/basics/faq"
-                        ]
-                    },
-
-                    {
-                        "group": "Agent / SDK",
-                        "pages": [
-                            "docs/agent-sdk/install-agent"
-                        ]
-                    }
-                ]
-            },
-            {
-                "dropdown": "CLI Reference",
-                "icon": "terminal",    
-                "groups": [
-                    {
-                        "group": "Basics",
-                        "pages": [
-                            "docs/cli-reference/install",
-                            "docs/cli-reference/login"
+                            "pages/vocabulary",
+                            "pages/faq"
                         ]
                     },
                     {
-                        "group": "Schemas",
+                        "group": "Getting Started",
                         "pages": [
-                            "docs/cli-reference/schema-push"
+                            "pages/getting-started/create-account",
+                            "pages/getting-started/install-cli",
+                            "pages/getting-started/starter-repo",
+                            "pages/getting-started/create-config",
+                            "pages/getting-started/push-schema",
+                            "pages/getting-started/create-client",
+                            "pages/getting-started/create-tags",
+                            "pages/getting-started/define-overrides"
                         ]
                     }
                 ]
@@ -75,10 +52,30 @@
                 "icon": "code",
                 "groups": [
                     {
-                        "group": "C++",
+                        "group": "SDK Reference",
                         "pages": [
-                            "docs/sdk-reference/cpp/integrate",
-                            "docs/sdk-reference/cpp/quickstart"
+                            "pages/sdk-reference/cpp",
+                            "pages/sdk-reference/python",
+                            "pages/sdk-reference/rust"
+                        ]
+                    }
+                ]
+            },
+            {
+                "dropdown": "CLI Reference",
+                "icon": "terminal",    
+                "groups": [
+                    {
+                        "group": "CLI Reference",
+                        "pages": [
+                            "pages/cli-reference/intro",
+                            "pages/cli-reference/get-started"
+                        ]
+                    },
+                    {
+                        "group": "Schemas",
+                        "pages": [
+                            "pages/cli-reference/schema-push"
                         ]
                     }
                 ]
