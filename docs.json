@@ -17,46 +17,36 @@
                     {
                         "group": "Basics",
                         "pages": [
-                            "pages/introduction",
+                            "docs/basics/introduction",
+                            "docs/basics/vocabulary",
                             {
                                 "group": "Core Concepts",
                                 "pages": [
-                                    "pages/core-concepts/overview",
-                                    "pages/core-concepts/creating-schemas",
-                                    "pages/core-concepts/setting-tags",
-                                    "pages/core-concepts/defining-policies",
-                                    "pages/core-concepts/deploying-configs"
+                                    "docs/basics/core-concepts/overview",
+                                    "docs/basics/core-concepts/creating-schemas",
+                                    "docs/basics/core-concepts/setting-tags",
+                                    "docs/basics/core-concepts/overrides",
+                                    "docs/basics/core-concepts/deployment"
                                 ]
                             },
-                            "pages/vocabulary",
-                            "pages/faq"
+                            {
+                                "group": "Getting Started",
+                                "pages": [
+                                    "docs/basics/getting-started/overview",
+                                    "docs/basics/getting-started/push-schema",
+                                    "docs/basics/getting-started/tag-clients",
+                                    "docs/basics/getting-started/define-overrides",
+                                    "docs/basics/getting-started/deploy"
+                                ]
+                            },
+                            "docs/basics/faq"
                         ]
                     },
+
                     {
-                        "group": "Getting Started",
+                        "group": "Agent / SDK",
                         "pages": [
-                            "pages/getting-started/create-account",
-                            "pages/getting-started/install-cli",
-                            "pages/getting-started/starter-repo",
-                            "pages/getting-started/create-config",
-                            "pages/getting-started/push-schema",
-                            "pages/getting-started/create-client",
-                            "pages/getting-started/create-tags",
-                            "pages/getting-started/define-overrides"
-                        ]
-                    }
-                ]
-            },
-            {
-                "dropdown": "SDK Reference",
-                "icon": "code",
-                "groups": [
-                    {
-                        "group": "SDK Reference",
-                        "pages": [
-                            "pages/sdk-reference/cpp",
-                            "pages/sdk-reference/python",
-                            "pages/sdk-reference/rust"
+                            "docs/agent-sdk/install-agent"
                         ]
                     }
                 ]
@@ -66,16 +56,29 @@
                 "icon": "terminal",    
                 "groups": [
                     {
-                        "group": "CLI Reference",
+                        "group": "Basics",
                         "pages": [
-                            "pages/cli-reference/intro",
-                            "pages/cli-reference/get-started"
+                            "docs/cli-reference/install",
+                            "docs/cli-reference/login"
                         ]
                     },
                     {
                         "group": "Schemas",
                         "pages": [
-                            "pages/cli-reference/schema-push"
+                            "docs/cli-reference/schema-push"
+                        ]
+                    }
+                ]
+            },
+            {
+                "dropdown": "SDK Reference",
+                "icon": "code",
+                "groups": [
+                    {
+                        "group": "C++",
+                        "pages": [
+                            "docs/sdk-reference/cpp/integrate",
+                            "docs/sdk-reference/cpp/quickstart"
                         ]
                     }
                 ]
