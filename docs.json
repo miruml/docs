@@ -28,7 +28,8 @@
                                     "pages/core-concepts/deploying-configs"
                                 ]
                             },
-                            "pages/vocabulary"
+                            "pages/vocabulary",
+                            "pages/faq"
                         ]
                     },
                     {
