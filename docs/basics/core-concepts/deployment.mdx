@@ -3,17 +3,17 @@ title: 'Deployment'
 ---
 
 ## Miru Agent
-Deploying concrete configs to a robot involves a few major components: the concrete configs in the cloud, the Miru agent running on the robot, and the Miru SDK running as part of the application on the robot.
+Deploying config instances to a robot involves a few major components: the config instances in the cloud, the Miru agent running on the robot, and the Miru SDK running as part of the application on the robot.
 
-The Miru agent is a lightweight `systemd` service that pulls concrete configs defined in the cloud and exposes them to applications (on the same machine) running the Miru SDK over a unix socket.
+The Miru agent is a lightweight `systemd` service that pulls config instances defined in the cloud and exposes them to applications (on the same machine) running the Miru SDK over a unix socket.
 
-The Miru agent is installed on a robot as a particular [client](/docs/basics/vocabulary#client). When the Miru SDK requests a concrete config from the agent, the agent identifies the correct concrete config to pull from the cloud using:
+The Miru agent is installed on a robot as a particular [device](/docs/basics/vocabulary#device). When the Miru SDK requests a config instance from the agent, the agent identifies the correct config instance to pull from the cloud using:
 
 1. The digest of the config schema
 2. The config slug in the config schema
-3. The client the agent is authenticated as
+3. The device the agent is authenticated as
 
-The SDK simply provides the config schema file to the agent, who can take care of the rest. The config slug is defined within the config schema file and the agent knows which client it is authenticated as.
+The SDK simply provides the config schema file to the agent, who can take care of the rest. The config slug is defined within the config schema file and the agent knows which device it is authenticated as.
 
 <CodeGroup>
 ```cpp C++
@@ -25,14 +25,14 @@ auto config = miru::config::Config::from_agent(
 </CodeGroup>
 
 
-This agent retrieves the correct concrete config from the cloud and returns it to the SDK. The agent can support multiple applications running on the same robot and is available to applications running inside containers (by mounting the appropriate socket).
+This agent retrieves the correct config instance from the cloud and returns it to the SDK. The agent can support multiple applications running on the same robot and is available to applications running inside containers (by mounting the appropriate socket).
 
 ## Rendering Configs
-To ensure clarity as to how concrete configs are determined by the agent, a short example will suffice.
+To ensure clarity as to how config instances are determined by the agent, a short example will suffice.
 
 Say we're deploying the `Motion Control` config to `Robot A`. The robot already has the Miru agent installed and running. 
 
-A containerized application running on `Robot A` uses the Miru SDK to request concrete config values from the agent. The SDK provides the config schema file to the agent, which was packaged into the application's container image when it was built (and is the same for all robots in the fleet).
+A containerized application running on `Robot A` uses the Miru SDK to request config instance values from the agent. The SDK provides the config schema file to the agent, which was packaged into the application's container image when it was built (and is the same for all robots in the fleet).
 
 The config schema file contains the following:
 
@@ -52,16 +52,16 @@ Config schema `v8` is then rendered with the latest values from the `Robot A`'s 
 
 <img height="200" src="/images/core-concepts/policy-override.png" style={{borderRadius: '7px'}}/>
 
-The resulting concrete config is then returned to the agent, which then provides it to the SDK making the request.
+The resulting config instance is then returned to the agent, which then provides it to the SDK making the request.
 
-If `Robot B` made the same request, the same config schema would be identified but a different concrete config would be returned since `Robot B`'s tags differ from `Robot A`'s tags.
+If `Robot B` made the same request, the same config schema would be identified but a different config instance would be returned since `Robot B`'s tags differ from `Robot A`'s tags.
 
 ## Networking & Caching 
-It's expected that clients have unstable internet connection. The Miru agent caches concrete configs on the filesystem. Thus, even if the network is offline, the agent will continue to serve the latest cached concrete config to the SDK on the robot.
+It's expected that devices have unstable internet connection. The Miru agent caches config instances on the filesystem. Thus, even if the network is offline, the agent will continue to serve the latest cached config instance to the SDK on the robot.
 
-It's also expected that clients may suddenly lose power or be restarted. The agent handles these edge cases as well to safely continue serving concrete configs to the SDK on reboot.
+It's also expected that devices may suddenly lose power or be restarted. The agent handles these edge cases as well to safely continue serving config instances to the SDK on reboot.
 
 ## Conclusion
-This concludes the core concepts guide, which walked through Miru's core offering. We defined config schemas in a git repository, uploaded them to Miru, stored configuration data in clients and tags, defined overrides, and deployed a concrete config to a client.
+This concludes the core concepts guide, which walked through Miru's core offering. We defined config schemas in a git repository, uploaded them to Miru, stored configuration data in devices and tags, defined overrides, and deployed a config instance to a device.
 
 Of course, this was just a high-level overview. To begin using Miru, continue to the [getting started](/docs/basics/getting-started) guide, where installation and usage are fully explained with an example to follow along with.

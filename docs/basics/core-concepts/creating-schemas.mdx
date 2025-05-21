@@ -13,7 +13,7 @@ responsible for a particular aspect of the robot's behavior.
 </Frame>
 
 Every config has a history of [config schemas](/docs/basics/vocabulary#config-schema) 
-and a history of [concrete configs](/docs/basics/vocabulary#concrete-config) deployed 
+and a history of [config instances](/docs/basics/vocabulary#config-instance) deployed 
 to robots. Below are the config schemas for the `Mobility` config.
 
 <Frame>
@@ -21,7 +21,7 @@ to robots. Below are the config schemas for the `Mobility` config.
 </Frame>
 
 ## Config Schemas
-Miru requires the use of config schemas. These schemas validate concrete configs before 
+Miru requires the use of config schemas. These schemas validate config instances before 
 deployment, preventing runtime application errors. 
 
 Config schemas **live in a git repository** (preferably in the same repository as the 
@@ -43,8 +43,8 @@ schemas/
     This is just an example structure - schemas and configs can be located anywhere.
 </Note>
 
-`mobility.schema.yaml` specifies the possible values for the `mobility.yaml` concrete 
-config. On the other hand, `mobility.yaml` defines actual concrete config values. 
+`mobility.schema.yaml` specifies the possible values for the `mobility.yaml` config 
+instance. On the other hand, `mobility.yaml` defines actual config instance values. 
 
 <CodeGroup>
 ```yaml mobility.schema.yaml [expandable]
@@ -105,12 +105,12 @@ telemetry:
 </CodeGroup>
 
 ## Miru SDK
-However, concrete configs defined in a git repository are for **development use only**. 
-In production, concrete configs are defined in the cloud and retrieved from the 
+However, config instances defined in a git repository are for **development use only**. 
+In production, config instances are defined in the cloud and retrieved from the 
 [Miru Agent](/docs/agent-sdk) running on the robot (more on this later) .
 
 In development, quickly defining and editing configurations is essential. 
-`mobility.yaml` supplies concrete config values via the local file system for 
+`mobility.yaml` supplies config instance values via the local file system for 
 quick iteration. `mobility.yaml` is never uploaded to the cloud or deployed to production robots.
 
 To support both development and production scenarios, Miru provides an [SDK](/docs/sdk-reference). Below is a code snippet of the SDK in development.
@@ -131,9 +131,9 @@ int value = parameter.as_int();
 ```
 </CodeGroup>
 
-In production, the SDK retrieves the concrete config from the Miru agent running on the 
+In production, the SDK retrieves the config instance from the Miru agent running on the 
 robot. The agent is a lightweight `systemd` service that provides the SDK with the 
-concrete configs over a unix socket.
+config instances over a unix socket.
 
 Below is a code snippet of the SDK in production.
 
@@ -152,7 +152,7 @@ int value = parameter.as_int();
 ```
 </CodeGroup>
 
-More will be said about the Miru agent in coming sections. For now, the key takeaway is that the development workflow leverages the local file system for consuming concrete configs via the Miru SDK.
+More will be said about the Miru agent in coming sections. For now, the key takeaway is that the development workflow leverages the local file system for consuming config instances via the Miru SDK.
 
 ## Pushing a Schema
 

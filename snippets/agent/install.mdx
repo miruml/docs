@@ -9,30 +9,30 @@ The script requires `curl` to be installed and sudo privileges may be required.
 
 Review the contents of the [installation](https://github.com/miruml/agent/blob/main/manual-deb-install.sh) and [activation](https://github.com/miruml/agent/blob/main/activate.sh) scripts [here](https://github.com/miruml/agent).
 
-The script downloads the Miru agent debian package and installs the agent as a `systemd` service. It then downloads and executes the activation script, waiting for a client activation token to be provided.
+The script downloads the Miru agent debian package and installs the agent as a `systemd` service. It then downloads and executes the activation script, waiting for a device activation token to be provided.
 
-To retrieve a client activation token, navigate to the [Clients page](https://configs.miruml.com/clients) and click the ellipses (three dots) to the right of the client to activate.
+To retrieve a device activation token, navigate to the [Devices page](https://configs.miruml.com/devices) and click the ellipses (three dots) to the right of the device to activate.
 
 <Frame>
-    <img src="/images/getting-started/list-clients-page.png" />
+    <img src="/images/getting-started/list-devices-page.png" />
 </Frame>
 
 Click the `Token` tab and copy the token.
 
 <Frame>
-    <img src="/images/getting-started/client-activation-token.png" />
+    <img src="/images/getting-started/device-activation-token.png" />
 </Frame>
 
 Paste the token into the activation script.
 
 ```bash
-To authenticate the miru agent, you'll need to retrieve the authentication token from https://configs.miruml.com/clients for the client you want to authenticate as.
+To authenticate the miru agent, you'll need to retrieve the authentication token from https://configs.miruml.com/devices for the device you want to authenticate as.
 
  Enter Authentication Token › *******
 ```
 
-A message will confirm that the agent has been activated for the specified client.
+A message will confirm that the agent has been activated for the specified device.
 
 ```bash
-Successfully activated the miru agent as the Robot 1 client!
+Successfully activated the miru agent as the Robot 1 device!
 ```

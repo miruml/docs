@@ -24,7 +24,7 @@ git clone https://github.com/miruml/getting-started.git
 
 You'll find the following directories in the repository:
 - `schemas/`: Contains [config schemas](/docs/basics/vocabulary#config-schema)
-- `configs/`: Contains [concrete configs](/docs/basics/vocabulary#concrete-config) for local development
+- `configs/`: Contains [config instances](/docs/basics/vocabulary#config-instance) for local development
 
 <Note>
     This is just an example structure - schemas and configs can be located anywhere.
@@ -88,7 +88,7 @@ required:
   - telemetry
 ```
 
-The `/configs/mobility.yaml` defines a concrete config adhering to the `Mobility` config schema. This concrete config is for development purposes only. Concrete configs deployed to production robots are defined in the Miru dashboard, not in a git repository.
+The `/configs/mobility.yaml` defines a config instance adhering to the `Mobility` config schema. This config instance is for development purposes only. Config instances deployed to production robots are defined in the Miru dashboard, not in a git repository.
 
 ```yaml mobility.yaml [expandable]
 max_linear_speed_mps: 1.2

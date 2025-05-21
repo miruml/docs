@@ -33,12 +33,12 @@ since the `NVIDIA Jetson Orin Nano` tag has
 This would override the default values in the config schema, changing `features.spin` 
 from `false` to `true`.
 
-Overrides are hierarchically evaluated to determine a concrete config for a client. The 
-client's tags determine the specific values referenced by overrides.
+Overrides are hierarchically evaluated to determine a config instance for a device. The 
+device's tags determine the specific values referenced by overrides.
 
 <Frame>
     <img src="/images/vocabulary/policy-override.png" />
 </Frame>
 
 Combining tags with overrides provides a flexible method to evaluate configuration 
-data unique to each client that's formatted according to a given config schema.
+data unique to each device that's formatted according to a given config schema.

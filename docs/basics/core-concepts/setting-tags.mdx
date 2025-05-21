@@ -2,7 +2,7 @@
 title: 'Setting Tags'
 ---
 
-import ClientDefinition from '/snippets/vocabulary/client-definition.mdx';
+import DeviceDefinition from '/snippets/vocabulary/device-definition.mdx';
 import MetadataDefinition from '/snippets/vocabulary/metadata-definition.mdx';
 import MetadataSchemaDefinition from '/snippets/vocabulary/metadata-schema-definition.mdx';
 import TagAndTagTypeDefinition from '/snippets/vocabulary/tag-and-tag-type-definition.mdx';
@@ -12,25 +12,25 @@ Unlike config schemas, configuration data is not stored in a git repository. Ins
 configuration data is **stored in the cloud** and is accessible via the Miru dashboard 
 or programmatically via the Miru REST API. 
 
-Miru uses the concepts of **clients**, **tags**, and **metadata** to structure how 
+Miru uses the concepts of **devices**, **tags**, and **metadata** to structure how 
 configuration data is stored and used. 
 
 Think of tags and metadata as a datastore for configuration data. This data is then 
-referenced by overrides to render concrete configs in the format of a particular 
+referenced by overrides to render config instances in the format of a particular 
 config schema.
 
-## Clients
+## Devices
 
-<ClientDefinition />
+<DeviceDefinition />
 
 <Frame>
-    <img src="/images/core-concepts/client-list.png" />
+    <img src="/images/core-concepts/device-list.png" />
 </Frame>
 
 ## Tags
 
-Groups of clients share configurations based on criteria like hardware, customers, 
-location, etc. Miru uses the concepts of **tag types** and **tags** to group clients 
+Groups of devices share configurations based on criteria like hardware, customers, 
+location, etc. Miru uses the concepts of **tag types** and **tags** to group devices 
 in a logical way.
 
 <TagAndTagTypeDefinition />
@@ -50,7 +50,7 @@ customers don't have unique configurations. A customer tag type would be unneces
 then. You may have many different sensor types. Defining a tag type for each sensor 
 type would then prove useful.
 
-The metadata stored for clients and tags are also completely defined by you. We showed 
-simple examples of metadata and their schemas: a client storing a `robot_id` and 
+The metadata stored for devices and tags are also completely defined by you. We showed 
+simple examples of metadata and their schemas: a device storing a `robot_id` and 
 `hardware` tags storing supported features like `jump`, `spin`, and `backflip`. 
 However, you can define the metadata custom to your application.

@@ -6,7 +6,7 @@ import InstallAgent from '/snippets/agent/install.mdx';
 import VerifyAgent from '/snippets/agent/verify.mdx';
 import AgentSupportedPlatforms from '/snippets/agent/supported-platforms.mdx';
 
-With a valid concrete config for `Robot 1` available for the `v1` schema of the `Mobility` config, it's time to deploy.
+With a valid config instance for `Robot 1` available for the `v1` schema of the `Mobility` config, it's time to deploy.
 
 ## SDK in Development
 To begin using the Miru C++ SDK, navigate to the `/cpp` directory of the [getting-started](https://github.com/miruml/getting-started) repository cloned at the beginning of the guide.
@@ -20,13 +20,13 @@ cmake -B build -S .
 cmake --build build
 ```
 
-The [from_file](https://github.com/miruml/getting-started/tree/main/cpp/examples/from_file/main.cpp) example demonstrates how to use the SDK in development by loading a concrete config from a file on the local file system.
+The [from_file](https://github.com/miruml/getting-started/tree/main/cpp/examples/from_file/main.cpp) example demonstrates how to use the SDK in development by loading a config instance from a file on the local file system.
 
 ```bash
 ./build/examples/from_file/from-file
 ```
 
-The example simply reads in a concrete config from the file system and lists the parameters inside. You should see the following output:
+The example simply reads in a config instance from the file system and lists the parameters inside. You should see the following output:
 
 ```bash [expandable]
 $ ./build/examples/from_file/from-file
@@ -80,13 +80,13 @@ To use the Miru SDK in production, the agent must be installed and activated. Be
 ## SDK in Production
 Navigate back to the `/cpp` directory of the [getting-started](https://github.com/miruml/getting-started) repository.
 
-The [from_agent](https://github.com/miruml/getting-started/tree/main/cpp/examples/from_agent/main.cpp) example demonstrates how to use the SDK in production by loading a concrete config from the Miru agent.
+The [from_agent](https://github.com/miruml/getting-started/tree/main/cpp/examples/from_agent/main.cpp) example demonstrates how to use the SDK in production by loading a config instance from the Miru agent.
 
 ```bash
 ./build/examples/from_agent/from-agent
 ```
 
-As before, the example simply reads in a concrete config from the agent and lists the parameters inside. You should see the following output:
+As before, the example simply reads in a config instance from the agent and lists the parameters inside. You should see the following output:
 
 ```bash [expandable]
 $ ./build/examples/from_agent/from-agent

@@ -14,19 +14,19 @@ Include the config header.
     <Tab title="Development">
 
 
-        Retrieve the concrete config from a file on the local filesystem.
+        Retrieve the config instance from a file on the local filesystem.
 
         ```cpp
         auto config = miru::config::Config::from_file(
             "local/filesystem/path/to/config/schema.yaml",
-            "local/filesystem/path/to/concrete/config.yaml"
+            "local/filesystem/path/to/config/instance.yaml"
         );
         ```
     </Tab>
 
     <Tab title="Production">
 
-        Retrieve the concrete config from the Miru agent.
+        Retrieve the config instance from the Miru agent.
 
         ```cpp
         auto config = miru::config::Config::from_agent(
@@ -45,10 +45,10 @@ Include the config header.
 
 To retrieve a parameter within a config, simply specify the parameter's path.
 
-A parameter's path is a dot-separated list of keys starting with the config slug. Say we have the following config schema and concrete config.
+A parameter's path is a dot-separated list of keys starting with the config slug. Say we have the following config schema and config instance.
 
 <Tabs>
-    <Tab title="Concrete Config">
+    <Tab title="Config Instance">
     ```yaml
     ...
     joint-1:
@@ -75,7 +75,7 @@ A parameter's path is a dot-separated list of keys starting with the config slug
     </Tab>
 </Tabs>
 
-The parameter's path is `motion-control.joint-1.position.x`, which follows the format `<config-slug>.<concrete-config-path>`.
+The parameter's path is `motion-control.joint-1.position.x`, which follows the format `<config-slug>.<config-instance-path>`.
 
 The default method for retrieving a parameter is the `get_param` function. However, if you're coming from ROS2, you may prefer the `get_parameter` function from the ROS2 config wrapper.
 
@@ -90,7 +90,7 @@ The default method for retrieving a parameter is the `get_param` function. Howev
         auto param = miru::config::query::get_param(
             // the config instantiated as shown above
             config,
-            // "<config-slug>.<concrete-config-path>"
+            // "<config-slug>.<config-instance-path>"
             "motion-control.joint-1.position.x"
         );
 
