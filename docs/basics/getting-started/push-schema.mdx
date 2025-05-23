@@ -31,12 +31,12 @@ Click `+ New Config Type` and name the config type `Mobility` with slug `mobilit
 ### Config Type Slugs
 The config type slug is a unique identifier for a config type. It's used by both the CLI and SDK to link a config schema to its corresponding config type.
 
-Thus all config schemas must include the `$miru_config_type_slug` field at the root level. We've
+All config schemas must include the `$miru_config_type_slug` field at the root level. We've
 already included this field in `mobility.schema.yaml`.
 
 ```yaml mobility.schema.yaml
 $miru_config_type_slug: "mobility"
----
+... # other fields
 ```
 
 ### Install the CLI

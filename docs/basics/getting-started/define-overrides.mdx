@@ -4,7 +4,7 @@ title: 'Define Overrides'
 
 ## Creating an Override
 
-Navigate to the `Mobility` config type and click `+ Create` to open the overrides page.
+Navigate to the `Mobility` config type and click `+ Create` on the latest config schema to open the overrides page.
 
 <Frame>
     <img
@@ -13,9 +13,7 @@ Navigate to the `Mobility` config type and click `+ Create` to open the override
     />
 </Frame>
 
-You'll see the default configuration for the `Mobility` config schema. To create 
-an override, click the `Edit` button (to the right) and 
-you should see the following screen.
+The default configuration for the `Mobility` config schema is displayed on the left. To edit the overrides, click the `Edit` button in the top right.
 
 <Frame>
     <img
@@ -24,7 +22,7 @@ you should see the following screen.
     />
 </Frame>
 
-Click the `+ Add Override` to create these two overrides.
+Click the `+ Add Override` to create two overrides: `Mobility Settings` and `Telemetry Settings`.
 
 <Tabs>
     <Tab title="Mobility Settings">
@@ -49,7 +47,7 @@ Click the `+ Add Override` to create these two overrides.
     The numbers show override priority (left to right). Later overrides take precedence when determining the final configuration
 </Info>
 
-Here is the final screen after creating the overrides.
+Here is the final screen after creating the override. The overrides should not yet be populated with any data.
 
 <Frame>
     <img
@@ -58,78 +56,77 @@ Here is the final screen after creating the overrides.
     />
 </Frame>
 
-## Defining the Overrides
+## Populate the Overrides
 
 ### Mobility Settings
 
-1. Click the `+ Override` button next to `max_angular_speed_radps`.
-        <Frame>
-            <img
-                src="/images/getting-started/override-mobility-override-button.png" 
-                alt="Override Mobility Settings" 
-            />
-        </Frame>
+Click the `+ Override` button next to `max_angular_speed_radps` under the `Mobility Settings`
+<Frame>
+    <img
+        src="/images/getting-started/override-mobility-override-button.png" 
+        alt="Override Mobility Settings" 
+    />
+</Frame>
 
-        2. In the modal that appears, navigate to the `robot_model` tag type and select `max_angular_speed_radps` to override.
+In the appearing modal, navigate to the `robot_model` tag type and select the `max_angular_speed_radps` field. 
 
-        <Frame>
-            <img
-                src="/images/getting-started/override-mobility-ttf-select.png" 
-                alt="Override Mobility Settings" 
-            />
-        </Frame>
+This sets the `Mobility Settings` override to render its `max_angular_speed_radps` field with the value found at the `max_angular_speed_radps` field for a given tag of the `robot_model` tag type.
 
-        3. Repeat this process for `max_linear_speed_mps`, also found under the `robot_model` tag type.
+<Frame>
+    <img
+        src="/images/getting-started/override-mobility-ttf-select.png" 
+        alt="Override Mobility Settings" 
+    />
+</Frame>
 
-        4. For the remaining settings, you'll use the corresponding metadata found in the 
-        `deployment_env` tag type to override the following key-value pairs:
-           - `navigation_mode` 
-           - `obstacle_avoidance_enabled` 
-           - `telemetry.upload_interval_sec`
+Repeat this process for the `max_linear_speed_mps` field, linking it to the `max_linear_speed_mps` field in the `robot_model` tag type.
 
+Finally, use the corresponding metadata found in the `deployment_env` tag type to set the following fields in the `Mobility Settings` override:
+- `navigation_mode` 
+- `obstacle_avoidance_enabled` 
+- `telemetry.upload_interval_sec`
 
-        Once all the key-value pairs have been set, the `Mobility Settings` override 
-        should match the example below.
+Once all the override fields have been set, the `Mobility Settings` override should match the example below.
 
-        <Frame>
-            <img
-                src="/images/getting-started/override-mobility-complete.png" 
-                alt="Override Mobility Settings" 
-            />
-        </Frame>
+<Frame>
+    <img
+        src="/images/getting-started/override-mobility-complete.png" 
+        alt="Override Mobility Settings" 
+    />
+</Frame>
 
 ### Telemetry Settings
-1. Click the `+ Override` button next to `heartbeat_interval_sec`.
+
+For the `Telemetry Settings` override, link the `heartbeat_interval_sec` field to the `heartbeat_interval_sec` field in the `region` tag type.
         
-        <Frame>
-            <img
-                src="/images/getting-started/override-telemetry-kvp-button.png" 
-                alt="Override Telemetry Settings" 
-            />
-        </Frame>
-        
-        2. In the modal that appears, navigate to the `region` tag type and select `heartbeat_interval_sec`.
+<Frame>
+    <img
+        src="/images/getting-started/override-telemetry-kvp-button.png" 
+        alt="Override Telemetry Settings" 
+    />
+</Frame>
 
-        <Frame>
-            <img
-                src="/images/getting-started/override-telemetry-ttf-select.png" 
-                alt="Override Telemetry Settings" 
-            />
-        </Frame>
-        
-        3. Repeat this process by overriding `telemetry.upload_interval_sec` in the Config Schema
-        with the `telemetry_upload_interval_sec` metadata found in the `region` tag type.
+In the appearing modal, navigate to the `region` tag type and select `heartbeat_interval_sec`.
 
-        Once all the key-value pairs have been set, the `Telemetry Settings` override should match the example below.
-        <Frame>
-            <img
-                src="/images/getting-started/override-telemetry-complete.png" 
-                alt="Override Telemetry Settings" 
-            />
-        </Frame>
+<Frame>
+    <img
+        src="/images/getting-started/override-telemetry-ttf-select.png" 
+        alt="Override Telemetry Settings" 
+    />
+</Frame>
+
+Repeat this process by setting the `telemetry.upload_interval_sec` field in the `Telemetry Settings` override to the `telemetry_upload_interval_sec` field found in the `region` tag type.
+
+Once all the override fields have been set, the `Telemetry Settings` override should match the example below.
+<Frame>
+    <img
+        src="/images/getting-started/override-telemetry-complete.png" 
+        alt="Override Telemetry Settings" 
+    />
+</Frame>
 
 
-## Rendering the Configuration
+## Render the Configuration
 
 After defining the `Mobility Settings` and `Telemetry Settings` overrides, click 
 `Done` to switch back to render mode.
@@ -141,7 +138,7 @@ After defining the `Mobility Settings` and `Telemetry Settings` overrides, click
     />
 </Frame>
 
-Click the `Render` button at the top of the page to open the dropdown menu.
+Select the `Render` button at the top left of the page to open the dropdown menu.
 
 <Frame>
     <img
@@ -150,8 +147,7 @@ Click the `Render` button at the top of the page to open the dropdown menu.
     />
 </Frame>
 
-Select `Robot 1` as the device. The tags of the device will be used in the overrides to 
-determine the final configuration.
+Select `Robot 1` as the device. The tags of `Robot 1` are used by the overrides to render the final configuration.
 
 <Frame>
     <img
@@ -160,20 +156,11 @@ determine the final configuration.
     />
 </Frame>
 
-Click `Render` to view the config instance that will be deployed to the device.
+Click `Render` to view the config instance that would be deployed to `Robot 1` given this particular config schema.
 
 <Frame>
     <img
         src="/images/getting-started/override-config-instance.png" 
-        alt="Override Config Instance" 
-    />
-</Frame>
-
-Congratulations! You've successfully defined overrides for the `Mobility` Config Type.
-
-<Frame>
-    <img
-        src="/images/getting-started/overrides-rendered-config-instance.png" 
         alt="Override Config Instance" 
     />
 </Frame>

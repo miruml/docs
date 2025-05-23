@@ -3,7 +3,7 @@ title: 'Tag Devices'
 ---
 
 ### Creating Devices
-To deploy a config instance, we must first create a [device](/docs/basics/vocabulary#device) to deploy to. Navigate to the [Devices page](https://configs.miruml.com/devices) page.
+To deploy a config instance, first create a [device](/docs/basics/vocabulary#device) to deploy to. Navigate to the [Devices page](https://configs.miruml.com/devices).
 
 <Frame>
     <img 
@@ -22,15 +22,12 @@ Click `+ New Device` and name the device `Robot 1`.
 </Frame>
 
 ### Creating Tag Types
-Now we need to create tag types and their tags to organize our devices. 
+Next, create tag types and tags to organize the devices. Navigate to the [Tags page](https://configs.miruml.com/tags).
 
-Navigate to the [Tags page](https://configs.miruml.com/tags). We'll walk through
-creating three tag types:
+We'll create three tag types:
 - `deployment_env`
 - `region`
 - `robot_model`
-
-Click `+ New Tag Type` to open the create tag type form.
 
 <Frame>
     <img
@@ -39,21 +36,7 @@ Click `+ New Tag Type` to open the create tag type form.
     />
 </Frame>
 
-Each tag type can define a metadata schema that outlines required or optional fields 
-for all tags of that type. 
-
-We've provided all the metadata schemas in the [tag-types directory](https://github.com/miruml/getting-started/tree/main/tag-types) 
-of the getting-started repository. You can **upload** these schemas or 
-define them directly in the UI.
-
-<Frame>
-    <img
-        src="/images/getting-started/upload-metadata-schema.png" 
-        alt="Upload Metadata Schema" 
-    />
-</Frame>
-
-These are the metadata schemas for each tag type:
+Each tag type defines a metadata schema that tag metadata must adhere to. We've predefined all the metadata schemas for you. These are located in the [tag-types directory](https://github.com/miruml/getting-started/tree/main/tag-types) of the getting-started repository, which you already cloned onto your local machine.
 
 <CodeGroup>
 
@@ -110,7 +93,16 @@ required:
 ```
 </CodeGroup>
 
-Upload `deployment_env.schema.yaml` to create the `deployment_env` tag type.
+Click the `+ New Tag Type` button and upload the appropriate schema by clicking the **Upload Schema** button.
+
+<Frame>
+    <img
+        src="/images/getting-started/upload-metadata-schema.png" 
+        alt="Upload Metadata Schema" 
+    />
+</Frame>
+
+As an example, the `deployment_env` should look similar to the following after naming tag type and uploading the appropriate schema.
 
 <Frame>
     <img
@@ -119,13 +111,10 @@ Upload `deployment_env.schema.yaml` to create the `deployment_env` tag type.
     />
 </Frame>
 
-<Note>
-    Repeat this process for the `region` and `robot_model` tag types.
-</Note>
+Repeat this process for the `region` and `robot_model` tag types.
 
 ### Creating Tags
-Now we can create tags to categorize [devices](/docs/basics/vocabulary#device) and 
-define metadata for [overrides](/docs/basics/vocabulary#override).
+Next, create tags to categorize devices and define metadata for [overrides](/docs/basics/vocabulary#override).
 
 Navigate to the `deployment_env` page and click `+ New Tag` to create a tag.
 
@@ -168,8 +157,10 @@ We'll create a tag for each tag type. Use the following values when creating you
 
 
 ### Tagging Devices
-Let's revisit the [Devices page](https://configs.miruml.com/devices) page. Click the
-`+ Tags` button for the `Robot 1` device.
+Navigate back to the [Devices page](https://configs.miruml.com/devices).
+
+Click the `+ Tags` button for the `Robot 1` device.
+
 <Frame>
     <img
         src="/images/getting-started/tag-device-button.png" 
@@ -177,10 +168,10 @@ Let's revisit the [Devices page](https://configs.miruml.com/devices) page. Click
     />
 </Frame>
 
-Using the select tags dropdown, we'll tag the `Robot 1` device with the 
-- `Outdoors` tag of the Deployment Environment tag type.
-- `US-West` tag of the Region tag type.
-- `Turtlebot 4` tag of the Robot Model tag type.
+Using the select tags dropdown, tag `Robot 1` with the 
+- `Outdoors` tag of the `deployment_env` tag type.
+- `US-West` tag of the `region` tag type.
+- `Turtlebot 4` tag of the `robot_model` tag type.
 
 <Frame>
     <img
