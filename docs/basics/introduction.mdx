@@ -21,7 +21,7 @@ These configurations quickly become difficult to manage on a variety of dimensio
 
 ### Complex Groupings
 
-Different groups of robots in your fleet share varying subsets of configurations. For example, robots may be grouped by hardware variant, customer, or test environment. 
+Different groups of robots in a fleet share varying subsets of configurations. For example, robots may be grouped by hardware variant, customer, or test environment. 
 
 These groups often overlap in complex ways: a single customer may have multiple hardware variants, some customers may choose to beta test early releases, and others may want to stick with the latest stable release for as long as possible.
 
@@ -37,7 +37,7 @@ These errors compound when wanting to track which configurations are in use, mon
 
 Robots are the source of truth for configurations, not the cloud. While configurations may be defined in the cloud and deployed to the fleet, many configurations are locally edited on a robot and later backed up to the cloud.
 
-For example, when a LIDAR sensor is recalibrated, its new configuration is saved on the device first and only backed up to the cloud if necessary. However, since robots are expected to lose network connectivity or power, locally edited configurations cannot always be immediately synced to the cloud.
+For example, when a LIDAR sensor is recalibrated, its new configuration is saved on the robot first and only backed up to the cloud if necessary. However, since robots are expected to lose network connectivity or power, locally edited configurations cannot always be immediately synced to the cloud.
 
 This bidirectional flow of data—where configurations can come from either the cloud or the robot—makes tracking their history and origin more challenging.
 
