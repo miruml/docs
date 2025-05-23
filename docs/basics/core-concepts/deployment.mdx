@@ -3,22 +3,22 @@ title: 'Deployment'
 ---
 
 ## Miru Agent
-Deploying config instances to a robot involves a few major components: the config instances in the cloud, the Miru agent running on the robot, and the Miru SDK running as part of the application on the robot.
+Deploying config instances to a robot involves a few major components: the config instances in the cloud, the Miru agent running on the robot, and the Miru SDK running within the target application on the robot.
 
 The Miru agent is a lightweight `systemd` service that pulls config instances defined in the cloud and exposes them to applications (on the same machine) running the Miru SDK over a unix socket.
 
 The Miru agent is installed on a robot as a particular [device](/docs/basics/vocabulary#device). When the Miru SDK requests a config instance from the agent, the agent identifies the correct config instance to pull from the cloud using:
 
 1. The digest of the config schema
-2. The config slug in the config schema
+2. The slug of the config type in the config schema
 3. The device the agent is authenticated as
 
-The SDK simply provides the config schema file to the agent, who can take care of the rest. The config slug is defined within the config schema file and the agent knows which device it is authenticated as.
+The SDK simply provides the config schema file to the agent, who can take care of the rest. The slug of the config type is defined within the config schema file and the agent knows which device it is authenticated as.
 
 <CodeGroup>
 ```cpp C++
-// instantiate the config from the agent
-auto config = miru::config::Config::from_agent(
+// instantiate the config instance from the agent
+auto config_instance = miru::configs::ConfigInstance::from_agent(
     "/path/to/config-schema.yaml"
 );
 ```
@@ -30,21 +30,21 @@ This agent retrieves the correct config instance from the cloud and returns it t
 ## Rendering Configs
 To ensure clarity as to how config instances are determined by the agent, a short example will suffice.
 
-Say we're deploying the `Motion Control` config to `Robot A`. The robot already has the Miru agent installed and running. 
+Say we're deploying the `Motion Control` config type to `Robot A`. The robot already has the Miru agent installed and running. 
 
 A containerized application running on `Robot A` uses the Miru SDK to request config instance values from the agent. The SDK provides the config schema file to the agent, which was packaged into the application's container image when it was built (and is the same for all robots in the fleet).
 
 The config schema file contains the following:
 
 ```yaml
-$miru_config_slug: "motion-control"
+$miru_config_type_slug: "motion-control"
 properties:
     # the config schema's contents
     ...
 
 ```
 
-The Miru agent hashes the config schema's contents. This hash and the `motion-control` config slug identify the `v8` version of the `Motion Control` config (commit `8f4d2e1`) as the config schema used to render the concete config for `Robot A`.
+The Miru agent hashes the config schema's contents. This hash and the `motion-control` config type slug identify the `v8` version of the `Motion Control` config type (commit `8f4d2e1`) as the config schema used to render the config instance for `Robot A`.
 
 <img height="200" src="/images/core-concepts/motion-control-schema-list-zoomed.png" style={{borderRadius: '7px'}}/>
 
@@ -57,7 +57,7 @@ The resulting config instance is then returned to the agent, which then provides
 If `Robot B` made the same request, the same config schema would be identified but a different config instance would be returned since `Robot B`'s tags differ from `Robot A`'s tags.
 
 ## Networking & Caching 
-It's expected that devices have unstable internet connection. The Miru agent caches config instances on the filesystem. Thus, even if the network is offline, the agent will continue to serve the latest cached config instance to the SDK on the robot.
+It's expected that devices have unstable internet connection. The Miru agent caches config instances on the filesystem. Thus, even if the network is offline, the agent continues to serve the latest cached config instance to the SDK on the robot.
 
 It's also expected that devices may suddenly lose power or be restarted. The agent handles these edge cases as well to safely continue serving config instances to the SDK on reboot.
 

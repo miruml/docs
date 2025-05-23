@@ -15,23 +15,17 @@ to enable it.  You can execute the following once:
 
 To load completions in your current shell session:
 
-```bash
-source <(miru completion zsh)
-```
+	source <(miru completion zsh)
 
 To load completions for every new session, execute once:
 
 #### Linux:
 
-```bash
-miru completion zsh > "${fpath[1]}/_miru"
-```
+	miru completion zsh > "${fpath[1]}/_miru"
 
 #### macOS:
 
-```bash
-miru completion zsh > $(brew --prefix)/share/zsh/site-functions/_miru
-```
+	miru completion zsh > $(brew --prefix)/share/zsh/site-functions/_miru
 
 You will need to start a new shell for this setup to take effect.
 

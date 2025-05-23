@@ -24,17 +24,17 @@ git clone https://github.com/miruml/getting-started.git
 
 You'll find the following directories in the repository:
 - `schemas/`: Contains [config schemas](/docs/basics/vocabulary#config-schema)
-- `configs/`: Contains [config instances](/docs/basics/vocabulary#config-instance) for local development
+- `instances/`: Contains [config instances](/docs/basics/vocabulary#config-instance) for local development
 
 <Note>
-    This is just an example structure - schemas and configs can be located anywhere.
+    This is just an example structure - schemas and instances can be located anywhere.
 </Note>
 
-### Mobility Config
+### Mobility Config Type
 
-For the remainder of this guide, the `Mobility` config will be used as an example.
+For the remainder of this guide, the `Mobility` config type will be used as an example.
 
-The `/schemas/mobility.schema.yaml` defines the config schema for the `Mobility` config. 
+The `/schemas/mobility.schema.yaml` defines the config schema for the `Mobility` config type. 
 It includes key parameters such as:
 - Maximum linear and angular speeds
 - Obstacle avoidance settings
@@ -42,7 +42,7 @@ It includes key parameters such as:
 - Telemetry intervals
 
 ```yaml mobility.schema.yaml [expandable]
-$miru_config_slug: "mobility"
+$miru_config_type_slug: "mobility"
 $schema: "https://json-schema.org/draft/2020-12/schema"
 title: Mobility
 type: object
@@ -88,7 +88,7 @@ required:
   - telemetry
 ```
 
-The `/configs/mobility.yaml` defines a config instance adhering to the `Mobility` config schema. This config instance is for development purposes only. Config instances deployed to production robots are defined in the Miru dashboard, not in a git repository.
+The `/instances/mobility.yaml` defines a config instance adhering to the `Mobility` config schema. This config instance is for development purposes only. Config instances deployed to production robots are defined in the Miru dashboard, not in a git repository.
 
 ```yaml mobility.yaml [expandable]
 max_linear_speed_mps: 1.2
