@@ -2,37 +2,37 @@
 title: 'Creating Schemas'
 ---
 
-## Configs
+## Config Types
 
 Applications have a variety of configurations serving different purposes. Below are 
-some [configs](/docs/basics/vocabulary#config) for a fictional robot. Each config is 
+some [config types](/docs/basics/vocabulary#config-type) for a fictional robot. Each config type is 
 responsible for a particular aspect of the robot's behavior.
 
 <Frame>
-    <img src="/images/core-concepts/config-list.png"/>
+    <img src="/images/core-concepts/config-type-list.png"/>
 </Frame>
 
-Every config has a history of [config schemas](/docs/basics/vocabulary#config-schema) 
-and a history of [concrete configs](/docs/basics/vocabulary#concrete-config) deployed 
-to robots. Below are the config schemas for the `Mobility` config.
+Every config type has a history of [config schemas](/docs/basics/vocabulary#config-schema) 
+as well as a history of [config instances](/docs/basics/vocabulary#config-instance) deployed 
+to robots. Below are the config schemas for the `Mobility` config type.
 
 <Frame>
     <img src="/images/core-concepts/mobility-schema-list.png"/>
 </Frame>
 
 ## Config Schemas
-Miru requires the use of config schemas. These schemas validate concrete configs before 
+Miru requires the use of config schemas. These schemas validate config instances before 
 deployment, preventing runtime application errors. 
 
 Config schemas **live in a git repository** (preferably in the same repository as the 
-code consuming the config to minimize versioning errors between code and configurations).
+code consuming configurations to minimize versioning errors between code and configurations).
 
 As an example, let's say our application has the following directory structure.
 
 ```
 src/...
-configs/
-├── mobility.yaml
+instances/
+├── mobility.instance.yaml
 └── ...
 schemas/
 ├── mobility.schema.yaml
@@ -40,11 +40,11 @@ schemas/
 ```
 
 <Note>
-    This is just an example structure - schemas and configs can be located anywhere.
+    This is just an example structure - schemas and instances can be located anywhere.
 </Note>
 
-`mobility.schema.yaml` specifies the possible values for the `mobility.yaml` concrete 
-config. On the other hand, `mobility.yaml` defines actual concrete config values. 
+`mobility.schema.yaml` specifies the possible values for the `mobility.instance.yaml` config 
+instance.
 
 <CodeGroup>
 ```yaml mobility.schema.yaml [expandable]
@@ -93,7 +93,7 @@ required:
   - telemetry
 ```
 
-```yaml mobility.yaml [expandable]
+```yaml mobility.instance.yaml [expandable]
 max_linear_speed_mps: 1.2
 max_angular_speed_radps: 1.0
 obstacle_avoidance_enabled: true
@@ -105,54 +105,54 @@ telemetry:
 </CodeGroup>
 
 ## Miru SDK
-However, concrete configs defined in a git repository are for **development use only**. 
-In production, concrete configs are defined in the cloud and retrieved from the 
+However, config instances defined in a git repository are for **development use only**. 
+In production, config instances are defined in the cloud and retrieved from the 
 [Miru Agent](/docs/agent-sdk) running on the robot (more on this later) .
 
 In development, quickly defining and editing configurations is essential. 
-`mobility.yaml` supplies concrete config values via the local file system for 
-quick iteration. `mobility.yaml` is never uploaded to the cloud or deployed to production robots.
+`mobility.instance.yaml` supplies config instance values via the local file system for 
+quick iteration. `mobility.instance.yaml` is never uploaded to the cloud or deployed to production robots.
 
 To support both development and production scenarios, Miru provides an [SDK](/docs/sdk-reference). Below is a code snippet of the SDK in development.
 
 <CodeGroup>
 ```cpp C++
-// instantiate the config from the file system
-auto config = miru::config::Config::from_file(
-    "/path/to/configs/mobility.yaml",
+// instantiate the config instance from the file system
+auto config_instance = miru::configs::ConfigInstance::from_file(
+    "/path/to/instances/mobility.instance.yaml",
     "/path/to/schemas/mobility.schema.yaml"
 );
 
-// retrieve a parameter from the config
-std::string config_slug = "mobility";
-std::string parameter_name = config_slug + "." + "an_integer";
-auto parameter = miru::query::get_param(config, parameter_name);
+// retrieve a parameter from the config instance
+std::string config_type_slug = "mobility";
+std::string parameter_name = config_type_slug + "." + "an_integer";
+auto parameter = miru::query::get_param(config_instance, parameter_name);
 int value = parameter.as_int();
 ```
 </CodeGroup>
 
-In production, the SDK retrieves the concrete config from the Miru agent running on the 
-robot. The agent is a lightweight `systemd` service that provides the SDK with the 
-concrete configs over a unix socket.
+In production, the SDK retrieves the config instance from the Miru agent running on the 
+robot. The agent is a lightweight `systemd` service that serves config instances to the SDK 
+over a unix socket.
 
 Below is a code snippet of the SDK in production.
 
 <CodeGroup>
 ```cpp C++
-// instantiate the config from the agent
-auto config = miru::config::Config::from_agent(
+// instantiate the config instance from the agent
+auto config_instance = miru::configs::ConfigInstance::from_agent(
     "/path/to/schemas/mobility.schema.yaml"
 );
 
-// retrieve a parameter from the config
-std::string config_slug = "mobility";
-std::string parameter_name = config_slug + "." + "an_integer";
-auto parameter = miru::query::get_param(config, parameter_name);
+// retrieve a parameter from the config instance
+std::string config_type_slug = "mobility";
+std::string parameter_name = config_type_slug + "." + "an_integer";
+auto parameter = miru::query::get_param(config_instance, parameter_name);
 int value = parameter.as_int();
 ```
 </CodeGroup>
 
-More will be said about the Miru agent in coming sections. For now, the key takeaway is that the development workflow leverages the local file system for consuming concrete configs via the Miru SDK.
+More will be said about the Miru agent in coming sections. For now, the key takeaway is that the development workflow leverages the local file system for consuming config instances via the Miru SDK.
 
 ## Pushing a Schema
 

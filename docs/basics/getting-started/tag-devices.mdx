@@ -1,28 +1,28 @@
 ---
-title: 'Tag Clients'
+title: 'Tag Devices'
 ---
 
-### Creating Clients
-To deploy a concrete config, we must first create a [client](/docs/basics/vocabulary#client) to deploy to. Navigate to the [Clients page](https://configs.miruml.com/clients) page.
+### Creating Devices
+To deploy a config instance, we must first create a [device](/docs/basics/vocabulary#device) to deploy to. Navigate to the [Devices page](https://configs.miruml.com/devices) page.
 
 <Frame>
     <img 
-        src="/images/getting-started/create-client-page.png" 
-        alt="Create Client Page" 
+        src="/images/getting-started/create-device-page.png" 
+        alt="Create Device Page" 
     />
 </Frame>
 
-Click `+ New Client` and name the client `Robot 1`.
+Click `+ New Device` and name the device `Robot 1`.
 
 <Frame>
     <img 
-        src="/images/getting-started/create-client-form.png" 
-        alt="Create Client Form" 
+        src="/images/getting-started/create-device-form.png" 
+        alt="Create Device Form" 
     />
 </Frame>
 
 ### Creating Tag Types
-Now we need to create tag types and their tags to organize our clients. 
+Now we need to create tag types and their tags to organize our devices. 
 
 Navigate to the [Tags page](https://configs.miruml.com/tags). We'll walk through
 creating three tag types:
@@ -124,7 +124,7 @@ Upload `deployment_env.schema.yaml` to create the `deployment_env` tag type.
 </Note>
 
 ### Creating Tags
-Now we can create tags to categorize [clients](/docs/basics/vocabulary#client) and 
+Now we can create tags to categorize [devices](/docs/basics/vocabulary#device) and 
 define metadata for [overrides](/docs/basics/vocabulary#override).
 
 Navigate to the `deployment_env` page and click `+ New Tag` to create a tag.
@@ -167,28 +167,28 @@ We'll create a tag for each tag type. Use the following values when creating you
 
 
 
-### Tagging Clients
-Let's revisit the [Clients page](https://configs.miruml.com/clients) page. Click the
-`+ Tags` button for the `Robot 1` client.
+### Tagging Devices
+Let's revisit the [Devices page](https://configs.miruml.com/devices) page. Click the
+`+ Tags` button for the `Robot 1` device.
 <Frame>
     <img
-        src="/images/getting-started/tag-client-button.png" 
+        src="/images/getting-started/tag-device-button.png" 
         alt="Create Tag Form" 
     />
 </Frame>
 
-Using the select tags dropdown, we'll tag the `Robot 1` client with the 
+Using the select tags dropdown, we'll tag the `Robot 1` device with the 
 - `Outdoors` tag of the Deployment Environment tag type.
 - `US-West` tag of the Region tag type.
 - `Turtlebot 4` tag of the Robot Model tag type.
 
 <Frame>
     <img
-        src="/images/getting-started/tag-client-form.png" 
-        alt="Tag Client Form" 
+        src="/images/getting-started/tag-device-form.png" 
+        alt="Tag Device Form" 
     />
 </Frame>
 
 <Info>
-    Each client may only have **one tag per tag type**.
+    Each device may only have **one tag per tag type**.
 </Info>

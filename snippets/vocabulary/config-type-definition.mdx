@@ -1,0 +1,11 @@
+A **config type** represents the parameters responsible for configuring a particular aspect 
+of your application *through time*. 
+
+For instance, your application may have a `Mobility` config type that controls the 
+motion of your robot. The `Mobility` config type goes through many iterations--parameters 
+are added or deprecated (creating new config schemas for the config type) and given different 
+values (creating new config instances for the config type). 
+
+The `Mobility` config type is not a particular instantiation of parameters or a 
+particular specification of constraints. Instead, it is the parameters responsible for 
+configuring the motion of your robot at any point in your application's lifecycle.
