@@ -32,7 +32,7 @@ As an example, let's say our application has the following directory structure.
 ```
 src/...
 instances/
-├── mobility.yaml
+├── mobility.instance.yaml
 └── ...
 schemas/
 ├── mobility.schema.yaml
@@ -93,7 +93,7 @@ required:
   - telemetry
 ```
 
-```yaml mobility.yaml [expandable]
+```yaml mobility.instance.yaml [expandable]
 max_linear_speed_mps: 1.2
 max_angular_speed_radps: 1.0
 obstacle_avoidance_enabled: true
@@ -110,8 +110,8 @@ In production, config instances are defined in the cloud and retrieved from the
 [Miru Agent](/docs/agent-sdk) running on the robot (more on this later) .
 
 In development, quickly defining and editing configurations is essential. 
-`mobility.yaml` supplies config instance values via the local file system for 
-quick iteration. `mobility.yaml` is never uploaded to the cloud or deployed to production robots.
+`mobility.instance.yaml` supplies config instance values via the local file system for 
+quick iteration. `mobility.instance.yaml` is never uploaded to the cloud or deployed to production robots.
 
 To support both development and production scenarios, Miru provides an [SDK](/docs/sdk-reference). Below is a code snippet of the SDK in development.
 
