@@ -1,28 +1,25 @@
 ---
-title: 'Creating Schemas'
+title: "Creating Schemas"
 ---
 
 ## Config Types
 
-Applications have a variety of configurations serving different purposes. Below are 
-some [config types](/docs/basics/vocabulary#config-type) for a fictional robot. Each config type is 
-responsible for a particular aspect of the robot's behavior.
+Applications have various configurations serving different purposes. Below are some [config types](/docs/basics/vocabulary#config-type) for a fictional robot. Each config type is responsible for a particular aspect of the robot's behavior.
 
 <Frame>
-    <img src="/images/core-concepts/config-type-list.png"/>
+  ![](/images/core-concepts/config-type-list.png)
 </Frame>
 
-Every config type has a history of [config schemas](/docs/basics/vocabulary#config-schema) 
-as well as a history of [config instances](/docs/basics/vocabulary#config-instance) deployed 
-to robots. Below are the config schemas for the `Mobility` config type.
+Every config type has a history of [config schemas](/docs/basics/vocabulary#config-schema) as well as a history of [config instances](/docs/basics/vocabulary#config-instance) deployed to robots. Below are the config schemas for the `Mobility` config type.
 
 <Frame>
-    <img src="/images/core-concepts/mobility-schema-list.png"/>
+  ![](/images/core-concepts/mobility-schema-list.png)
 </Frame>
 
 ## Config Schemas
-Miru requires the use of config schemas. These schemas validate config instances before 
-deployment, preventing runtime application errors. 
+
+Miru requires the use of config schemas. These schemas validate config instances before
+deployment, preventing runtime application errors.
 
 Config schemas **live in a git repository** for streamlined development and versioning with git.
 
@@ -39,13 +36,14 @@ schemas/
 ```
 
 <Note>
-    This is just an example structure - schemas and instances can be located anywhere and named anything.
+  This is just an example structure - schemas and instances can be located anywhere and named anything.
 </Note>
 
-`mobility.schema.yaml` specifies the possible values for the `mobility.instance.yaml` config 
+`mobility.schema.yaml` specifies the possible values for the `mobility.instance.yaml` config
 instance.
 
 <CodeGroup>
+
 ```yaml mobility.schema.yaml [expandable]
 $schema: "https://json-schema.org/draft/2020-12/schema"
 title: Mobility
@@ -92,6 +90,7 @@ required:
   - telemetry
 ```
 
+
 ```yaml mobility.instance.yaml [expandable]
 max_linear_speed_mps: 1.2
 max_angular_speed_radps: 1.0
@@ -101,20 +100,21 @@ telemetry:
   upload_interval_sec: 60
   heartbeat_interval_sec: 10
 ```
+
 </CodeGroup>
 
 ## Miru SDK
-Config instances defined in a git repository are for **development use only**. 
-In production, config instances are defined in the cloud and retrieved from the 
-[Miru Agent](/docs/agent-sdk) running on the robot (more on this later) .
 
-In development, quickly defining and editing configurations is essential. 
-`mobility.instance.yaml` supplies config instance values via the local file system for 
-quick iteration. `mobility.instance.yaml` is never uploaded to the cloud or deployed to production robots.
+Config instances defined in a git repository are for **development use only**.
+In production, config instances are defined in the cloud and retrieved from the
+[Miru Agent](/docs/agent-sdk) running on the robot (more on this later).
 
-To support both development and production scenarios, Miru provides an [SDK](/docs/sdk-reference). Below is a code snippet of the SDK in development.
+In development, quickly defining and editing configurations is essential. `mobility.instance.yaml` supplies config instance values via the local file system for quick iteration. `mobility.instance.yaml` is never uploaded to the cloud or deployed to production robots.
+
+Miru provides an SDK to support both development and production scenarios. Below is a code snippet of the SDK in development.
 
 <CodeGroup>
+
 ```cpp C++
 // instantiate the config instance from the file system
 auto config_instance = miru::configs::ConfigInstance::from_file(
@@ -128,15 +128,16 @@ std::string parameter_name = config_type_slug + "." + "an_integer";
 auto parameter = miru::query::get_param(config_instance, parameter_name);
 int value = parameter.as_int();
 ```
+
 </CodeGroup>
 
-In production, the SDK retrieves config instances from the Miru agent running on the 
-robot. The agent is a lightweight `systemd` service that serves config instances to the SDK 
-over a unix socket.
+In production, the SDK retrieves config instances from the Miru agent running on the
+robot. The agent is a lightweight `systemd` service that serves config instances to the SDK over a Unix socket.
 
 Below is a code snippet of the SDK in production.
 
 <CodeGroup>
+
 ```cpp C++
 // instantiate the config instance from the agent
 auto config_instance = miru::configs::ConfigInstance::from_agent(
@@ -149,9 +150,10 @@ std::string parameter_name = config_type_slug + "." + "an_integer";
 auto parameter = miru::query::get_param(config_instance, parameter_name);
 int value = parameter.as_int();
 ```
+
 </CodeGroup>
 
-More will be said about the Miru agent in coming sections. For now, the key takeaway is that the development workflow leverages the local file system for consuming config instances via the Miru SDK while the production workflow leverages the Miru agent to serve config instances to the SDK.
+More will be said about the Miru agent in the coming sections. The key takeaway is that the development workflow leverages the local file system to consume config instances, while the production workflow leverages the Miru agent.
 
 ## Pushing a Schema
 
@@ -161,7 +163,7 @@ When ready to deploy new config instances to production, config schemas are uplo
 miru schema push ./path/to/schemas/mobility.schema.yaml
 ```
 
-The CLI collects some git information to aid versioning and tracking config schemas from the Miru dashboard. Miru **does not have access to your git repository**. The git information is extracted from the local git repository where the CLI is run.
+The CLI collects some git information to aid versioning and tracking config schemas from the Miru dashboard. Miru **does not have access to your git repository**; git information is extracted from the local git repository where the CLI is run.
 
 ```bash
 📦 Attempting to push 1 config schemas...
@@ -176,14 +178,14 @@ The CLI collects some git information to aid versioning and tracking config sche
 ✅ Successfully uploaded 1 config schemas
 ```
 
-After executing `miru schema push`, config schemas are available in the dashboard.
+After executing `miru schema push`, the config schemas are available in the dashboard.
 
 <Frame>
-    <img src="/images/core-concepts/mobility-schema-list.png"/>
+  ![](/images/core-concepts/mobility-schema-list.png)
 </Frame>
 
 <Note>
-    We recommend using the `miru schema push` command in your CI pipeline to upload your 
-    config schemas automatically. Miru will know if a config schema has changed and will 
-    not create a new config schema if it has already been uploaded in a previous commit.
+  We recommend using the `miru schema push` command in your CI pipeline to upload your
+  config schemas automatically. Miru will know if a config schema has changed and will
+  not create a new config schema if it has already been uploaded in a previous commit.
 </Note>

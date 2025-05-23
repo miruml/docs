@@ -1,5 +1,5 @@
 ---
-title: 'Setting Tags'
+title: "Setting Tags"
 ---
 
 import DeviceDefinition from '/snippets/vocabulary/device-definition.mdx';
@@ -8,49 +8,48 @@ import MetadataSchemaDefinition from '/snippets/vocabulary/metadata-schema-defin
 import TagAndTagTypeDefinition from '/snippets/vocabulary/tag-and-tag-type-definition.mdx';
 
 ## Cloud-Based
-Unlike config schemas, configuration data is not stored in a git repository. Instead, 
-configuration data is **stored in the cloud** and is accessible via the Miru dashboard 
-or programmatically via the Miru REST API. 
 
-Miru uses the concepts of **devices**, **tags**, and **metadata** to structure how 
-configuration data is stored and rendered. 
+Unlike config schemas, configuration data is not stored in a git repository. Instead,
+configuration data is **stored in the cloud** and is accessible via the Miru dashboard
+or programmatically via the Miru REST API.
 
-Think of tags and metadata as a datastore for configuration data. This data is then 
-referenced by overrides to render config instances in the format of a particular 
-config schema.
+Miru uses the concepts of **devices**, **tags**, and **metadata** to structure how
+configuration data is stored and rendered.
+
+Think of tags and metadata as a datastore for configuration data. Overrides reference this data to render config instances in the format of a particular config schema.
 
 ## Devices
 
 <DeviceDefinition />
 
 <Frame>
-    <img src="/images/core-concepts/device-list.png" />
+  ![](/images/core-concepts/device-list.png)
 </Frame>
 
 ## Tags
 
-Groups of devices share configurations based on criteria like hardware, customers, 
-location, etc. Miru uses the concepts of **tag types** and **tags** to group devices 
+Groups of devices share configurations based on criteria like hardware, customers,
+location, etc. Miru uses the concepts of **tag types** and **tags** to group devices
 in a logical way.
 
 <TagAndTagTypeDefinition />
 
 ## Metadata
+
 <MetadataDefinition />
 
 <MetadataSchemaDefinition />
 
 ## Customization
-**Tags are completely defined by you.** We gave examples with the `hardware`, 
-`accelerometer`, and `environment` tag types. However, you can define any tag type you 
-want and create any amount of tags for each tag type.
 
-This flexibility allows you to tailor tags to the needs of your application. Maybe your 
-customers don't have unique configurations. A customer tag type would be unnecessary 
-then. You may have many different sensor types. Defining a tag type for each sensor 
+**Tags are defined by you.** We gave examples with the `hardware`,
+`accelerometer`, and `environment` tag types. However, you can define any tag type you want and create any number of tags for each tag type.
+
+This flexibility allows you to tailor tags to the needs of your application. Maybe your
+customers don't have unique configurations. A customer tag type would be unnecessary
+then. You may have many different sensor types. Defining a tag type for each sensor
 type would then prove useful.
 
-The metadata stored for devices and tags are also completely defined by you. We showed 
-simple examples of metadata and their schemas: a device storing a `robot_id` and 
-`hardware` tags storing supported features like `jump`, `spin`, and `backflip`. 
+The metadata stored for devices and tags is also completely defined by you. We showed simple examples of metadata and their schemas: a device storing a `robot_id` and
+`hardware` tags storing supported features like `jump`, `spin`, and `backflip`.
 However, you can define the metadata custom to your application.
