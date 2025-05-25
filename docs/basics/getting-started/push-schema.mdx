@@ -6,22 +6,17 @@ import InstallInstructions from '/snippets/cli-reference/install.mdx'
 import LoginInstructions from '/snippets/cli-reference/login.mdx'
 
 ### Create the Config Type
-To push a schema, it's config type must first be created. Navigate to the [Config Types page](https://configs.miruml.com/configs) in the Miru dashboard.
+To push a schema, it's config type must first be created. Navigate to the 
+[Config Types page](https://configs.miruml.com/configs) in the Miru dashboard.
 
 <Frame>
-    <img 
-        src="/images/getting-started/create-config-type-page.png" 
-        alt="Create Config Type Page" 
-    />
+  ![](/images/getting-started/create-config-type-page.png)
 </Frame>
 
 Click `+ New Config Type` and name the config type `Mobility` with slug `mobility`.
 
 <Frame>
-    <img
-        src="/images/getting-started/create-config-type-dialog.png" 
-        alt="Create Config Type Dialog" 
-    />
+   ![](/images/getting-started/create-config-type-dialog.png)
 </Frame>
 
 <Warning>
@@ -36,7 +31,7 @@ already included this field in `mobility.schema.yaml`.
 
 ```yaml mobility.schema.yaml
 $miru_config_type_slug: "mobility"
-... # other fields
+...
 ```
 
 ### Install the CLI
@@ -77,12 +72,11 @@ Visit the [Config Types page](https://configs.miruml.com/config-types) and click
 `Mobility` config type to verify the schema was uploaded successfully.
 
 <Frame>
-    <img 
-        src="/images/getting-started/config-schemas-page.png" 
-        alt="Successful Schema Push" 
-    />
+   ![](/images/getting-started/config-schemas-page.png)
 </Frame>
 
 <Warning>
-    Git information is pulled from the local git repository. If you don't have access to view the remote repository (specified locally) or the commit hasn't yet been pushed to the remote repository, git related links in Miru will be invalid.
+    Git information is pulled from the local git repository. If you don't have access 
+    to view the remote repository (specified locally) or the commit hasn't yet been 
+    pushed to the remote repository, git related links in Miru will be invalid.
 </Warning>

@@ -3,40 +3,38 @@ title: 'Tag Devices'
 ---
 
 ### Creating Devices
-To deploy a config instance, first create a [device](/docs/basics/vocabulary#device) to deploy to. Navigate to the [Devices page](https://configs.miruml.com/devices).
+To deploy a config instance, first create a [device](/docs/basics/vocabulary#device) 
+to deploy to. Navigate to the [Devices page](https://configs.miruml.com/devices).
 
 <Frame>
-    <img 
-        src="/images/getting-started/create-device-page.png" 
-        alt="Create Device Page" 
-    />
+    ![](/images/getting-started/create-device-page.png)
 </Frame>
 
-Click `+ New Device` and name the device `Robot 1`.
+Click `+ New Device` and name the device `Robot A`.
 
 <Frame>
-    <img 
-        src="/images/getting-started/create-device-form.png" 
-        alt="Create Device Form" 
-    />
+    ![](/images/getting-started/create-device-form.png)
 </Frame>
 
 ### Creating Tag Types
-Next, create tag types and tags to organize the devices. Navigate to the [Tags page](https://configs.miruml.com/tags).
+Next, create tag types and tags to organize the devices. Navigate to the 
+[Tags page](https://configs.miruml.com/tags).
+
+<Frame>
+    ![](/images/getting-started/create-tag-type-page.png)
+</Frame>
 
 We'll create three tag types:
 - `deployment_env`
 - `region`
 - `robot_model`
 
-<Frame>
-    <img
-        src="/images/getting-started/create-tag-type-page.png" 
-        alt="Create Tag Type Page" 
-    />
-</Frame>
 
-Each tag type defines a metadata schema that tag metadata must adhere to. We've predefined all the metadata schemas for you. These are located in the [tag-types directory](https://github.com/miruml/getting-started/tree/main/tag-types) of the getting-started repository, which you already cloned onto your local machine.
+
+Each tag type defines a metadata schema that tag metadata must adhere to. We've 
+predefined all the metadata schemas for you. These are located in the 
+[tag-types directory](https://github.com/miruml/getting-started/tree/main/tag-types) 
+of the getting-started repository, which you already cloned onto your local machine.
 
 <CodeGroup>
 
@@ -93,22 +91,18 @@ required:
 ```
 </CodeGroup>
 
-Click the `+ New Tag Type` button and upload the appropriate schema by clicking the **Upload Schema** button.
+Click the `+ New Tag Type` button and upload the appropriate schema by clicking the 
+**Upload Schema** button.
 
 <Frame>
-    <img
-        src="/images/getting-started/upload-metadata-schema.png" 
-        alt="Upload Metadata Schema" 
-    />
+    ![](/images/getting-started/upload-metadata-schema.png)
 </Frame>
 
-As an example, the `deployment_env` should look similar to the following after naming tag type and uploading the appropriate schema.
+As an example, the `deployment_env` should look similar to the following after naming 
+tag type and uploading the appropriate schema.
 
 <Frame>
-    <img
-        src="/images/getting-started/create-tag-type-form.png" 
-        alt="Create Tag Type Form" 
-    />
+    ![](/images/getting-started/create-tag-type-form.png)
 </Frame>
 
 Repeat this process for the `region` and `robot_model` tag types.
@@ -119,10 +113,7 @@ Next, create tags to categorize devices and define metadata for [overrides](/doc
 Navigate to the `deployment_env` page and click `+ New Tag` to create a tag.
 
 <Frame>
-    <img
-        src="/images/getting-started/create-tag-page.png" 
-        alt="Create Tag Page" 
-    />
+    ![](/images/getting-started/create-tag-page.png)
 </Frame>
 
 We'll create a tag for each tag type. Use the following values when creating your tags.
@@ -130,54 +121,37 @@ We'll create a tag for each tag type. Use the following values when creating you
 <Tabs>
     <Tab title="deployment_env">
         <Frame>
-            <img
-                src="/images/getting-started/create-tag-depl-env.png" 
-                alt="Create Tag Page for deployment_env" 
-            />
+            ![](/images/getting-started/create-tag-depl-env.png)
         </Frame>
     </Tab>
     <Tab title="region">
         <Frame>
-            <img
-                src="/images/getting-started/create-tag-region.png" 
-                alt="Create Tag Page for region" 
-            />
+            ![](/images/getting-started/create-tag-region.png)
         </Frame>
     </Tab>
     <Tab title="robot_model">
         <Frame>
-            <img
-                src="/images/getting-started/create-tag-robot-model.png" 
-                alt="Create Tag Page for robot_model" 
-            />
+            ![](/images/getting-started/create-tag-robot-model.png)
         </Frame>
     </Tab>
 </Tabs>
 
-
-
 ### Tagging Devices
 Navigate back to the [Devices page](https://configs.miruml.com/devices).
 
-Click the `+ Tags` button for the `Robot 1` device.
+Click the `+ Tags` button for the `Robot A` device.
 
 <Frame>
-    <img
-        src="/images/getting-started/tag-device-button.png" 
-        alt="Create Tag Form" 
-    />
+    ![](/images/getting-started/tag-device-button.png)
 </Frame>
 
-Using the select tags dropdown, tag `Robot 1` with the 
+Using the select tags dropdown, tag `Robot A` with the 
 - `Outdoors` tag of the `deployment_env` tag type.
 - `US-West` tag of the `region` tag type.
 - `Turtlebot 4` tag of the `robot_model` tag type.
 
 <Frame>
-    <img
-        src="/images/getting-started/tag-device-form.png" 
-        alt="Tag Device Form" 
-    />
+    ![](/images/getting-started/tag-device-form.png)
 </Frame>
 
 <Info>
