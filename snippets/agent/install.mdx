@@ -2,12 +2,12 @@
 Run the following installation command in your terminal.
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/miruml/agent/main/manual-install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/miruml/agent/main/scripts/install/manual-install.sh | sh
 ```
 
 The script requires `curl` to be installed and sudo privileges may be required. 
 
-Review the contents of the [installation](https://github.com/miruml/agent/blob/main/scripts/install/manual-deb-install.sh) and [activation](https://github.com/miruml/agent/blob/main/scripts/install/activate.sh) scripts [here](https://github.com/miruml/agent/tree/main/scripts/install).
+Review the contents of the [installation](https://github.com/miruml/agent/main/scripts/install/manual-deb-install.sh) and [activation](https://github.com/miruml/agent/main/scripts/install/activate.sh) scripts [here](https://github.com/miruml/agent/tree/main/scripts/install).
 
 The script downloads the Miru agent debian package and installs the agent as a `systemd` service. It then downloads and executes the activation script, waiting for a device activation token to be provided.
 
