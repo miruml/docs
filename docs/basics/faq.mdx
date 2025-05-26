@@ -49,3 +49,63 @@ The Miru agent **caches the rendered config locally** on disk. If the robot rest
 
 This ensures robustness in the field where network drops or power cycles are common.
 </Accordion>
+<Accordion title="6. How can I verify the agent is running correctly?">
+You can ping the agent’s test endpoint using:
+
+```bash
+sudo curl --unix-socket /run/miru/miru.sock http://localhost/v1/test
+```
+
+If successful, you'll see a JSON response like:
+
+```json
+{"server":"miru-config-agent","status":"ok"}
+```
+
+This confirms the Miru agent is installed, activated, and running.
+</Accordion>
+
+<Accordion title="7. How do I know what config my robot is currently using?">
+The agent always serves the latest rendered config instance it received from the cloud. You can inspect this using the Miru SDK on the device.
+
+To do this, use the `from_agent()` method and provide the path to your config schema:
+
+```cpp
+auto config_instance = miru::configs::ConfigInstance::from_agent("/path/to/schema.yaml");
+```
+
+You can then retrieve individual parameters or iterate over all parameters in the config instance.
+
+Note: if the device is offline, the agent serves the last known-good config instance from its local cache.
+</Accordion>
+
+<Accordion title="8. Can I test configs locally without the agent?">
+Yes. The Miru SDK supports a development mode using `from_file()` to load config instances from disk.
+
+This is useful for iterating quickly on schemas and config instances without needing to install or activate the agent. Most teams use this feature in their development environment.
+</Accordion>
+
+<Accordion title="9. Does my schema need to be uploaded before using it in production?">
+Yes. The Miru agent uses the **hash of the schema file** to identify which schema version to render from. That schema must already be uploaded to the cloud using `miru schema push`.
+
+If the agent sees a schema hash it doesn’t recognize, config rendering will fail.
+</Accordion>
+
+<Accordion title="10. What’s the difference between a tag and a tag type?">
+- A **tag type** is an attribute of a device (like `region`, `robot_model`, or `hardware`).
+- A **tag** is an instantiation of that tag type (like `Amazon`, `v4`, or `Jetson Orin Nano`).
+
+Each device can have **one tag per tag type**. These tags are used to resolve overrides and render the correct config instance for each device.
+</Accordion>
+
+<Accordion title="11. Why do I need both a config slug and a schema file?">
+The **schema file** defines the structure and constraints of your config: field names, types, default values, and limits.  
+The **config slug**, declared at the top of the schema as `$miru_config_type_slug`, identifies which config type the schema belongs to (e.g. `mobility`, `motion-planner`).
+
+Miru uses the slug to:
+
+- Group all schema versions and config instances under a single config type.
+- Resolve overrides and render the correct config instance for each device.
+
+In other words, the slug links your schema to the broader lifecycle of that config type, while the schema defines what’s valid.
+</Accordion>
