@@ -5,11 +5,11 @@ description: '**Answers to common questions from Miru users.** '
 If you need clarification or have any further questions, please [contact the founders](mailto:founders@miruml.com).
 
 <Accordion title="1. How does the Miru agent work and how do I install it?">
-The Miru agent is installed as a `systemd` service on the robot. During activation, it is authenticated using a token retrieved from the Miru UI. Once activated, the agent becomes tied to a specific **client ID**.
+The Miru agent is installed as a `systemd` service on the robot. During activation, it is authenticated using a token retrieved from the Miru UI. Once activated, the agent becomes tied to a specific **device ID**.
 
 To install the agent, follow the instructions in the [Install the Agent guide](https://docs.miruml.com/docs/agent-sdk/install-agent). The page includes the install script, activation steps, and supported platforms.
 
-After installing, you'll need to retrieve the activation token for the desired client from the [Devices page](https://configs.miruml.com/devices) in the dashboard. Paste the token into the activation prompt in your terminal to complete setup.
+After installing, you'll need to retrieve the activation token for the desired device from the [Devices page](https://configs.miruml.com/devices) in the dashboard. Paste the token into the activation prompt in your terminal to complete setup.
 
 Once activated, the agent is ready to serve configs to the robot’s application via a UNIX socket located at `/run/miru/miru.sock`.
 </Accordion>
@@ -19,17 +19,17 @@ Your application uses the Miru SDK and provides the path to the config schema fi
 
 The Miru agent:
 - **Hashes the contents of the schema file**, which acts as a unique version identifier.
-- Combines this schema hash with the **client ID** to identify which concrete config to fetch from the cloud.
+- Combines this schema hash with the **device ID** to identify which concrete config to fetch from the cloud.
 - Uses the `$miru_config_slug` field inside the schema to determine the config slug.
 </Accordion>
 
 <Accordion title="3. What happens in the Miru cloud when a robot asks for a config?">
-Once the agent sends a request with the schema hash and client ID:
+Once the agent sends a request with the schema hash and device ID:
 - The Miru cloud matches the request to the correct version of the config schema.
 - It evaluates any **overrides** defined for that config.
 - The robot's **tags** (like `region`, `hardware`, or `robot_model`) are used to resolve values from tag metadata into a final rendered config.
 
-The resulting **concrete config** is then **pulled to the client** by the agent.
+The resulting **concrete config** is then **pulled to the device** by the agent.
 
 This allows each robot to receive a config tailored to its tags, even if the schema is the same across the fleet.
 </Accordion>
