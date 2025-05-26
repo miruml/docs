@@ -1,0 +1,51 @@
+---
+title: 'FAQ'
+description: '**Answers to common questions from Miru users.** '
+---
+If you need clarification or have any further questions, please [contact the founders](mailto:founders@miruml.com).
+
+<Accordion title="1. How does the Miru agent work and how do I install it?">
+The Miru agent is installed as a `systemd` service on the robot. During activation, it is authenticated using a token retrieved from the Miru UI. Once activated, the agent becomes tied to a specific **client ID**.
+
+To install the agent, follow the instructions in the [Install the Agent guide](https://docs.miruml.com/docs/agent-sdk/install-agent). The page includes the install script, activation steps, and supported platforms.
+
+After installing, you'll need to retrieve the activation token for the desired client from the [Devices page](https://configs.miruml.com/devices) in the dashboard. Paste the token into the activation prompt in your terminal to complete setup.
+
+Once activated, the agent is ready to serve configs to the robot’s application via a UNIX socket located at `/run/miru/miru.sock`.
+</Accordion>
+
+<Accordion title="2. How does the Miru agent determine which config to fetch?">
+Your application uses the Miru SDK and provides the path to the config schema file (e.g. `motion-planner.schema.yaml`).
+
+The Miru agent:
+- **Hashes the contents of the schema file**, which acts as a unique version identifier.
+- Combines this schema hash with the **client ID** to identify which concrete config to fetch from the cloud.
+- Uses the `$miru_config_slug` field inside the schema to determine the config slug.
+</Accordion>
+
+<Accordion title="3. What happens in the Miru cloud when a robot asks for a config?">
+Once the agent sends a request with the schema hash and client ID:
+- The Miru cloud matches the request to the correct version of the config schema.
+- It evaluates any **overrides** defined for that config.
+- The robot's **tags** (like `region`, `hardware`, or `robot_model`) are used to resolve values from tag metadata into a final rendered config.
+
+The resulting **concrete config** is then **pulled to the client** by the agent.
+
+This allows each robot to receive a config tailored to its tags, even if the schema is the same across the fleet.
+</Accordion>
+
+<Accordion title="4. How does my application use the config from the agent?">
+The SDK connects to the agent over the UNIX socket and passes it the path to the schema file. The agent then returns the concrete config associated with that schema and client.
+
+The SDK returns this config as:
+- A **structured, typed object** (e.g., in C++), and/or
+- A **raw JSON blob**, depending on the SDK/language used.
+
+This lets your application consume configs in a strongly typed way, aligned with the schema definition you provided.
+</Accordion>
+
+<Accordion title="5. What happens if the robot goes offline or restarts?">
+The Miru agent **caches the rendered config locally** on disk. If the robot restarts or loses network connectivity, the agent will continue to serve the last known-good config to the SDK.
+
+This ensures robustness in the field where network drops or power cycles are common.
+</Accordion>
