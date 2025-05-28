@@ -18,7 +18,7 @@ Once activated, the agent is ready to serve configs to the robot’s application
 Your application uses the Miru SDK and provides the path to the config schema file (e.g. `motion-planner.schema.yaml`).
 
 The Miru agent:
-- **Hashes the contents of the schema file**, which acts as a unique version identifier.
+- Grabs the **hash of the schema file**, which is provided by the SDK and acts as a unique version identifier.
 - Combines this schema hash with the **device ID** to identify which config instance to fetch from the cloud.
 - Uses the `$miru_config_slug` field inside the schema to determine the config slug.
 </Accordion>
