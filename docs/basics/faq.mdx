@@ -4,7 +4,7 @@ description: '**Answers to common questions from Miru users.** '
 ---
 If you need clarification or have any further questions, please [contact the founders](mailto:founders@miruml.com).
 
-{/* <Accordion title="1. How does the Miru agent work and how do I install it?">
+<Accordion title="1. How does the Miru agent work and how do I install it?">
 The Miru agent is installed as a `systemd` service on the robot. During activation, it is authenticated using a token retrieved from the Miru UI. Once activated, the agent becomes tied to a specific **device ID**.
 
 To install the agent, follow the instructions in the [Install the Agent guide](https://docs.miruml.com/docs/agent-sdk/install-agent). The page includes the install script, activation steps, and supported platforms.
@@ -83,7 +83,7 @@ Note: if the device is offline, the agent serves the last known-good config inst
 Yes. The Miru SDK supports a development mode using `from_file()` to load config instances from disk.
 
 This is useful for iterating quickly on schemas and config instances without needing to install or activate the agent. Most teams use this feature in their development environment.
-</Accordion> */}
+</Accordion>
 
 <Accordion title="9. Does my schema need to be uploaded before using it in production?">
 Yes. The Miru agent uses the **hash of the schema file** to identify which schema version to render from. That schema must already be uploaded to the cloud using `miru schema push`.
