@@ -38,15 +38,20 @@
                                     "docs/basics/getting-started/define-overrides",
                                     "docs/basics/getting-started/deploy"
                                 ]
-                            },
-                            "docs/basics/faq"
+                            }
                         ]
                     },
-
                     {
                         "group": "Agent / SDK",
                         "pages": [
                             "docs/agent-sdk/install-agent"
+                        ]
+                    },
+                    {
+                        "group": "Advanced",
+                        "pages": [
+                            "docs/advanced/jsonschema",
+                            "docs/advanced/faq"
                         ]
                     }
                 ]
