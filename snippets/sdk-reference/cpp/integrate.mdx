@@ -19,6 +19,7 @@ The Miru C++ SDK relies on CMake for integration. The [build requirements](https
             miru
             GIT_REPOSITORY https://github.com/miruml/cpp-sdk.git  # Replace with actual repo URL
             GIT_TAG main # replace with desired tag/branch/commit
+            GIT_SUBMODULES "" # disable submodule cloning since the openapi repository inside the cpp-sdk repository is private
         )
 
         FetchContent_MakeAvailable(miru)
