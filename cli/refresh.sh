@@ -1,10 +1,9 @@
 #!/bin/sh
 
-docs_dir=".."
-golang_dir="../../golang"
-golang_dir=$(realpath "$golang_dir")
-source_docs="$golang_dir/docs/cli"
-dest_docs="$docs_dir/snippets/cli-reference/gen"
+git_repo_root_dir=$(git rev-parse --show-toplevel)
+source_docs="$git_repo_root_dir/cli/gen"
+dest_docs="$git_repo_root_dir/snippets/cli-reference/gen"
+
 
 # Remove the existing generated docs
 rm -rf "$dest_docs"

@@ -1,27 +1,28 @@
-### Command
+## miru schema push
 
-```bash
-miru schema push PATH... [OPTIONS]
-```
+Upload one or more config schemas to miru
 
-### Description
+### Synopsis
 
 Upload one or more config schemas to miru.
 
+```
+miru schema push PATH... [OPTIONS]
+```
 
 ### Examples
 
-
-```bash Single Schema
-miru schema push ./path/to/config/schema.yaml
 ```
 
+# Single Schema
+miru schema push ./path/to/config/schema.yaml
 
-```bash Multiple Schemas
+# Multiple Schemas
 miru schema push \
 	./path/to/config/schema1.yaml \
 	./path/to/config/schema2.yaml
 ```
+
 ### Options
 
 ```
@@ -33,4 +34,8 @@ miru schema push \
 ```
   -q, --quiet   suppress output except errors
 ```
+
+### SEE ALSO
+
+* [miru schema](miru_schema.md)	 - Manage config schemas
 

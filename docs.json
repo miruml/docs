@@ -72,6 +72,12 @@
                         "pages": [
                             "docs/cli-reference/schema-push"
                         ]
+                    },
+                    {
+                        "group": "Instances",
+                        "pages": [
+                            "docs/cli-reference/instance-to-jsonschema"
+                        ]
                     }
                 ]
             },
