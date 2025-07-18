@@ -1,4 +1,4 @@
-The Miru agent serves requests over the unix socket `/run/miru/miru.sock`, which is created with the `miru:miru` permissions (user `miru` and group `miru`). 
+The Miru agent serves requests over the unix socket `/run/miru/miru.sock`, which is created with the `sudo:miru` permissions (user `miru` and group `miru`). 
 
 Any access to the socket must executed with a user that is a member of the `miru` group. To add a user to the `miru` group, run
 
