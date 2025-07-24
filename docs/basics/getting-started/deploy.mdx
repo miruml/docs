@@ -2,6 +2,7 @@
 title: 'Deploy'
 ---
 
+import CppSDKSupportedPlatforms from '/snippets/sdk-reference/cpp/supported-platforms.mdx';
 import InstallAgent from '/snippets/agent/install.mdx';
 import ActivateAgent from '/snippets/agent/activate.mdx';
 import AgentPermissions from '/snippets/agent/permissions.mdx';
@@ -11,6 +12,11 @@ import AgentSupportedPlatforms from '/snippets/agent/supported-platforms.mdx';
 With a valid config instance for `Robot A` available for the `v1` schema of the `Mobility` config type, it's time to deploy.
 
 ## SDK in Development
+
+### Supported Platforms
+<CppSDKSupportedPlatforms />
+
+### Build the Examples
 To begin using the Miru C++ SDK, navigate to the `/cpp` directory of the [getting-started](https://github.com/miruml/getting-started) repository cloned at the beginning of the guide.
 
 Build the CMake project (you can find the build requirements [here](https://github.com/miruml/cpp-sdk?tab=readme-ov-file#build-requirements)).
@@ -22,6 +28,7 @@ cmake -B build -S .
 cmake --build build
 ```
 
+### Read a Config Instance from a File
 The [from_file](https://github.com/miruml/getting-started/tree/main/cpp/examples/from_file/main.cpp) example demonstrates how to use the SDK in development by loading a config instance from a file on the local file system.
 
 ```bash
@@ -69,9 +76,9 @@ Value: "60"
 
 ## Miru Agent
 
-To use the Miru SDK in production, the agent must be installed and activated. Before 
-installing, double check your platform is supported.
+To use the Miru SDK in production, the agent must be installed and activated. 
 
+### Supported Platforms
 <AgentSupportedPlatforms />
 
 ### Install
