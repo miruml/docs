@@ -57,19 +57,6 @@
                 ]
             },
             {
-                "dropdown": "API",
-                "icon": "code",
-                "groups": [
-                    {
-                        "group": "Endpoints",
-                        "openapi": {
-                            "source": "api/api.yaml",
-                            "directory": "api-reference"
-                        }
-                    }
-                ]
-            },
-            {
                 "dropdown": "CLI",
                 "icon": "terminal",    
                 "groups": [
@@ -91,6 +78,32 @@
                         "pages": [
                             "docs/cli-reference/instance-to-jsonschema"
                         ]
+                    }
+                ]
+            },
+            {
+                "dropdown": "API",
+                "icon": "code",
+                "groups": [
+                    {
+                        "group": "Endpoints",
+                        "openapi": {
+                            "source": "api/api.yaml",
+                            "directory": "api-reference"
+                        }
+                    }
+                ]
+            },
+            {
+                "dropdown": "Webhooks",
+                "icon": "code",
+                "groups": [
+                    {
+                        "group": "Events",
+                        "openapi": {
+                            "source": "api/webhooks.yaml",
+                            "directory": "webhooks-reference"
+                        }
                     }
                 ]
             },

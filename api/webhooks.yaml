@@ -1,0 +1,160 @@
+openapi: 3.1
+info:
+  title: Miru API
+  version: 0.1.0
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+  - url: https://customer.com/v1/webhooks/miru
+    description: Customer Webhooks
+    variables:
+      version:
+        default: v1
+webhooks:
+  config_instance.target_status.validated:
+    post:
+      tags:
+        - Config Instances
+      summary: Validate
+      description: The config instance is waiting for validation before deployment to a device
+      operationId: configInstanceTargetStatusValidated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigInstanceTargetStatusValidatedRequest'
+      responses:
+        '200':
+          description: Successfully received the event.
+components:
+  schemas:
+    ConfigInstanceTargetStatus:
+      type: string
+      description: Desired state of the config instance
+      enum:
+        - created
+        - validated
+        - deployed
+        - removed
+      x-enum-varnames:
+        - CONFIG_INSTANCE_TARGET_STATUS_CREATED
+        - CONFIG_INSTANCE_TARGET_STATUS_VALIDATED
+        - CONFIG_INSTANCE_TARGET_STATUS_DEPLOYED
+        - CONFIG_INSTANCE_TARGET_STATUS_REMOVED
+    ConfigInstanceStatus:
+      type: string
+      description: The merging of the 'activity_status' and 'error_status' where 'error_status' takes precedence over 'activity_status' if errors are present
+      enum:
+        - created
+        - validating
+        - validated
+        - queued
+        - deployed
+        - removed
+        - failed
+        - retrying
+      x-enum-varnames:
+        - CONFIG_INSTANCE_STATUS_CREATED
+        - CONFIG_INSTANCE_STATUS_VALIDATING
+        - CONFIG_INSTANCE_STATUS_VALIDATED
+        - CONFIG_INSTANCE_STATUS_QUEUED
+        - CONFIG_INSTANCE_STATUS_DEPLOYED
+        - CONFIG_INSTANCE_STATUS_REMOVED
+        - CONFIG_INSTANCE_STATUS_FAILED
+        - CONFIG_INSTANCE_STATUS_RETRYING
+    ConfigInstanceActivityStatus:
+      type: string
+      description: Last known activity state of the config instance
+      enum:
+        - created
+        - validating
+        - validated
+        - queued
+        - deployed
+        - removed
+      x-enum-varnames:
+        - CONFIG_INSTANCE_ACTIVITY_STATUS_CREATED
+        - CONFIG_INSTANCE_ACTIVITY_STATUS_VALIDATING
+        - CONFIG_INSTANCE_ACTIVITY_STATUS_VALIDATED
+        - CONFIG_INSTANCE_ACTIVITY_STATUS_QUEUED
+        - CONFIG_INSTANCE_ACTIVITY_STATUS_DEPLOYED
+        - CONFIG_INSTANCE_ACTIVITY_STATUS_REMOVED
+    ConfigInstanceErrorStatus:
+      type: string
+      description: Last known error state of the config instance
+      enum:
+        - none
+        - failed
+        - retrying
+      x-enum-varnames:
+        - CONFIG_INSTANCE_ERROR_STATUS_NONE
+        - CONFIG_INSTANCE_ERROR_STATUS_FAILED
+        - CONFIG_INSTANCE_ERROR_STATUS_RETRYING
+    BaseConfigInstance:
+      title: Base Config Instance
+      type: object
+      required:
+        - object
+        - id
+        - target_status
+        - status
+        - activity_status
+        - error_status
+        - relative_filepath
+        - created_at
+        - updated_at
+        - device_id
+        - config_schema_id
+        - config_type_id
+      properties:
+        object:
+          type: string
+          enum:
+            - config_instance
+          example: config_instance
+        id:
+          type: string
+          example: cfg_inst_123
+          description: ID of the config instance
+        target_status:
+          $ref: '#/components/schemas/ConfigInstanceTargetStatus'
+        status:
+          $ref: '#/components/schemas/ConfigInstanceStatus'
+        activity_status:
+          $ref: '#/components/schemas/ConfigInstanceActivityStatus'
+        error_status:
+          $ref: '#/components/schemas/ConfigInstanceErrorStatus'
+        relative_filepath:
+          type: string
+          example: /v1/motion-control.json
+          description: The file path to deploy the config instance relative to /srv/miru/config_instances. v1/motion-control.json would deploy to /srv/miru/config_instances/v1/motion-control.json
+        created_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+          description: The timestamp when the config instance was created
+        updated_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+          description: The timestamp when the config instance was last updated
+        device_id:
+          type: string
+          example: dvc_123
+          description: The ID of the device which the config instance is associated with
+        config_schema_id:
+          type: string
+          example: cfg_sch_123
+          description: The ID of the config schema which the config instance must adhere to
+        config_type_id:
+          type: string
+          example: cfg_type_123
+          description: The ID of the config type which the config instance is a part of
+    ConfigInstanceTargetStatusValidatedRequest:
+      type: object
+      required:
+        - config_instance
+      properties:
+        config_instance:
+          $ref: '#/components/schemas/BaseConfigInstance'

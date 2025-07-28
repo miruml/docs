@@ -40,13 +40,8 @@ def run_command_stream(cmd: str, cwd: Optional[Path] = None) -> None:
         sys.exit(1)
 
 
-def main() -> None:
-    # Get repository root and set up paths
-    repo_root: Path = Path(
-        run_command("git rev-parse --show-toplevel").strip()
-    )
-    api_dir: Path = repo_root / "api"
-    openapi_dir: Path = api_dir / "openapi"
+def refresh_api_yaml(api_dir: Path, openapi_dir: Path) -> None:
+    """Refresh the api.yaml file."""
     backend_server_dir: Path = openapi_dir / "configs" / "backend-server"
     public_server_dir: Path = backend_server_dir / "public"
     public_openapi_spec: Path = public_server_dir / "openapi.gen.yaml"
@@ -57,6 +52,31 @@ def main() -> None:
     if target_api_file.exists():
         target_api_file.unlink()
     shutil.copy(public_openapi_spec, target_api_file)
+
+
+def refresh_webhooks_yaml(api_dir: Path, openapi_dir: Path) -> None:
+    """Refresh the webhooks.yaml file."""
+    webhooks_dir: Path = openapi_dir / "configs" / "webhooks"
+    webhooks_file: Path = webhooks_dir / "openapi.gen.yaml"
+
+    target_webhooks_file: Path = api_dir / "webhooks.yaml"
+
+    # delete the target webhooks file if it exists
+    if target_webhooks_file.exists():
+        target_webhooks_file.unlink()
+    shutil.copy(webhooks_file, target_webhooks_file)
+
+
+def main() -> None:
+    # Get repository root and set up paths
+    repo_root: Path = Path(
+        run_command("git rev-parse --show-toplevel").strip()
+    )
+    api_dir: Path = repo_root / "api"
+    openapi_dir: Path = api_dir / "openapi"
+
+    refresh_api_yaml(api_dir, openapi_dir)
+    refresh_webhooks_yaml(api_dir, openapi_dir)
 
 
 if __name__ == "__main__":
