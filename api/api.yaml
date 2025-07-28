@@ -42,7 +42,7 @@ paths:
         - $ref: '#/components/parameters/offset'
         - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/order_by'
-        - $ref: '#/components/parameters/expand'
+        - $ref: '#/components/parameters/expand_with_total_count'
         - $ref: '#/components/parameters/id'
         - $ref: '#/components/parameters/target_status'
         - $ref: '#/components/parameters/activity_status'
@@ -115,7 +115,7 @@ paths:
         - $ref: '#/components/parameters/dry_run'
       responses:
         '200':
-          description: Successfully queued the config instance for deployment.
+          description: Successfully queued the config instance for deployment and queued conflicting config instances for removal.
           content:
             application/json:
               schema:
@@ -126,6 +126,7 @@ components:
       type: apiKey
       in: header
       name: X-API-Key
+      description: The API key to use for authentication. Retrieve your API key from the Miru dashboard.
   parameters:
     config_instance_id:
       name: config_instance_id
@@ -142,29 +143,27 @@ components:
       schema:
         type: array
         items:
-          $ref: '#/components/schemas/ConfigInstanceExpand'
+          $ref: '#/components/schemas/ExpandConfigInstance'
         description: The fields to expand in the config instance
     offset:
       name: offset
       in: query
       required: false
-      description: The offset to begin returning results from
+      description: The offset of the items to return. An offset of 10 with a limit of 10 returns items 11-20.
       schema:
         type: integer
         default: 0
         minimum: 0
-        example: 0
     limit:
       name: limit
       in: query
       required: false
-      description: The number of items to return
+      description: The number of items to return. A limit of 15 with an offset of 0 returns items 1-15.
       schema:
         type: integer
         default: 10
         minimum: 1
         maximum: 100
-        example: 10
     order_by:
       name: order_by
       in: query
@@ -172,6 +171,15 @@ components:
       schema:
         $ref: '#/components/schemas/ConfigInstanceOrderBy'
         description: The order to sort the config instances
+    expand_with_total_count:
+      name: expand[]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/ExpandConfigInstanceList'
+        description: The fields to expand in the config instance list
     id:
       name: id
       in: query
@@ -181,28 +189,28 @@ components:
         type: string
         example: cfg_inst_123
     target_status:
-      name: target status
+      name: target_status
       in: query
       required: false
       description: The config instance target status to filter by
       schema:
         $ref: '#/components/schemas/ConfigInstanceTargetStatus'
     activity_status:
-      name: activity status
+      name: activity_status
       in: query
       required: false
       description: The config instance activity status to filter by
       schema:
         $ref: '#/components/schemas/ConfigInstanceActivityStatus'
     error_status:
-      name: error status
+      name: error_status
       in: query
       required: false
       description: The config instance error status to filter by
       schema:
         $ref: '#/components/schemas/ConfigInstanceErrorStatus'
     device_id:
-      name: device id
+      name: device_id
       in: query
       required: false
       description: The device ID to filter by
@@ -210,7 +218,7 @@ components:
         type: string
         example: dvc_123
     config_schema_id:
-      name: config schema id
+      name: config_schema_id
       in: query
       required: false
       description: The config schema ID to filter by
@@ -218,7 +226,7 @@ components:
         type: string
         example: cfg_sch_123
     config_type_id:
-      name: config type id
+      name: config_type_id
       in: query
       required: false
       description: The config type ID to filter by
@@ -234,7 +242,7 @@ components:
         type: boolean
         default: false
   schemas:
-    ConfigInstanceExpand:
+    ExpandConfigInstance:
       type: string
       enum:
         - content
@@ -248,7 +256,12 @@ components:
         - CONFIG_INSTANCE_EXPAND_CONFIG_TYPE
     ConfigInstanceTargetStatus:
       type: string
-      description: Desired state of the config instance
+      description: |
+        Desired state of the config instance
+        - Created: config instance desires not to be deployed but can be deployed in the future
+        - Validated: config instance desires user's custom validation before deployment can begin
+        - Deployed: config instance desires to be available on the device
+        - Removed: config instance desires to no longer be available on the device
       enum:
         - created
         - validated
@@ -259,9 +272,49 @@ components:
         - CONFIG_INSTANCE_TARGET_STATUS_VALIDATED
         - CONFIG_INSTANCE_TARGET_STATUS_DEPLOYED
         - CONFIG_INSTANCE_TARGET_STATUS_REMOVED
+    ConfigInstanceActivityStatus:
+      type: string
+      description: |
+        Last known activity state of the config instance
+        - Created: config instance has been created but no deployment attempt has been made
+        - Validating: config instance is being validated with user's custom validation
+        - Validated: config instance has been validated with user's custom validation
+        - Queued: config instance will be deployed as soon as the device is back online
+        - Deployed: config instance is currently available on the device
+        - Removed: the config instance is no longer available on the device
+      enum:
+        - created
+        - validating
+        - validated
+        - queued
+        - deployed
+        - removed
+      x-enum-varnames:
+        - CONFIG_INSTANCE_ACTIVITY_STATUS_CREATED
+        - CONFIG_INSTANCE_ACTIVITY_STATUS_VALIDATING
+        - CONFIG_INSTANCE_ACTIVITY_STATUS_VALIDATED
+        - CONFIG_INSTANCE_ACTIVITY_STATUS_QUEUED
+        - CONFIG_INSTANCE_ACTIVITY_STATUS_DEPLOYED
+        - CONFIG_INSTANCE_ACTIVITY_STATUS_REMOVED
+    ConfigInstanceErrorStatus:
+      type: string
+      description: |
+        Last known error state of the config instance deployment
+        - None: there are no errors with the config instance deployment
+        - Retrying: an error has been encountered and the agent is attempting to try again to reach the target status
+        - Failed: an error has been encountered but no more retries are left; the config instance is removed (if deployed)
+      enum:
+        - none
+        - failed
+        - retrying
+      x-enum-varnames:
+        - CONFIG_INSTANCE_ERROR_STATUS_NONE
+        - CONFIG_INSTANCE_ERROR_STATUS_FAILED
+        - CONFIG_INSTANCE_ERROR_STATUS_RETRYING
     ConfigInstanceStatus:
       type: string
-      description: The merging of the 'activity_status' and 'error_status' where 'error_status' takes precedence over 'activity_status' if errors are present
+      description: |
+        This status merges the 'activity_status' and 'error_status' fields, with error states taking precedence over activity states when errors are present. For example, if the activity status is 'deployed' but there's an error, the overall status will be 'failed' or 'retrying' depending on the error state.
       enum:
         - created
         - validating
@@ -280,34 +333,6 @@ components:
         - CONFIG_INSTANCE_STATUS_REMOVED
         - CONFIG_INSTANCE_STATUS_FAILED
         - CONFIG_INSTANCE_STATUS_RETRYING
-    ConfigInstanceActivityStatus:
-      type: string
-      description: Last known activity state of the config instance
-      enum:
-        - created
-        - validating
-        - validated
-        - queued
-        - deployed
-        - removed
-      x-enum-varnames:
-        - CONFIG_INSTANCE_ACTIVITY_STATUS_CREATED
-        - CONFIG_INSTANCE_ACTIVITY_STATUS_VALIDATING
-        - CONFIG_INSTANCE_ACTIVITY_STATUS_VALIDATED
-        - CONFIG_INSTANCE_ACTIVITY_STATUS_QUEUED
-        - CONFIG_INSTANCE_ACTIVITY_STATUS_DEPLOYED
-        - CONFIG_INSTANCE_ACTIVITY_STATUS_REMOVED
-    ConfigInstanceErrorStatus:
-      type: string
-      description: Last known error state of the config instance
-      enum:
-        - none
-        - failed
-        - retrying
-      x-enum-varnames:
-        - CONFIG_INSTANCE_ERROR_STATUS_NONE
-        - CONFIG_INSTANCE_ERROR_STATUS_FAILED
-        - CONFIG_INSTANCE_ERROR_STATUS_RETRYING
     BaseConfigInstance:
       title: Base Config Instance
       type: object
@@ -315,9 +340,9 @@ components:
         - object
         - id
         - target_status
-        - status
         - activity_status
         - error_status
+        - status
         - relative_filepath
         - created_at
         - updated_at
@@ -336,41 +361,45 @@ components:
           description: ID of the config instance
         target_status:
           $ref: '#/components/schemas/ConfigInstanceTargetStatus'
-        status:
-          $ref: '#/components/schemas/ConfigInstanceStatus'
         activity_status:
           $ref: '#/components/schemas/ConfigInstanceActivityStatus'
         error_status:
           $ref: '#/components/schemas/ConfigInstanceErrorStatus'
+        status:
+          $ref: '#/components/schemas/ConfigInstanceStatus'
         relative_filepath:
           type: string
           example: /v1/motion-control.json
-          description: The file path to deploy the config instance relative to /srv/miru/config_instances. v1/motion-control.json would deploy to /srv/miru/config_instances/v1/motion-control.json
+          description: The file path to deploy the config instance relative to `/srv/miru/config_instances`. `v1/motion-control.json` would deploy to `/srv/miru/config_instances/v1/motion-control.json`
         created_at:
           type: string
           format: date-time
           example: '2021-01-01T00:00:00Z'
-          description: The timestamp when the config instance was created
+          description: The timestamp of when the config instance was created
         updated_at:
           type: string
           format: date-time
           example: '2021-01-01T00:00:00Z'
-          description: The timestamp when the config instance was last updated
+          description: The timestamp of when the config instance was last updated
         device_id:
           type: string
           example: dvc_123
-          description: The ID of the device which the config instance is associated with
+          description: ID of the device which the config instance is deployed to
         config_schema_id:
           type: string
           example: cfg_sch_123
-          description: The ID of the config schema which the config instance must adhere to
+          description: ID of the config schema which the config instance must adhere to
         config_type_id:
           type: string
           example: cfg_type_123
-          description: The ID of the config type which the config instance is a part of
+          description: ID of the config type which the config instance (and its schema) is a part of
     DeviceStatus:
       type: string
-      description: The status of the device
+      description: |
+        The status of the device
+        - Inactive: The miru agent has not yet been installed / authenticated
+        - Activated: The miru agent has been installed and authenticated
+        - Provisioned: The device has been optionally initialized with config instances
       enum:
         - inactive
         - activated
@@ -441,14 +470,14 @@ components:
         version:
           type: integer
           example: 2
-          description: Version of the config schema
+          description: Config schema version for the config type
         digest:
           type: string
           example: '1234567890'
-          description: Digest of the config schema
+          description: Hash of the config schema contents
         relative_filepath:
           type: string
-          description: The default file path to deploy the config instances of this config schema relative to /srv/miru/config_instances. v1/motion-control.json would deploy to /srv/miru/config_instances/v1/motion-control.json
+          description: The file path to deploy the config instance relative to `/srv/miru/config_instances`. `v1/motion-control.json` would deploy to `/srv/miru/config_instances/v1/motion-control.json`
           example: /v1/motion-control.json
         created_at:
           type: string
@@ -466,7 +495,7 @@ components:
           description: ID of the config type
         content:
           type: object
-          description: JSON schema contents
+          description: The config schema's JSON Schema definition
           example:
             title: Robot Features
             type: object
@@ -545,7 +574,7 @@ components:
         slug:
           type: string
           example: my-config-type
-          description: Slug of the config type
+          description: An immutable, code-friendly name for the config type
         created_at:
           type: string
           format: date-time
@@ -574,20 +603,18 @@ components:
         total_count:
           type: integer
           format: int
-          description: The total number of items in the list. By default the total count is not returned. The total count must be expanded to get the total number of items in the list.
-          example: 15
+          description: The total number of items in the list. By default the total count is not returned. The total count must be expanded (using expand[]=total_count) to get the total number of items in the list.
         limit:
           type: integer
-          description: The number of items to return
-          example: 10
+          description: The number of items to return. A limit of 15 with an offset of 0 returns items 1-15.
           default: 10
           minimum: 1
           maximum: 100
         offset:
           type: integer
+          description: The offset of the items to return. An offset of 10 with a limit of 10 returns items 11-20.
           default: 0
           minimum: 0
-          example: 0
         has_more:
           type: boolean
           description: True if there are more items in the list to return. False if there are no more items to return.
@@ -665,7 +692,7 @@ components:
               example: null
             content:
               type: object
-              description: The configuration values associated with the config instance
+              description: The configuration values associated with the config instance. Expand the content using 'expand[]=content' in the query string
               example:
                 enable_autonomy: true
                 enable_remote_control: false
@@ -684,6 +711,21 @@ components:
       x-enum-varnames:
         - CONFIG_INSTANCE_ORDER_BY_CREATED_AT_DESC
         - CONFIG_INSTANCE_ORDER_BY_CREATED_AT_ASC
+      default: created_at:desc
+    ExpandConfigInstanceList:
+      type: string
+      enum:
+        - total_count
+        - content
+        - config_schema
+        - device
+        - config_type
+      x-enum-varnames:
+        - CONFIG_INSTANCE_EXPAND_WITH_TOTAL_COUNT
+        - CONFIG_INSTANCE_EXPAND_CONTENT
+        - CONFIG_INSTANCE_EXPAND_CONFIG_SCHEMA
+        - CONFIG_INSTANCE_EXPAND_DEVICE
+        - CONFIG_INSTANCE_EXPAND_CONFIG_TYPE
     ConfigInstanceList:
       title: Config Instance List
       type: object
@@ -731,9 +773,9 @@ components:
                 items:
                   type: string
                   description: The path to the parameter that is causing the error
-                  example:
-                    - motion_detection
-                    - sensitivity
+                example:
+                  - motion_detection
+                  - sensitivity
               message:
                 type: string
                 description: A detailed message explaining why the parameter is causing the error
@@ -744,6 +786,10 @@ components:
       enum:
         - device_file_path_conflict
         - device_config_schema_conflict
+      description: |
+        The reason the config instance was removed
+        - device_file_path_conflict: the config instance is currently deployed to the same device with the same file path as the new config instance to deploy
+        - device_config_schema_conflict: the config instance is currently deployed to the same device with the same config schema as the new config instance to deploy
       example: device_file_path_conflict
     RemoveConfigInstanceResponse:
       title: Remove Config Instance Response
@@ -757,6 +803,8 @@ components:
           $ref: '#/components/schemas/ConfigInstanceRemovalCode'
         explanation:
           type: string
+          description: |
+            A human-readable explanation of why the config instance must be removed for the new config instance to be able to be deployed
           example: Config instance cfg_inst_123 has the same device and file path as cfg_inst_456
         config_instance:
           $ref: '#/components/schemas/ConfigInstance'

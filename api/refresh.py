@@ -40,6 +40,17 @@ def run_command_stream(cmd: str, cwd: Optional[Path] = None) -> None:
         sys.exit(1)
 
 
+def regen_openapi_specs(openapi_dir: Path) -> None:
+    """Regenerate the api.yaml file."""
+    configs_dir: Path = openapi_dir / "configs"
+    backend_server_dir: Path = configs_dir / "backend-server"
+    webhooks_dir: Path = configs_dir / "webhooks"
+
+    # regenerate the backend server api spec
+    run_command_stream(f"cd {backend_server_dir} && make bundle-public")
+    run_command_stream(f"cd {webhooks_dir} && make bundle-webhooks")
+
+
 def refresh_api_yaml(api_dir: Path, openapi_dir: Path) -> None:
     """Refresh the api.yaml file."""
     backend_server_dir: Path = openapi_dir / "configs" / "backend-server"
@@ -75,6 +86,10 @@ def main() -> None:
     api_dir: Path = repo_root / "api"
     openapi_dir: Path = api_dir / "openapi"
 
+    # ensure the openapi specs are up to date
+    regen_openapi_specs(openapi_dir)
+
+    # refresh the yaml files in the api directory
     refresh_api_yaml(api_dir, openapi_dir)
     refresh_webhooks_yaml(api_dir, openapi_dir)
 
