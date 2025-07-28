@@ -57,7 +57,20 @@
                 ]
             },
             {
-                "dropdown": "CLI Reference",
+                "dropdown": "API",
+                "icon": "code",
+                "groups": [
+                    {
+                        "group": "Endpoints",
+                        "openapi": {
+                            "source": "api/api.yaml",
+                            "directory": "api-reference"
+                        }
+                    }
+                ]
+            },
+            {
+                "dropdown": "CLI",
                 "icon": "terminal",    
                 "groups": [
                     {
@@ -82,7 +95,7 @@
                 ]
             },
             {
-                "dropdown": "SDK Reference",
+                "dropdown": "Agent SDK",
                 "icon": "code",
                 "groups": [
                     {
