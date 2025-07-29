@@ -21,7 +21,7 @@ Your application uses the Miru SDK and provides the path to the config schema fi
 The Miru agent:
 - Grabs the **hash of the schema file**, which is provided by the SDK and acts as a unique version identifier.
 - Combines this schema hash with the **device ID** to identify which config instance to fetch from the cloud.
-- Uses the `$miru_config_slug` field inside the schema to determine the config slug.
+- Uses the `$miru_config_type_slug` field inside the schema to determine the config slug.
 </Accordion>
 
 <Accordion title="3. What happens in the Miru cloud when a robot asks for a config?">
