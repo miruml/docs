@@ -17,6 +17,11 @@ miru instance to jsonschema ./path/to/config/instance.json -i 4
 ```
 
 
+```bash Exclude default values
+miru instance to jsonschema ./path/to/config/instance.json --defaults=false
+```
+
+
 ```bash Exclude type inference
 miru instance to jsonschema ./path/to/config/instance.json --types=false
 ```
@@ -27,18 +32,24 @@ miru instance to jsonschema ./path/to/config/instance.json --config-type-slug=my
 ```
 
 
+```bash Insert the relative deployment filepath
+miru instance to jsonschema ./path/to/config/instance.json --relative-filepath=/v1/argle/bargle.json
+```
+
+
 ```bash Save to a file
 miru instance to jsonschema ./path/to/config/instance.yaml -o ./path/to/jsonschema.yaml
 ```
 ### Options
 
 ```
-      --config-type-slug string   Include the specified miru config type slug in the output JSON Schema file
-  -d, --defaults                  Include default values in the output JSON Schema file (default true)
-  -h, --help                      help for jsonschema
-  -i, --indent uint               Indentation level for the output JSON Schema file (default 2)
-  -o, --output string             Output file path (default: stdout)
-  -t, --types                     Include type information in the output JSON Schema file (default true)
+      --config-type-slug string    Include the specified miru config type slug in the output JSON Schema file with the key '$miru_config_type_slug'
+  -d, --defaults                   Include default values in the output JSON Schema file (default true)
+  -h, --help                       help for jsonschema
+  -i, --indent uint                Indentation level for the output JSON Schema file (default 2)
+  -o, --output string              Output file path (default: stdout)
+      --relative-filepath string   Include the specified relative deployment filepath in the output JSON Schema file with the key '$miru_relative_filepath'
+  -t, --types                      Include type information in the output JSON Schema file (default true)
 ```
 
 ### Options inherited from parent commands
