@@ -6,9 +6,11 @@ info:
     name: MIT
     url: https://opensource.org/licenses/MIT
 servers:
-  - url: https://configs.api.miruml.com/{version}
+  - url: https://{host}/{version}
     description: Miru API
     variables:
+      host:
+        default: configs.api.miruml.com
       version:
         default: v1
 security:
@@ -126,7 +128,7 @@ components:
       type: apiKey
       in: header
       name: X-API-Key
-      description: The API key to use for authentication. Retrieve your API key from the Miru dashboard.
+      description: The API key to use for authentication. Retrieve your API key from the [Miru dashboard](https://configs.miruml.com/settings/api-keys).
   parameters:
     config_instance_id:
       name: config_instance_id
@@ -602,7 +604,7 @@ components:
           example: list
         total_count:
           type: integer
-          format: int
+          format: int64
           description: The total number of items in the list. By default the total count is not returned. The total count must be expanded (using expand[]=total_count) to get the total number of items in the list.
         limit:
           type: integer
@@ -721,11 +723,11 @@ components:
         - device
         - config_type
       x-enum-varnames:
-        - CONFIG_INSTANCE_EXPAND_WITH_TOTAL_COUNT
-        - CONFIG_INSTANCE_EXPAND_CONTENT
-        - CONFIG_INSTANCE_EXPAND_CONFIG_SCHEMA
-        - CONFIG_INSTANCE_EXPAND_DEVICE
-        - CONFIG_INSTANCE_EXPAND_CONFIG_TYPE
+        - CONFIG_INSTANCE_LIST_EXPAND_WITH_TOTAL_COUNT
+        - CONFIG_INSTANCE_LIST_EXPAND_CONTENT
+        - CONFIG_INSTANCE_LIST_EXPAND_CONFIG_SCHEMA
+        - CONFIG_INSTANCE_LIST_EXPAND_DEVICE
+        - CONFIG_INSTANCE_LIST_EXPAND_CONFIG_TYPE
     ConfigInstanceList:
       title: Config Instance List
       type: object
