@@ -96,10 +96,10 @@
                             {
                                 "group": "Queries",
                                 "pages": [
-                                    "docs/api-reference/queries/filter",
-                                    "docs/api-reference/queries/order",
-                                    "docs/api-reference/queries/expand",
-                                    "docs/api-reference/queries/paginate"
+                                    "docs/api-reference/queries/filtering",
+                                    "docs/api-reference/queries/ordering",
+                                    "docs/api-reference/queries/expansions",
+                                    "docs/api-reference/queries/pagination"
                                 ]
                             },
                             "docs/api-reference/errors",

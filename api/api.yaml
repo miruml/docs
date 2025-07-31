@@ -160,7 +160,7 @@ components:
       name: limit
       in: query
       required: false
-      description: The number of items to return. A limit of 15 with an offset of 0 returns items 1-15.
+      description: The maximum number of items to return. A limit of 15 with an offset of 0 returns items 1-15.
       schema:
         type: integer
         default: 10
@@ -608,7 +608,7 @@ components:
           description: The total number of items in the list. By default the total count is not returned. The total count must be expanded (using expand[]=total_count) to get the total number of items in the list.
         limit:
           type: integer
-          description: The number of items to return. A limit of 15 with an offset of 0 returns items 1-15.
+          description: The maximum number of items to return. A limit of 15 with an offset of 0 returns items 1-15.
           default: 10
           minimum: 1
           maximum: 100
