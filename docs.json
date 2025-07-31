@@ -89,10 +89,28 @@
                 "icon": "code",
                 "groups": [
                     {
+                        "group": "Basics",
+                        "pages": [
+                            "docs/api-reference/overview",
+                            "docs/api-reference/authentication",
+                            {
+                                "group": "Queries",
+                                "pages": [
+                                    "docs/api-reference/queries/filter",
+                                    "docs/api-reference/queries/order",
+                                    "docs/api-reference/queries/expand",
+                                    "docs/api-reference/queries/paginate"
+                                ]
+                            },
+                            "docs/api-reference/errors",
+                            "docs/api-reference/playground"
+                        ]
+                    },
+                    {
                         "group": "Endpoints",
                         "openapi": {
                             "source": "api/api.yaml",
-                            "directory": "api-reference"
+                            "directory": "docs/api-reference"
                         }
                     }
                 ]
