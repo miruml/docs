@@ -55,7 +55,7 @@ This ensures robustness in the field where network drops or power cycles are com
 You can ping the agent's test endpoint using:
 
 ```bash
-sudo curl --unix-socket /run/miru/miru.sock http://localhost/v1/test
+sudo curl --unix-socket /run/miru/miru.sock http://localhost/v1/health
 ```
 
 If successful, you'll see a JSON response like:
