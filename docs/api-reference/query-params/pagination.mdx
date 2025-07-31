@@ -85,7 +85,7 @@ To get the total count, you must explicitly request it using the `expand[]=total
 
 `data` is an array containing the actual response items. The number of items in the `data` array will be less than or equal to the `limit` specified in the response.
 
-## Paginating a Request
+## Pagination Example
 
 To paginate a request, continually request the next page until `has_more` is `false`. The next page uses the same `limit` but the `offset` is increased by the `limit`.
 

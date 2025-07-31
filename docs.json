@@ -92,14 +92,14 @@
                         "group": "Basics",
                         "pages": [
                             "docs/api-reference/overview",
-                            "docs/api-reference/authentication",
+                            "docs/api-reference/authn",
                             {
-                                "group": "Queries",
+                                "group": "Query Parameters",
                                 "pages": [
-                                    "docs/api-reference/queries/filtering",
-                                    "docs/api-reference/queries/ordering",
-                                    "docs/api-reference/queries/expansions",
-                                    "docs/api-reference/queries/pagination"
+                                    "docs/api-reference/query-params/filtering",
+                                    "docs/api-reference/query-params/ordering",
+                                    "docs/api-reference/query-params/expansions",
+                                    "docs/api-reference/query-params/pagination"
                                 ]
                             },
                             "docs/api-reference/errors",

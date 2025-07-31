@@ -44,7 +44,7 @@ paths:
         - $ref: '#/components/parameters/offset'
         - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/order_by'
-        - $ref: '#/components/parameters/expand_with_total_count'
+        - $ref: '#/components/parameters/expand_list'
         - $ref: '#/components/parameters/id'
         - $ref: '#/components/parameters/target_status'
         - $ref: '#/components/parameters/activity_status'
@@ -122,6 +122,110 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeployConfigInstanceResponse'
+  /devices/{device_id}:
+    get:
+      tags:
+        - Devices
+      summary: Get
+      description: Get a device by ID
+      operationId: getDevice
+      parameters:
+        - $ref: '#/components/parameters/parameters-device_id'
+      responses:
+        '200':
+          description: Successfully retrieved the device.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseDevice'
+    patch:
+      tags:
+        - Devices
+      summary: Update
+      operationId: updateDevice
+      parameters:
+        - $ref: '#/components/parameters/parameters-device_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDeviceRequest'
+      responses:
+        '200':
+          description: Successfully updated the device.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseDevice'
+    delete:
+      tags:
+        - Devices
+      summary: Delete
+      operationId: deleteDevice
+      parameters:
+        - $ref: '#/components/parameters/parameters-device_id'
+      responses:
+        '200':
+          description: Successfully deleted the device.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseDevice'
+  /devices:
+    post:
+      tags:
+        - Devices
+      summary: Create
+      operationId: createDevice
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDeviceRequest'
+      responses:
+        '200':
+          description: Successfully created the device.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseDevice'
+    get:
+      tags:
+        - Devices
+      summary: List
+      description: List devices
+      operationId: listDevices
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/parameters-order_by'
+        - $ref: '#/components/parameters/parameters-expand_list'
+        - $ref: '#/components/parameters/parameters-id'
+        - $ref: '#/components/parameters/name'
+      responses:
+        '200':
+          description: Successfully listed the devices.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceList'
+  /devices/{device_id}/issue_activation_token:
+    post:
+      tags:
+        - Devices
+      summary: Activation Token
+      operationId: issueActivationToken
+      parameters:
+        - $ref: '#/components/parameters/parameters-device_id'
+      responses:
+        '200':
+          description: Successfully issued the activation token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
 components:
   securitySchemes:
     ApiKeyAuth:
@@ -173,7 +277,7 @@ components:
       schema:
         $ref: '#/components/schemas/ConfigInstanceOrderBy'
         description: The order to sort the config instances
-    expand_with_total_count:
+    expand_list:
       name: expand[]
       in: query
       required: false
@@ -243,6 +347,46 @@ components:
       schema:
         type: boolean
         default: false
+    parameters-device_id:
+      name: device_id
+      in: path
+      required: true
+      description: The unique identifier of the device
+      schema:
+        type: string
+        example: dvc_123
+    parameters-order_by:
+      name: order_by
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/DeviceOrderBy'
+        description: The order to sort the devices
+    parameters-expand_list:
+      name: expand[]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/ExpandDeviceList'
+        description: The fields to expand in the device list
+    parameters-id:
+      name: id
+      in: query
+      required: false
+      description: The device ID to filter by
+      schema:
+        type: string
+        example: dev_123
+    name:
+      name: name
+      in: query
+      required: false
+      description: The device name to filter by
+      schema:
+        type: string
+        example: My Device
   schemas:
     ExpandConfigInstance:
       type: string
@@ -823,3 +967,61 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RemoveConfigInstanceResponse'
+    UpdateDeviceRequest:
+      title: Update Device Request
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: Robot 1
+    DeviceOrderBy:
+      type: string
+      enum:
+        - created_at:desc
+        - created_at:asc
+      x-enum-varnames:
+        - DEVICE_ORDER_BY_CREATED_AT_DESC
+        - DEVICE_ORDER_BY_CREATED_AT_ASC
+      default: created_at:desc
+    ExpandDeviceList:
+      type: string
+      enum:
+        - total_count
+      x-enum-varnames:
+        - DEVICE_LIST_EXPAND_WITH_TOTAL_COUNT
+    DeviceList:
+      allOf:
+        - $ref: '#/components/schemas/PaginatedList'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/BaseDevice'
+    CreateDeviceRequest:
+      title: Create Device Request
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: Robot 1
+    TokenResponse:
+      title: Token Response
+      type: object
+      required:
+        - token
+        - expires_at
+      properties:
+        token:
+          type: string
+          description: The token
+          example: eyJhbGciOiJ...
+        expires_at:
+          type: string
+          format: date-time
+          description: The expiration
+          example: '2021-01-01T00:00:00Z'
