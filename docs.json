@@ -89,6 +89,22 @@
                 "icon": "code",
                 "groups": [
                     {
+                        "group": "Basics",
+                        "pages": [
+                            "docs/api-reference/overview",
+                            "docs/api-reference/authn",
+                            {
+                                "group": "Query Parameters",
+                                "pages": [
+                                    "docs/api-reference/query-params/filtering",
+                                    "docs/api-reference/query-params/sorting",
+                                    "docs/api-reference/query-params/pagination",
+                                    "docs/api-reference/query-params/expansions"
+                                ]
+                            }
+                        ]
+                    },
+                    {
                         "group": "Endpoints",
                         "openapi": {
                             "source": "api/api.yaml",

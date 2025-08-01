@@ -2,7 +2,7 @@
 title: "Expansions"
 ---
 
-The Miru API uses expansions to retrieve related objects in a single request rather than making multiple API calls. This reduces latency, simplifies code, and minimizes the number of API calls.
+The Miru API uses expansions to retrieve related objects in a single request rather than making multiple API calls. This simplifies code and minimizes the number of API calls.
 
 Response objects only include the core fields by default. Related objects (like the device associated with a config instance) have their IDs included but not their full object data. Using the `expand[]` query parameter, you can include related objects directly in the response.
 
@@ -36,7 +36,7 @@ For example, a [config instance](/docs/api-reference/config-instances/get) has t
 ```
 The `device`, `config_schema`, `config_type`, and `content` objects are not included in the config instance response by default.
 
-To retrieve the device for a config instance, you could make two separate requests: fetch the config instance using the config instance ID (assuming you already know the ID) and then, having obtained the `device_id` from the config instance response, fetch the device using the device ID.
+To retrieve the device for a config instance, you could make two separate requests: fetch the [config instance](/docs/api-reference/config-instances/get) using the config instance ID (assuming you already know the ID) and then, having obtained the `device_id` from the config instance response, fetch the [device](/docs/api-reference/devices/get) using the device ID.
 
 This is workable but adds both latency and complexity to your code. Instead, you can expand the `device` field in the config instance request using the `expand[]` query parameter to make a single request to the Miru API.
 
@@ -79,8 +79,6 @@ The following request expands the `device` field using `expand[]=device`.
 </CodeGroup>
 
 The response then includes the `device` that the config instance belongs to, reducing our request count from two to one.
-
-Expansions are a powerful tool for reducing latency, code complexity, and the number of requests you make to the Miru API.
 
 To see a full list of expandable fields for an object, look for the `expand[]` parameter in the **Query Parameters** section of the API endpoint you are querying.
 
@@ -140,7 +138,7 @@ To expand more than one field for a response object, pass in multiple `expand[]`
 
 When expanding an object, it's often the case that the expanded object contains objects which it can expand as well. For example, config instances can expand their config schema and config schemas can expand their config type.
 
-To expand nested objects, simply use the dot (`.`) notation with the `expand[]` parameter. The following request expands the `config_type` inside of the `config_schema` of the config instance using `expand[]=config_schema.config_type`.
+To expand nested objects, simply use the dot (`.`) notation with the `expand[]` parameter. The following request expands the `config_type` inside the `config_schema` of the config instance using `expand[]=config_schema.config_type`.
 
 <CodeGroup>
   ```bash Request
@@ -288,7 +286,7 @@ The following request expands the `content` field for every config instance in t
 
 ### Total Count
 
-The `total_count` field of a list response is the total number of items matching the query. Since requests are [paginated](/docs/api-reference/queries/pagination), the number of items returned in a list may be less than the actual number of items matching the query.
+The `total_count` field of a list response is the total number of items matching the query. Since requests are [paginated](/docs/api-reference/query-params/pagination), the number of items returned in a list may be less than the actual number of items matching the query.
 
 If a list query matches 100 items but the `limit` parameter is set to 10, the list response would contain only 10 items despite the total count being 100.
 
@@ -317,33 +315,11 @@ The following request expands the `total_count` field using `expand[]=total_coun
           "object": "config_instance",
           "id": "cfg_inst_123",
           ...
-          "content": {
-            "enable_autonomy": true,
-            "enable_remote_control": false,
-            "max_payload_kg": 8.5,
-            "preferred_speed_mode": "normal",
-            "emergency_stop_sensitivity": 0.9,
-            "telemetry": {
-              "upload_interval_sec": 45,
-              "heartbeat_interval_sec": 15
-            }
-          }
         },
         {
           "object": "config_instance",
           "id": "cfg_inst_456",
           ...
-          "content": {
-            "enable_autonomy": false,
-            "enable_remote_control": false,
-            "max_payload_kg": 11.5,
-            "preferred_speed_mode": "fast",
-            "emergency_stop_sensitivity": 0.9,
-            "telemetry": {
-              "upload_interval_sec": 30,
-              "heartbeat_interval_sec": 60
-            }
-          }
         },
         ...
       ],

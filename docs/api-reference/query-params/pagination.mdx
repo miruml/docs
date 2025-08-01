@@ -26,6 +26,8 @@ A limit of 10 with an offset of 0 returns items 1-10. A limit of 15 with an offs
 
 To specify the limit and offset, simply add the `limit` and `offset` query parameters to the list endpoint URL.
 
+The following request specifies a limit of 10 and an offset of 0 by appending `?limit=10&offset=0` to the list endpoint URL.
+
 ```bash
 curl --request GET \
   --url 'https://configs.api.miruml.com/v1/config_instances?limit=10&offset=0' \
@@ -67,7 +69,7 @@ Every list response follows the same structure.
 
 `total_count` is the total number of items matching the query. By default, the total count is not computed (and thus set to `-1`) to avoid the performance cost of counting all items.
 
-To get the total count, you must explicitly request it using the `expand[]=total_count` parameter. While useful, the total count is typically not needed and can incur significant performance costs so please use judiciously. See the `total_count` [expansion](/docs/api-reference/queries/expansions#total-count) documentation for more information about retrieving the total count. 
+To get the total count, you must explicitly request it using the `expand[]=total_count` parameter. While useful, the total count is typically not needed and can incur significant performance costs so please use judiciously. See the `total_count` [expansion](/docs/api-reference/query-params/expansions#total-count) documentation for more information about retrieving the total count. 
 
 ### Limit
 
@@ -85,7 +87,7 @@ To get the total count, you must explicitly request it using the `expand[]=total
 
 `data` is an array containing the actual response items. The number of items in the `data` array will be less than or equal to the `limit` specified in the response.
 
-## Pagination Example
+## Pagination Walkthrough
 
 To paginate a request, continually request the next page until `has_more` is `false`. The next page uses the same `limit` but the `offset` is increased by the `limit`.
 

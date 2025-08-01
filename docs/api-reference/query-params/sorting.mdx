@@ -1,0 +1,110 @@
+---
+title: "Sorting"
+---
+
+API list endpoints support sorting through the `order_by` query parameter. For example, when [listing config instances](/docs/api-reference/config-instances/list), you can sort them by creation date.
+
+The Miru API uses field-based sorting to organize results in a predictable order. You can specify which field(s) to sort by and the sort direction (ascending or descending).
+
+Resource IDs are used as a tie-breaker when multiple resources have equivalent fields to ensure deterministic sort results. 
+
+## Query Parameters
+
+List endpoints that support sorting accept the `order_by` query parameter, which is optional.
+
+### Order By
+
+`order_by` specifies how to sort the list endpoints results using the following format: `<field_name>:<direction>`. The direction is optional and defaults to descending if not specified.
+
+To illustrate, the following order by queries are all valid:
+- `order_by=created_at`
+- `order_by=created_at:asc`
+- `order_by=created_at:desc`
+
+The available sort fields depend on the specific endpoint. Look for the `order_by` query parameter in the **Query Parameters** section of the list endpoint you want to sort.
+
+Common sort fields include:
+- `id` - Sort by object ID
+- `created_at` - Sort by creation timestamp
+
+All fields support exactly two sort directions.
+- `asc` - Ascending order (A-Z, a-z, 0-9, oldest first, etc.)
+- `desc` - Descending order (Z-A, z-a, 9-0, newest first, etc.)
+
+## Single Field Sorting
+
+For endpoints that support single field sorting, simply add the `order_by` query parameter to the list endpoint URL.
+
+The following request sorts config instances by descending creation date using the query parameter `order_by=created_at:desc`.
+
+```bash
+curl --request GET \
+  --url 'https://configs.api.miruml.com/v1/config_instances?order_by=created_at:desc' \
+  --header 'X-API-Key: <api-key>'
+```
+
+The following request sorts config instances by ascending creation date using the query parameter `order_by=created_at:asc`.
+
+```bash
+curl --request GET \
+  --url 'https://configs.api.miruml.com/v1/config_instances?order_by=created_at:asc' \
+  --header 'X-API-Key: <api-key>'
+```
+
+## Multiple Field Sorting
+
+In cases where fields frequently hold the same value, you may find it beneficial to sort by a secondary field for grouping purposes. In such cases, you can specify tertiary sort fields via a comma-separated list: `<field_name_1>:<direction_1>,<field_name_2>:<direction_2>,...`.
+
+For example, `order_by=created_at:desc,id:asc` first sorts results by creation date in descending order. If two resources have the same creation date, it breaks the tie by sorting the "tied" resources by ID in ascending order. 
+
+This results in the following sort order:
+```json
+[
+    {
+        "id": "4",
+        "created_at": "2023-01-01T00:00:00Z"
+        ...
+    },
+    {
+        "id": "2",
+        "created_at": "2022-01-01T00:00:00Z"
+        ...
+    },
+    {
+        "id": "3",
+        "created_at": "2022-01-01T00:00:00Z"
+        ...
+    },
+    {
+        "id": "1",
+        "created_at": "2021-01-01T00:00:00Z"
+        ...
+    },
+]
+```
+
+All elements are sorted by creation date in descending order. Since elements with ids 2 and 3 have the same creation date, they are sorted by ID in ascending order.
+
+The following request sorts devices by descending creation date and then by ascending id.
+
+```bash
+curl --request GET \
+  --url 'https://configs.api.miruml.com/v1/devices?order_by=created_at:desc,id:asc' \
+  --header 'X-API-Key: <api-key>'
+```
+
+## Deterministic Sorting
+
+By default, all sorting queries use resource IDs as a tie-breaker (ascending order) to ensure deterministic results. For example, `created_at:desc` is converted to `created_at:desc,id:asc`. 
+
+Thus, there is no need to specify tertiary sort fields to ensure deterministic results since the id sort field is implicitly added to all list endpoints for you.
+
+If a request already contains `id` as a sort field, then the request is already deterministic and an additional `id` sort field will not be added.
+
+To illustrate this, the following table shows the original request ordering and the converted request ordering for a few different examples.
+
+| Original | Converted  |
+|---------------|-------------------------|
+| `created_at:desc` | `created_at:desc,id:asc` |
+| `created_at:desc,id:asc` | `created_at:desc,id:asc` |
+| `id:asc,created_at:desc` | `id:asc,created_at:desc` |
