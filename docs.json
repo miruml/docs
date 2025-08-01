@@ -91,7 +91,7 @@
                     {
                         "group": "Basics",
                         "pages": [
-                            "docs/api-reference/overview",
+                            "docs/api-reference/intro",
                             "docs/api-reference/authn",
                             {
                                 "group": "Query Parameters",
