@@ -143,6 +143,7 @@ paths:
         - Devices
       summary: Update
       operationId: updateDevice
+      description: Update a device by ID
       parameters:
         - $ref: '#/components/parameters/parameters-device_id'
       requestBody:
@@ -164,6 +165,7 @@ paths:
         - Devices
       summary: Create
       operationId: createDevice
+      description: Create a new device
       requestBody:
         required: true
         content:
@@ -203,6 +205,7 @@ paths:
         - Devices
       summary: Activation Token
       operationId: createDeviceActivationToken
+      description: Create a new device activation token
       parameters:
         - $ref: '#/components/parameters/parameters-device_id'
       responses:
