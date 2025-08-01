@@ -158,20 +158,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BaseDevice'
-    delete:
-      tags:
-        - Devices
-      summary: Delete
-      operationId: deleteDevice
-      parameters:
-        - $ref: '#/components/parameters/parameters-device_id'
-      responses:
-        '200':
-          description: Successfully deleted the device.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BaseDevice'
   /devices:
     post:
       tags:
