@@ -1,3 +1,69 @@
 ---
 title: "Filtering"
 ---
+
+API list endpoints support filtering to help you find specific resources. For example, when [listing devices](/docs/api-reference/devices/list#parameter-id) you can filter by id or name.
+
+Filtering allows you to search results based on various criteria, simplifying your queries and reducing the number of results you need to process.
+
+
+
+## Single Value Filters
+
+To filter an endpoint, simply add the filter parameter to the request URL in the format `<filter_name>=<value>`.
+
+Each list endpoint supports their own set of filter names. To see the filters supported by a specific endpoint, look for the query parameters in the **Query Parameters** section containing *filter by* in their description.
+
+One filter common to all list endpoints is `id`, which allows you to filter by a resource's unique identifier. When listing devices, you can filter by the [device id](/docs/api-reference/devices/list#parameter-id) using `id=<device-id>` in the request URL.
+
+The following request filters the device list to only include the device with the id `dvc_123` using the `id=dvc_123` filter.
+
+```bash
+curl --request GET \
+  --url 'https://configs.api.miruml.com/v1/devices?id=dvc_123' \
+  --header 'X-API-Key: <api-key>'
+```
+
+Of course, filtering by id can return, at most, one resource since each resource has a unique id. 
+
+Other fields, such as the config instance [activity status](http://localhost:3000/docs/api-reference/config-instances/list#parameter-activity-status), are not unique amongst their resources and can therefore return multiple results when being filtered.
+
+## Multi-Value Filters
+
+To filter by multiple values, specify the filter values as a `|` separated list: `<filter_name>=<value_1>|<value_2>|<value_3>`.
+
+Thus to filter devices by multiple ids, you can use the `id` filter with a `|` separated list of ids: `id=dvc_123|dvc_456|dvc_789`.
+
+```bash
+curl --request GET \
+  --url 'https://configs.api.miruml.com/v1/devices?id=dvc_123|dvc_456|dvc_789' \
+  --header 'X-API-Key: <api-key>'
+```
+
+## Combining Filters
+
+You can combine multiple filters to create more specific queries. All filters are applied with AND logic, meaning resources must match all specified filters.
+
+Thus, if filtering devices by `id` and `name`, only devices that match both the `id` and `name` filters are returned.
+
+The following request filters the device list to only include the devices with the ids `dvc_123` and `dvc_456` and the name `Robot A`: `id=dvc_123|dvc_456&name=Robot%20A`.
+
+```bash
+curl --request GET \
+  --url 'https://configs.api.miruml.com/v1/devices?id=dvc_123|dvc_456&name=Robot%20A' \ 
+  --header 'X-API-Key: <api-key>'
+```
+
+## URL Encoding
+
+When using filters with special characters, make sure to properly URL encode the values.
+
+For example, spaces are URL encoded as `%20`. Browsers and client applications will automatically URL encode the values for you, so you shouldn't need to worry about it but it's good to know.
+
+The following request filters the device list to only include the device with the name `My Device Name` using the `name=My%20Device%20Name` filter.
+
+```bash
+curl --request GET \
+  --url 'https://configs.api.miruml.com/v1/devices?name=My%20Device%20Name' \
+  --header 'X-API-Key: <api-key>'
+```
