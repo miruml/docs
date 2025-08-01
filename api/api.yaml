@@ -841,9 +841,13 @@ components:
     ConfigInstanceOrderBy:
       type: string
       enum:
+        - id:asc
+        - id:desc
         - created_at:desc
         - created_at:asc
       x-enum-varnames:
+        - CONFIG_INSTANCE_ORDER_BY_ID_ASC
+        - CONFIG_INSTANCE_ORDER_BY_ID_DESC
         - CONFIG_INSTANCE_ORDER_BY_CREATED_AT_DESC
         - CONFIG_INSTANCE_ORDER_BY_CREATED_AT_ASC
       default: created_at:desc
@@ -968,9 +972,13 @@ components:
     DeviceOrderBy:
       type: string
       enum:
+        - id:asc
+        - id:desc
         - created_at:desc
         - created_at:asc
       x-enum-varnames:
+        - DEVICE_ORDER_BY_ID_ASC
+        - DEVICE_ORDER_BY_ID_DESC
         - DEVICE_ORDER_BY_CREATED_AT_DESC
         - DEVICE_ORDER_BY_CREATED_AT_ASC
       default: created_at:desc
