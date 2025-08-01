@@ -211,17 +211,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeviceList'
-  /devices/{device_id}/issue_activation_token:
+  /devices/{device_id}/activation_token:
     post:
       tags:
         - Devices
       summary: Activation Token
-      operationId: issueActivationToken
+      operationId: createDeviceActivationToken
       parameters:
         - $ref: '#/components/parameters/parameters-device_id'
       responses:
         '200':
-          description: Successfully issued the activation token.
+          description: Successfully created the device activation token.
           content:
             application/json:
               schema:
@@ -970,12 +970,12 @@ components:
     UpdateDeviceRequest:
       title: Update Device Request
       type: object
-      required:
-        - name
       properties:
         name:
           type: string
+          description: The new name of the device. If null or excluded from the request, the device name is not updated.
           example: Robot 1
+          nullable: true
     DeviceOrderBy:
       type: string
       enum:
@@ -1008,6 +1008,7 @@ components:
       properties:
         name:
           type: string
+          description: The name of the device
           example: Robot 1
     TokenResponse:
       title: Token Response
@@ -1023,5 +1024,5 @@ components:
         expires_at:
           type: string
           format: date-time
-          description: The expiration
-          example: '2021-01-01T00:00:00Z'
+          description: The expiration date and time of the token
+          example: '2025-01-01T00:00:00Z'
