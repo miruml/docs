@@ -2,29 +2,33 @@
 title: "Pagination"
 ---
 
-API resources support bulk fetching through list endpoints. For example, you can [list config instances](/docs/api-reference/config-instances/list) in a workspace. All list endpoints share a common structure and accept, at a minimum, the `limit` and `offset` query parameters.
+API resources support bulk fetching through list endpoints. For example, you can [**list config instances**](https://docs.miruml.com/docs/api-reference/config-instances/list) in a workspace. At a minimum, all list endpoints accept the **`limit`** and **`offset`** query parameters.
 
-The Miru API uses pagination to handle large datasets efficiently. When listing resources, the API returns a limited number of items along with pagination metadata to navigate the complete dataset.
+The Miru API paginates results to efficiently manage large datasets, returning a subset of items along with metadata to help you retrieve additional pages.
 
-Currently, the Miru API uses offset-based pagination but support for cursor-based pagination is coming soon. 
+Currently, the Miru API uses [offset-based pagination](https://www.merge.dev/blog/offset-pagination), with support for [cursor-based pagination](https://www.merge.dev/blog/cursor-pagination) coming soon.
 
 ## Query Parameters
 
-All list endpoints accept the `limit` and `offset` query parameters, both of which are optional.
+All list endpoints optionally accept the **`limit`** and **`offset`** query parameters.
 
 ### Limit
 
-`limit` specifies the maximum number of items which can be returned in a single request. The default is 10 while the maximum is 100.
+`limit` specifies the maximum number of items which can be returned in a single request. 
+
+**The default is 10 while the maximum is 100.**
 
 ### Offset
 
-`offset` specifies the starting position of the current page. The default is 0.
+`offset` specifies the starting position of the current page.
+
+**The default is 0.**
 
 ### Example
 
 A limit of 10 with an offset of 0 returns items 1-10. A limit of 15 with an offset of 10 returns the items 21-35.
 
-To specify the limit and offset, simply add the `limit` and `offset` query parameters to the list endpoint URL.
+To specify the limit and offset, add the `limit` and `offset` query parameters to the list endpoint URL.
 
 The following request specifies a limit of 10 and an offset of 0 by appending `?limit=10&offset=0` to the list endpoint URL.
 
@@ -63,30 +67,38 @@ Every list response follows the same structure.
 
 ### Object
 
-`object` is always a string with the value "list" to indicate that this is a list response.
+`object` is always a string with the value "list" to indicate that it is a list response.
 
 **Total Count**
 
 `total_count` is the total number of items matching the query. By default, the total count is not computed (and thus set to `-1`) to avoid the performance cost of counting all items.
 
-To get the total count, you must explicitly request it using the `expand[]=total_count` parameter. While useful, the total count is typically not needed and can incur significant performance costs so please use judiciously. See the `total_count` [expansion](/docs/api-reference/query-params/expansions#total-count) documentation for more information about retrieving the total count. 
+To get the total count, you must explicitly request it using the `expand[]=total_count` parameter. While useful, the total count is typically not needed and can incur significant performance costs, so please use judiciously. See the `total_count` [expansion](/docs/api-reference/query-params/expansions#total-count) documentation for more information about retrieving the total count. 
 
 ### Limit
 
-`limit` is the limit actually used for the response. If a valid limit is specified, such as 10, the returned `limit` will be identical the requested `limit`. However, if an invalid limit is specified, such as 1001 (too large), the closest valid limit will be used instead (100 in the case of 1001).
+`limit` specifies the number of items returned in the response.
 
+If a valid value is provided (e.g., `10`), the response will reflect that value.
+
+If an invalid value is provided (e.g., `1001`), the closest valid value will be used instead (in this case, `100`).
 ### Offset
 
-`offset` is the offset actually used for the response. If a valid offset is specified, such as 5, the returned `offset` will be identical the requested `offset`. However, if an invalid offset is specified, such as -3 (is negative), the closest valid offset will be used instead (0 in the case of -3).
+`offset` indicates the starting index of the returned items.
 
+If a valid value is provided (e.g., `5`), the response will reflect that value.
+
+If an invalid value is provided (e.g., `-3`), the closest valid value will be used instead (`0` in this case).
 ### Has More
 
-`has_more` is a boolean indicating whether there are more items available after the current page. If `true`, there are more items available and you can request the next page by increasing the offset by the limit. 
+`has_more` is a boolean that indicates whether more items exist beyond the current page.
 
+If `true`, you can fetch the next page by increasing the `offset` by the `limit`.
 ### Data
 
-`data` is an array containing the actual response items. The number of items in the `data` array will be less than or equal to the `limit` specified in the response.
+`data` is an array of the actual items returned by the query. 
 
+The number of items in the array will be less than or equal to the specified `limit`.
 ## Pagination Walkthrough
 
 To paginate a request, continually request the next page until `has_more` is `false`. The next page uses the same `limit` but the `offset` is increased by the `limit`.

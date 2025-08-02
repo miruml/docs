@@ -7,7 +7,7 @@ The Miru API uses API keys to authenticate requests. You can view and manage you
 
 Your API keys carry many privileges, so be sure to keep them secure! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.
 
-Authentication to the API is performed by including your API key in the `X-API-Key` header.
+To authenticate, include your API key in the `X-API-Key` header of your request:
 
 ```bash
 curl --request GET \
@@ -15,13 +15,15 @@ curl --request GET \
   --header 'X-API-Key: <api-key>'
 ```
 
-All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.
+All requests must be made over HTTPS. Any requests over plain HTTP or without authentication will fail.
 
 ## Create an API Key
 
-To create an API key, navigate to the [API Keys](https://configs.miruml.com/secrets/api-keys) page in the Miru Dashboard.
+To generate a new key:
 
-Click **New API Key** in the top right corner of the page, give a description of the key, and click **Create**.
+1. Go to the [API Keys page](https://configs.miruml.com/secrets/api-keys) in the dashboard.
+2. Click **New API Key**.
+3. Provide a description and click **Create**.
 
 <Warning>
 Once an API key has been created, it can never be retrieved again. If you lose your API key, you must create a new one.
