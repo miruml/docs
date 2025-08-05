@@ -21,7 +21,6 @@ paths:
       tags:
         - Config Instances
       summary: Get
-      description: Get a config instance by ID
       operationId: getConfigInstance
       parameters:
         - $ref: '#/components/parameters/config_instance_id'
