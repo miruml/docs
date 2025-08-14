@@ -4,7 +4,7 @@ title: "Filtering"
 
 All list endpoints in the Miru API support filtering to help you retrieve specific resources.
 
-For example, when [listing devices](https://docs.miruml.com/docs/api-reference/query-params/filtering), you can filter by `id`, `name`, and other fields.
+For example, when [listing devices](https://docs.miruml.com/docs/api-reference/devices/list), you can filter by `id`, `name`, and other fields.
 
 
 
@@ -22,7 +22,7 @@ curl --request GET \
   --header 'X-API-Key: <api-key>'
 ```
 
-Filtering by id will return at most one resource, since IDs are unique. Other fields, like [config instance activity status](https://docs.miruml.com/docs/api-reference/query-params/filtering), can return multiple results.
+Filtering by id will return at most one resource, since IDs are unique. Other fields, like [config instance activity status](https://docs.miruml.com/docs/api-reference/config-instances/list#parameter-activity-status), can return multiple results.
 ## Multi-Value Filters
 
 To filter by multiple values, specify the filter values as a `|` separated list: `<filter_name>=<value_1>|<value_2>|<value_3>`.

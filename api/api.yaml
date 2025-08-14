@@ -21,6 +21,8 @@ paths:
       tags:
         - Config Instances
       summary: Get
+      x-mint:
+        content: the content
       operationId: getConfigInstance
       parameters:
         - $ref: '#/components/parameters/config_instance_id'
