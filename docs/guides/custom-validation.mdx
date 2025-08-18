@@ -90,7 +90,7 @@ To test Miru webhooks locally, we'll need to setup tunneling with `ngrok`. This 
 
     You should see a domain similar to `https://c1971566f336.ngrok-free.app` being forward to your Flask server.
 
-As before, you can verify the server is running by going to https://c1971566f336.ngrok-free.app (you'll need to replace `c1971566f336` with your own ngrok host) in your browser. You should see `{"message":"ok"}`.
+As before, you can verify the server is running by going to `https://<YOUR_NGROK_DOMAIN>.ngrok-free.app` (you'll need to replace `<YOUR_NGROK_DOMAIN>`  with your own ngrok host domain like `c1971566f336`) in your browser. You should see `{"message":"ok"}`.
 
 ## Create a Webhook Endpoint
 
@@ -98,7 +98,7 @@ For our server to receive webhooks, we'll need to create an endpoint in Miru.
 
 Navigate to the [webhooks](https://configs.miruml.com/webhooks) page in Miru. Click **Add Endpoint** in the top right of the page.
 
-Copy your ephemeral ngrok domain with the `/webhooks/miru` route appended (e.g. `https://c1971566f336.ngrok-free.app/webhooks/miru`) to the webhook endpoint in the dashboard. Subscribe to the `config_instance.target_status.validated` event and click **Create**.
+Copy your ephemeral ngrok domain with the `/webhooks/miru` route appended (e.g. `https://<YOUR_NGROK_DOMAIN>.ngrok-free.app/webhooks/miru`) to the webhook endpoint in the dashboard. Subscribe to the `config_instance.target_status.validated` event and click **Create**.
 
 On the far right of the page, you'll see the webhook secret. Copy this value and store it in a secure location for use in your validation server. 
 
