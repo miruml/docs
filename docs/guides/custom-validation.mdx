@@ -96,7 +96,7 @@ As before, you can verify the server is running by going to https://c1971566f336
 
 For our server to receive webhooks, we'll need to create an endpoint in Miru.
 
-Navigate to the [webhooks](https://configs.miruml.com/settings/webhooks) page in Miru. Click **Add Endpoint** in the top right of the page.
+Navigate to the [webhooks](https://configs.miruml.com/webhooks) page in Miru. Click **Add Endpoint** in the top right of the page.
 
 Copy your ephemeral ngrok domain with the `/webhooks/miru` route appended (e.g. `https://c1971566f336.ngrok-free.app/webhooks/miru`) to the webhook endpoint in the dashboard. Subscribe to the `config_instance.target_status.validated` event and click **Create**.
 
@@ -135,7 +135,7 @@ Upon deployment of a config instance, you'll notice the config instance is in th
 
 To approve the config instance, you'll need to leverage the [approve](/docs/api-reference/config-instances/approve) API. However, we'll need to create an API key to authenticate the request.
 
-Navigate to the [API Keys](https://configs.miruml.com/settings/api-keys) page in Miru. Click **New API Key** in the top right of the page. Copy the API key and store it in a secure location for use in your validation server.
+Navigate to the [API Keys](https://configs.miruml.com/secrets/api-keys) page in Miru. Click **New API Key** in the top right of the page. Copy the API key and store it in a secure location for use in your validation server.
 
 <Warning>
     API Keys are only available upon creation. If you lose your API key, you must create a new one.
