@@ -35,7 +35,8 @@
                     {
                         "group": "Intermediate",
                         "pages": [
-                            "docs/intermediate/jsonschema"
+                            "docs/intermediate/jsonschema",
+                            "docs/guides/custom-validation"
                         ]
                     },
                     {
@@ -43,14 +44,7 @@
                         "pages": [
                             "docs/agent/install"
                         ]
-                    },
-                    {
-                        "group": "Guides",
-                        "pages": [
-                            "docs/guides/custom-validation"
-                        ]
                     }
-                    
                 ]
             },
             {

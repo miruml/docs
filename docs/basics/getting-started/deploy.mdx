@@ -39,14 +39,14 @@ Once you are satisfied with the target file path, continue by selecting **Deploy
 
 The config instance will begin in the `Queued` state, awaiting the agent to recognize the new config instance desires to be deployed. If the agent is offline (poor network connection, device powered off, etc.), the config instance will remain in the `Queued` state until the agent is online again.
 
-Once the agent is online, the config instance will move to the `Deployed` state, indicating the config instance has been successfully deployed the target file path on the device.
+Once the agent is online, the config instance will move to the `Deployed` state, indicating the config instance has been successfully deployed to the target file path on the device.
 
 <Frame>
    ![](/images/getting-started/config-editor-deployed-instance.png)
 </Frame>
 
 ### Edit a Config Instance
-To edit a config instance, simply start making changes to the config instance. As edits are made, a log on the right maintains a list of all the changes made to the config instance.
+To edit a config instance, simply start making changes from a current config instance. As edits are made, a log on the right maintains a list of all changes, categorizing them by their type (e.g. `added`, `deleted`, `modified`).
 
 <Frame>
    ![](/images/getting-started/config-editor-changelog.png)
@@ -56,13 +56,15 @@ Once satisfied with the edits, click **Deploy** in the top right.
 
 Add a description to the deployment and click **Deploy**.
 
+<Frame>
+   ![](/images/getting-started/deploy-config-edit-dialog.png)
+</Frame>
+
 As before, the config instance will begin in the `Queued` state, moving to the `Deployed` state once the agent is online and has successfully deployed the new config instance.
 
-### Archives
-You can view a full history of the config instances for a device by clicking the **Deployments** tab in the top left, next to the **Editor** tab. 
+### History
+You can view a full history of config instances deployed to a device by clicking the **Deployments** tab in the top left, next to the **Editor** tab. 
 
 <Frame>
    ![](/images/getting-started/device-tabs.png)
 </Frame>
-
-Clicking into a config instance from the archive will show the full config instance, the differences from the previously deployed config instance, and useful metadata about the config instance: the current status, who deployed it, when they deployed it, the deployment messages, etc.
