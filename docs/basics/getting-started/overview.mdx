@@ -3,19 +3,36 @@ title: 'Overview'
 ---
 
 import SchemaLanguages from '/snippets/schema-languages.mdx';
+import ConfigInstanceDefinition from '/snippets/vocabulary/config-instance-definition.mdx';
+import ConfigTypeDefinition from '/snippets/vocabulary/config-type-definition.mdx';
+import ConfigSchemaDefinition from '/snippets/vocabulary/config-schema-definition.mdx';
+import MiruWorkflowOverview from '/snippets/miru-workflow-overview.mdx';
 
-This guide assumes you’ve read the [core concepts](/docs/basics/core-concepts) section. If you haven't, we recommend doing so before continuing.
+This guide walks through the creation and deployment of your first configuration with Miru. If this is your first time using Miru, you're in the right place!
 
-
-### Create an Account
-If you don't already have an account, navigate to the [sign up](https://configs.miruml.com/signup) page and follow the instructions. 
+## Create an Account
+To create an account, navigate to the [sign up](https://configs.miruml.com/signup) page and follow the instructions. 
 
 <Frame>
     <img src="/images/getting-started/signup-page.png" />
 </Frame>
 
+## Terminology 
 
-### Clone the Starter Repository
+Before we begin, let's define some key configuration terminology to differentiate between configuration schemas, instances, and types.
+
+### Config Instances
+<ConfigInstanceDefinition />
+
+### Config Schemas
+<ConfigSchemaDefinition />
+
+### Config Types
+<ConfigTypeDefinition />
+
+## Clone the Starter Repository
+To make things easy, we've created a starter repository with some sample schemas and instances. 
+
 Clone the [getting-started](https://github.com/miruml/getting-started) repository.
 
 ```bash
@@ -24,13 +41,13 @@ git clone https://github.com/miruml/getting-started.git
 
 You'll find the following directories in the repository:
 - `schemas/`: Contains [config schemas](/docs/basics/vocabulary#config-schema)
-- `instances/`: Contains [config instances](/docs/basics/vocabulary#config-instance) for local development
+- `instances/`: Contains [config instances](/docs/basics/vocabulary#config-instance)
 
 <Note>
     This is just an example structure - schemas and instances can be located anywhere.
 </Note>
 
-### Mobility Config Type
+## Mobility Config Type
 
 For the remainder of this guide, the `Mobility` config type is used as an example.
 
@@ -88,7 +105,7 @@ required:
   - telemetry
 ```
 
-The `/instances/mobility.instance.yaml` defines a config instance adhering to the `Mobility` config schema. This config instance is for development purposes only. Config instances deployed to production robots are defined in the Miru dashboard, not in a git repository.
+The `/instances/mobility.instance.yaml` defines a config instance adhering to the `Mobility` config schema. 
 
 ```yaml mobility.instance.yaml [expandable]
 max_linear_speed_mps: 1.2

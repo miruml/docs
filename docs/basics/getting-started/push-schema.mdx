@@ -1,13 +1,12 @@
 ---
-title: 'Push Schema'
+title: 'Push a Schema'
 ---
 
 import InstallInstructions from '/snippets/cli-reference/install.mdx'
 import LoginInstructions from '/snippets/cli-reference/login.mdx'
 
 ### Create the Config Type
-To push a schema, it's config type must first be created. Navigate to the 
-[Config Types page](https://configs.miruml.com/configs) in the Miru dashboard.
+To push a schema, it's config type must first be created in the Miru dashboard. Navigate to the [Config Types page](https://configs.miruml.com/configs).
 
 <Frame>
   ![](/images/getting-started/create-config-type-page.png)
@@ -23,8 +22,7 @@ Click `+ New Config Type` and name the config type `Mobility` with slug `mobilit
     Config Type slugs are permanent and cannot be changed after creation.
 </Warning>
 
-### Config Type Slugs
-The config type slug is a unique identifier for a config type. It's used by both the CLI and SDK to link a config schema to its corresponding config type.
+The config type slug is a unique identifier for a config type. The CLI uses it to link a config schema to its corresponding config type when pushing a schema.
 
 All config schemas must include the `$miru_config_type_slug` field at the root level. We've
 already included this field in `mobility.schema.yaml`.
@@ -36,7 +34,7 @@ $miru_config_type_slug: "mobility"
 
 ### Install the CLI
 
-Schemas are pushed via the Miru command-line interface (CLI).
+Schemas are pushed via the Miru command-line interface (CLI). To create a schema, you'll need to install the CLI on your development machine.
 
 <InstallInstructions />
 
@@ -47,7 +45,7 @@ Schemas are pushed via the Miru command-line interface (CLI).
 
 ### Push to Miru
 Navigate back to the root of the [getting-started](https://github.com/miruml/getting-started) 
-repository.
+repository and push the schema to Miru.
 
 ```bash
 miru schema push ./schemas/mobility.schema.yaml

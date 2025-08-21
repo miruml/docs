@@ -2,139 +2,67 @@
 title: 'Deploy'
 ---
 
-import CppSDKSupportedPlatforms from '/snippets/sdk-reference/cpp/supported-platforms.mdx';
-import InstallAgent from '/snippets/agent/install.mdx';
-import ActivateAgent from '/snippets/agent/activate.mdx';
-import AgentPermissions from '/snippets/agent/permissions.mdx';
-import VerifyAgent from '/snippets/agent/verify.mdx';
-import AgentSupportedPlatforms from '/snippets/agent/supported-platforms.mdx';
+### Deploy a Config Instance
+Navigate to the [Devices page](https://configs.miruml.com/devices) and click the device you want to deploy a config instance to.
 
-With a valid config instance for `Robot A` available for the `v1` schema of the `Mobility` config type, it's time to deploy.
+Click the **New Configuration** button in the top left.
 
-## SDK in Development
+<Frame>
+   ![](/images/getting-started/config-editor-new-config.png)
+</Frame>
 
-### Supported Platforms
-<CppSDKSupportedPlatforms />
+Select the [config schema](/docs/basics/vocabulary#config-schema) you want the new config instance to adhere to. The config instance is autopopulated with the default values from the schema. To edit the config instance beyond the defaults, click **Next**.
 
-### Build the Examples
-To begin using the Miru C++ SDK, navigate to the `/cpp` directory of the [getting-started](https://github.com/miruml/getting-started) repository cloned at the beginning of the guide.
+<Frame>
+   ![](/images/getting-started/new-config-select-schema.png)
+</Frame>
 
-Build the CMake project (you can find the build requirements [here](https://github.com/miruml/cpp-sdk?tab=readme-ov-file#build-requirements)).
+Make any additional edits to the config instance. Then click **Deploy** in the top right.
 
-```bash
-cmake -B build -S .
-```
-```bash
-cmake --build build
-```
+<Frame>
+   ![](/images/getting-started/edit-new-config.png)
+</Frame>
 
-### Read a Config Instance from a File
-The [from_file](https://github.com/miruml/getting-started/tree/main/cpp/examples/from_file/main.cpp) example demonstrates how to use the SDK in development by loading a config instance from a file on the local file system.
+A dialog will appear allowing you to edit the target file path and confirm the deployment. 
 
-```bash
-./build/examples/from_file/from-file
-```
+By default the config instance is deployed to `/srv/miru/config_instances/mobility/schema_v1/instance.json` (the target file path). 
 
-The example simply reads in a config instance from the file system and lists the parameters inside. You should see the following output:
+The `/srv/miru/config_instances` directory is the base directory the miru agent uses for all config instances. For security reasons, this directory cannot be changed.
 
-```bash [expandable]
-$ ./build/examples/from_file/from-file
+However, `mobility/schema_v1/instance.json` can be renamed to any desired path, as long as the file extension is `.json`.
 
-Printing Parameters From File
-=============================
-Name: mobility.max_angular_speed_radps
-Key: max_angular_speed_radps
-Type: scalar
-Value: "1.0"
+Once you are satisfied with the target file path, continue by selecting **Deploy**.
 
-Name: mobility.max_linear_speed_mps
-Key: max_linear_speed_mps
-Type: scalar
-Value: "1.2"
+<Frame>
+   ![](/images/getting-started/deploy-new-config-dialog.png)
+</Frame>
 
-Name: mobility.navigation_mode
-Key: navigation_mode
-Type: scalar
-Value: "balanced"
+The config instance will begin in the `Queued` state, awaiting the agent to recognize the new config instance desires to be deployed. If the agent is offline (poor network connection, device powered off, etc.), the config instance will remain in the `Queued` state until the agent is online again.
 
-Name: mobility.obstacle_avoidance_enabled
-Key: obstacle_avoidance_enabled
-Type: scalar
-Value: "true"
+Once the agent is online, the config instance will move to the `Deployed` state, indicating the config instance has been successfully deployed the target file path on the device.
 
-Name: mobility.telemetry.heartbeat_interval_sec
-Key: heartbeat_interval_sec
-Type: scalar
-Value: "10"
+<Frame>
+   ![](/images/getting-started/config-editor-deployed-instance.png)
+</Frame>
 
-Name: mobility.telemetry.upload_interval_sec
-Key: upload_interval_sec
-Type: scalar
-Value: "60"
-```
+### Edit a Config Instance
+To edit a config instance, simply start making changes to the config instance. As edits are made, a log on the right maintains a list of all the changes made to the config instance.
 
+<Frame>
+   ![](/images/getting-started/config-editor-changelog.png)
+</Frame>
 
-## Miru Agent
+Once satisfied with the edits, click **Deploy** in the top right.
 
-To use the Miru SDK in production, the agent must be installed and activated. 
+Add a description to the deployment and click **Deploy**.
 
-### Supported Platforms
-<AgentSupportedPlatforms />
+As before, the config instance will begin in the `Queued` state, moving to the `Deployed` state once the agent is online and has successfully deployed the new config instance.
 
-### Install
-<InstallAgent />
+### Archives
+You can view a full history of the config instances for a device by clicking the **Deployments** tab in the top left, next to the **Editor** tab. 
 
-### Socket Permissions
-<AgentPermissions />
+<Frame>
+   ![](/images/getting-started/device-tabs.png)
+</Frame>
 
-### Verify
-<VerifyAgent />
-
-## SDK in Production
-Navigate back to the `/cpp` directory of the [getting-started](https://github.com/miruml/getting-started) repository.
-
-The [from_agent](https://github.com/miruml/getting-started/tree/main/cpp/examples/from_agent/main.cpp) example demonstrates how to use the SDK in production by loading a config instance from the Miru agent.
-
-```bash
-./build/examples/from_agent/from-agent
-```
-
-As before, the example simply reads in a config instance from the agent and lists the parameters inside. You should see the following output:
-
-```bash [expandable]
-$ ./build/examples/from_agent/from-agent
-
-Parameters from Agent
-=====================
-Name: mobility.max_angular_speed_radps
-Key: max_angular_speed_radps
-Type: int
-Value: 2
-
-Name: mobility.max_linear_speed_mps
-Key: max_linear_speed_mps
-Type: double
-Value: 2.500000
-
-Name: mobility.navigation_mode
-Key: navigation_mode
-Type: string
-Value: "aggressive"
-
-Name: mobility.obstacle_avoidance_enabled
-Key: obstacle_avoidance_enabled
-Type: bool
-Value: false
-
-Name: mobility.telemetry.heartbeat_interval_sec
-Key: heartbeat_interval_sec
-Type: int
-Value: 15
-
-Name: mobility.telemetry.upload_interval_sec
-Key: upload_interval_sec
-Type: int
-Value: 45
-```
-
-For more information on the Miru C++ SDK, visit the [SDK Reference](/docs/sdk-reference) documentation. In depth SDK usage examples can be found in the official [C++ SDK](https://github.com/miruml/cpp-sdk/tree/main/examples) repository.
+Clicking into a config instance from the archive will show the full config instance, the differences from the previously deployed config instance, and useful metadata about the config instance: the current status, who deployed it, when they deployed it, the deployment messages, etc.
