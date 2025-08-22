@@ -1,12 +1,12 @@
 ---
-title: 'Push a Schema'
+title: 'Define a Config'
 ---
 
 import InstallInstructions from '/snippets/cli-reference/install.mdx'
 import LoginInstructions from '/snippets/cli-reference/login.mdx'
 
 ### Create the Config Type
-To push a schema, it's config type must first be created in the Miru dashboard. Navigate to the [Config Types page](https://configs.miruml.com/configs).
+The first step in defining a config is creating its config type. Navigate to the [Config Types page](https://configs.miruml.com/configs).
 
 <Frame>
   ![](/images/getting-started/create-config-type-page.png)
@@ -24,32 +24,35 @@ Click `+ New Config Type` and name the config type `Mobility` with slug `mobilit
 
 The config type slug is a unique identifier for a config type. The CLI uses it to link a config schema to its corresponding config type when pushing a schema.
 
-All config schemas must include the `$miru_config_type_slug` field at the root level. We've
-already included this field in `mobility.schema.yaml`.
+All config schemas must include the `$miru_config_type_slug` field at the root level. We've already included this field in `mobility.schema.yaml` and `empty-mobility.schema.yaml`.
 
 ```yaml mobility.schema.yaml
 $miru_config_type_slug: "mobility"
 ...
 ```
 
-### Install the CLI
+### CLI Install
 
-Schemas are pushed via the Miru command-line interface (CLI). To create a schema, you'll need to install the CLI on your development machine.
+Schemas are created via the Miru command-line interface (CLI). To push a schema, you'll need to install the CLI on your development machine.
 
 <InstallInstructions />
 
-### Login to the CLI
+### CLI Login
 
 <LoginInstructions />
 
 
-### Push to Miru
+### Push the Schema
 Navigate back to the root of the [getting-started](https://github.com/miruml/getting-started) 
 repository and push the schema to Miru.
 
 ```bash
 miru schema push ./schemas/mobility.schema.yaml
 ```
+
+<Note>
+    If you're following along with the schemaless approach, replace `mobility.schema.yaml` with `empty-mobility.schema.yaml`.
+</Note>
 
 You'll see a confirmation message that your schema was successfully pushed.
 

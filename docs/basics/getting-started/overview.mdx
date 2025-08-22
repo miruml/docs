@@ -27,6 +27,10 @@ Before we begin, let's define some key configuration terminology to differentiat
 ### Config Schemas
 <ConfigSchemaDefinition />
 
+<Note>
+  While config schemas are recommended, they are not required to begin using Miru.
+</Note>
+
 ### Config Types
 <ConfigTypeDefinition />
 
@@ -115,4 +119,15 @@ navigation_mode: balanced
 telemetry:
   upload_interval_sec: 60
   heartbeat_interval_sec: 10
+```
+
+## Starting Schemaless
+While this guide uses a well-defined schema for the mobility config type, you may find it simpler to begin using Miru without a schema.
+
+To do this, follow along with the `/schemas/empty-mobility.schema.yaml` file instead of `/schemas/mobility.schema.yaml`. This file defines an empty schema that regards all config instances as valid.
+
+```yaml empty-mobility.schema.yaml
+$miru_config_type_slug: "mobility"
+$schema: "http://json-schema.org/draft/2020-12/schema"
+title: Empty Mobility
 ```

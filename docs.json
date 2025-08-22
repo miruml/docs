@@ -22,9 +22,8 @@
                                 "group": "Getting Started",
                                 "pages": [
                                     "docs/basics/getting-started/overview",
-                                    "docs/basics/getting-started/push-schema",
-                                    "docs/basics/getting-started/install-agent",
-                                    "docs/basics/getting-started/deploy"
+                                    "docs/basics/getting-started/define-a-config",
+                                    "docs/basics/getting-started/deploy-a-config"
                                 ]
                             },
                             "docs/basics/vocabulary",
