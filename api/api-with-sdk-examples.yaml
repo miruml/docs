@@ -212,10 +212,10 @@ paths:
             client = Miru(
                 api_key="My API Key",
             )
-            base_device = client.devices.retrieve(
+            device = client.devices.retrieve(
                 "dvc_123",
             )
-            print(base_device.id)
+            print(device.id)
     patch:
       tags:
         - Devices
@@ -245,10 +245,10 @@ paths:
             client = Miru(
                 api_key="My API Key",
             )
-            base_device = client.devices.update(
+            device = client.devices.update(
                 device_id="dvc_123",
             )
-            print(base_device.id)
+            print(device.id)
     delete:
       tags:
         - Devices
@@ -304,10 +304,10 @@ paths:
             client = Miru(
                 api_key="My API Key",
             )
-            base_device = client.devices.create(
+            device = client.devices.create(
                 name="Robot 1",
             )
-            print(base_device.id)
+            print(device.id)
     get:
       tags:
         - Devices
@@ -396,7 +396,7 @@ paths:
             client = Miru(
                 api_key="My API Key",
             )
-            base_device = client.devices.stage(
+            device = client.devices.stage(
                 device_id="dvc_123",
                 config_instances=[{
                     "config_schema_id": "cfg_sch_123",
@@ -408,7 +408,7 @@ paths:
                     "relative_filepath": "/v1/motion-control.json",
                 }],
             )
-            print(base_device.id)
+            print(device.id)
 components:
   securitySchemes:
     ApiKeyAuth:
