@@ -5,8 +5,8 @@ info:
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
-x-webhooks:
-  config_instance.target_status.validated:
+paths:
+  /config_instance.target_status.validated:
     post:
       tags:
         - Config Instances

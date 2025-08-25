@@ -94,7 +94,7 @@
                     {
                         "group": "Endpoints",
                         "openapi": {
-                            "source": "api/api.yaml",
+                            "source": "api/api-with-sdk-examples.yaml",
                             "directory": "docs/api-reference"
                         }
                     }
