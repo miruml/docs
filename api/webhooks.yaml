@@ -5,8 +5,8 @@ info:
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
-paths:
-  /config_instance.target_status.validated:
+x-webhooks:
+  config_instance.target_status.validated:
     post:
       tags:
         - Config Instances
@@ -17,12 +17,29 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ConfigInstanceTargetStatusValidatedRequest'
+              $ref: '#/components/schemas/ConfigInstanceTargetStatusValidatedEvent'
       responses:
         '200':
           description: Successfully received the event.
 components:
   schemas:
+    Event:
+      type: object
+      required:
+        - object
+        - timestamp
+      properties:
+        object:
+          type: string
+          enum:
+            - event
+          description: The object that occurred
+          example: event
+        timestamp:
+          type: string
+          format: date-time
+          description: The timestamp of the event
+          example: '2021-01-01T00:00:00Z'
     ConfigInstanceTargetStatus:
       type: string
       description: |
@@ -162,10 +179,39 @@ components:
           type: string
           example: cfg_type_123
           description: ID of the config type which the config instance (and its schema) is a part of
-    ConfigInstanceTargetStatusValidatedRequest:
-      type: object
-      required:
-        - config_instance
-      properties:
-        config_instance:
-          $ref: '#/components/schemas/BaseConfigInstance'
+    ConfigInstanceTargetStatusValidatedEvent:
+      allOf:
+        - $ref: '#/components/schemas/Event'
+        - type: object
+          required:
+            - type
+            - data
+          properties:
+            type:
+              type: string
+              description: The type of event
+              enum:
+                - config_instance.target_status.validated
+              example: config_instance.target_status.validated
+            data:
+              type: object
+              description: The data associated with the event
+              required:
+                - config_instance
+              properties:
+                config_instance:
+                  $ref: '#/components/schemas/BaseConfigInstance'
+              example:
+                config_instance:
+                  object: config_instance
+                  id: cfg_inst_123
+                  target_status: validated
+                  activity_status: validating
+                  error_status: none
+                  status: validating
+                  relative_filepath: /v1/motion-control.json
+                  created_at: '2021-01-01T00:00:00Z'
+                  updated_at: '2021-01-01T00:00:00Z'
+                  device_id: dvc_123
+                  config_schema_id: cfg_sch_123
+                  config_type_id: cfg_type_123
