@@ -8,7 +8,7 @@ Deploying config instances to a robot involves a few major components: the confi
 
 The Miru agent is a lightweight `systemd` service that pulls config instances defined in the cloud and exposes them to applications on the same machine over a Unix socket.
 
-The Miru agent is installed on a robot as a particular [device](/docs/basics/vocabulary#device). When the Miru SDK requests a config instance from the agent, the agent identifies the correct config instance to pull from the cloud using:
+The Miru agent is installed on a robot as a particular [device](/docs/home/basics/vocabulary#device). When the Miru SDK requests a config instance from the agent, the agent identifies the correct config instance to pull from the cloud using:
 
 1. The digest of the config schema
 2. The slug of the config type (defined at the root of the config schema)
@@ -76,4 +76,4 @@ Devices are also expected to lose power or be restarted suddenly. The agent hand
 
 This concludes the core concepts guide, which walked through Miru's core offering. We defined config schemas in a git repository, uploaded them to Miru, stored configuration data in devices and tags, defined overrides, and deployed a config instance to a device.
 
-To begin using Miru, continue to the [getting started](/docs/basics/getting-started) guide, where installation and usage are fully explained with examples to follow along.
+To begin using Miru, continue to the [getting started](/docs/home/basics/getting-started) guide, where installation and usage are fully explained with examples to follow along.

@@ -4,13 +4,13 @@ title: "Creating Schemas"
 
 ## Config Types
 
-Applications have various configurations serving different purposes. Below are some [config types](/docs/basics/vocabulary#config-type) for a fictional robot. Each config type is responsible for a particular aspect of the robot's behavior.
+Applications have various configurations serving different purposes. Below are some [config types](/docs/home/basics/vocabulary#config-type) for a fictional robot. Each config type is responsible for a particular aspect of the robot's behavior.
 
 <Frame>
   ![](/images/core-concepts/config-type-list.png)
 </Frame>
 
-Every config type has a history of [config schemas](/docs/basics/vocabulary#config-schema) as well as a history of [config instances](/docs/basics/vocabulary#config-instance) deployed to robots. Below are the config schemas for the `Mobility` config type.
+Every config type has a history of [config schemas](/docs/home/basics/vocabulary#config-schema) as well as a history of [config instances](/docs/home/basics/vocabulary#config-instance) deployed to robots. Below are the config schemas for the `Mobility` config type.
 
 <Frame>
   ![](/images/core-concepts/mobility-schema-list.png)
@@ -107,7 +107,7 @@ telemetry:
 
 Config instances defined in a git repository are for **development use only**.
 In production, config instances are defined in the cloud and retrieved from the
-[Miru Agent](/docs/agent-sdk) running on the robot (more on this later).
+[Miru Agent](/docs/home/agent-sdk) running on the robot (more on this later).
 
 In development, quickly defining and editing configurations is essential. `mobility.instance.yaml` supplies config instance values via the local file system for quick iteration. `mobility.instance.yaml` is never uploaded to the cloud or deployed to production robots.
 
@@ -157,7 +157,7 @@ More will be said about the Miru agent in the coming sections. The key takeaway 
 
 ## Pushing a Schema
 
-When ready to deploy new config instances to production, config schemas are uploaded to Miru using the Miru [CLI](/docs/cli-reference).
+When ready to deploy new config instances to production, config schemas are uploaded to Miru using the Miru [CLI](/docs/cli).
 
 ```bash
 miru schema push ./path/to/schemas/mobility.schema.yaml

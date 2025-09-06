@@ -108,14 +108,15 @@ curl --request GET \
 
 ## Deterministic Sorting
 
-By default, all sorting queries use resource IDs as a tie-breaker (ascending order) to ensure deterministic results. For example, `created_at:desc` is converted to `created_at:desc,id:asc`. 
+By default, all sorting queries use resource IDs as a tie-breaker (ascending order) to ensure deterministic results. For example, `created_at:desc` is effecively `created_at:desc,id:asc`. 
 
 If a request already contains `id` as a sort field, then the request is already deterministic and an additional `id` sort field will not be added.
 
-To illustrate this, the following table shows the original request ordering and the converted request ordering for a few different examples.
+To illustrate this, the following table shows the original request ordering and the effective request ordering for a few different examples.
 
-| Original | Converted  |
+| Original | Effective |
 |---------------|-------------------------|
 | `created_at:desc` | `created_at:desc,id:asc` |
+| `name:asc` | `name:asc,id:asc` |
 | `created_at:desc,id:asc` | `created_at:desc,id:asc` |
 | `id:asc,created_at:desc` | `id:asc,created_at:desc` |
