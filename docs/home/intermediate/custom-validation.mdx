@@ -1,6 +1,6 @@
 ---
 title: 'Custom Validation'
-description: 'How to implement a custom validation server using Miru webhooks and APIs.'
+description: 'Implement validation logic for your config instances.'
 ---
 
 ## Overview
@@ -9,13 +9,13 @@ Miru natively supports the use of JSON Schema to specify [config schemas](/docs/
 
 However, some config instances may require more complex, application-specific validation logic to ensure valid configurations are deployed.
 
-Miru provides [webhooks](/webhooks-reference) and [APIs](/docs/server-side-api), allowing you to host a custom validation server for validating config instances before deployment to your devices.
+Miru provides [webhooks](/webhooks-reference) and [APIs](/docs/api-reference/server-side), allowing you to host a custom validation server for validating config instances before deployment to your devices.
 
 Upon any new config instance deployments made in the UI (or otherwise), Miru will send the `config_instance.target_status.validated` [webhook](/webhooks-reference/config-instances/target-status-validated) to your endpoint(s). 
 
-The config instance must then be approved or rejected by your validation server using the [approve](/docs/server-side-api/config-instances/approve) or [reject](/docs/server-side-api/config-instances/reject) APIs. 
+The config instance must then be approved or rejected by your validation server using the [approve](/docs/api-reference/server-side/config-instances/approve) or [reject](/docs/api-reference/server-side/config-instances/reject) APIs. 
 
-After the config instance has been approved, the validation server can deploy the config instance to it's target device using the [deploy](/docs/server-side-api/config-instances/deploy) API.
+After the config instance has been approved, the validation server can deploy the config instance to it's target device using the [deploy](/docs/api-reference/server-side/config-instances/deploy) API.
 
 
 ## Enable Custom Validation
@@ -133,7 +133,7 @@ Upon deployment of a config instance, you'll notice the config instance is in th
 
 ## Create an API Key
 
-To approve the config instance, you'll need to leverage the [approve](/docs/server-side-api/config-instances/approve) API. However, we'll need to create an API key to authenticate the request.
+To approve the config instance, you'll need to leverage the [approve](/docs/api-reference/server-side/config-instances/approve) API. However, we'll need to create an API key to authenticate the request.
 
 Navigate to the [API Keys](https://configs.miruml.com/secrets/api-keys) page in Miru. Click **New API Key** in the top right of the page. Copy the API key and store it in a secure location for use in your validation server.
 
@@ -143,19 +143,19 @@ Navigate to the [API Keys](https://configs.miruml.com/secrets/api-keys) page in 
 
 ## Approve the Config Instance
 
-After receiving the `config_instance.target_status.validated` webhook, you'll need to approve the config instance using the [approve](/docs/server-side-api/config-instances/approve) API.
+After receiving the `config_instance.target_status.validated` webhook, you'll need to approve the config instance using the [approve](/docs/api-reference/server-side/config-instances/approve) API.
 
 The approve API stores a success `message` field and moves the config instance's `activity_status` to be `validated`.
 
-You can approve the config instance by making the appropriate POST request in the API [`Playground`](/docs/server-side-api/config-instances/approve?playground=open). We recommend making a dedicated **api-playground-key** for this purpose which you delete after you're done testing.
+You can approve the config instance by making the appropriate POST request in the API [`Playground`](/docs/api-reference/server-side/config-instances/approve?playground=open). We recommend making a dedicated **api-playground-key** for this purpose which you delete after you're done testing.
 
-Alternatively, if the config instance is invalid you can use the [reject](/docs/server-side-api/config-instances/reject) API to reject the config instance. This will move the config instance's `error_status` to be `failed`, preventing any deployments to it's target device.
+Alternatively, if the config instance is invalid you can use the [reject](/docs/api-reference/server-side/config-instances/reject) API to reject the config instance. This will move the config instance's `error_status` to be `failed`, preventing any deployments to it's target device.
 
 The reject API stores a failure `message` field as well as a list of parameter `errors` that caused the validation to fail. Be sure to give a descriptive message and errors, as these will be displayed in the UI for rejected config instances.
 
 
 ## Deploy the Config Instance
 
-Finally, with the config instance approved, you can deploy the config instance to it's target device using the [deploy](/docs/server-side-api/config-instances/deploy) API.
+Finally, with the config instance approved, you can deploy the config instance to it's target device using the [deploy](/docs/api-reference/server-side/config-instances/deploy) API.
 
 The config instance must have been approved by your validation server before it can be deployed to it's target device. If the config instance has not been approved, the deploy API will return an error stating that the config instance is not in a valid state for deployment.

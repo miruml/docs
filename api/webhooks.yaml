@@ -10,7 +10,7 @@ paths:
     post:
       tags:
         - Config Instances
-      summary: Target Status Validated
+      summary: Validate
       description: The config instance is waiting for validation before deployment to a device
       operationId: configInstanceTargetStatusValidated
       requestBody:

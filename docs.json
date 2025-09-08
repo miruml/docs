@@ -11,13 +11,13 @@
     "navigation": {
         "dropdowns": [
             {
-                "dropdown": "Home",
+                "dropdown": "Documentation",
                 "icon": "book-open",
                 "groups": [
                     {
                         "group": "Basics",
                         "pages": [
-                            "docs/home/basics/nav",
+                            "docs/home/basics/overview",
                             "docs/home/basics/intro",
                             {
                                 "group": "Getting Started",
@@ -33,96 +33,107 @@
                         ]
                     },
                     {
-                        "group": "Intermediate",
-                        "pages": [
-                            "docs/home/intermediate/jsonschema",
-                            "docs/home/intermediate/custom-validation"
-                        ]
-                    },
-                    {
                         "group": "Agent",
                         "pages": [
+                            "docs/home/agent/intro",
                             "docs/home/agent/install"
-                        ]
-                    }
-                ]
-            },
-            {
-                "dropdown": "Server-Side API",
-                "icon": "code",
-                "groups": [
-                    {
-                        "group": "Basics",
-                        "pages": [
-                            "docs/server-side-api/intro",
-                            "docs/server-side-api/authn",
-                            {
-                                "group": "Query Parameters",
-                                "pages": [
-                                    "docs/server-side-api/query-params/filtering",
-                                    "docs/server-side-api/query-params/sorting",
-                                    "docs/server-side-api/query-params/pagination",
-                                    "docs/server-side-api/query-params/expansions"
-                                ]
-                            }
                         ]
                     },
                     {
-                        "group": "Endpoints",
-                        "openapi": {
-                            "source": "api/api-with-sdk-examples.yaml",
-                            "directory": "docs/server-side-api/endpoints"
-                        }
+                        "group": "Intermediate",
+                        "pages": [
+                            "docs/home/intermediate/custom-validation",
+                            "docs/home/intermediate/jsonschema"
+                        ]
                     }
                 ]
             },
             {
-                "dropdown": "CLI",
+                "dropdown": "CLI Reference",
                 "icon": "terminal",    
                 "groups": [
                     {
                         "group": "Basics",
                         "pages": [
-                            "docs/cli/install",
-                            "docs/cli/login"
+                            "docs/cli-reference/install",
+                            "docs/cli-reference/login"
                         ]
                     },
                     {
                         "group": "Schemas",
                         "pages": [
-                            "docs/cli/schema-push"
+                            "docs/cli-reference/schema-push"
                         ]
                     },
                     {
                         "group": "Instances",
                         "pages": [
-                            "docs/cli/instance-to-jsonschema"
+                            "docs/cli-reference/instance-to-jsonschema"
                         ]
                     }
                 ]
             },
             {
-                "dropdown": "Agent API",
+                "dropdown": "API Reference",
                 "icon": "code",
                 "groups": [
                     {
-                        "group": "C++",
+                        "group": "Server-Side API",
                         "pages": [
-                            "docs/agent-api/cpp/integrate",
-                            "docs/agent-api/cpp/quickstart"
+                            "docs/api-reference/server-side/intro",
+                            "docs/api-reference/server-side/authn",
+                            {
+                                "group": "Query Parameters",
+                                "pages": [
+                                    "docs/api-reference/server-side/query-params/filtering",
+                                    "docs/api-reference/server-side/query-params/sorting",
+                                    "docs/api-reference/server-side/query-params/pagination",
+                                    "docs/api-reference/server-side/query-params/expansions"
+                                ]
+                            },
+                            {
+                                "group": "SDKs",
+                                "pages": [
+                                    "docs/api-reference/server-side/sdks/overview",
+                                    "docs/api-reference/server-side/sdks/python"
+                                ]
+                            },
+                            {
+                                "group": "Endpoints",
+                                "openapi": {
+                                    "source": "api/server-api.yaml",
+                                    "directory": "docs/api-reference/server-side/endpoints"
+                                }
+                            }
                         ]
-                    }
-                ]
-            },
-            {
-                "dropdown": "Webhooks",
-                "icon": "code",
-                "groups": [
+                    },
                     {
-                        "group": "Events",
+                        "group": "Agent API",
+                        "pages": [
+
+                            "docs/api-reference/agent/intro",
+                            "docs/api-reference/agent/authn",
+                            {
+                                "group": "SDKs",
+                                "pages": [
+                                    "docs/api-reference/agent/sdks/overview",
+                                    "docs/api-reference/agent/sdks/python"
+                                ]
+                            },
+                            {
+                                "group": "Endpoints",
+                                "openapi": {
+                                    "source": "api/agent-api.yaml",
+                                    "directory": "docs/api-reference/agent/endpoints"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "group": "Webhooks",
                         "openapi": {
                             "source": "api/webhooks.yaml",
-                            "directory": "docs/webhooks/events"
+                            "directory": "docs/api-reference/webhooks/events"
                         }
                     }
                 ]

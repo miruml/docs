@@ -1,6 +1,12 @@
-The Miru agent serves requests over the unix socket `/run/miru/miru.sock`, which is created with the `root:miru` permissions (user `root` and group `miru`). 
+The Miru agent serves API requests over the Unix socket `/run/miru/miru.sock`, which is created with the `root:miru` permissions (user `root` and group `miru`). 
 
-Any access to the socket must executed with a user that is a member of the `miru` group. To add a user to the `miru` group, run
+Any access to the socket must be executed with a user that is a member of the `miru` group. 
+
+<Note>
+Access to the socket is granted to the `root` user but this is not recommended for security best practices.
+</Note>
+
+To add a user to the `miru` group, run
 
 ```bash
 sudo usermod -a -G miru <username>

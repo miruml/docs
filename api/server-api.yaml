@@ -33,18 +33,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConfigInstance'
-      x-codeSamples:
-        - lang: Python
-          source: |-
-            from miru_server_sdk import Miru
-
-            client = Miru(
-                api_key="My API Key",
-            )
-            config_instance = client.config_instances.retrieve(
-                config_instance_id="cfg_inst_123",
-            )
-            print(config_instance.id)
   /config_instances:
     get:
       tags:
@@ -71,16 +59,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConfigInstanceList'
-      x-codeSamples:
-        - lang: Python
-          source: |-
-            from miru_server_sdk import Miru
-
-            client = Miru(
-                api_key="My API Key",
-            )
-            config_instances = client.config_instances.list()
-            print(config_instances)
   /config_instances/{config_instance_id}/approve:
     post:
       tags:
@@ -104,19 +82,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConfigInstance'
-      x-codeSamples:
-        - lang: Python
-          source: |-
-            from miru_server_sdk import Miru
-
-            client = Miru(
-                api_key="My API Key",
-            )
-            config_instance = client.config_instances.approve(
-                config_instance_id="cfg_inst_123",
-                message="The config instance has been approved",
-            )
-            print(config_instance.id)
   /config_instances/{config_instance_id}/reject:
     post:
       tags:
@@ -140,23 +105,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConfigInstance'
-      x-codeSamples:
-        - lang: Python
-          source: |-
-            from miru_server_sdk import Miru
-
-            client = Miru(
-                api_key="My API Key",
-            )
-            config_instance = client.config_instances.reject(
-                config_instance_id="cfg_inst_123",
-                errors=[{
-                    "message": "Motion detection sensitivity must be between 0 and 100",
-                    "parameter_path": ["motion_detection", "sensitivity"],
-                }],
-                message="The config instance contains additional parameters that are not supported by the config schema",
-            )
-            print(config_instance.id)
   /config_instances/{config_instance_id}/deploy:
     post:
       tags:
@@ -169,25 +117,11 @@ paths:
         - $ref: '#/components/parameters/dry_run'
       responses:
         '200':
-          description: >-
-            Successfully queued the config instance for deployment and queued conflicting config instances for
-            removal.
+          description: Successfully queued the config instance for deployment and queued conflicting config instances for removal.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeployConfigInstanceResponse'
-      x-codeSamples:
-        - lang: Python
-          source: |-
-            from miru_server_sdk import Miru
-
-            client = Miru(
-                api_key="My API Key",
-            )
-            response = client.config_instances.deploy(
-                config_instance_id="cfg_inst_123",
-            )
-            print(response.deploy)
   /devices/{device_id}:
     get:
       tags:
@@ -203,19 +137,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BaseDevice'
-      x-codeSamples:
-        - lang: Python
-          source: |-
-            from miru_server_sdk import Miru
-
-            client = Miru(
-                api_key="My API Key",
-            )
-            device = client.devices.retrieve(
-                "dvc_123",
-            )
-            print(device.id)
+                $ref: '#/components/schemas/Device'
     patch:
       tags:
         - Devices
@@ -236,19 +158,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BaseDevice'
-      x-codeSamples:
-        - lang: Python
-          source: |-
-            from miru_server_sdk import Miru
-
-            client = Miru(
-                api_key="My API Key",
-            )
-            device = client.devices.update(
-                device_id="dvc_123",
-            )
-            print(device.id)
+                $ref: '#/components/schemas/Device'
     delete:
       tags:
         - Devices
@@ -264,18 +174,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteDevice'
-      x-codeSamples:
-        - lang: Python
-          source: |-
-            from miru_server_sdk import Miru
-
-            client = Miru(
-                api_key="My API Key",
-            )
-            device = client.devices.delete(
-                "dvc_123",
-            )
-            print(device.id)
   /devices:
     post:
       tags:
@@ -295,19 +193,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BaseDevice'
-      x-codeSamples:
-        - lang: Python
-          source: |-
-            from miru_server_sdk import Miru
-
-            client = Miru(
-                api_key="My API Key",
-            )
-            device = client.devices.create(
-                name="Robot 1",
-            )
-            print(device.id)
+                $ref: '#/components/schemas/Device'
     get:
       tags:
         - Devices
@@ -328,16 +214,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeviceList'
-      x-codeSamples:
-        - lang: Python
-          source: |-
-            from miru_server_sdk import Miru
-
-            client = Miru(
-                api_key="My API Key",
-            )
-            devices = client.devices.list()
-            print(devices)
   /devices/{device_id}/activation_token:
     post:
       tags:
@@ -347,6 +223,12 @@ paths:
       description: Create a new device activation token
       parameters:
         - $ref: '#/components/parameters/parameters-device_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IssueActivationTokenRequest'
       responses:
         '200':
           description: Successfully created the device activation token.
@@ -354,18 +236,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TokenResponse'
-      x-codeSamples:
-        - lang: Python
-          source: |-
-            from miru_server_sdk import Miru
-
-            client = Miru(
-                api_key="My API Key",
-            )
-            response = client.devices.create_activation_token(
-                "dvc_123",
-            )
-            print(response.token)
   /devices/{device_id}/stage:
     post:
       tags:
@@ -387,37 +257,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BaseDevice'
-      x-codeSamples:
-        - lang: Python
-          source: |-
-            from miru_server_sdk import Miru
-
-            client = Miru(
-                api_key="My API Key",
-            )
-            device = client.devices.stage(
-                device_id="dvc_123",
-                config_instances=[{
-                    "config_schema_id": "cfg_sch_123",
-                    "content": {
-                        "direction": "forward",
-                        "speed": 100,
-                        "duration": 10,
-                    },
-                    "relative_filepath": "/v1/motion-control.json",
-                }],
-            )
-            print(device.id)
+                $ref: '#/components/schemas/Device'
 components:
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
       in: header
       name: X-API-Key
-      description: >-
-        The API key to use for authentication. Retrieve your API key from the [Miru
-        dashboard](https://configs.miruml.com/settings/api-keys).
+      description: The API key to use for authentication. Retrieve your API key from the [Miru dashboard](https://configs.miruml.com/secrets/api-keys).
   parameters:
     config_instance_id:
       name: config_instance_id
@@ -629,16 +476,11 @@ components:
         - CONFIG_INSTANCE_ACTIVITY_STATUS_REMOVED
     ConfigInstanceErrorStatus:
       type: string
-      description: >
+      description: |
         Last known error state of the config instance deployment
-
         - None: there are no errors with the config instance deployment
-
-        - Retrying: an error has been encountered and the agent is attempting to try again to reach the target
-        status
-
-        - Failed: an error has been encountered but no more retries are left; the config instance is removed
-        (if deployed)
+        - Retrying: an error has been encountered and the agent is attempting to try again to reach the target status
+        - Failed: an error has been encountered but no more retries are left; the config instance is removed (if deployed)
       enum:
         - none
         - failed
@@ -649,11 +491,8 @@ components:
         - CONFIG_INSTANCE_ERROR_STATUS_RETRYING
     ConfigInstanceStatus:
       type: string
-      description: >
-        This status merges the 'activity_status' and 'error_status' fields, with error states taking
-        precedence over activity states when errors are present. For example, if the activity status is
-        'deployed' but there's an error, the overall status will be 'failed' or 'retrying' depending on the
-        error state.
+      description: |
+        This status merges the 'activity_status' and 'error_status' fields, with error states taking precedence over activity states when errors are present. For example, if the activity status is 'deployed' but there's an error, the overall status will be 'failed' or 'retrying' depending on the error state.
       enum:
         - created
         - validating
@@ -709,9 +548,7 @@ components:
         relative_filepath:
           type: string
           example: /v1/motion-control.json
-          description: >-
-            The file path to deploy the config instance relative to `/srv/miru/config_instances`.
-            `v1/motion-control.json` would deploy to `/srv/miru/config_instances/v1/motion-control.json`
+          description: The file path to deploy the config instance relative to `/srv/miru/config_instances`. `v1/motion-control.json` would deploy to `/srv/miru/config_instances/v1/motion-control.json`
         created_at:
           type: string
           format: date-time
@@ -741,6 +578,8 @@ components:
         - Inactive: The miru agent has not yet been installed / authenticated
         - Staged: The device has been staged for activation
         - Activated: The miru agent has been installed and authenticated
+        - Online: The miru agent has successfully pinged the server within the last 45 seconds.
+        - Offline: The miru agent has not successfully pinged the server within the last 45 seconds (e.g. network issues, device is powered off, etc.)
       enum:
         - inactive
         - staged
@@ -761,6 +600,8 @@ components:
         - id
         - name
         - status
+        - last_connected_at
+        - last_disconnected_at
         - created_at
         - updated_at
       properties:
@@ -779,6 +620,18 @@ components:
           description: Name of the device
         status:
           $ref: '#/components/schemas/DeviceStatus'
+        last_connected_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+          nullable: true
+          description: Timestamp of when the device was last made an initial connection (this is not the same as the last time the device was seen).
+        last_disconnected_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+          nullable: true
+          description: Timestamp of when the device was last disconnected (this is not the same as the last time the device was seen).
         created_at:
           type: string
           format: date-time
@@ -789,6 +642,9 @@ components:
           format: date-time
           example: '2021-01-01T00:00:00Z'
           description: Timestamp of when the device was last updated
+    Device:
+      allOf:
+        - $ref: '#/components/schemas/BaseDevice'
     BaseConfigSchema:
       title: Base Config Schema
       type: object
@@ -822,9 +678,7 @@ components:
           description: Hash of the config schema contents
         relative_filepath:
           type: string
-          description: >-
-            The file path to deploy the config instance relative to `/srv/miru/config_instances`.
-            `v1/motion-control.json` would deploy to `/srv/miru/config_instances/v1/motion-control.json`
+          description: The file path to deploy the config instance relative to `/srv/miru/config_instances`. `v1/motion-control.json` would deploy to `/srv/miru/config_instances/v1/motion-control.json`
           example: /v1/motion-control.json
         created_at:
           type: string
@@ -950,9 +804,7 @@ components:
         total_count:
           type: integer
           format: int64
-          description: >-
-            The total number of items in the list. By default the total count is not returned. The total count
-            must be expanded (using expand[]=total_count) to get the total number of items in the list.
+          description: The total number of items in the list. By default the total count is not returned. The total count must be expanded (using expand[]=total_count) to get the total number of items in the list.
         limit:
           type: integer
           description: The maximum number of items to return. A limit of 15 with an offset of 0 returns items 1-15.
@@ -969,6 +821,7 @@ components:
           description: True if there are more items in the list to return. False if there are no more items to return.
           example: false
     ConfigSchema:
+      title: Config Schema
       allOf:
         - $ref: '#/components/schemas/BaseConfigSchema'
         - type: object
@@ -994,6 +847,7 @@ components:
               items:
                 $ref: '#/components/schemas/ConfigSchema'
     ConfigType:
+      title: Config Type
       allOf:
         - $ref: '#/components/schemas/BaseConfigType'
         - type: object
@@ -1013,6 +867,7 @@ components:
                 has_more: false
                 data: []
     ConfigInstance:
+      title: Config Instance
       allOf:
         - $ref: '#/components/schemas/BaseConfigInstance'
         - type: object
@@ -1024,7 +879,7 @@ components:
           properties:
             device:
               allOf:
-                - $ref: '#/components/schemas/BaseDevice'
+                - $ref: '#/components/schemas/Device'
               nullable: true
               example: null
             config_schema:
@@ -1041,9 +896,7 @@ components:
               example: null
             content:
               type: object
-              description: >-
-                The configuration values associated with the config instance. Expand the content using
-                'expand[]=content' in the query string
+              description: The configuration values associated with the config instance. Expand the content using 'expand[]=content' in the query string
               example:
                 enable_autonomy: true
                 enable_remote_control: false
@@ -1141,14 +994,10 @@ components:
       enum:
         - device_file_path_conflict
         - device_config_schema_conflict
-      description: >
+      description: |
         The reason the config instance was removed
-
-        - device_file_path_conflict: the config instance is currently deployed to the same device with the
-        same file path as the new config instance to deploy
-
-        - device_config_schema_conflict: the config instance is currently deployed to the same device with the
-        same config schema as the new config instance to deploy
+        - device_file_path_conflict: the config instance is currently deployed to the same device with the same file path as the new config instance to deploy
+        - device_config_schema_conflict: the config instance is currently deployed to the same device with the same config schema as the new config instance to deploy
       example: device_file_path_conflict
     RemoveConfigInstanceResponse:
       title: Remove Config Instance Response
@@ -1162,9 +1011,8 @@ components:
           $ref: '#/components/schemas/ConfigInstanceRemovalCode'
         explanation:
           type: string
-          description: >
-            A human-readable explanation of why the config instance must be removed for the new config
-            instance to be able to be deployed
+          description: |
+            A human-readable explanation of why the config instance must be removed for the new config instance to be able to be deployed
           example: Config instance cfg_inst_123 has the same device and file path as cfg_inst_456
         config_instance:
           $ref: '#/components/schemas/ConfigInstance'
@@ -1236,7 +1084,7 @@ components:
             data:
               type: array
               items:
-                $ref: '#/components/schemas/BaseDevice'
+                $ref: '#/components/schemas/Device'
     CreateDeviceRequest:
       title: Create Device Request
       type: object
@@ -1245,10 +1093,17 @@ components:
       properties:
         name:
           type: string
-          description: >-
-            The name of the device. Use $HOSTNAME to postpone device naming until activation, where the
-            device's hostname will be used.
+          description: The name of the device.
           example: Robot 1
+    IssueActivationTokenRequest:
+      title: Issue Activation Token Request
+      type: object
+      properties:
+        allow_reactivation:
+          type: boolean
+          default: false
+          description: Whether this token can reactivate already activated devices. If false, the token is unable to activate devices which are already activated.
+          example: false
     TokenResponse:
       title: Token Response
       type: object
@@ -1275,15 +1130,18 @@ components:
       properties:
         relative_filepath:
           type: string
+          description: The file path to deploy the config instance relative to `/srv/miru/config_instances`. `v1/motion-control.json` would deploy to `/srv/miru/config_instances/v1/motion-control.json`
           example: /v1/motion-control.json
         content:
           type: object
+          description: The configuration values associated with the config instance.
           example:
             direction: forward
             speed: 100
             duration: 10
         config_schema_id:
           type: string
+          description: The id of the config schema which this config instance must adhere to.
           example: cfg_sch_123
     StageDeviceRequest:
       title: Stage Device Request
@@ -1293,39 +1151,6 @@ components:
       properties:
         config_instances:
           type: array
+          description: The config instances to stage on the device. These config instances will be deployed to the device as soon as it is activated.
           items:
             $ref: '#/components/schemas/StageConfigInstanceRequest'
-    Event:
-      type: object
-      required:
-        - object
-        - timestamp
-      properties:
-        object:
-          type: string
-          enum:
-            - event
-          description: The object that occurred
-        timestamp:
-          type: string
-          format: date-time
-          description: The timestamp of the event
-    ConfigInstanceTargetStatusValidatedEvent:
-      allOf:
-        - $ref: '#/components/schemas/Event'
-        - type: object
-          required:
-            - type
-            - data
-          properties:
-            type:
-              type: string
-              enum:
-                - config_instance.target_status.validated
-            data:
-              type: object
-              required:
-                - config_instance
-              properties:
-                config_instance:
-                  $ref: '#/components/schemas/BaseConfigInstance'

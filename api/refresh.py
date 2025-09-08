@@ -45,19 +45,21 @@ def regen_openapi_specs(openapi_dir: Path) -> None:
     configs_dir: Path = openapi_dir / "configs"
     backend_server_dir: Path = configs_dir / "backend-server"
     webhooks_dir: Path = configs_dir / "webhooks"
+    agent_server_dir: Path = configs_dir / "agent-server"
 
     # regenerate the backend server api spec
     run_command_stream(f"cd {backend_server_dir} && make bundle-public")
     run_command_stream(f"cd {webhooks_dir} && make bundle-webhooks")
+    run_command_stream(f"cd {agent_server_dir} && make bundle-all")
 
 
-def refresh_api_yaml(api_dir: Path, openapi_dir: Path) -> None:
+def refresh_server_api_yaml(api_dir: Path, openapi_dir: Path) -> None:
     """Refresh the api.yaml file."""
     backend_server_dir: Path = openapi_dir / "configs" / "backend-server"
     public_server_dir: Path = backend_server_dir / "public"
     public_openapi_spec: Path = public_server_dir / "openapi.gen.yaml"
 
-    target_api_file: Path = api_dir / "api.yaml"
+    target_api_file: Path = api_dir / "server-api.yaml"
 
     # delete the target api file if it exists
     if target_api_file.exists():
@@ -78,6 +80,19 @@ def refresh_webhooks_yaml(api_dir: Path, openapi_dir: Path) -> None:
     shutil.copy(webhooks_file, target_webhooks_file)
 
 
+def refresh_agent_api_yaml(api_dir: Path, openapi_dir: Path) -> None:
+    """Refresh the api.yaml file."""
+    agent_server_dir: Path = openapi_dir / "configs" / "agent-server"
+    public_openapi_spec: Path = agent_server_dir / "openapi.gen.yaml"
+
+    target_api_file: Path = api_dir / "agent-api.yaml"
+
+    # delete the target api file if it exists
+    if target_api_file.exists():
+        target_api_file.unlink()
+    shutil.copy(public_openapi_spec, target_api_file)
+
+
 def main() -> None:
     # Get repository root and set up paths
     repo_root: Path = Path(
@@ -90,7 +105,8 @@ def main() -> None:
     regen_openapi_specs(openapi_dir)
 
     # refresh the yaml files in the api directory
-    refresh_api_yaml(api_dir, openapi_dir)
+    refresh_server_api_yaml(api_dir, openapi_dir)
+    refresh_agent_api_yaml(api_dir, openapi_dir)
     refresh_webhooks_yaml(api_dir, openapi_dir)
 
 

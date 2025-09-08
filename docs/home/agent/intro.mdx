@@ -1,0 +1,23 @@
+---
+title: "Introduction"
+mode: "center"
+---
+
+import SupportPlatforms from '/snippets/agent/supported-platforms.mdx';
+
+The Miru Agent is a lightweight `systemd` service that runs on your machines, handling the deployment lifecycle of configurations. The agent:
+
+- **Syncs configurations** from the cloud to the local filesystem in real-time.
+- **Manages device state**, providing real-time updates of the device's status and the currently deployed configurations.
+- **Exposes a [REST API](/docs/api-reference/agent/intro)** over a Unix socket for programmatic access by applications running on the same machine.
+
+## Key Benefits
+
+- **Offline resilience**: Configurations are cached locally on the machine and synced as soon as the network is available, ensuring continued operation through network interruptions.
+- **Secure communication**: All communication is outbound-only via HTTPS or MQTTS, ensuring secure and private communication.
+- **Lightweight footprint**: Our rust-based agent consumes minimal resources and may be configured to only run on demand (via socket activation) for further optimization.
+
+## Supported Platforms
+
+<SupportPlatforms />
+
