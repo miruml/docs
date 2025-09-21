@@ -18,7 +18,7 @@ paths:
     get:
       tags:
         - Agent
-      summary: Health
+      summary: Get the health of the agent
       responses:
         '200':
           description: Successfully retrieved the health of the agent
@@ -26,19 +26,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HealthResponse'
-      x-codeSamples:
-        - lang: Python
-          source: |-
-            from miru_agent_sdk import Miru
-
-            client = Miru()
-            response = client.agent.health()
-            print(response.status)
   /version:
     get:
       tags:
         - Agent
-      summary: Version
+      summary: Get the version of the agent
       responses:
         '200':
           description: Successfully retrieved the version of the agent
@@ -46,20 +38,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VersionResponse'
-      x-codeSamples:
-        - lang: Python
-          source: |-
-            from miru_agent_sdk import Miru
-
-            client = Miru()
-            response = client.agent.version()
-            print(response.commit)
   /config_instances/deployed:
     get:
-      x-hidden: true
       tags:
         - Config Instances
-      summary: Get Deployed
+      summary: Get the deployed config instance
       operationId: getDeployedConfigInstance
       parameters:
         - $ref: '#/components/parameters/config_schema_digest'
@@ -73,10 +56,9 @@ paths:
                 $ref: '#/components/schemas/ConfigInstance'
   /config_schemas/hash/serialized:
     post:
-      x-hidden: true
       tags:
         - Config Schemas
-      summary: Hash Serialized
+      summary: Hash a serialized config schema
       operationId: hashConfigSchemaSerialized
       requestBody:
         required: true
@@ -95,7 +77,7 @@ paths:
     get:
       tags:
         - Devices
-      summary: Get
+      summary: Get the device
       operationId: getDevice
       responses:
         '200':
@@ -104,19 +86,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Device'
-      x-codeSamples:
-        - lang: Python
-          source: |-
-            from miru_agent_sdk import Miru
-
-            client = Miru()
-            device = client.device.retrieve()
-            print(device.id)
   /device/sync:
     post:
       tags:
         - Devices
-      summary: Sync
+      summary: Sync the device
       operationId: syncDevice
       responses:
         '200':
@@ -125,17 +99,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SyncDeviceResponse'
-      x-codeSamples:
-        - lang: Python
-          source: |-
-            from miru_agent_sdk import Miru
-
-            client = Miru()
-            response = client.device.sync()
-            print(response.code)
   /example-error:
     get:
-      x-excluded: true
       tags:
         - Errors
       summary: Get an error
@@ -175,57 +140,43 @@ components:
     ConfigInstanceTargetStatus:
       type: string
       description: |
-        Desired state of the config instance
-        - Created: config instance desires not to be deployed but can be deployed in the future
-        - Validated: config instance desires user's custom validation before deployment can begin
-        - Deployed: config instance desires to be available on the device
-        - Removed: config instance desires to no longer be available on the device
+        Desired state of the config instance.
+        - Created: config instance is created and can be deployed in the future
+        - Deployed: config instance is available for consumption on the device
+        - Removed: config instance is available for historical reference but cannot be deployed and is not active on the device
       enum:
         - created
-        - validated
         - deployed
         - removed
       x-enum-varnames:
         - CONFIG_INSTANCE_TARGET_STATUS_CREATED
-        - CONFIG_INSTANCE_TARGET_STATUS_VALIDATED
         - CONFIG_INSTANCE_TARGET_STATUS_DEPLOYED
         - CONFIG_INSTANCE_TARGET_STATUS_REMOVED
     ConfigInstanceActivityStatus:
       type: string
       description: |
-        Last known activity state of the config instance
-        - Created: config instance has been created but no deployment attempt has been made
-        - Validating: config instance is being validated with user's custom validation
-        - Validated: config instance has been validated with user's custom validation
-        - Queued: config instance will be deployed as soon as the device is back online
-        - Deployed: config instance is currently available on the device
-        - Removed: the config instance is no longer available on the device
+        Last known activity state of the config instance.
+        - Created: config instance has been created and can be deployed in the future
+        - Queued: config instance is waiting to be received by the device; will be deployed as soon as the device is online
+        - Deployed: config instance is currently available for consumption on the device
+        - Removed: the config instance is available for historical reference but cannot be deployed and is not active on the device
       enum:
         - created
-        - validating
-        - validated
         - queued
         - deployed
         - removed
       x-enum-varnames:
         - CONFIG_INSTANCE_ACTIVITY_STATUS_CREATED
-        - CONFIG_INSTANCE_ACTIVITY_STATUS_VALIDATING
-        - CONFIG_INSTANCE_ACTIVITY_STATUS_VALIDATED
         - CONFIG_INSTANCE_ACTIVITY_STATUS_QUEUED
         - CONFIG_INSTANCE_ACTIVITY_STATUS_DEPLOYED
         - CONFIG_INSTANCE_ACTIVITY_STATUS_REMOVED
     ConfigInstanceErrorStatus:
       type: string
-      description: >
-        Last known error state of the config instance deployment
-
+      description: |
+        Last known error state of the config instance deployment.
         - None: there are no errors with the config instance deployment
-
-        - Retrying: an error has been encountered and the agent is attempting to try again to reach the target
-        status
-
-        - Failed: an error has been encountered but no more retries are left; the config instance is removed
-        (if deployed)
+        - Retrying: an error has been encountered and the agent is attempting to try again to reach the target status
+        - Failed: a fatal error has been encountered; the config instance is archived and (if deployed) removed from the device
       enum:
         - none
         - failed
@@ -236,15 +187,10 @@ components:
         - CONFIG_INSTANCE_ERROR_STATUS_RETRYING
     ConfigInstanceStatus:
       type: string
-      description: >
-        This status merges the 'activity_status' and 'error_status' fields, with error states taking
-        precedence over activity states when errors are present. For example, if the activity status is
-        'deployed' but there's an error, the overall status will be 'failed' or 'retrying' depending on the
-        error state.
+      description: |
+        This status merges the 'activity_status' and 'error_status' fields, with error states taking precedence over activity states when errors are present. For example, if the activity status is 'deployed' but the error status is 'failed', the status is 'failed'. However, if the error status is 'none' and the activity status is 'deployed', the status is 'deployed'.
       enum:
         - created
-        - validating
-        - validated
         - queued
         - deployed
         - removed
@@ -252,8 +198,6 @@ components:
         - retrying
       x-enum-varnames:
         - CONFIG_INSTANCE_STATUS_CREATED
-        - CONFIG_INSTANCE_STATUS_VALIDATING
-        - CONFIG_INSTANCE_STATUS_VALIDATED
         - CONFIG_INSTANCE_STATUS_QUEUED
         - CONFIG_INSTANCE_STATUS_DEPLOYED
         - CONFIG_INSTANCE_STATUS_REMOVED
@@ -284,7 +228,7 @@ components:
         id:
           type: string
           example: cfg_inst_123
-          description: ID of the config instance
+          description: ID of the config instance.
         target_status:
           $ref: '#/components/schemas/ConfigInstanceTargetStatus'
         activity_status:
@@ -296,31 +240,29 @@ components:
         relative_filepath:
           type: string
           example: /v1/motion-control.json
-          description: >-
-            The file path to deploy the config instance relative to `/srv/miru/config_instances`.
-            `v1/motion-control.json` would deploy to `/srv/miru/config_instances/v1/motion-control.json`
+          description: The file path to deploy the config instance relative to `/srv/miru/config_instances`. `v1/motion-control.json` would deploy to `/srv/miru/config_instances/v1/motion-control.json`.
         created_at:
           type: string
           format: date-time
           example: '2021-01-01T00:00:00Z'
-          description: The timestamp of when the config instance was created
+          description: The timestamp of when the config instance was created.
         updated_at:
           type: string
           format: date-time
           example: '2021-01-01T00:00:00Z'
-          description: The timestamp of when the config instance was last updated
+          description: The timestamp of when the config instance was last updated.
         device_id:
           type: string
           example: dvc_123
-          description: ID of the device which the config instance is deployed to
+          description: ID of the device which the config instance is deployed to.
         config_schema_id:
           type: string
           example: cfg_sch_123
-          description: ID of the config schema which the config instance must adhere to
+          description: ID of the config schema which the config instance must adhere to.
         config_type_id:
           type: string
           example: cfg_type_123
-          description: ID of the config type which the config instance (and its schema) is a part of
+          description: ID of the config type which the config instance (and its schema) is a part of.
     ConfigInstance:
       allOf:
         - $ref: '#/components/schemas/BaseConfigInstance'
@@ -361,8 +303,7 @@ components:
         schema:
           type: string
           format: byte
-          example: >-
-            ewogICIkc2NoZW1hIjogImh0dHBzOi8vanNvbi1zY2hlbWEub3JnL2RyYWZ0LzIwMjAtMTIvc2NoZW1hIiwKICAidHlwZSI6ICJvYmplY3QiLAogICJwcm9wZXJ0aWVzIjogewogICAgImRldmljZV9pZCI6IHsKICAgICAgInR5cGUiOiAic3RyaW5nIgogICAgfSwKICAgICJzcGVlZCI6IHsKICAgICAgInR5cGUiOiAiaW50ZWdlciIsCiAgICAgICJtaW5pbXVtIjogMSwKICAgICAgImRlZmF1bHQiOiAxMAogICAgfQogIH0sCiAgInJlcXVpcmVkIjogWyJkZXZpY2VfaWQiLCAic3BlZWQiXQp9
+          example: ewogICIkc2NoZW1hIjogImh0dHBzOi8vanNvbi1zY2hlbWEub3JnL2RyYWZ0LzIwMjAtMTIvc2NoZW1hIiwKICAidHlwZSI6ICJvYmplY3QiLAogICJwcm9wZXJ0aWVzIjogewogICAgImRldmljZV9pZCI6IHsKICAgICAgInR5cGUiOiAic3RyaW5nIgogICAgfSwKICAgICJzcGVlZCI6IHsKICAgICAgInR5cGUiOiAiaW50ZWdlciIsCiAgICAgICJtaW5pbXVtIjogMSwKICAgICAgImRlZmF1bHQiOiAxMAogICAgfQogIH0sCiAgInJlcXVpcmVkIjogWyJkZXZpY2VfaWQiLCAic3BlZWQiXQp9
     SchemaDigestResponse:
       title: Schema Digest Response
       type: object
@@ -420,12 +361,12 @@ components:
           type: string
           format: date-time
           example: '2021-01-01T00:00:00Z'
-          description: Timestamp of the last successful connection event with the MQTT broker.
+          description: Timestamp of the last successful connection event with the backend.
         last_disconnected_at:
           type: string
           format: date-time
           example: '2021-01-01T00:00:00Z'
-          description: Timestamp of the last successful disconnection event with the MQTT broker.
+          description: Timestamp of the last successful disconnection event with the backend.
     SyncDeviceResult:
       type: string
       description: The result of attempting to sync the device.
@@ -506,7 +447,7 @@ components:
       name: config_schema_digest
       in: query
       required: true
-      description: The digest of the config schema
+      description: The digest of the config schema.
       schema:
         type: string
         example: sha256:1234567890abcdef
@@ -514,6 +455,6 @@ components:
       name: config_type_slug
       in: query
       required: true
-      description: The slug of the config type
+      description: The slug of the config type.
       schema:
         type: string

@@ -2,6 +2,8 @@
 title: "Authentication"
 ---
 
+import CreateAPIKey from '/snippets/api-keys/create.mdx';
+
 ## API Keys
 The Miru API uses API keys to authenticate requests. You can view and manage your API keys in the [Miru Dashboard](https://configs.miruml.com/secrets/api-keys).
 
@@ -21,10 +23,4 @@ All requests must be made over HTTPS. Any requests over plain HTTP or without au
 
 To generate a new key:
 
-1. Go to the [API Keys page](https://configs.miruml.com/secrets/api-keys) in the dashboard.
-2. Click **New API Key**.
-3. Provide a name and click **Create**.
-
-<Warning>
-Once an API key has been created, it can never be retrieved again. If you lose your API key, you must create a new one.
-</Warning>
+<CreateAPIKey />

@@ -21,7 +21,7 @@ paths:
       tags:
         - Config Instances
       summary: Get
-      description: Get a config instance by ID
+      description: Retrieve a config instance by ID.
       operationId: getConfigInstance
       parameters:
         - $ref: '#/components/parameters/config_instance_id'
@@ -38,7 +38,7 @@ paths:
       tags:
         - Config Instances
       summary: List
-      description: List config instances
+      description: List config instances.
       operationId: listConfigInstances
       parameters:
         - $ref: '#/components/parameters/offset'
@@ -59,78 +59,98 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConfigInstanceList'
-  /config_instances/{config_instance_id}/approve:
+  /deployments/{deployment_id}:
+    get:
+      tags:
+        - Deployments
+      summary: Get
+      operationId: getDeployment
+      parameters:
+        - $ref: '#/components/parameters/deployment_id'
+        - $ref: '#/components/parameters/parameters-expand'
+      responses:
+        '200':
+          description: Successfully retrieved the deployment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+  /deployments:
+    get:
+      tags:
+        - Deployments
+      summary: List
+      operationId: listDeployments
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/parameters-order_by'
+        - $ref: '#/components/parameters/parameters-expand_list'
+        - $ref: '#/components/parameters/parameters-id'
+        - $ref: '#/components/parameters/parameters-target_status'
+        - $ref: '#/components/parameters/parameters-activity_status'
+        - $ref: '#/components/parameters/parameters-error_status'
+        - $ref: '#/components/parameters/parameters-device_id'
+        - $ref: '#/components/parameters/release_id'
+      responses:
+        '200':
+          description: Successfully listed the deployments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentList'
     post:
       tags:
-        - Config Instances
-      summary: Approve
-      description: Approve a config instance for deployment
-      operationId: approveConfigInstance
+        - Deployments
+      summary: Create
+      description: Stage or deploy a new deployment.
+      operationId: createDeployment
       parameters:
-        - $ref: '#/components/parameters/config_instance_id'
-        - $ref: '#/components/parameters/expand'
+        - $ref: '#/components/parameters/parameters-expand'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ApproveConfigInstanceRequest'
+              $ref: '#/components/schemas/CreateDeploymentRequest'
       responses:
         '200':
-          description: Successfully approved the config instance for deployment.
+          description: Successfully created the deployment.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConfigInstance'
-  /config_instances/{config_instance_id}/reject:
+                $ref: '#/components/schemas/Deployment'
+  /deployments/{deployment_id}/validate:
     post:
       tags:
-        - Config Instances
-      summary: Reject
-      description: Reject a config instance for deployment
-      operationId: rejectConfigInstance
+        - Deployments
+      summary: Validate
+      description: Validate a deployment with your custom validation.
+      operationId: validateDeployment
       parameters:
-        - $ref: '#/components/parameters/config_instance_id'
-        - $ref: '#/components/parameters/expand'
+        - $ref: '#/components/parameters/deployment_id'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RejectConfigInstanceRequest'
+              $ref: '#/components/schemas/ValidateDeploymentRequest'
       responses:
         '200':
-          description: Successfully rejected the config instance for deployment.
+          description: Successfully validated the deployment.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConfigInstance'
-  /config_instances/{config_instance_id}/deploy:
-    post:
-      tags:
-        - Config Instances
-      summary: Deploy
-      description: Deploy a config instance to a device
-      operationId: deployConfigInstance
-      parameters:
-        - $ref: '#/components/parameters/config_instance_id'
-        - $ref: '#/components/parameters/dry_run'
-      responses:
-        '200':
-          description: Successfully queued the config instance for deployment and queued conflicting config instances for removal.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeployConfigInstanceResponse'
+                $ref: '#/components/schemas/ValidateDeploymentResponse'
   /devices/{device_id}:
     get:
       tags:
         - Devices
       summary: Get
-      description: Get a device by ID
+      description: Get a device by ID.
       operationId: getDevice
       parameters:
-        - $ref: '#/components/parameters/parameters-device_id'
+        - $ref: '#/components/parameters/components-parameters-device_id'
       responses:
         '200':
           description: Successfully retrieved the device.
@@ -143,9 +163,9 @@ paths:
         - Devices
       summary: Update
       operationId: updateDevice
-      description: Update a device by ID
+      description: Update a device by ID.
       parameters:
-        - $ref: '#/components/parameters/parameters-device_id'
+        - $ref: '#/components/parameters/components-parameters-device_id'
       requestBody:
         required: true
         content:
@@ -164,9 +184,9 @@ paths:
         - Devices
       summary: Delete
       operationId: deleteDevice
-      description: Delete a device by ID
+      description: Delete a device by ID.
       parameters:
-        - $ref: '#/components/parameters/parameters-device_id'
+        - $ref: '#/components/parameters/components-parameters-device_id'
       responses:
         '200':
           description: Successfully deleted the device.
@@ -180,7 +200,7 @@ paths:
         - Devices
       summary: Create
       operationId: createDevice
-      description: Create a new device
+      description: Create a new device.
       requestBody:
         required: true
         content:
@@ -198,15 +218,17 @@ paths:
       tags:
         - Devices
       summary: List
-      description: List devices
+      description: List devices.
       operationId: listDevices
       parameters:
         - $ref: '#/components/parameters/offset'
         - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/parameters-order_by'
-        - $ref: '#/components/parameters/parameters-expand_list'
-        - $ref: '#/components/parameters/parameters-id'
+        - $ref: '#/components/parameters/components-parameters-order_by'
+        - $ref: '#/components/parameters/components-parameters-expand_list'
+        - $ref: '#/components/parameters/components-parameters-id'
         - $ref: '#/components/parameters/name'
+        - $ref: '#/components/parameters/agent_version'
+        - $ref: '#/components/parameters/current_release_id'
       responses:
         '200':
           description: Successfully listed the devices.
@@ -220,9 +242,9 @@ paths:
         - Devices
       summary: Activation Token
       operationId: createDeviceActivationToken
-      description: Create a new device activation token
+      description: Create a new device activation token.
       parameters:
-        - $ref: '#/components/parameters/parameters-device_id'
+        - $ref: '#/components/parameters/components-parameters-device_id'
       requestBody:
         required: true
         content:
@@ -236,28 +258,44 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TokenResponse'
-  /devices/{device_id}/stage:
-    post:
+  /releases/{release_id}:
+    get:
       tags:
-        - Devices
-      summary: Stage
-      operationId: stageDevice
-      description: Stage a device
+        - Releases
+      summary: Get
+      description: Retrieve a release by ID.
+      operationId: getRelease
       parameters:
-        - $ref: '#/components/parameters/parameters-device_id'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StageDeviceRequest'
+        - $ref: '#/components/parameters/parameters-release_id'
+        - $ref: '#/components/parameters/components-parameters-expand'
       responses:
         '200':
-          description: Successfully staged the device.
+          description: Successfully retrieved the release.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Device'
+                $ref: '#/components/schemas/Release'
+  /releases:
+    get:
+      tags:
+        - Releases
+      summary: List
+      description: List releases.
+      operationId: listReleases
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/releases_components-parameters-order_by'
+        - $ref: '#/components/parameters/releases_components-parameters-expand_list'
+        - $ref: '#/components/parameters/releases_components-parameters-id'
+        - $ref: '#/components/parameters/version'
+      responses:
+        '200':
+          description: Successfully listed the releases.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseList'
 components:
   securitySchemes:
     ApiKeyAuth:
@@ -270,7 +308,7 @@ components:
       name: config_instance_id
       in: path
       required: true
-      description: The unique identifier of the config instance
+      description: The unique identifier of the config instance.
       schema:
         type: string
         example: cfg_inst_123
@@ -282,7 +320,7 @@ components:
         type: array
         items:
           $ref: '#/components/schemas/ExpandConfigInstance'
-        description: The fields to expand in the config instance
+        description: The fields to expand in the config instance.
     offset:
       name: offset
       in: query
@@ -308,7 +346,7 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/ConfigInstanceOrderBy'
-        description: The order to sort the config instances
+        description: The order to sort the config instances.
     expand_list:
       name: expand[]
       in: query
@@ -317,12 +355,12 @@ components:
         type: array
         items:
           $ref: '#/components/schemas/ExpandConfigInstanceList'
-        description: The fields to expand in the config instance list
+        description: The fields to expand in the config instance list.
     id:
       name: id
       in: query
       required: false
-      description: The config instance ID to filter by
+      description: The config instance ID to filter by.
       schema:
         type: string
         example: cfg_inst_123
@@ -330,28 +368,28 @@ components:
       name: target_status
       in: query
       required: false
-      description: The config instance target status to filter by
+      description: The config instance target status to filter by.
       schema:
         $ref: '#/components/schemas/ConfigInstanceTargetStatus'
     activity_status:
       name: activity_status
       in: query
       required: false
-      description: The config instance activity status to filter by
+      description: The config instance activity status to filter by.
       schema:
         $ref: '#/components/schemas/ConfigInstanceActivityStatus'
     error_status:
       name: error_status
       in: query
       required: false
-      description: The config instance error status to filter by
+      description: The config instance error status to filter by.
       schema:
         $ref: '#/components/schemas/ConfigInstanceErrorStatus'
     device_id:
       name: device_id
       in: query
       required: false
-      description: The device ID to filter by
+      description: The device ID to filter by.
       schema:
         type: string
         example: dvc_123
@@ -359,7 +397,7 @@ components:
       name: config_schema_id
       in: query
       required: false
-      description: The config schema ID to filter by
+      description: The config schema ID to filter by.
       schema:
         type: string
         example: cfg_sch_123
@@ -367,33 +405,34 @@ components:
       name: config_type_id
       in: query
       required: false
-      description: The config type ID to filter by
+      description: The config type ID to filter by.
       schema:
         type: string
         example: cfg_typ_123
-    dry_run:
-      name: dry_run
-      in: query
-      required: false
-      description: Perform a dry run that simulates the operation without making actual changes
-      schema:
-        type: boolean
-        default: false
-    parameters-device_id:
-      name: device_id
+    deployment_id:
+      name: deployment_id
       in: path
       required: true
-      description: The unique identifier of the device
+      description: The unique identifier of the deployment.
       schema:
         type: string
-        example: dvc_123
+        example: dpl_123
+    parameters-expand:
+      name: expand[]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/ExpandDeployment'
+        description: The fields to expand in the deployment.
     parameters-order_by:
       name: order_by
       in: query
       required: false
       schema:
-        $ref: '#/components/schemas/DeviceOrderBy'
-        description: The order to sort the devices
+        $ref: '#/components/schemas/DeploymentOrderBy'
+        description: The order to sort the deployments.
     parameters-expand_list:
       name: expand[]
       in: query
@@ -401,13 +440,84 @@ components:
       schema:
         type: array
         items:
-          $ref: '#/components/schemas/ExpandDeviceList'
-        description: The fields to expand in the device list
+          $ref: '#/components/schemas/ExpandDeploymentList'
+        description: The fields to expand in the deployments list.
     parameters-id:
       name: id
       in: query
       required: false
-      description: The device ID to filter by
+      description: The deployment ID to filter by.
+      schema:
+        type: string
+        example: dpl_123
+    parameters-target_status:
+      name: target_status
+      in: query
+      required: false
+      description: The deployment target status to filter by.
+      schema:
+        $ref: '#/components/schemas/DeploymentTargetStatus'
+    parameters-activity_status:
+      name: activity_status
+      in: query
+      required: false
+      description: The deployment activity status to filter by.
+      schema:
+        $ref: '#/components/schemas/DeploymentActivityStatus'
+    parameters-error_status:
+      name: error_status
+      in: query
+      required: false
+      description: The deployment error status to filter by.
+      schema:
+        $ref: '#/components/schemas/DeploymentErrorStatus'
+    parameters-device_id:
+      name: device_id
+      in: query
+      required: false
+      description: The deployment device ID to filter by.
+      schema:
+        type: string
+        example: dvc_123
+        description: The deployment device ID to filter by.
+    release_id:
+      name: release_id
+      in: query
+      required: false
+      description: The deployment release ID to filter by.
+      schema:
+        type: string
+        example: rls_123
+        description: The deployment release ID to filter by.
+    components-parameters-device_id:
+      name: device_id
+      in: path
+      required: true
+      description: The unique identifier of the device.
+      schema:
+        type: string
+        example: dvc_123
+    components-parameters-order_by:
+      name: order_by
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/DeviceOrderBy'
+        description: The order to sort the devices.
+    components-parameters-expand_list:
+      name: expand[]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/ExpandDeviceList'
+        description: The fields to expand in the device list.
+    components-parameters-id:
+      name: id
+      in: query
+      required: false
+      description: The device ID to filter by.
       schema:
         type: string
         example: dev_123
@@ -415,10 +525,75 @@ components:
       name: name
       in: query
       required: false
-      description: The device name to filter by
+      description: The device name to filter by.
       schema:
         type: string
         example: My Device
+    agent_version:
+      name: agent_version
+      in: query
+      required: false
+      description: The agent version to filter by.
+      schema:
+        type: string
+        example: v1.0.0
+    current_release_id:
+      name: current_release_id
+      in: query
+      required: false
+      description: The current release ID to filter by.
+      schema:
+        type: string
+        example: rls_123
+    parameters-release_id:
+      name: release_id
+      in: path
+      required: true
+      description: The unique identifier of the release.
+      schema:
+        type: string
+        example: rls_123
+    components-parameters-expand:
+      name: expand[]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/ExpandRelease'
+        description: The fields to expand in the releases.
+    releases_components-parameters-order_by:
+      name: order_by
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/ReleaseOrderBy'
+        description: The order to sort the releases.
+    releases_components-parameters-expand_list:
+      name: expand[]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/ExpandReleaseList'
+        description: The fields to expand in the releases list.
+    releases_components-parameters-id:
+      name: id
+      in: query
+      required: false
+      description: The release ID to filter by.
+      schema:
+        type: string
+        example: rls_123
+    version:
+      name: version
+      in: query
+      required: false
+      description: The release version to filter by.
+      schema:
+        type: string
+        example: v1.0.0
   schemas:
     ExpandConfigInstance:
       type: string
@@ -435,52 +610,43 @@ components:
     ConfigInstanceTargetStatus:
       type: string
       description: |
-        Desired state of the config instance
-        - Created: config instance desires not to be deployed but can be deployed in the future
-        - Validated: config instance desires user's custom validation before deployment can begin
-        - Deployed: config instance desires to be available on the device
-        - Removed: config instance desires to no longer be available on the device
+        Desired state of the config instance.
+        - Created: config instance is created and can be deployed in the future
+        - Deployed: config instance is available for consumption on the device
+        - Removed: config instance is available for historical reference but cannot be deployed and is not active on the device
       enum:
         - created
-        - validated
         - deployed
         - removed
       x-enum-varnames:
         - CONFIG_INSTANCE_TARGET_STATUS_CREATED
-        - CONFIG_INSTANCE_TARGET_STATUS_VALIDATED
         - CONFIG_INSTANCE_TARGET_STATUS_DEPLOYED
         - CONFIG_INSTANCE_TARGET_STATUS_REMOVED
     ConfigInstanceActivityStatus:
       type: string
       description: |
-        Last known activity state of the config instance
-        - Created: config instance has been created but no deployment attempt has been made
-        - Validating: config instance is being validated with user's custom validation
-        - Validated: config instance has been validated with user's custom validation
-        - Queued: config instance will be deployed as soon as the device is back online
-        - Deployed: config instance is currently available on the device
-        - Removed: the config instance is no longer available on the device
+        Last known activity state of the config instance.
+        - Created: config instance has been created and can be deployed in the future
+        - Queued: config instance is waiting to be received by the device; will be deployed as soon as the device is online
+        - Deployed: config instance is currently available for consumption on the device
+        - Removed: the config instance is available for historical reference but cannot be deployed and is not active on the device
       enum:
         - created
-        - validating
-        - validated
         - queued
         - deployed
         - removed
       x-enum-varnames:
         - CONFIG_INSTANCE_ACTIVITY_STATUS_CREATED
-        - CONFIG_INSTANCE_ACTIVITY_STATUS_VALIDATING
-        - CONFIG_INSTANCE_ACTIVITY_STATUS_VALIDATED
         - CONFIG_INSTANCE_ACTIVITY_STATUS_QUEUED
         - CONFIG_INSTANCE_ACTIVITY_STATUS_DEPLOYED
         - CONFIG_INSTANCE_ACTIVITY_STATUS_REMOVED
     ConfigInstanceErrorStatus:
       type: string
       description: |
-        Last known error state of the config instance deployment
+        Last known error state of the config instance deployment.
         - None: there are no errors with the config instance deployment
         - Retrying: an error has been encountered and the agent is attempting to try again to reach the target status
-        - Failed: an error has been encountered but no more retries are left; the config instance is removed (if deployed)
+        - Failed: a fatal error has been encountered; the config instance is archived and (if deployed) removed from the device
       enum:
         - none
         - failed
@@ -492,11 +658,9 @@ components:
     ConfigInstanceStatus:
       type: string
       description: |
-        This status merges the 'activity_status' and 'error_status' fields, with error states taking precedence over activity states when errors are present. For example, if the activity status is 'deployed' but there's an error, the overall status will be 'failed' or 'retrying' depending on the error state.
+        This status merges the 'activity_status' and 'error_status' fields, with error states taking precedence over activity states when errors are present. For example, if the activity status is 'deployed' but the error status is 'failed', the status is 'failed'. However, if the error status is 'none' and the activity status is 'deployed', the status is 'deployed'.
       enum:
         - created
-        - validating
-        - validated
         - queued
         - deployed
         - removed
@@ -504,8 +668,6 @@ components:
         - retrying
       x-enum-varnames:
         - CONFIG_INSTANCE_STATUS_CREATED
-        - CONFIG_INSTANCE_STATUS_VALIDATING
-        - CONFIG_INSTANCE_STATUS_VALIDATED
         - CONFIG_INSTANCE_STATUS_QUEUED
         - CONFIG_INSTANCE_STATUS_DEPLOYED
         - CONFIG_INSTANCE_STATUS_REMOVED
@@ -536,7 +698,7 @@ components:
         id:
           type: string
           example: cfg_inst_123
-          description: ID of the config instance
+          description: ID of the config instance.
         target_status:
           $ref: '#/components/schemas/ConfigInstanceTargetStatus'
         activity_status:
@@ -548,48 +710,45 @@ components:
         relative_filepath:
           type: string
           example: /v1/motion-control.json
-          description: The file path to deploy the config instance relative to `/srv/miru/config_instances`. `v1/motion-control.json` would deploy to `/srv/miru/config_instances/v1/motion-control.json`
+          description: The file path to deploy the config instance relative to `/srv/miru/config_instances`. `v1/motion-control.json` would deploy to `/srv/miru/config_instances/v1/motion-control.json`.
         created_at:
           type: string
           format: date-time
           example: '2021-01-01T00:00:00Z'
-          description: The timestamp of when the config instance was created
+          description: The timestamp of when the config instance was created.
         updated_at:
           type: string
           format: date-time
           example: '2021-01-01T00:00:00Z'
-          description: The timestamp of when the config instance was last updated
+          description: The timestamp of when the config instance was last updated.
         device_id:
           type: string
           example: dvc_123
-          description: ID of the device which the config instance is deployed to
+          description: ID of the device which the config instance is deployed to.
         config_schema_id:
           type: string
           example: cfg_sch_123
-          description: ID of the config schema which the config instance must adhere to
+          description: ID of the config schema which the config instance must adhere to.
         config_type_id:
           type: string
           example: cfg_type_123
-          description: ID of the config type which the config instance (and its schema) is a part of
+          description: ID of the config type which the config instance (and its schema) is a part of.
     DeviceStatus:
       type: string
       description: |
-        The status of the device
+        The status of the device.
         - Inactive: The miru agent has not yet been installed / authenticated
-        - Staged: The device has been staged for activation
-        - Activated: The miru agent has been installed and authenticated
-        - Online: The miru agent has successfully pinged the server within the last 45 seconds.
-        - Offline: The miru agent has not successfully pinged the server within the last 45 seconds (e.g. network issues, device is powered off, etc.)
+        - Activating: The miru agent is currently being installed / authenticated (should only last for a few seconds)
+        - Online: The miru agent has successfully pinged the server within the last 60 seconds.
+        - Offline: The miru agent has not successfully pinged the server within the last 60 seconds (e.g. network issues, device is powered off, etc.)
       enum:
         - inactive
-        - staged
-        - activated
+        - activating
         - online
         - offline
       x-enum-varnames:
         - DEVICE_STATUS_INACTIVE
-        - DEVICE_STATUS_STAGED
-        - DEVICE_STATUS_ACTIVATED
+        - DEVICE_STATUS_ACTIVATING
         - DEVICE_STATUS_ONLINE
         - DEVICE_STATUS_OFFLINE
     BaseDevice:
@@ -613,11 +772,11 @@ components:
         id:
           type: string
           example: dvc_123
-          description: ID of the device
+          description: ID of the device.
         name:
           type: string
           example: My Device
-          description: Name of the device
+          description: Name of the device.
         status:
           $ref: '#/components/schemas/DeviceStatus'
         last_connected_at:
@@ -636,12 +795,12 @@ components:
           type: string
           format: date-time
           example: '2021-01-01T00:00:00Z'
-          description: Timestamp of when the device was created
+          description: Timestamp of when the device was created.
         updated_at:
           type: string
           format: date-time
           example: '2021-01-01T00:00:00Z'
-          description: Timestamp of when the device was last updated
+          description: Timestamp of when the device was last updated.
     Device:
       allOf:
         - $ref: '#/components/schemas/BaseDevice'
@@ -667,36 +826,36 @@ components:
         id:
           type: string
           example: cfg_sch_123
-          description: ID of the config schema
+          description: ID of the config schema.
         version:
           type: integer
           example: 2
-          description: Config schema version for the config type
+          description: Config schema version for the config type.
         digest:
           type: string
           example: '1234567890'
-          description: Hash of the config schema contents
+          description: Hash of the config schema contents.
         relative_filepath:
           type: string
-          description: The file path to deploy the config instance relative to `/srv/miru/config_instances`. `v1/motion-control.json` would deploy to `/srv/miru/config_instances/v1/motion-control.json`
+          description: The file path to deploy the config instance relative to `/srv/miru/config_instances`. `v1/motion-control.json` would deploy to `/srv/miru/config_instances/v1/motion-control.json`.
           example: /v1/motion-control.json
         created_at:
           type: string
           format: date-time
           example: '2021-01-01T00:00:00Z'
-          description: Timestamp of when the config schema was created
+          description: Timestamp of when the config schema was created.
         updated_at:
           type: string
           format: date-time
           example: '2021-01-01T00:00:00Z'
-          description: Timestamp of when the config schema was last updated
+          description: Timestamp of when the config schema was last updated.
         config_type_id:
           type: string
           example: cfg_typ_123
-          description: ID of the config type
+          description: ID of the config type.
         content:
           type: object
-          description: The config schema's JSON Schema definition
+          description: The config schema's JSON Schema definition.
           example:
             title: Robot Features
             type: object
@@ -767,25 +926,25 @@ components:
         id:
           type: string
           example: cfg_123
-          description: ID of the config type
+          description: ID of the config type.
         name:
           type: string
           example: My Config Type
-          description: Name of the config type
+          description: Name of the config type.
         slug:
           type: string
           example: my-config-type
-          description: An immutable, code-friendly name for the config type
+          description: An immutable, code-friendly name for the config type.
         created_at:
           type: string
           format: date-time
           example: '2021-01-01T00:00:00Z'
-          description: Timestamp of when the config type was created
+          description: Timestamp of when the config type was created.
         updated_at:
           type: string
           format: date-time
           example: '2021-01-01T00:00:00Z'
-          description: Timestamp of when the config type was last updated
+          description: Timestamp of when the config type was last updated.
     PaginatedList:
       title: Paginated List
       type: object
@@ -832,7 +991,7 @@ components:
               allOf:
                 - $ref: '#/components/schemas/ConfigType'
               nullable: true
-              description: Expand the config type using 'expand[]=config_type' in the query string
+              description: Expand the config type using 'expand[]=config_type' in the query string.
               example: null
     ConfigSchemaList:
       title: Config Schema List
@@ -858,7 +1017,7 @@ components:
               allOf:
                 - $ref: '#/components/schemas/ConfigSchemaList'
               nullable: true
-              description: Expand the config schemas using 'expand[]=schemas' in the query string
+              description: Expand the config schemas using 'expand[]=config_schemas' in the query string.
               example:
                 object: list
                 total_count: -1
@@ -874,7 +1033,6 @@ components:
           required:
             - device
             - config_schema
-            - config_type
             - content
           properties:
             device:
@@ -886,17 +1044,17 @@ components:
               allOf:
                 - $ref: '#/components/schemas/ConfigSchema'
               nullable: true
-              description: Expand the config schema using 'expand[]=config_schema' in the query string
+              description: Expand the config schema using 'expand[]=config_schema' in the query string.
               example: null
             config_type:
               allOf:
                 - $ref: '#/components/schemas/ConfigType'
               nullable: true
-              description: Expand the config type using 'expand[]=config_type' in the query string
+              description: Expand the config type using 'expand[]=config_type' in the query string.
               example: null
             content:
               type: object
-              description: The configuration values associated with the config instance. Expand the content using 'expand[]=content' in the query string
+              description: The configuration values associated with the config instance. Expand the content using 'expand[]=content' in the query string.
               example:
                 enable_autonomy: true
                 enable_remote_control: false
@@ -947,88 +1105,415 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/ConfigInstance'
-    ApproveConfigInstanceRequest:
-      title: Approve Config Instance Request
-      type: object
-      required:
-        - message
-      properties:
-        message:
-          type: string
-          description: A high level success message displayed to the user
-          example: The config instance has been approved
-    RejectConfigInstanceRequest:
-      title: Reject Config Instance Request
-      type: object
-      required:
-        - message
-        - errors
-      properties:
-        message:
-          type: string
-          description: A high level error message displayed to the user
-          example: The config instance contains additional parameters that are not supported by the config schema
-        errors:
-          type: array
-          items:
-            type: object
-            required:
-              - parameter_path
-              - message
-            properties:
-              parameter_path:
-                type: array
-                items:
-                  type: string
-                  description: The path to the parameter that is causing the error
-                example:
-                  - motion_detection
-                  - sensitivity
-              message:
-                type: string
-                description: A detailed message explaining why the parameter is causing the error
-                example: Motion detection sensitivity must be between 0 and 100
-    ConfigInstanceRemovalCode:
-      title: Config Instance Removal Code
+    ExpandDeployment:
       type: string
       enum:
-        - device_file_path_conflict
-        - device_config_schema_conflict
+        - device
+        - release
+        - config_instances
+      x-enum-varnames:
+        - DEPLOYMENT_EXPAND_DEVICE
+        - DEPLOYMENT_EXPAND_RELEASE
+        - DEPLOYMENT_EXPAND_CONFIG_INSTANCES
+    DeploymentStatus:
+      type: string
       description: |
-        The reason the config instance was removed
-        - device_file_path_conflict: the config instance is currently deployed to the same device with the same file path as the new config instance to deploy
-        - device_config_schema_conflict: the config instance is currently deployed to the same device with the same config schema as the new config instance to deploy
-      example: device_file_path_conflict
-    RemoveConfigInstanceResponse:
-      title: Remove Config Instance Response
+        This status merges the 'activity_status' and 'error_status' fields, with error states taking precedence over activity states when errors are present. For example, if the activity status is 'deployed' but the error status is 'failed', the status is 'failed'. However, if the error status is 'none' and the activity status is 'deployed', the status is 'deployed'.
+      enum:
+        - validating
+        - pending
+        - approved
+        - queued
+        - deployed
+        - removing
+        - archived
+        - failed
+        - retrying
+      x-enum-varnames:
+        - DEPLOYMENT_STATUS_VALIDATING
+        - DEPLOYMENT_STATUS_PENDING
+        - DEPLOYMENT_STATUS_APPROVED
+        - DEPLOYMENT_STATUS_QUEUED
+        - DEPLOYMENT_STATUS_DEPLOYED
+        - DEPLOYMENT_STATUS_REMOVING
+        - DEPLOYMENT_STATUS_ARCHIVED
+        - DEPLOYMENT_STATUS_FAILED
+        - DEPLOYMENT_STATUS_RETRYING
+    DeploymentActivityStatus:
+      type: string
+      description: |
+        Last known activity state of the deployment.
+        - Validating: the deployment's config instances are being validated with user's custom validation
+        - Pending: staged for deployment but not yet approved; requires approval for deployment to occur
+        - Approved: staged and approved for deployment
+        - Queued: the deployment's config instances are waiting to be received by the device; will be deployed as soon as the device is online
+        - Deployed: the deployment's config instances are currently available for consumption on the device
+        - Removing: the deployment's config instances are being removed from the device
+        - Archived: the deployment is available for historical reference but cannot be deployed and is not active on the device
+      enum:
+        - validating
+        - pending
+        - approved
+        - queued
+        - deployed
+        - removing
+        - archived
+      x-enum-varnames:
+        - DEPLOYMENT_ACTIVITY_STATUS_VALIDATING
+        - DEPLOYMENT_ACTIVITY_STATUS_PENDING
+        - DEPLOYMENT_ACTIVITY_STATUS_APPROVED
+        - DEPLOYMENT_ACTIVITY_STATUS_QUEUED
+        - DEPLOYMENT_ACTIVITY_STATUS_DEPLOYED
+        - DEPLOYMENT_ACTIVITY_STATUS_REMOVING
+        - DEPLOYMENT_ACTIVITY_STATUS_ARCHIVED
+    DeploymentErrorStatus:
+      type: string
+      description: |
+        Last known error state of the deployment.
+        - None: no errors
+        - Retrying: an error has been encountered and the agent is retrying to reach the target status
+        - Failed: a fatal error has been encountered; the deployment is archived and (if deployed) removed from the device
+      enum:
+        - none
+        - failed
+        - retrying
+      x-enum-varnames:
+        - DEPLOYMENT_ERROR_STATUS_NONE
+        - DEPLOYMENT_ERROR_STATUS_FAILED
+        - DEPLOYMENT_ERROR_STATUS_RETRYING
+    DeploymentTargetStatus:
+      type: string
+      description: |
+        Desired state of the deployment.
+        - Pending: staged for deployment but not yet approved; requires approval for deployment to occur
+        - Approved: staged and approved for deployment
+        - Deployed: all config instances part of the deployment are available for consumption on the device
+        - Archived: the deployment is available for historical reference but cannot be deployed and is not active on the device
+      enum:
+        - pending
+        - approved
+        - deployed
+        - archived
+      x-enum-varnames:
+        - DEPLOYMENT_TARGET_STATUS_PENDING
+        - DEPLOYMENT_TARGET_STATUS_APPROVED
+        - DEPLOYMENT_TARGET_STATUS_DEPLOYED
+        - DEPLOYMENT_TARGET_STATUS_ARCHIVED
+    BaseDeployment:
+      title: Base Deployment
       type: object
       required:
-        - code
-        - explanation
-        - config_instance
+        - object
+        - id
+        - description
+        - status
+        - activity_status
+        - error_status
+        - target_status
+        - device_id
+        - release_id
+        - created_at
+        - updated_at
       properties:
-        code:
-          $ref: '#/components/schemas/ConfigInstanceRemovalCode'
-        explanation:
+        object:
           type: string
-          description: |
-            A human-readable explanation of why the config instance must be removed for the new config instance to be able to be deployed
-          example: Config instance cfg_inst_123 has the same device and file path as cfg_inst_456
-        config_instance:
-          $ref: '#/components/schemas/ConfigInstance'
-    DeployConfigInstanceResponse:
-      title: Deploy Config Instance Response
+          enum:
+            - deployment
+          example: deployment
+        id:
+          type: string
+          example: dpl_123
+          description: ID of the deployment.
+        description:
+          type: string
+          example: Deployment for the motion control config instance
+          description: The description of the deployment.
+        status:
+          $ref: '#/components/schemas/DeploymentStatus'
+        activity_status:
+          $ref: '#/components/schemas/DeploymentActivityStatus'
+        error_status:
+          $ref: '#/components/schemas/DeploymentErrorStatus'
+        target_status:
+          $ref: '#/components/schemas/DeploymentTargetStatus'
+        device_id:
+          type: string
+          example: dvc_123
+          description: ID of the device.
+        release_id:
+          type: string
+          example: v1.0.0
+          description: The version of the release.
+        created_at:
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+          description: Timestamp of when the device release was created.
+        updated_at:
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+          description: Timestamp of when the device release was last updated.
+    BaseRelease:
+      title: Base Release
       type: object
       required:
-        - deploy
-        - remove
+        - object
+        - id
+        - version
+        - created_at
+        - updated_at
       properties:
-        deploy:
-          $ref: '#/components/schemas/ConfigInstance'
-        remove:
+        object:
+          type: string
+          enum:
+            - release
+          example: release
+        id:
+          type: string
+          example: rls_123
+          description: ID of the release.
+        version:
+          type: string
+          example: v1.0.0
+          description: The version of the release.
+        created_at:
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+          description: Timestamp of when the release was created.
+        updated_at:
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+          description: Timestamp of when the release was last updated.
+    Release:
+      title: Release
+      allOf:
+        - $ref: '#/components/schemas/BaseRelease'
+        - type: object
+          required:
+            - config_schemas
+          properties:
+            config_schemas:
+              type: array
+              items:
+                $ref: '#/components/schemas/ConfigSchema'
+              nullable: true
+              description: Expand the config schemas using 'expand[]=config_schemas' in the query string.
+              example: []
+    Deployment:
+      title: Deployment
+      allOf:
+        - $ref: '#/components/schemas/BaseDeployment'
+        - type: object
+          required:
+            - device
+            - release
+            - config_instances
+          properties:
+            device:
+              allOf:
+                - $ref: '#/components/schemas/Device'
+              nullable: true
+              example: null
+              description: Expand the device using 'expand[]=device' in the query string.
+            release:
+              allOf:
+                - $ref: '#/components/schemas/Release'
+              nullable: true
+              example: null
+              description: Expand the release using 'expand[]=release' in the query string.
+            config_instances:
+              type: array
+              items:
+                $ref: '#/components/schemas/ConfigInstance'
+              nullable: true
+              description: Expand the config instances using 'expand[]=config_instances' in the query string.
+    DeploymentOrderBy:
+      type: string
+      enum:
+        - id:asc
+        - id:desc
+        - created_at:desc
+        - created_at:asc
+      x-enum-varnames:
+        - DEPLOYMENT_ORDER_BY_ID_ASC
+        - DEPLOYMENT_ORDER_BY_ID_DESC
+        - DEPLOYMENT_ORDER_BY_CREATED_AT_DESC
+        - DEPLOYMENT_ORDER_BY_CREATED_AT_ASC
+      default: created_at:desc
+    ExpandDeploymentList:
+      type: string
+      enum:
+        - total_count
+        - device
+        - release
+        - config_instances
+      x-enum-varnames:
+        - DEPLOYMENT_LIST_EXPAND_WITH_TOTAL_COUNT
+        - DEPLOYMENT_LIST_EXPAND_DEVICE
+        - DEPLOYMENT_LIST_EXPAND_RELEASE
+        - DEPLOYMENT_LIST_EXPAND_CONFIG_INSTANCES
+    DeploymentList:
+      title: Deployment List
+      allOf:
+        - $ref: '#/components/schemas/PaginatedList'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Deployment'
+    CreateDeploymentTargetStatus:
+      type: string
+      description: |
+        Desired state of the deployment. 
+        - Pending: staged for deployment but not yet approved. Deployments can only be staged if their release is not the current release for the device.
+        - Approved: staged and approved for deployment. Deployments can only be staged if their release is not the current release for the device.
+        - Deployed: deployed to the device. Deployments can only be deployed if their release is the device's current release.
+
+        If custom validation is enabled for the release, the deployment must pass validation before fulfilling the target status.
+      enum:
+        - pending
+        - approved
+        - deployed
+    CreateConfigInstanceRequest:
+      title: Create Config Instance Request
+      type: object
+      required:
+        - config_schema_id
+        - relative_filepath
+        - content
+      properties:
+        config_schema_id:
+          type: string
+          description: The ID of the config schema which this config instance must adhere to. This schema must exist in the deployment's release.
+          example: cfg_sch_123
+        relative_filepath:
+          type: string
+          description: The file path to deploy the config instance relative to `/srv/miru/config_instances`. `v1/motion-control.json` would deploy to `/srv/miru/config_instances/v1/motion-control.json`.
+          example: /v1/motion-control.json
+        content:
+          type: object
+          description: The configuration data.
+          example:
+            direction: forward
+            speed: 100
+            duration: 10
+    CreateDeploymentRequest:
+      title: Create Deployment Request
+      type: object
+      required:
+        - target_status
+        - description
+        - release_id
+        - device_id
+        - new_config_instances
+      properties:
+        target_status:
+          $ref: '#/components/schemas/CreateDeploymentTargetStatus'
+        description:
+          type: string
+          description: The description of the deployment.
+          example: Deployment for the motion control config instance
+        release_id:
+          type: string
+          description: The release ID which this deployment adheres to.
+          example: rls_123
+        patch_source_id:
+          type: string
+          description: The ID of the deployment that this deployment was patched from.
+          example: dpl_123
+        device_id:
+          type: string
+          description: The ID of the device that the deployment is being created for.
+          example: dvc_123
+        new_config_instances:
           type: array
+          description: The *new* config instances to create for this deployment. A deployment must have exactly one config instance for each config schema in the deployment's release. If less config instances are provided than the number of schemas, the deployment will 'transfer' config instances from the deployment it is patched from. Archived config instances cannot be transferred.
           items:
-            $ref: '#/components/schemas/RemoveConfigInstanceResponse'
+            $ref: '#/components/schemas/CreateConfigInstanceRequest'
+    ParameterValidation:
+      type: object
+      description: The validation error for a parameter in the config instance.
+      required:
+        - message
+        - path
+      properties:
+        message:
+          type: string
+          description: An error message displayed for an individual parameter.
+          example: The value must be between 10 and 60.
+        path:
+          type: array
+          description: The path to the parameter that is invalid.
+          items:
+            type: string
+          example:
+            - content
+            - telemetry
+            - upload_interval_sec
+    ConfigInstanceValidation:
+      type: object
+      description: The validation errors(s) for a specific config instance in the deployment.
+      required:
+        - id
+        - message
+        - parameters
+      properties:
+        id:
+          type: string
+          description: ID of the config instance.
+          example: cfg_inst_123
+        message:
+          type: string
+          description: A message displayed on the config instance level in the UI.
+          example: The config instance contains additional parameters that are not supported by the config schema.
+        parameters:
+          type: array
+          description: The parameter errors for this config instance.
+          items:
+            $ref: '#/components/schemas/ParameterValidation'
+    ValidateDeploymentRequest:
+      title: Validate Deployment Request
+      type: object
+      required:
+        - is_valid
+        - message
+        - config_instances
+      properties:
+        is_valid:
+          type: boolean
+          description: Whether the deployment is valid. If invalid, the deployment is immediately archived and marked as 'failed'.
+          example: false
+        message:
+          type: string
+          description: A message displayed on the deployment level in the UI.
+          example: Validation failed!
+        config_instances:
+          type: array
+          description: The config instance errors for this deployment.
+          items:
+            $ref: '#/components/schemas/ConfigInstanceValidation'
+    ValidateDeploymentResponse:
+      title: Validate Deployment Response
+      type: object
+      required:
+        - effect
+        - message
+        - deployment
+      properties:
+        effect:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: The deployment is valid!
+        deployment:
+          $ref: '#/components/schemas/Deployment'
     DeleteDevice:
       title: Delete Device
       type: object
@@ -1044,9 +1529,11 @@ components:
           example: device
         id:
           type: string
+          description: The ID of the device.
           example: dvc_123
         deleted:
           type: boolean
+          description: Whether the device was deleted.
           example: true
     UpdateDeviceRequest:
       title: Update Device Request
@@ -1054,9 +1541,8 @@ components:
       properties:
         name:
           type: string
-          description: The new name of the device. If null or excluded from the request, the device name is not updated.
+          description: The new name of the device. If excluded from the request, the device name is not updated.
           example: Robot 1
-          nullable: true
     DeviceOrderBy:
       type: string
       enum:
@@ -1113,44 +1599,49 @@ components:
       properties:
         token:
           type: string
-          description: The token
+          description: The token.
           example: eyJhbGciOiJ...
         expires_at:
           type: string
           format: date-time
-          description: The expiration date and time of the token
+          description: The expiration date and time of the token.
           example: '2025-01-01T00:00:00Z'
-    StageConfigInstanceRequest:
-      title: Stage Config Instance Request
-      type: object
-      required:
-        - relative_filepath
-        - content
-        - config_schema_id
-      properties:
-        relative_filepath:
-          type: string
-          description: The file path to deploy the config instance relative to `/srv/miru/config_instances`. `v1/motion-control.json` would deploy to `/srv/miru/config_instances/v1/motion-control.json`
-          example: /v1/motion-control.json
-        content:
-          type: object
-          description: The configuration values associated with the config instance.
-          example:
-            direction: forward
-            speed: 100
-            duration: 10
-        config_schema_id:
-          type: string
-          description: The id of the config schema which this config instance must adhere to.
-          example: cfg_sch_123
-    StageDeviceRequest:
-      title: Stage Device Request
-      type: object
-      required:
-        - config_instances
-      properties:
-        config_instances:
-          type: array
-          description: The config instances to stage on the device. These config instances will be deployed to the device as soon as it is activated.
-          items:
-            $ref: '#/components/schemas/StageConfigInstanceRequest'
+    ExpandRelease:
+      type: string
+      enum:
+        - config_schemas
+      x-enum-varnames:
+        - RELEASE_EXPAND_CONFIG_SCHEMAS
+    ReleaseOrderBy:
+      type: string
+      enum:
+        - id:asc
+        - id:desc
+        - created_at:desc
+        - created_at:asc
+      x-enum-varnames:
+        - RELEASE_ORDER_BY_ID_ASC
+        - RELEASE_ORDER_BY_ID_DESC
+        - RELEASE_ORDER_BY_CREATED_AT_DESC
+        - RELEASE_ORDER_BY_CREATED_AT_ASC
+      default: created_at:desc
+    ExpandReleaseList:
+      type: string
+      enum:
+        - total_count
+        - config_schemas
+      x-enum-varnames:
+        - RELEASE_LIST_EXPAND_WITH_TOTAL_COUNT
+        - RELEASE_LIST_EXPAND_CONFIG_SCHEMAS
+    ReleaseList:
+      title: Release List
+      allOf:
+        - $ref: '#/components/schemas/PaginatedList'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Release'
