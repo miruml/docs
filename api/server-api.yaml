@@ -1498,6 +1498,21 @@ components:
           description: The config instance errors for this deployment.
           items:
             $ref: '#/components/schemas/ConfigInstanceValidation'
+    ValidationEffect:
+      type: string
+      description: The effect of the validation.
+      enum:
+        - none
+        - stage
+        - deploy
+        - reject
+        - void
+      x-enum-varnames:
+        - VALIDATION_EFFECT_NONE
+        - VALIDATION_EFFECT_STAGE
+        - VALIDATION_EFFECT_DEPLOY
+        - VALIDATION_EFFECT_REJECT
+        - VALIDATION_EFFECT_VOID
     ValidateDeploymentResponse:
       title: Validate Deployment Response
       type: object
@@ -1507,11 +1522,11 @@ components:
         - deployment
       properties:
         effect:
-          type: boolean
-          example: true
+          $ref: '#/components/schemas/ValidationEffect'
         message:
           type: string
-          example: The deployment is valid!
+          description: A message explaining the validation effect.
+          example: Deployment was voided because the device's current release is different from when the deployment was created.
         deployment:
           $ref: '#/components/schemas/Deployment'
     DeleteDevice:

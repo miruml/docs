@@ -18,31 +18,50 @@ paths:
     get:
       tags:
         - Agent
-      summary: Get the health of the agent
+      summary: Health
+      description: Retrieve the health of the agent.
       responses:
         '200':
-          description: Successfully retrieved the health of the agent
+          description: Successfully retrieved the health of the agent.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/HealthResponse'
+      x-codeSamples:
+        - lang: Python
+          source: |-
+            from miru_agent_sdk import Miru
+
+            client = Miru()
+            response = client.agent.health()
+            print(response.status)
   /version:
     get:
       tags:
         - Agent
-      summary: Get the version of the agent
+      summary: Version
+      description: Retrieve the version of the agent.
       responses:
         '200':
-          description: Successfully retrieved the version of the agent
+          description: Successfully retrieved the version of the agent.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/VersionResponse'
+      x-codeSamples:
+        - lang: Python
+          source: |-
+            from miru_agent_sdk import Miru
+
+            client = Miru()
+            response = client.agent.version()
+            print(response.commit)
   /config_instances/deployed:
     get:
+      x-hidden: true
       tags:
         - Config Instances
-      summary: Get the deployed config instance
+      summary: Retrieve the deployed config instance
       operationId: getDeployedConfigInstance
       parameters:
         - $ref: '#/components/parameters/config_schema_digest'
@@ -56,6 +75,7 @@ paths:
                 $ref: '#/components/schemas/ConfigInstance'
   /config_schemas/hash/serialized:
     post:
+      x-hidden: true
       tags:
         - Config Schemas
       summary: Hash a serialized config schema
@@ -77,7 +97,8 @@ paths:
     get:
       tags:
         - Devices
-      summary: Get the device
+      summary: Get
+      description: Retrieve the device.
       operationId: getDevice
       responses:
         '200':
@@ -86,11 +107,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Device'
+      x-codeSamples:
+        - lang: Python
+          source: |-
+            from miru_agent_sdk import Miru
+
+            client = Miru()
+            device = client.device.retrieve()
+            print(device.id)
   /device/sync:
     post:
       tags:
         - Devices
-      summary: Sync the device
+      summary: Sync
+      description: Manually force a device sync with the edits made in the dashboard.
       operationId: syncDevice
       responses:
         '200':
@@ -99,8 +129,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SyncDeviceResponse'
+      x-codeSamples:
+        - lang: Python
+          source: |-
+            from miru_agent_sdk import Miru
+
+            client = Miru()
+            response = client.device.sync()
+            print(response.code)
   /example-error:
     get:
+      x-hidden: true
       tags:
         - Errors
       summary: Get an error
@@ -121,7 +160,7 @@ components:
       properties:
         status:
           type: string
-          description: The status of the agent
+          description: The status of the agent.
           example: ok
     VersionResponse:
       type: object
@@ -131,19 +170,23 @@ components:
       properties:
         version:
           type: string
-          description: The version of the agent
+          description: The version of the agent.
           example: v0.1.0
         commit:
           type: string
-          description: The commit hash of the agent
+          description: The commit hash of the agent.
           example: a1b2c3d4
     ConfigInstanceTargetStatus:
       type: string
-      description: |
+      description: >
         Desired state of the config instance.
+
         - Created: config instance is created and can be deployed in the future
+
         - Deployed: config instance is available for consumption on the device
-        - Removed: config instance is available for historical reference but cannot be deployed and is not active on the device
+
+        - Removed: config instance is available for historical reference but cannot be deployed and is not
+        active on the device
       enum:
         - created
         - deployed
@@ -154,12 +197,18 @@ components:
         - CONFIG_INSTANCE_TARGET_STATUS_REMOVED
     ConfigInstanceActivityStatus:
       type: string
-      description: |
+      description: >
         Last known activity state of the config instance.
+
         - Created: config instance has been created and can be deployed in the future
-        - Queued: config instance is waiting to be received by the device; will be deployed as soon as the device is online
+
+        - Queued: config instance is waiting to be received by the device; will be deployed as soon as the
+        device is online
+
         - Deployed: config instance is currently available for consumption on the device
-        - Removed: the config instance is available for historical reference but cannot be deployed and is not active on the device
+
+        - Removed: the config instance is available for historical reference but cannot be deployed and is not
+        active on the device
       enum:
         - created
         - queued
@@ -172,11 +221,16 @@ components:
         - CONFIG_INSTANCE_ACTIVITY_STATUS_REMOVED
     ConfigInstanceErrorStatus:
       type: string
-      description: |
+      description: >
         Last known error state of the config instance deployment.
+
         - None: there are no errors with the config instance deployment
-        - Retrying: an error has been encountered and the agent is attempting to try again to reach the target status
-        - Failed: a fatal error has been encountered; the config instance is archived and (if deployed) removed from the device
+
+        - Retrying: an error has been encountered and the agent is attempting to try again to reach the target
+        status
+
+        - Failed: a fatal error has been encountered; the config instance is archived and (if deployed)
+        removed from the device
       enum:
         - none
         - failed
@@ -187,8 +241,11 @@ components:
         - CONFIG_INSTANCE_ERROR_STATUS_RETRYING
     ConfigInstanceStatus:
       type: string
-      description: |
-        This status merges the 'activity_status' and 'error_status' fields, with error states taking precedence over activity states when errors are present. For example, if the activity status is 'deployed' but the error status is 'failed', the status is 'failed'. However, if the error status is 'none' and the activity status is 'deployed', the status is 'deployed'.
+      description: >
+        This status merges the 'activity_status' and 'error_status' fields, with error states taking
+        precedence over activity states when errors are present. For example, if the activity status is
+        'deployed' but the error status is 'failed', the status is 'failed'. However, if the error status is
+        'none' and the activity status is 'deployed', the status is 'deployed'.
       enum:
         - created
         - queued
@@ -240,7 +297,9 @@ components:
         relative_filepath:
           type: string
           example: /v1/motion-control.json
-          description: The file path to deploy the config instance relative to `/srv/miru/config_instances`. `v1/motion-control.json` would deploy to `/srv/miru/config_instances/v1/motion-control.json`.
+          description: >-
+            The file path to deploy the config instance relative to `/srv/miru/config_instances`.
+            `v1/motion-control.json` would deploy to `/srv/miru/config_instances/v1/motion-control.json`.
         created_at:
           type: string
           format: date-time
@@ -303,7 +362,8 @@ components:
         schema:
           type: string
           format: byte
-          example: ewogICIkc2NoZW1hIjogImh0dHBzOi8vanNvbi1zY2hlbWEub3JnL2RyYWZ0LzIwMjAtMTIvc2NoZW1hIiwKICAidHlwZSI6ICJvYmplY3QiLAogICJwcm9wZXJ0aWVzIjogewogICAgImRldmljZV9pZCI6IHsKICAgICAgInR5cGUiOiAic3RyaW5nIgogICAgfSwKICAgICJzcGVlZCI6IHsKICAgICAgInR5cGUiOiAiaW50ZWdlciIsCiAgICAgICJtaW5pbXVtIjogMSwKICAgICAgImRlZmF1bHQiOiAxMAogICAgfQogIH0sCiAgInJlcXVpcmVkIjogWyJkZXZpY2VfaWQiLCAic3BlZWQiXQp9
+          example: >-
+            ewogICIkc2NoZW1hIjogImh0dHBzOi8vanNvbi1zY2hlbWEub3JnL2RyYWZ0LzIwMjAtMTIvc2NoZW1hIiwKICAidHlwZSI6ICJvYmplY3QiLAogICJwcm9wZXJ0aWVzIjogewogICAgImRldmljZV9pZCI6IHsKICAgICAgInR5cGUiOiAic3RyaW5nIgogICAgfSwKICAgICJzcGVlZCI6IHsKICAgICAgInR5cGUiOiAiaW50ZWdlciIsCiAgICAgICJtaW5pbXVtIjogMSwKICAgICAgImRlZmF1bHQiOiAxMAogICAgfQogIH0sCiAgInJlcXVpcmVkIjogWyJkZXZpY2VfaWQiLCAic3BlZWQiXQp9
     SchemaDigestResponse:
       title: Schema Digest Response
       type: object
@@ -316,7 +376,7 @@ components:
     DeviceStatus:
       type: string
       description: |
-        The status of the device
+        The status of the device.
         - Online: The miru agent is connected
         - Offline: The miru agent is disconnected (e.g. network issues, device is powered off, etc.)
       enum:
@@ -345,18 +405,18 @@ components:
         id:
           type: string
           example: dvc_123
-          description: ID of the device
+          description: ID of the device.
         name:
           type: string
           example: My Device
-          description: Name of the device
+          description: Name of the device.
         status:
           $ref: '#/components/schemas/DeviceStatus'
         last_synced_at:
           type: string
           format: date-time
           example: '2021-01-01T00:00:00Z'
-          description: Timestamp of when the device was last synced
+          description: Timestamp of when the device was last synced.
         last_connected_at:
           type: string
           format: date-time
@@ -393,27 +453,27 @@ components:
           $ref: '#/components/schemas/SyncDeviceResult'
         message:
           type: string
-          example: Device is not connected to the backend
+          example: Device is not connected to the backend.
           description: The message of the result.
         last_synced_at:
           type: string
           format: date-time
           example: '2021-01-01T00:00:00Z'
-          description: Timestamp of when the device was last synced
+          description: Timestamp of when the device was last synced.
         last_attempted_sync_at:
           type: string
           format: date-time
           example: '2021-01-01T00:00:00Z'
-          description: Timestamp of when the last *attempted* sync occurred
+          description: Timestamp of when the last *attempted* sync occurred.
         in_cooldown:
           type: boolean
           example: true
-          description: Whether the device is currently in cooldown
+          description: Whether the device is currently in cooldown.
         cooldown_ends_at:
           type: string
           format: date-time
           example: '2021-01-01T00:00:00Z'
-          description: Timestamp of when the cooldown will end
+          description: Timestamp of when the cooldown will end.
     Error:
       type: object
       required:
