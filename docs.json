@@ -23,8 +23,8 @@
                                 "group": "Getting Started",
                                 "pages": [
                                     "docs/home/basics/getting-started/overview",
-                                    "docs/home/basics/getting-started/define-a-config",
-                                    "docs/home/basics/getting-started/deploy-a-config"
+                                    "docs/home/basics/getting-started/releases",
+                                    "docs/home/basics/getting-started/deploy"
                                 ]
                             },
                             "docs/home/basics/vocabulary",

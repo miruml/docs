@@ -11,17 +11,17 @@ Miru natively supports the use of JSON Schema to specify [config schemas](/docs/
 
 Miru allows you to implement custom validation logic via [webhooks](/docs/api-reference/webhooks/events/config-instances/validate) and [Server-Side APIs](/docs/api-reference/server-side), ensuring configurations are valid before deployment to your devices.
 
-Upon any new config instance deployments made in the UI (or otherwise), Miru will trigger the [config instance validation webhook](/docs/api-reference/webhooks/events/config-instances/validate) to your endpoint(s). 
+Upon any new config instance deployments made in the UI (or otherwise), Miru will trigger the [validate deployment webhook](/docs/api-reference/webhooks/events/deployments/validate) to your endpoint(s). 
 
-The config instance must then be approved or rejected using the [approve](/docs/api-reference/server-side/endpoints/config-instances/approve) or [reject](/docs/api-reference/server-side/endpoints/config-instances/reject) APIs. Once config instance has been approved, deploy the config instance to its target device using the [deploy](/docs/api-reference/server-side/endpoints/config-instances/deploy) API.
+The validatin results of the deployment must be sent to the [validate deployment API](/docs/api-reference/server-side/endpoints/deployments/validate). If the deployment is marked as invalid, it is immediately archived and marked as `failed`. If the deployment is marked as valid, it continues to its desired target status (i.e. `pending`, `approved`, or `deployed`).
 
 This guide walks through the steps of setting up a custom validation server. If you're new to webhooks or looking for a quick way to test your custom validation server locally, be sure to check out the [Local Testing with `ngrok`](#local-testing-with-ngrok) section.
 
 
 ## Enable
-Custom validation is enabled on a per-config type basis.
+Custom validation is enabled on a per-release basis.
 
-To enable custom validation for a config type, navigate to the [Config Types](https://configs.miruml.com/configs) page. Click the ellipses on the far right of the config type you would like to enable and select **Edit** from the dropdown.
+To enable custom validation for a release, navigate to the [Releases](https://configs.miruml.com/releases) page. Click the ellipses on the far right of the config type you would like to enable and select **Edit** from the dropdown.
 
 <Frame>
   ![](/images/custom-validation/enable-dialog.png)
@@ -30,7 +30,7 @@ To enable custom validation for a config type, navigate to the [Config Types](ht
 Toggle the **Custom Validation** setting.
 
 <Warning>
-    Enabling custom validation *requires* you to received the validation webhook and approve /  deploy config instances via APIs for that config type. If these APIs are not implemented, config instances will remain in the `validating` state indefinitely.
+    Enabling custom validation *requires* you to receive the validation webhook and validate deployments via APIs for that release. If these APIs are not implemented, deployments may remain in the `validating` state indefinitely.
 </Warning>
 
 ## Create an Endpoint
