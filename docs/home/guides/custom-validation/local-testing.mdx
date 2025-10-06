@@ -1,83 +1,46 @@
 ---
 title: 'Local Testing'
-description: 'Implement custom validation logic for your config instances.'
 ---
 
-import CreateAPIKey from '/snippets/api-keys/create.mdx';
+### Run Locally
 
-## Overview
+This section is optional. However, you may find it useful to clone and run the server locally to test everything is working before deploying to a remote server.
 
-Miru natively supports the use of JSON Schema to specify [config schemas](/docs/home/basics/vocabulary#config-schema) used to validate [config instances](/docs/home/basics/vocabulary#config-instance) before deployment. However, some config instances may require more complex, application-specific validation logic to ensure valid configurations are deployed.
+Begin by cloning the [custom-validation](https://github.com/miruml/custom-validation) repository.
 
-Miru allows you to implement custom validation logic via [webhooks](/docs/api-reference/webhooks/events/config-instances/validate) and [Server-Side APIs](/docs/api-reference/server-side), ensuring configurations are valid before deployment to your devices.
+```
+git clone https://github.com/miruml/custom-validation.git
+```
 
-Upon any new config instance deployments made in the UI (or otherwise), Miru will trigger the [validate deployment webhook](/docs/api-reference/webhooks/events/deployments/validate) to your endpoint(s). 
+Navigate inside the repository.
 
-The validatin results of the deployment must be sent to the [validate deployment API](/docs/api-reference/server-side/endpoints/deployments/validate). If the deployment is marked as invalid, it is immediately archived and marked as `failed`. If the deployment is marked as valid, it continues to its desired target status (i.e. `pending`, `approved`, or `deployed`).
+```
+cd custom-validation
+```
 
-This guide walks through the steps of setting up a custom validation server. If you're new to webhooks or looking for a quick way to test your custom validation server locally, be sure to check out the [Local Testing with `ngrok`](#local-testing-with-ngrok) section.
+Inside the `flask` directory you'll find a simple flask application (`app.py`). To run the application, first create a virtual environment and install the dependencies.
 
+```
+python3 -m venv .venv
+```
+```
+source .venv/bin/activate
+```
+```
+python3 -m pip install -r requirements.txt
+```
 
-## Enable
-Custom validation is enabled on a per-release basis.
+Then run the server.
 
-To enable custom validation for a release, navigate to the [Releases](https://configs.miruml.com/releases) page. Click the ellipses on the far right of the config type you would like to enable and select **Edit** from the dropdown.
+```
+cd flask
+```
 
-<Frame>
-  ![](/images/custom-validation/enable-dialog.png)
-</Frame>
+```
+python3 app.py
+```
 
-Toggle the **Custom Validation** setting.
-
-<Warning>
-    Enabling custom validation *requires* you to receive the validation webhook and validate deployments via APIs for that release. If these APIs are not implemented, deployments may remain in the `validating` state indefinitely.
-</Warning>
-
-## Create an Endpoint
-
-Next, you'll need to create an endpoint to receive webhook events.
-
-Navigate to the [webhooks](https://configs.miruml.com/webhooks) page in Miru. 
-
-<Frame>
-  ![](/images/custom-validation/wbhk-header.png)
-</Frame>
-
-Click **Add Endpoint** in the top right of the page.
-
-<Frame>
-  ![](/images/custom-validation/create-wbhk-ep.png)
-</Frame>
-
-Enter the full server URL to send the webhook event to. We recommend using a route similar to `/webhooks/miru` to receive the webhook event, but you may use any route you prefer.
-
-<Warning>
-    Your URL must use HTTPS (HTTP is not supported).
-</Warning>
-
-Your URL should be of the form `https://<your-domain>/<route>`. For instance, if your domain is `my-domain.com` and you want to use the route `/webhooks/miru`, your URL would be `https://my-domain.com/webhooks/miru`.
-
-Finally, enter a description for the endpoint, select the `config_instance.target_status.validated` event, and click **Create**.
-
-## Secrets
-
-### Webhook Secret
-
-The first secret you'll need is the webhook secret for verifying the webhook event.
-
-To fetch the webhook secret for you endpoint, click into the endpoint. Then, click the **eye** icon on the far right of the page to reveal the webhook secret.
-
-<Frame>
-  ![](/images/custom-validation/wbhk-ep-view.png)
-</Frame>
-
-### API Key
-
-The second secret you'll need is an API key for authenticating requests to the Miru API.
-
-To create an API key:
-
-<CreateAPIKey />
+Verify the server is running by going to http://localhost:5000 in your browser. You should see  `{"message":"ok"}` in your browser.
 
 ## Receive the Webhook
 
@@ -112,49 +75,7 @@ The config instance must have been approved by your validation server before it 
 ## Local Testing with `ngrok`
 
 
-### Flask Server 
-Webhooks rely on a web server provisioned by you to receive and process webhook events.
 
-We'll walk through the setup of a simple server using Python and Flask.
-
-Begin by cloning the [getting-started](https://github.com/miruml/getting-started) repository.
-
-```
-git clone https://github.com/miruml/getting-started.git
-```
-
-Navigate to the Python `server-sdk` directory inside the repository.
-
-```
-cd getting-started/python/server-sdk
-```
-
-Inside the `flask` directory you'll find a simple flask application (`app.py`) which demonstrates webhook verification using the Miru server-side SDK.
-
-To run the server, create a virtual environment and install the dependencies.
-
-```
-python3 -m venv .venv
-```
-```
-source .venv/bin/activate
-```
-```
-python3 -m pip install -r requirements.txt
-```
-
-Then run the server.
-
-```
-cd flask
-```
-```
-python3 app.py
-```
-
-Verify the server is running by going to http://localhost:5000 in your browser. You should see 
-
-    `{"message":"ok"}`
  
 
 ### `ngrok` Setup

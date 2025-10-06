@@ -1,0 +1,217 @@
+---
+title: 'Integrate'
+---
+
+import CreateAPIKey from '/snippets/api-keys/create.mdx';
+
+## Overview
+
+Miru natively supports the use of JSON Schema to validate configurations. However, you may find it more convenient to validate configurations with your software stack instead of relying on JSON Schema.
+
+To support this, Miru provides webhooks and server-side APIs. The setup involves two primary steps:
+
+1. Deploy an endpoint which validates [deployments](/docs/home/basics/concepts#deployment) for your application.
+2. Supply the endpoint's URL to Miru and add Miru's authentication to the endpoint.
+
+Once the endpoint is integrated, validation occurs in two parts:
+
+1. Miru sends [deployment.validate](/docs/api-reference/webhooks/events/deployments/validate) webhook events to your endpoint whenever deployments require validation.
+2. Your endpoint sends validation results back to Miru using the [validate deployment API](/docs/api-reference/server-side/endpoints/deployments/validate).
+
+This section guides you through the process of integrating an endpoint with Miru. An example [flask server](https://github.com/miruml/custom-validation), which leverages the [Miru server-side SDK](/docs/api-reference/server-side/sdks/python), is provided to get you started.
+
+You may host the endpoint on however you'd like as long as it is accessible over HTTPS.
+
+{/* 
+If want to set up a server on your local machine for testing or want a more in-depth walkthrough of the process, skip this section in favor of the the [Local Testing](/docs/home/guides/custom-validation/local-testing) section. */}
+
+
+
+
+## Enable Custom Validation
+Custom validation is enabled on a per-[release](/docs/home/basics/concepts#release) basis. Enabling it on one release has no impact on other releases.
+
+To enable custom validation for a release, navigate to the [Releases](https://configs.miruml.com/releases) page. Click the ellipses on the far right of the release you would like to enable custom validation for and select **Edit** from the dropdown.
+
+<Frame>
+  ![](/images/custom-validation/enable-dialog.png)
+</Frame>
+
+Toggle the **Custom Validation** setting and click **Save**.
+
+<Warning>
+    Enabling custom validation *requires* deployments to be validated. If you do not have a validation server setup, deployments on this release will be unable to deploy.
+</Warning>
+
+## Create an Endpoint
+
+Next, you'll need to supply the URL of the endpoint to Miru. 
+
+If you haven't deployed the endpoint yet, that's okay. You can change the URL at any time, so feel free to follow along and deploy the endpoint after completing this section.
+
+Navigate to the [webhooks](https://configs.miruml.com/webhooks) page in Miru. 
+
+<Frame>
+  ![](/images/custom-validation/wbhk-header.png)
+</Frame>
+
+Click **Add Endpoint** in the top right of the page.
+
+Enter the full URL of your validation endpoint and subscribe to the `deployment.validate` event.
+
+We recommend using a route similar to `/webhooks/miru`, but you may use any route you prefer. Just make sure the server and endpoint are configured to use the same route!
+
+URLs should be of the form `https://<your-domain>/<route>`. For instance, if your domain is `my-domain.com` and you want to use the route `/hooks/miru`, your URL would be `https://my-domain.com/hooks/miru`.
+
+<Frame>
+  ![](/images/custom-validation/create-wbhk-ep.png)
+</Frame>
+
+<Warning>
+    Your URL must use HTTPS. HTTP is not supported.
+</Warning>
+
+Finally, enter a description for the endpoint, select the `deployment.validate` event, and click **Create**.
+
+## Secrets
+
+You'll need two secrets to integrate your endpoint with Miru: a webhook secret and an API key.
+
+We recommend storing secrets in a secrets manager or other secure location. Regardless, be sure not to expose these secrets in publicly accessible areas such as GitHub, client-side code, and so forth.
+
+### Webhook Secret
+
+To retrieve the webhook secret for an endpoint, click into the endpoint. Then, click the **eye** icon on the far right of the page to reveal the webhook secret.
+
+<Frame>
+  ![](/images/custom-validation/wbhk-ep-view.png)
+</Frame>
+
+### API Key
+
+To create an API key for your endpoint:
+
+<CreateAPIKey />
+
+## Example Server
+
+The [custom-validation](https://github.com/miruml/custom-validation) repository contains an example server that demonstrates webhook verification and deployment validation using the Miru server-side SDK.
+
+### Secrets
+
+For a plug and play experience with Webhook Secrets and API Keys, you may place the secrets in the [.env](https://github.com/miruml/custom-validation/blob/main/.env) file. However, for production use we recommend storing the secrets in a secrets manager or other secure location.
+
+### Code Walkthrough
+
+The validation server first verifies the webhook signature using the Webhook Secret.
+
+```python [expandable]
+headers = dict(request.headers)
+payload = request.get_data()
+
+try:
+    # swap the get_env_var helper for your secrets manager if needed
+    wh = Webhook(get_env_var("MIRU_WEBHOOK_SECRET"))
+    payload = wh.verify(payload, headers)
+except WebhookVerificationError as e:
+    print(f"Webhook verification error: {e}")
+    return jsonify({
+        'valid': False,
+        'message': str(e),
+        'errors': []
+    }), 400
+```
+
+It then checks if the event is the `deployment.validate` event, passing the event to the `handle_validate_deployment` function to handle the validation.
+
+```python
+event = miru_client.webhooks.unwrap(payload)
+if event.type == "deployment.validate":
+    handle_validate_deployment(event)
+# ignore events which aren't config instance target status validated
+else:
+    return jsonify({'message': 'no action required'}), 200
+```
+
+The deployment and its config instances are then retrieved using the [get deployment API](/docs/api-reference/server-side/endpoints/deployments/get), before being passed to the `validate_deployment` function.
+
+```python
+deployment = miru_client.deployments.retrieve(
+    event.data.deployment.id,
+    expand=[
+        "device",
+        "release",
+        "config_instances.content",  # type: ignore
+    ],
+)
+```
+
+The `validate_deployment` function is where you'll insert your validation logic. It takes in the config instances for the deployment and returns the validation results.
+
+```python [expandable]
+def validate_deployment(
+    config_instances: list[types.ConfigInstance],
+) -> DeploymentValidation:
+
+    cfg_inst_validations: list[ConfigInstanceValidation] = []
+
+    for config_instance in config_instances:
+        # retrieve the config instance content
+        if config_instance.content is None:
+            raise ValueError("Config instance content is None")
+
+        # do some validation on the config instance
+        # ...
+        _ = config_instance.content
+
+        cfg_inst_validations.append(ConfigInstanceValidation(
+            id=config_instance.id,
+            message=(
+                "Error message shown on the config instance level in the UI"
+            ),
+            parameters=[
+                ParameterValidation(
+                    message=(
+                        "Error message shown on the parameter level in the UI"
+                    ),
+                    path=["path", "to", "invalid", "parameter"],
+                )
+            ],
+        ))
+
+    return DeploymentValidation(
+        is_valid=True,
+        message="Error message shown on the deployment level in the UI",
+        config_instances=cfg_inst_validations,
+    )
+```
+
+Finally, the validation results are sent to Miru using the [validate deployment API](/docs/api-reference/server-side/endpoints/deployments/validate).
+
+```python
+response = miru_client.deployments.validate(
+    deployment.id, **result.to_dict()
+)
+``` 
+
+### Effects
+
+The validation response contains an [`effect`](http://localhost:3000/docs/api-reference/server-side/endpoints/deployments/validate#response-effect) field, which returns the effect of validating the deployment. That is, depending on the validation results and the intent of the user, the deployment may be launched into a number of different states as a result. The `effect` field tells you what the deployment's next state is and the [`message`](http://localhost:3000/docs/api-reference/server-side/endpoints/deployments/validate#response-message) field explains why.
+
+In general, the validation server does not concern itself with why the deployment needs to be validated or what action should come next. Miru handles these details accordingly.
+
+However, the effect field (and the `message` field alongside it) provide useful system transparency for general system understanding as well as auditability.
+
+Feel free to ignore the validation effect; although you may find it useful to log validation effects for audit and diagnostic purposes.
+
+**Reject**
+
+If your validation results classify the deployment as invalid (by setting the [is_valid](http://localhost:3000/docs/api-reference/server-side/endpoints/deployments/validate#body-is-valid) field to `false`), the deployment is 'rejected' and the `effect` field returns `reject`. Rejected deployments cannot be staged or deployed to devices but are maintained for historical reference. Errors sent in the validation response are displayed in the UI for convenience.
+
+**Stage and Deploy**
+
+If your validation results classify the deployment as valid (by setting the [is_valid](http://localhost:3000/docs/api-reference/server-side/endpoints/deployments/validate#body-is-valid) field to `true`), the deployment is 'approved' and the `effect` field returns `stage` or `deploy`. Depending on the original intent of the user, the deployment may be staged for a future deployment or deployed immediately.
+
+**None and Void**
+
+In some cases, network latency or retries may place the deployment in an invalid state. Although rare, the `effect` field returns `none` or `void` in these special cases to indicate that the validation request was successfully received but the original intent of the user was not achieved due to other factors.

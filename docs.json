@@ -44,8 +44,7 @@
                             {
                                 "group": "Custom Validation",
                                 "pages": [
-                                    "docs/home/guides/custom-validation/setup",
-                                    "docs/home/guides/custom-validation/local-testing"
+                                    "docs/home/guides/custom-validation/integrate"
                                 ]
                             },
                             "docs/home/guides/jsonschema"
