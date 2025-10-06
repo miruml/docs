@@ -21,7 +21,7 @@
                             {
                                 "group": "Getting Started",
                                 "pages": [
-                                    "docs/home/basics/getting-started/overview",
+                                    "docs/home/basics/getting-started/setup",
                                     "docs/home/basics/getting-started/releases",
                                     "docs/home/basics/getting-started/deploy"
                                 ]
