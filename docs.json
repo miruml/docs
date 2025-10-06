@@ -31,15 +31,8 @@
 
                         ]
                     },
-                    {
-                        "group": "Agent",
-                        "pages": [
-                            "docs/home/agent/intro",
-                            "docs/home/agent/install"
-                        ]
-                    },
-                    {
-                        "group": "Guide",
+{
+                        "group": "Guides",
                         "pages": [
                             {
                                 "group": "Custom Validation",
@@ -48,6 +41,13 @@
                                 ]
                             },
                             "docs/home/guides/jsonschema"
+                        ]
+                    },
+                    {
+                        "group": "Agent",
+                        "pages": [
+                            "docs/home/agent/intro",
+                            "docs/home/agent/install"
                         ]
                     }
                 ]
