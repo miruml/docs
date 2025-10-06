@@ -1,0 +1,26 @@
+Tags and tag types are used to group devices by some criteria. Formally, a **tag type** is a group of related tags, while a **tag** is an instantiation of a tag type.
+
+Examples illustrate this best:
+
+A `hardware` tag type could be used to group devices by their compute type and generation:
+
+- `Raspberry Pi 4 Model B`
+- `NVIDIA Jetson Orin Nano`
+- `NVIDIA Jetson Orin AGX`
+
+An `environment` tag type could be used to group devices by their usage in different stages of development:
+
+- `Development`
+- `QA`
+- `Beta`
+- `Stable`
+
+A `region` tag type could be used to group devices by the region they are deployed to:
+
+- `east`
+- `west`
+- `central`
+
+Tag types and tags are defined by you, allowing you to tailor tags them to your application's needs.
+
+Devices may be "tagged" with any number of tags as long as they are from unique tag types.

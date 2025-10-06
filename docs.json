@@ -17,7 +17,6 @@
                     {
                         "group": "Basics",
                         "pages": [
-                            "docs/home/basics/overview",
                             "docs/home/basics/intro",
                             {
                                 "group": "Getting Started",
@@ -27,7 +26,7 @@
                                     "docs/home/basics/getting-started/deploy"
                                 ]
                             },
-                            "docs/home/basics/vocabulary",
+                            "docs/home/basics/concepts",
                             "/docs/home/basics/faq"
 
                         ]
@@ -40,10 +39,16 @@
                         ]
                     },
                     {
-                        "group": "Intermediate",
+                        "group": "Guide",
                         "pages": [
-                            "docs/home/intermediate/custom-validation",
-                            "docs/home/intermediate/jsonschema"
+                            {
+                                "group": "Custom Validation",
+                                "pages": [
+                                    "docs/home/guides/custom-validation/setup",
+                                    "docs/home/guides/custom-validation/local-testing"
+                                ]
+                            },
+                            "docs/home/guides/jsonschema"
                         ]
                     }
                 ]

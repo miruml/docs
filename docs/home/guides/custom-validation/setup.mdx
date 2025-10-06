@@ -1,21 +1,18 @@
 ---
-title: 'Custom Validation'
-description: 'Implement custom validation logic for your config instances.'
+title: 'Setup'
 ---
 
 import CreateAPIKey from '/snippets/api-keys/create.mdx';
 
 ## Overview
 
-Miru natively supports the use of JSON Schema to specify [config schemas](/docs/home/basics/vocabulary#config-schema) used to validate [config instances](/docs/home/basics/vocabulary#config-instance) before deployment. However, some config instances may require more complex, application-specific validation logic to ensure valid configurations are deployed.
+Miru natively supports the use of [JSON Schema](https://json-schema.org/) to validate configurations. However, you may find it more convenient to validate configurations with your own software stack instead of using JSON Schema.
 
-Miru allows you to implement custom validation logic via [webhooks](/docs/api-reference/webhooks/events/config-instances/validate) and [Server-Side APIs](/docs/api-reference/server-side), ensuring configurations are valid before deployment to your devices.
+To support this, Miru provides [webhooks](/docs/api-reference/webhooks/events/deployments/validate) and [server-side APIs](/docs/api-reference/server-side/endpoints/deployments/validate).
 
-Upon any new config instance deployments made in the UI (or otherwise), Miru will trigger the [validate deployment webhook](/docs/api-reference/webhooks/events/deployments/validate) to your endpoint(s). 
+You host your own validation server, which is notified of new deployments via a webhook. The server then validates the configurations with the Miru API before the deployment can continue.
 
-The validatin results of the deployment must be sent to the [validate deployment API](/docs/api-reference/server-side/endpoints/deployments/validate). If the deployment is marked as invalid, it is immediately archived and marked as `failed`. If the deployment is marked as valid, it continues to its desired target status (i.e. `pending`, `approved`, or `deployed`).
-
-This guide walks through the steps of setting up a custom validation server. If you're new to webhooks or looking for a quick way to test your custom validation server locally, be sure to check out the [Local Testing with `ngrok`](#local-testing-with-ngrok) section.
+This guide walks through the steps of setting up a validation server to integrate with Miru.
 
 
 ## Enable

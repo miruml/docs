@@ -2,11 +2,49 @@
 title: "Introduction"
 ---
 
-### Welcome
+## Welcome
 
-Welcome\! Miru is an application configuration management solution for robotics teams. We provide tools for engineers to define, deploy, and manage application configurations for their robots.
+Welcome\! Miru is a configuration management solution for robotics teams. We provide tools for engineers to define, deploy, and manage application configurations for their robots.
 
-### Configuration Sources
+Continue reading to learn more about 
+
+
+<Columns cols={2}>
+    <Card
+        title="Getting Started"
+        icon="rocket"
+        href="/docs/home/basics/getting-started/overview"
+    >
+        Define and deploy your first configuration with our step-by-step guide.
+    </Card>
+    <Card
+        title="Concepts"
+        icon="book-open"
+        href="/docs/home/basics/concepts"
+    >
+        Gain an understanding of Miru's core concepts.
+    </Card>
+</Columns>
+<Columns cols={2}>
+    <Card
+        title="CLI Reference"
+        icon="terminal"
+        href="/docs/cli-reference/install"
+    >
+        Reference our command-line interface to manage configurations from your terminal.
+    </Card>
+    <Card
+        title="API Reference"
+        icon="server"
+        href="/docs/api-reference/server-side/intro"
+    >
+        Reference our Server-Side API, Agent API, and Webhooks for programmatic control.
+    </Card>
+</Columns>
+
+## Configurations
+
+### Sources
 
 Robots rely on application configurations stemming from a variety of sources. Some common types include:
 
@@ -15,7 +53,7 @@ Robots rely on application configurations stemming from a variety of sources. So
 - **User Preferences**: End users desire different settings or features.
 - **Testing & Development**: Test beds and beta robots need feature flagging and experimentation.
 
-### Configuration Users 
+### Users 
 Configurations then touch many different engineers on the team, each in their own way:
 
 - **Software Engineers**: Define valid configurations and tune parameters for performance of a given software version.
