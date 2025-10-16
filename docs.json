@@ -1,177 +1,189 @@
 {
-    "$schema": "https://mintlify.com/docs.json",
-    "theme": "maple",
-    "name": "Miru",
-    "colors": {
-        "primary": "#059669",
-        "light": "#34d399",
-        "dark": "#065f46"
-    },
-    "favicon": "/miru-favicon.svg",
-    "navigation": {
-        "dropdowns": [
-            {
-                "dropdown": "Documentation",
-                "icon": "book-open",
-                "groups": [
-                    {
-                        "group": "Getting Started",
-                        "pages": [
-                            "docs/home/getting-started/intro",
-                            {
-                                "group": "Quick Start",
-                                "pages": [
-                                    "docs/home/getting-started/quick-start/setup",
-                                    "docs/home/getting-started/quick-start/releases",
-                                    "docs/home/getting-started/quick-start/deploy"
-                                ]
-                            },
-                            "docs/home/getting-started/concepts"
-
-                        ]
-                    },
-{
-                        "group": "Guides",
-                        "pages": [
-                            {
-                                "group": "Custom Validation",
-                                "pages": [
-                                    "docs/home/guides/custom-validation/setup",
-                                    "docs/home/guides/custom-validation/local-testing"
-                                ]
-                            },
-                            "docs/home/guides/jsonschema"
-                        ]
-                    },
-                    {
-                        "group": "Agent",
-                        "pages": [
-                            "docs/home/agent/intro",
-                            "docs/home/agent/install"
-                        ]
-                    }
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "almond",
+  "name": "Miru",
+  "colors": {
+    "primary": "#059669",
+    "light": "#34d399",
+    "dark": "#065f46"
+  },
+  "favicon": "/miru-favicon.svg",
+  "styling": {
+    "eyebrows": "section"
+  },
+  "fonts": {
+    "family": "Inter",
+    "weight": 400
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "docs/home/getting-started/intro",
+              {
+                "group": "Quick Start",
+                "pages": [
+                  "docs/home/getting-started/quick-start/setup",
+                  "docs/home/getting-started/quick-start/releases",
+                  "docs/home/getting-started/quick-start/deploy"
                 ]
-            },
-            {
-                "dropdown": "CLI Reference",
-                "icon": "terminal",    
-                "groups": [
-                    {
-                        "group": "Basics",
-                        "pages": [
-                            "docs/cli-reference/install",
-                            "docs/cli-reference/login"
-                        ]
-                    },
-                    {
-                        "group": "Schemas",
-                        "pages": [
-                            "docs/cli-reference/schema-push"
-                        ]
-                    },
-                    {
-                        "group": "Instances",
-                        "pages": [
-                            "docs/cli-reference/instance-to-jsonschema"
-                        ]
-                    }
+              },
+              "docs/home/getting-started/concepts"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              {
+                "group": "Custom Validation",
+                "pages": [
+                  "docs/home/guides/custom-validation/setup"
                 ]
-            },
-            {
-                "dropdown": "API Reference",
-                "icon": "code",
-                "groups": [
-                    {
-                        "group": "Server-Side API",
-                        "pages": [
-                            "docs/api-reference/server-side/intro",
-                            "docs/api-reference/server-side/authn",
-                            {
-                                "group": "Query Parameters",
-                                "pages": [
-                                    "docs/api-reference/server-side/query-params/filtering",
-                                    "docs/api-reference/server-side/query-params/sorting",
-                                    "docs/api-reference/server-side/query-params/pagination",
-                                    "docs/api-reference/server-side/query-params/expansions"
-                                ]
-                            },
-                            {
-                                "group": "SDKs",
-                                "pages": [
-                                    "docs/api-reference/server-side/sdks/overview",
-                                    "docs/api-reference/server-side/sdks/python"
-                                ]
-                            },
-                            {
-                                "group": "Endpoints",
-                                "openapi": {
-                                    "source": "api/server-api.yaml",
-                                    "directory": "docs/api-reference/server-side/endpoints"
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "group": "Agent API",
-                        "pages": [
-
-                            "docs/api-reference/agent/intro",
-                            "docs/api-reference/agent/authn",
-                            {
-                                "group": "SDKs",
-                                "pages": [
-                                    "docs/api-reference/agent/sdks/overview",
-                                    "docs/api-reference/agent/sdks/python"
-                                ]
-                            },
-                            {
-                                "group": "Endpoints",
-                                "openapi": {
-                                    "source": "api/agent-api.yaml",
-                                    "directory": "docs/api-reference/agent/endpoints"
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "group": "Webhooks",
-                        "openapi": {
-                            "source": "api/webhooks.yaml",
-                            "directory": "docs/api-reference/webhooks/events"
-                        }
-                    }
-                ]
-            }
+              },
+              "docs/home/guides/jsonschema"
+            ]
+          },
+          {
+            "group": "Agent",
+            "pages": [
+              "docs/home/agent/intro",
+              "docs/home/agent/install"
+            ]
+          }
         ]
-    },
-    "icons": {
-        "library": "lucide"
-    },
-    "logo": {
-        "light": "/logo/dark.png",
-        "dark": "/logo/light.png"
-    },
-    "appearance": {
-        "default": "dark"
-    },
-    "navbar": {
-        "links": [
-            {
-                "label": "Talk to a Founder",
-                "href": "https://cal.com/vedantnair/30min"
-            }
-        ],
-        "primary": {
-            "type": "button",
-            "label": "Dashboard",
-            "href": "https://configs.miruml.com/login"
-        }
-    },
-    "footer": {
-        "socials": {
-            "linkedin": "https://www.linkedin.com/company/miruml/",
-            "x": "https://x.com/mirurobotics",
-            "github": "https://github.com/miruml"
-        }
+      },
+      {
+        "tab": "References",
+        "menu": [
+          {
+            "item": "Server-Side API",
+            "groups": [
+              {
+                "group": "Server-Side API",
+                "pages": [
+                  "docs/api-reference/server-side/intro",
+                  "docs/api-reference/server-side/authn",
+                  {
+                    "group": "Query Parameters",
+                    "pages": [
+                      "docs/api-reference/server-side/query-params/filtering",
+                      "docs/api-reference/server-side/query-params/sorting",
+                      "docs/api-reference/server-side/query-params/pagination",
+                      "docs/api-reference/server-side/query-params/expansions"
+                    ]
+                  }
+                ]
+              },
+              {
+                "group": "SDKs",
+                "pages": [
+                  "docs/api-reference/server-side/sdks/overview",
+                  "docs/api-reference/server-side/sdks/python"
+                ]
+              },
+              {
+                "group": "Endpoints",
+                "openapi": {
+                  "source": "api/server-api.yaml",
+                  "directory": "docs/api-reference/server-side/endpoints"
+                }
+              }
+            ]
+          },
+          {
+            "item": "Agent API",
+            "groups": [
+              {
+                "group": "Agent API",
+                "pages": [
+                  "docs/api-reference/agent/intro",
+                  "docs/api-reference/agent/authn"
+                ]
+              },
+              {
+                "group": "SDKs",
+                "pages": [
+                  "docs/api-reference/agent/sdks/overview",
+                  "docs/api-reference/agent/sdks/python"
+                ]
+              },
+              {
+                "group": "Endpoints",
+                "openapi": {
+                  "source": "api/agent-api.yaml",
+                  "directory": "docs/api-reference/agent/endpoints"
+                }
+              }
+            ]
+          },
+          {
+            "item": "CLI",
+            "groups": [
+              {
+                "group": "CLI",
+                "pages": [
+                  "docs/cli-reference/install",
+                  "docs/cli-reference/login"
+                ]
+              },
+              {
+                "group": "Schemas",
+                "pages": [
+                  "docs/cli-reference/schema-push"
+                ]
+              },
+              {
+                "group": "Instances",
+                "pages": [
+                  "docs/cli-reference/instance-to-jsonschema"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "icons": {
+    "library": "lucide"
+  },
+  "logo": {
+    "light": "/logo/dark.png",
+    "dark": "/logo/light.png"
+  },
+  "appearance": {
+    "default": "dark"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Talk to a Founder",
+        "href": "https://cal.com/vedantnair/30min"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Dashboard",
+      "href": "https://configs.miruml.com/login"
     }
+  },
+  "footer": {
+    "socials": {
+      "linkedin": "https://www.linkedin.com/company/miruml/",
+      "x": "https://x.com/mirurobotics",
+      "github": "https://github.com/miruml"
+    }
+  },
+  "api": {
+    "params": {
+      "expanded": "all"
+    },
+    "playground": {
+      "display": "simple"
+    }
+  }
 }
