@@ -1,12 +1,12 @@
 ---
-title: "Integrate"
+title: "Setup"
 ---
 
 import CreateAPIKey from '/snippets/api-keys/create.mdx';
 
 ## Overview
 
-Miru natively supports the use of JSON Schema to validate configurations. However, you may find it more convenient to validate configurations with your software stack instead of relying on JSON Schema.
+Miru natively supports the use of JSON Schema to validate configurations. However, you may find it simpler to validate configurations with your own software stack instead of relying on JSON Schema.
 
 To support this, Miru provides webhooks and server-side APIs. The setup involves two primary steps:
 
@@ -38,14 +38,14 @@ To enable custom validation for a release, navigate to the [Releases](https://co
 Toggle the **Custom Validation** setting and click **Save**.
 
 <Warning>
-  Enabling custom validation _requires_ deployments to be validated. If you do not have a validation server set up, deployments on this release will be unable to deploy.
+  Enabling custom validation _requires_ deployments to be validated. If you do not have a validation endpoint set up, deployments on this release will be unable to deploy.
 </Warning>
 
 ## Create an Endpoint
 
 Next, you'll need to supply the URL of the endpoint to Miru.
 
-If you haven't deployed the endpoint yet, that's okay. You can change the URL at any time, so feel free to follow along and deploy the endpoint after completing this section.
+If you haven't deployed the endpoint yet, that's okay. You can change the URL at any time, so feel free to follow along and deploy the endpoint later.
 
 Navigate to the [webhooks](https://configs.miruml.com/webhooks) page in Miru.
 
@@ -75,17 +75,18 @@ Finally, enter a description for the endpoint, select the `deployment.validate` 
 
 You'll need two secrets to integrate your endpoint with Miru: a webhook secret and an API key.
 
-We recommend storing secrets in a secrets manager or other secure location.
+Webhook secrets are used to verify the authenticity of the webhook request while API keys are used to authenticate requests to the Miru API.
 
-No matter where you choose to store them, be sure not to expose these secrets in publicly accessible areas such as GitHub, client-side code, and so forth.
+We recommend storing secrets in a secrets manager or other secure location. No matter where you choose to store them, be sure not to expose these secrets in publicly accessible areas such as GitHub, client-side code, and so forth.
 
 ### Webhook Secret
 
-To retrieve the webhook secret for an endpoint, click into the endpoint. Then, click the **eye** icon on the far right of the page to reveal the webhook secret.
+To retrieve the webhook secret for an endpoint, click into the endpoint. Then, click the **eye** icon on the far right of the page to reveal the secret.
 
 <Frame>
   ![](/images/custom-validation/wbhk-ep-view.png)
 </Frame>
+
 
 ### API Key
 
@@ -95,7 +96,7 @@ To create an API key for your endpoint:
 
 ## Example Server
 
-The [custom-validation](https://github.com/miruml/custom-validation) repository contains an example server that demonstrates webhook verification and deployment validation using the Miru server-side SDK.
+The [custom-validation](https://github.com/miruml/custom-validation) repository contains an example flask server that demonstrates webhook verification and deployment validation using the Miru server-side SDK.
 
 ### Secrets
 
@@ -103,7 +104,18 @@ For a plug-and-play experience with Webhook Secrets and API Keys, you may place 
 
 ### Code Walkthrough
 
-The flask server first verifies the webhook signature using the Webhook Secret.
+The [app.py](https://github.com/miruml/custom-validation/blob/main/flask/app.py) file is the entry point for the flask server. Let's walk through it step by step.
+
+The server accepts a POST request at the `/webhooks/miru` route. You may need to update this route to match the route you specified when creating the endpoint in Miru.
+
+```python
+@app.route("/webhooks/miru", methods=["POST"])
+def webhook_endpoint() -> tuple[Response, int]:
+```
+
+**Verify the Webhook**
+
+First, the server verifies the webhook signature using the Webhook Secret. Make sure you've set the Webhook Secret in the `.env` file or swapped out the `get_env_var` function for your secrets manager.
 
 ```python expandable
 headers = dict(request.headers)
@@ -122,7 +134,9 @@ except WebhookVerificationError as e:
     }), 400
 ```
 
-It then checks if the event is the `deployment.validate` event, passing the event to the `handle_validate_deployment` function to handle the validation.
+**Handle the Validation**
+
+The server then checks if the event is the `deployment.validate` event, passing the event to the `handle_validate_deployment` function while ignoring all other events.
 
 ```python
 event = miru_client.webhooks.unwrap(payload)
@@ -133,7 +147,9 @@ else:
     return jsonify({'message': 'no action required'}), 200
 ```
 
-The deployment and its config instances are then retrieved using the [get deployment API](/docs/api-reference/server-side/endpoints/deployments/get), before being passed to the `validate_deployment` function.
+**Retrieve the Deployment**
+
+The deployment and its config instances are then retrieved from Miru using the [get deployment API](/docs/api-reference/server-side/endpoints/deployments/get). Here we use [expansions](/docs/api-reference/server-side/query-params/expansions) to retrieve the deployment's device, release, and config instances.
 
 ```python
 deployment = miru_client.deployments.retrieve(
@@ -146,7 +162,9 @@ deployment = miru_client.deployments.retrieve(
 )
 ```
 
-The `validate_deployment` function is where you'll insert your validation logic. It takes in the config instances for the deployment and returns the validation results.
+**Validate the Deployment**
+
+The deployment's config instances are then passed to the `validate_deployment` function. This is where you'll add your own validation logic. The function takes config instances as arguments and returns the validation results.
 
 ```python expandable
 def validate_deployment(
@@ -186,6 +204,8 @@ def validate_deployment(
     )
 ```
 
+**Send the Results**
+
 Finally, the validation results are sent to Miru using the [validate deployment API](/docs/api-reference/server-side/endpoints/deployments/validate).
 
 ```python
@@ -196,9 +216,11 @@ response = miru_client.deployments.validate(
 
 ### Effects
 
-The [validate deployment API](/docs/api-reference/server-side/endpoints/deployments/validate) response contains an `effect` field, which returns the effect of validating the deployment. Depending on the validation results and the user's intent, the deployment may be launched into one of several different states as a result. The `effect` field records what the deployment's next state is, and the `message` field explains why.
+The [validate deployment API](/docs/api-reference/server-side/endpoints/deployments/validate) response contains an `effect` field, which returns the effect of validating the deployment. 
 
-In general, the validation server does not concern itself with why the deployment needs to be validated or what action should come next. Miru handles these details accordingly.
+Depending on the validation results and the user's intent, the deployment may be launched into one of several different states as a result. The `effect` field records what the deployment's next state is, and the `message` field explains why.
+
+In general, the validation endpoint does not concern itself with why the deployment needs to be validated or what action should come next. Miru handles these details for you.
 
 However, the `effect` and `message` fields provide useful system transparency to understand what the system is doing and maintain some level of auditability.
 

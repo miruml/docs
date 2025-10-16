@@ -15,19 +15,18 @@
                 "icon": "book-open",
                 "groups": [
                     {
-                        "group": "Basics",
+                        "group": "Getting Started",
                         "pages": [
-                            "docs/home/basics/intro",
+                            "docs/home/getting-started/intro",
                             {
-                                "group": "Getting Started",
+                                "group": "Quick Start",
                                 "pages": [
-                                    "docs/home/basics/getting-started/setup",
-                                    "docs/home/basics/getting-started/releases",
-                                    "docs/home/basics/getting-started/deploy"
+                                    "docs/home/getting-started/quick-start/setup",
+                                    "docs/home/getting-started/quick-start/releases",
+                                    "docs/home/getting-started/quick-start/deploy"
                                 ]
                             },
-                            "docs/home/basics/concepts",
-                            "/docs/home/basics/faq"
+                            "docs/home/getting-started/concepts"
 
                         ]
                     },
@@ -37,7 +36,8 @@
                             {
                                 "group": "Custom Validation",
                                 "pages": [
-                                    "docs/home/guides/custom-validation/integrate"
+                                    "docs/home/guides/custom-validation/setup",
+                                    "docs/home/guides/custom-validation/local-testing"
                                 ]
                             },
                             "docs/home/guides/jsonschema"
