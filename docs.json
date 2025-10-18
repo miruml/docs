@@ -36,6 +36,13 @@
             ]
           },
           {
+            "group": "Agent",
+            "pages": [
+              "docs/home/agent/intro",
+              "docs/home/agent/install"
+            ]
+          },
+          {
             "group": "Guides",
             "pages": [
               {
@@ -45,13 +52,6 @@
                 ]
               },
               "docs/home/guides/jsonschema"
-            ]
-          },
-          {
-            "group": "Agent",
-            "pages": [
-              "docs/home/agent/intro",
-              "docs/home/agent/install"
             ]
           }
         ]
@@ -95,10 +95,10 @@
             ]
           },
           {
-            "item": "Agent API",
+            "item": "Miru Agent API",
             "groups": [
               {
-                "group": "Agent API",
+                "group": "Miru Agent API",
                 "pages": [
                   "docs/api-reference/agent/intro",
                   "docs/api-reference/agent/authn"
@@ -121,7 +121,7 @@
             ]
           },
           {
-            "item": "CLI",
+            "item": "CLI Commands",
             "groups": [
               {
                 "group": "CLI",
@@ -142,6 +142,18 @@
                   "docs/cli-reference/instance-to-jsonschema"
                 ]
               }
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Changelog",
+        "groups": [
+          {
+            "group": "Changelog",
+            "pages": [
+              "docs/changelogs/product",
+              "docs/changelogs/developers"
             ]
           }
         ]
