@@ -2,12 +2,27 @@
 title: 'Via the Dashboard'
 ---
 
-import Install from '/snippets/agent/install/dashboard.mdx';
+import CreateDevice from '/snippets/agent/install/dashboard/create-device.mdx';
+import RetrieveCmd from '/snippets/agent/install/dashboard/retrieve-cmd.mdx';
+import RunCmd from '/snippets/agent/install/dashboard/run-cmd.mdx';
+import Verify from '/snippets/agent/install/verify.mdx';
 
 ## Overview
-The simplest way to install the Miru Agent onto a machine is via the Miru Dashboard: simply copy an activation command from the dashboard and paste it into the terminal of the machine you want to install the agent onto.
 
-While convenient for getting started, at some point you'll likely want to automate the installation process. For a programmatic approach, check out the [API Key](/docs/home/agent/install/api-keys) installation method.
+Dashboard installation is the most straightforward method for installing the Miru Agent and is ideal for getting started quickly or managing individual devices. 
 
-## Install
-<Install />
+This method is particularly useful for initial setup, small deployments, development environments, or when you need the visual feedback and device management capabilities of the web dashboard.
+
+For automated deployments or provisioning multiple devices at scale, consider the [API Key](/docs/home/agent/install/api-keys) installation method.
+
+## Create a Device
+<CreateDevice />
+
+## Retrieve the Command
+<RetrieveCmd />
+
+## Run the Command
+<RunCmd />
+
+## Verify the Installation
+<Verify />

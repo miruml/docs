@@ -1,0 +1,11 @@
+<ParamField path="--device-name" type="string" default="$HOSTNAME">
+The name for the device in the Miru dashboard.
+</ParamField>
+
+<ParamField path="--allow-reactivation" type="boolean" default={false}>
+Allows reactivation of existing devices. Without this flag, only brand new devices can be activated. With this flag, devices which have been previously activated may be reactivated.
+</ParamField>
+
+<ParamField path="--version" type="string">
+Specific agent version to install (e.g., `v0.6.0`). Defaults to the [latest release](https://github.com/miruml/agent/releases/latest). See all [available versions](https://github.com/miruml/agent/releases).
+</ParamField>
