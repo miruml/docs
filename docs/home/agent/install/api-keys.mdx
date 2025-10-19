@@ -1,0 +1,46 @@
+---
+title: 'Via API Keys'
+---
+
+import CreateAPIKey from '/snippets/api-keys/create-provisioner.mdx';
+import Install from '/snippets/agent/install/api-keys.mdx';
+
+## Create the API Key
+<CreateAPIKey />
+
+## Install
+
+Open a terminal in the device you want to install Miru onto and set the `MIRU_API_KEY` environment variable with your API Key.
+
+```bash
+export MIRU_API_KEY=<your-api-key>
+```
+
+Next, run the [provision script](https://github.com/miruml/agent/blob/main/scripts/install/provision.sh) to provision the device. 
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/miruml/agent/main/scripts/install/provision.sh | sh -s -- \
+ --device-name=$HOSTNAME \
+ --allow-reactivation=true
+```
+
+The script does the following:
+1. Creates a new device in the Miru dashboard (if it doesn't already exist).
+2. Downloads and installs the Miru Agent debian package.
+3. Activates an `inactive` or reactivates a previously activated device (if `--allow-reactivation` is set to true).
+
+The script accepts the following arguments.
+
+<ParamField path="--device-name" type="string">
+    The name of the device to provision. The default is the hostname of the device (`$HOSTNAME`).
+</ParamField>
+
+<ParamField path="--allow-reactivation" type="boolean">
+Whether to allow reactivation of existing devices or not. If not included, only an `inactive` device can be activated. If included, devices of any status can be activated. By default, only an `inactive` device can be activated.
+</ParamField>
+
+<ParamField path="--version" type="string">
+    The version of the Miru Agent to install in the form `v<major>.<minor>.<patch>` (e.g. `v0.6.0`). You can find a list of available versions [here](https://github.com/miruml/agent/releases). The default value is the [latest](https://github.com/miruml/agent/releases/latest) version.
+</ParamField>
+
+To verify the device was provisioned successfully, navigate to the [Devices page](https://configs.miruml.com/devices). You should find the device listed as `Activating`, shortly followed by `Online` once the agent connects to the server.

@@ -39,7 +39,15 @@
             "group": "Agent",
             "pages": [
               "docs/home/agent/intro",
-              "docs/home/agent/install"
+              {
+                "group": "Install",
+                "pages": [
+                  "docs/home/agent/install/dashboard",
+                  "docs/home/agent/install/api-keys",
+                  "docs/home/agent/install/poor-connectivity",
+                  "docs/home/agent/install/uninstall"
+                ]
+              }
             ]
           },
           {

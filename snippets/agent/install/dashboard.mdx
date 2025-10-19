@@ -1,0 +1,43 @@
+Navigate to the [Devices page](https://configs.miruml.com/devices).
+
+Create a device by clicking the **New Device** button in the top right, naming the device, and clicking **Create**. 
+
+<Frame>
+   ![](/images/agent/create-device-panel.png)
+</Frame>
+
+Next, click the **Activate** button on the device you just created.
+
+<Frame>
+   ![](/images/agent/activate.png)
+</Frame>
+
+Copy the installation command shown in the dialog and paste it into the terminal of the device you want to install the agent on.
+
+<Frame>
+    ![](/images/agent/activate-dialog.png)
+</Frame>
+
+<Note>
+`curl` must be installed and sudo privileges are required. 
+</Note>
+
+The installation command is composed of the following parts:
+
+- `curl -fsSL <installation-script-url>` downloads the installation script from the [Miru Agent repository](https://github.com/miruml/agent).
+- `|` pipes the script to the shell.
+- `env MIRU_ACTIVATION_TOKEN=<activation-token>` sets the activation token environment variable.
+- `<activation-token>` is a short-lived token used to identify and activate the device.
+- `sh` executes the script.
+
+You can review the contents of the installation script [here](https://github.com/miruml/agent/blob/main/scripts/install/install.sh). 
+
+The script downloads the Miru Agent, installs the agent as a `systemd` service, and activates the agent using the provided token.
+
+Upon successful installation, a message will confirm that the device has been activated.
+
+```bash
+==> Successfully activated this device as Robot A!
+```
+
+To verify the installation, navigate back to the [Devices page](https://configs.miruml.com/devices). The device will briefly show as `Activating` before transitioning to `Online` once connected to the server.
