@@ -1121,8 +1121,8 @@ components:
         This status merges the 'activity_status' and 'error_status' fields, with error states taking precedence over activity states when errors are present. For example, if the activity status is 'deployed' but the error status is 'failed', the status is 'failed'. However, if the error status is 'none' and the activity status is 'deployed', the status is 'deployed'.
       enum:
         - validating
-        - pending
-        - approved
+        - needs_review
+        - staged
         - queued
         - deployed
         - removing
@@ -1131,8 +1131,8 @@ components:
         - retrying
       x-enum-varnames:
         - DEPLOYMENT_STATUS_VALIDATING
-        - DEPLOYMENT_STATUS_PENDING
-        - DEPLOYMENT_STATUS_APPROVED
+        - DEPLOYMENT_STATUS_NEEDS_REVIEW
+        - DEPLOYMENT_STATUS_STAGED
         - DEPLOYMENT_STATUS_QUEUED
         - DEPLOYMENT_STATUS_DEPLOYED
         - DEPLOYMENT_STATUS_REMOVING
@@ -1144,24 +1144,24 @@ components:
       description: |
         Last known activity state of the deployment.
         - Validating: the deployment's config instances are being validated with user's custom validation
-        - Pending: staged for deployment but not yet approved; requires approval for deployment to occur
-        - Approved: staged and approved for deployment
+        - Needs review: deployment needs to be reviewed before it can be deployed
+        - Staged: is ready to be deployed
         - Queued: the deployment's config instances are waiting to be received by the device; will be deployed as soon as the device is online
         - Deployed: the deployment's config instances are currently available for consumption on the device
         - Removing: the deployment's config instances are being removed from the device
         - Archived: the deployment is available for historical reference but cannot be deployed and is not active on the device
       enum:
         - validating
-        - pending
-        - approved
+        - needs_review
+        - staged
         - queued
         - deployed
         - removing
         - archived
       x-enum-varnames:
         - DEPLOYMENT_ACTIVITY_STATUS_VALIDATING
-        - DEPLOYMENT_ACTIVITY_STATUS_PENDING
-        - DEPLOYMENT_ACTIVITY_STATUS_APPROVED
+        - DEPLOYMENT_ACTIVITY_STATUS_NEEDS_REVIEW
+        - DEPLOYMENT_ACTIVITY_STATUS_STAGED
         - DEPLOYMENT_ACTIVITY_STATUS_QUEUED
         - DEPLOYMENT_ACTIVITY_STATUS_DEPLOYED
         - DEPLOYMENT_ACTIVITY_STATUS_REMOVING
@@ -1185,18 +1185,15 @@ components:
       type: string
       description: |
         Desired state of the deployment.
-        - Pending: staged for deployment but not yet approved; requires approval for deployment to occur
-        - Approved: staged and approved for deployment
+        - Staged: is ready to be deployed
         - Deployed: all config instances part of the deployment are available for consumption on the device
         - Archived: the deployment is available for historical reference but cannot be deployed and is not active on the device
       enum:
-        - pending
-        - approved
+        - staged
         - deployed
         - archived
       x-enum-varnames:
-        - DEPLOYMENT_TARGET_STATUS_PENDING
-        - DEPLOYMENT_TARGET_STATUS_APPROVED
+        - DEPLOYMENT_TARGET_STATUS_STAGED
         - DEPLOYMENT_TARGET_STATUS_DEPLOYED
         - DEPLOYMENT_TARGET_STATUS_ARCHIVED
     BaseDeployment:
@@ -1371,15 +1368,16 @@ components:
       type: string
       description: |
         Desired state of the deployment. 
-        - Pending: staged for deployment but not yet approved. Deployments can only be staged if their release is not the current release for the device.
-        - Approved: staged and approved for deployment. Deployments can only be staged if their release is not the current release for the device.
+        - Staged: ready for deployment. Deployments can only be staged if their release is not the current release for the device.
         - Deployed: deployed to the device. Deployments can only be deployed if their release is the device's current release.
 
         If custom validation is enabled for the release, the deployment must pass validation before fulfilling the target status.
       enum:
-        - pending
-        - approved
+        - staged
         - deployed
+      x-enum-varnames:
+        - CREATE_STAGED_DEPLOYMENT
+        - CREATE_DEPLOYED_DEPLOYMENT
     CreateConfigInstanceRequest:
       title: Create Config Instance Request
       type: object
