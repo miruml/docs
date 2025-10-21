@@ -2,7 +2,7 @@
 
 git_repo_root_dir=$(git rev-parse --show-toplevel)
 source_docs="$git_repo_root_dir/cli/gen"
-dest_docs="$git_repo_root_dir/snippets/cli-reference/gen"
+dest_docs="$git_repo_root_dir/snippets/references/cli/gen"
 
 
 # Remove the existing generated docs

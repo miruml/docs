@@ -10,15 +10,15 @@ Miru natively supports the use of JSON Schema to validate configurations. Howeve
 
 To support this, Miru provides webhooks and server-side APIs. The setup involves two primary steps:
 
-1. Deploy an endpoint that validates [deployments](/docs/home/basics/concepts#deployment) for your application.
+1. Deploy an endpoint that validates [deployments](/docs/home/getting-started/concepts#deployment) for your application.
 2. Supply the endpoint's URL to Miru and add Miru's authentication to the endpoint.
 
 Once the endpoint is integrated, validation occurs in two parts:
 
-1. Miru sends [deployment.validate](/docs/api-reference/webhooks/events/deployments/validate) webhook events to your endpoint whenever deployments require validation.
-2. Your endpoint sends validation results back to Miru using the [validate deployment API](/docs/api-reference/server-side/endpoints/deployments/validate).
+1. Miru sends [deployment.validate](/docs/references/webhooks/events/deployments/validate) webhook events to your endpoint whenever deployments require validation.
+2. Your endpoint sends validation results back to Miru using the [validate deployment API](/docs/references/server-side-api/endpoints/deployments/validate).
 
-This section guides you through the process of integrating an endpoint with Miru. An example [flask server](https://github.com/miruml/custom-validation), which leverages the [Miru server-side SDK](/docs/api-reference/server-side/sdks/python), is provided to get you started.
+This section guides you through the process of integrating an endpoint with Miru. An example [flask server](https://github.com/miruml/custom-validation), which leverages the [Miru server-side SDK](/docs/references/server-side-api/sdks/python), is provided to get you started.
 
 You may host the endpoint however you'd like as long as it is accessible over HTTPS.
 
@@ -27,7 +27,7 @@ If want to set up a server on your local machine for testing or want a more in-d
 
 ## Enable Custom Validation
 
-Custom validation is enabled on a per-[release](/docs/home/basics/concepts#release) basis. Enabling it on one release has no impact on other releases.
+Custom validation is enabled on a per-[release](/docs/home/getting-started/concepts#release) basis. Enabling it on one release has no impact on other releases.
 
 To enable custom validation for a release, navigate to the [Releases](https://configs.miruml.com/releases) page. Click the ellipses on the far right of the release you would like to enable and select **Edit** from the dropdown.
 
@@ -149,7 +149,7 @@ else:
 
 **Retrieve the Deployment**
 
-The deployment and its config instances are then retrieved from Miru using the [get deployment API](/docs/api-reference/server-side/endpoints/deployments/get). Here we use [expansions](/docs/api-reference/server-side/query-params/expansions) to retrieve the deployment's device, release, and config instances.
+The deployment and its config instances are then retrieved from Miru using the [get deployment API](/docs/references/server-side-api/endpoints/deployments/get). Here we use [expansions](/docs/references/server-side-api/query-params/expansions) to retrieve the deployment's device, release, and config instances.
 
 ```python
 deployment = miru_client.deployments.retrieve(
@@ -206,7 +206,7 @@ def validate_deployment(
 
 **Send the Results**
 
-Finally, the validation results are sent to Miru using the [validate deployment API](/docs/api-reference/server-side/endpoints/deployments/validate).
+Finally, the validation results are sent to Miru using the [validate deployment API](/docs/references/server-side-api/endpoints/deployments/validate).
 
 ```python
 response = miru_client.deployments.validate(
@@ -216,7 +216,7 @@ response = miru_client.deployments.validate(
 
 ### Effects
 
-The [validate deployment API](/docs/api-reference/server-side/endpoints/deployments/validate) response contains an `effect` field, which returns the effect of validating the deployment. 
+The [validate deployment API](/docs/references/server-side-api/endpoints/deployments/validate) response contains an `effect` field, which returns the effect of validating the deployment. 
 
 Depending on the validation results and the user's intent, the deployment may be launched into one of several different states as a result. The `effect` field records what the deployment's next state is, and the `message` field explains why.
 
@@ -228,11 +228,11 @@ Feel free to ignore the validation effect; although you may find it helpful to l
 
 **Reject**
 
-If your endpoint sets the [is_valid](http://localhost:3000/docs/api-reference/server-side/endpoints/deployments/validate#body-is-valid) field to be false in the [validate deployment](/docs/api-reference/server-side/endpoints/deployments/validate) request, the deployment is 'rejected', and the `effect` field returns `reject`. Rejected deployments cannot be staged or deployed to devices but are maintained for historical reference. Error messages supplied in the request are displayed in the UI for convenience.
+If your endpoint sets the [is_valid](http://localhost:3000/docs/references/server-side-api/endpoints/deployments/validate#body-is-valid) field to be false in the [validate deployment](/docs/references/server-side-api/endpoints/deployments/validate) request, the deployment is 'rejected', and the `effect` field returns `reject`. Rejected deployments cannot be staged or deployed to devices but are maintained for historical reference. Error messages supplied in the request are displayed in the UI for convenience.
 
 **Stage and Deploy**
 
-If your endpoint sets the [is_valid](http://localhost:3000/docs/api-reference/server-side/endpoints/deployments/validate#body-is-valid) field to be true in the [validate deployment](/docs/api-reference/server-side/endpoints/deployments/validate) request, the deployment is 'approved' and the `effect` field returns `stage` or `deploy`. Depending on the user's original intent, the deployment may be staged for a future deployment or deployed immediately.
+If your endpoint sets the [is_valid](http://localhost:3000/docs/references/server-side-api/endpoints/deployments/validate#body-is-valid) field to be true in the [validate deployment](/docs/references/server-side-api/endpoints/deployments/validate) request, the deployment is 'approved' and the `effect` field returns `stage` or `deploy`. Depending on the user's original intent, the deployment may be staged for a future deployment or deployed immediately.
 
 **None and Void**
 

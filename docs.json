@@ -72,15 +72,15 @@
               {
                 "group": "Server-Side API",
                 "pages": [
-                  "docs/api-reference/server-side/intro",
-                  "docs/api-reference/server-side/authn",
+                  "docs/references/server-side-api/intro",
+                  "docs/references/server-side-api/authn",
                   {
                     "group": "Query Parameters",
                     "pages": [
-                      "docs/api-reference/server-side/query-params/filtering",
-                      "docs/api-reference/server-side/query-params/sorting",
-                      "docs/api-reference/server-side/query-params/pagination",
-                      "docs/api-reference/server-side/query-params/expansions"
+                      "docs/references/server-side-api/query-params/filtering",
+                      "docs/references/server-side-api/query-params/sorting",
+                      "docs/references/server-side-api/query-params/pagination",
+                      "docs/references/server-side-api/query-params/expansions"
                     ]
                   }
                 ]
@@ -88,22 +88,22 @@
               {
                 "group": "SDKs",
                 "pages": [
-                  "docs/api-reference/server-side/sdks/overview",
-                  "docs/api-reference/server-side/sdks/python"
+                  "docs/references/server-side-api/sdks/overview",
+                  "docs/references/server-side-api/sdks/python"
                 ]
               },
               {
                 "group": "Endpoints",
                 "openapi": {
                   "source": "stainless/server-api.yaml",
-                  "directory": "docs/api-reference/agent/endpoints"
+                  "directory": "docs/references/server-side-api/endpoints"
                 }
               },
               {
                 "group": "Webhooks",
                 "openapi": {
                   "source": "api/webhooks.yaml",
-                  "directory": "docs/api-reference/webhooks/endpoints"
+                  "directory": "docs/references/webhooks/events"
                 }
               }
             ]
@@ -114,22 +114,22 @@
               {
                 "group": "Miru Agent API",
                 "pages": [
-                  "docs/api-reference/agent/intro",
-                  "docs/api-reference/agent/authn"
+                  "docs/references/agent-api/intro",
+                  "docs/references/agent-api/authn"
                 ]
               },
               {
                 "group": "SDKs",
                 "pages": [
-                  "docs/api-reference/agent/sdks/overview",
-                  "docs/api-reference/agent/sdks/python"
+                  "docs/references/agent-api/sdks/overview",
+                  "docs/references/agent-api/sdks/python"
                 ]
               },
               {
                 "group": "Endpoints",
                 "openapi": {
                   "source": "stainless/agent-api.yaml",
-                  "directory": "docs/api-reference/agent/endpoints"
+                  "directory": "docs/references/agent-api/endpoints"
                 }
               }
             ]
@@ -140,20 +140,20 @@
               {
                 "group": "CLI",
                 "pages": [
-                  "docs/cli-reference/install",
-                  "docs/cli-reference/login"
+                  "docs/references/cli/install",
+                  "docs/references/cli/login"
                 ]
               },
               {
                 "group": "Schemas",
                 "pages": [
-                  "docs/cli-reference/schema-push"
+                  "docs/references/cli/schema-push"
                 ]
               },
               {
                 "group": "Instances",
                 "pages": [
-                  "docs/cli-reference/instance-to-jsonschema"
+                  "docs/references/cli/instance-to-jsonschema"
                 ]
               }
             ]
