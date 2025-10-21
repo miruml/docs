@@ -3,6 +3,11 @@ set -e
 
 git_repo_root_dir=$(git rev-parse --show-toplevel)
 
+# pull the agent-api.yaml file from Stainless
+AGENT_API_URL="https://app.stainless.com/api/spec/documented/miru-agent/openapi.documented.yml"
+AGENT_API_FILE="$git_repo_root_dir/stainless/agent-api.yaml"
+curl -s -o "$AGENT_API_FILE" "$AGENT_API_URL"
+
 # pull the server-api.yaml file from Stainless
 SERVER_API_URL="https://app.stainless.com/api/spec/documented/miru-server/openapi.documented.yml"
 SERVER_API_FILE="$git_repo_root_dir/stainless/server-api.yaml"

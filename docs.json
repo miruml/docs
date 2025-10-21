@@ -128,7 +128,7 @@
               {
                 "group": "Endpoints",
                 "openapi": {
-                  "source": "api/agent-api.yaml",
+                  "source": "stainless/agent-api.yaml",
                   "directory": "docs/api-reference/agent/endpoints"
                 }
               }
