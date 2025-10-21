@@ -93,6 +93,13 @@
                 ]
               },
               {
+                "group": "Endpoints",
+                "openapi": {
+                  "source": "api/server-api.yaml",
+                  "directory": "docs/api-reference/agent/endpoints"
+                }
+              },
+              {
                 "group": "Webhooks",
                 "openapi": {
                   "source": "api/webhooks.yaml",

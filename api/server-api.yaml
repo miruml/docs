@@ -33,285 +33,285 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConfigInstance'
-  # /config_instances:
-  #   get:
-  #     tags:
-  #       - Config Instances
-  #     summary: List
-  #     description: List config instances.
-  #     operationId: listConfigInstances
-  #     parameters:
-  #       - $ref: '#/components/parameters/offset'
-  #       - $ref: '#/components/parameters/limit'
-  #       - $ref: '#/components/parameters/order_by'
-  #       - $ref: '#/components/parameters/expand_list'
-  #       - $ref: '#/components/parameters/id'
-  #       - $ref: '#/components/parameters/target_status'
-  #       - $ref: '#/components/parameters/activity_status'
-  #       - $ref: '#/components/parameters/error_status'
-  #       - $ref: '#/components/parameters/device_id'
-  #       - $ref: '#/components/parameters/config_schema_id'
-  #       - $ref: '#/components/parameters/config_type_id'
-  #     responses:
-  #       '200':
-  #         description: Successfully listed the config instances.
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/ConfigInstanceList'
-  # /deployments/{deployment_id}:
-  #   get:
-  #     tags:
-  #       - Deployments
-  #     summary: Get
-  #     operationId: getDeployment
-  #     parameters:
-  #       - $ref: '#/components/parameters/deployment_id'
-  #       - $ref: '#/components/parameters/parameters-expand'
-  #     responses:
-  #       '200':
-  #         description: Successfully retrieved the deployment.
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/Deployment'
-  # /deployments:
-  #   get:
-  #     tags:
-  #       - Deployments
-  #     summary: List
-  #     operationId: listDeployments
-  #     parameters:
-  #       - $ref: '#/components/parameters/offset'
-  #       - $ref: '#/components/parameters/limit'
-  #       - $ref: '#/components/parameters/parameters-order_by'
-  #       - $ref: '#/components/parameters/parameters-expand_list'
-  #       - $ref: '#/components/parameters/parameters-id'
-  #       - $ref: '#/components/parameters/parameters-target_status'
-  #       - $ref: '#/components/parameters/parameters-activity_status'
-  #       - $ref: '#/components/parameters/parameters-error_status'
-  #       - $ref: '#/components/parameters/parameters-device_id'
-  #       - $ref: '#/components/parameters/release_id'
-  #     responses:
-  #       '200':
-  #         description: Successfully listed the deployments.
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/DeploymentList'
-  #   post:
-  #     tags:
-  #       - Deployments
-  #     summary: Create
-  #     description: Stage or deploy a new deployment.
-  #     operationId: createDeployment
-  #     parameters:
-  #       - $ref: '#/components/parameters/parameters-expand'
-  #     requestBody:
-  #       required: true
-  #       content:
-  #         application/json:
-  #           schema:
-  #             $ref: '#/components/schemas/CreateDeploymentRequest'
-  #     responses:
-  #       '200':
-  #         description: Successfully created the deployment.
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/Deployment'
-  # /deployments/{deployment_id}/validate:
-  #   post:
-  #     tags:
-  #       - Deployments
-  #     summary: Validate
-  #     description: Validate a deployment with your custom validation.
-  #     operationId: validateDeployment
-  #     parameters:
-  #       - $ref: '#/components/parameters/deployment_id'
-  #     requestBody:
-  #       required: true
-  #       content:
-  #         application/json:
-  #           schema:
-  #             $ref: '#/components/schemas/ValidateDeploymentRequest'
-  #     responses:
-  #       '200':
-  #         description: Successfully validated the deployment.
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/ValidateDeploymentResponse'
-  # /devices/{device_id}:
-  #   get:
-  #     tags:
-  #       - Devices
-  #     summary: Get
-  #     description: Get a device by ID.
-  #     operationId: getDevice
-  #     parameters:
-  #       - $ref: '#/components/parameters/components-parameters-device_id'
-  #     responses:
-  #       '200':
-  #         description: Successfully retrieved the device.
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/Device'
-  #   patch:
-  #     tags:
-  #       - Devices
-  #     summary: Update
-  #     operationId: updateDevice
-  #     description: Update a device by ID.
-  #     parameters:
-  #       - $ref: '#/components/parameters/components-parameters-device_id'
-  #     requestBody:
-  #       required: true
-  #       content:
-  #         application/json:
-  #           schema:
-  #             $ref: '#/components/schemas/UpdateDeviceRequest'
-  #     responses:
-  #       '200':
-  #         description: Successfully updated the device.
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/Device'
-  #   delete:
-  #     tags:
-  #       - Devices
-  #     summary: Delete
-  #     operationId: deleteDevice
-  #     description: Delete a device by ID.
-  #     parameters:
-  #       - $ref: '#/components/parameters/components-parameters-device_id'
-  #     responses:
-  #       '200':
-  #         description: Successfully deleted the device.
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/DeleteDevice'
-  # /devices:
-  #   post:
-  #     tags:
-  #       - Devices
-  #     summary: Create
-  #     operationId: createDevice
-  #     description: Create a new device.
-  #     requestBody:
-  #       required: true
-  #       content:
-  #         application/json:
-  #           schema:
-  #             $ref: '#/components/schemas/CreateDeviceRequest'
-  #     responses:
-  #       '200':
-  #         description: Successfully created the device.
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/Device'
-  #   get:
-  #     tags:
-  #       - Devices
-  #     summary: List
-  #     description: List devices.
-  #     operationId: listDevices
-  #     parameters:
-  #       - $ref: '#/components/parameters/offset'
-  #       - $ref: '#/components/parameters/limit'
-  #       - $ref: '#/components/parameters/components-parameters-order_by'
-  #       - $ref: '#/components/parameters/components-parameters-expand_list'
-  #       - $ref: '#/components/parameters/components-parameters-id'
-  #       - $ref: '#/components/parameters/name'
-  #       - $ref: '#/components/parameters/agent_version'
-  #       - $ref: '#/components/parameters/current_release_id'
-  #     responses:
-  #       '200':
-  #         description: Successfully listed the devices.
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/DeviceList'
-  # /devices/{device_id}/activation_token:
-  #   post:
-  #     tags:
-  #       - Devices
-  #     summary: Activation Token
-  #     operationId: createDeviceActivationToken
-  #     description: Create a new device activation token.
-  #     parameters:
-  #       - $ref: '#/components/parameters/components-parameters-device_id'
-  #     requestBody:
-  #       required: true
-  #       content:
-  #         application/json:
-  #           schema:
-  #             $ref: '#/components/schemas/IssueActivationTokenRequest'
-  #     responses:
-  #       '200':
-  #         description: Successfully created the device activation token.
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/TokenResponse'
-  # /releases/{release_id}:
-  #   get:
-  #     tags:
-  #       - Releases
-  #     summary: Get
-  #     description: Retrieve a release by ID.
-  #     operationId: getRelease
-  #     parameters:
-  #       - $ref: '#/components/parameters/parameters-release_id'
-  #       - $ref: '#/components/parameters/components-parameters-expand'
-  #     responses:
-  #       '200':
-  #         description: Successfully retrieved the release.
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/Release'
-  # /releases:
-  #   get:
-  #     tags:
-  #       - Releases
-  #     summary: List
-  #     description: List releases.
-  #     operationId: listReleases
-  #     parameters:
-  #       - $ref: '#/components/parameters/offset'
-  #       - $ref: '#/components/parameters/limit'
-  #       - $ref: '#/components/parameters/releases_components-parameters-order_by'
-  #       - $ref: '#/components/parameters/releases_components-parameters-expand_list'
-  #       - $ref: '#/components/parameters/releases_components-parameters-id'
-  #       - $ref: '#/components/parameters/version'
-  #     responses:
-  #       '200':
-  #         description: Successfully listed the releases.
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/ReleaseList'
-# x-webhooks:
-#   deployment.validate:
-#     post:
-#       tags:
-#         - Deployments
-#       summary: Validate
-#       description: Deployments requires custom validation to be performed
-#       operationId: validateDeployment
-#       requestBody:
-#         content:
-#           application/json:
-#             schema:
-#               $ref: '#/components/schemas/ValidateDeploymentEvent'
-#       responses:
-#         '200':
-#           description: Successfully received the event.
+  /config_instances:
+    get:
+      tags:
+        - Config Instances
+      summary: List
+      description: List config instances.
+      operationId: listConfigInstances
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/order_by'
+        - $ref: '#/components/parameters/expand_list'
+        - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/target_status'
+        - $ref: '#/components/parameters/activity_status'
+        - $ref: '#/components/parameters/error_status'
+        - $ref: '#/components/parameters/device_id'
+        - $ref: '#/components/parameters/config_schema_id'
+        - $ref: '#/components/parameters/config_type_id'
+      responses:
+        '200':
+          description: Successfully listed the config instances.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigInstanceList'
+  /deployments/{deployment_id}:
+    get:
+      tags:
+        - Deployments
+      summary: Get
+      operationId: getDeployment
+      parameters:
+        - $ref: '#/components/parameters/deployment_id'
+        - $ref: '#/components/parameters/parameters-expand'
+      responses:
+        '200':
+          description: Successfully retrieved the deployment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+  /deployments:
+    get:
+      tags:
+        - Deployments
+      summary: List
+      operationId: listDeployments
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/parameters-order_by'
+        - $ref: '#/components/parameters/parameters-expand_list'
+        - $ref: '#/components/parameters/parameters-id'
+        - $ref: '#/components/parameters/parameters-target_status'
+        - $ref: '#/components/parameters/parameters-activity_status'
+        - $ref: '#/components/parameters/parameters-error_status'
+        - $ref: '#/components/parameters/parameters-device_id'
+        - $ref: '#/components/parameters/release_id'
+      responses:
+        '200':
+          description: Successfully listed the deployments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentList'
+    post:
+      tags:
+        - Deployments
+      summary: Create
+      description: Stage or deploy a new deployment.
+      operationId: createDeployment
+      parameters:
+        - $ref: '#/components/parameters/parameters-expand'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDeploymentRequest'
+      responses:
+        '200':
+          description: Successfully created the deployment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+  /deployments/{deployment_id}/validate:
+    post:
+      tags:
+        - Deployments
+      summary: Validate
+      description: Validate a deployment with your custom validation.
+      operationId: validateDeployment
+      parameters:
+        - $ref: '#/components/parameters/deployment_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateDeploymentRequest'
+      responses:
+        '200':
+          description: Successfully validated the deployment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateDeploymentResponse'
+  /devices/{device_id}:
+    get:
+      tags:
+        - Devices
+      summary: Get
+      description: Get a device by ID.
+      operationId: getDevice
+      parameters:
+        - $ref: '#/components/parameters/components-parameters-device_id'
+      responses:
+        '200':
+          description: Successfully retrieved the device.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+    patch:
+      tags:
+        - Devices
+      summary: Update
+      operationId: updateDevice
+      description: Update a device by ID.
+      parameters:
+        - $ref: '#/components/parameters/components-parameters-device_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDeviceRequest'
+      responses:
+        '200':
+          description: Successfully updated the device.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+    delete:
+      tags:
+        - Devices
+      summary: Delete
+      operationId: deleteDevice
+      description: Delete a device by ID.
+      parameters:
+        - $ref: '#/components/parameters/components-parameters-device_id'
+      responses:
+        '200':
+          description: Successfully deleted the device.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteDevice'
+  /devices:
+    post:
+      tags:
+        - Devices
+      summary: Create
+      operationId: createDevice
+      description: Create a new device.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDeviceRequest'
+      responses:
+        '200':
+          description: Successfully created the device.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+    get:
+      tags:
+        - Devices
+      summary: List
+      description: List devices.
+      operationId: listDevices
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/components-parameters-order_by'
+        - $ref: '#/components/parameters/components-parameters-expand_list'
+        - $ref: '#/components/parameters/components-parameters-id'
+        - $ref: '#/components/parameters/name'
+        - $ref: '#/components/parameters/agent_version'
+        - $ref: '#/components/parameters/current_release_id'
+      responses:
+        '200':
+          description: Successfully listed the devices.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceList'
+  /devices/{device_id}/activation_token:
+    post:
+      tags:
+        - Devices
+      summary: Activation Token
+      operationId: createDeviceActivationToken
+      description: Create a new device activation token.
+      parameters:
+        - $ref: '#/components/parameters/components-parameters-device_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IssueActivationTokenRequest'
+      responses:
+        '200':
+          description: Successfully created the device activation token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+  /releases/{release_id}:
+    get:
+      tags:
+        - Releases
+      summary: Get
+      description: Retrieve a release by ID.
+      operationId: getRelease
+      parameters:
+        - $ref: '#/components/parameters/parameters-release_id'
+        - $ref: '#/components/parameters/components-parameters-expand'
+      responses:
+        '200':
+          description: Successfully retrieved the release.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Release'
+  /releases:
+    get:
+      tags:
+        - Releases
+      summary: List
+      description: List releases.
+      operationId: listReleases
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/releases_components-parameters-order_by'
+        - $ref: '#/components/parameters/releases_components-parameters-expand_list'
+        - $ref: '#/components/parameters/releases_components-parameters-id'
+        - $ref: '#/components/parameters/version'
+      responses:
+        '200':
+          description: Successfully listed the releases.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseList'
+x-webhooks:
+  deployment.validate:
+    post:
+      tags:
+        - Deployments
+      summary: Validate
+      description: Deployments requires custom validation to be performed
+      operationId: validateDeployment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateDeploymentEvent'
+      responses:
+        '200':
+          description: Successfully received the event.
 components:
   securitySchemes:
     ApiKeyAuth:
@@ -1000,6 +1000,8 @@ components:
       allOf:
         - $ref: '#/components/schemas/BaseConfigSchema'
         - type: object
+          required:
+            - config_type
           properties:
             config_type:
               allOf:
@@ -1024,6 +1026,8 @@ components:
       allOf:
         - $ref: '#/components/schemas/BaseConfigType'
         - type: object
+          required:
+            - config_schemas
           properties:
             config_schemas:
               allOf:
@@ -1043,6 +1047,8 @@ components:
         - $ref: '#/components/schemas/BaseConfigInstance'
         - type: object
           required:
+            - device
+            - config_schema
             - content
           properties:
             device:
@@ -1299,6 +1305,8 @@ components:
       allOf:
         - $ref: '#/components/schemas/BaseRelease'
         - type: object
+          required:
+            - config_schemas
           properties:
             config_schemas:
               type: array
@@ -1312,6 +1320,10 @@ components:
       allOf:
         - $ref: '#/components/schemas/BaseDeployment'
         - type: object
+          required:
+            - device
+            - release
+            - config_instances
           properties:
             device:
               allOf:
