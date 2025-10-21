@@ -12,7 +12,7 @@ def remove_webhooks_from_yaml(file_path):
 
     # Check if x-webhooks exists and remove it
     if 'webhooks' in data:
-        print(f"Found webhooks section, removing it...")
+        print("Found x-webhooks section, renaming it to webhooks section...")
         del data['webhooks']
         print("✅ Successfully removed webhooks section")
     else:

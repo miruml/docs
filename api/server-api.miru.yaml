@@ -33,11 +33,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConfigInstance'
-      x-codeSamples:
-      - lang: Python
-        source: "from miru_server_sdk import Miru\n\nclient = Miru(\n    api_key=\"\
-          My API Key\",\n)\nconfig_instance = client.config_instances.retrieve(\n\
-          \    config_instance_id=\"cfg_inst_123\",\n)\nprint(config_instance.id)"
   /config_instances:
     get:
       tags:
@@ -64,10 +59,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConfigInstanceList'
-      x-codeSamples:
-      - lang: Python
-        source: "from miru_server_sdk import Miru\n\nclient = Miru(\n    api_key=\"\
-          My API Key\",\n)\nconfig_instances = client.config_instances.list()\nprint(config_instances)"
   /deployments/{deployment_id}:
     get:
       tags:
@@ -84,11 +75,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Deployment'
-      x-codeSamples:
-      - lang: Python
-        source: "from miru_server_sdk import Miru\n\nclient = Miru(\n    api_key=\"\
-          My API Key\",\n)\ndeployment = client.deployments.retrieve(\n    deployment_id=\"\
-          dpl_123\",\n)\nprint(deployment.id)"
   /deployments:
     get:
       tags:
@@ -113,10 +99,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeploymentList'
-      x-codeSamples:
-      - lang: Python
-        source: "from miru_server_sdk import Miru\n\nclient = Miru(\n    api_key=\"\
-          My API Key\",\n)\ndeployments = client.deployments.list()\nprint(deployments)"
     post:
       tags:
       - Deployments
@@ -138,16 +120,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Deployment'
-      x-codeSamples:
-      - lang: Python
-        source: "from miru_server_sdk import Miru\n\nclient = Miru(\n    api_key=\"\
-          My API Key\",\n)\ndeployment = client.deployments.create(\n    description=\"\
-          Deployment for the motion control config instance\",\n    device_id=\"dvc_123\"\
-          ,\n    new_config_instances=[{\n        \"config_schema_id\": \"cfg_sch_123\"\
-          ,\n        \"content\": {\n            \"direction\": \"forward\",\n   \
-          \         \"speed\": 100,\n            \"duration\": 10,\n        },\n \
-          \       \"relative_filepath\": \"/v1/motion-control.json\",\n    }],\n \
-          \   release_id=\"rls_123\",\n    target_status=\"staged\",\n)\nprint(deployment.id)"
   /deployments/{deployment_id}/validate:
     post:
       tags:
@@ -170,17 +142,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ValidateDeploymentResponse'
-      x-codeSamples:
-      - lang: Python
-        source: "from miru_server_sdk import Miru\n\nclient = Miru(\n    api_key=\"\
-          My API Key\",\n)\nresponse = client.deployments.validate(\n    deployment_id=\"\
-          dpl_123\",\n    config_instances=[{\n        \"id\": \"cfg_inst_123\",\n\
-          \        \"message\": \"The config instance contains additional parameters\
-          \ that are not supported by the config schema.\",\n        \"parameters\"\
-          : [{\n            \"message\": \"The value must be between 10 and 60.\"\
-          ,\n            \"path\": [\"content\", \"telemetry\", \"upload_interval_sec\"\
-          ],\n        }],\n    }],\n    is_valid=False,\n    message=\"Validation\
-          \ failed!\",\n)\nprint(response.deployment)"
   /devices/{device_id}:
     get:
       tags:
@@ -197,11 +158,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Device'
-      x-codeSamples:
-      - lang: Python
-        source: "from miru_server_sdk import Miru\n\nclient = Miru(\n    api_key=\"\
-          My API Key\",\n)\ndevice = client.devices.retrieve(\n    \"dvc_123\",\n\
-          )\nprint(device.id)"
     patch:
       tags:
       - Devices
@@ -223,11 +179,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Device'
-      x-codeSamples:
-      - lang: Python
-        source: "from miru_server_sdk import Miru\n\nclient = Miru(\n    api_key=\"\
-          My API Key\",\n)\ndevice = client.devices.update(\n    device_id=\"dvc_123\"\
-          ,\n)\nprint(device.id)"
     delete:
       tags:
       - Devices
@@ -243,11 +194,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteDevice'
-      x-codeSamples:
-      - lang: Python
-        source: "from miru_server_sdk import Miru\n\nclient = Miru(\n    api_key=\"\
-          My API Key\",\n)\ndevice = client.devices.delete(\n    \"dvc_123\",\n)\n\
-          print(device.id)"
   /devices:
     post:
       tags:
@@ -268,11 +214,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Device'
-      x-codeSamples:
-      - lang: Python
-        source: "from miru_server_sdk import Miru\n\nclient = Miru(\n    api_key=\"\
-          My API Key\",\n)\ndevice = client.devices.create(\n    name=\"Robot 1\"\
-          ,\n)\nprint(device.id)"
     get:
       tags:
       - Devices
@@ -295,10 +236,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeviceList'
-      x-codeSamples:
-      - lang: Python
-        source: "from miru_server_sdk import Miru\n\nclient = Miru(\n    api_key=\"\
-          My API Key\",\n)\ndevices = client.devices.list()\nprint(devices)"
   /devices/{device_id}/activation_token:
     post:
       tags:
@@ -321,11 +258,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TokenResponse'
-      x-codeSamples:
-      - lang: Python
-        source: "from miru_server_sdk import Miru\n\nclient = Miru(\n    api_key=\"\
-          My API Key\",\n)\nresponse = client.devices.create_activation_token(\n \
-          \   device_id=\"dvc_123\",\n)\nprint(response.token)"
   /releases/{release_id}:
     get:
       tags:
@@ -343,11 +275,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Release'
-      x-codeSamples:
-      - lang: Python
-        source: "from miru_server_sdk import Miru\n\nclient = Miru(\n    api_key=\"\
-          My API Key\",\n)\nrelease = client.releases.retrieve(\n    release_id=\"\
-          rls_123\",\n)\nprint(release.id)"
   /releases:
     get:
       tags:
@@ -369,10 +296,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ReleaseList'
-      x-codeSamples:
-      - lang: Python
-        source: "from miru_server_sdk import Miru\n\nclient = Miru(\n    api_key=\"\
-          My API Key\",\n)\nreleases = client.releases.list()\nprint(releases)"
 components:
   securitySchemes:
     ApiKeyAuth:
@@ -1063,45 +986,10 @@ components:
           format: date-time
           example: '2021-01-01T00:00:00Z'
           description: Timestamp of when the config type was last updated.
-    PaginatedList:
-      title: Paginated List
-      type: object
-      required:
-      - object
-      - total_count
-      - limit
-      - offset
-      - has_more
-      properties:
-        object:
-          type: string
-          enum:
-          - list
-          example: list
-        total_count:
-          type: integer
-          format: int64
-          description: The total number of items in the list. By default the total
-            count is not returned. The total count must be expanded (using expand[]=total_count)
-            to get the total number of items in the list.
-        limit:
-          type: integer
-          description: The maximum number of items to return. A limit of 15 with an
-            offset of 0 returns items 1-15.
-          default: 10
-          minimum: 1
-          maximum: 100
-        offset:
-          type: integer
-          description: The offset of the items to return. An offset of 10 with a limit
-            of 10 returns items 11-20.
-          default: 0
-          minimum: 0
-        has_more:
-          type: boolean
-          description: True if there are more items in the list to return. False if
-            there are no more items to return.
-          example: false
+    ConfigType:
+      title: Config Type
+      allOf:
+      - $ref: '#/components/schemas/BaseConfigType'
     ConfigSchema:
       title: Config Schema
       allOf:
@@ -1117,39 +1005,6 @@ components:
             description: Expand the config type using 'expand[]=config_type' in the
               query string.
             example: null
-    ConfigSchemaList:
-      title: Config Schema List
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        required:
-        - data
-        properties:
-          data:
-            type: array
-            items:
-              $ref: '#/components/schemas/ConfigSchema'
-    ConfigType:
-      title: Config Type
-      allOf:
-      - $ref: '#/components/schemas/BaseConfigType'
-      - type: object
-        required:
-        - config_schemas
-        properties:
-          config_schemas:
-            allOf:
-            - $ref: '#/components/schemas/ConfigSchemaList'
-            nullable: true
-            description: Expand the config schemas using 'expand[]=config_schemas'
-              in the query string.
-            example:
-              object: list
-              total_count: -1
-              limit: -1
-              offset: -1
-              has_more: false
-              data: []
     ConfigInstance:
       title: Config Instance
       allOf:
@@ -1220,6 +1075,45 @@ components:
       - CONFIG_INSTANCE_LIST_EXPAND_CONFIG_SCHEMA
       - CONFIG_INSTANCE_LIST_EXPAND_DEVICE
       - CONFIG_INSTANCE_LIST_EXPAND_CONFIG_TYPE
+    PaginatedList:
+      title: Paginated List
+      type: object
+      required:
+      - object
+      - total_count
+      - limit
+      - offset
+      - has_more
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+          example: list
+        total_count:
+          type: integer
+          format: int64
+          description: The total number of items in the list. By default the total
+            count is not returned. The total count must be expanded (using expand[]=total_count)
+            to get the total number of items in the list.
+        limit:
+          type: integer
+          description: The maximum number of items to return. A limit of 15 with an
+            offset of 0 returns items 1-15.
+          default: 10
+          minimum: 1
+          maximum: 100
+        offset:
+          type: integer
+          description: The offset of the items to return. An offset of 10 with a limit
+            of 10 returns items 11-20.
+          default: 0
+          minimum: 0
+        has_more:
+          type: boolean
+          description: True if there are more items in the list to return. False if
+            there are no more items to return.
+          example: false
     ConfigInstanceList:
       title: Config Instance List
       type: object
@@ -1903,3 +1797,19 @@ components:
             properties:
               deployment:
                 $ref: '#/components/schemas/WebhookDeployment'
+webhooks:
+  deployment.validate:
+    post:
+      tags:
+      - Deployments
+      summary: Validate
+      description: Deployments requires custom validation to be performed
+      operationId: validateDeployment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateDeploymentEvent'
+      responses:
+        '200':
+          description: Successfully received the event.

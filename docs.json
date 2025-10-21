@@ -95,14 +95,14 @@
               {
                 "group": "Endpoints",
                 "openapi": {
-                  "source": "stainless/server-api.yaml",
+                  "source": "api/server-api.stainless.yaml",
                   "directory": "docs/references/server-side-api/endpoints"
                 }
               },
               {
                 "group": "Webhooks",
                 "openapi": {
-                  "source": "api/webhooks.yaml",
+                  "source": "api/webhooks.miru.yaml",
                   "directory": "docs/references/webhooks/events"
                 }
               }
@@ -128,7 +128,7 @@
               {
                 "group": "Endpoints",
                 "openapi": {
-                  "source": "stainless/agent-api.yaml",
+                  "source": "api/agent-api.stainless.yaml",
                   "directory": "docs/references/agent-api/endpoints"
                 }
               }

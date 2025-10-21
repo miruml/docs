@@ -1,18 +1,6 @@
 #!/bin/bash
 set -e
 
-git_repo_root_dir=$(git rev-parse --show-toplevel)
-
-# pull the agent-api.yaml file from Stainless
-AGENT_API_URL="https://app.stainless.com/api/spec/documented/miru-agent/openapi.documented.yml"
-AGENT_API_FILE="$git_repo_root_dir/stainless/agent-api.yaml"
-curl -s -o "$AGENT_API_FILE" "$AGENT_API_URL"
-
-# pull the server-api.yaml file from Stainless
-SERVER_API_URL="https://app.stainless.com/api/spec/documented/miru-server/openapi.documented.yml"
-SERVER_API_FILE="$git_repo_root_dir/stainless/server-api.yaml"
-curl -s -o "$SERVER_API_FILE" "$SERVER_API_URL"
-
 # use a virtual environment to run the python script
 if [ ! -d ".venv" ]; then
     echo "Creating virtual environment..."
@@ -36,4 +24,4 @@ if ! python3 -c "import pyyaml" 2>/dev/null; then
 fi
 
 # remove the webhooks section from the server-api.yaml file
-python3 remove_webhooks.py "$SERVER_API_FILE"
+python3 gen-miru.py
