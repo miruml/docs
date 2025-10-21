@@ -2,14 +2,18 @@
 title: "Developers"
 ---
 
-<Update label="March 2025" description="v0.0.10" tags={["Agent", "CLI"]}>
-  ### New Wintergreen flavor.
-
-  Released a new version of the Spearmint flavor, now with 10% more mint.
+<Update label="October 20, 2025" tags={["Server-Side API", "Python Server SDK"]}>
+  ## Server-Side API `v0.1.0`
+  - Replaced deployment status enums `pending` and `approved` with `needs_review` and `staged`
+  - Updated the Python Server SDK to [v0.6.0](https://github.com/miruml/python-server-sdk/releases/tag/v0.6.0)
 </Update>
 
-<Update label="February 2025" description="v0.0.09" tags={["Agent"]}>
-  ### New Spearmint flavor.
+<Update label="October 19, 2025" tags={["Agent"]}>
+  ## Agent `v0.6.0`
 
-  Added support for Agent APIs.
+  ### Features
+  - Support poor connectivity installations of the Miru Agent
+
+  ### Retired
+  - Installing Miru Agent versions before `v0.6.0` is no longer supported. Current installations will continue functioning and receive support. However, new installations must use `v0.6.0` or later.
 </Update>

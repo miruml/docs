@@ -40,8 +40,8 @@ components:
           format: date-time
           description: The timestamp of the event
           example: '2021-01-01T00:00:00Z'
-    Deployment:
-      title: Deployment
+    WebhookDeployment:
+      title: Webhook Deployment
       type: object
       required:
         - object
@@ -93,4 +93,4 @@ components:
                 - deployment
               properties:
                 deployment:
-                  $ref: '#/components/schemas/Deployment'
+                  $ref: '#/components/schemas/WebhookDeployment'

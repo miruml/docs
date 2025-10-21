@@ -152,6 +152,18 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "Changelog",
+        "groups": [
+          {
+            "group": "Changelog",
+            "pages": [
+              "docs/changelogs/product",
+              "docs/changelogs/developers"
+            ]
+          }
+        ]
       }
     ]
   },
