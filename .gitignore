@@ -4,3 +4,6 @@ node_modules/*
 # openapi generated code
 output/
 openapitools.json
+
+# virtual environments
+.venv/
