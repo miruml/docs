@@ -11,7 +11,7 @@ webhooks:
       tags:
         - Deployments
       summary: Validate
-      description: Deployments requires custom validation to be performed
+      description: Deployment requires custom validation to be performed
       operationId: validateDeployment
       requestBody:
         content:
