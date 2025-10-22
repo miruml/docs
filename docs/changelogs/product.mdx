@@ -1,28 +1,26 @@
 ---
 title: "Product"
 mode: "center"
-rss: true
+rss: "true"
 ---
 
 <Update label="October 16, 2025" description="v0.2.0">
+  ## Review Deployments
 
-## Review Deployments
-- New deployments for a device automatically move staged deployments for that device into the 'Needs Review' status.
-- Deployments which 'Need Review' can be reviewed with a list of deployments that have been deployed since the deployment was staged
+  - New deployments for a device automatically move staged deployments for that device into the 'Needs Review' status
+  - Deployments which 'Need Review' can be reviewed with a list of deployments that have been deployed since the deployment was staged
 
-## Archive Deployments
-Deployments in the staging area can now be archived.
+  ## Archive Deployments
 
-<Accordion title="Improvements">
-- Swapped pending and approved to be needs_review and staged
-- Releases may be deleted if no deployments have been deployed for that release
-- Removed the option to set the release from the provision dialog and direct users to releases page instead.
-</Accordion>
+  Deployments in the staging area can now be archived.
 
-<Accordion title="Fixes">
-- Improved deployment-related error messages to be more human-readable
-- Stripped white space from semantic versions created for releases
-
-</Accordion>
-
+  <Accordion title="Improvements">
+    - Swapped pending and approved to be needs_review and staged
+    - Releases may be deleted if no deployments have been deployed for that release
+    - Removed the option to set the release from the provision dialog and direct users to releases page instead.
+  </Accordion>
+  <Accordion title="Fixes">
+    - Improved deployment-related error messages to be more human-readable
+    - Stripped white space from semantic versions created for releases
+  </Accordion>
 </Update>

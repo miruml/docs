@@ -1,5 +1,5 @@
 ---
-title: 'JSON Schema'
+title: "JSON Schema"
 ---
 
 import SchemaLanguages from '/snippets/schema-languages.mdx';
@@ -11,9 +11,10 @@ import SchemaLanguages from '/snippets/schema-languages.mdx';
 Miru only supports JSON Schema [Draft 2020-12](https://json-schema.org/draft/2020-12)
 
 ## Supported keywords
-The full descriptions and functionalities for keywords can be found at JSON Schema's [official website](https://json-schema.org/understanding-json-schema/keywords). 
 
-JSON Schema's [official test suite](https://github.com/json-schema-org/JSON-Schema-Test-Suite/tree/main/tests/draft2020-12) contains numerous small examples with short descriptions which are very helpful for quickly grokking what a keyword does.
+The full descriptions and functionalities for keywords can be found on the official JSON Schema[ website](https://json-schema.org/understanding-json-schema/keywords).
+
+JSON Schema's [official test suite](https://github.com/json-schema-org/JSON-Schema-Test-Suite/tree/main/tests/draft2020-12) contains numerous small examples with short descriptions, which are very helpful for quickly grokking what a keyword does.
 
 The following icons are used to indicate varying levels of keyword support by Miru.
 
@@ -23,144 +24,143 @@ These keywords are used for validation. Configurations not satisfying these keyw
 
 **🟡 Ignored**
 
-These keywords are accepted by Miru but not used for validation. Configurations not satisfying these keywords will still be considered valid.
+Miru accepts these keywords, but they are not used for validation. Configurations not satisfying these keywords will still be considered valid.
 
 **❌ Not Supported**
 
-These keywords are not accepted by Miru. Attempting to upload a schema with these keywords will throw an error.
-
+Miru does not accept these keywords. Attempting to upload a schema with these keywords will throw an error.
 
 ### Meta
 
 Meta keywords are keywords used to describe the schema itself. Think of them as a schema for the schema.
 
-| Keyword | Supported |
-|---------|-----------|
-| `$schema` | ✅ |
-| `$vocabulary` | ❌ |
+| Keyword       | Supported |
+| ------------- | --------- |
+| `$schema`     | ✅         |
+| `$vocabulary` | ❌         |
 
 ### References
 
 References are keywords used to reference other schemas or other parts of a schema. These are useful for reusing schema definitions and reducing redundancy.
 
-| Keyword | Supported |
-|---------|-----------|
-| `$anchor` | ✅ |
-| `$defs` | ✅ |
-| `$dynamicAnchor` | ✅ |
-| `$id` | ✅ |
-| `$ref` | ✅ |
-| `$dynamicRef` | ❌ |
+| Keyword          | Supported |
+| ---------------- | --------- |
+| `$anchor`        | ✅         |
+| `$defs`          | ✅         |
+| `$dynamicAnchor` | ✅         |
+| `$id`            | ✅         |
+| `$ref`           | ✅         |
+| `$dynamicRef`    | ❌         |
 
 <Warning>
-    Although the `$ref` keyword is supported, [recursive references](https://json-schema.org/understanding-json-schema/structuring#recursion) are not supported with Miru
+  Although the `$ref` keyword is supported, [recursive references](https://json-schema.org/understanding-json-schema/structuring#recursion) are not supported with Miru
 </Warning>
 
 ### Types
 
-Type keywords specify the type of a value such as a string, number, or object.
+Type keywords specify the type of a value, such as a string, number, or object.
 
-| Keyword | Supported |
-|---------|-----------|
-| `const` | ✅ |
-| `enum` | ✅ |
-| `type` | ✅ |
-| `format` | ❌ |
+| Keyword  | Supported |
+| -------- | --------- |
+| `const`  | ✅         |
+| `enum`   | ✅         |
+| `type`   | ✅         |
+| `format` | ❌         |
 
 ### Compositions
 
 Composition keywords are used to compose schemas together in programmatic ways.
 
 | Keyword | Supported |
-|---------|-----------|
-| `anyOf` | ✅ |
-| `allOf` | ❌ |
-| `else` | ❌ |
-| `if` | ❌ |
-| `not` | ❌ |
-| `oneOf` | ❌ |
-| `then` | ❌ |
+| ------- | --------- |
+| `anyOf` | ✅         |
+| `allOf` | ❌         |
+| `else`  | ❌         |
+| `if`    | ❌         |
+| `not`   | ❌         |
+| `oneOf` | ❌         |
+| `then`  | ❌         |
 
 ### Objects
 
-Object keywords define the structure of an object. In a programming language this is roughly equivalent to a class or a struct.
+Object keywords define the structure of an object. In a programming language, this is roughly equivalent to a class or a struct.
 
-| Keyword | Supported |
-|---------|-----------|
-| `maxProperties` | ✅ |
-| `minProperties` | ✅ |
-| `properties` | ✅ |
-| `required` | ✅ |
-| `additionalProperties` | ✅ |
-| `dependencies` | ❌ |
-| `dependentRequired` | ❌ |
-| `dependentSchemas` | ❌ |
-| `propertyNames` | ❌ |
-| `patternProperties` | ❌ |
-| `unevaluatedProperties` | ❌ |
+| Keyword                 | Supported |
+| ----------------------- | --------- |
+| `maxProperties`         | ✅         |
+| `minProperties`         | ✅         |
+| `properties`            | ✅         |
+| `required`              | ✅         |
+| `additionalProperties`  | ✅         |
+| `dependencies`          | ❌         |
+| `dependentRequired`     | ❌         |
+| `dependentSchemas`      | ❌         |
+| `propertyNames`         | ❌         |
+| `patternProperties`     | ❌         |
+| `unevaluatedProperties` | ❌         |
 
 ### Arrays
 
 Array keywords define the structure of an array.
 
-| Keyword | Supported |
-|---------|-----------|
-| `minItems` | ✅ |
-| `maxItems` | ✅ |
-| `uniqueItems` | ✅ |
-| `contains` | ✅ |
-| `minContains` | ✅ |
-| `maxContains` | ✅ |
-| `items` | ✅ |
-| `additionalItems` | ✅ |
-| `prefixItems` | ✅ |
-| `unevaluatedItems` | ❌ |
+| Keyword            | Supported |
+| ------------------ | --------- |
+| `minItems`         | ✅         |
+| `maxItems`         | ✅         |
+| `uniqueItems`      | ✅         |
+| `contains`         | ✅         |
+| `minContains`      | ✅         |
+| `maxContains`      | ✅         |
+| `items`            | ✅         |
+| `additionalItems`  | ✅         |
+| `prefixItems`      | ✅         |
+| `unevaluatedItems` | ❌         |
 
 ### Strings
 
 String keywords define the structure of a string.
 
-| Keyword | Supported |
-|---------|-----------|
-| `minLength` | ✅ |
-| `maxLength` | ✅ |
-| `contentSchema` | 🟡 |
-| `contentEncoding` | 🟡 |
-| `contentMediaType` | 🟡 |
-| `pattern` | ❌ |
+| Keyword            | Supported |
+| ------------------ | --------- |
+| `minLength`        | ✅         |
+| `maxLength`        | ✅         |
+| `contentSchema`    | 🟡        |
+| `contentEncoding`  | 🟡        |
+| `contentMediaType` | 🟡        |
+| `pattern`          | ❌         |
 
 ### Numbers
 
 Number keywords define the structure of a number.
 
-| Keyword | Supported |
-|---------|-----------|
-| `maximum` | ✅ |
-| `minimum` | ✅ |
-| `exclusiveMaximum` | ✅ |
-| `exclusiveMinimum` | ✅ |
-| `multipleOf` | ✅ |
+| Keyword            | Supported |
+| ------------------ | --------- |
+| `maximum`          | ✅         |
+| `minimum`          | ✅         |
+| `exclusiveMaximum` | ✅         |
+| `exclusiveMinimum` | ✅         |
+| `multipleOf`       | ✅         |
 
 ### Annotations
 
-Annotations are keywords used to annotate a schema but do not affect the validation. Due to the usefulness of the `default` keyword, Miru actually uses the `default` value and validates that the default value satisfies the schema. This is why the `default` keyword is considered *supported* but the others are considered *ignored*.
+Annotations are keywords used to annotate a schema, but do not affect the validation. Due to the usefulness of the `default` keyword, Miru actually uses the `default` value and validates that the default value satisfies the schema. This is why the `default` keyword is considered _supported,_ but the others are considered _ignored_.
 
-| Keyword | Supported |
-|---------|-----------|
-| `default` | ✅ |
-| `title` | 🟡 |
-| `description` | 🟡 |
-| `$comment` | 🟡 |
-| `readOnly` | 🟡 |
-| `writeOnly` | 🟡 |
-| `examples` | 🟡 |
-| `deprecated` | 🟡 |
+| Keyword       | Supported |
+| ------------- | --------- |
+| `default`     | ✅         |
+| `title`       | 🟡        |
+| `description` | 🟡        |
+| `$comment`    | 🟡        |
+| `readOnly`    | 🟡        |
+| `writeOnly`   | 🟡        |
+| `examples`    | 🟡        |
+| `deprecated`  | 🟡        |
 
-### Miru 
+### Miru
 
-Miru keywords are used to store Miru specific information about the schema.
+Miru keywords are used to store Miru-specific information about the schema.
 
-| Keyword | Supported |
-|---------|-----------|
-| `$miru_config_type_slug` | ✅ |
-| `$miru_relative_filepath` | ✅ |
+| Keyword                   | Supported |
+| ------------------------- | --------- |
+| `$miru_config_type_slug`  | ✅         |
+| `$miru_relative_filepath` | ✅         |

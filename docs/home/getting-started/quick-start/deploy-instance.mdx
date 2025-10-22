@@ -1,29 +1,31 @@
 ---
-title: 'Deploy an instance'
+title: "Deploy an instance"
 ---
 
 ## Create a release
+
 Before creating a deployment, we must first create a software release that the deployment will belong to.
 
 Begin by navigating to the [Releases page](https://configs.miruml.com/releases) .
 
 <Frame>
-   ![](/images/releases/page.png)
+  ![](/images/releases/page.png)
 </Frame>
 
-Click the **New Release** button in the top right, supply a version for the release, select the `Mobility` config type, and click **Create**. 
+Click the **New Release** button in the top right, supply a version for the release, select the `Mobility` config type, and click **Create**.
 
 <Frame>
-   ![](/images/releases/create-dialog.png)
+  ![](/images/releases/create-dialog.png)
 </Frame>
 
-By default, the latest `Mobility` schema version is used but you can select any schema version via the dropdown on the right side of the dialog.
+By default, the latest `Mobility` schema version is used, but you can select any schema version via the dropdown on the right side of the dialog.
 
 ## Stage a deployment
+
 Click into the release you just created. You'll find yourself in the release's staging area--a place to create deployments before deploying them to devices.
 
 <Frame>
-   ![](/images/releases/stage-page.png)
+  ![](/images/releases/stage-page.png)
 </Frame>
 
 The staging area is useful for preparing deployments for an upcoming software release while the device is currently running a different software release.
@@ -31,25 +33,25 @@ The staging area is useful for preparing deployments for an upcoming software re
 To stage a deployment, click the **Stage Deployment** button in the top right. A dialog will appear, allowing you to input the config instances to stage.
 
 <Frame>
-   ![](/images/releases/stage-dpl-edit-cfg.png)
+  ![](/images/releases/stage-dpl-edit-cfg.png)
 </Frame>
 
-The config instances are autopopulated with the default values from the release's config schemas. If you're taking the schemaless or don't include any defaults in your schema, the config instances will be empty.
+The config instances are autopopulated with the default values from the release's config schemas. If you're taking the schemaless approach or don't include any defaults in your schema, the config instances will be empty.
 
 Whatever your starting point, you can edit the config instances exactly as you'd like.
 
-Once satisfied with the config instances, click **Continue** and select the device(s) to stage the deployment to. 
+Once you are satisfied with the config instances, click **Continue** and select the device(s) to stage the deployment to.
 
 <Frame>
-   ![](/images/releases/stage-dpl-select-devices.png)
+  ![](/images/releases/stage-dpl-select-devices.png)
 </Frame>
 
-We're selecting a single device here, but selecting multiple devices would stage an identical deployment for each of the selected devices. To complete the staging process, click **Stage**. 
+We're selecting a single device here, but selecting multiple devices would stage an identical deployment for each of the selected devices. To complete the staging process, click **Stage**.
 
 You'll find a deployment staged for each device selected in the staging process.
 
 <Frame>
-   ![](/images/releases/staged-dpl-page.png)
+  ![](/images/releases/staged-dpl-page.png)
 </Frame>
 
 ## Deploy
@@ -61,30 +63,31 @@ To deploy a staged deployment:
 1. Click the **Deploy** button at the bottom of the page
 
 <Frame>
-   ![](/images/releases/deploy-staged-dpl.png)
+  ![](/images/releases/deploy-staged-dpl.png)
 </Frame>
 
-Once a deployment has been deployed, it is removed from the staging area. 
+Once a deployment has been deployed, it is removed from the staging area.
 
-To view the deployment for this device, navigate to the [Devices page](https://configs.miruml.com/devices) 
+To view the deployment for this device, navigate to the [Devices page](https://configs.miruml.com/devices)
 
 <Frame>
-   ![](/images/devices/page.png)
+  ![](/images/devices/page.png)
 </Frame>
 
 Then, click into the device that was deployed to.
 
 <Frame>
-   ![](/images/devices/editor/page.png)
+  ![](/images/devices/editor/page.png)
 </Frame>
 
 You'll be brought to the device's editor page--a place to view and edit the config instances for a device. You'll find the config instances we deployed to this device from the release's staging area available in the editor.
 
 ## Verify the deployment
-To verify the config instances seen in the editor are deployed to the device, dropdown the deployed config instance (the one with the green dot) in the editor.
+
+To verify the config instances seen in the editor are deployed to the device, drop down the deployed config instance (the one with the green dot) in the editor.
 
 <Frame>
-   ![](/images/devices/editor/history-entry.png)
+  ![](/images/devices/editor/history-entry.png)
 </Frame>
 
 The `File Path` field shows the file path that the config instance is deployed to on the device relative to the `/srv/miru/config_instances` directory. Since our `File Path` is `mobility/schema_v2/instance.json`, the config instance is located at `/srv/miru/config_instances/mobility/schema_v2/instance.json`.
@@ -101,25 +104,26 @@ Then `cat` the config instance by copying the `File Path` displayed in the edito
 cat <path>/<to>/instance.json
 ```
 
-You should find the content of the editor to be identical to the content of the config instance on the device.
+You should find that the content of the editor is identical to the content of the config instance on the device.
 
 ## Edit a deployment
-To edit a config instance, simply make some changes to the current config instance. As edits are made, a log on the right maintains a list of all changes, categorizing them by their type: `added`, `deleted`, or `modified`.
+
+To edit a config instance, make some changes to the current config instance. As edits are made, a log on the right maintains a list of all changes, categorizing them by their type: `added`, `deleted`, or `modified`.
 
 <Frame>
-   ![](/images/devices/editor/modifications.png)
+  ![](/images/devices/editor/modifications.png)
 </Frame>
 
 <Warning>
-   Only the latest config instance for a config type may be edited. All other config instances are read-only.
+  Only the latest config instance for a config type may be edited. All other config instances are read-only.
 </Warning>
 
-Once satisfied with the edits, click **Deploy** in the top right.
+Once you are satisfied with the edits, click **Deploy** in the top right.
 
 A dialog will appear to confirm the deployment. Add a description for the deployment, confirm the robot, and optionally alter the target file path. Finally, click **Deploy**.
 
 <Frame>
-   ![](/images/devices/editor/deploy-dialog.png)
+  ![](/images/devices/editor/deploy-dialog.png)
 </Frame>
 
 Congratulations! You've successfully deployed and edited a config instance to a device with Miru!

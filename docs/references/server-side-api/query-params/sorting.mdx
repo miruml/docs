@@ -14,9 +14,10 @@ List endpoints that support sorting accept the `order_by` query parameter, which
 
 ### Order by
 
-You can sort the list endpoints’ results using the following format: `<field_name>:<direction>`. The direction is optional and defaults to descending if not specified.
+You can sort the list results using the following format: `<field_name>:<direction>`. The direction is optional and defaults to descending if not specified.
 
 To illustrate, the following order by queries are all valid:
+
 - `order_by=created_at`
 - `order_by=created_at:asc`
 - `order_by=created_at:desc`
@@ -24,20 +25,22 @@ To illustrate, the following order by queries are all valid:
 The available sort fields depend on the specific endpoint. Look for the `order_by` query parameter in the **Query Parameters** section of the list endpoint you want to sort.
 
 Common sort fields include:
+
 - `id` - Sort by object ID
 - `created_at` - Sort by creation timestamp
 
 All fields support exactly two sort directions.
+
 - `asc` - Ascending order (A-Z, a-z, 0-9, oldest first, etc.)
 - `desc` - Descending order (Z-A, z-a, 9-0, newest first, etc.)
 
 ## Single field sorting
 
-For endpoints that support single field sorting, add the `order_by` query parameter to the list endpoint URL.
+For endpoints that support single-field sorting, add the `order_by` query parameter to the list endpoint URL.
 
 The following request sorts config instances by descending creation date using the query parameter `order_by=created_at:desc`.
 
-```bash 
+```bash
 curl --request GET \
   --url 'https://configs.api.miruml.com/v1/config_instances?order_by=created_at:desc' \
   --header 'X-API-Key: <api-key>'
@@ -45,18 +48,19 @@ curl --request GET \
 
 The following request sorts config instances by ascending creation date using the query parameter `order_by=created_at:asc`.
 
-```bash 
+```bash
 curl --request GET \
   --url 'https://configs.api.miruml.com/v1/config_instances?order_by=created_at:asc' \
   --header 'X-API-Key: <api-key>'
 ```
 
 ## Multiple field sorting
+
 In cases where your primary field sort yields multiple items that hold the same value, you may find it beneficial to sort by auxiliary fields. In such cases, you can specify additional sort fields via a comma-separated list: **`<field_name_1>:<direction_1>,<field_name_2>:<direction_2>,...`**.
 
 Let’s take the example of `order_by=created_at:desc,id:asc`:
 
-- First, results are sorted by the `created_at` field in descending order (newest items appear first).
+- First, the results are sorted by the `created_at` field in descending order (newest items appear first).
 - For any items that have the same `created_at` timestamp, the API uses `id` as a tie-breaker.
 - Last, the tied items are sorted by `id` in ascending order (lowest ID first).
 
@@ -108,15 +112,15 @@ curl --request GET \
 
 ## Deterministic sorting
 
-By default, all sorting queries use resource IDs as a tie-breaker (ascending order) to ensure deterministic results. For example, `created_at:desc` is effecively `created_at:desc,id:asc`. 
+By default, all sorting queries use resource IDs as a tie-breaker (ascending order) to ensure deterministic results. For example, `created_at:desc` is effectively `created_at:desc,id:asc`.
 
-If a request already contains `id` as a sort field, then the request is already deterministic and an additional `id` sort field will not be added.
+If a request already contains `id` as a sort field, then the request is already deterministic, and an additional `id` sort field will not be added.
 
 To illustrate this, the following table shows the original request ordering and the effective request ordering for a few different examples.
 
-| Original | Effective |
-|---------------|-------------------------|
-| `created_at:desc` | `created_at:desc,id:asc` |
-| `name:asc` | `name:asc,id:asc` |
+| Original                 | Effective                |
+| ------------------------ | ------------------------ |
+| `created_at:desc`        | `created_at:desc,id:asc` |
+| `name:asc`               | `name:asc,id:asc`        |
 | `created_at:desc,id:asc` | `created_at:desc,id:asc` |
 | `id:asc,created_at:desc` | `id:asc,created_at:desc` |

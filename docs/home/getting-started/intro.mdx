@@ -4,25 +4,17 @@ title: "Introduction"
 
 ## Welcome
 
-Welcome\! Miru is a configuration management solution for robotics teams. We provide tools for engineers to define, deploy, and manage application configurations for their robots.
+Welcome! Miru is a configuration management solution for robotics teams. We provide tools for engineers to define, deploy, and manage application configurations for their robots.
 
 Continue reading to learn more about configurations or explore the documentation using the links below.
 
 <Columns cols={2}>
-    <Card
-        title="Quick Start"
-        icon="rocket"
-        href="/docs/home/getting-started/quick-start/setup"
-    >
-        Define and deploy your first configuration with our step-by-step guide.
-    </Card>
-    <Card
-        title="Concepts"
-        icon="book-open"
-        href="/docs/home/getting-started/concepts"
-    >
-        Gain an understanding of Miru's core concepts.
-    </Card>
+  <Card title="Quick Start" icon="rocket" href="/docs/home/getting-started/quick-start/setup">
+    Define and deploy your first configuration with our step-by-step guide.
+  </Card>
+  <Card title="Concepts" icon="book-open" href="/docs/home/getting-started/concepts">
+    Gain an understanding of Miru's core concepts.
+  </Card>
 </Columns>
 
 ## Configurations
@@ -36,7 +28,8 @@ Robots rely on application configurations stemming from a variety of sources. So
 - **User Preferences**: End users desire different settings or features.
 - **Testing & Development**: Test beds and beta robots need feature flagging and experimentation.
 
-### Users 
+### Users
+
 Configurations then touch many different engineers on the team, each in their own way:
 
 - **Software Engineers**: Define valid configurations and tune parameters for the performance of a given software version.
@@ -50,7 +43,7 @@ With so many different engineers and use cases, configurations quickly become di
 
 ### Complex groupings
 
-Robots have various characteristics that influence their configurations--hardware versions, customers, release channels, etc. 
+Robots have various characteristics that influence their configurations--hardware versions, customers, release channels, etc.
 
 These characteristics often overlap in complex ways: each robot can have some combination of peripheral variants, features may be limited or unavailable given the version of software running, and some functionality may be disabled for a customer's pricing tier or region.
 
@@ -64,15 +57,15 @@ With configurations for current releases being updated while new configurations 
 
 ### Editing via SSH
 
-Managing this complexity is often left to ad‑hoc tools. Deployment Engineers are asked to SSH into robots and edit text files directly with Vim, which is problematic for a number of reasons:
+Managing this complexity is often left to ad‑hoc tools. Deployment Engineers are asked to SSH into robots and edit text files directly with Vim, which is problematic for several reasons:
 
 - Typos and other simple errors lead to unnecessary downtime and slow fixes.
-- SSH requires an open inbound port, greatly increasing the surface area for security breaches.
-- Teams must hire software‑savvy Deployment Engineers, despite the preferred background being Mechanical or Electrical Engineering.
+- SSH requires an open inbound port, which significantly increases the surface area for potential security breaches.
+- Teams must hire software-savvy Deployment Engineers, despite a preferred background in Mechanical or Electrical Engineering.
 - Configuration edit metadata (who, when, what, why, etc.) is completely lost.
 
 ## Where to start?
 
-Miru is a purpose-built solution for managing the complexities of application configurations in robotics. We put the developer first, prioritizing simplicity and developer experience.
+Miru is a purpose-built solution for managing the complexities of application configurations in robotics. We prioritize the developer first, focusing on simplicity and developer experience.
 
-To begin using Miru, continue onto the [getting-started](/docs/home/basics/getting-started/overview) guide.
+To begin using Miru, continue to the [getting-started](/docs/home/basics/getting-started/overview) guide.
