@@ -1,3 +1,22 @@
-A **deployment** is a set of config instances made available on a device for some interval of time.
+A **deployment** is a set of one or more config instances made available on a device.
 
-A deployment adheres to a release in that it must have a valid config instance for each config schema in the release.
+Config instances are deployed by the [Miru Agent](/docs/home/agent/intro), which writes the config instances to a subdirectory of the `/srv/miru/config_instances` directory on the target device.
+
+Deployments are the "glue" that tie together config instances, releases, and devices to provide a structured way to manage configurations. As such, the following constraints are useful to understand what a deployment is:
+
+1. A deployment's config instances are immutable. 
+
+    Once created, the config instances of a deployment cannot be updated. A new deployment must be created to modify a device's config instances.
+
+1. Deployments belong to a single release.
+
+    Deployments use their release's config schemas to validate the config instances they contain.
+
+1. Deployments are associated with a single device. 
+
+    Deploying to two different devices requires a deployment for each device. 
+
+1. Deployments are one-time use. 
+
+    Once removed from a device, a new deployment must be created to restore a device's previous configurations.
+

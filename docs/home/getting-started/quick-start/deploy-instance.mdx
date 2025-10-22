@@ -3,7 +3,7 @@ title: 'Deploy an instance'
 ---
 
 ## Create a release
-Before creating a config instance, we first need to create a software release that the config instance will belong to.
+Before creating a deployment, we must first create a software release that the deployment will belong to.
 
 Begin by navigating to the [Releases page](https://configs.miruml.com/releases) .
 
@@ -20,32 +20,31 @@ Click the **New Release** button in the top right, supply a version for the rele
 By default, the latest `Mobility` schema version is used but you can select any schema version via the dropdown on the right side of the dialog.
 
 ## Stage a deployment
-Click into the release you just created. You'll find yourself in the release's staging area--a place to create deployments before deploying them to a device
+Click into the release you just created. You'll find yourself in the release's staging area--a place to create deployments before deploying them to devices.
 
 <Frame>
    ![](/images/releases/stage-page.png)
 </Frame>
 
-The staging area is useful for preparing deployments for an upcoming software release without actually deploying them to a device.
+The staging area is useful for preparing deployments for an upcoming software release while the device is currently running a different software release.
 
 To stage a deployment, click the **Stage Deployment** button in the top right. A dialog will appear, allowing you to input the config instances to stage.
-
-By default, the config instances are autopopulated with the default values from the release's config schemas. From here, you can edit the config instances to your liking.
 
 <Frame>
    ![](/images/releases/stage-dpl-edit-cfg.png)
 </Frame>
 
-Once satisfied with the config instances, click **Continue** and select the device(s) to stage the deployment to. 
+The config instances are autopopulated with the default values from the release's config schemas. If you're taking the schemaless or don't include any defaults in your schema, the config instances will be empty.
 
-We're selecting a single device here, but selecting multiple devices would stage an identical deployment for each of the selected devices.
+Whatever your starting point, you can edit the config instances exactly as you'd like.
+
+Once satisfied with the config instances, click **Continue** and select the device(s) to stage the deployment to. 
 
 <Frame>
    ![](/images/releases/stage-dpl-select-devices.png)
 </Frame>
 
-
-To complete the staging process, click **Stage**. 
+We're selecting a single device here, but selecting multiple devices would stage an identical deployment for each of the selected devices. To complete the staging process, click **Stage**. 
 
 You'll find a deployment staged for each device selected in the staging process.
 
@@ -67,13 +66,19 @@ To deploy a staged deployment:
 
 Once a deployment has been deployed, it is removed from the staging area. 
 
-To view the deployment for this device, navigate to the [Device's page](https://configs.miruml.com/devices) and click into the device that was deployed to.
+To view the deployment for this device, navigate to the [Devices page](https://configs.miruml.com/devices) 
+
+<Frame>
+   ![](/images/devices/page.png)
+</Frame>
+
+Then, click into the device that was deployed to.
 
 <Frame>
    ![](/images/devices/editor/page.png)
 </Frame>
 
-You'll be brought to the device's editor page--a place to view and edit the config instances for a device. 
+You'll be brought to the device's editor page--a place to view and edit the config instances for a device. You'll find the config instances we deployed to this device from the release's staging area available in the editor.
 
 ## Verify the deployment
 To verify the config instances seen in the editor are deployed to the device, dropdown the deployed config instance (the one with the green dot) in the editor.

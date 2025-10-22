@@ -6,6 +6,8 @@ import SchemaLanguages from '/snippets/schema-languages.mdx';
 import ConfigInstanceDefinition from '/snippets/concepts/config-instance.mdx';
 import ConfigTypeDefinition from '/snippets/concepts/config-type.mdx';
 import ConfigSchemaDefinition from '/snippets/concepts/config-schema.mdx';
+import DeploymentDefinition from '/snippets/concepts/deployment.mdx';
+import DeviceDefinition from '/snippets/concepts/device.mdx';
 import MiruWorkflowOverview from '/snippets/miru-workflow-overview.mdx';
 import ReleaseDefinition from '/snippets/concepts/release.mdx';
 
@@ -13,13 +15,13 @@ This quick-start guide walks through deploying your first configuration with Mir
 
 <Steps>
   <Step title="Defining a config schema">
-    First, we'll create the `Mobility` config type and push a schema from the command-line.
+    We'll create the `Mobility` config type, install the [Miru CLI](/docs/references/cli/install), and push a schema to Miru.
   </Step>
   <Step title="Installing the agent">
-    Next, we'll install our target machine with the [Miru Agent](/docs/home/agent/intro), which is used to deploy config instances.
+    Next, we'll install the [Miru Agent](/docs/home/agent/intro) on your target device and activate it.
   </Step>
   <Step title="Deploying config instances">
-    Finally, we'll deploy some config instances to our target machine and make some edits.
+    Finally, we'll deploy config instances and make some edits.
   </Step>
 </Steps>
 
@@ -32,7 +34,7 @@ If you don't already have an account, navigate to the [sign up](https://configs.
 
 ## Concepts
 
-Before we begin, let's define Miru's configuration concepts and the terminology used when deploying configurations.
+Before we begin, let's define Miru's key configuration concepts.
 
 ### Config instances
 <ConfigInstanceDefinition />
@@ -41,11 +43,23 @@ Before we begin, let's define Miru's configuration concepts and the terminology 
 <ConfigSchemaDefinition />
 
 <Tip>
-  While config schemas are recommended, they are not required to begin using Miru.
+  While schemas are recommended, you can use Miru schemaless.
 </Tip>
 
 ### Config types
 <ConfigTypeDefinition />
 
+### Devices
+<DeviceDefinition />
+
 ### Releases
 <ReleaseDefinition />
+
+### Deployments
+<DeploymentDefinition />
+
+<Tip>
+  If these concepts are a bit fuzzy at the moment, don't worry! Seeing these concepts in action will solidify their meaning.
+</Tip>
+
+With these concepts in mind, let's begin!

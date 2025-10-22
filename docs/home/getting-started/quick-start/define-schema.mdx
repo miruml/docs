@@ -14,7 +14,7 @@ To follow along, clone the [getting-started](https://github.com/miruml/getting-s
 git clone https://github.com/miruml/getting-started.git
 ```
 
-While the getting-started repository contains a variety of sample schemas and sample instances, this guide focuses on the `Mobility` config type, which has two schema variations: 
+While the getting-started repository contains a variety of sample schemas and sample instances, this guide focuses on the Mobility config type, which has two schema variations: 
 
 - [Schemaless](https://github.com/miruml/getting-started/blob/main/schemas/mobility-schemaless.yaml) - an empty JSON Schema that regards all config instances as valid
 - [Strict Schema](https://github.com/miruml/getting-started/blob/main/schemas/mobility.yaml) - a well-defined JSON Schema that defines the valid fields, types, and values for instances of the `Mobility` config type
@@ -23,10 +23,10 @@ While the getting-started repository contains a variety of sample schemas and sa
   ```yaml Schemaless
   $miru_config_type_slug: "mobility"
   $schema: "http://json-schema.org/draft/2020-12/schema"
-  title: Empty Mobility
+  title: Schemaless Mobility
   ```
 
-  ```yaml Strict Schema
+  ```yaml Strict Schema [expandable]
   $miru_config_type_slug: "mobility"
   $schema: "https://json-schema.org/draft/2020-12/schema"
   title: Mobility
@@ -77,7 +77,7 @@ While the getting-started repository contains a variety of sample schemas and sa
 While we recommend using a strict schema, many teams find it simpler to begin with a schemaless approach. This guide covers both methods, so feel free to choose the one that best suits your needs.
 
 ## Create a config type
-Before defining a schema, we need to create its config type. Navigate to the [Config Types page](https://configs.miruml.com/configs).
+Before defining a schema, we first need to create a config type to house it. Navigate to the [Config Types page](https://configs.miruml.com/configs).
 
 <Frame>
   ![](/images/config-types/create-page.png)
