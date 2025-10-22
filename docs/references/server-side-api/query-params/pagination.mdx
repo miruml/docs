@@ -8,7 +8,7 @@ The Miru API paginates results to efficiently manage large datasets, returning a
 
 Currently, the Miru API uses [offset-based pagination](https://www.merge.dev/blog/offset-pagination), with support for [cursor-based pagination](https://www.merge.dev/blog/cursor-pagination) coming soon.
 
-## Query Parameters
+## Query parameters
 
 All list endpoints optionally accept the **`limit`** and **`offset`** query parameters.
 
@@ -38,7 +38,7 @@ curl --request GET \
   --header 'X-API-Key: <api-key>'
 ```
 
-## List Response Format
+## List response format
 
 Every list response follows the same structure.
 
@@ -89,7 +89,7 @@ If an invalid value is provided (e.g., `1001`), the closest valid value will be 
 If a valid value is provided (e.g., `5`), the response will reflect that value.
 
 If an invalid value is provided (e.g., `-3`), the closest valid value will be used instead (`0` in this case).
-### Has More
+### Has more
 
 `has_more` is a boolean that indicates whether more items exist beyond the current page.
 
@@ -99,7 +99,7 @@ If `true`, you can fetch the next page by increasing the `offset` by the `limit`
 `data` is an array of the actual items returned by the query. 
 
 The number of items in the array will be less than or equal to the specified `limit`.
-## Pagination Walkthrough
+## Pagination walkthrough
 
 To paginate a request, continually request the next page until `has_more` is `false`. The next page uses the same `limit` but the `offset` is increased by the `limit`.
 

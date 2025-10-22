@@ -21,15 +21,16 @@
         "tab": "Documentation",
         "groups": [
           {
-            "group": "Getting Started",
+            "group": "Getting started",
             "pages": [
               "docs/home/getting-started/intro",
               {
-                "group": "Quick Start",
+                "group": "Quick start",
                 "pages": [
-                  "docs/home/getting-started/quick-start/setup",
-                  "docs/home/getting-started/quick-start/releases",
-                  "docs/home/getting-started/quick-start/deploy"
+                  "docs/home/getting-started/quick-start/overview",
+                  "docs/home/getting-started/quick-start/define-schema",
+                  "docs/home/getting-started/quick-start/install-agent",
+                  "docs/home/getting-started/quick-start/deploy-instance"
                 ]
               },
               "docs/home/getting-started/concepts"
@@ -53,7 +54,7 @@
             "group": "Guides",
             "pages": [
               {
-                "group": "Custom Validation",
+                "group": "Custom validation",
                 "pages": [
                   "docs/home/guides/custom-validation/setup"
                 ]
@@ -109,10 +110,10 @@
             ]
           },
           {
-            "item": "Miru Agent API",
+            "item": "Agent API",
             "groups": [
               {
-                "group": "Miru Agent API",
+                "group": "Agent API",
                 "pages": [
                   "docs/references/agent-api/intro",
                   "docs/references/agent-api/authn"

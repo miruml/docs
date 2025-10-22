@@ -8,11 +8,11 @@ The Miru API uses field-based sorting. You can specify which field(s) to sort by
 
 Resource IDs are used as a tie-breaker when multiple resources have equivalent fields to ensure deterministic sort results.
 
-## Query Parameters
+## Query parameters
 
 List endpoints that support sorting accept the `order_by` query parameter, which is optional.
 
-### Order By
+### Order by
 
 You can sort the list endpoints’ results using the following format: `<field_name>:<direction>`. The direction is optional and defaults to descending if not specified.
 
@@ -31,7 +31,7 @@ All fields support exactly two sort directions.
 - `asc` - Ascending order (A-Z, a-z, 0-9, oldest first, etc.)
 - `desc` - Descending order (Z-A, z-a, 9-0, newest first, etc.)
 
-## Single Field Sorting
+## Single field sorting
 
 For endpoints that support single field sorting, add the `order_by` query parameter to the list endpoint URL.
 
@@ -51,7 +51,7 @@ curl --request GET \
   --header 'X-API-Key: <api-key>'
 ```
 
-## Multiple Field Sorting
+## Multiple field sorting
 In cases where your primary field sort yields multiple items that hold the same value, you may find it beneficial to sort by auxiliary fields. In such cases, you can specify additional sort fields via a comma-separated list: **`<field_name_1>:<direction_1>,<field_name_2>:<direction_2>,...`**.
 
 Let’s take the example of `order_by=created_at:desc,id:asc`:
@@ -106,7 +106,7 @@ curl --request GET \
   --header 'X-API-Key: <api-key>'
 ```
 
-## Deterministic Sorting
+## Deterministic sorting
 
 By default, all sorting queries use resource IDs as a tie-breaker (ascending order) to ensure deterministic results. For example, `created_at:desc` is effecively `created_at:desc,id:asc`. 
 

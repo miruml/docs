@@ -1,0 +1,167 @@
+---
+title: 'Define a schema'
+---
+
+import InstallInstructions from '/snippets/references/cli/install.mdx'
+import LoginInstructions from '/snippets/references/cli/login.mdx'
+
+## Clone the repository
+To make things simple, we've created a starter repository with sample schemas and sample instances. 
+
+To follow along, clone the [getting-started](https://github.com/miruml/getting-started) repository using the following command.
+
+```bash
+git clone https://github.com/miruml/getting-started.git
+```
+
+While the getting-started repository contains a variety of sample schemas and sample instances, this guide focuses on the `Mobility` config type, which has two schema variations: 
+
+- [Schemaless](https://github.com/miruml/getting-started/blob/main/schemas/mobility-schemaless.yaml) - an empty JSON Schema that regards all config instances as valid
+- [Strict Schema](https://github.com/miruml/getting-started/blob/main/schemas/mobility.yaml) - a well-defined JSON Schema that defines the valid fields, types, and values for instances of the `Mobility` config type
+
+<CodeGroup>
+  ```yaml Schemaless
+  $miru_config_type_slug: "mobility"
+  $schema: "http://json-schema.org/draft/2020-12/schema"
+  title: Empty Mobility
+  ```
+
+  ```yaml Strict Schema
+  $miru_config_type_slug: "mobility"
+  $schema: "https://json-schema.org/draft/2020-12/schema"
+  title: Mobility
+  type: object
+  properties:
+    max_linear_speed_mps:
+      type: number
+      minimum: 0.1
+      maximum: 5.0
+      default: 1.2
+    max_angular_speed_radps:
+      type: number
+      minimum: 0.1
+      maximum: 3.0
+      default: 1.0
+    obstacle_avoidance_enabled:
+      type: boolean
+      default: true
+    navigation_mode:
+      type: string
+      enum: [conservative, balanced, aggressive]
+      default: balanced
+    telemetry:
+      type: object
+      properties:
+        upload_interval_sec:
+          type: integer
+          minimum: 10
+          maximum: 300
+          default: 60
+        heartbeat_interval_sec:
+          type: integer
+          minimum: 1
+          maximum: 60
+          default: 10
+      required:
+        - upload_interval_sec
+        - heartbeat_interval_sec
+  required:
+    - max_linear_speed_mps
+    - max_angular_speed_radps
+    - obstacle_avoidance_enabled
+    - navigation_mode
+    - telemetry
+  ```
+</CodeGroup>
+
+While we recommend using a strict schema, many teams find it simpler to begin with a schemaless approach. This guide covers both methods, so feel free to choose the one that best suits your needs.
+
+## Create a config type
+Before defining a schema, we need to create its config type. Navigate to the [Config Types page](https://configs.miruml.com/configs).
+
+<Frame>
+  ![](/images/config-types/create-page.png)
+</Frame>
+
+Click the `+ New Config Type` button, supply the name `Mobility` and slug `mobility`, and click **Create**.
+
+<Frame>
+   ![](/images/config-types/create-dialog.png)
+</Frame>
+
+<Warning>
+    Config Type slugs are permanent and cannot be changed after creation.
+</Warning>
+
+The slug is a unique identifier for the config type--it's how the CLI determines what config type a schema belongs to. As such, all config schemas must include the `$miru_config_type_slug` field.
+
+We've already included the `$miru_config_type_slug` field in both the `mobility-schemaless.yaml` and `mobility.yaml` schemas inside the getting-started repository.
+
+```yaml
+$miru_config_type_slug: "mobility"
+```
+
+## Install the CLI
+
+Config schemas typically live in a git repository, allowing them to be versioned alongside the code that uses them. As such, Miru provides a CLI for pushing schemas to Miru.
+
+The CLI is useful for local development and testing, but can also be used in CI/CD pipelines to automatically push schemas to Miru as part of your release process.
+
+**Install**
+
+<InstallInstructions />
+
+**Login**
+
+<LoginInstructions />
+
+## Push a schema
+With the CLI installed and authenticated, we are ready to push a schema to Miru.
+
+Navigate back to the root of the [getting-started](https://github.com/miruml/getting-started) 
+repository and push the appropriate schema to Miru.
+
+<CodeGroup>
+  ```bash Schemaless
+  miru schema push ./schemas/mobility-schemaless.yaml
+  ```
+
+  ```bash Strict Schema
+  miru schema push ./schemas/mobility.yaml
+  ```
+</CodeGroup>
+
+Upon a successful push, you'll see a confirmation message similar to the following.
+
+```bash
+📦 Attempting to push 1 config schemas...
+
+🟢 Successfully created mobility schema v1
+     Relative deployment file path: /mobility/schema_v1/instance.json
+     Git Info:
+        Commit: 994b0bc4499494b02e34eb76b5bdc1eac2ca79a1
+        Branch: main
+        Origin: https://github.com/miruml/getting-started.git
+        Repo File Path: schemas/mobility-schemaless.yaml
+
+
+✅ Successfully pushed 1 config schemas
+```
+
+<Tip>
+    Git information is pulled from the local git repository that the schema is defined in. Miru does not require any access to your remote git repository.
+</Tip>
+
+To view the schema in Miru, navigate to the [Config Types page](https://configs.miruml.com/configs) and click into the `Mobility` config type.
+
+<Frame>
+   ![](/images/config-schemas/page.png)
+</Frame>
+
+Clicking into a specific schema will show the schema details, including its metadata the schema content.
+
+<Frame>
+   ![](/images/config-schemas/sheet.png)
+</Frame>
+
+

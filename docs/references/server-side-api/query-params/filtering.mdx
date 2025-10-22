@@ -8,7 +8,7 @@ For example, when [listing devices](/docs/references/server-side-api/endpoints/d
 
 
 
-## Single Value Filters
+## Single value filters
 
 Each list endpoint supports its own set of filter names. To see the filters supported by a specific endpoint, look for the query parameters in the **Query Parameters** section containing *filter by* in their description.
 
@@ -23,7 +23,7 @@ curl --request GET \
 ```
 
 Filtering by id will return at most one resource, since IDs are unique. Other fields, like [config instance activity status](/docs/references/server-side-api/endpoints/config-instances/list#parameter-activity-status), can return multiple results.
-## Multi-Value Filters
+## Multi-value filters
 
 To filter by multiple values, specify the filter values as a `|` separated list: `<filter_name>=<value_1>|<value_2>|<value_3>`.
 
@@ -35,7 +35,7 @@ curl --request GET \
   --header 'X-API-Key: <api-key>'
 ```
 
-## Combining Filters
+## Combining filters
 
 You can combine filters using `&`. All filters are combined with AND logic, so resources must match all criteria.
 
@@ -47,7 +47,7 @@ curl --request GET \
   --header 'X-API-Key: <api-key>'
 ```
 
-## URL Encoding
+## URL encoding
 
 When using filters with special characters, make sure to properly URL encode the values.
 

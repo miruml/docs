@@ -8,7 +8,7 @@ Response objects only include the core fields by default. Related objects (like 
 
 Expansions are powerful but add some latency. As such, they should be used strategically to balance performance with the data needed in an individual request.
 
-## Object Expansions
+## Object expansions
 
 Many response objects contain references to objects that are not included in the default response. 
 
@@ -86,7 +86,7 @@ With the expansion, the response includes the `device` that the config instance 
 To see a full list of expandable fields for an object, look for the `expand[]` parameter in the **Query Parameters** section of the API endpoint you are querying.
 
 
-## Multiple Expansions
+## Multiple expansions
 
 You can expand multiple fields by passing in multiple **`expand[]`** parameters separated by **`&`** .
 
@@ -138,7 +138,7 @@ The following request expands both the **`device`** and **`content`** fields
 </CodeGroup>
 
 
-## Nested Expansions
+## Nested expansions
 
 When expanding an object, it’s often the case that the expanded object contains objects that can also expand. For example, config instances can expand their config schema, which in turn can expand their config type.
 
@@ -200,7 +200,7 @@ Expansions cannot be nested beyond four levels deep. `expand[]=field1.field2.fie
 
 When expanding nested fields, there's no need to expand the parent field. Since the config schema must be expanded to expand its config type in the `expand[]=config_schema.config_type` query parameter, the `config_schema` field is automatically expanded as well.
 
-## List Expansions
+## List expansions
 
 ### Items
 
@@ -289,7 +289,7 @@ The following request expands the **`content`** field for every config instanc
     ```
 </CodeGroup>
 
-### Total Count
+### Total count
 
 The `total_count` field in a list response represents the total number of items matching the query. Because Miru [paginates](/docs/references/server-side-api/query-params/pagination) list responses, this number is often greater than the number of items actually returned in a single page.
 

@@ -25,14 +25,14 @@ You may host the endpoint however you'd like as long as it is accessible over HT
 {/* 
 If want to set up a server on your local machine for testing or want a more in-depth walkthrough of the process, skip this section in favor of the the [Local Testing](/docs/home/guides/custom-validation/local-testing) section. */}
 
-## Enable Custom Validation
+## Enable custom validation
 
 Custom validation is enabled on a per-[release](/docs/home/getting-started/concepts#release) basis. Enabling it on one release has no impact on other releases.
 
 To enable custom validation for a release, navigate to the [Releases](https://configs.miruml.com/releases) page. Click the ellipses on the far right of the release you would like to enable and select **Edit** from the dropdown.
 
 <Frame>
-  ![](/images/custom-validation/enable-dialog.png)
+  ![](/images/releases/enable-custom-val-dialog.png)
 </Frame>
 
 Toggle the **Custom Validation** setting and click **Save**.
@@ -41,7 +41,7 @@ Toggle the **Custom Validation** setting and click **Save**.
   Enabling custom validation _requires_ deployments to be validated. If you do not have a validation endpoint set up, deployments on this release will be unable to deploy.
 </Warning>
 
-## Create an Endpoint
+## Create an endpoint
 
 Next, you'll need to supply the URL of the endpoint to Miru.
 
@@ -50,7 +50,7 @@ If you haven't deployed the endpoint yet, that's okay. You can change the URL at
 Navigate to the [webhooks](https://configs.miruml.com/webhooks) page in Miru.
 
 <Frame>
-  ![](/images/custom-validation/wbhk-header.png)
+  ![](/images/webhooks/header.png)
 </Frame>
 
 Click **Add Endpoint** in the top right of the page.
@@ -62,7 +62,7 @@ We recommend using a route similar to `/webhooks/miru`, but you may use any rout
 URLs should be of the form `https://<your-domain>/<route>`. For instance, if your domain is `my-domain.com` and you want to use the route `/hooks/miru`, your URL would be `https://my-domain.com/hooks/miru`.
 
 <Frame>
-  ![](/images/custom-validation/create-wbhk-ep.png)
+  ![](/images/webhooks/create-endpoint.png)
 </Frame>
 
 <Warning>
@@ -79,22 +79,22 @@ Webhook secrets are used to verify the authenticity of the webhook request while
 
 We recommend storing secrets in a secrets manager or other secure location. No matter where you choose to store them, be sure not to expose these secrets in publicly accessible areas such as GitHub, client-side code, and so forth.
 
-### Webhook Secret
+### Webhook secret
 
 To retrieve the webhook secret for an endpoint, click into the endpoint. Then, click the **eye** icon on the far right of the page to reveal the secret.
 
 <Frame>
-  ![](/images/custom-validation/wbhk-ep-view.png)
+  ![](/images/webhooks/endpoint-page.png)
 </Frame>
 
 
-### API Key
+### API key
 
 To create an API key for your endpoint:
 
 <CreateAPIKey />
 
-## Example Server
+## Example server
 
 The [custom-validation](https://github.com/miruml/custom-validation) repository contains an example flask server that demonstrates webhook verification and deployment validation using the Miru server-side SDK.
 
@@ -102,7 +102,7 @@ The [custom-validation](https://github.com/miruml/custom-validation) repository 
 
 For a plug-and-play experience with Webhook Secrets and API Keys, you may place the secrets in the [.env](https://github.com/miruml/custom-validation/blob/main/.env) file. However, for production use, we recommend storing the secrets in a secrets manager or other secure location.
 
-### Code Walkthrough
+### Code walkthrough
 
 The [app.py](https://github.com/miruml/custom-validation/blob/main/flask/app.py) file is the entry point for the flask server. Let's walk through it step by step.
 
@@ -113,7 +113,7 @@ The server accepts a POST request at the `/webhooks/miru` route. You may need to
 def webhook_endpoint() -> tuple[Response, int]:
 ```
 
-**Verify the Webhook**
+**Verify the webhook**
 
 First, the server verifies the webhook signature using the Webhook Secret. Make sure you've set the Webhook Secret in the `.env` file or swapped out the `get_env_var` function for your secrets manager.
 
@@ -134,7 +134,7 @@ except WebhookVerificationError as e:
     }), 400
 ```
 
-**Handle the Validation**
+**Handle the validation**
 
 The server then checks if the event is the `deployment.validate` event, passing the event to the `handle_validate_deployment` function while ignoring all other events.
 
@@ -147,7 +147,7 @@ else:
     return jsonify({'message': 'no action required'}), 200
 ```
 
-**Retrieve the Deployment**
+**Retrieve the deployment**
 
 The deployment and its config instances are then retrieved from Miru using the [get deployment API](/docs/references/server-side-api/endpoints/deployments/get). Here we use [expansions](/docs/references/server-side-api/query-params/expansions) to retrieve the deployment's device, release, and config instances.
 
@@ -162,7 +162,7 @@ deployment = miru_client.deployments.retrieve(
 )
 ```
 
-**Validate the Deployment**
+**Validate the deployment**
 
 The deployment's config instances are then passed to the `validate_deployment` function. This is where you'll add your own validation logic. The function takes config instances as arguments and returns the validation results.
 
@@ -204,7 +204,7 @@ def validate_deployment(
     )
 ```
 
-**Send the Results**
+**Send the results**
 
 Finally, the validation results are sent to Miru using the [validate deployment API](/docs/references/server-side-api/endpoints/deployments/validate).
 
