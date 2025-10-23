@@ -1,7 +1,10 @@
-A **config type** is a container for all config schemas and config instances that configure an aspect of a robot's software.
+A **config type** represents a category of config that governs a specific aspect of your robot's application, such as mobility, perception, or manipulation.
+Each config type contains:
+- **Schemas:** defining the structure and constraints for that type’s config.
+- **Instances:** concrete configs that conform to one of its schema versions.
 
-For instance, a robot may use a Mobility config type to configure motion parameters. The Mobility config type contains config schemas that undergo frequent updates — new fields are introduced, constraints are modified, and existing fields are deprecated.
+Config types evolve over time as the application changes. Let’s take the example of a `Mobility` config type.
 
-The Mobility config type also contains config instances, each of which satisfies one of its config schema versions. These config instances have a history for each robot--parameters are added, many are modified, and some are removed.
+Across schema versions, the config type might introduce new motion parameters, deprecate old ones, or modify constraints. Each robot will also have its own history of Mobility config instances, allowing the parameters to evolve independently from the schemas.
 
-The Mobility config type is useful for managing a subset of parameters for your robots, which may be updated independently of other parameters.
+Config types let you isolate and version subsets of parameters so they can be updated and managed separately from the rest of your system.
