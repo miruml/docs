@@ -185,12 +185,6 @@
     "default": "dark"
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Talk to a Founder",
-        "href": "https://cal.com/vedantnair/30min"
-      }
-    ],
     "primary": {
       "type": "button",
       "label": "Dashboard",
