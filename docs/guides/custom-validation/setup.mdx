@@ -10,7 +10,7 @@ Miru natively supports the use of JSON Schema to validate configurations. Howeve
 
 To support this, Miru provides webhooks and server-side APIs. The setup involves two primary steps:
 
-1. Deploy an endpoint that validates [deployments](/docs/home/getting-started/concepts#deployments) for your application.
+1. Deploy an endpoint that validates [deployments](/docs/getting-started/concepts#deployments) for your application.
 2. Supply the endpoint's URL to Miru and add Miru's authentication to the endpoint.
 
 Once the endpoint is integrated, validation occurs in two parts:
@@ -23,11 +23,11 @@ This section guides you through the process of integrating an endpoint with Miru
 You may host the endpoint however you'd like as long as it is accessible over HTTPS.
 
 {/* 
-If want to set up a server on your local machine for testing or want a more in-depth walkthrough of the process, skip this section in favor of the the [Local Testing](/docs/home/guides/custom-validation/local-testing) section. */}
+If want to set up a server on your local machine for testing or want a more in-depth walkthrough of the process, skip this section in favor of the the [Local Testing](/docs/guides/custom-validation/local-testing) section. */}
 
 ## Enable custom validation
 
-Custom validation is enabled on a per-[release](/docs/home/getting-started/concepts#release) basis. Enabling it on one release has no impact on other releases.
+Custom validation is enabled on a per-[release](/docs/getting-started/concepts#release) basis. Enabling it on one release has no impact on other releases.
 
 To enable custom validation for a release, navigate to the [Releases](https://configs.miruml.com/releases) page. Click the ellipses on the far right of the release you would like to enable and select **Edit** from the dropdown.
 

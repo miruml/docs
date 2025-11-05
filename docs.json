@@ -23,29 +23,29 @@
           {
             "group": "Getting started",
             "pages": [
-              "docs/home/getting-started/intro",
+              "docs/getting-started/intro",
               {
                 "group": "Quick start",
                 "pages": [
-                  "docs/home/getting-started/quick-start/overview",
-                  "docs/home/getting-started/quick-start/define-schema",
-                  "docs/home/getting-started/quick-start/install-agent",
-                  "docs/home/getting-started/quick-start/deploy-instance"
+                  "docs/getting-started/quick-start/overview",
+                  "docs/getting-started/quick-start/define-schema",
+                  "docs/getting-started/quick-start/install-agent",
+                  "docs/getting-started/quick-start/deploy-instance"
                 ]
               },
-              "docs/home/getting-started/concepts"
+              "docs/getting-started/concepts"
             ]
           },
           {
             "group": "Agent",
             "pages": [
-              "docs/home/agent/intro",
+              "docs/agent/intro",
               {
                 "group": "Install",
                 "pages": [
-                  "docs/home/agent/install/dashboard",
-                  "docs/home/agent/install/api-keys",
-                  "docs/home/agent/install/poor-connectivity"
+                  "docs/agent/install/dashboard",
+                  "docs/agent/install/api-keys",
+                  "docs/agent/install/poor-connectivity"
                 ]
               }
             ]
@@ -56,10 +56,10 @@
               {
                 "group": "Custom validation",
                 "pages": [
-                  "docs/home/guides/custom-validation/setup"
+                  "docs/guides/custom-validation/setup"
                 ]
               },
-              "docs/home/guides/jsonschema"
+              "docs/guides/jsonschema"
             ]
           }
         ]
