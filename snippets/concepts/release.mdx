@@ -1,15 +1,13 @@
-A **release** is a version of software.
+A **release** is a version of software and its compatible config schemas.
 
-Amongst a fleet of robots, several software versions may deployed at any given time. This makes managing configurations, which the software relies on, a critical challenge. Releases are used to manage this complexity.
+Amongst a fleet of robots, multiple software versions may be deployed. Each release defines which config schema versions are valid for that software version.
 
-A release contains a set of config schemas that define the valid config instances for a given version of software. Say our software application `v1.7.0` requires a config instance for three different config types: 
-1. Mobility
-1. Perception
-1. Manipulation
+For example, software release `v1.7.0` might specify the following schema versions.
 
-Release `v1.7.0` in Miru would then define a config schema for each of the required config types:
-1. Mobility - schema `v1.2`
-1. Perception - schema `v1.3`
-1. Manipulation - schema `v1.1`
+| **Config Type** | **Schema Version** |
+|----------------|-------------------|
+| `Mobility`       | `v1.2`            |
+| `Perception`   | `v1.3`            |
+| `Manipulation` | `v1.1`            |
 
-Before deploying config instances to a robot, the robot's current release (`v1.7.0`) is used to validate all config instances are present and satisfy the release's config schemas.
+Before deploying config instances, the robot's current release (`v1.7.0`) is used to validate that all config instances are present and satisfy the release's config schemas.
