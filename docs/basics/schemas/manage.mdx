@@ -1,0 +1,272 @@
+---
+title: "Manage schemas"
+---
+
+## Overview
+
+Once schemas are created via the CLI, you can view and manage them through the web dashboard at [https://configs.miruml.com/configs](https://configs.miruml.com/configs).
+
+Schema management includes:
+- Viewing schema content and metadata
+- Editing the instance filepath
+- Deleting unused schemas
+- Tracking git commit history
+- Monitoring which config instances use each schema
+
+## View schemas
+
+### Via web dashboard
+
+1. Navigate to [https://configs.miruml.com/configs](https://configs.miruml.com/configs)
+2. Click into a config type to see all its schemas
+3. Schemas are listed by version
+4. Click into a specific schema to view:
+   - Complete schema content (JSON/YAML/CUE)
+   - Schema metadata (version, language, format)
+   - Git commit information (commit SHA, branch, origin URL, file path)
+   - Associated config instances count
+   - Creation and update timestamps
+
+### Schema metadata
+
+Each schema includes the following metadata:
+
+| Property | Description | Example |
+| -------- | ----------- | ------- |
+| **Version** | Schema version identifier | `v1`, `2.0.0`, `1` |
+| **Digest** | Hash of canonicalized schema content | `abc123...` |
+| **Language** | Schema language | `jsonschema`, `cue` |
+| **Format** | File format | `json`, `yaml`, `cue` |
+| **Instance Filepath** | Deployment path on device | `/v1/mobility.json` |
+| **Config Type** | Parent config type | `mobility` |
+| **Git Commit** | Source commit SHA | `994b0bc4...` |
+| **Branch** | Source branch name | `main` |
+| **Origin URL** | Repository URL | `https://github.com/...` |
+| **Created At** | Creation timestamp | `2024-11-05 10:30:00` |
+| **Updated At** | Last update timestamp | `2024-11-05 10:30:00` |
+
+## Edit a schema
+
+Schema content is **immutable** and cannot be changed after creation. This ensures version integrity and prevents accidental modifications to deployed configurations.
+
+### What can be edited
+
+Only the **instance filepath** can be updated after schema creation.
+
+**To edit the instance filepath:**
+
+1. Navigate to the schema in the web dashboard
+2. Click the edit option
+3. Update the instance filepath
+4. Save changes
+
+### What cannot be edited
+
+The following fields are immutable:
+
+- ❌ **Version** - Use a new version for schema changes
+- ❌ **Content** - Create a new version with updated content
+- ❌ **Language** - Create a new schema with different language
+- ❌ **Format** - Create a new schema with different format
+- ❌ **Config Type** - Schema is permanently linked to its config type
+- ❌ **Digest** - Automatically generated from content
+- ❌ **Git metadata** - Captured at creation time
+
+### Why content is immutable
+
+Schema content is hashed to create a **digest** (fingerprint) used to:
+
+1. **Detect duplicate schemas** - Same content pushed as different versions
+2. **Ensure version integrity** - v1 always means the same schema
+3. **Maintain audit trail** - Track exactly what was deployed when
+4. **Prevent accidents** - Can't accidentally change production schemas
+
+To change schema content, push a new version:
+
+```bash
+# Make changes to schema file
+# Commit to git
+git commit -m "Update schema with new fields"
+
+# Push as new version
+miru schema push schema.yaml --version v2
+```
+
+## Delete a schema
+
+Schemas can be deleted through the web dashboard, but only if they have **no associated config instances**.
+
+### Deletion restrictions
+
+<Warning>
+  You cannot delete a schema if any config instances reference it. Delete or reassign the instances first.
+</Warning>
+
+**Why this restriction exists:**
+- Config instances depend on schemas for validation
+- Deleting would break the relationship
+- Ensures data integrity
+
+### Delete process
+
+1. Navigate to the schema in the web dashboard
+2. Check that no config instances use this schema
+3. Click the delete option
+4. Confirm deletion
+
+If instances exist, you'll see an error message. You must:
+1. Delete the config instances, or
+2. Update instances to use a different schema version
+
+### What happens when you delete
+
+When a schema is successfully deleted:
+- The schema record is permanently removed
+- Git commit links are removed
+- The version becomes available for reuse (though not recommended)
+- Action is logged for audit purposes
+
+## Duplicate detection
+
+Miru automatically detects duplicate schemas to prevent version confusion.
+
+### Version conflict
+
+**Scenario:** Same version, different content
+
+```bash
+# First push
+miru schema push schema-v1.yaml --version v1  # ✅ Success
+
+# Later, push different content with same version
+miru schema push schema-v1-modified.yaml --version v1  # ❌ Error: Version conflict
+```
+
+**Resolution:** Use a different version number for the new content.
+
+### Content duplication
+
+**Scenario:** Same content, different version
+
+```bash
+# First push
+miru schema push schema.yaml --version v1  # ✅ Success
+
+# Push identical content with new version
+miru schema push schema.yaml --version v2  # ❌ Error: Duplicate content detected
+```
+
+**Resolution:** Use the `--allow-duplicate` flag if you truly want to create a duplicate:
+
+```bash
+miru schema push schema.yaml --version v2 --allow-duplicate  # ✅ Success
+```
+
+<Note>
+  Allowing duplicates can be useful when you want to maintain separate version numbers for organizational purposes, even though the content is identical.
+</Note>
+
+### Idempotent pushes
+
+**Scenario:** Same version, same content
+
+```bash
+# First push
+miru schema push schema.yaml --version v1  # ✅ Success
+
+# Re-push identical schema
+miru schema push schema.yaml --version v1  # ✅ Success (no changes)
+```
+
+This is **idempotent** - pushing the same schema multiple times has no effect.
+
+## Git traceability
+
+Every schema maintains a connection to its source code through git metadata.
+
+### Captured metadata
+
+When pushing a schema, the CLI automatically captures:
+
+```
+Git Info:
+   Commit: 994b0bc4499494b02e34eb76b5bdc1eac2ca79a1
+   Branch: main
+   Origin: https://github.com/miruml/getting-started.git
+   Repo File Path: schemas/mobility.yaml
+```
+
+### Benefits
+
+**Audit trail:**
+- Know exactly which code commit created each schema
+- Track schema evolution alongside code changes
+
+**Navigation:**
+- Click through from dashboard to source file in repository
+- Review schema in context of surrounding code
+
+**Debugging:**
+- Correlate schema issues with code changes
+- Identify when and why schemas were modified
+
+**Compliance:**
+- Maintain complete history for regulatory requirements
+- Prove what was deployed at any point in time
+
+## Query via API
+
+For programmatic access, use the Miru API to query schemas.
+
+### List config instances by schema
+
+```bash
+GET /config-instances?config_schema_id=cfg_sch_123
+```
+
+### Expand schema details
+
+Include full schema information in config instance responses:
+
+```bash
+GET /config-instances?expand[]=config_schema
+```
+
+This returns config instances with complete schema details embedded.
+
+## Best practices
+
+### Version naming
+
+- Use consistent versioning scheme across config types
+- Document version changes in git commit messages
+- Consider semantic versioning for clarity
+
+### Schema lifecycle
+
+1. **Create** schemas via CLI from committed code
+2. **Test** with a few config instances before wide deployment
+3. **Deploy** to production after validation
+4. **Monitor** which instances use which versions
+5. **Deprecate** old versions gradually
+6. **Delete** only after all instances migrated
+
+### Organization
+
+- Keep schemas in git alongside application code
+- Use CI/CD to automate schema pushes
+- Tag git commits that include schema changes
+- Document breaking changes in schema descriptions
+
+### Safety
+
+- Never delete schemas with active instances
+- Test schema changes in staging environment first
+- Use schema versioning to enable gradual rollouts
+- Maintain backward compatibility when possible
+
+## Next steps
+
+- Learn about [schema versioning strategies](/basics/schemas/versioning)
+- Explore [creating schemas](/basics/schemas/create)
+- Set up [custom validation](/guides/custom-validation/setup)

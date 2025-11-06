@@ -1,0 +1,231 @@
+---
+title: "Schema languages"
+---
+
+## Overview
+
+Miru currently supports two schema languages for defining config schemas:
+
+1. **JSON Schema** (Draft 2020-12)
+2. **CUE** (CUE Language)
+
+Support for additional configuration languages is planned for the future, including Pkl, Type Schema, JSON Type Definition, and Dhall.
+
+## JSON Schema
+
+[JSON Schema](https://json-schema.org/) is a popular open-source vocabulary for annotating and validating JSON documents. It's widely adopted, well-documented, and has extensive tooling support.
+
+### Supported draft
+
+Miru **only supports JSON Schema Draft 2020-12**. You must include this in your schema:
+
+```yaml
+$schema: "https://json-schema.org/draft/2020-12/schema"
+```
+
+### File formats
+
+JSON Schema can be written in two formats:
+- **JSON** (`.json`)
+- **YAML** (`.yaml`, `.yml`)
+
+Both formats are automatically detected by the CLI.
+
+### Example
+
+```yaml
+$miru_config_type_slug: "mobility"
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Mobility Configuration
+type: object
+properties:
+  max_linear_speed_mps:
+    type: number
+    minimum: 0.1
+    maximum: 5.0
+    default: 1.2
+  obstacle_avoidance_enabled:
+    type: boolean
+    default: true
+  navigation_mode:
+    type: string
+    enum: [conservative, balanced, aggressive]
+    default: balanced
+required:
+  - max_linear_speed_mps
+  - obstacle_avoidance_enabled
+  - navigation_mode
+```
+
+### Keyword support
+
+See the [JSON Schema reference guide](/guides/jsonschema) for complete details on supported keywords.
+
+**Key limitations:**
+- ❌ Recursive references are **not supported**
+- ❌ Pattern matching (`pattern` keyword) is **not supported**
+- ❌ Complex compositions (`allOf`, `oneOf`, `not`) are **not supported**
+
+### Miru-specific annotations
+
+JSON Schema supports two annotation styles for Miru metadata.
+
+#### Dollar sign prefix (YAML format)
+
+When writing schemas in YAML, use the `$` prefix:
+
+```yaml
+$miru_config_type_slug: "mobility"
+$miru_relative_filepath: "/v1/mobility.json"
+$schema: "https://json-schema.org/draft/2020-12/schema"
+```
+
+#### X-prefix (JSON format)
+
+When writing schemas in JSON, use the `x-miru-` prefix:
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-miru-config-type": "mobility",
+  "x-miru-instance-filepath": "/v1/mobility.json"
+}
+```
+
+**Available annotations:**
+- `$miru_config_type_slug` / `x-miru-config-type` - **(Required)** Links schema to a config type
+- `$miru_relative_filepath` / `x-miru-instance-filepath` - **(Optional)** Deployment filepath on device
+
+## CUE
+
+[CUE](https://cuelang.org/) is a powerful configuration language with built-in validation, type checking, and constraint capabilities. It combines the benefits of JSON with the expressiveness of a type system.
+
+### File format
+
+CUE schemas use the `.cue` file extension and are automatically detected by the CLI.
+
+### Example
+
+```cue
+@miru(config_type="mobility")
+@miru(instance_filepath="/v1/mobility.json")
+
+// Max linear speed in meters per second
+max_linear_speed_mps: number & >=0.1 & <=5.0 | *1.2
+
+// Obstacle avoidance enabled
+obstacle_avoidance_enabled: bool | *true
+
+// Navigation mode
+navigation_mode: "conservative" | "balanced" | "aggressive" | *"balanced"
+```
+
+### Miru-specific annotations
+
+CUE uses the `@miru()` attribute decorator for Miru-specific metadata:
+
+```cue
+@miru(config_type="mobility")
+@miru(instance_filepath="/v1/mobility.json")
+```
+
+**Available attributes:**
+- `config_type` - **(Required)** Config type slug
+- `instance_filepath` - **(Optional)** Deployment filepath on device
+
+### CUE benefits
+
+**Type safety:**
+- Strong type checking at validation time
+- Constraints are first-class citizens
+
+**Composability:**
+- Easy to reuse and compose schema definitions
+- Supports imports and packages
+
+**Unification:**
+- CUE's unification semantics make it easy to merge and override configurations
+
+## Starting schemaless
+
+If you want to start using Miru before defining a complete schema, you can create an **empty schema** that accepts any configuration.
+
+This approach lets you:
+- Begin using Miru immediately
+- Deploy configurations without validation constraints
+- Incrementally add validation rules over time
+
+### Empty JSON Schema
+
+```yaml
+$miru_config_type_slug: "mobility"
+$schema: "http://json-schema.org/draft/2020-12/schema"
+title: Empty Mobility Schema
+description: This is an empty schema that allows any configurations
+```
+
+<Note>
+  Starting schemaless is useful for rapid prototyping or when migrating existing configurations to Miru. You can tighten constraints incrementally as your needs evolve.
+</Note>
+
+## Custom validation
+
+For advanced validation needs that go beyond what JSON Schema or CUE can express, Miru supports **custom validation via webhooks**.
+
+### How it works
+
+1. **Enable custom validation** for a specific release
+2. **Set up an HTTPS endpoint** to receive validation requests
+3. **Receive webhooks** with `deployment.validate` events
+4. **Validate using your own logic** (any programming language or stack)
+5. **Return validation results** via API
+
+### Use cases
+
+Custom validation is ideal for:
+- Complex business logic that can't be expressed in schema languages
+- Integration with external systems or databases
+- Validation that requires runtime data or context
+- Organization-specific compliance requirements
+
+### Example webhook payload
+
+When a deployment is created, Miru sends a webhook to your endpoint:
+
+```json
+{
+  "event": "deployment.validate",
+  "deployment_id": "dep_123",
+  "config_instances": [
+    {
+      "config_type": "mobility",
+      "version": "v2",
+      "content": {
+        "max_speed_mps": 3.5,
+        "obstacle_avoidance": true
+      }
+    }
+  ]
+}
+```
+
+Your endpoint validates the configuration and returns results via the Miru API.
+
+<Note>
+  Custom validation is configured per-release and doesn't affect other releases. Learn more in the [custom validation guide](/guides/custom-validation/setup).
+</Note>
+
+## Choosing a schema language
+
+| Language | Best For | Pros | Cons |
+| -------- | -------- | ---- | ---- |
+| **JSON Schema** | General purpose, familiar syntax | Widely adopted, excellent tooling, easy to learn | Less expressive than CUE, verbose for complex schemas |
+| **CUE** | Complex configurations, type safety | Powerful constraints, composable, concise | Steeper learning curve, less tooling |
+| **Schemaless** | Rapid prototyping, migration | Start immediately, no upfront work | No validation protection |
+| **Custom Validation** | Complex business logic | Unlimited flexibility, any language | Requires infrastructure, more setup |
+
+## Next steps
+
+- Learn about [JSON Schema keyword support](/guides/jsonschema)
+- Explore [creating schemas](/basics/schemas/create)
+- Set up [custom validation](/guides/custom-validation/setup)

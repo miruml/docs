@@ -37,39 +37,6 @@
             ]
           },
           {
-            "group": "Guides",
-            "pages": [
-              "docs/basics/config-types",
-              {
-                "group": "Config schemas",
-                "pages": [
-                  "docs/basics/schemas/languages",
-                  "docs/basics/schemas/create",
-                  "docs/basics/schemas/manage",
-                  "docs/basics/schemas/versioning"
-                ]
-              },
-              {
-                "group": "Releases",
-                "pages": [
-                  "docs/basics/releases/overview"
-                ]
-              },  
-              {
-                "group": "Devices",
-                "pages": [
-                  "docs/basics/devices/overview"
-                ]
-              },
-              {
-                "group": "Deployments",
-                "pages": [
-                  "docs/basics/deployments/overview"
-                ]
-              }
-            ]
-          },
-          {
             "group": "Agent",
             "pages": [
               "docs/agent/intro",
@@ -84,7 +51,7 @@
             ]
           },
           {
-            "group": "Tutorials",
+            "group": "Guides",
             "pages": [
               {
                 "group": "Custom validation",
@@ -93,12 +60,6 @@
                 ]
               },
               "docs/guides/jsonschema"
-            ]
-          },
-          {
-            "group": "Administration",
-            "pages": [
-              "docs/admin/workspaces"
             ]
           }
         ]

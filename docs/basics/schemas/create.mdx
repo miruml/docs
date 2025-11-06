@@ -1,0 +1,243 @@
+---
+title: "Create a schema"
+---
+
+import JSONSchemaDescription from '/snippets/jsonschema-description.mdx';
+
+## Overview
+
+Config schemas can **only be created from the CLI**. The web dashboard allows you to view and manage schemas, but creation requires the Miru CLI.
+
+The typical workflow is:
+1. Define your schema locally in a file
+2. Push the schema to Miru using the CLI
+3. View and manage the schema in the web dashboard
+
+## Prerequisites
+
+Before creating a schema, ensure you have:
+
+1. **Miru CLI installed** - [Installation guide](/getting-started/install-cli)
+2. **Authenticated** - Run `miru login` to authenticate
+3. **Config type created** - Create the config type via the [web dashboard](https://configs.miruml.com/configs) first
+4. **Git repository** - Schema file must be in a git repository and committed
+
+## Define the schema
+
+Create a schema file using one of the supported formats:
+
+- **JSON** (`.json`) - Auto-detected as JSON Schema
+- **YAML** (`.yaml`, `.yml`) - Auto-detected as JSON Schema
+- **CUE** (`.cue`) - Auto-detected as CUE language
+
+<JSONSchemaDescription />
+
+## Schema annotations
+
+All schemas must include Miru-specific annotations to identify which config type they belong to.
+
+### Required: Config type slug
+
+This annotation links your schema to a config type.
+
+**For JSON Schema (YAML format):**
+```yaml
+$miru_config_type_slug: "mobility"
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Mobility Configuration
+type: object
+properties:
+  max_speed_mps:
+    type: number
+    minimum: 0
+    maximum: 5.0
+```
+
+**For JSON Schema (JSON format with x- prefix):**
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-miru-config-type": "motion-control",
+  "title": "Motion Control",
+  "type": "object",
+  "properties": {
+    "max_speed": {
+      "type": "number"
+    }
+  }
+}
+```
+
+**For CUE (using @miru attribute):**
+```cue
+@miru(config_type="mobility")
+
+max_speed_mps: number & >=0 & <=5.0
+obstacle_avoidance: bool
+```
+
+### Optional: Instance filepath
+
+Specifies where the config instance file should be deployed on the device. If not specified, defaults to `/{config-type-slug}.json`.
+
+**For JSON Schema (YAML format):**
+```yaml
+$miru_config_type_slug: "mobility"
+$miru_relative_filepath: "/v1/motion-control.json"
+$schema: "https://json-schema.org/draft/2020-12/schema"
+```
+
+**For JSON Schema (JSON format with x- prefix):**
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-miru-config-type": "motion-control",
+  "x-miru-instance-filepath": "v1/motion-control.json"
+}
+```
+
+**For CUE:**
+```cue
+@miru(config_type="mobility")
+@miru(instance_filepath="/v1/mobility.json")
+```
+
+## Push the schema
+
+Once your schema is defined and committed to git, push it to Miru using the CLI.
+
+### Basic command
+
+```bash
+miru schema push ./path/to/schema.yaml --version v1
+```
+
+### Command structure
+
+```bash
+miru schema push PATH --version VERSION [OPTIONS]
+```
+
+**Required flags:**
+- `--version, -v` - Config schema version (e.g., "v1", "2.0.0", "1")
+
+**Optional flags:**
+- `--language, -l` - Schema language (`cue` or `jsonschema`). Auto-detected if not provided
+- `--allow-duplicate` - Allow creation even if identical content exists for a different version
+
+### Push multiple schemas
+
+You can push multiple schemas in a single command:
+
+```bash
+miru schema push \
+    ./schemas/mobility.yaml \
+    ./schemas/safety.yaml \
+    ./schemas/led.yaml \
+    --version v1
+```
+
+### Example output
+
+```bash
+📦 Attempting to push 1 config schemas...
+
+🟢 Successfully created mobility schema v1
+     Relative deployment file path: /mobility/schema_v1/instance.json
+     Git Info:
+        Commit: 994b0bc4499494b02e34eb76b5bdc1eac2ca79a1
+        Branch: main
+        Origin: https://github.com/miruml/getting-started.git
+        Repo File Path: schemas/mobility-schemaless.yaml
+
+✅ Successfully pushed 1 config schemas
+```
+
+## Git integration
+
+The CLI automatically captures git metadata when pushing schemas:
+
+- **Commit SHA** - The exact commit where the schema was defined
+- **Branch name** - The branch from which the schema was pushed
+- **Origin URL** - The remote repository URL
+- **Repository file path** - The path to the schema file within the repo
+
+<Warning>
+  Schema files must be committed to git before pushing. Uncommitted files will be rejected.
+</Warning>
+
+This git integration provides full traceability, allowing you to:
+- Track which code version corresponds to which schema version
+- Navigate directly to the schema definition in your repository
+- Audit schema changes over time
+
+## Schema validation
+
+When you push a schema, Miru automatically:
+
+1. **Parses and compiles** the schema content
+2. **Validates** the schema syntax
+3. **Generates a digest** (hash) of the canonicalized schema
+4. **Checks for version conflicts** - Same version with different content
+5. **Checks for duplicate content** - Same content with different version
+6. **Creates a database record** and links it to the git commit
+
+If validation fails, you'll receive a detailed error message explaining what needs to be fixed.
+
+## Common workflows
+
+### Creating your first schema
+
+```bash
+# 1. Create config type via web UI
+# 2. Define schema locally
+cat > mobility-v1.yaml <<EOF
+\$miru_config_type_slug: "mobility"
+\$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Mobility
+type: object
+properties:
+  max_speed_mps:
+    type: number
+    minimum: 0
+    maximum: 5.0
+required:
+  - max_speed_mps
+EOF
+
+# 3. Commit to git
+git add mobility-v1.yaml
+git commit -m "Add mobility schema v1"
+
+# 4. Push to Miru
+miru schema push mobility-v1.yaml --version v1
+```
+
+### Updating a schema with a new version
+
+```bash
+# 1. Modify schema file
+# 2. Commit changes
+git add mobility-v2.yaml
+git commit -m "Add mobility schema v2 with new fields"
+
+# 3. Push as new version
+miru schema push mobility-v2.yaml --version v2
+```
+
+### Handling duplicate content
+
+If you try to push the same schema content with a different version, you'll need to explicitly allow it:
+
+```bash
+miru schema push mobility.yaml --version v2 --allow-duplicate
+```
+
+## Next steps
+
+After creating a schema:
+
+1. **View it** in the web dashboard at [https://configs.miruml.com/configs](https://configs.miruml.com/configs)
+2. **Create config instances** based on the schema
+3. **Deploy instances** to your devices
+4. **Update the schema** by pushing new versions as your needs evolve
