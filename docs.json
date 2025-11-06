@@ -43,7 +43,7 @@
               {
                 "group": "Config schemas",
                 "pages": [
-                  "docs/guides/schemas/overview",
+                  "docs/guides/schemas/intro",
                   "docs/guides/schemas/languages",
                   "docs/guides/schemas/versioning",
                   "docs/guides/schemas/create",

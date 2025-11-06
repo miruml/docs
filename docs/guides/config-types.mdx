@@ -4,11 +4,18 @@ title: "Config types"
 
 import ConfigTypeDefinition from '/snippets/concepts/config-type.mdx';
 
-## Overview
+<Frame>
+  ![](/images/config-types/header:page.png)
+</Frame>
+
 
 <ConfigTypeDefinition />
 
 ## Properties
+
+The following properties are used to identify and manage a config type. 
+
+Config types are pretty straightforward, leveraging only a few properties. Nonetheless, config types are quite useful for organizing and managing config schemas and instances.
 
 <ParamField path="name">
 A human-readable display name that can contain most characters such as spaces, special characters, and punctuation.
@@ -17,7 +24,11 @@ Examples: `Mobility`, `Safety Features`, `Perception`
 </ParamField>
 
 <ParamField path="slug">
-A unique, code-friendly identifier used to associate schemas with their config type. Slugs are immutable and must satisfy these constraints:
+A unique, code-friendly identifier used to associate schemas with their config type. 
+
+Slugs are used in code to reference a config type. For instance, every config schema is annotated with a config type slug to associate it with the correct config type.
+
+Slugs are immutable and must satisfy the following constraints:
 
 - Contain only lowercase letters, digits, and hyphens (`-`)
 - Start and end with a lowercase letter or digit

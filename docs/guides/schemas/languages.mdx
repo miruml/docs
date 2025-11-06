@@ -1,5 +1,5 @@
 ---
-title: "Schema languages"
+title: "Configuration languages"
 ---
 
 ## Overview
@@ -159,7 +159,7 @@ This approach lets you:
 
 ```yaml
 $miru_config_type_slug: "mobility"
-$schema: "http://json-schema.org/draft/2020-12/schema"
+$schema: "https://json-schema.org/draft/2020-12/schema"
 title: Empty Mobility Schema
 description: This is an empty schema that allows any configurations
 ```
@@ -167,6 +167,25 @@ description: This is an empty schema that allows any configurations
 <Note>
   Starting schemaless is useful for rapid prototyping or when migrating existing configurations to Miru. You can tighten constraints incrementally as your needs evolve.
 </Note>
+
+## Starting schemaless
+
+Miru supports schemaless schemas--empty schemas that regard all config instances as valid. Schemaless schemas are useful to quickly begin using Miru, rapid prototyping, or when opting to use custom validation instead of configuration language.
+
+Below are the schemaless schemas for the supported configuration languages.
+
+<CodeGroup>
+```yaml JSON Schema
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Mobility
+```
+
+```cue CUE
+@miru(config_type="mobility")
+```
+</CodeGroup>
+
+While schemaless schemas are convenient for getting started, we recommend defining strict schemas for production environments to catch misconfigurations before deployment. If starting schemaless, consider incrementally adding defaults, descriptions, and constraints over time.
 
 ## Custom validation
 
