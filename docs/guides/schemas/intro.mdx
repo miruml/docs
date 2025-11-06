@@ -2,13 +2,13 @@
 title: "Introduction"
 ---
 
-import ConfigSchemaDefinition from '/snippets/concepts/config-schema.mdx';
+import ConfigSchemaDef from '/snippets/concepts/config-schema.mdx';
 
 <Frame>
   ![](/images/config-schemas/header:panel.png)
 </Frame>
 
-<ConfigSchemaDefinition />
+<ConfigSchemaDef />
 
 ## Properties
 
@@ -17,9 +17,9 @@ Config schemas leverage several properties to adequately describe their format a
 All config schema properties are immutable except for the `instance_filepath` property, which may be updated at anytime.
 
 <ParamField path="language">
-The configuration language used to define the schema. 
+The schema language used to define the schema. 
 
-Currently supported configuration languages include:
+Currently supported schema languages include:
 - JSON Schema (Draft 2020-12)
 - CUE
 
@@ -42,7 +42,7 @@ Examples: `json`, `yaml`, `cue`
 </ParamField>
 
 <ParamField path="content">
-The raw schema definition written in the specified configuration language.
+The raw schema definition written in the specified schema language.
 
 The exact contents of a schema file is preserved in Miru including any comments, whitespace, and formatting.
 </ParamField>
@@ -78,7 +78,7 @@ Examples: `/v1/mobility.json`, `/config/safety.json`
 
 The primary purpose of schemas is to validate config instances. Let's look at a simple example to see how schemas validate config instances.
 
-The following is a toy schema defined using the JSON Schema [configuration language](/docs/guides/schemas/languages).
+The following is a toy schema defined using the JSON Schema [language](/docs/guides/schemas/languages).
 
 ```yaml JSON Schema [expandable]
 $schema: "https://json-schema.org/draft/2020-12/schema"

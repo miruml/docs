@@ -1,5 +1,5 @@
 ---
-title: "Configuration languages"
+title: "Schema languages"
 ---
 
 ## Overview
@@ -9,7 +9,7 @@ Miru currently supports two schema languages for defining config schemas:
 1. **JSON Schema** (Draft 2020-12)
 2. **CUE** (CUE Language)
 
-Support for additional configuration languages is planned for the future, including Pkl, Type Schema, JSON Type Definition, and Dhall.
+Support for additional schema languages is planned for the future. Some languages we are considering include Pkl, Type Schema, JSON Type Definition, and Dhall.
 
 ## JSON Schema
 
@@ -98,7 +98,7 @@ When writing schemas in JSON, use the `x-miru-` prefix:
 
 ## CUE
 
-[CUE](https://cuelang.org/) is a powerful configuration language with built-in validation, type checking, and constraint capabilities. It combines the benefits of JSON with the expressiveness of a type system.
+[CUE](https://cuelang.org/) is a powerful schema language with built-in validation, type checking, and constraint capabilities. It combines the benefits of JSON with the expressiveness of a type system.
 
 ### File format
 
@@ -170,9 +170,9 @@ description: This is an empty schema that allows any configurations
 
 ## Starting schemaless
 
-Miru supports schemaless schemas--empty schemas that regard all config instances as valid. Schemaless schemas are useful to quickly begin using Miru, rapid prototyping, or when opting to use custom validation instead of configuration language.
+Miru supports schemaless schemas--empty schemas that regard all config instances as valid. Schemaless schemas are useful to quickly begin using Miru, rapid prototyping, or when opting to use custom validation instead of schema language.
 
-Below are the schemaless schemas for the supported configuration languages.
+Below are the schemaless schemas for the supported schema languages.
 
 <CodeGroup>
 ```yaml JSON Schema
