@@ -1,0 +1,77 @@
+---
+title: "Config types"
+---
+
+import ConfigTypeDefinition from '/snippets/concepts/config-type.mdx';
+
+## Overview
+
+<ConfigTypeDefinition />
+
+## Fields
+
+<ParamField path="name">
+A human-readable display name that can contain most characters such as spaces, special characters, and punctuation.
+
+Examples: `Mobility`, `Safety Features`, `Perception`
+</ParamField>
+
+<ParamField path="slug">
+A unique, code-friendly identifier used to associate schemas with their config type. Slugs are immutable and must satisfy these constraints:
+
+- Contain only lowercase letters, digits, and hyphens (`-`)
+- Start and end with a lowercase letter or digit
+- Between 1 and 32 characters
+
+Examples: `mobility`, `safety-features`, `perception`
+</ParamField>
+
+## Create a config type
+
+Navigate to the [Config Types](https://configs.miruml.com/configs) page and click **+ New Config Type** in the top right corner.
+
+<Frame>
+  ![](/images/config-types/create-page.png)
+</Frame>
+
+Fill in the fields and hit **Create**.
+
+<Frame width="100px">
+  ![](/images/config-types/create-dialog.png)
+</Frame>
+
+<Warning>
+  Config type slugs cannot be modified after creation.
+</Warning>
+
+## Edit a config type
+
+Navigate to the [Config Types](https://configs.miruml.com/configs) page. Click on the ellipses (...) of the config type you want to edit and click **Edit**.
+
+<Frame >
+  ![](/images/config-types/ellipses-dropdown.png)
+</Frame>
+
+Update the desired fields and hit **Save**.
+
+<Frame>
+  ![](/images/config-types/edit-dialog.png)
+</Frame>
+
+## Delete a config type
+
+Deleting a config type is only possible if there exist no config instances for that config type. As such, most config types cannot be deleted.
+
+Given that no config instances exist for the config type (deleted or otherwise), deleting a config type removes all associated schemas with it.
+
+<Warning>
+  Deleting a config type cannot be undone.
+</Warning>
+
+To delete a config type, navigate to the config type page. Then click the ellipses of the config type you want to delete and select **Delete**.
+
+<Frame>
+  ![](/images/config-types/ellipses-dropdown.png)
+</Frame>
+
+A confirmation dialog will appear; click **Delete** to confirm the deletion.
