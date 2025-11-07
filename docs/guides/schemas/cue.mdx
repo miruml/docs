@@ -1,0 +1,333 @@
+---
+title: "CUE"
+---
+
+<Frame>
+  ![](/images/schema-langs/cue/website.png)
+</Frame>
+
+[CUE](https://cuelang.org/) (Configure, Unify, Execute) was developed at Google by Marcel van Lohuizen, one of the original creators of Go. The original motivation stemmed from Google's internal struggles in managing complex, large-scale configurations for infrastructure and applications. JSON and YAML were too weak for expressing constraints, logic, or composition, so CUE set out to solve that.
+
+Instead of building and managing external tools to validate, patch, or generate configs, CUE itself is a fully programmable config engine. This means CUE wholly encapsulates the configuration data, the schema, and the logic (how to derive those config values).
+
+## Example
+
+Below is an example CUE schema to give you a flavor of what CUE looks like.
+
+```cue CUE [expandable]
+@miru(config_type="communication")
+
+// Control loop frequency in Hertz
+control_loop_rate_hz: number & >=1 & <=1000 | *50
+
+// Watchdog timeout duration in milliseconds
+watchdog_timeout_ms: number & >=100 & <=5000 | *500
+
+network: {
+	// Maximum acceptable network latency in milliseconds
+	max_latency_ms: number & >=10 & <=1000 | *100
+	// Connection timeout duration in milliseconds
+	connection_timeout_ms: number & >=100 & <=10000 | *2000
+	// Number of reconnection attempts
+	reconnect_attempts: number & >=1 & <=10 | *3
+	// Interval between reconnection attempts in milliseconds
+	reconnect_interval_ms: number & >=100 & <=5000 | *1000
+	// Interval between heartbeat messages in milliseconds
+	heartbeat_interval_ms: number & >=50 & <=1000 | *250
+}
+
+logging: {
+	// Enable or disable packet logging
+	enable_packet_logging: bool | *true
+	// Logging level
+	log_level: "debug" | "info" | "warn" | "error" | *"info"
+	// Maximum log file size in megabytes
+	max_log_size_mb: number & >=1 & <=1024 | *100
+	// Number of days to retain log files
+	retain_logs_days: number & >=1 & <=90 | *30
+}
+
+error_handling: {
+	// Maximum number of consecutive failures allowed
+	max_consecutive_failures: number & >=1 & <=20 | *5
+	// Timeout duration for failure handling in milliseconds
+	failure_timeout_ms: number & >=100 & <=30000 | *5000
+	// Enable or disable automatic recovery from failures
+	enable_auto_recovery: bool | *true
+}
+```
+
+As you can see, CUE inlines constraints directly with type definitions, making schemas significantly more concise than JSON Schema. The `&` operator lets you intersect multiple constraints, and the `| *value` syntax specifies default values.
+
+## Tooling
+
+CUE ships with a powerful CLI that helps you validate, format, and export your configs:
+
+- `cue vet` - Validate data against constraints
+- `cue eval` - Merge constraints and output final data
+- `cue export` - Emit valid JSON/YAML
+- `cue fmt` - Formatter, like gofmt for CUE
+- `cue def` - Convert JSON/YAML into a base schema
+
+## Editor Support
+
+**VS Code:**
+First-class support via the official [CUE extension](https://marketplace.visualstudio.com/items?itemName=cuelang.vscode-cue) with syntax highlighting, formatting, hover docs, and linting.
+
+**JetBrains IDEs:**
+Limited community support; no official plugin yet.
+
+## Code Generation
+
+CUE is tightly integrated with Go, but struggles with other languages. If you're not using Go (which most robotics stacks aren't), your best bet is to go from CUE → JSON Schema → code generation.
+
+For static languages like Rust, this works well. For dynamic languages, you'll need CI checks to make sure your code and schema don't drift.
+
+### Example: CUE to Rust
+
+Here's how you can generate Rust structs from a CUE schema:
+
+**Step 1:** Create a CUE schema (`robot.cue`):
+
+```cue
+Robot: {
+  robot_id:     string
+  enabled:      bool
+  max_velocity: number & >=0
+  sensors:      [...string] | *[]
+}
+```
+
+**Step 2:** Export to JSON Schema:
+
+```bash
+cue export robot.cue --out=jsonschema > robot.schema.json
+```
+
+This produces:
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "robot_id": { "type": "string" },
+    "enabled": { "type": "boolean" },
+    "max_velocity": {
+      "type": "number",
+      "minimum": 0
+    },
+    "sensors": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    }
+  },
+  "required": ["robot_id", "enabled", "max_velocity", "sensors"]
+}
+```
+
+**Step 3:** Generate Rust code:
+
+```bash
+cargo install schemafy_cli
+schemafy robot.schema.json > robot_config.rs
+```
+
+Result:
+
+```rust
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Robot {
+    pub robot_id: String,
+    pub enabled: bool,
+    pub max_velocity: f64,
+    pub sensors: Vec<String>,
+}
+```
+
+<Warning>
+This workflow is functional but not first-class. You're stitching together multiple tools, which can cause lossy translation. For example, going from CUE to JSON Schema means you lose some of the CUE constraint logic if JSON Schema does not support it.
+</Warning>
+
+## File Formats
+
+**Schema Formats**
+
+Miru supports CUE schemas written in:
+- **CUE** (`.cue`)
+
+**Instance Formats**
+
+Miru supports the validation of CUE instances in the following formats:
+- **JSON** (`.json`)
+- **YAML** (`.yaml`, `.yml`)
+
+A CUE schema can validate both JSON and YAML instances.
+
+## Miru-specific Annotations
+
+CUE uses the `@miru()` attribute decorator for Miru-specific metadata:
+
+```cue
+@miru(config_type="mobility")
+@miru(instance_filepath="/v1/mobility.json")
+```
+
+**Available attributes:**
+- `config_type` - **(Required)** Config type slug
+- `instance_filepath` - **(Optional)** Deployment filepath on device
+
+## Strengths
+
+CUE is strong in several areas: validation, composability, and built-in logic.
+
+### Constraint-based Validation
+
+CUE uses a constraint-based, structural validation model. Instead of separating types from values, CUE treats both as constraints, so you define them in the same place. In CUE, the schema is the set of constraints your data must satisfy.
+
+Here's an example:
+
+```cue
+RobotConfig: {
+  id:        string & !=""
+  armLength: float & >0.1 & <2.0
+  payloadKg: int & >= 0 & <= 25
+  mode:      "idle" | "active" | "emergency"
+  ip:        string & =~ "^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$"
+}
+```
+
+Each field has an inline constraint to prevent misconfigurations. The `&` operator lets you intersect multiple constraints.
+
+Here's an instance that conforms to the schema:
+
+```cue
+myRobot: RobotConfig & {
+  id:        "arm-001"
+  armLength: 1.2
+  payloadKg: 18
+  mode:      "active"
+  ip:        "192.168.1.42"
+}
+```
+
+When you run `cue vet`, it checks that all constraints from `RobotConfig` are satisfied by `myRobot`.
+
+If you change `payloadKg` to 100, the validation fails with a clear error:
+
+```
+myRobot.payloadKg: conflicting values 100 and int & >=0 & <=25:
+    conflicting values 100 and <=25
+```
+
+### Composability & Overrides
+
+CUE excels at composability. It has built composability into its language semantics through logical conjunction (`&`) to merge constraints and values. This means you can define reusable schemas, partial defaults, and environment-specific overrides as independent pieces and merge them when needed.
+
+Here's an example of a base + override:
+
+```cue
+BaseConfig: {
+  armLength: 1.2
+  payloadKg: <= 20
+  mode:      "idle"
+}
+
+ProductionOverride: {
+  mode: "active"
+  payloadKg: 18
+}
+
+robot01: BaseConfig & ProductionOverride
+```
+
+Evaluating `robot01` merges the two objects. All constraints are preserved and checked at merge time:
+
+```json
+{
+  "armLength": 1.2,
+  "payloadKg": 18,
+  "mode": "active"
+}
+```
+
+This construct allows you to build layered configs, either merging various components together or creating overrides on a per-robot basis. This makes CUE uniquely good for managing configs at scale.
+
+### Templating & Logic
+
+CUE supersedes the functionality of a templating engine. It's a declarative language, so you can write rules, expressions, and constraints that safely compute values based on inputs.
+
+CUE supports:
+
+- **Arithmetic & expressions** - `torque / (payload + 1)`
+- **Conditional logic** - `status: if emergency then "offline" else "ready"`
+- **List comprehensions** - `[for id in robotIDs { id: id, zone: "default" }]`
+- **Constraint merging** - `limit: >10, limit: <=25 → limit: >10 & <=25`
+
+<Info>
+CUE is **not** Turing-complete. It can't do recursion, unbounded loops, general-purpose function definitions, or import values at runtime. This is by design—it's expressive enough to compute what you need, but bounded enough to stay predictable. Templating engines like Jsonnet and Jinja can be too powerful, introducing infinite loops and runtime failures that deliver bad configs and crash your application.
+</Info>
+
+### Self-Documentation & Readability
+
+CUE is reasonably self-documented. It has a strong type system, default values, and field declarations. However, compared to JSON Schema, it lacks richer metadata that are nice to haves with a schema language.
+
+Field types are explicit:
+
+```cue
+name: string
+payloadKg: int & >= 0 & <= 25
+```
+
+You can define enums and constraints inline, which makes intent very clear:
+
+```cue
+mode: "idle" | "active" | "emergency"
+```
+
+You can annotate with comments, and they persist through evaluation and formatting:
+
+```cue
+// Max load the robot can carry in kg
+payloadKg: int & >= 0 & <= 25
+```
+
+You can also use `cue def` or `cue export` to generate a "flattened" version of the config—useful for introspection or documentation tooling.
+
+<Info>
+CUE borrows heavily from Go's syntax and semantics. For engineers not familiar with Go, there can be some ramp-up needed.
+</Info>
+
+## Weaknesses
+
+While CUE is strong in many areas, it has a few weaknesses worth noting.
+
+### Limited Language Support
+
+CUE is tightly integrated with Go but struggles with other languages. This is the biggest limitation for robotics teams, as most robotics stacks use a mix of Python, C++, and Rust rather than Go.
+
+If you're not using Go, you must go through the CUE → JSON Schema → code generation workflow described above. This adds complexity and can result in lossy translation where some CUE constraints don't map cleanly to JSON Schema.
+
+While the ecosystem is growing quickly, limited language support will remain a challenge in the short to medium term. Teams using CUE alongside other languages will need to maintain the translation pipeline and ensure schemas don't drift from generated code.
+
+### Code Generation Complexity
+
+Unlike JSON Schema which has mature, language-specific code generation tools (like quicktype, datamodel-code-generator, schemars), CUE has no first-class code generation outside of Go.
+
+The multi-step workflow (CUE → JSON Schema → target language) works but requires:
+- Multiple tools in your build pipeline
+- Careful attention to which constraints translate correctly
+- CI checks to prevent drift between schema and code
+
+For teams that need type-safe code generation in multiple languages, this can be a significant operational burden compared to using JSON Schema directly.
+
+## Summary
+
+CUE is a schema language purpose-built for configuration. It combines validation, logic, and composition into a single language, making it especially useful for teams managing complex, dynamic configs.
+
+CUE's strengths come from its logic and computation. You can write conditionals, compute derived values, and merge overrides natively. In terms of logic and expressiveness, CUE offers more out of the box than any other schema language.
+
+The main downside is limited language support outside of Go. Teams using CUE alongside Python, C++, or Rust will need to translate CUE into JSON Schema to unlock code generation.
+
+If you're looking for a config language that has logic, inheritance, and validation all in one place, CUE is an option worth exploring.

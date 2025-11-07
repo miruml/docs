@@ -74,6 +74,19 @@ To modify the file path deployed for all future instances of this schema, simply
 Examples: `/v1/mobility.json`, `/config/safety.json`
 </ParamField>
 
+## Schema languages
+
+Config schemas are defined using a schema language--a formal language for describing the structure, constraints, and data types of a configuration. 
+
+Miru supports the following schema languages:
+
+- [JSON Schema](https://json-schema.org/draft/2020-12)
+- [CUE](https://cuelang.org/)
+
+This page briefly reviews the features of each schema language, giving some context for their capabilities, limitations, and best use cases.
+
+For an in-depth comparison of JSON Schema, CUE, and Protocol Buffers, check out our blog post: [Config Wars](https://blog.miruml.com/p/config-wars-chapter-1-intro-to-schemas?utm_source=publication-search).
+
 ## Validation
 
 The primary purpose of schemas is to validate config instances. Let's look at a simple example to see how schemas validate config instances.
@@ -172,6 +185,100 @@ The config instance is rejected before deployment begins. We then correct the is
 This time the config instance successfully validates against the schema and is deployed to the device.
 
 Although simple in concept, schemas are a powerful tool for preventing typos, misconfigurations, and other preventable errors. Schemas are foundational component for a production-ready configuration management system.
+
+
+
+## Starting schemaless
+
+If you want to start using Miru before defining a complete schema, you can create an **empty schema** that accepts any configuration.
+
+This approach lets you:
+- Begin using Miru immediately
+- Deploy configurations without validation constraints
+- Incrementally add validation rules over time
+
+## Empty schemas
+
+Many teams find the task of defining a schema to be a significant undertaking. While we recommend defining strict schemas, many teams find it simpler to begin with an empty schema and add constraints over time.
+
+Starting with an empty schema is ideal for quickly beginning using Miru, rapid prototyping, or when opting to use custom validation instead of schema language.
+
+Below are the schemaless schemas for the supported schema languages.
+
+<CodeGroup>
+```yaml JSON Schema
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Mobility
+```
+
+```cue CUE
+@miru(config_type="mobility")
+```
+</CodeGroup>
+
+While schemaless schemas are convenient for getting started, we recommend defining strict schemas for production environments to catch misconfigurations before deployment. If starting schemaless, consider incrementally adding defaults, descriptions, and constraints over time.
+
+## Custom validation
+
+For advanced validation needs that go beyond what JSON Schema or CUE can express, Miru supports **custom validation via webhooks**.
+
+### How it works
+
+1. **Enable custom validation** for a specific release
+2. **Set up an HTTPS endpoint** to receive validation requests
+3. **Receive webhooks** with `deployment.validate` events
+4. **Validate using your own logic** (any programming language or stack)
+5. **Return validation results** via API
+
+### Use cases
+
+Custom validation is ideal for:
+- Complex business logic that can't be expressed in schema languages
+- Integration with external systems or databases
+- Validation that requires runtime data or context
+- Organization-specific compliance requirements
+
+### Example webhook payload
+
+When a deployment is created, Miru sends a webhook to your endpoint:
+
+```json
+{
+  "event": "deployment.validate",
+  "deployment_id": "dep_123",
+  "config_instances": [
+    {
+      "config_type": "mobility",
+      "version": "v2",
+      "content": {
+        "max_speed_mps": 3.5,
+        "obstacle_avoidance": true
+      }
+    }
+  ]
+}
+```
+
+Your endpoint validates the configuration and returns results via the Miru API.
+
+<Note>
+  Custom validation is configured per-release and doesn't affect other releases. Learn more in the [custom validation guide](/guides/custom-validation/setup).
+</Note>
+
+## Choosing a schema language
+
+| Language | Best For | Pros | Cons |
+| -------- | -------- | ---- | ---- |
+| **JSON Schema** | General purpose, familiar syntax | Widely adopted, excellent tooling, easy to learn | Less expressive than CUE, verbose for complex schemas |
+| **CUE** | Complex configurations, type safety | Powerful constraints, composable, concise | Steeper learning curve, less tooling |
+| **Schemaless** | Rapid prototyping, migration | Start immediately, no upfront work | No validation protection |
+| **Custom Validation** | Complex business logic | Unlimited flexibility, any language | Requires infrastructure, more setup |
+
+## Next steps
+
+- Learn about [JSON Schema keyword support](/guides/jsonschema)
+- Explore [creating schemas](/basics/schemas/create)
+- Set up [custom validation](/guides/custom-validation/setup)
 
 ## Defaults
 
