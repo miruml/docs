@@ -1,0 +1,55 @@
+---
+title: "CUE"
+---
+
+<Frame>
+  ![](/images/schema-langs/cue/website.png)
+</Frame>
+
+[CUE](https://cuelang.org/) is a powerful schema language with built-in validation, type checking, and constraint capabilities. It combines the benefits of JSON with the expressiveness of a type system.
+
+### File format
+
+CUE schemas use the `.cue` file extension and are automatically detected by the CLI.
+
+### Example
+
+```cue
+@miru(config_type="mobility")
+@miru(instance_filepath="/v1/mobility.json")
+
+// Max linear speed in meters per second
+max_linear_speed_mps: number & >=0.1 & <=5.0 | *1.2
+
+// Obstacle avoidance enabled
+obstacle_avoidance_enabled: bool | *true
+
+// Navigation mode
+navigation_mode: "conservative" | "balanced" | "aggressive" | *"balanced"
+```
+
+### Miru-specific annotations
+
+CUE uses the `@miru()` attribute decorator for Miru-specific metadata:
+
+```cue
+@miru(config_type="mobility")
+@miru(instance_filepath="/v1/mobility.json")
+```
+
+**Available attributes:**
+- `config_type` - **(Required)** Config type slug
+- `instance_filepath` - **(Optional)** Deployment filepath on device
+
+### CUE benefits
+
+**Type safety:**
+- Strong type checking at validation time
+- Constraints are first-class citizens
+
+**Composability:**
+- Easy to reuse and compose schema definitions
+- Supports imports and packages
+
+**Unification:**
+- CUE's unification semantics make it easy to merge and override configurations

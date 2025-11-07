@@ -1,5 +1,5 @@
 ---
-title: "Introduction"
+title: "Overview"
 ---
 
 import ConfigSchemaDef from '/snippets/concepts/config-schema.mdx';
@@ -179,7 +179,7 @@ A secondary purpose of schemas is to define default values for config instances.
 
 Schemas are a perfect place to define default configuration values. By placing defaults in the schema itself, values are naturally migrated and versioned alongside the schema, preventing drift between default configurations and schema versions.
 
-While some configurations, such as calibrations, cannot provide sensible default values, defaults should be leveraged for the majority of parameters.
+While some configurations, such as calibrations, do not have sensible default values, defaults should be leveraged for the majority of parameters.
 
 Each schema language has its own way of defining and handling default values--JSON Schema uses the `default` keyword while CUE supports the `| *` syntax.
 
@@ -202,8 +202,6 @@ navigation_mode: "conservative" | "aggressive" | *"conservative"
 ```
 </CodeGroup>
 
-Miru integrates directly with default values in your schemas. When creating a new config instance, Miru automatically populates the instance with the defaults provided by the schema.
-
-Importantly, Miru maintains the structural integrity of the schema when populating default instances--the order of properties in the default instance is identical to its schema. This is particularly useful for large config instances where it can be difficult to recall the exact placement of a property and navigate to it effectively.
+Miru integrates directly with the default values in your schemas. When creating a new config instance, Miru automatically populates the instance with the defaults provided by the schema.
 
 For more information on the expected behavior of default values with Miru, visit the defaults section of a given schema language in the [Schema languages](/docs/guides/schemas/languages) guide.
