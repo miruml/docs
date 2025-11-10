@@ -4,23 +4,67 @@ mode: "center"
 rss: "true"
 ---
 
-<Update label="October 16, 2025" description="v0.2.0">
-  ## Review Deployments
+import { Dropdown, DropdownItem } from '/snippets/components/dropdown.jsx'
+import { Separator } from '/snippets/components/seperator.jsx'
 
-  - New deployments for a device automatically move staged deployments for that device into the 'Needs Review' status
-  - Deployments which 'Need Review' can be reviewed with a list of deployments that have been deployed since the deployment was staged
+<Update label="November 10, 2025" description="v0.3">
+    ## Device Releases
 
-  ## Archive Deployments
+    You can now set and change a device's release directly from the device page, 
+    eliminating the need to navigate to the releases page for single-device operations.
 
-  Deployments in the staging area can now be archived.
 
-  <Accordion title="Improvements">
-    - Swapped pending and approved to be needs_review and staged
-    - Releases may be deleted if no deployments have been deployed for that release
-    - Removed the option to set the release from the provision dialog and direct users to releases page instead.
-  </Accordion>
-  <Accordion title="Fixes">
-    - Improved deployment-related error messages to be more human-readable
-    - Stripped white space from semantic versions created for releases
-  </Accordion>
+    ### Setting the initial release
+
+    After activating a device, you'll be prompted to set its initial release before 
+    accessing the config editor. This two-step process requires:
+    
+    1. **Select a release** - Choose which software version this device will run
+    2. **Deploy configurations** - Either deploy a staged deployment or create and deploy new configurations
+
+
+    <video
+        autoPlay
+        loop
+        controls
+        className="aspect-video rounded-xl"
+        src="https://miru-docs.s3.us-east-1.amazonaws.com/changelog/2025-11-10/setting-init-release.mp4"
+    />
+
+
+    ### Changing the release
+
+    The device's current release is now visible in the editor (left sidebar). Click the 
+    release to open a dropdown and select a different release version. 
+    
+    When you change releases, you'll need todeploy a new set of configurations — either 
+    a staged deployment or by creating a new deployment.
+
+    <video
+        autoPlay
+        loop
+        controls
+        className="aspect-video rounded-xl"
+        src="https://miru-docs.s3.us-east-1.amazonaws.com/changelog/2025-11-10/changing-release.mp4"
+    />
+
+    <div className="mb-9" />
+
+    <Separator />
+    <Dropdown title="Improvements">
+        <DropdownItem>All devices in the devices table are always clickable</DropdownItem>
+        <DropdownItem>Removed status column and merged status icon with device name in devices table</DropdownItem>
+        <DropdownItem>Removed last seen column from devices table</DropdownItem>
+        <DropdownItem>Added tooltip on device status hover showing status and connection/disconnection time</DropdownItem>
+        <DropdownItem>Added the config instance ID in the Config Instance sheet header</DropdownItem>
+        <DropdownItem>Added the metadata tab in the Config Instance sheet</DropdownItem>
+        <DropdownItem>Renamed "Source" → "Parent" in deployment and config instance metadata</DropdownItem>
+    </Dropdown>
+    <Separator />
+    <Dropdown title="Fixes">
+        <DropdownItem>The create release dialog no longer crashes when opening</DropdownItem>
+        <DropdownItem>Create release dialog form validation now properly detects when required fields are filled</DropdownItem>
+        <DropdownItem>Content overflow in the Config Instance, Config Schema, and Create API Key sheet headers has been fixed</DropdownItem>
+        <DropdownItem>Schema link in the Deployment sheet no longer leads to a 404 error</DropdownItem>
+    </Dropdown>
 </Update>
