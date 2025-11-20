@@ -1,3 +1,38 @@
 ---
-title: "Extracting defaults"
+title: "Default values"
 ---
+
+## Overview
+
+While schemas are primarily used to validate config instances, a secondary purpose is to define default values for config instances.
+
+Schemas are a perfect place to define default configuration values. By placing defaults in the schema itself, values are naturally migrated and versioned alongside the schema, preventing drift between default configurations and schema versions.
+
+While some configurations, such as calibrations, do not have sensible default values, defaults should be leveraged for the majority of parameters.
+
+Each schema language has its own way of defining and handling default values--JSON Schema uses the `default` keyword while CUE supports the `| *` syntax.
+
+Below are examples of JSON Schema and CUE defining `conservative` as the default value for the `navigation_mode` property.
+
+<CodeGroup>
+```yaml JSON Schema
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Defaults
+type: object
+properties:
+    navigation_mode:
+        type: string
+        enum: [conservative, aggressive]
+        default: conservative
+required:
+- navigation_mode
+```
+
+```cue CUE
+navigation_mode: "conservative" | "aggressive" | *"conservative"
+```
+</CodeGroup>
+
+Miru integrates directly with the default values in your schemas. When creating a new config instance, Miru automatically populates the instance with the defaults provided by the schema.
+
+For more information on the expected behavior of default values with Miru, visit the defaults section of a given schema language in the [Schema languages](/docs/guides/schemas/languages) guide.

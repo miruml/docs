@@ -6,7 +6,11 @@ title: "JSON Schema"
   ![](/images/schema-langs/jsonschema/website.png)
 </Frame>
 
-With origins dating back to 2010, [JSON Schema](https://json-schema.org/) is one of the most widely adopted schema languages today. Originally built for API validation, it has since found its way into configuration systems across web, cloud, and robotics infrastructure.
+[JSON Schema](https://json-schema.org/) is a popular open-source schema language, useful for defining valid fields, types, and values for a config. 
+
+With origins dating back to 2010, JSON Schema was originally built for API validation, but has since found its way into configuration systems across web, cloud, and robotics infrastructure.
+
+This section covers key integration points for JSON Schema with Miru as well as some general information on the strengths and weaknesses of JSON Schema.
 
 ## Example
 
@@ -140,10 +144,12 @@ Although many of JSON Schema's capabilities are omitted in this example, you'll 
 - `minimum` - the minimum value of a property (only for numeric types)
 - `maximum` - the maximum value of a property (only for numeric types)
 
-For a comprehensive list of JSON Schema keywords, visit the [official JSON Schema website](https://json-schema.org/understanding-json-schema/keywords). We also find the [official test suite](https://github.com/json-schema-org/JSON-Schema-Test-Suite/tree/main/tests/draft2020-12) highly useful for perusing a vast number of simple JSON Schema examples that showcase its capabilities.
+For a comprehensive list of JSON Schema keywords, visit the [official JSON Schema website](https://json-schema.org/understanding-json-schema/keywords). We also find the [official test suite](https://github.com/json-schema-org/JSON-Schema-Test-Suite/tree/main/tests/draft2020-12) highly useful, containing a vast number of simple JSON Schema examples.
 
 
-## Supported Drafts
+## Miru support
+
+### Drafts
 
 While JSON Schema has a variety of drafts, Miru only supports JSON Schema [Draft 2020-12](https://json-schema.org/draft/2020-12), the most recent stable draft.
 
@@ -153,35 +159,36 @@ When specifying the `$schema` keyword in a schema (which is recommended), it mus
 $schema: "https://json-schema.org/draft/2020-12/schema"
 ```
 
-<Info>
+<Note>
   If the `$schema` keyword is omitted from a schema, the schema is automatically interpreted as Draft 2020-12.
-</Info>
+</Note>
 
-## Supported Keywords
+### Keywords
 
-Miru supports the full suite of JSON Schema keywords for Draft 2020-12.
+Miru supports the full suite of keywords for Draft 2020-12.
 
-Miru also conducts a few additional checks to keep schemas well-maintained.
+For a comprehensive list of JSON Schema keywords, visit the [official JSON Schema website](https://json-schema.org/understanding-json-schema/keywords). We also find the [official test suite](https://github.com/json-schema-org/JSON-Schema-Test-Suite/tree/main/tests/draft2020-12) highly useful, containing a vast number of simple JSON Schema examples.
 
-## File formats
+### File formats
 
-While JSON Schema was originally built for JSON, it is not exclusive to JSON. As you may have noticed, we're partial to writing JSON Schema in YAML for readability (no excessive brackets and we can use comments!).
-
-**Schema Formats**
+While JSON Schema was originally built for JSON data, it is not exclusive to JSON. As you may have noticed, we're partial to writing JSON Schema in YAML for readability (no excessive brackets and we can use comments!).
 
 Miru supports JSON Schemas written in the following formats:
+
 - **JSON** (`.json`)
 - **YAML** (`.yaml`, `.yml`)
-
-**Instance Formats**
 
 Miru supports the validation of JSON Schema instances in the following formats:
+
 - **JSON** (`.json`)
-- **YAML** (`.yaml`, `.yml`)
 
-A schema's format does not need to match the format of the instance it validates. A YAML schema can validate JSON instances and vice versa.
+<Note>
+  Support for more instance formats including YAML and JSON-C are coming soon.
+</Note>
 
-## Validating defaults
+The format of a schema does not need to match the format of the instance it validates. For instance, a YAML schema can validate a JSON instance.
+
+### Default validation
 
 JSON Schema considers default values [annotations](https://json-schema.org/understanding-json-schema/reference/annotations)--supplementary information that is not part of the schema itself. As a result, JSON Schema allows the definition of properties which contain invalid default values.
 
@@ -196,9 +203,9 @@ properties:
     default: "bar"
 ```
 
-Although discouraged, JSON Schema does allow such definitions since defaults are purely an annotation.
+Miru conducts additional checks to reject schemas with invalid default values. Thus, while JSON Schema allows the above schema, uploading to Miru will throw an error.
 
-Since Miru populates default values into config instances, it's vital that the default values are valid according to the schema. Thus, Miru rejects valid JSON Schemas if their default values are inconsistent with the schema itself.
+Miru does this since the default values given in a schema auto-populate config instances at various parts of the application. As such, it's critical that the default values are valid. 
 
 ## Strengths
 
@@ -376,7 +383,6 @@ properties:
 ```
 
 ```cue CUE [expandable]
-// Control loop frequency in Hertz
 control_loop_rate_hz: number & >=1 & <=1000 | *50
 // Watchdog timeout duration in milliseconds
 watchdog_timeout_ms: number & >=100 & <=5000 | *500
