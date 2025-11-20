@@ -44,13 +44,7 @@
                 "group": "Config schemas",
                 "pages": [
                   "docs/guides/schemas/overview",
-                  {
-                    "group": "Languages",
-                    "pages": [
-                      "docs/guides/schemas/languages/jsonschema",
-                      "docs/guides/schemas/languages/cue"
-                    ]
-                  },
+                  "docs/guides/schemas/languages",
                   "docs/guides/schemas/defaults",
                   "docs/guides/schemas/create",
                   "docs/guides/schemas/manage"

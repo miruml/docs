@@ -36,3 +36,23 @@ navigation_mode: "conservative" | "aggressive" | *"conservative"
 Miru integrates directly with the default values in your schemas. When creating a new config instance, Miru automatically populates the instance with the defaults provided by the schema.
 
 For more information on the expected behavior of default values with Miru, visit the defaults section of a given schema language in the [Schema languages](/docs/guides/schemas/languages) guide.
+
+
+### Default validation
+
+JSON Schema considers default values [annotations](https://json-schema.org/understanding-json-schema/reference/annotations)--supplementary information that is not part of the schema itself. As a result, JSON Schema allows the definition of properties which contain invalid default values.
+
+For example, the following schema defines the property `foo` with a default value of `"bar"`, which is an invalid value for a number type. 
+
+```yaml
+$schema: "https://json-schema.org/draft/2020-12/schema"
+type: object
+properties:
+  foo:
+    type: number
+    default: "bar"
+```
+
+Miru conducts additional checks to reject schemas with invalid default values. Thus, while JSON Schema allows the above schema, uploading to Miru will throw an error.
+
+Miru does this since the default values given in a schema auto-populate config instances at various parts of the application. As such, it's critical that the default values are valid. 
