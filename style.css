@@ -4,13 +4,13 @@
 }
 
 .rounded-xl {
-  border-radius: 8px !important;  /* Change from 8px */
+  border-radius: 10px !important;  /* Change from 8px */
 }
 
 .rounded-xt {
-  border-radius: 8px !important;  /* Change from 8px */
+  border-radius: 10px !important;  /* Change from 8px */
 }
 
 .rounded-2xl {
-  border-radius: 8px !important;  /* Change from 10px */
+  border-radius: 10px !important;  /* Change from 10px */
 }
