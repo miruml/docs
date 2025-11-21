@@ -28,7 +28,7 @@
                 "group": "Quick start",
                 "pages": [
                   "docs/getting-started/quick-start/overview",
-                  "docs/getting-started/quick-start/define-schema",
+                  "docs/getting-started/quick-start/create-schema",
                   "docs/getting-started/quick-start/install-agent",
                   "docs/getting-started/quick-start/deploy-instance"
                 ]
@@ -49,24 +49,6 @@
                   "docs/guides/schemas/create",
                   "docs/guides/schemas/manage"
                 ]
-              },
-              {
-                "group": "Releases",
-                "pages": [
-                  "docs/guides/releases/overview"
-                ]
-              },
-              {
-                "group": "Devices",
-                "pages": [
-                  "docs/guides/devices/overview"
-                ]
-              },
-              {
-                "group": "Deployments",
-                "pages": [
-                  "docs/guides/deployments/overview"
-                ]
               }
             ]
           },
@@ -85,6 +67,12 @@
             ]
           },
           {
+            "group": "Administration",
+            "pages": [
+              "docs/admin/workspaces"
+            ]
+          },
+          {
             "group": "Tutorials",
             "pages": [
               {
@@ -92,14 +80,7 @@
                 "pages": [
                   "docs/tutorials/custom-validation/setup"
                 ]
-              },
-              "docs/tutorials/jsonschema"
-            ]
-          },
-          {
-            "group": "Administration",
-            "pages": [
-              "docs/admin/workspaces"
+              }
             ]
           }
         ]

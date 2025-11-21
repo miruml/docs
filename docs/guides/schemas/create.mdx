@@ -2,20 +2,10 @@
 title: "Create schemas"
 ---
 
-import { ImageOverlay } from "/snippets/components/image-overlay.jsx";
 import Annotations from "/snippets/schemas/annotations.mdx";
 import PushNewSchema from "/snippets/schemas/push/new.mdx";
 import PushExistingSchema from "/snippets/schemas/push/exists.mdx";
 import Troubleshooting from "/snippets/schemas/push/troubleshoot.mdx";
-
-<ImageOverlay
-  baseImage="/images/config-schemas/background.jpeg"
-  overlayImage="/images/config-schemas/header:list.png"
-  overlayPosition="center"
-  overlayWidth="90%"
-  offsetY="8%"
-  className="flex justify-center"
-/>
 
 Config schemas can **only be created via the CLI**. This is a deliberate design choice--we believe schemas should be versioned and pushed from a git repository. 
 

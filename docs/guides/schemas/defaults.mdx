@@ -2,18 +2,6 @@
 title: "Default values"
 ---
 
-import { ImageOverlay } from "/snippets/components/image-overlay.jsx";
-
-<ImageOverlay
-  baseImage="/images/config-schemas/background.jpeg"
-  overlayImage="/images/releases/mobility-defaults.png"
-  overlayPosition="center"
-  overlayWidth="110%"
-  offsetX="8%"
-  offsetY="6%"
-  className="flex justify-center"
-/>
-
 While schemas are primarily used to validate config instances, a secondary purpose is to define default values.
 
 Schemas are a perfect place to define configuration defaults. By placing defaults in the schema itself, values are naturally migrated and versioned alongside the schema, preventing drift between default configurations and schema versions.
