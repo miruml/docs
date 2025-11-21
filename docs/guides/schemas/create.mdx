@@ -4,6 +4,9 @@ title: "Create schemas"
 
 import { ImageOverlay } from "/snippets/components/image-overlay.jsx";
 import Annotations from "/snippets/schemas/annotations.mdx";
+import PushNewSchema from "/snippets/schemas/push/new.mdx";
+import PushExistingSchema from "/snippets/schemas/push/exists.mdx";
+import Troubleshooting from "/snippets/schemas/push/troubleshoot.mdx";
 
 <ImageOverlay
   baseImage="/images/config-schemas/background.jpeg"
@@ -77,50 +80,40 @@ Git metadata is not optional--if a schema does not meet these requirements, the 
 
 Once you've defined a schema and committed to git, you're ready to push the schema to Miru using the CLI.
 
-There are two required parameters that must be provided when pushing a schema to Miru:
+### Required arguments
 
-- The path to the schema file
-- The version of the schema
+There are two required arguments that must be provided when pushing a schema to Miru.
+
+<ParamField path="PATH" type="string" required>
+The relative or absolute file system path of the schema file to push.
+</ParamField>
+
+<ParamField path="--version, -v" type="string" required>
+The version to give the schema. Must be a valid semantic version.
+
+Examples: `v1`, `2.0.0`, `1`
+</ParamField>
+
+For a comprehensive list of arguments and flags, visit the [schema push reference](/docs/references/cli/schema-push).
+
+### Run the command
+
+To push the schema, simply replace `{path/to/schema.yaml}` and `{version}` with the actual path to the schema file and version you want to give the schema.
 
 ```bash
 miru schema push {path/to/schema.yaml} --version {version}
 ```
 
-Make sure to replace `{path/to/schema.yaml}` and `{version}` with the actual path to the schema file and version you want to give the schema.
+### New schemas
 
-The version flag is *required* and must be a valid semantic version (e.g., "v1", "2.0.0", "1")
+<PushNewSchema />
 
-**Required flags:**
-- `--version, -v` - Config schema version (e.g., "v1", "2.0.0", "1")
+### Existing schemas
 
-**Optional flags:**
-- `--language, -l` - Schema language (`cue` or `jsonschema`). Auto-detected if not provided
-- `--allow-duplicate` - Allow creation even if identical content exists for a different version
+<PushExistingSchema />
 
-### Push multiple schemas
+### Troubleshooting
 
-You can push multiple schemas in a single command:
+There are a couple common issues you may encounter when pushing a schema to Miru. Here are some tips to troubleshoot and resolve them.
 
-```bash
-miru schema push \
-    ./schemas/mobility.yaml \
-    ./schemas/safety.yaml \
-    ./schemas/led.yaml \
-    --version v1
-```
-
-### Example output
-
-```bash
-📦 Attempting to push 1 config schemas...
-
-🟢 Successfully created mobility schema v1
-     Relative deployment file path: /mobility/schema_v1/instance.json
-     Git Info:
-        Commit: 994b0bc4499494b02e34eb76b5bdc1eac2ca79a1
-        Branch: main
-        Origin: https://github.com/miruml/getting-started.git
-        Repo File Path: schemas/mobility-schemaless.yaml
-
-✅ Successfully pushed 1 config schemas
-```
+<Troubleshooting />

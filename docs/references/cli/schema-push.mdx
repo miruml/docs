@@ -3,6 +3,9 @@ title: 'Push'
 ---
 
 import Annotations from "/snippets/schemas/annotations.mdx";
+import PushNewSchema from "/snippets/schemas/push/new.mdx";
+import PushExistingSchema from "/snippets/schemas/push/exists.mdx";
+import Troubleshooting from "/snippets/schemas/push/troubleshooting.mdx";
 
 Push a config schema to Miru. 
 
@@ -50,97 +53,14 @@ Examples: `jsonschema`, `cue`
 
 <Tabs>
     <Tab title="New Schema">
-        If a schema with the provided version does not exist, a new schema is created.
-
-        ```bash command
-        $ miru schema push communication.yaml --version=v1.5
-        🔍 Collecting Git Info...
-            commit: df48a89cc19751f84cfbdc5908896235418a6719
-            origin: git@github.com:miruml/getting-started.git
-            file path: jsonschema/communication.yaml
-            message: refactor: drop watchdog timeout from 5s to 2s
-
-        🟢 Successfully created communication v1.5
-            language: jsonschema
-            format: yaml
-            created: Nov 20, 2025 at 3:45 PM PST
-            instance file path: /communication.json
-        ```
+        <PushNewSchema />
     </Tab>
 
     <Tab title="Existing Schema">
-        If a schema with the provided version already exists and it's content is equivalent to the schema being pushed, nothing happens.
-
-        ```bash output
-        miru schema push communication.yaml --version=v1.5
-        🔍 Collecting Git Info...
-            commit: df48a89cc19751f84cfbdc5908896235418a6719
-            origin: git@github.com:miruml/getting-started.git
-            file path: jsonschema/communication.yaml
-            message: refactor: drop watchdog timeout from 5s to 2s
-
-        🟡 communication v1.5 already exists
-            language: jsonschema
-            format: yaml
-            created: Nov 20, 2025 at 3:45 PM PST
-            instance file path: /communication.json
-        ```
+        <PushExistingSchema />
     </Tab>
 </Tabs>
 
+### Troubleshooting
 
-### Errors
-
-
-<Tabs>
-    <Tab title="Version Conflict">
-        If a schema with the same version but different content already exists, an error is returned.
-
-        ```bash output
-        miru schema push communication.yaml --version=v1.5
-        🔍 Collecting Git Info...
-            commit: f64bcd1d80f5589b773b63590174bfc08325d28e
-            origin: git@github.com:miruml/getting-started.git
-            file path: jsonschema/communication.yaml
-            message: refactor: migrate communication instances to /v1/communication.json
-
-        ❌ Error: Config schema version v1.5 already exists for config type 'communication' but its content is not equivalent to the provided schema content.
-        ```
-
-        To troubleshoot the issue, first navigate to the [config types page](https://configs.miruml.com/configs) and click into the config type the schema belongs to.
-
-        <Frame>
-            ![](/images/config-schemas/page.png)
-        </Frame>
-
-        Click the schema with the version in question to open the schema details panel and view the schema content.
-        
-        <Frame>
-            ![](/images/config-schemas/panel.png)
-        </Frame>
-        
-        You can also select the **Metadata** tab to view the git commit information, which provides a link to the schema's original commit in your hosted git repository provider (GitHub, GitLab, Bitbucket, etc.).
-
-        <Frame>
-            ![](/images/config-schemas/panel-git-commit.png)
-        </Frame>
-
-    </Tab>
-
-    <Tab title="Duplicate Schema">
-        If a schema with a different version but equivalent content already exists, an error is returned indicating that you are duplicating the schema across multiple versions.
-
-        ```bash output
-        miru schema push communication.yaml --version=v1.7
-        🔍 Collecting Git Info...
-            commit: f64bcd1d80f5589b773b63590174bfc08325d28e
-            origin: git@github.com:miruml/getting-started.git
-            file path: jsonschema/communication.yaml
-            message: refactor: migrate communication instances to /v1/communication.json
-
-        ❌ Error: Config type 'communication' already has 1 schema (versions: 'v1.6') with equivalent content to the provided schema content; if you intend to duplicate this schema, please explicitly allow duplicates with the appropriate flag.
-        ```
-
-        If this is intended, use the `--allow-duplicate` flag to allow the schema to be created anyway.
-    </Tab>
-</Tabs>
+<Troubleshooting />

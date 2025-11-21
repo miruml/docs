@@ -1,0 +1,16 @@
+If a schema with the provided version already exists and it's content is equivalent to the schema being pushed, nothing happens.
+
+```bash output
+miru schema push communication.yaml --version=v1.5
+🔍 Collecting Git Info...
+    commit: df48a89cc19751f84cfbdc5908896235418a6719
+    origin: git@github.com:miruml/getting-started.git
+    file path: jsonschema/communication.yaml
+    message: refactor: drop watchdog timeout from 5s to 2s
+
+🟡 communication v1.5 already exists
+    language: jsonschema
+    format: yaml
+    created: Nov 20, 2025 at 3:45 PM PST
+    instance file path: /communication.json
+```
