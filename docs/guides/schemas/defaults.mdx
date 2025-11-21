@@ -2,19 +2,37 @@
 title: "Default values"
 ---
 
-## Overview
+import { ImageOverlay } from "/snippets/components/image-overlay.jsx";
 
-While schemas are primarily used to validate config instances, a secondary purpose is to define default values for config instances.
+<ImageOverlay
+  baseImage="/images/config-schemas/background.jpeg"
+  overlayImage="/images/releases/mobility-defaults.png"
+  overlayPosition="center"
+  overlayWidth="110%"
+  offsetX="8%"
+  offsetY="6%"
+  className="flex justify-center"
+/>
 
-Schemas are a perfect place to define default configuration values. By placing defaults in the schema itself, values are naturally migrated and versioned alongside the schema, preventing drift between default configurations and schema versions.
+While schemas are primarily used to validate config instances, a secondary purpose is to define default values.
+
+Schemas are a perfect place to define configuration defaults. By placing defaults in the schema itself, values are naturally migrated and versioned alongside the schema, preventing drift between default configurations and schema versions.
 
 While some configurations, such as calibrations, do not have sensible default values, defaults should be leveraged for the majority of parameters.
 
-Each schema language has its own way of defining and handling default values--JSON Schema uses the `default` keyword while CUE supports the `| *` syntax.
+Miru integrates directly with the default values in your schemas, using them to automatically populate config instances with the defaults provided by the schema.
 
-Below are examples of JSON Schema and CUE defining `conservative` as the default value for the `navigation_mode` property.
+If a schema does not specify a default value for a given parameter, Miru simply omits the auto-population of that parameter when creating a new config instance.
 
-<CodeGroup>
+## Defining defaults
+
+<Tabs>
+
+<Tab title="JSON Schema">
+JSON Schema uses the `default` keyword to specify the default value for a property.
+
+Below is a schema which defines `conservative` as a default value for the `navigation_mode` property.
+
 ```yaml JSON Schema
 $schema: "https://json-schema.org/draft/2020-12/schema"
 title: Defaults
@@ -28,21 +46,9 @@ required:
 - navigation_mode
 ```
 
-```cue CUE
-navigation_mode: "conservative" | "aggressive" | *"conservative"
-```
-</CodeGroup>
+One JSON Schema quirk is that it considers default values [annotations](https://json-schema.org/understanding-json-schema/reference/annotations)--supplementary information that is not part of the schema itself. As a result, JSON Schema allows the definition of properties which contain invalid default values.
 
-Miru integrates directly with the default values in your schemas. When creating a new config instance, Miru automatically populates the instance with the defaults provided by the schema.
-
-For more information on the expected behavior of default values with Miru, visit the defaults section of a given schema language in the [Schema languages](/docs/guides/schemas/languages) guide.
-
-
-### Default validation
-
-JSON Schema considers default values [annotations](https://json-schema.org/understanding-json-schema/reference/annotations)--supplementary information that is not part of the schema itself. As a result, JSON Schema allows the definition of properties which contain invalid default values.
-
-For example, the following schema defines the property `foo` with a default value of `"bar"`, which is an invalid value for a number type. 
+For example, the following schema defines the property `foo` with a default value of `"bar"`, which is not a valid number.
 
 ```yaml
 $schema: "https://json-schema.org/draft/2020-12/schema"
@@ -53,6 +59,159 @@ properties:
     default: "bar"
 ```
 
-Miru conducts additional checks to reject schemas with invalid default values. Thus, while JSON Schema allows the above schema, uploading to Miru will throw an error.
+While JSON Schema allows such schemas, Miru rejects them. Any schemas that contain invalid default values are considered invalid by Miru.
 
-Miru does this since the default values given in a schema auto-populate config instances at various parts of the application. As such, it's critical that the default values are valid. 
+</Tab>
+
+<Tab title="CUE">
+
+CUE uses the `| *` syntax to define default values.
+
+Below is a schema which defines `conservative` as a default value for the `navigation_mode` property.
+
+```cue CUE
+navigation_mode: "conservative" | "aggressive" | *"conservative"
+```
+
+</Tab>
+</Tabs>
+
+## Extracting defaults
+
+Extracting defaults from schemas is a mostly straightforward process. Although there are some nuances to consider.
+
+### Simple Object
+
+Below is an example of a schema and its corresponding defaults. Note that since `enable_remote_control` is not given a default in the schema, it is omitted from the extracted defaults.
+
+<Tabs>
+  <Tab title="JSON Schema">
+    <CodeGroup>
+      ```yaml Schema [expandable]
+      $schema: "https://json-schema.org/draft/2020-12/schema"
+      title: Robot Features
+      type: object
+      properties:
+        enable_autonomy:
+          type: boolean
+          default: true
+        enable_remote_control:
+          type: boolean
+        max_payload_kg:
+          type: number
+          minimum: 0
+          maximum: 99
+          default: 10.0
+        preferred_speed_mode:
+          type: string
+          enum:
+            - slow
+            - normal
+            - fast
+          default: "normal"
+        emergency_stop_sensitivity:
+          type: number
+          minimum: 0.0
+          maximum: 1.0
+          default: 0.8
+        telemetry:
+          type: object
+          properties:
+            upload_interval_sec:
+              type: integer
+              minimum: 10
+              maximum: 600
+              default: 60
+            heartbeat_interval_sec:
+              type: integer
+              minimum: 1
+              maximum: 60
+              default: 10
+          required:
+            - upload_interval_sec
+            - heartbeat_interval_sec
+      required:
+        - enable_autonomy
+        - enable_remote_control
+        - max_payload_kg
+        - preferred_speed_mode
+        - emergency_stop_sensitivity
+        - telemetry
+      ```
+
+      ```yaml Defaults
+      enable_autonomy: true
+      max_payload_kg: 10.0
+      preferred_speed_mode: "normal"
+      emergency_stop_sensitivity: 0.8
+      telemetry:
+        upload_interval_sec: 60,
+        heartbeat_interval_sec: 10
+      ```
+
+    </CodeGroup>
+  </Tab>
+
+  <Tab title="CUE">
+    <CodeGroup>
+      ```cue Schema
+      {
+        enable_autonomy: bool | *true
+        enable_remote_control: bool
+        max_payload_kg: number & >=0 & <=99 | *10.0
+        preferred_speed_mode: "slow" | "normal" | "fast" | *"normal"
+        emergency_stop_sensitivity: number & >=0.0 & <=1.0 | *0.8
+        telemetry: {
+          upload_interval_sec: int & >=10 & <=600 | *60
+          heartbeat_interval_sec: int & >=1 & <=60 | *10
+        }
+      }
+      ```
+
+      ```yaml Defaults
+      enable_autonomy: true
+      max_payload_kg: 10.0
+      preferred_speed_mode: "normal"
+      emergency_stop_sensitivity: 0.8
+      telemetry:
+        upload_interval_sec: 60
+        heartbeat_interval_sec: 10
+      ```
+    </CodeGroup>
+  </Tab>
+</Tabs>
+
+
+### Arrays
+
+Arrays a bit more complex to extract defaults from. 
+
+Below are some example schemas and their corresponding defaults.
+
+<AccordionGroup>
+
+<Accordion title="Simple Array">
+  ```yaml Schema
+  ```
+</Accordion>
+
+<Accordion title="CUE">
+  ```cue Schema
+  ```
+</Accordion>
+
+</AccordionGroup>
+
+### Recursive Objects
+
+### Special Cases
+
+**Branch defaults**
+
+**oneOf**
+
+**anyOf**
+
+**allOf**
+
+

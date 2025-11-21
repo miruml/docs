@@ -99,7 +99,7 @@ export const ImageOverlay = ({
                 }}
             >
                 <div
-                    className="absolute"
+                    className="absolute overflow-hidden"
                     style={{
                         ...getPositionStyles(),
                         width: overlayWidth,

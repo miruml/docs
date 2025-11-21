@@ -2,6 +2,145 @@
 title: 'Push'
 ---
 
-import SchemaPushCommand from '/snippets/references/cli/gen/miru_schema_push.mdx';
+import Annotations from "/snippets/schemas/annotations.mdx";
 
-<SchemaPushCommand />
+Push a config schema to Miru. 
+
+### Requirements
+
+- The schema file must be committed to a local git repository
+- The git repository must have a remote URL (GitHub, GitLab, Bitbucket, etc.) configured
+- The schema must be annotated with its config type (see [annotations](#schema-annotations) below)
+
+### Usage
+
+```bash
+miru schema push PATH --version VERSION
+```
+
+**Arguments**
+
+<ParamField path="PATH" type="string" required>
+The relative or absolute file system path of the schema file to push.
+</ParamField>
+
+**Flags**
+
+<ParamField path="--version, -v" type="string" required>
+The version to give the schema. Must be a valid semantic version.
+
+Examples: `v1`, `2.0.0`, `1`
+</ParamField>
+
+<ParamField path="--allow-duplicate" type="boolean">
+Allows the schema to be created even if another schema with identical content, but a different version, already exists for the same config type.
+</ParamField>
+
+<ParamField path="--language, -l" type="string">
+The language the schema is written in. The language is auto-detected but may be overridden with this flag if needed.
+
+Examples: `jsonschema`, `cue`
+</ParamField>
+
+### Schema annotations
+
+<Annotations />
+
+### Examples
+
+<Tabs>
+    <Tab title="New Schema">
+        If a schema with the provided version does not exist, a new schema is created.
+
+        ```bash command
+        $ miru schema push communication.yaml --version=v1.5
+        🔍 Collecting Git Info...
+            commit: df48a89cc19751f84cfbdc5908896235418a6719
+            origin: git@github.com:miruml/getting-started.git
+            file path: jsonschema/communication.yaml
+            message: refactor: drop watchdog timeout from 5s to 2s
+
+        🟢 Successfully created communication v1.5
+            language: jsonschema
+            format: yaml
+            created: Nov 20, 2025 at 3:45 PM PST
+            instance file path: /communication.json
+        ```
+    </Tab>
+
+    <Tab title="Existing Schema">
+        If a schema with the provided version already exists and it's content is equivalent to the schema being pushed, nothing happens.
+
+        ```bash output
+        miru schema push communication.yaml --version=v1.5
+        🔍 Collecting Git Info...
+            commit: df48a89cc19751f84cfbdc5908896235418a6719
+            origin: git@github.com:miruml/getting-started.git
+            file path: jsonschema/communication.yaml
+            message: refactor: drop watchdog timeout from 5s to 2s
+
+        🟡 communication v1.5 already exists
+            language: jsonschema
+            format: yaml
+            created: Nov 20, 2025 at 3:45 PM PST
+            instance file path: /communication.json
+        ```
+    </Tab>
+</Tabs>
+
+
+### Errors
+
+
+<Tabs>
+    <Tab title="Version Conflict">
+        If a schema with the same version but different content already exists, an error is returned.
+
+        ```bash output
+        miru schema push communication.yaml --version=v1.5
+        🔍 Collecting Git Info...
+            commit: f64bcd1d80f5589b773b63590174bfc08325d28e
+            origin: git@github.com:miruml/getting-started.git
+            file path: jsonschema/communication.yaml
+            message: refactor: migrate communication instances to /v1/communication.json
+
+        ❌ Error: Config schema version v1.5 already exists for config type 'communication' but its content is not equivalent to the provided schema content.
+        ```
+
+        To troubleshoot the issue, first navigate to the [config types page](https://configs.miruml.com/configs) and click into the config type the schema belongs to.
+
+        <Frame>
+            ![](/images/config-schemas/page.png)
+        </Frame>
+
+        Click the schema with the version in question to open the schema details panel and view the schema content.
+        
+        <Frame>
+            ![](/images/config-schemas/panel.png)
+        </Frame>
+        
+        You can also select the **Metadata** tab to view the git commit information, which provides a link to the schema's original commit in your hosted git repository provider (GitHub, GitLab, Bitbucket, etc.).
+
+        <Frame>
+            ![](/images/config-schemas/panel-git-commit.png)
+        </Frame>
+
+    </Tab>
+
+    <Tab title="Duplicate Schema">
+        If a schema with a different version but equivalent content already exists, an error is returned indicating that you are duplicating the schema across multiple versions.
+
+        ```bash output
+        miru schema push communication.yaml --version=v1.7
+        🔍 Collecting Git Info...
+            commit: f64bcd1d80f5589b773b63590174bfc08325d28e
+            origin: git@github.com:miruml/getting-started.git
+            file path: jsonschema/communication.yaml
+            message: refactor: migrate communication instances to /v1/communication.json
+
+        ❌ Error: Config type 'communication' already has 1 schema (versions: 'v1.6') with equivalent content to the provided schema content; if you intend to duplicate this schema, please explicitly allow duplicates with the appropriate flag.
+        ```
+
+        If this is intended, use the `--allow-duplicate` flag to allow the schema to be created anyway.
+    </Tab>
+</Tabs>
