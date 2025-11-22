@@ -2,234 +2,61 @@
 title: "Manage schemas"
 ---
 
-## Overview
+import { MutableBadge } from '/snippets/components/badges.jsx';
 
-Once schemas are created via the CLI, you can view and manage them through the web dashboard at [https://configs.miruml.com/configs](https://configs.miruml.com/configs).
 
-Schema management includes:
-- Viewing schema content and metadata
-- Editing the instance filepath
-- Deleting unused schemas
-- Tracking git commit history
-- Monitoring which config instances use each schema
+## View a schema
 
-## View schemas
+To view a schema in Miru, navigate to the [Config Types](/docs/guides/config-types) page and click into the config type which contains the schema you want to view.
 
-### Via web dashboard
+<Frame>
+  ![](/images/config-schemas/list.png)
+</Frame>
 
-1. Navigate to [https://configs.miruml.com/configs](https://configs.miruml.com/configs)
-2. Click into a config type to see all its schemas
-3. Schemas are listed by version
-4. Click into a specific schema to view:
-   - Complete schema content (JSON/YAML/CUE)
-   - Schema metadata (version, language, format)
-   - Git commit information (commit SHA, branch, origin URL, file path)
-   - Associated config instances count
-   - Creation and update timestamps
+Clicking a schema will bring up the schema details panel. Select the **Content** tab to view the schema's content and select the **Metadata** tab to view the schemas metadata.
 
-### Schema metadata
-
-Each schema includes the following metadata:
-
-| Property | Description | Example |
-| -------- | ----------- | ------- |
-| **Version** | Schema version identifier | `v1`, `2.0.0`, `1` |
-| **Digest** | Hash of canonicalized schema content | `abc123...` |
-| **Language** | Schema language | `jsonschema`, `cue` |
-| **Format** | File format | `json`, `yaml`, `cue` |
-| **Instance Filepath** | Deployment path on device | `/v1/mobility.json` |
-| **Config Type** | Parent config type | `mobility` |
-| **Git Commit** | Source commit SHA | `994b0bc4...` |
-| **Branch** | Source branch name | `main` |
-| **Origin URL** | Repository URL | `https://github.com/...` |
-| **Created At** | Creation timestamp | `2024-11-05 10:30:00` |
-| **Updated At** | Last update timestamp | `2024-11-05 10:30:00` |
+<Frame>
+  ![](/images/config-schemas/panel.png)
+</Frame>
 
 ## Edit a schema
 
-Schema content is **immutable** and cannot be changed after creation. This ensures version integrity and prevents accidental modifications to deployed configurations.
+Most config schema properties are immutable. However, some properties, such as the `instance_filepath`, may be updated after schema creation. 
 
-### What can be edited
+Editing the `instance_filepath` property does not affect existing config instances, including those which have been staged for a future deployment. 
 
-Only the **instance filepath** can be updated after schema creation.
+However, any config instances created after the `instance_filepath` property is updated will be deployed to the file path specified in the updated `instance_filepath` property.
 
-**To edit the instance filepath:**
+For a full reference of editable properties, look for the <MutableBadge size="xs"/> badge in the [properties](/docs/guides/schemas/overview#properties) section of the schema overview.
 
-1. Navigate to the schema in the web dashboard
-2. Click the edit option
-3. Update the instance filepath
-4. Save changes
+To edit a schema, click on the ellipses (...) of the schema you want to edit and click **Edit**.
 
-### What cannot be edited
+<Frame>
+  ![](/images/config-schemas/ellipses-dropdown.png)
+</Frame>
 
-The following fields are immutable:
+Update the desired fields and hit **Save**.
 
-- ❌ **Version** - Use a new version for schema changes
-- ❌ **Content** - Create a new version with updated content
-- ❌ **Language** - Create a new schema with different language
-- ❌ **Format** - Create a new schema with different format
-- ❌ **Config Type** - Schema is permanently linked to its config type
-- ❌ **Digest** - Automatically generated from content
-- ❌ **Git metadata** - Captured at creation time
-
-### Why content is immutable
-
-Schema content is hashed to create a **digest** (fingerprint) used to:
-
-1. **Detect duplicate schemas** - Same content pushed as different versions
-2. **Ensure version integrity** - v1 always means the same schema
-3. **Maintain audit trail** - Track exactly what was deployed when
-4. **Prevent accidents** - Can't accidentally change production schemas
-
-To change schema content, push a new version:
-
-```bash
-# Make changes to schema file
-# Commit to git
-git commit -m "Update schema with new fields"
-
-# Push as new version
-miru schema push schema.yaml --version v2
-```
+<Frame>
+  ![](/images/config-schemas/edit-dialog.png)
+</Frame>
 
 ## Delete a schema
 
-Schemas can be deleted through the web dashboard, but only if they have **no associated config instances**.
-
-### Deletion restrictions
+Deleting a config schema is only possible if there exist no config instances for that schema. As such, most schemas cannot be deleted.
 
 <Warning>
-  You cannot delete a schema if any config instances reference it. Delete or reassign the instances first.
+  Deleting a config schema cannot be undone.
 </Warning>
 
-**Why this restriction exists:**
-- Config instances depend on schemas for validation
-- Deleting would break the relationship
-- Ensures data integrity
+To delete a config schema, click the ellipses of the config schema you want to delete and select **Delete**.
 
-### Delete process
+<Frame>
+  ![](/images/config-schemas/ellipses-dropdown.png)
+</Frame>
 
-1. Navigate to the schema in the web dashboard
-2. Check that no config instances use this schema
-3. Click the delete option
-4. Confirm deletion
+A confirmation dialog will appear. Hit **Delete** to confirm the deletion.
 
-If instances exist, you'll see an error message. You must:
-1. Delete the config instances, or
-2. Update instances to use a different schema version
-
-### What happens when you delete
-
-When a schema is successfully deleted:
-- The schema record is permanently removed
-- Git commit links are removed
-- The version becomes available for reuse (though not recommended)
-- Action is logged for audit purposes
-
-## Duplicate detection
-
-Miru automatically detects duplicate schemas to prevent version confusion.
-
-### Version conflict
-
-**Scenario:** Same version, different content
-
-```bash
-# First push
-miru schema push schema-v1.yaml --version v1  # ✅ Success
-
-# Later, push different content with same version
-miru schema push schema-v1-modified.yaml --version v1  # ❌ Error: Version conflict
-```
-
-**Resolution:** Use a different version number for the new content.
-
-### Content duplication
-
-**Scenario:** Same content, different version
-
-```bash
-# First push
-miru schema push schema.yaml --version v1  # ✅ Success
-
-# Push identical content with new version
-miru schema push schema.yaml --version v2  # ❌ Error: Duplicate content detected
-```
-
-**Resolution:** Use the `--allow-duplicate` flag if you truly want to create a duplicate:
-
-```bash
-miru schema push schema.yaml --version v2 --allow-duplicate  # ✅ Success
-```
-
-<Note>
-  Allowing duplicates can be useful when you want to maintain separate version numbers for organizational purposes, even though the content is identical.
-</Note>
-
-### Idempotent pushes
-
-**Scenario:** Same version, same content
-
-```bash
-# First push
-miru schema push schema.yaml --version v1  # ✅ Success
-
-# Re-push identical schema
-miru schema push schema.yaml --version v1  # ✅ Success (no changes)
-```
-
-This is **idempotent** - pushing the same schema multiple times has no effect.
-
-## Git traceability
-
-Every schema maintains a connection to its source code through git metadata.
-
-### Captured metadata
-
-When pushing a schema, the CLI automatically captures:
-
-```
-Git Info:
-   Commit: 994b0bc4499494b02e34eb76b5bdc1eac2ca79a1
-   Branch: main
-   Origin: https://github.com/miruml/getting-started.git
-   Repo File Path: schemas/mobility.yaml
-```
-
-### Benefits
-
-**Audit trail:**
-- Know exactly which code commit created each schema
-- Track schema evolution alongside code changes
-
-**Navigation:**
-- Click through from dashboard to source file in repository
-- Review schema in context of surrounding code
-
-**Debugging:**
-- Correlate schema issues with code changes
-- Identify when and why schemas were modified
-
-**Compliance:**
-- Maintain complete history for regulatory requirements
-- Prove what was deployed at any point in time
-
-## Query via API
-
-For programmatic access, use the Miru API to query schemas.
-
-### List config instances by schema
-
-```bash
-GET /config-instances?config_schema_id=cfg_sch_123
-```
-
-### Expand schema details
-
-Include full schema information in config instance responses:
-
-```bash
-GET /config-instances?expand[]=config_schema
-```
-
-This returns config instances with complete schema details embedded.
+<Frame>
+  ![](/images/config-schemas/delete-dialog.png)
+</Frame>
