@@ -2,14 +2,22 @@
 title: "Overview"
 ---
 
-import CfgInstConcept from '/snippets/concepts/config-instance.mdx';
-import ConfigTypeConcept from '/snippets/concepts/config-type.mdx';
-import ConfigSchemaConcept from '/snippets/concepts/config-schema.mdx';
-import DeploymentConcept from '/snippets/concepts/deployment.mdx';
-import DeviceConcept from '/snippets/concepts/device.mdx';
-import ReleaseConcept from '/snippets/concepts/release.mdx';
+import CfgInstDef from '/snippets/definitions/config-instance.mdx';
+import ConfigTypeDef from '/snippets/definitions/config-type.mdx';
+import ConfigSchemaDef from '/snippets/definitions/config-schema.mdx';
+import DeploymentDef from '/snippets/definitions/deployment.mdx';
+import DeviceDef from '/snippets/definitions/device.mdx';
+import ReleaseDef from '/snippets/definitions/release.mdx';
+import {Framed} from '/snippets/components/framed-image.jsx';
 
-This quick-start guide walks through deploying your first configuration with Miru. Here's what we'll cover.
+<Framed 
+  image="/images/getting-started/signup-page.png"
+  background="/images/getting-started/background.jpeg"
+  link="https://configs.miruml.com/signup"
+  borderWidth={"8px"}
+/>
+
+This quick-start guide walks through deploying your first configuration with Miru. Here's what we'll cover:
 
 <Steps>
   <Step title="Create a config schema">
@@ -27,21 +35,17 @@ This quick-start guide walks through deploying your first configuration with Mir
 
 If you don't already have an account, navigate to the [sign-up](https://configs.miruml.com/signup) page and follow the instructions.
 
-<Frame>
-  ![](/images/getting-started/signup-page.png)
-</Frame>
-
 ## Concepts
 
 To begin, let's define the primary concepts in Miru.
 
 ### Config instances
 
-<CfgInstConcept />
+<CfgInstDef />
 
 ### Config schemas
 
-<ConfigSchemaConcept />
+<ConfigSchemaDef />
 
 <Tip>
   If you don't already use a schema, we recommend starting with an [empty schema](/docs/guides/schemas/overview#empty-schemas)--a schema that regards all config instances as valid.
@@ -49,19 +53,19 @@ To begin, let's define the primary concepts in Miru.
 
 ### Config types
 
-<ConfigTypeConcept />
+<ConfigTypeDef />
 
 ### Devices
 
-<DeviceConcept />
+<DeviceDef />
 
 ### Releases
 
-<ReleaseConcept />
+<ReleaseDef />
 
 ### Deployments
 
-<DeploymentConcept />
+<DeploymentDef />
 
 <Note>
   If these concepts are a bit fuzzy at the moment, don't worry! Seeing these concepts in action will solidify their meaning.

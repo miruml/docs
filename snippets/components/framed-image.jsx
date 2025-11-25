@@ -1,12 +1,27 @@
-export const FramedImage = ({
+export const Framed = ({
     image,
     background,
     alt = "Framed content",
     width = "100%",
-    borderWidth = "18px",
+    borderWidth = "10px",
     outerRadius = "12px",
     innerRadius = "10px",
+    link,
 }) => {
+    const imageElement = (
+        <img
+            src={image}
+            alt={alt}
+            noZoom={link ? true : false}
+            style={{
+                borderRadius: innerRadius,
+                margin: `0 0`,
+                width: "100%",
+                display: "block",
+            }}
+        />
+    );
+
     return (
         <div
             style={{
@@ -19,16 +34,11 @@ export const FramedImage = ({
             }}
         >
             <div className="overflow-hidden" >
-                <img
-                    src={image}
-                    alt={alt}
-                    style={{
-                        borderRadius: innerRadius,
-                        margin: `0 0`,
-                        width: "100%",
-                        display: "block",
-                    }}
-                />
+                {link ? (
+                    <a href={link}> {imageElement} </a>
+                ) : (
+                    imageElement
+                )}
             </div>
         </div>
     );

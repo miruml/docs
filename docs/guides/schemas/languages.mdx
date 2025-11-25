@@ -2,6 +2,10 @@
 title: "Languages"
 ---
 
+import {Framed} from '/snippets/components/framed-image.jsx';
+
+
+
 A schema language is a formal language for describing the structure, constraints, and data types of a configuration. Miru config schemas are defined in a supported schema language to validate configurations before deployment.
 
 Currently, the following languages are supported:
@@ -15,9 +19,11 @@ This section covers key integration points for a each language. For more general
 
 ## JSON Schema
 
-<Frame>
-  ![](/images/schema-langs/jsonschema/website.png)
-</Frame>
+<Framed 
+  image="/images/schema-langs/jsonschema/website.png"
+  link="https://json-schema.org/"
+  borderWidth={"0px"}
+/>
 
 [JSON Schema](https://json-schema.org/) is probably the most popular schema language. With origins dating back to 2010, JSON Schema was originally built for API validation, but has since found its way into configuration systems across web, cloud, and robotics infrastructure.
 
@@ -197,9 +203,11 @@ Schemas defined in JSON Schema can validate instances in the following formats:
 The format of a schema does not need to match the format of the config instance it validates. For example, a YAML formatted JSON Schema can validate a JSON formatted config instance.
 
 ## CUE
-<Frame>
-  ![](/images/schema-langs/cue/website.png)
-</Frame>
+<Framed 
+  image="/images/schema-langs/cue/website.png"
+  link="https://cuelang.org/"
+  borderWidth={"0px"}
+/>
 
 [CUE](https://cuelang.org/) (Configure, Unify, Execute) is another opens-source schema language, useful for defining valid fields, types, and values for a config.
 
