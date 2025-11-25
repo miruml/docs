@@ -2,13 +2,12 @@
 title: "Overview"
 ---
 
-import ConfigInstanceDef from '/snippets/concepts/config-instance.mdx';
-import ConfigTypeDef from '/snippets/concepts/config-type.mdx';
-import ConfigSchemaDef from '/snippets/concepts/config-schema.mdx';
-import SchemaExamples from '/snippets/schema-langs/examples.mdx';
-import DeploymentDef from '/snippets/concepts/deployment.mdx';
-import DeviceDef from '/snippets/concepts/device.mdx';
-import ReleaseDef from '/snippets/concepts/release.mdx';
+import CfgInstConcept from '/snippets/concepts/config-instance.mdx';
+import ConfigTypeConcept from '/snippets/concepts/config-type.mdx';
+import ConfigSchemaConcept from '/snippets/concepts/config-schema.mdx';
+import DeploymentConcept from '/snippets/concepts/deployment.mdx';
+import DeviceConcept from '/snippets/concepts/device.mdx';
+import ReleaseConcept from '/snippets/concepts/release.mdx';
 
 This quick-start guide walks through deploying your first configuration with Miru. Here's what we'll cover.
 
@@ -26,7 +25,7 @@ This quick-start guide walks through deploying your first configuration with Mir
 
 ## Create an account
 
-If you don't already have an account, navigate to the [sign up](https://configs.miruml.com/signup) page and follow the instructions.
+If you don't already have an account, navigate to the [sign-up](https://configs.miruml.com/signup) page and follow the instructions.
 
 <Frame>
   ![](/images/getting-started/signup-page.png)
@@ -34,38 +33,36 @@ If you don't already have an account, navigate to the [sign up](https://configs.
 
 ## Concepts
 
-Before we begin, let's define the key configuration concepts in Miru.
+To begin, let's define the primary concepts in Miru.
 
 ### Config instances
 
-<ConfigInstanceDef />
+<CfgInstConcept />
 
 ### Config schemas
 
-<ConfigSchemaDef />
-
-<SchemaExamples />
+<ConfigSchemaConcept />
 
 <Tip>
-  While schemas are recommended, you can use Miru schemaless.
+  If you don't already use a schema, we recommend starting with an [empty schema](/docs/guides/schemas/overview#empty-schemas)--a schema that regards all config instances as valid.
 </Tip>
 
 ### Config types
 
-<ConfigTypeDef />
+<ConfigTypeConcept />
 
 ### Devices
 
-<DeviceDef />
+<DeviceConcept />
 
 ### Releases
 
-<ReleaseDef />
+<ReleaseConcept />
 
 ### Deployments
 
-<DeploymentDef />
+<DeploymentConcept />
 
-<Tip>
+<Note>
   If these concepts are a bit fuzzy at the moment, don't worry! Seeing these concepts in action will solidify their meaning.
-</Tip>
+</Note>

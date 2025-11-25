@@ -4,7 +4,7 @@ title: "Introduction"
 
 Welcome! Miru is a configuration management solution for robotics teams. We provide tools for engineers to define, deploy, and manage application configurations for their robots.
 
-Continue reading to learn more about configurations or explore the documentation using the links below.
+Continue reading to learn more about configurations or get started with Miru using the links below.
 
 <Columns cols={2}>
   <Card title="Quick Start" icon="rocket" href="/docs/getting-started/quick-start/overview">
@@ -21,19 +21,19 @@ Continue reading to learn more about configurations or explore the documentation
 
 Robots rely on application configurations stemming from a variety of sources. Some common types include:
 
-- **Calibrations**: Each end effector, gripper, and sensor requires unique calibration settings.
-- **Hardware Variability**: Hardware variants use configurations to set the appropriate software dependencies and functionalities the hardware supports.
-- **User Preferences**: End users desire different settings or features.
-- **Testing & Development**: Test beds and beta robots need feature flagging and experimentation.
+- **Calibrations**: each end effector, gripper, and sensor requires unique calibration settings
+- **Hardware Variability**: hardware variants use configurations to set the appropriate software dependencies and functionalities the hardware supports
+- **User Preferences**: end users desire different settings or features
+- **Testing & Development**: test beds and beta robots need feature flagging and experimentation
 
 ### Users
 
 Configurations then touch many different engineers on the team, each in their own way:
 
-- **Software Engineers**: Define valid configurations and tune parameters for the performance of a given software version.
-- **QA Engineers**: Validate configurations for new software releases.
-- **Deployment Engineers**: Safely provision robots with appropriate configurations and deploy updates to resolve issues.
-- **End Users**: Tweak parameters during acceptance testing and adjust desired settings during normal operation.
+- **Software Engineers**: define valid configurations and tune parameters for the performance of a given software version
+- **QA Engineers**: validate configurations for new software releases
+- **Deployment Engineers**: safely provision robots with appropriate configurations and deploy updates to resolve issues
+- **End Users**: tweak parameters during acceptance testing and adjust desired settings during normal operation
 
 ## Difficulties
 
@@ -57,13 +57,13 @@ With configurations for current releases being updated while new configurations 
 
 Managing this complexity is often left to ad‑hoc tools. Deployment Engineers are asked to SSH into robots and edit text files directly with Vim, which is problematic for several reasons:
 
-- Typos and other simple errors lead to unnecessary downtime and slow fixes.
-- SSH requires an open inbound port, which significantly increases the surface area for potential security breaches.
-- Teams must hire software-savvy Deployment Engineers, despite a preferred background in Mechanical or Electrical Engineering.
-- Configuration edit metadata (who, when, what, why, etc.) is completely lost.
+- Typos and other simple errors lead to unnecessary downtime and slow fixes
+- SSH requires an open inbound port, which significantly increases the surface area for potential security breaches
+- Teams must hire software-savvy Deployment Engineers, despite a preferred background in Mechanical or Electrical Engineering
+- Configuration edit metadata (who, when, what, why, etc.) is completely lost
 
 ## Where to start?
 
-Miru is a purpose-built solution for managing the complexities of application configurations in robotics. We prioritize the developer first, focusing on simplicity and developer experience.
+Miru is a purpose-built solution for managing the complexities of application configurations in robotics. We prioritize the reliability, security, and developer experience.
 
-To begin using Miru, continue to the [getting-started](/docs/getting-started/quick-start/overview) guide.
+To begin using Miru, continue to the [getting-started](/docs/getting-started/quick-start/overview) guide where you'll deploy your first configuration.

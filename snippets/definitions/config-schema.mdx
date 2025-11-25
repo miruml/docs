@@ -1,10 +1,12 @@
+A **config schema** defines the structure, types, and constraints of a config instance. It serves as a contract between code and configuration, ensuring that config instances are valid before being deployed to devices.
+
 Below are some example schema definitions using the [schema languages](/docs/guides/schemas/languages) JSON Schema and CUE.
 
 <CodeGroup>
 
 ```yaml JSON Schema [expandable]
+x-miru-config-type: "mobility"
 $schema: "https://json-schema.org/draft/2020-12/schema"
-title: Mobility
 type: object
 properties:
   max_linear_speed_mps:

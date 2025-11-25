@@ -6,28 +6,28 @@ import InstallInstructions from '/snippets/references/cli/install.mdx'
 import LoginInstructions from '/snippets/references/cli/login.mdx'
 
 ## Clone the repository
-To make things simple, we've created a starter repository with sample schemas and sample instances. 
+To make things simple, we've created a starter repository with some toy schemas and configs.
 
-To follow along, clone the [getting-started](https://github.com/miruml/getting-started) repository using the following command.
+Follow along by cloning the [getting-started](https://github.com/miruml/getting-started) repository.
 
 ```bash
 git clone https://github.com/miruml/getting-started.git
 ```
 
-While the getting-started repository contains a variety of sample schemas and sample instances, this guide focuses on the Mobility config type, which has two schema variations: 
+The getting-started repository contains a variety of schemas and instances. However, this guide focuses on the `Mobility` config type, which has two schema variations: 
 
-- [Schemaless](https://github.com/miruml/getting-started/blob/main/schemas/mobility-schemaless.yaml) - an empty JSON Schema that regards all config instances as valid
-- [Strict Schema](https://github.com/miruml/getting-started/blob/main/schemas/mobility.yaml) - a well-defined JSON Schema that defines the valid fields, types, and values for instances of the `Mobility` config type
+- [Empty](https://github.com/miruml/getting-started/blob/main/schemas/mobility-schemaless.yaml) - an empty JSON Schema that regards all config instances as valid
+- [Strict](https://github.com/miruml/getting-started/blob/main/schemas/mobility.yaml) - a well-defined JSON Schema that defines the valid fields, types, and values for instances of the `Mobility` config type
 
 <CodeGroup>
   ```yaml Schemaless
-  $miru_config_type_slug: "mobility"
+  x-miru-config-type: "mobility"
   $schema: "https://json-schema.org/draft/2020-12/schema"
   title: Schemaless Mobility
   ```
 
   ```yaml Strict Schema [expandable]
-  $miru_config_type_slug: "mobility"
+  x-miru-config-type: "mobility"
   $schema: "https://json-schema.org/draft/2020-12/schema"
   title: Mobility
   type: object
@@ -77,7 +77,7 @@ While the getting-started repository contains a variety of sample schemas and sa
 While we recommend using a strict schema, many teams find it simpler to begin with a schemaless approach. This guide covers both methods, so feel free to choose the one that best suits your needs.
 
 ## Create a config type
-Before defining a schema, we first need to create a config type to house it. Navigate to the [Config Types page](https://configs.miruml.com/configs).
+Before defining a schema, we first need to create a config type to house it. Navigate to the [config types page](https://configs.miruml.com/configs).
 
 <Frame>
   ![](/images/config-types/create-page.png)
@@ -90,15 +90,15 @@ Click the `+ New Config Type` button, supply the name `Mobility` and slug `mobil
 </Frame>
 
 <Warning>
-    Config Type slugs are permanent and cannot be changed after creation.
+    Config type slugs are permanent and cannot be changed after creation.
 </Warning>
 
-The slug is a unique identifier for the config type--it's how the CLI determines what config type a schema belongs to. As such, all config schemas must include the `$miru_config_type_slug` field.
+The slug is a unique identifier for the config type--it's how the CLI determines what config type a schema belongs to. As such, all config schemas must include the `x-miru-config-type` field.
 
-We've already included the `$miru_config_type_slug` field in both the `mobility-schemaless.yaml` and `mobility.yaml` schemas inside the getting-started repository.
+We've already included the `x-miru-config-type` field in both the `mobility-schemaless.yaml` and `mobility.yaml` schemas inside the getting-started repository.
 
 ```yaml
-$miru_config_type_slug: "mobility"
+x-miru-config-type: "mobility"
 ```
 
 ## Install the CLI
@@ -152,7 +152,7 @@ Upon a successful push, you'll see a confirmation message similar to the followi
     Git information is pulled from the local git repository that the schema is defined in. Miru does not require any access to your remote git repository.
 </Tip>
 
-To view the schema in Miru, navigate to the [Config Types page](https://configs.miruml.com/configs) and click into the `Mobility` config type.
+To view the schema in Miru, navigate to the [config Types page](https://configs.miruml.com/configs) and click into the `Mobility` config type.
 
 <Frame>
    ![](/images/config-schemas/page.png)
