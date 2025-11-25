@@ -7,11 +7,11 @@ import { Separator } from '/snippets/components/seperator.jsx'
 
 While schemas are primarily used to validate config instances, a secondary purpose is to define default values.
 
-Schemas are a perfect place to define config defaults--values are naturally migrated and versioned alongside the schema, preventing drift between default configs and schema versions.
+Schemas are a perfect place to define defaults--values are naturally migrated and versioned alongside the schema, preventing drift between default configs and schema versions.
 
-While some configs, such as calibrations, do not have sensible default values, defaults should be leveraged for the majority of parameters.
+While some configs, such as calibrations, do not have sensible defaults, defaults should be leveraged for the majority of parameters.
 
-As detailed in the [extracting defaults](/docs/guides/schemas/defaults#extracting-defaults) section, Miru integrates directly with schema defaults to auto-populate config instances.
+As detailed further down in the [extracting defaults](/docs/guides/schemas/defaults#extracting-defaults) section, Miru integrates directly with schema defaults to auto-populate config instances.
 
 ## Defining defaults
 
@@ -76,7 +76,7 @@ While default extraction is mostly straightforward, there are several nuances to
 
 If a parameter does not specify a default value, Miru simply omits this parameter from the extracted defaults.
 
-In the below schema, `enable_remote_control` is not given a default value. As such, `enable_remote_control` is omitted from the extracted defaults.
+In the below schema, `enable_remote_control` is not given a default value and is accordingly omitted from the extracted defaults.
 
 <CodeGroup>
 ```yaml JSON Schema [expandable]
@@ -127,31 +127,35 @@ preferred_speed_mode: "normal"
 
 ### Arrays of objects
 
-Extracting defaults for primitive arrays works as you would expect: values are extracted from the schema as-is.
+Extracting defaults for *primitive* arrays works as you would expect: values are extracted from the schema as-is.
 
-<CodeGroup>
-  ```yaml JSON Schema
-  $schema: "https://json-schema.org/draft/2020-12/schema"
-  type: object
-  properties:
-    allowed_modes:
-      type: array
-      items:
-        type: string
-      default: ["manual", "autonomous", "semi-autonomous"]
+<Tabs>
+  <Tab title="Schema">
+  <CodeGroup>
+    ```yaml JSON Schema
+    $schema: "https://json-schema.org/draft/2020-12/schema"
+    type: object
+    properties:
+      allowed_modes:
+        type: array
+        items:
+          type: string
+        default: ["manual", "autonomous", "semi-autonomous"]
+    ```
+
+    ```cue CUE
+    {
+      allowed_modes: [...string] | *["manual", "autonomous", "semi-autonomous"]
+    }
+    ```
+  </CodeGroup>
+  </Tab>
+  <Tab title="Defaults">
+  ```yaml
+  allowed_modes: ["manual", "autonomous", "semi-autonomous"]
   ```
-
-  ```cue CUE
-  {
-    allowed_modes: [...string] | *["manual", "autonomous", "semi-autonomous"]
-  }
-  ```
-</CodeGroup>
-
-```yaml Defaults
-allowed_modes: ["manual", "autonomous", "semi-autonomous"]
-```
-
+  </Tab>
+</Tabs>
 However, arrays of objects are a bit more nuanced. Schema languages allow you to define defaults for both the array and the objects within the array, leaving the default extraction ambiguous.
 
 To handle such cases, Miru ignores any defaults that are defined inside of array items. If an array is defined, only the defaults defined at the array level are extracted.
@@ -324,27 +328,19 @@ Below are some examples of how this works.
   </Accordion>
 </AccordionGroup>
 
-### Recursive objects
+### Circular references
 
-Recursive structures are schemas where a type references itself, either directly or indirectly. Common examples include linked lists, tree structures, and nested comment systems.
-
-However, recursive structures are a bit more nuanced. Schema languages allow you to define defaults at different levels of recursion, and JSON Schema and CUE handle default extraction differently:
-
-**JSON Schema** uses `$ref` to create recursive types. When extracting defaults, the system stops at the first level of recursion. Recursive references typically default to `null` or omit the recursive field unless explicitly provided.
-
-**CUE** uses definitions (marked with `#`) to create recursive types. CUE can specify defaults at the recursive reference level, allowing for more complex default structures that extend beyond a single level.
-
-Below are some examples of how this works.
+Circular references, or recursive structures, occur when properties reference themselves, either directly or indirectly (i.e. linked lists, tree structures, etc.).
 
 <AccordionGroup>
   <Accordion title="Self-referential recursion">
-    <CodeGroup>
-      ```yaml JSON Schema
-      $schema: "https://json-schema.org/draft/2020-12/schema"
-      $defs:
+<CodeGroup>
+  ```yaml JSON Schema
+  $schema: "https://json-schema.org/draft/2020-12/schema"
+  $defs:
         joint:
-          type: object
-          properties:
+  type: object
+  properties:
             name:
               type: string
               default: "base"
@@ -358,19 +354,19 @@ Below are some examples of how this works.
         arm:
           $ref: "#/$defs/joint"
           default: {}
-      ```
+  ```
 
-      ```cue CUE
+  ```cue CUE
       #Joint: {
         name: string | *"base"
         child: #Joint | *null
-      }
+  }
 
-      {
+  {
         arm: #Joint
-      }
-      ```
-    </CodeGroup>
+  }
+  ```
+</CodeGroup>
 
     ```yaml Defaults
     arm:
@@ -480,7 +476,8 @@ Below are some examples of how this works.
       root:
         name: "patrol"
         children:
-          - name: "idle"
+          - label: "Dashboard"
+            enabled: true
             children: []
       ```
     </CodeGroup>

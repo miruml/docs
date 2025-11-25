@@ -1,7 +1,13 @@
 import ConfigInstanceDef from '/snippets/definitions/config-instance.mdx';
+import {FramedImage} from '/snippets/components/framed-image.jsx';
+import {CONCEPT_BORDER_WIDTH, CONCEPT_OUTER_RADIUS, CONCEPT_INNER_RADIUS} from '/snippets/components/constants.jsx';
 
-<Frame>
-  ![](/images/config-instances/mobility-edit.png)
-</Frame>
+<FramedImage 
+  image="/images/config-instances/header:mobility-edit.png"
+  background="/images/config-instances/background.jpeg"
+  borderWidth={CONCEPT_BORDER_WIDTH}
+  outerRadius={CONCEPT_OUTER_RADIUS}
+  innerRadius={CONCEPT_INNER_RADIUS}
+/>
 
 <ConfigInstanceDef />

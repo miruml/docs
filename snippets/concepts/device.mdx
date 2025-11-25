@@ -1,7 +1,13 @@
 import DeviceDef from '/snippets/definitions/device.mdx';
+import {FramedImage} from '/snippets/components/framed-image.jsx';
+import {CONCEPT_BORDER_WIDTH, CONCEPT_OUTER_RADIUS, CONCEPT_INNER_RADIUS} from '/snippets/components/constants.jsx';
 
-<Frame>
-  ![](/images/devices/list-no-sidebar.png)
-</Frame>
+<FramedImage 
+  image="/images/devices/header:page.png"
+  background="/images/devices/background.jpeg"
+  borderWidth={CONCEPT_BORDER_WIDTH}
+  outerRadius={CONCEPT_OUTER_RADIUS}
+  innerRadius={CONCEPT_INNER_RADIUS}
+/>
 
 <DeviceDef />
