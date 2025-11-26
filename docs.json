@@ -69,7 +69,17 @@
           {
             "group": "Administration",
             "pages": [
-              "docs/admin/workspaces"
+              "docs/admin/workspace",
+              "docs/admin/profile",
+              {
+                "group": "Members",
+                "pages": [
+                  "docs/admin/members/roles",
+                  "docs/admin/members/invite",
+                  "docs/admin/members/manage"
+                ]
+              },
+              "docs/admin/apis-webhooks"
             ]
           },
           {
@@ -205,7 +215,7 @@
       {
         "type": "button",
         "label": "Dashboard",
-        "href": "https://configs.miruml.com/login"
+        "href": "https://app.miruml.com/login"
       }
     ]
   },

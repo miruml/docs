@@ -3,12 +3,9 @@ export const Framed = ({
     background,
     link,
     alt = "Framed content",
-    borderWidth = "24px",
-    outerRadius = "12px",
-    innerRadius = "10px",
-    size = "100%",
-    offsetX = "0px",
-    offsetY = "0px",
+    borderWidth = "10px",
+    outerRadius = "10px",
+    innerRadius = "0",
 }) => {
     const innerImage = (
         <img
@@ -17,11 +14,8 @@ export const Framed = ({
             noZoom={link ? true : false}
             style={{
                 display: "block",
-                width: size,
-                height: size,
                 borderRadius: innerRadius,
-                margin: `0 0`,
-                transform: `translate(${offsetX}, ${offsetY})`,
+                margin: `0`,
             }}
         />
     );
