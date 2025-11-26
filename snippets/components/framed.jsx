@@ -1,23 +1,27 @@
 export const Framed = ({
     image,
     background,
+    link,
     alt = "Framed content",
-    width = "100%",
-    borderWidth = "10px",
+    borderWidth = "24px",
     outerRadius = "12px",
     innerRadius = "10px",
-    link,
+    size = "100%",
+    offsetX = "0px",
+    offsetY = "0px",
 }) => {
-    const imageElement = (
+    const innerImage = (
         <img
             src={image}
             alt={alt}
             noZoom={link ? true : false}
             style={{
+                display: "block",
+                width: size,
+                height: size,
                 borderRadius: innerRadius,
                 margin: `0 0`,
-                width: "100%",
-                display: "block",
+                transform: `translate(${offsetX}, ${offsetY})`,
             }}
         />
     );
@@ -25,20 +29,15 @@ export const Framed = ({
     return (
         <div
             style={{
-                padding: `${borderWidth}`,
                 backgroundImage: background ? `url(${background})` : undefined,
                 backgroundSize: "cover",
-                backgroundPosition: "center",
                 borderRadius: outerRadius,
-                width: width,
+                padding: `${borderWidth}`,
+                overflow: "hidden",
             }}
         >
-            <div className="overflow-hidden" >
-                {link ? (
-                    <a href={link}> {imageElement} </a>
-                ) : (
-                    imageElement
-                )}
+            <div>
+                {link ? (<a href={link}> {innerImage} </a>) : (innerImage)}
             </div>
         </div>
     );

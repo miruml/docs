@@ -7,7 +7,9 @@ import PushNewSchema from "/snippets/schemas/push/new.mdx";
 import PushExistingSchema from "/snippets/schemas/push/exists.mdx";
 import Troubleshooting from "/snippets/schemas/push/troubleshoot.mdx";
 
-Config schemas can **only be created via the CLI**. This is a deliberate design choice--we believe schemas should be versioned and pushed from a git repository. 
+Config schemas can **only be created via the CLI**. 
+
+This is a deliberate design choice—we believe schemas should live in a git repository. This allows them to be versioned alongside the code that uses them and encourages better software development practices. 
 
 Ideally schemas are versioned in the same repository as the code which uses them. However, this is not a requirement and you may find a dedicated git repository for schemas to be more convenient.
 
