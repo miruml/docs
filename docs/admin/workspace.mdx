@@ -2,12 +2,44 @@
 Workspace
 ---
 
-Members can be a part of a single workspace.
+import LeaveWorkspace from '/snippets/admin/workspace/leave.mdx';
 
-## Transfer ownership
+<Frame>
+  ![](/images/admin/workspace/header.png)
+</Frame>
+
+Workspaces are the highest level organizational unit in Miru. They contain every sub-resource, such as devices, releases, deployments, config instances, etc.
+
+There is no limit to the number of members a workspace can have. However, a given email address can only belong to a single workspace.
 
 ## Update the workspace name
 
-## Set the workspace logo
+To be able to update the workspace name, you must have one of the following roles:
+- Admin
+- Owner
+
+To update your workspace's name, navigate to the [workspace](https://app.miruml.com/settings/workspace) page. 
+
+Edit the **Name** field and hit **Enter** on your keyboard.
+
+<Frame>
+  ![](/images/admin/profile/main.png)
+</Frame>
+
+## Transfer ownership
+
+To be able to transfer ownership of your workspace to another member, you must be the current owner of the workspace.
+
+To begin, navigate to the [members](https://app.miruml.com/settings/members) page. Click the ellipses (...) of the member you want to transfer ownership to and hit **Transfer ownership**.
+
+<Frame>
+  ![](/images/admin/members/transfer-ownership-dropdown.png)
+</Frame>
+
+<Warning>
+    Transferring workspace ownership is a sensitive operation and cannot be undone. Please proceed with caution.
+</Warning>
 
 ## Leave your workspace
+
+<LeaveWorkspace />

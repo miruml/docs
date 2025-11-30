@@ -69,8 +69,6 @@
           {
             "group": "Administration",
             "pages": [
-              "docs/admin/workspace",
-              "docs/admin/profile",
               {
                 "group": "Members",
                 "pages": [
@@ -79,7 +77,8 @@
                   "docs/admin/members/manage"
                 ]
               },
-              "docs/admin/apis-webhooks"
+              "docs/admin/profile",
+              "docs/admin/workspace"
             ]
           },
           {
