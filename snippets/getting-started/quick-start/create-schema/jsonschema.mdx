@@ -1,0 +1,131 @@
+import CloneRepoIntro from '/snippets/getting-started/quick-start/create-schema/clone-repo-intro.mdx'
+import CloneRepoConclusion from '/snippets/getting-started/quick-start/create-schema/clone-repo-conclusion.mdx'
+
+import CreateConfigType from '/snippets/getting-started/quick-start/create-schema/create-config-type.mdx'
+import ConfigTypeAnnotation from '/snippets/getting-started/quick-start/create-schema/config-type-annotation.mdx'
+
+import SetupCli from '/snippets/getting-started/quick-start/create-schema/setup-cli.mdx'
+
+import PushSchemaIntro from '/snippets/getting-started/quick-start/create-schema/push-schema-intro.mdx'
+import PushSchemaOutput from '/snippets/getting-started/quick-start/create-schema/push-schema-output.mdx'
+import PushSchemaConclusion from '/snippets/getting-started/quick-start/create-schema/push-schema-conclusion.mdx'
+
+<CloneRepoIntro />
+
+- [Empty schema](https://github.com/miruml/getting-started/blob/main/jsonschema/empty-mobility.yaml) - a schema that regards all config instances as valid
+- [Strict schema](https://github.com/miruml/getting-started/blob/main/jsonschema/mobility.yaml) - a well-defined schema that constrains the valid fields, types, and values for instances of the `Mobility` config type
+
+Below are the empty and strict schemas defined in the getting-started repository.
+
+<CodeGroup>
+```yaml Empty
+x-miru-config-type: "mobility"
+$schema: "http://json-schema.org/draft/2020-12/schema"
+```
+
+```yaml Strict [expandable]
+x-miru-config-type: "mobility"
+$schema: "http://json-schema.org/draft/2020-12/schema"
+type: object
+properties:
+    max_linear_speed_mps:
+    type: number
+    minimum: 0.1
+    maximum: 5.0
+    default: 1.2
+    max_angular_speed_radps:
+    type: number
+    minimum: 0.1
+    maximum: 3.0
+    default: 1.0
+    obstacle_avoidance_enabled:
+    type: boolean
+    default: true
+    navigation_mode:
+    type: string
+    enum: [conservative, balanced, aggressive]
+    default: balanced
+    telemetry:
+    type: object
+    properties:
+        upload_interval_sec:
+        type: integer
+        minimum: 10
+        maximum: 300
+        default: 60
+        heartbeat_interval_sec:
+        type: integer
+        minimum: 1
+        maximum: 60
+        default: 10
+    required:
+        - upload_interval_sec
+        - heartbeat_interval_sec
+required:
+    - max_linear_speed_mps
+    - max_angular_speed_radps
+    - obstacle_avoidance_enabled
+    - navigation_mode
+    - telemetry
+```
+</CodeGroup>
+
+<CloneRepoConclusion />
+
+<CreateConfigType />
+
+```yaml Config Type Slug Annotation
+x-miru-config-type: "mobility"
+```
+
+<ConfigTypeAnnotation />
+
+<SetupCli />
+
+<PushSchemaIntro />
+
+<CodeGroup>
+```bash Empty
+miru schema push ./jsonschema/empty-mobility.yaml --version=v1
+```
+
+```bash Strict
+miru schema push ./jsonschema/mobility.yaml --version=v1
+```
+</CodeGroup>
+
+<PushSchemaOutput />
+
+<CodeGroup>
+
+  ```bash Empty
+  🔍 Collected Git Metadata
+      commit: b6e16a4baecb7631dc40663219832156be7eb08b
+      origin: git@github.com:miruml/getting-started.git
+      file path: jsonschema/empty-mobility.yaml
+      message: refactor: remove uneeded package imports & comments
+
+  🟢 mobility v1.0 successfully created 
+      language: jsonschema
+      format: yaml
+      created: Nov 30, 2025 at 10:15 AM PST
+      instance file path: /mobility.json
+  ```
+
+  ```bash Strict
+  🔍 Collected Git Metadata
+      commit: b6e16a4baecb7631dc40663219832156be7eb08b
+      origin: git@github.com:miruml/getting-started.git
+      file path: jsonschema/mobility.yaml
+      message: refactor: remove uneeded package imports & comments
+
+  🟢 mobility v1.0 successfully created 
+      language: jsonschema
+      format: yaml
+      created: Nov 30, 2025 at 10:15 AM PST
+      instance file path: /mobility.json
+  ```
+
+</CodeGroup>
+
+<PushSchemaConclusion />

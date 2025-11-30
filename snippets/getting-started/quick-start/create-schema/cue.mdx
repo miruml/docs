@@ -1,0 +1,98 @@
+import CloneRepoIntro from '/snippets/getting-started/quick-start/create-schema/clone-repo-intro.mdx'
+import CloneRepoConclusion from '/snippets/getting-started/quick-start/create-schema/clone-repo-conclusion.mdx'
+
+import CreateConfigType from '/snippets/getting-started/quick-start/create-schema/create-config-type.mdx'
+import ConfigTypeAnnotation from '/snippets/getting-started/quick-start/create-schema/config-type-annotation.mdx'
+
+import SetupCli from '/snippets/getting-started/quick-start/create-schema/setup-cli.mdx'
+
+import PushSchemaIntro from '/snippets/getting-started/quick-start/create-schema/push-schema-intro.mdx'
+import PushSchemaOutput from '/snippets/getting-started/quick-start/create-schema/push-schema-output.mdx'
+import PushSchemaConclusion from '/snippets/getting-started/quick-start/create-schema/push-schema-conclusion.mdx'
+
+<CloneRepoIntro />
+
+- [Empty schema](https://github.com/miruml/getting-started/blob/main/cue/empty-mobility.cue) - a schema that regards all config instances as valid
+- [Strict schema](https://github.com/miruml/getting-started/blob/main/cue/mobility.cue) - a well-defined schema that constrains the valid fields, types, and values for instances of the `Mobility` config type
+
+Below are the empty and strict schemas defined in the getting-started repository.
+
+<CodeGroup>
+  ```cue Empty
+  @miru(config_type="mobility")
+  {}
+  ```
+
+  ```cue Strict
+  @miru(config_type="mobility")
+  {
+    max_linear_speed_mps: number & >=0.1 & <=5.0 | *1.2
+    max_angular_speed_radps: number & >=0.1 & <=3.0 | *1.0
+    obstacle_avoidance_enabled: bool | *true
+    navigation_mode: "conservative" | "balanced" | "aggressive" | *"balanced"
+
+    telemetry: {
+      upload_interval_sec: int & >=10 & <=300 | *60
+      heartbeat_interval_sec: int & >=1 & <=60 | *10
+    }
+  }
+  ```
+</CodeGroup>
+
+<CloneRepoConclusion />
+
+<CreateConfigType />
+
+```cue Config Type Slug Annotation
+@miru(config_type="mobility")
+```
+
+<ConfigTypeAnnotation />
+
+<SetupCli />
+
+<PushSchemaIntro />
+
+<CodeGroup>
+  ```cue Empty
+  miru schema push ./cue/empty-mobility.cue --version=v1.0
+  ```
+
+  ```cue Strict
+  miru schema push ./cue/mobility.cue --version=v1.0
+  ```
+</CodeGroup>
+
+<PushSchemaOutput />
+
+<CodeGroup>
+```bash Empty
+🔍 Collected Git Metadata
+  commit: b6e16a4baecb7631dc40663219832156be7eb08b
+  origin: git@github.com:miruml/getting-started.git
+  file path: cue/empty-mobility.cue
+  message: refactor: remove uneeded package imports & comments
+
+🟢 mobility v1.0 successfully created 
+  language: cue
+  format: cue
+  created: Nov 30, 2025 at 10:18 AM PST
+  instance file path: /mobility.json
+```
+
+```bash Strict
+🔍 Collected Git Metadata
+  commit: b6e16a4baecb7631dc40663219832156be7eb08b
+  origin: git@github.com:miruml/getting-started.git
+  file path: cue/mobility.cue
+  message: refactor: remove uneeded package imports & comments
+
+🟢 mobility v1.0 successfully created 
+  language: cue
+  format: cue
+  created: Nov 30, 2025 at 10:18 AM PST
+  instance file path: /mobility.json
+```
+</CodeGroup>
+
+<PushSchemaConclusion />
