@@ -5,11 +5,11 @@ title: "Send invites"
 import {OWNER_TOOLTIP, ADMIN_TOOLTIP} from '/snippets/components/users/roles.jsx';
 
 <Frame>
-  ![](/images/admin/members/header:page.png)
+  ![](/images/invites/header:page.png)
 </Frame>
 
 ## Prerequisites
-To be able to send invites, you must be an <Tooltip tip={OWNER_TOOLTIP.tip} cta={OWNER_TOOLTIP.cta} href={OWNER_TOOLTIP.href}>owner</Tooltip> or <Tooltip tip={ADMIN_TOOLTIP.tip} cta={ADMIN_TOOLTIP.cta} href={ADMIN_TOOLTIP.href}>admin</Tooltip> of the workspace. You can check your role on the [members](https://app.miruml.com/settings/members) page.
+To be able to send or revoke invites, you must be an <Tooltip tip={OWNER_TOOLTIP.tip} cta={OWNER_TOOLTIP.cta} href={OWNER_TOOLTIP.href}>owner</Tooltip> or <Tooltip tip={ADMIN_TOOLTIP.tip} cta={ADMIN_TOOLTIP.cta} href={ADMIN_TOOLTIP.href}>admin</Tooltip> of the workspace. You can check your role on the [members](https://app.miruml.com/settings/members) page.
 
 ### Send an invite
 To invite a member to your workspace, navigate to the [members](https://app.miruml.com/settings/members) page and click **Invite** in the top right corner.
@@ -17,7 +17,7 @@ To invite a member to your workspace, navigate to the [members](https://app.miru
 Next, supply the email addresses of the members you want to invite as a comma-separated list, select their [role](/docs/admin/member-roles), and hit **Send**. 
 
 <Frame>
-  ![](/images/admin/members/invite-dialog.png)
+  ![](/images/invites/send-dialog.png)
 </Frame>
 
 An email will be sent to each member with a link to accept the invite. 
@@ -30,7 +30,7 @@ To revoke an invite, navigate to the [pending invites](https://app.miruml.com/se
 Click the ellipses (...) of the invite to revoke and hit **Revoke Invite**.
 
 <Frame>
-  ![](/images/admin/members/edit-invite-dropdown.png)
+  ![](/images/invites/dropdown.png)
 </Frame>
 
 ### Resend an invite
@@ -43,5 +43,5 @@ To resend an invite, navigate to the [pending invites](https://app.miruml.com/se
 Click the ellipses (...) of the invite to resend and hit **Resend Invite**.
 
 <Frame>
-  ![](/images/admin/members/edit-invite-dropdown.png)
+  ![](/images/invites/dropdown.png)
 </Frame>

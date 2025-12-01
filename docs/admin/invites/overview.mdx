@@ -3,17 +3,17 @@ title: "Overview"
 ---
 
 import {MutableBadge, ImmutableBadge} from '/snippets/components/badges.jsx';
+import {ROLE_TOOLTIP} from '/snippets/components/users/roles.jsx';
+import InviteDef from '/snippets/definitions/invite.mdx';
 
-## Statuses
+<Frame>
+  ![](/images/invites/header:page.png)
+</Frame>
+
+<InviteDef />
 
 ## Properties
-The following properties are used to identify and manage users. 
-
-<ParamField path="status">
-
-FIXME
-
-</ParamField>
+The following properties are used to identify and manage invites. 
 
 <ParamField path="email">
 
@@ -28,9 +28,9 @@ Examples: `john.doe@example.com`, `jane.smith@example.com`
 
 <ImmutableBadge />
 
-The date and time the invite expires.
+The date and time the invite expires. Invites are valid for seven days from the time they were created.
 
-Examples: `2025-12-31 12:00:00`
+Examples: `2025-11-19T12:00:00Z`
 
 </ParamField>
 
@@ -38,7 +38,7 @@ Examples: `2025-12-31 12:00:00`
 
 <MutableBadge />
 
-The access role of the invitee when they join the workspace. Must be one of the following:
+The <Tooltip tip={ROLE_TOOLTIP.tip} cta={ROLE_TOOLTIP.cta} href={ROLE_TOOLTIP.href}>role</Tooltip> of the invitee when they join the workspace. Must be one of the following:
 - `admin`
 - `member`
 

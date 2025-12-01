@@ -69,6 +69,7 @@
           {
             "group": "Administration",
             "pages": [
+              "docs/admin/workspace",
               {
                 "group": "Users",
                 "pages": [
@@ -84,8 +85,7 @@
                   "docs/admin/invites/send",
                   "docs/admin/invites/receive"
                 ]
-              },
-              "docs/admin/workspace"
+              }
             ]
           },
           {
