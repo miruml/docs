@@ -3,9 +3,9 @@ export const Framed = ({
     background,
     link,
     alt = "Framed content",
-    borderWidth = "10px",
+    borderWidth = "24px",
     outerRadius = "10px",
-    innerRadius = "0",
+    innerRadius = "6px",
 }) => {
     const innerImage = (
         <img

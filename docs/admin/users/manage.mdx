@@ -4,10 +4,14 @@ title: "Manage members"
 
 import {ROLE_TOOLTIP, OWNER_TOOLTIP, ADMIN_TOOLTIP} from '/snippets/components/users/roles.jsx';
 import {ACTIVE_TOOLTIP, SUSPENDED_TOOLTIP} from '/snippets/components/users/statuses.jsx';
+import {Framed} from '/snippets/components/framed.jsx';
 
-<Frame>
-  ![](/images/users/members/header:page.png)
-</Frame>
+<Framed 
+  background="/images/users/background.jpeg"
+  image="/images/users/members/header:list.png"
+  borderWidth="40px"
+  innerRadius="8px"
+/>
 
 ## Prerequisites
 
@@ -36,7 +40,7 @@ Suspending a member immediately revokes their access to the workspace and sets t
 - They are immediately logged out
 - They cannot login to this workspace or access any resources (signing in with the same email address creates a new workspace with a new account)
 
-Suspending a member is reversible--an admin can invite them back to the workspace at any time.
+Suspending a member is reversible. An admin can invite them back to the workspace at any time.
 
 <Info>
   Suspending an owner is not possible. Owners must transfer workspace ownership to another member to be eligible for suspension.

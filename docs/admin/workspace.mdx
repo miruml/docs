@@ -5,10 +5,14 @@ Workspace
 import LeaveWorkspace from '/snippets/workspaces/leave.mdx';
 import {MutableBadge} from '/snippets/components/badges.jsx';
 import WorkspaceDef from '/snippets/definitions/workspace.mdx';
+import {Framed} from '/snippets/components/framed.jsx';
 
-<Frame>
-  ![](/images/workspaces/header:page.png)
-</Frame>
+<Framed 
+  background="/images/workspaces/background.jpeg"
+  image="/images/workspaces/header:page.png"
+  borderWidth="30px"
+  innerRadius="8px"
+/>
 
 <WorkspaceDef />
 
