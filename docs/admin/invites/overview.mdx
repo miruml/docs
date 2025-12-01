@@ -1,0 +1,47 @@
+---
+title: "Overview"
+---
+
+import {MutableBadge, ImmutableBadge} from '/snippets/components/badges.jsx';
+
+## Statuses
+
+## Properties
+The following properties are used to identify and manage users. 
+
+<ParamField path="status">
+
+FIXME
+
+</ParamField>
+
+<ParamField path="email">
+
+<ImmutableBadge />
+
+The email address of the invitee.
+
+Examples: `john.doe@example.com`, `jane.smith@example.com`
+</ParamField>
+
+<ParamField path="expires_at">
+
+<ImmutableBadge />
+
+The date and time the invite expires.
+
+Examples: `2025-12-31 12:00:00`
+
+</ParamField>
+
+<ParamField path="role">
+
+<MutableBadge />
+
+The access role of the invitee when they join the workspace. Must be one of the following:
+- `admin`
+- `member`
+
+Examples: `admin`, `member`
+
+</ParamField>

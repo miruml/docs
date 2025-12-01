@@ -1,0 +1,51 @@
+---
+title: "Manage members"
+---
+
+import {ROLE_TOOLTIP, OWNER_TOOLTIP, ADMIN_TOOLTIP} from '/snippets/components/users/roles.jsx';
+import {ACTIVE_TOOLTIP, SUSPENDED_TOOLTIP} from '/snippets/components/users/statuses.jsx';
+
+<Frame>
+  ![](/images/users/members/header:page.png)
+</Frame>
+
+## Prerequisites
+
+To be able to manage members, you must be an <Tooltip tip={OWNER_TOOLTIP.tip} cta={OWNER_TOOLTIP.cta} href={OWNER_TOOLTIP.href}>owner</Tooltip> or <Tooltip tip={ADMIN_TOOLTIP.tip} cta={ADMIN_TOOLTIP.cta} href={ADMIN_TOOLTIP.href}>admin</Tooltip> of the workspace. You can check your role on the [members](https://app.miruml.com/settings/members) page.
+
+## Change a member's role
+
+To change a member's <Tooltip tip={ROLE_TOOLTIP.tip} cta={ROLE_TOOLTIP.cta} href={ROLE_TOOLTIP.href}>role</Tooltip>, first navigate to the [members](https://app.miruml.com/settings/members) page.
+
+Next, click the ellipses (...) of the member you want to change the role of, and hit **Change role**.
+
+<Frame>
+  ![](/images/users/members/dropdown.png)
+</Frame>
+
+Select the new role and hit **Save**.
+
+<Info>
+  Changing an owner's role is not possible. Owners must transfer workspace ownership to another member to change their own role.
+</Info>
+
+## Suspend a member
+
+Suspending a member immediately revokes their access to the workspace and sets their status to <Tooltip tip={SUSPENDED_TOOLTIP.tip} cta={SUSPENDED_TOOLTIP.cta} href={SUSPENDED_TOOLTIP.href}>suspended</Tooltip>:
+
+- They are immediately logged out
+- They cannot login to this workspace or access any resources (signing in with the same email address creates a new workspace with a new account)
+
+Suspending a member is reversible--an admin can invite them back to the workspace at any time.
+
+<Info>
+  Suspending an owner is not possible. Owners must transfer workspace ownership to another member to be eligible for suspension.
+</Info>
+
+To suspend a member, first navigate to the [members](https://app.miruml.com/settings/members) page
+
+Next, click the ellipses (...) of the member you want to suspend, and hit **Suspend user**.
+
+<Frame>
+  ![](/images/users/members/dropdown.png)
+</Frame>

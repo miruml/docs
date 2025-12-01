@@ -70,14 +70,21 @@
             "group": "Administration",
             "pages": [
               {
-                "group": "Members",
+                "group": "Users",
                 "pages": [
-                  "docs/admin/members/roles",
-                  "docs/admin/members/invite",
-                  "docs/admin/members/manage"
+                  "docs/admin/users/overview",
+                  "docs/admin/users/profile",
+                  "docs/admin/users/manage"
                 ]
               },
-              "docs/admin/profile",
+              {
+                "group": "Invites",
+                "pages": [
+                  "docs/admin/invites/overview",
+                  "docs/admin/invites/send",
+                  "docs/admin/invites/receive"
+                ]
+              },
               "docs/admin/workspace"
             ]
           },
