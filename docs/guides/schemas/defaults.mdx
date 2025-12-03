@@ -26,7 +26,6 @@ Below is a schema which defines `conservative` as a default value for the `navig
 
 ```yaml
 $schema: "https://json-schema.org/draft/2020-12/schema"
-title: Defaults
 type: object
 properties:
     navigation_mode:
@@ -81,7 +80,6 @@ In the below schema, `enable_remote_control` is not given a default value and is
 <CodeGroup>
 ```yaml JSON Schema [expandable]
 $schema: "https://json-schema.org/draft/2020-12/schema"
-title: Robot Features
 type: object
 properties:
   enable_autonomy:
@@ -491,6 +489,43 @@ Circular references, or recursive structures, occur when properties reference th
 ### Special cases
 
 **Branch defaults**
+
+**If-Then-Else**
+
+The [If-Then-Else](https://json-schema.org/understanding-json-schema/reference/conditionals#ifthenelse) keywords are used to define conditional validation logic. Currently, Miru ignores any defaults specified inside any `if`, `then`, or `else` blocks as well as their sub-blocks.
+
+For example, in the following schema `listening_port` is a property that depends on the `enable_remote_control` property--`listening_port` is only useful if `enable_remote_control` is true.
+
+Since `listening_port` defaults are defined in the `then` block, Miru ignores its defaults despite the default for `enable_remote_control` being true.
+
+<CodeGroup>
+```yaml Schema [expandable]
+$schema: "https://json-schema.org/draft/2020-12/schema"
+type: object
+properties:
+  enable_remote_control:
+    type: boolean
+    default: true
+if:
+  properties:
+    enable_remote_control:
+      const: true
+then:
+  properties:
+    listening_port:
+      type: integer
+      minimum: 1024
+      maximum: 65535
+  required:
+    - listening_port
+required:
+  - enable_remote_control
+```
+
+```yaml Defaults
+enable_remote_control: true
+```
+</CodeGroup>
 
 **oneOf**
 
