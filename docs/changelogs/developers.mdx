@@ -2,6 +2,28 @@
 title: "Developers"
 ---
 
+<Update label="December 4, 2025" tags={["CLI"]}>
+  ### CLI `v0.7.0`
+
+  **Features**
+  - Add support for [CUE](http://localhost:3000/docs/guides/schemas/languages) schemas
+  - Add the `--language` flag to the `miru schema push` command to specify the schema language
+  - Add the `--allow-duplicate` flag to the `miru schema push` command to allow pushing a schema with the same version if it already exists
+  - Maintain original schema ordering, spacing, and comments when uploading to Miru
+  - Format error messages for better readability
+  - Notify users when the CLI version is not the latest
+
+  **Refactors**
+  - Require the `--version` flag to be provided when pushing a schema
+  - Rename the JSON Schema `$miru_config_type_slug` annotation to `x-miru-config-type`
+  - Rename the JSON Schema `$miru_instance_filepath` annotation to `x-miru-instance-filepath`
+  - Removed the ability to update the instance file path for a schema after creation
+
+  **Retired**
+  - CLI versions before `v0.7.0` are no longer supported
+  - Removed the `miru instance to jsonschema` command
+</Update>
+
 <Update label="October 21, 2025" tags={["Server-Side API", "Python Server SDK"]}>
   ### Server-Side API `v0.1.1`
 
