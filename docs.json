@@ -45,7 +45,6 @@
                 "pages": [
                   "docs/guides/schemas/overview",
                   "docs/guides/schemas/languages",
-                  "docs/guides/schemas/defaults",
                   "docs/guides/schemas/create",
                   "docs/guides/schemas/manage"
                 ]
