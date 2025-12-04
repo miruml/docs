@@ -6,18 +6,18 @@ title: "Developers"
   ### CLI `v0.7.0`
 
   **Features**
-  - Add support for [CUE](http://localhost:3000/docs/guides/schemas/languages) schemas
-  - Add the `--language` flag to the `miru schema push` command to specify the schema language
-  - Add the `--allow-duplicate` flag to the `miru schema push` command to allow pushing a schema with the same version if it already exists
-  - Maintain original schema ordering, spacing, and comments when uploading to Miru
-  - Format error messages for better readability
-  - Notify users when the CLI version is not the latest
+  - Added support for [CUE](/docs/guides/schemas/languages) schemas
+  - Added the `--language` flag to the `miru schema push` command to specify the schema language
+  - Added the `--allow-duplicate` flag to the `miru schema push` command to allow multiple schemas to have the same content
+  - Schemas uploaded to Miru are now preserved exactly as defined, including original ordering, spacing, and comments
+  - Improved readability of error messages
+  - Users are notified when the CLI version is out of date
 
   **Refactors**
-  - Require the `--version` flag to be provided when pushing a schema
-  - Rename the JSON Schema `$miru_config_type_slug` annotation to `x-miru-config-type`
-  - Rename the JSON Schema `$miru_instance_filepath` annotation to `x-miru-instance-filepath`
-  - Removed the ability to update the instance file path for a schema after creation
+  - The `--version` flag is required when pushing a schema
+  - Renamed the JSON Schema `$miru_config_type_slug` annotation to `x-miru-config-type`
+  - Renamed the JSON Schema `$miru_instance_filepath` annotation to `x-miru-instance-filepath`
+  - Removed the ability to update the instance file path for an existing schema
 
   **Retired**
   - CLI versions before `v0.7.0` are no longer supported
@@ -28,7 +28,7 @@ title: "Developers"
   ### Server-Side API `v0.1.1`
 
   **Refactors**
-  - Remove `config_schemas` expansion from config types
+  - Removed `config_schemas` expansion from config types
   - Updated the Python Server SDK to [v0.6.1](https://github.com/miruml/python-server-sdk/releases/tag/v0.6.1)
 </Update>
 
@@ -44,7 +44,7 @@ title: "Developers"
   ### Agent `v0.6.0`
 
   **Features**
-  - Support poor connectivity installations of the Miru Agent
+  - Poor connectivity installations of the Miru Agent are now supported
 
   **Retired**
   - Installing Miru Agent versions before `v0.6.0` is no longer supported. Current installations will continue functioning and receive support but new installations must use `v0.6.0` or later.
