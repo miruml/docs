@@ -5,9 +5,105 @@ rss: "true"
 ---
 
 import { Dropdown, DropdownItem } from '/snippets/components/dropdown.jsx'
+import { Framed } from '/snippets/components/framed.jsx'
 import { Separator } from '/snippets/components/seperator.jsx'
 
-<Update label="November 10, 2025" description="v0.3">
+<Update label="December 4, 2025">
+    ## Workspace Invitations
+
+    You can now invite team members to your workspace and manage their roles. This 
+    release also adds new workspace and profile settings.
+
+    ### Inviting team members
+
+    Onboard your team directly from the dashboard. Navigate to **Settings > Members** 
+    and click the **Invite** button.
+
+    Once you enter their email and select a role, they will receive an email with 
+    a link to join your workspace.
+
+    - **New users** will be guided to sign up and then prompted to accept the invitation.
+    - **Existing users** can accept the invite via the email link or their Profile settings 
+    page.
+
+    <video
+        autoPlay
+        loop
+        controls
+        className="aspect-video rounded-xl"
+        src="https://assets.miruml.com/docs/changelog/25-12-04/inviting-members.mp4"
+    />
+
+    ### Manage roles and access
+
+    We have introduced three distinct user roles:
+
+    - **Owner** — Full control over the workspace (limit one per workspace).
+    - **Admin** — Administrative access to manage members and workspace settings.
+    - **Member** — Application access without administrative privileges.
+
+    Admins and owners can manage members: update roles, edit names, suspend users, 
+    resend or revoke invites, and reinvite suspended/left users.
+
+    <Framed 
+        background="https://assets.miruml.com/docs/images/users/background.jpeg"
+        image="https://assets.miruml.com/docs/changelog/25-12-04/manage-members.png"
+        borderWidth="20px"
+        innerRadius="8px"
+    />
+
+    ### Profile and workspace settings
+
+    Manage your profile and workspace details from dedicated settings pages.
+
+    - **Profile** — Update your name, view pending invites, or leave your workspace.
+    - **Workspace** — Admins and owners can update the workspace name.
+
+    <Framed 
+        background="https://assets.miruml.com/docs/images/users/background.jpeg"
+        image="https://assets.miruml.com/docs/changelog/25-12-04/profile-settings.png"
+        borderWidth="20px"
+        innerRadius="8px"
+    />
+
+    [Read the full documentation »](/docs/admin/workspace)
+
+    <div className="mb-9" />
+
+    <Separator />
+    <Dropdown title="Improvements">
+        <DropdownItem>
+            **Release Overview:** We added a dedicated overview page for each release. 
+            This includes the total count of staged deployments and the total number of 
+            deployments created for that release, alongside the defined config schemas.
+        </DropdownItem>
+        <DropdownItem>
+            **Consolidated Page Header:** To maximize screen space, we have collapsed 
+            the page breadcrumb and title headers into a single, unified line across 
+            key pages like Devices, Releases, and Configs.
+        </DropdownItem>
+        <DropdownItem>
+            **Faster Navigation:** Navigation between Release sub-pages is now 
+            significantly smoother due to data prefetching that automatically loads 
+            the next page's data when you hover over navigation links.
+        </DropdownItem>
+    </Dropdown>
+    <Separator />
+    <Dropdown title="Fixes">
+        <DropdownItem>
+            **Form Submission:** You can now press Enter to submit forms when creating 
+            or editing Tags, Config Types, and Config Schemas. Previously, pressing 
+            Enter would accidentally close the form and discard your progress.
+        </DropdownItem>
+        <DropdownItem>
+            **Editor:** Switching releases in the editor no longer incorrectly displays 
+            stale config types from the previous release that are not valid for the 
+            new release.
+        </DropdownItem>
+    </Dropdown>
+</Update>
+
+<Update label="November 10, 2025">
     ## Device Releases
 
     You can now set and change a device's release directly from the device page, 
