@@ -6,7 +6,53 @@ rss: "true"
 
 import { Dropdown, DropdownItem } from '/snippets/components/dropdown.jsx'
 import { Framed } from '/snippets/components/framed.jsx'
+import { Frame } from '/snippets/components/frame.jsx'
 import { Separator } from '/snippets/components/seperator.jsx'
+
+<Update label="December 4, 2025">
+    ## CUE Support
+
+    We are excited to announce full support for CUE (Configure, Unify, Execute) 
+    as a first-class schema language in Miru. You can now define config schemas in 
+    CUE, version them in Git, and push them via the Miru CLI to validate config 
+    instances before deployment.
+
+    ### Uploading a CUE schema
+
+    Pushing a CUE schema to Miru follows the same Git-integrated workflow you are used 
+    to. Simply define your schema in a `.cue` file and use the Miru CLI to push it.
+
+
+    <Framed
+        background="https://assets.miruml.com/docs/changelog/25-12-04/ocean-background.png"
+        image="https://assets.miruml.com/docs/changelog/25-12-04/upload-cue-schema.png"
+        borderWidth="16px"
+        innerRadius="8px"
+    />
+
+    ### Managing CUE schemas
+
+    Once uploaded, your CUE schemas appear in the dashboard where you can view the raw 
+    content (preserving comments and formatting) and associated metadata.
+
+    Management works just like existing schemas: most properties are immutable, though 
+    you can update the config instance deployment path. Deletion is only permitted 
+    for schemas with no active config instances.
+
+    <img
+        src={"https://assets.miruml.com/docs/changelog/25-12-04/cue-lang-schema.png"}
+        alt={"Viewing a CUE schema"}
+        style={{
+            display: "flex",
+            width: "100%",
+            borderRadius: "10px",
+            margin: 0,
+        }}
+    />
+
+    [Read the full documentation »](/docs/guides/schemas/languages)
+
+</Update>
 
 <Update label="December 4, 2025">
     ## Workspace Invitations
