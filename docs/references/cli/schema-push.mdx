@@ -5,7 +5,6 @@ title: 'Push'
 import Annotations from "/snippets/schemas/annotations.mdx";
 import PushNewSchema from "/snippets/schemas/push/new.mdx";
 import PushExistingSchema from "/snippets/schemas/push/exists.mdx";
-import Troubleshooting from "/snippets/schemas/push/troubleshoot.mdx";
 
 Push a config schema to Miru. 
 
@@ -18,7 +17,7 @@ Push a config schema to Miru.
 ### Usage
 
 ```bash
-miru schema push PATH --version VERSION
+miru schema push PATH
 ```
 
 **Arguments**
@@ -28,16 +27,6 @@ The relative or absolute file system path of the schema file to push.
 </ParamField>
 
 **Flags**
-
-<ParamField path="--version, -v" type="string" required>
-The version to give the schema. Must be a valid semantic version.
-
-Examples: `v1`, `2.0.0`, `1`
-</ParamField>
-
-<ParamField path="--allow-duplicate" type="boolean">
-Allows the schema to be created even if another schema with equivalent content, but a different version, already exists for the same config type.
-</ParamField>
 
 <ParamField path="--language, -l" type="string">
 The language the schema is written in. The language is auto-detected but may be overridden with this flag if needed.
@@ -60,7 +49,3 @@ Examples: `jsonschema`, `cue`
         <PushExistingSchema />
     </Tab>
 </Tabs>
-
-### Troubleshooting
-
-<Troubleshooting />

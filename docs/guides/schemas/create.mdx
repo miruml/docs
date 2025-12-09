@@ -5,7 +5,6 @@ title: "Create schemas"
 import Annotations from "/snippets/schemas/annotations.mdx";
 import PushNewSchema from "/snippets/schemas/push/new.mdx";
 import PushExistingSchema from "/snippets/schemas/push/exists.mdx";
-import Troubleshooting from "/snippets/schemas/push/troubleshoot.mdx";
 
 Config schemas can **only be created via the CLI**. 
 
@@ -72,28 +71,10 @@ Git metadata is not optional--if a schema does not meet these requirements, the 
 
 Once you've defined a schema and committed to git, you're ready to push the schema to Miru using the CLI.
 
-### Required arguments
-
-There are two required arguments that must be provided when pushing a schema to Miru.
-
-<ParamField path="PATH" type="string" required>
-The relative or absolute file system path of the schema file to push.
-</ParamField>
-
-<ParamField path="--version, -v" type="string" required>
-The version to give the schema. Must be a valid semantic version.
-
-Examples: `v1`, `2.0.0`, `1`
-</ParamField>
-
-For a comprehensive list of arguments and flags, visit the [schema push reference](/docs/references/cli/schema-push).
-
-### Run the command
-
-To push the schema, simply replace `{path/to/schema.yaml}` and `{version}` with the actual path to the schema file and version you want to give the schema.
+To push a schema, simply replace `{path/to/schema.yaml}` with the actual path to the schema file.
 
 ```bash
-miru schema push {path/to/schema.yaml} --version {version}
+miru schema push {path/to/schema.yaml}
 ```
 
 ### New schemas
@@ -103,9 +84,3 @@ miru schema push {path/to/schema.yaml} --version {version}
 ### Existing schemas
 
 <PushExistingSchema />
-
-### Troubleshooting
-
-There are a couple common issues you may encounter when pushing a schema to Miru. Here are some tips to troubleshoot and resolve them.
-
-<Troubleshooting />
