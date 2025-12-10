@@ -37,43 +37,59 @@
             ]
           },
           {
-            "group": "Guides",
+            "group": "Learn",
             "pages": [
-              "docs/guides/config-types",
+              "docs/learn/config-instances",
               {
                 "group": "Config schemas",
                 "pages": [
-                  "docs/guides/schemas/overview",
-                  "docs/guides/schemas/languages",
-                  "docs/guides/schemas/create",
-                  "docs/guides/schemas/manage"
+                  "docs/learn/schemas/overview",
+                  "docs/learn/schemas/languages",
+                  "docs/learn/schemas/create",
+                  "docs/learn/schemas/manage"
                 ]
               },
+              "docs/learn/config-types",
               {
-                "group": "Releases",
+                "group": "Deployments",
                 "pages": [
-                  "docs/guides/releases/overview",
-                  "docs/guides/releases/manage",
-                  "docs/guides/releases/stage-deployments"
+                  "docs/learn/deployments/overview",
+                  "docs/learn/deployments/config-editor",
+                  "docs/learn/deployments/deployment-history"
                 ]
               },
               {
                 "group": "Devices",
                 "pages": [
-                  "docs/guides/devices/overview",
-                  "docs/guides/devices/provision",
-                  "docs/guides/devices/manage"
+                  "docs/learn/devices/overview",
+                  "docs/learn/devices/provision",
+                  "docs/learn/devices/manage"
                 ]
               },
               {
-                "group": "Deploying configs",
+                "group": "Releases",
                 "pages": [
-                  "docs/guides/deploy-configs/config-instances",
-                  "docs/guides/deploy-configs/deployments",
-                  "docs/guides/deploy-configs/config-editor",
-                  "docs/guides/deploy-configs/deployment-history"
+                  "docs/learn/releases/overview",
+                  "docs/learn/releases/manage",
+                  "docs/learn/releases/stage-deployments"
                 ]
               }
+            ]
+          },
+          {
+            "group": "Developers",
+            "pages": [
+              {
+                "group": "Agent",
+                "pages": [
+                  "docs/developers/agent/intro",
+                  "docs/developers/agent/usage",
+                  "docs/developers/agent/agent-side-api"
+                ]
+              },
+              "docs/developers/cli",
+              "docs/developers/server-side-api",
+              "docs/developers/webhooks"
             ]
           },
           {
@@ -84,6 +100,7 @@
                 "group": "Users",
                 "pages": [
                   "docs/admin/users/overview",
+                  "docs/admin/users/roles",
                   "docs/admin/users/profile",
                   "docs/admin/users/manage"
                 ]
@@ -99,14 +116,7 @@
             ]
           },
           {
-            "group": "Agent",
-            "pages": [
-              "docs/agent/intro",
-              "docs/agent/install"
-            ]
-          },
-          {
-            "group": "Tutorials",
+            "group": "Guides",
             "pages": [
               {
                 "group": "Custom validation",

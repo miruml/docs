@@ -3,6 +3,7 @@ title: "Overview"
 ---
 
 import ConfigSchemaDef from '/snippets/definitions/config-schema.mdx';
+import ConfigSchemaExamples from '/snippets/definitions/config-schema-examples.mdx';
 import {MutableBadge, ImmutableBadge} from '/snippets/components/badges.jsx';
 import {Framed} from '/snippets/components/framed.jsx';
 
@@ -15,6 +16,88 @@ import {Framed} from '/snippets/components/framed.jsx';
 
 <ConfigSchemaDef />
 
+## Properties
+
+Config schemas leverage several properties to adequately describe their format and organize them within their config type. 
+
+All properties are immutable except for the `instance_filepath` property, which may be updated at anytime.
+
+<ParamField path="language">
+
+<ImmutableBadge />
+
+The schema language used to define the schema. 
+
+Currently supported schema languages include:
+- JSON Schema (Draft 2020-12)
+- CUE
+
+Examples: `jsonschema`, `cue`
+
+</ParamField>
+
+<ParamField path="format">
+
+<ImmutableBadge />
+
+The file format used to define the schema.
+
+Some languages, such as JSON Schema, support multiple formats (e.g. JSON, YAML) while others, such as CUE, only support a single format (i.e. CUE lang itself).
+
+A *schema's* format does not need to match the format of the *config instance* it validates. Below are the supported schema and config instance formats for each schema language.
+
+| Language     | Schema Formats  | Instance Formats |
+| ------------ | --------------- | ---------------- |
+| JSON Schema  | JSON, YAML      | JSON       |
+| CUE          | CUE             | JSON       |
+
+<Info>
+  Support for more config instance formats including YAML and JSON-C are coming soon.
+</Info>
+
+Examples: `json`, `yaml`, `cue`
+
+</ParamField>
+
+<ParamField path="content">
+
+<ImmutableBadge />
+
+The raw schema definition written in the specified schema language.
+
+The exact contents of a schema file is preserved in Miru including any comments, whitespace, and formatting.
+
+
+</ParamField>
+
+<ParamField path="digest">
+
+<ImmutableBadge />
+
+A hash of the canonicalized schema content.
+
+Digests are computed by converting a schema to a canonical format and hashing the result. This is useful for detecting duplicate schemas (even with changes in whitespacing, comments, etc.) and ensuring version integrity.
+
+Examples: `sha256:45YeoJJ2btBnAKQztAEXEjHsqyyQfC1z1Mw3LLM4xMUy`
+
+</ParamField>
+
+
+<ParamField path="instance_filepath">
+
+<MutableBadge />
+
+The filepath to deploy config instances (for this schema) on a device relative to the `/srv/miru/config_instances` directory. 
+
+The default instance file path for a schema is `{my-config-type-slug}.json`, which deploys config instances to `/srv/miru/config_instances/{my-config-type-slug}.json`.
+
+Individual config instances may override their schema's default file path with a custom file path at deployment time. 
+
+To modify the file path deployed for all future instances of this schema, simply update the `instance_filepath` property.
+
+Examples: `/v1/mobility.json`, `/config/safety.json`
+</ParamField>
+
 ## Supported languages
 
 Config schemas are defined using a schema language--a formal language for describing the structure, constraints, and data types of a configuration. 
@@ -24,6 +107,10 @@ Miru supports:
 - [CUE](https://cuelang.org/)
 
 For more information on schema languages, visit the [languages](/docs/guides/schemas/languages) section of this guide. 
+
+## Examples
+
+<ConfigSchemaExamples />
 
 ## Validating instances
 
@@ -128,88 +215,5 @@ $schema: "https://json-schema.org/draft/2020-12/schema"
 {}
 ```
 </CodeGroup>
-
-## Properties
-
-Config schemas leverage several properties to adequately describe their format and organize them within their config type. 
-
-All properties are immutable except for the `instance_filepath` property, which may be updated at anytime.
-
-<ParamField path="language">
-
-<ImmutableBadge />
-
-The schema language used to define the schema. 
-
-Currently supported schema languages include:
-- JSON Schema (Draft 2020-12)
-- CUE
-
-Examples: `jsonschema`, `cue`
-
-</ParamField>
-
-<ParamField path="format">
-
-<ImmutableBadge />
-
-The file format used to define the schema.
-
-Some languages, such as JSON Schema, support multiple formats (e.g. JSON, YAML) while others, such as CUE, only support a single format (i.e. CUE lang itself).
-
-A *schema's* format does not need to match the format of the *config instance* it validates. Below are the supported schema and config instance formats for each schema language.
-
-| Language     | Schema Formats  | Instance Formats |
-| ------------ | --------------- | ---------------- |
-| JSON Schema  | JSON, YAML      | JSON       |
-| CUE          | CUE             | JSON       |
-
-<Info>
-  Support for more config instance formats including YAML and JSON-C are coming soon.
-</Info>
-
-Examples: `json`, `yaml`, `cue`
-
-</ParamField>
-
-<ParamField path="content">
-
-<ImmutableBadge />
-
-The raw schema definition written in the specified schema language.
-
-The exact contents of a schema file is preserved in Miru including any comments, whitespace, and formatting.
-
-
-</ParamField>
-
-<ParamField path="digest">
-
-<ImmutableBadge />
-
-A hash of the canonicalized schema content.
-
-Digests are computed by converting a schema to a canonical format and hashing the result. This is useful for detecting duplicate schemas (even with changes in whitespacing, comments, etc.) and ensuring version integrity.
-
-Examples: `sha256:45YeoJJ2btBnAKQztAEXEjHsqyyQfC1z1Mw3LLM4xMUy`
-
-</ParamField>
-
-
-<ParamField path="instance_filepath">
-
-<MutableBadge />
-
-The filepath to deploy config instances (for this schema) on a device relative to the `/srv/miru/config_instances` directory. 
-
-The default instance file path for a schema is `{my-config-type-slug}.json`, which deploys config instances to `/srv/miru/config_instances/{my-config-type-slug}.json`.
-
-Individual config instances may override their schema's default file path with a custom file path at deployment time. 
-
-To modify the file path deployed for all future instances of this schema, simply update the `instance_filepath` property.
-
-
-Examples: `/v1/mobility.json`, `/config/safety.json`
-</ParamField>
 
 

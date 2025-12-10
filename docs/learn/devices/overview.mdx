@@ -1,0 +1,95 @@
+---
+title: "Overview"
+---
+
+import DeviceDef from '/snippets/definitions/device.mdx'
+import SupportPlatforms from '/snippets/agent/supported-platforms.mdx';
+
+import {ParamField} from '/snippets/components/param-field.jsx';
+import {MutableBadge} from '/snippets/components/badges.jsx';
+import {Framed} from '/snippets/components/framed.jsx';
+
+<Framed 
+  background="https://assets.miruml.com/docs/images/devices/background.jpeg"
+  image="/images/devices/header:list.png"
+  borderWidth={"24px 0 0 36px"}
+  innerRadius={"8px 0 0 0"}
+/>
+
+<DeviceDef />
+
+## Properties
+
+The following properties are used to identify and manage a device. 
+
+<ParamField path="name">
+
+<MutableBadge />
+
+A human-readable display name that can contain most characters such as spaces, special characters, and punctuation. Must contain between 1 and 48 characters.
+
+Examples: `Robot 11`, `ArcticBlaze`, `Scooby Doo`
+
+</ParamField>
+
+<ParamField path="status">
+
+<MutableBadge />
+
+The [status](/docs/guides/devices/overview#status) of the device.
+
+Examples: `inactive`, `activating`, `online`, `offline`
+
+</ParamField>
+
+<ParamField path="current_release_id">
+
+<MutableBadge />
+
+The current release of the device.
+
+Examples: `inactive`, `activating`, `online`, `offline`
+
+</ParamField>
+
+## Miru Agent
+
+Configurations are deployed to devices via the [Miru Agent](/docs/developers/agent/intro), a lightweight `systemd` service that runs on your devices, handling the deployment lifecycle of configurations. 
+
+The Miru agent offers the following functionality:
+
+- **Syncs configurations** from the cloud to the local filesystem in real-time
+- **Manages device state**, providing real-time updates of the device's status and the currently deployed configurations
+- **Exposes a [REST API](/docs/references/agent-api/intro)** over a Unix socket for programmatic access by applications running on the same machine
+
+<Warning>
+  The Miru Agent only supports Linux. Visit the [supported platforms](/docs/developers/agent/intro#supported-platforms) for a complete list of supported platforms.
+</Warning>
+
+## Status
+
+Devices leverage several states to track their registration and connectivity with the Miru servers.
+
+| Status | Description |
+|--------|-------------|
+| `inactive` | Device has been created; Miru agent has not been installed |
+| `activating` | The Miru agent is registering itself with Miru servers |
+| `online` | Device is currently connected to Miru's servers |
+| `offline` | Device has lost connection to Miru's servers |
+
+![](/images/devices/status-fsm.png)
+
+Devices begin in the `inactive` state. During the Miru agent install process, devices briefly enter the `activating` state before transitioning to `online`.
+
+Once the Miru agent has been activated on a device, the device remains `online` or `offline` for the remainder of its existence--devices don't transition back to `inactive` or `activating`.
+
+The only exception to this is when a device is [reactivated](/docs/guides/devices/manage#reactivate-a-device). During reactivation, devices briefly enter the `activating` state before transitioning back to `online`.
+
+To view the status of a device, simply hover over the device's name on the [Devices page](/docs/guides/devices/overview#devices-page).
+
+<Frame>
+  ![](/images/devices/status-hover.png)
+</Frame>
+
+## Current release
+

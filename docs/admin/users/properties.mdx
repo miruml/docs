@@ -1,0 +1,123 @@
+---
+title: "Overview"
+---
+
+import {MutableBadge, ImmutableBadge} from '/snippets/components/badges.jsx';
+import {Framed} from '/snippets/components/framed.jsx';
+import UserDef from '/snippets/definitions/user.mdx';
+
+<Framed 
+  background="https://assets.miruml.com/docs/images/users/background.jpeg"
+  image="https://assets.miruml.com/docs/images/users/members/header:page.png"
+/>
+
+<UserDef />
+
+## Roles
+
+Roles are the access levels of a user in a workspace. 
+
+Users can have one of the following roles:
+
+| Role | Description |
+|------|-------------|
+| `owner` | total access to the workspace; exactly one per workspace |
+| `admin` | administrative and application access to the workspace; is subordinate to the owner |
+| `member` | application access to the workspace but no administrative privileges |
+
+### Admin permissions
+
+Owners and admins hold administrative privileges, granting them the following permissions which are unavailable to members:
+
+- Create a new API key 
+- Update an existing API key
+- Delete an existing API key
+- Send an invite
+- Resend an invite
+- Revoke an invite
+- Suspend a user
+- Update another user (their name)
+- Update another user's role
+- Update the workspace
+
+Of course, owners have some special immunity from the above permissions to prevent unwanted privilege escalation:
+
+- Owners cannot be suspended
+- Owners cannot have their role changed by another user
+
+### Owner permissions
+
+A workspace must have exactly one owner. As such, owners cannot leave their workspace or be suspended. 
+
+However, owners can transfer ownership to another member. Thus, in addition to the above admin permissions above, owners also have a special permission for transferring workspace ownership to another member.
+
+### Member permissions
+
+Members hold application access to the workspace but no administrative privileges. 
+
+We won't detail every single permission here. Suffice to say, members can perform any action that is not an administrative or owner-only action. This includes creating devices, deploying configurations, etc.
+
+## Status
+
+To maintain an accurate audit trail of user activity, users cannot be deleted from a workspace. However, users can be suspended by an admin or leave the workspace themselves.
+
+As such, there are three possible statuses for a user:
+
+| Status | Description |
+|--------|-------------|
+| `active` | the user can login and access workspace resources |
+| `suspended` | the user's access was revoked by an admin; the user cannot login to the workspace nor access any resources |
+| `left` | the user has left the workspace; the user cannot login to the workspace or access any resources |
+
+Users who have been suspended or left can be re-invited to the workspace by an admin at any time via an [invite](/docs/admin/invites/send).
+
+## Properties
+The following properties are used to identify and manage users. 
+
+<ParamField path="first_name">
+
+<MutableBadge />
+
+The first name of the user. Must contain between 1 and 48 characters.
+
+Examples: `John`, `Jane`
+
+</ParamField>
+
+<ParamField path="last_name">
+
+<MutableBadge />
+
+The last name of the user. Must contain between 1 and 48 characters.
+
+Examples: `Doe`, `Smith`
+</ParamField>
+
+<ParamField path="email">
+
+<ImmutableBadge />
+
+The email address of the user.
+
+Examples: `john.doe@example.com`, `jane.smith@example.com`
+</ParamField>
+
+<ParamField path="role">
+
+<MutableBadge />
+
+The [access role](/docs/admin/users/overview#roles) of the user in the workspace. 
+
+Examples: `member`, `admin`, `owner`
+
+</ParamField>
+
+<ParamField path="status">
+
+<MutableBadge />
+
+The [status](/docs/admin/users/overview#status) of the user in the workspace.
+
+Examples: `active`, `suspended`, `left`
+
+</ParamField>
