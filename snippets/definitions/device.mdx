@@ -1,3 +1,3 @@
-A **device** is the machine to which config instances are deployed. This could be an NVIDIA Jetson, Raspberry Pi, industrial PC, or any other computer running the robot's application.
+A **device** is the machine to which config instances are deployed. This could be an NVIDIA Jetson, Raspberry Pi, industrial PC, or any other computer running your robot's application.
 
-The Miru Agent only supports devices running Linux; MacOS and Windows are not supported. For more more information on specific operating systems supported by Miru, please refer to the [agent documentation](/docs/agent/intro#supported-platforms).
+Configurations are deployed to devices via the [Miru Agent](/docs/agent/intro), a lightweight `systemd` service that syncs configurations from the cloud to the device's local filesystem in real-time.

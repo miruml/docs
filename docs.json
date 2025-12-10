@@ -48,19 +48,30 @@
                   "docs/guides/schemas/create",
                   "docs/guides/schemas/manage"
                 ]
-              }
-            ]
-          },
-          {
-            "group": "Agent",
-            "pages": [
-              "docs/agent/intro",
+              },
               {
-                "group": "Install",
+                "group": "Releases",
                 "pages": [
-                  "docs/agent/install/dashboard",
-                  "docs/agent/install/api-keys",
-                  "docs/agent/install/poor-connectivity"
+                  "docs/guides/releases/overview",
+                  "docs/guides/releases/manage",
+                  "docs/guides/releases/stage-deployments"
+                ]
+              },
+              {
+                "group": "Devices",
+                "pages": [
+                  "docs/guides/devices/overview",
+                  "docs/guides/devices/provision",
+                  "docs/guides/devices/manage"
+                ]
+              },
+              {
+                "group": "Deploying configs",
+                "pages": [
+                  "docs/guides/deploy-configs/config-instances",
+                  "docs/guides/deploy-configs/deployments",
+                  "docs/guides/deploy-configs/config-editor",
+                  "docs/guides/deploy-configs/deployment-history"
                 ]
               }
             ]
@@ -85,6 +96,13 @@
                   "docs/admin/invites/receive"
                 ]
               }
+            ]
+          },
+          {
+            "group": "Agent",
+            "pages": [
+              "docs/agent/intro",
+              "docs/agent/install"
             ]
           },
           {

@@ -7,3 +7,6 @@ openapitools.json
 
 # virtual environments
 .venv/
+
+# images
+images/
