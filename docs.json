@@ -39,7 +39,7 @@
           {
             "group": "Learn",
             "pages": [
-              "docs/learn/config-instances",
+              "docs/learn/config-types",
               {
                 "group": "Config schemas",
                 "pages": [
@@ -49,13 +49,12 @@
                   "docs/learn/schemas/manage"
                 ]
               },
-              "docs/learn/config-types",
               {
-                "group": "Deployments",
+                "group": "Releases",
                 "pages": [
-                  "docs/learn/deployments/overview",
-                  "docs/learn/deployments/config-editor",
-                  "docs/learn/deployments/deployment-history"
+                  "docs/learn/releases/overview",
+                  "docs/learn/releases/manage",
+                  "docs/learn/releases/stage-deployments"
                 ]
               },
               {
@@ -66,12 +65,13 @@
                   "docs/learn/devices/manage"
                 ]
               },
+              "docs/learn/config-instances",
               {
-                "group": "Releases",
+                "group": "Deployments",
                 "pages": [
-                  "docs/learn/releases/overview",
-                  "docs/learn/releases/manage",
-                  "docs/learn/releases/stage-deployments"
+                  "docs/learn/deployments/overview",
+                  "docs/learn/deployments/config-editor",
+                  "docs/learn/deployments/deployment-history"
                 ]
               }
             ]
@@ -88,8 +88,7 @@
                 ]
               },
               "docs/developers/cli",
-              "docs/developers/server-side-api",
-              "docs/developers/webhooks"
+              "docs/developers/server-side-api"
             ]
           },
           {
@@ -101,27 +100,9 @@
                 "pages": [
                   "docs/admin/users/overview",
                   "docs/admin/users/roles",
+                  "docs/admin/users/invite",
                   "docs/admin/users/profile",
                   "docs/admin/users/manage"
-                ]
-              },
-              {
-                "group": "Invites",
-                "pages": [
-                  "docs/admin/invites/overview",
-                  "docs/admin/invites/send",
-                  "docs/admin/invites/receive"
-                ]
-              }
-            ]
-          },
-          {
-            "group": "Guides",
-            "pages": [
-              {
-                "group": "Custom validation",
-                "pages": [
-                  "docs/tutorials/custom-validation/setup"
                 ]
               }
             ]
