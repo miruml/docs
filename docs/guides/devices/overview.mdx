@@ -3,10 +3,10 @@ title: "Overview"
 ---
 
 import DeviceDef from '/snippets/definitions/device.mdx'
+import SupportPlatforms from '/snippets/agent/supported-platforms.mdx';
 
 import {ParamField} from '/snippets/components/param-field.jsx';
-import MutableBadge from '/snippets/components/badges.jsx';
-
+import {MutableBadge} from '/snippets/components/badges.jsx';
 import {Framed} from '/snippets/components/framed.jsx';
 
 <Framed 
@@ -18,8 +18,28 @@ import {Framed} from '/snippets/components/framed.jsx';
 
 <DeviceDef />
 
+## Miru Agent
+
+Configurations are deployed to devices via the [Miru Agent](/docs/agent/intro), a lightweight `systemd` service that runs on your devices, handling the deployment lifecycle of configurations. The agent offers the following functionality:
+
+- **Syncs configurations** from the cloud to the local filesystem in real-time
+- **Manages device state**, providing real-time updates of the device's status and the currently deployed configurations
+- **Exposes a [REST API](/docs/references/agent-api/intro)** over a Unix socket for programmatic access by applications running on the same machine
+
+The Miru Agent is purpose-built for delivering configurations to your devices in real-time, offering the following benefits:
+
+- **Offline resilience** - configurations are cached locally on the machine and synced as soon as the network is available, ensuring continued operation through network interruptions
+- **Secure communication** - all communication is outbound-only via HTTPS or MQTTS, ensuring secure and private communication
+- **Lightweight footprint** - our rust-based agent consumes minimal resources and may be configured to only run on demand (via socket activation) for further optimization
+- **Open-source** - the agent is open-source and available on [GitHub](https://github.com/miruml/agent)
+
+### Supported platforms
+
+<SupportPlatforms />
+
 ## Status
-Devices leverage several states which track their registration and connectivity with the Miru servers.
+
+Devices leverage several states to track their registration and connectivity with the Miru servers.
 
 | Status | Description |
 |--------|-------------|
@@ -30,17 +50,19 @@ Devices leverage several states which track their registration and connectivity 
 
 ![](/images/devices/status-fsm.png)
 
-Devices begin in the `inactive` state. During the Miru agent install process, the device briefly enters the `activating` state before transitioning to `online`.
+Devices begin in the `inactive` state. During the Miru agent install process, devices briefly enter the `activating` state before transitioning to `online`.
 
-Once the Miru agent has been activated on a device, the device remains `online` or `offline` for the remainder of its existence--devices never transition back to `inactive` or `activating`.
+Once the Miru agent has been activated on a device, the device remains `online` or `offline` for the remainder of its existence--devices don't transition back to `inactive` or `activating`.
 
-The only exception to this is when a device is [reactivated](/docs/guides/devices/manage#reactivate-a-device). During reactivation, the device will briefly enter the `activating` state before transitioning back to `online`.
+The only exception to this is when a device is [reactivated](/docs/guides/devices/manage#reactivate-a-device). During reactivation, the device briefly enters the `activating` state before transitioning back to `online`.
 
 To view the status of a device, simply hover over the device's name on the [Devices page](/docs/guides/devices/overview#devices-page).
 
 <Frame>
   ![](/images/devices/status-hover.png)
 </Frame>
+
+## Current release
 
 ## Properties
 
