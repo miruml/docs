@@ -3,8 +3,9 @@ Workspace
 ---
 
 import LeaveWorkspace from '/snippets/workspaces/leave.mdx';
-import {MutableBadge} from '/snippets/components/badges.jsx';
 import WorkspaceDef from '/snippets/definitions/workspace.mdx';
+import {OWNER_TOOLTIP, ADMIN_TOOLTIP} from '/snippets/components/users/roles.jsx';
+import {MutableBadge} from '/snippets/components/badges.jsx';
 import {Framed} from '/snippets/components/framed.jsx';
 
 <Framed 
@@ -17,8 +18,6 @@ import {Framed} from '/snippets/components/framed.jsx';
 <WorkspaceDef />
 
 ## Properties
-
-Workspaces themselves are straightforward since they all other resources are contained within them.
 
 <ParamField path="name">
 
@@ -33,8 +32,8 @@ Examples: `Miru`
 ## Update the workspace name
 
 To be able to update the workspace name, you must have one of the following roles:
-- Admin
-- Owner
+- <Tooltip tip={ADMIN_TOOLTIP.tip} cta={ADMIN_TOOLTIP.cta} href={ADMIN_TOOLTIP.href}>Admin</Tooltip>
+- <Tooltip tip={OWNER_TOOLTIP.tip} cta={OWNER_TOOLTIP.cta} href={OWNER_TOOLTIP.href}>Owner</Tooltip>
 
 To update your workspace's name, navigate to the [workspace](https://app.miruml.com/settings/workspace) page. 
 

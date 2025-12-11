@@ -25,7 +25,7 @@ export const MutableBadge = ({ size = "sm" }) => {
 export const ImmutableBadge = ({ size = "sm" }) => {
     return (
         <Tooltip tip="Property cannot be modified">
-            <Badge disabled icon="lock" color="gray" size={size}>immutable</Badge>
+            <Badge icon="lock" color="gray" size={size}>immutable</Badge>
         </Tooltip>
     );
 };
