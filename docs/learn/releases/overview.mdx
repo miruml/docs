@@ -2,4 +2,42 @@
 title: "Overview"
 ---
 
+import {Framed} from '/snippets/components/framed.jsx';
+import {ImmutableBadge, EditableBadge} from '/snippets/components/badges.jsx';
+import ReleaseDef from '/snippets/definitions/release.mdx';
+
+<Framed 
+  background="/images/releases/background.jpeg"
+  image="/images/releases/header:page.png"
+  borderWidth="36px 0 0 56px"
+  innerRadius="8px 0 0 0"
+/>
+
+<ReleaseDef />
+
 ## Properties
+
+The following properties are used to identify and manage a release. 
+
+<ParamField path="version">
+
+<ImmutableBadge />
+
+
+</ParamField>
+
+<ParamField path="config schemas">
+
+<ImmutableBadge />
+
+The config schemas associated with the release.
+
+</ParamField>
+
+<ParamField path="custom validation enabled">
+
+<EditableBadge />
+
+Whether custom validation is enabled for the release.
+
+</ParamField>

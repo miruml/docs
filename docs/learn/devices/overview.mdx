@@ -6,7 +6,7 @@ import DeviceDef from '/snippets/definitions/device.mdx'
 import SupportPlatforms from '/snippets/agent/supported-platforms.mdx';
 
 import {ParamField} from '/snippets/components/param-field.jsx';
-import {MutableBadge} from '/snippets/components/badges.jsx';
+import {MutableBadge, EditableBadge, NullableBadge} from '/snippets/components/badges.jsx';
 import {Framed} from '/snippets/components/framed.jsx';
 
 <Framed 
@@ -24,7 +24,7 @@ The following properties are used to identify and manage a device.
 
 <ParamField path="name">
 
-<MutableBadge />
+<EditableBadge />
 
 A human-readable display name that can contain most characters such as spaces, special characters, and punctuation. Must contain between 1 and 48 characters.
 
@@ -36,15 +36,25 @@ Examples: `Robot 11`, `ArcticBlaze`, `Scooby Doo`
 
 <MutableBadge />
 
-The [status](/docs/guides/devices/overview#status) of the device.
+The status of the device.
 
 Examples: `inactive`, `activating`, `online`, `offline`
 
 </ParamField>
 
-<ParamField path="current_release_id">
+<ParamField path="agent version">
 
-<MutableBadge />
+<MutableBadge />{' '}<NullableBadge />
+
+The version of the Miru Agent running on the device.
+
+Examples: `v0.6.0`
+
+</ParamField>
+
+<ParamField path="current release">
+
+<EditableBadge />{' '}<NullableBadge />
 
 The current release of the device.
 
@@ -56,7 +66,7 @@ Examples: `inactive`, `activating`, `online`, `offline`
 
 Configurations are deployed to devices via the [Miru Agent](/docs/developers/agent/intro), a lightweight `systemd` service that runs on your devices, handling the deployment lifecycle of configurations. 
 
-The Miru agent offers the following functionality:
+The Miru Agent offers the following functionality:
 
 - **Syncs configurations** from the cloud to the local filesystem in real-time
 - **Manages device state**, providing real-time updates of the device's status and the currently deployed configurations
@@ -72,16 +82,16 @@ Devices leverage several states to track their registration and connectivity wit
 
 | Status | Description |
 |--------|-------------|
-| `inactive` | Device has been created; Miru agent has not been installed |
-| `activating` | The Miru agent is registering itself with Miru servers |
+| `inactive` | The Miru Agent has not yet been installed and authenticated |
+| `activating` | The Miru Agent is registering itself with Miru servers |
 | `online` | Device is currently connected to Miru's servers |
 | `offline` | Device has lost connection to Miru's servers |
 
 ![](/images/devices/status-fsm.png)
 
-Devices begin in the `inactive` state. During the Miru agent install process, devices briefly enter the `activating` state before transitioning to `online`.
+Devices begin in the `inactive` state. During the Miru Agent install process, devices briefly enter the `activating` state before transitioning to `online`.
 
-Once the Miru agent has been activated on a device, the device remains `online` or `offline` for the remainder of its existence--devices don't transition back to `inactive` or `activating`.
+Once the Miru Agent has been activated on a device, the device remains `online` or `offline` for the remainder of its existence--devices don't transition back to `inactive` or `activating`.
 
 The only exception to this is when a device is [reactivated](/docs/guides/devices/manage#reactivate-a-device). During reactivation, devices briefly enter the `activating` state before transitioning back to `online`.
 

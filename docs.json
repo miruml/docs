@@ -54,7 +54,8 @@
                 "pages": [
                   "docs/learn/releases/overview",
                   "docs/learn/releases/manage",
-                  "docs/learn/releases/stage-deployments"
+                  "docs/learn/releases/stage-deployments",
+                  "docs/learn/releases/custom-validation"
                 ]
               },
               {
@@ -88,7 +89,8 @@
                 ]
               },
               "docs/developers/cli",
-              "docs/developers/server-side-api"
+              "docs/developers/server-side-api",
+              "docs/developers/webhooks"
             ]
           },
           {

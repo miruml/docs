@@ -21,7 +21,7 @@ To view a schema in Miru, navigate to the [Config Types page](https://app.miruml
   ![](https://assets.miruml.com/docs/images/config-schemas/list.png)
 </Frame>
 
-Clicking a schema will bring up the schema details panel. Select the **Content** tab to view the schema's content and select the **Metadata** tab to view the schemas metadata.
+Clicking a schema opens the schema details panel. The **Content** tab contains the schema's content while the **Metadata** tab contains the schema's metadata.
 
 <Frame>
   ![](https://assets.miruml.com/docs/images/config-schemas/panel.png)
@@ -29,11 +29,11 @@ Clicking a schema will bring up the schema details panel. Select the **Content**
 
 ## Edit a schema
 
-Most config schema properties are immutable. However, some properties, such as the `instance_filepath`, may be updated after schema creation. 
+Most config schema properties are immutable. However, some properties, such as the `instance file path`, may be updated after schema creation. 
 
-Editing the `instance_filepath` property does not affect existing config instances, including those which have been staged for a future deployment. 
+Editing the `instance file path` property does not affect existing config instances, including those which have been staged for the future. 
 
-However, any config instances created after the `instance_filepath` property is updated will be deployed to the file path specified in the updated `instance_filepath` property.
+However, any config instances created after the `instance file path` property is updated will be deployed to the file path specified in the updated `instance file path` property.
 
 For a full reference of editable properties, look for the <MutableBadge size="xs"/> badge in the [properties](/docs/guides/schemas/overview#properties) section of the schema overview.
 

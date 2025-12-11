@@ -3,8 +3,7 @@ title: "Overview"
 ---
 
 import ConfigSchemaDef from '/snippets/definitions/config-schema.mdx';
-import ConfigSchemaExamples from '/snippets/definitions/config-schema-examples.mdx';
-import {MutableBadge, ImmutableBadge} from '/snippets/components/badges.jsx';
+import {MutableBadge, ImmutableBadge, EditableBadge} from '/snippets/components/badges.jsx';
 import {Framed} from '/snippets/components/framed.jsx';
 
 <Framed 
@@ -76,24 +75,20 @@ The exact contents of a schema file is preserved in Miru including any comments,
 
 A hash of the canonicalized schema content.
 
-Digests are computed by converting a schema to a canonical format and hashing the result. This is useful for detecting duplicate schemas (even with changes in whitespacing, comments, etc.) and ensuring version integrity.
+Digests are computed by converting a schema to a canonical format--a format which disregards whitespace, comments, and other non-semantic differences--and hashing the result. This is useful for comparing schemas and detecting duplicates.
 
 Examples: `sha256:45YeoJJ2btBnAKQztAEXEjHsqyyQfC1z1Mw3LLM4xMUy`
 
 </ParamField>
 
 
-<ParamField path="instance_filepath">
+<ParamField path="instance filepath">
 
-<MutableBadge />
+<EditableBadge />
 
-The filepath to deploy config instances (for this schema) on a device relative to the `/srv/miru/config_instances` directory. 
+The instance file path is the file path to deploy config instances (for this schema) on a device relative to the `/srv/miru/config_instances` directory. 
 
 The default instance file path for a schema is `{my-config-type-slug}.json`, which deploys config instances to `/srv/miru/config_instances/{my-config-type-slug}.json`.
-
-Individual config instances may override their schema's default file path with a custom file path at deployment time. 
-
-To modify the file path deployed for all future instances of this schema, simply update the `instance_filepath` property.
 
 Examples: `/v1/mobility.json`, `/config/safety.json`
 </ParamField>
@@ -108,11 +103,7 @@ Miru supports:
 
 For more information on schema languages, visit the [languages](/docs/guides/schemas/languages) section of this guide. 
 
-## Examples
-
-<ConfigSchemaExamples />
-
-## Validating instances
+## Validating configs
 
 The primary purpose of schemas is to validate config instances. Let's look at a simple example to see this in action.
 
@@ -200,7 +191,7 @@ Although simple in concept, schemas are a powerful tool for preventing typos, mi
 
 ## Empty schemas
 
-While schemas can provide a lot of value for production deployments, it can be a significant undertaking to define a schema from scratch.
+While schemas provide a lot of value for production deployments, it can be a significant undertaking to define one from scratch.
 
 Many teams find it best to begin with an empty schema--a schema that accepts any configuration--and gradually add constraints over time. This approach allows you to define the most high value constraints first and gradually transition to stricter and stricter schemas as needed.
 

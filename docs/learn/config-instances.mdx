@@ -2,10 +2,87 @@
 title: "Config instances"
 ---
 
+import ConfigInstanceDef from '/snippets/definitions/config-instance.mdx';
+import {EditableBadge, MutableBadge, ImmutableBadge} from '/snippets/components/badges.jsx';
+import {Framed} from '/snippets/components/framed.jsx';
+
+<Framed 
+  background="https://assets.miruml.com/docs/images/config-instances/background.jpeg"
+  image="https://assets.miruml.com/docs/images/config-instances/header:mobility-edit.png"
+  borderWidth="24px 0 0 32px"
+  innerRadius="8px 0 0 0"
+/>
+
+<ConfigInstanceDef />
+
+## Properties
+
+The following properties are used to identify and manage a release. 
+
+<ParamField path="target status">
+
+<EditableBadge />
+
+</ParamField>
+
+<ParamField path="activity status">
+
+<MutableBadge />
+
+</ParamField>
+
+<ParamField path="error status">
+
+<MutableBadge />
+
+</ParamField>
+
+<ParamField path="status">
+
+<MutableBadge />
+
+</ParamField>
+
+<ParamField path="content">
+
+<ImmutableBadge />
+
+</ParamField>
+
+<ParamField path="filepath">
+
+<ImmutableBadge />
+
+</ParamField>
+
+<ParamField path="config schema">
+
+<ImmutableBadge />
+
+</ParamField>
+
+<ParamField path="device">
+
+<ImmutableBadge />
+
+</ParamField>
+
+<ParamField path="owner">
+
+<MutableBadge />
+
+</ParamField>
+
+<ParamField path="origin">
+
+<ImmutableBadge />
+
+</ParamField>
+
 ## Target Status
 
 ## Activity Status
 
 ## Error Status
 
-## Properties
+## Owners and Origins

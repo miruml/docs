@@ -3,7 +3,7 @@ title: "Config types"
 ---
 
 import ConfigTypeDef from '/snippets/definitions/config-type.mdx';
-import {MutableBadge, ImmutableBadge} from '/snippets/components/badges.jsx';
+import {ImmutableBadge, EditableBadge} from '/snippets/components/badges.jsx';
 import {Framed} from '/snippets/components/framed.jsx';
 
 <Framed 
@@ -22,7 +22,7 @@ The following properties are used to identify and manage a config type.
 
 <ParamField path="name">
 
-<MutableBadge />
+<EditableBadge />
 
 A human-readable display name that can contain most characters such as spaces, special characters, and punctuation. Must contain between 1 and 48 characters.
 
@@ -42,7 +42,7 @@ Slugs are immutable and must satisfy the following constraints:
 - Start and end with a lowercase letter or digit
 - Contain between 1 and 48 characters
 
-Slugs are primarily used in code to reference config types in a human-readable format. For instance, config schemas are annotated with a config type slug to associate the schema with the corresponding config type.
+Slugs are primarily used in code to reference config types in a human-readable format. For instance, config schemas are annotated with a config type slug to associate it with its proper config type.
 
 
 Examples: `mobility`, `safety-features`, `perception`

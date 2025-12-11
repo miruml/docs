@@ -1,13 +1,3 @@
-A **release** is a version of software and its compatible config schemas.
+import ReleaseDef from '/snippets/definitions/release.mdx';
 
-Amongst a fleet of robots, multiple software versions may be deployed. Each release defines which config schema versions are valid for that software version.
-
-For example, software release `v1.7.0` might specify the following schema versions.
-
-| **Config Type** | **Schema Version** |
-|----------------|-------------------|
-| `Mobility`       | `v1.2`            |
-| `Perception`   | `v1.3`            |
-| `Manipulation` | `v1.1`            |
-
-Before deploying config instances to a device, the device's current release (`v1.7.0`) is used to validate that the deployment contains all necessary config instances and that each instance satisfies the release's schemas.
+<ReleaseDef />

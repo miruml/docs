@@ -53,15 +53,15 @@ Miru offers several schema annotations to keep track of schema metadata and depl
 
 ### Metadata
 
-When pushing a schema to Miru, the CLI automatically captures the following git metadata from the local git repository that the CLI is run from:
+When pushing a schema to Miru, the CLI captures git metadata from the local git repository the CLI is run from:
 
 - **Commit SHA** - the SHA of the current commit that the schema is defined in
 - **Origin URL** - the remote URL of the git repository
 - **File path** - the path to the schema file within the repo
 
-This metadata is then available in the dashboard for each schema, making it easy to trace where schemas in Miru originated from.
+This metadata is then made available in the dashboard for each schema, making it easy to trace where schemas originated from.
 
-It's important to reiterate that Miru does not directly integrate with your hosted git repository provider (GitHub, GitLab, Bitbucket, etc.). It only captures the git metadata from the local git repository that the CLI is run from.
+It's important to reiterate that Miru does not directly integrate with your hosted git repository provider (GitHub, GitLab, Bitbucket, etc.). It only captures git metadata from the local git repository the CLI is run from.
 
 ### Requirements
 

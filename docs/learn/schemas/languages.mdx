@@ -6,7 +6,7 @@ import {Framed} from '/snippets/components/framed.jsx';
 
 
 
-A schema language is a formal language for describing the structure, constraints, and data types of a configuration. Miru config schemas are defined in a supported schema language to validate configurations before deployment.
+A schema language is a formal language for describing the structure, constraints, and data types of a configuration. Config schemas are defined in one of the supported schema languages to validate config instances before deployment.
 
 Currently, the following languages are supported:
 
@@ -14,7 +14,9 @@ Currently, the following languages are supported:
 - [CUE](https://cuelang.org/)
 
 
-This section covers key integration points for a each language. For more general information about the strengths and weaknesses of each language, check out our blog post comparing JSON Schema, CUE, and Protocol Buffers: [Config Wars](https://www.mirurobotics.com/blog/config-wars-chapter-1-intro-to-schemas).
+This section covers key integration points for each language. 
+
+For general information on the strengths and weaknesses of each language, check out our [blog post](https://www.mirurobotics.com/blog/config-wars-chapter-1-intro-to-schemas) comparing JSON Schema, CUE, and Protocol Buffers.
 
 
 ## JSON Schema
@@ -25,12 +27,12 @@ This section covers key integration points for a each language. For more general
   borderWidth={"0px"}
 />
 
-[JSON Schema](https://json-schema.org/) is probably the most popular schema language. With origins dating back to 2010, JSON Schema was originally built for API validation, but has since found its way into configuration systems across web, cloud, and robotics infrastructure.
+[JSON Schema](https://json-schema.org/) is probably the most popular schema language. With origins dating back to 2010, JSON Schema was originally built for API validation. Since then, it has found its way into configuration systems across web, cloud, and robotics infrastructure.
 
 
 ### Example
 
-Below is an example JSON Schema to give you a flavor of what JSON Schema looks like.
+Below is an example JSON Schema to give you a flavor of what JSON Schema looks like:
 
 ```yaml JSON Schema [expandable]
 $schema: "https://json-schema.org/draft/2020-12/schema"
@@ -167,7 +169,7 @@ For a comprehensive list of JSON Schema keywords, visit the [official JSON Schem
 
 While JSON Schema has a variety of drafts, only [Draft 2020-12](https://json-schema.org/draft/2020-12), the most recent stable draft, is supported.
 
-When specifying the `$schema` keyword in a schema (which is recommended), it must be set to the following value:
+When specifying the `$schema` keyword in a schema, it must be set to the following value:
 
 ```yaml
 $schema: "https://json-schema.org/draft/2020-12/schema"
@@ -177,30 +179,22 @@ $schema: "https://json-schema.org/draft/2020-12/schema"
   If the `$schema` keyword is omitted from a schema, the schema is automatically interpreted as Draft 2020-12.
 </Note>
 
-### Keywords
-
-The full suite of Draft 2020-12 keywords are supported.
-
-For a comprehensive list of JSON Schema keywords, visit the [official JSON Schema website](https://json-schema.org/understanding-json-schema/keywords). We also find the [official test suite](https://github.com/json-schema-org/JSON-Schema-Test-Suite/tree/main/tests/draft2020-12) highly useful, containing a vast number of simple JSON Schema examples.
-
 ### File formats
 
-While JSON Schema was originally built for JSON data, it is not exclusive to JSON. As you may have noticed, we're partial to writing JSON Schema in YAML for readability (no excessive brackets and we can use comments!).
-
-JSON Schema can be written in the following formats:
+While JSON Schema was originally built for JSON data, it is not exclusive to JSON. JSON Schema may be uploaded to Miru in the following formats:
 
 - **JSON** (`.json`)
 - **YAML** (`.yaml`, `.yml`)
 
-Schemas defined in JSON Schema can validate instances in the following formats:
+The format of a schema does not need to match the format of the config instance it validates. For example, a YAML formatted JSON Schema can validate a JSON formatted config instance. 
+
+JSON Schemas can validate config instances in the following formats:
 
 - **JSON** (`.json`)
 
 <Note>
   Support for more instance formats including YAML and JSON-C are coming soon.
 </Note>
-
-The format of a schema does not need to match the format of the config instance it validates. For example, a YAML formatted JSON Schema can validate a JSON formatted config instance.
 
 ## CUE
 <Framed 
@@ -209,7 +203,7 @@ The format of a schema does not need to match the format of the config instance 
   borderWidth={"0px"}
 />
 
-[CUE](https://cuelang.org/) (Configure, Unify, Execute) is another opens-source schema language, useful for defining valid fields, types, and values for a config.
+[CUE](https://cuelang.org/) (Configure, Unify, Execute) is another well-regarded schema language, useful for defining valid fields, types, and values for a config.
 
 CUE was developed at Google by Marcel van Lohuizen, one of the original creators of Go. The original motivation stemmed from Google's internal struggles in managing complex, large-scale configurations for infrastructure and applications. JSON and YAML were too weak for expressing constraints, logic, or composition, so CUE set out to solve that.
 
@@ -217,7 +211,7 @@ Instead of building and managing external tools to validate, patch, or generate 
 
 ### Example
 
-Below is an example CUE schema to give you a flavor of what CUE looks like.
+Below is an example CUE schema:
 
 ```cue CUE [expandable]
 @miru(config_type="communication")
@@ -255,11 +249,11 @@ Although many of CUE's capabilities are omitted in this example, you'll find som
 - enumerations - `| "value1" | "value2" | "value3"`
 - intersection of constraints - `&`
 
-As you can see, CUE inlines constraints directly with type definitions, making schemas significantly more concise than JSON Schema. For more information on the supported features of CUE, visit the [official CUE website](https://cuelang.org/docs/references/syntax/constraints).
+As you can see, CUE inlines constraints directly with type definitions, making schemas significantly more concise than JSON Schema. For more information on the supported features of CUE, check out the [CUE tour](https://cuelang.org/docs/tour/) on the official CUE website.
 
 ### CUE version
 
-Miru fully supports CUE and stays up to date with the latest CUE features and syntax. As of writing, Miru uses CUE API [`v0.14.2`](https://github.com/cue-lang/cue/releases/tag/v0.14.2).
+Miru fully supports CUE and stays up to date with the latest CUE features and syntax. Currently, Miru uses CUE API [`v0.14.2`](https://github.com/cue-lang/cue/releases/tag/v0.14.2).
 
 ### File formats
 
@@ -267,7 +261,7 @@ Unlike JSON Schema, CUE can only be written in the CUE file format and must have
 
 - **CUE** (`.cue`)
 
-Similar to JSON Schema though, CUE schemas can validate config instances in the following formats:
+Similar to JSON Schema though, CUE schemas can validate config instances in formats besides CUE itself. The following formats are supported:
 
 - **JSON** (`.json`)
 
