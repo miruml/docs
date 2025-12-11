@@ -22,7 +22,7 @@ import {Framed} from '/snippets/components/framed.jsx';
 
 The following properties are used to identify and manage a device. 
 
-<ParamField path="name">
+<ParamField path="name" type="string">
 
 <EditableBadge />
 
@@ -32,7 +32,7 @@ Examples: `Robot 11`, `ArcticBlaze`, `Scooby Doo`
 
 </ParamField>
 
-<ParamField path="status">
+<ParamField path="status" type="string">
 
 <MutableBadge />
 
@@ -42,23 +42,27 @@ Examples: `inactive`, `activating`, `online`, `offline`
 
 </ParamField>
 
-<ParamField path="agent version">
+<ParamField path="agent version" type="string">
 
 <MutableBadge />{' '}<NullableBadge />
 
 The version of the Miru Agent running on the device.
 
+The agent version exists only if the device has a status of `online` or `offline`. If the device is `inactive` or `activating`, the agent version is `null`.
+
 Examples: `v0.6.0`
 
 </ParamField>
 
-<ParamField path="current release">
+<ParamField path="current release id" type="string">
 
 <EditableBadge />{' '}<NullableBadge />
 
-The current release of the device.
+The ID of the release that the device's deployed config instances adhere to. 
 
-Examples: `inactive`, `activating`, `online`, `offline`
+If the device is `inactive` or `activating`, the current release id is `null`. If the device is `online` or `offline`, the current release may still be `null` if the device has no deployed config instances.
+
+Examples: `rls_123`
 
 </ParamField>
 
@@ -100,6 +104,3 @@ To view the status of a device, simply hover over the device's name on the [Devi
 <Frame>
   ![](/images/devices/status-hover.png)
 </Frame>
-
-## Current release
-

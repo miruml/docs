@@ -4,6 +4,7 @@ title: "Overview"
 
 import {Framed} from '/snippets/components/framed.jsx';
 import {ImmutableBadge, EditableBadge} from '/snippets/components/badges.jsx';
+import {CUSTOM_VALIDATION_TOOLTIP} from '/snippets/components/releases/cus-val.jsx';
 import ReleaseDef from '/snippets/definitions/release.mdx';
 
 <Framed 
@@ -19,25 +20,34 @@ import ReleaseDef from '/snippets/definitions/release.mdx';
 
 The following properties are used to identify and manage a release. 
 
-<ParamField path="version">
+<ParamField path="version" type="string">
 
 <ImmutableBadge />
 
+A [semantic version](https://semver.org/), unique for a given release.
+
+Versions must be dot-separated integers. You may optionally use a `v` prefix, a prerelease suffix (e.g. `-alpha.X`, `-beta.X`, `-rc.X`), or a build suffix (e.g. `+build-metadata`).
+
+Examples: `v1`, `1`, `v2.1`, `2.1`, `v3.2.1`, `3.2.1`, `v4.3.2-beta.1`, `4.3.2-rc.1`, `v5.4.3+metadata`, `6.5.4-beta.2+metadata`
 
 </ParamField>
 
-<ParamField path="config schemas">
+<ParamField path="config schema ids" type="[]string">
 
 <ImmutableBadge />
 
-The config schemas associated with the release.
+The IDs of the config schemas which define the release.
+
+Examples: `SCH-FmoDN`, `SCH-3JcLq`, `SCH-HHDRn`
 
 </ParamField>
 
-<ParamField path="custom validation enabled">
+<ParamField path="custom validation enabled" type="boolean">
 
 <EditableBadge />
 
-Whether custom validation is enabled for the release.
+Whether <Tooltip tip={CUSTOM_VALIDATION_TOOLTIP.tip} cta={CUSTOM_VALIDATION_TOOLTIP.cta} href={CUSTOM_VALIDATION_TOOLTIP.href}>custom validation</Tooltip> is enabled for the release.
+
+Examples: `true`, `false`
 
 </ParamField>

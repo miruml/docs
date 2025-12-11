@@ -21,7 +21,7 @@ Config schemas leverage several properties to adequately describe their format a
 
 All properties are immutable except for the `instance_filepath` property, which may be updated at anytime.
 
-<ParamField path="language">
+<ParamField path="language" type="string">
 
 <ImmutableBadge />
 
@@ -31,11 +31,11 @@ Currently supported schema languages include:
 - JSON Schema (Draft 2020-12)
 - CUE
 
-Examples: `jsonschema`, `cue`
+Enum: `jsonschema`, `cue`
 
 </ParamField>
 
-<ParamField path="format">
+<ParamField path="format" type="string">
 
 <ImmutableBadge />
 
@@ -58,7 +58,7 @@ Examples: `json`, `yaml`, `cue`
 
 </ParamField>
 
-<ParamField path="content">
+<ParamField path="content" type="string">
 
 <ImmutableBadge />
 
@@ -69,7 +69,7 @@ The exact contents of a schema file is preserved in Miru including any comments,
 
 </ParamField>
 
-<ParamField path="digest">
+<ParamField path="digest" type="string">
 
 <ImmutableBadge />
 
@@ -82,7 +82,7 @@ Examples: `sha256:45YeoJJ2btBnAKQztAEXEjHsqyyQfC1z1Mw3LLM4xMUy`
 </ParamField>
 
 
-<ParamField path="instance filepath">
+<ParamField path="instance file path" type="string">
 
 <EditableBadge />
 
