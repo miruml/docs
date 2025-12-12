@@ -1,0 +1,101 @@
+---
+title: "Deployments"
+---
+
+import DeploymentDef from '/snippets/definitions/deployment.mdx';
+import {EditableBadge, MutableBadge, ImmutableBadge} from '/snippets/components/badges.jsx';
+
+<DeploymentDef />
+
+## Properties
+
+<ParamField path="description" type="string">
+
+<ImmutableBadge />
+
+</ParamField>
+
+<ParamField path="target status" type="string">
+
+<EditableBadge />
+
+</ParamField>
+
+<ParamField path="activity status" type="string">
+
+<MutableBadge />
+
+</ParamField>
+
+<ParamField path="error status" type="string">
+
+<MutableBadge />
+
+</ParamField>
+
+<ParamField path="status" type="string">
+
+<MutableBadge />
+
+</ParamField>
+
+<ParamField path="release id" type="string">
+
+<ImmutableBadge />
+
+</ParamField>
+
+<ParamField path="config instances">
+
+<ImmutableBadge />
+
+</ParamField>
+
+## Target Status
+
+The target status is the desired state of a config instance. There are three possible target statuses.
+
+| Target Status | Description |
+|---------------|-------------|
+| `created`     | Config instance doesn't want to be deployed yet but may be deployed in the future |
+| `deployed`    | Config instance wants to be available on its device |
+| `archived`     | Config instance no longer wants to be deployed; can never be deployed again |
+
+Below is a diagram of valid transitions between target statuses.
+
+![](/images/config-instances/target-status-fsm.png)
+
+As you can see, the target status can only move *forward*, never backwards.
+
+Once a config instance's target status has been set to `deployed`, it can never be set to `created` again.  Similarly, once a config instance's target status has been set to `archived`, it can never be set to `deployed` again.
+
+This is intentional--config instances are one-time use. Once a config instance has been deployed, it can never be deployed again. You must create a new config instance with identical content to roll back.
+
+## Activity Status
+
+The activity status is the *last known* state of a config instance.
+
+We use last known state very intentionally--poor network connectivity can prevent devices from immediately syncing their activity state with the cloud. 
+
+For example, the Miru Agent may recieve a signal to deploy a config instance and successfully downloads the configuration and makes it available on the device. However, during this short window, the device's network connection is interrupted, preventing it from sending the updated activity state back to the cloud.
+
+In practice the activity state is nearly always in sync with the cloud due to the brevity of the window in which such a scenario could occur. However, it's a critical point to keep in mind.
+
+
+![](/images/config-instances/activity-status-fsm.png)
+
+Although rare, it is possible for the activity state in the cloud to differ from the activity state on the device. For instance, a device may recieve a config instance whose desired state is `deployed` but the 
+
+### Declarative approach
+
+Using a dedicated target status for config instances is a key design decision for ensuring robust delivery of configurations. 
+
+By *declaring* the desired state of a config instance, the Miru Agent is free to take whatever actions necessary to achieve the desired state for a config instance.
+
+Network drops, sudden power cycles, and other edge cases are all gracefully retried by the Miru Agent. The agent simply retries (with an exponential backoff) until the desired state is achieved.
+
+The target *declaring* the desired state of a config instance, the Miru Agent is well equipped to handle errors and edge cases in any way possible
+
+This declarative approach for config instances allows the agent to be much more robust to errors and edge cases in the deployment process. Poor network conditions and sudden power cycles can easily be handled by 
+
+## Error Status

@@ -12,7 +12,6 @@ import { Framed } from '/snippets/components/framed.jsx';
   innerRadius={"0 8px 0 0"}
 />
 
-
 ## View a schema
 
 To view a schema in Miru, navigate to the [Config Types page](https://app.miruml.com/configs) and click into the config type which contains the schema you want to view.
@@ -21,33 +20,28 @@ To view a schema in Miru, navigate to the [Config Types page](https://app.miruml
   ![](https://assets.miruml.com/docs/images/config-schemas/list.png)
 </Frame>
 
-Clicking a schema opens the schema details panel. The **Content** tab contains the schema's content while the **Metadata** tab contains the schema's metadata.
+Clicking a schema opens the schema details panel with various information about the schema. 
 
-<Frame>
-  ![](https://assets.miruml.com/docs/images/config-schemas/panel.png)
-</Frame>
 
-## Edit a schema
+The **Content** tab contains the schema's content while the **Metadata** tab contains the schema's metadata and it's git history.
 
-Most config schema properties are immutable. However, some properties, such as the `instance file path`, may be updated after schema creation. 
-
-Editing the `instance file path` property does not affect existing config instances, including those which have been staged for the future. 
-
-However, any config instances created after the `instance file path` property is updated will be deployed to the file path specified in the updated `instance file path` property.
-
-For a full reference of editable properties, look for the <MutableBadge size="xs"/> badge in the [properties](/docs/guides/schemas/overview#properties) section of the schema overview.
-
-To edit a schema, click the ellipses (...) on the schema you want to edit and hit **Edit**.
-
-<Frame>
-  ![](https://assets.miruml.com/docs/images/config-schemas/ellipses-dropdown.png)
-</Frame>
-
-Update the desired fields and hit **Save**.
-
-<Frame>
-  ![](https://assets.miruml.com/docs/images/config-schemas/edit-dialog.png)
-</Frame>
+<Tabs>
+  <Tab title="Content">
+    <Frame>
+      ![](https://assets.miruml.com/docs/images/config-schemas/panel.png)
+    </Frame>
+  </Tab>
+  <Tab title="Metadata">
+    <Frame>
+      ![](https://assets.miruml.com/docs/images/config-schemas/panel-metadata.png)
+    </Frame>
+  </Tab>
+  <Tab title="Git Commits">
+    <Frame>
+      ![](https://assets.miruml.com/docs/images/config-schemas/panel-git-commit.png)
+    </Frame>
+  </Tab>
+</Tabs>
 
 ## Delete a schema
 

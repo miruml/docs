@@ -1,0 +1,72 @@
+---
+title: "Staging area"
+---
+
+import { Framed } from '/snippets/components/framed.jsx';
+
+<Framed 
+  background="/images/releases/background.jpeg"
+  image="/images/releases/stage/header:page.png"
+  borderWidth="30px 0 0 48px"
+  innerRadius="8px 0 0 0"
+/>
+
+## Overview
+
+The staging area for a release is a place to create deployments in preparation for a future rollout.
+
+Deployments may freely be created without being deployed to devices, an ideal place to prepare and review deployments before being rolled out.
+
+Every release has its own staging area that is completely separate from other release's staging areas. As such, devices can have deployments staged for multiple releases at the same time.
+
+The staging area is also handy for batch operations. Deployments may be created, deployed, and archived in bulk, helpful for managing large numbers of deployments at once.
+
+## View the staging area
+
+To view a release's staging area, navigate to the [Releases page](https://app.miruml.com/releases) and click into a release.
+
+<Frame>
+  ![](https://assets.miruml.com/docs/images/releases/page.png)
+</Frame>
+
+Then select the **Stage** tab at the top of the page.
+
+<Frame>
+  ![](/images/releases/stage/page.png)
+</Frame>
+
+## Stage a deployment
+ 
+To stage a deployment, click the **Stage Deployment** button in the top right.
+
+A dialog will appear with tabs for each config schema defined in the release. The tabs are pre-populated with the schema's default values.
+
+<Frame>
+  ![](/images/releases/stage/stage-dialog-step1:configs.png)
+</Frame>
+
+Make any desired edits to the config instances in the deployment, enter a description at the bottom of the dialog, and hit **Next**.
+
+<Frame>
+  ![](/images/releases/stage/stage-dialog-step1:description.png)
+</Frame>
+
+Select the device(s) to stage this deployment for.
+
+If a device is unavailable for selection, that device currently has a `deployed` deployment for this release. To update the deployment for that device, make your edits in the device's [config editor](/docs/learn/deployments/config-editor).
+
+
+
+<Frame>
+  ![](/images/releases/stage/stage-dialog-step2:devices.png)
+</Frame>
+
+
+
+## View a deployment
+
+## Patch a deployment
+
+## Review a deployment
+
+## Archive a deployment

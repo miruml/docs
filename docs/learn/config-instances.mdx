@@ -5,12 +5,13 @@ title: "Config instances"
 import ConfigInstanceDef from '/snippets/definitions/config-instance.mdx';
 import {EditableBadge, MutableBadge, ImmutableBadge} from '/snippets/components/badges.jsx';
 import {Framed} from '/snippets/components/framed.jsx';
+import {CONFIG_INSTANCE_OWNER_TOOLTIP} from '/snippets/components/config_instances/owner.jsx';
 
 <Framed 
   background="https://assets.miruml.com/docs/images/config-instances/background.jpeg"
-  image="https://assets.miruml.com/docs/images/config-instances/header:mobility-edit.png"
-  borderWidth="24px 0 0 32px"
-  innerRadius="8px 0 0 0"
+  image="/images/config-instances/header:panel.png"
+  borderWidth="28px 56px 0 0"
+  innerRadius="0 8px 0 0"
 />
 
 <ConfigInstanceDef />
@@ -21,11 +22,19 @@ import {Framed} from '/snippets/components/framed.jsx';
 
 <EditableBadge />
 
+The [desired state](/docs/learn/deployments/overview#target-status) of the config instance, inherited from the config instance's <Tooltip tip={CONFIG_INSTANCE_OWNER_TOOLTIP.tip} cta={CONFIG_INSTANCE_OWNER_TOOLTIP.cta} href={CONFIG_INSTANCE_OWNER_TOOLTIP.href}>owner</Tooltip>.
+
+Enum: `created`, `deployed`, `removed`
+
 </ParamField>
 
 <ParamField path="activity status" type="string">
 
 <MutableBadge />
+
+The last known [activity state](/docs/learn/deployments/overview#activity-status) of the config instance, inherited from the config instance's <Tooltip tip={CONFIG_INSTANCE_OWNER_TOOLTIP.tip} cta={CONFIG_INSTANCE_OWNER_TOOLTIP.cta} href={CONFIG_INSTANCE_OWNER_TOOLTIP.href}>owner</Tooltip>.
+
+Enum: `created`, `queued`, `deployed`, `removed`
 
 </ParamField>
 
@@ -33,17 +42,38 @@ import {Framed} from '/snippets/components/framed.jsx';
 
 <MutableBadge />
 
+The last known [error state](/docs/learn/deployments/overview#error-status) of the config instance, inherited from the config instance's <Tooltip tip={CONFIG_INSTANCE_OWNER_TOOLTIP.tip} cta={CONFIG_INSTANCE_OWNER_TOOLTIP.cta} href={CONFIG_INSTANCE_OWNER_TOOLTIP.href}>owner</Tooltip>.
+
+Enum: `none`, `failed`, `retrying`
+
 </ParamField>
 
 <ParamField path="status" type="string">
 
 <MutableBadge />
 
+This property merges the `activity status` and `error status`
+fields, with error states taking precedence over activity states when errors
+are present. 
+
+Below are some examples of the status given different activity and error states.
+
+| Activity Status | Error Status | Status |
+|-----------------|--------------|--------|
+| `created`       | `none`       | `created` |
+| `deployed`      | `none`       | `deployed` |
+| `queued`        | `retrying`   | `retrying` |
+| `removed`       | `failed`     | `failed` |
+
+Enum: `created`, `queued`, `deployed`, `removed`, `failed`, `retrying`
+
 </ParamField>
 
-<ParamField path="content" type="string">
+<ParamField path="content" type="object">
 
 <ImmutableBadge />
+
+The configuration values that are deployed to the device in the format of a JSON object.
 
 </ParamField>
 
@@ -51,36 +81,58 @@ import {Framed} from '/snippets/components/framed.jsx';
 
 <ImmutableBadge />
 
+The file path is to the config instance is deployed to relative to the `/srv/miru/config_instances` directory.
+
+A file path of `/v1/motion-control.json` deploys the config instance to `/srv/miru/config_instances/v1/motion-control.json`.
+
 </ParamField>
 
-<ParamField path="config schema id" type="string">
+<ParamField path="config schema" type="Config Schema">
 
 <ImmutableBadge />
 
+The [config schema](/docs/learn/schemas/overview#properties) which the config instance must adhere to.
+
+Examples: `SCH-FmoDN`, `SCH-3JcLq`, `SCH-HHDRn`
+
 </ParamField>
 
-<ParamField path="device id" type="string">
+<ParamField path="device" type="Device">
 
 <ImmutableBadge />
 
+The [device](/docs/learn/devices/overview#properties) which the config instance is deployed to.
+
+Examples: `Sojourner`, `Johnny Test`, `Robot 11`
+
 </ParamField>
 
-<ParamField path="owner id" type="string">
+<ParamField path="owner" type="Deployment">
 
 <MutableBadge />
 
+The deployment that a config instance currently belongs to. Visit the [owner](/docs/learn/config-instances#owner) section for more information.
+
+Examples: `DPL-123`, `DPL-456`, `DPL-789`
+
 </ParamField>
 
-<ParamField path="origin id" type="string">
+<ParamField path="origin" type="Deployment">
 
 <ImmutableBadge />
 
+The deployment with which the config instance was created. Visit the [origin](/docs/learn/config-instances#origin) section for more information.
+
+Examples: `DPL-123`, `DPL-456`, `DPL-789`
+
 </ParamField>
 
-## Target Status
+## Formats
 
-## Activity Status
+Currently, config instances only support JSON. 
 
-## Error Status
+However, support for more formats including YAML and JSON-C are coming soon!
 
-## Owners and Origins
+## Owner
+
+## Origin

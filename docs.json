@@ -39,7 +39,7 @@
           {
             "group": "Learn",
             "pages": [
-              "docs/learn/config-types",
+              "docs/learn/config-instances",
               {
                 "group": "Config schemas",
                 "pages": [
@@ -49,29 +49,23 @@
                   "docs/learn/schemas/manage"
                 ]
               },
-              {
-                "group": "Releases",
-                "pages": [
-                  "docs/learn/releases/overview",
-                  "docs/learn/releases/manage",
-                  "docs/learn/releases/stage-deployments"
-                ]
-              },
+              "docs/learn/config-types",
+              "docs/learn/deployments",
               {
                 "group": "Devices",
                 "pages": [
                   "docs/learn/devices/overview",
                   "docs/learn/devices/provision",
-                  "docs/learn/devices/manage"
+                  "docs/learn/devices/manage",
+                  "docs/learn/devices/config-editor"
                 ]
               },
-              "docs/learn/config-instances",
               {
-                "group": "Deployments",
+                "group": "Releases",
                 "pages": [
-                  "docs/learn/deployments/overview",
-                  "docs/learn/deployments/config-editor",
-                  "docs/learn/deployments/deployment-history"
+                  "docs/learn/releases/overview",
+                  "docs/learn/releases/manage",
+                  "docs/learn/releases/stage"
                 ]
               }
             ]
