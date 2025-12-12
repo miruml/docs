@@ -13,11 +13,11 @@ import { Framed } from '/snippets/components/framed.jsx';
 
 ## Overview
 
-The staging area for a release is a place to create deployments in preparation for a future rollout.
+The staging area for a release is a place to create deployments in preparation for a future rollout. The staging area only contains `staged` deployments. Currently deployed and previously deployed deployments are not accessible in the staging area.
 
-Deployments may freely be created without being deployed to devices, an ideal place to prepare and review deployments before being rolled out.
+Deployments in the staging area can be freely created without being deployed to devices. This makes it an ideal place to prepare and review deployments before rolling them out.
 
-Every release has its own staging area that is completely separate from other release's staging areas. As such, devices can have deployments staged for multiple releases at the same time.
+Every release has its own staging area that is completely separate from other release's staging areas. This separation allows deployments to be staged for multiple releases simultaneously.
 
 The staging area is also handy for batch operations. Deployments may be created, deployed, and archived in bulk, helpful for managing large numbers of deployments at once.
 
@@ -37,9 +37,7 @@ Then select the **Stage** tab at the top of the page.
 
 ## Stage a deployment
  
-To stage a deployment, click the **Stage Deployment** button in the top right.
-
-A dialog will appear with tabs for each config schema defined in the release. The tabs are pre-populated with the schema's default values.
+To stage a deployment, click the **Stage Deployment** button in the top right. A dialog will appear with tabs for each config schema defined in the release. The tabs are pre-populated with the schema's default values.
 
 <Frame>
   ![](/images/releases/stage/stage-dialog-step1:configs.png)
@@ -51,22 +49,93 @@ Make any desired edits to the config instances in the deployment, enter a descri
   ![](/images/releases/stage/stage-dialog-step1:description.png)
 </Frame>
 
-Select the device(s) to stage this deployment for.
-
-If a device is unavailable for selection, that device currently has a `deployed` deployment for this release. To update the deployment for that device, make your edits in the device's [config editor](/docs/learn/deployments/config-editor).
-
-
+Select one or more devices to stage this deployment for. Selecting multiple devices creates a separate deployment for each device.
 
 <Frame>
-  ![](/images/releases/stage/stage-dialog-step2:devices.png)
+  ![](/images/releases/stage/stage-dialog-step2:select-devices.png)
 </Frame>
 
+You may find some devices unavailable for selection--these devices have configurations for *this release* which are currently deployed. This is not allowed. 
 
+You can only stage deployments for devices which are running a *different release*. To patch configurations for such devices, make your edits in the device's [config editor](/docs/learn/devices/config-editor).
+
+Once satisfied with the selected devices, click **Stage** at the bottom of the dialog.
+
+<Frame>
+  ![](/images/releases/stage/stage-dialog-step2:click-stage.png)
+</Frame>
 
 ## View a deployment
+
+To view a deployment in the staging area, select the deployment from the list of deployments in the staging area.
+
+A panel will open on the right of the page displaying the deployment's details.
+
+<Frame>
+  ![](/images/deployments/staged-panel.png)
+</Frame>
+
+To view the details of any config instances in the deployment, click into the config instance in the **Configurations** section of the panel. 
+
+<Frame>
+  ![](/images/deployments/staged-panel:configurations.png)
+</Frame>
+
+The content tab contains the parameters in the config instance while the metadata tab contains audit information--the author, creation date, description, etc.
+
+<Tabs>
+  <Tab title="Content">
+    <Frame>
+      ![](/images/config-instances/panel-content.png)
+    </Frame>
+  </Tab>
+  <Tab title="Metadata">
+    <Frame>
+      ![](/images/config-instances/panel-metadata:staged.png)
+    </Frame>
+  </Tab>
+</Tabs>
 
 ## Patch a deployment
 
 ## Review a deployment
 
 ## Archive a deployment
+
+Archiving a deployment removes it from the staging area and marks it as `archived`. 
+
+This action is irreversible. Once archived, a deployment can never be deployed to a device. However, it will remain available for historical reference.
+
+**Single Deployment**
+
+To archive a single deployment, click the ellipses (...) on the deployment and select **Archive** from the dropdown.
+
+<Frame>
+  ![](/images/releases/stage/ellipses-dropdown:staged.png)
+</Frame>
+
+A confirmation dialog will appear. Hit **Archive** to confirm.
+
+<Frame>
+  ![](/images/releases/stage/archive-dialog:single.png)
+</Frame>
+
+**Multiple Deployments**
+
+To archive multiple deployments, hover over the deployments you want to archive and click the checkbox on the far left of the deployment.
+
+<Frame>
+  ![](/images/releases/stage/select-devices.png)
+</Frame>
+
+At the bottom of the page, click **Archive** from the available bulk actions.
+
+<Frame>
+  ![](/images/releases/stage/bulk-actions.png)
+</Frame>
+
+A confirmation dialog will appear. Hit **Archive** to confirm. 
+
+<Frame>
+  ![](/images/releases/stage/archive-dialog:bulk.png)
+</Frame>
