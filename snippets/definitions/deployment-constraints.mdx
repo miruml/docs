@@ -1,0 +1,17 @@
+Deployments have a variety of constraints designed to simplify configuration updates:
+
+1. **A deployment's config instances are immutable**
+
+   Once created, the config instances of a deployment cannot be updated. A new deployment must be created to modify a device's config instances.
+
+1. **Deployments belong to a single release**
+
+   Deployments use their release's config schemas to validate the config instances they contain.
+
+1. **Deployments belong to a single device**
+
+   Deploying to two different devices requires a deployment for each device.
+
+1. **Deployments are one-time use**
+
+   Once removed from a device, a new deployment must be created to restore a device's previous configurations.

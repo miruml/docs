@@ -174,13 +174,13 @@ However, before the upgrade occurs, our device receives some configuration updat
 
 When a deployment drifts, it is marked as `needs review` and cannot be deployed until an explicit review is performed. You must either ignore the patch, or apply the patch to the staged deployment. 
 
-The concept of deployment drift ensures that configuration changes aren't lost when migrating from one release to another, further preventing misconfigurations.
+The concept of deployment drift ensures that configuration changes aren't lost when migrating from one release to another, preventing misconfigurations.
 
 ## Review a deployment
 
 Reviewing a deployment is only possible when a deployment has [drifted](#deployment-drift) and is in the `needs review` state. Otherwise, the review button is disabled.
 
-Reviewing a deployment displays the patches that have occurred for a device since the last time that a deployment was reviewed (or when it was initially staged).
+Reviewing a deployment displays the patches that have occurred for a device since the last time that the deployment was reviewed (or when it was initially staged).
 
 To review a deployment, click the ellipses (...) on the deployment to review and select **Review** from the dropdown.
 
@@ -188,13 +188,15 @@ To review a deployment, click the ellipses (...) on the deployment to review and
   ![](/images/releases/stage/ellipses-dropdown:drifted.png)
 </Frame>
 
-A dialog will appear with a list of deployments that have been patched to the device since the last time this deployment was reviewed (or when it was initially staged).
+A dialog will appear with a list of deployments that have been patched to the device since the last time the deployment was reviewed (or when it was initially staged).
 
 <Frame>
   ![](/images/releases/stage/review-dialog:deployments.png)
 </Frame>
 
-Clicking into a deployment will open the deployment details panel on the right of the page. You have two options to proceed.
+Clicking into a deployment will open the deployment details panel on the right of the page. And clicking into their Configurations will open the config instance details panel with the differences highlighted.
+
+After reviewing the patches, you have two options to proceed.
 
 <Tabs>
   <Tab title="Restage">
@@ -215,5 +217,5 @@ Clicking into a deployment will open the deployment details panel on the right o
 </Tabs>
 
 <Note>
-  The ability to selectively apply patches to a drifted deployment is currently unavailable but will be coming soon!
+  The ability to apply patches to a drifted deployment is currently unavailable but will be coming soon!
 </Note>

@@ -3,16 +3,20 @@ title: "Deployments"
 ---
 
 import DeploymentDef from '/snippets/definitions/deployment.mdx';
-import {EditableBadge, MutableBadge, ImmutableBadge} from '/snippets/components/badges.jsx';
+import DeploymentConstraints from '/snippets/definitions/deployment-constraints.mdx';
+import {EditableBadge, MutableBadge, ImmutableBadge, NullableBadge} from '/snippets/components/badges.jsx';
 import {Framed} from '/snippets/components/framed.jsx';
 
 <Framed 
+  background="/images/deployments/background.jpeg"
   image="/images/deployments/header:panel.png"
   borderWidth="28px 56px 0 0"
   innerRadius="0 8px 0 0"
 />
 
 <DeploymentDef />
+
+<DeploymentConstraints />
 
 ## Properties
 
@@ -22,7 +26,7 @@ import {Framed} from '/snippets/components/framed.jsx';
 
 A user-provided description of the deployment.
 
-Example: Increase acceleration limit to 1.2 m/s^2
+Example: "increase acceleration limit to 1.2 m/s^2"
 
 </ParamField>
 
@@ -30,11 +34,19 @@ Example: Increase acceleration limit to 1.2 m/s^2
 
 <EditableBadge />
 
+The [desired state](#target-status) of the deployment.
+
+Enum: `staged`, `deployed`, `archived`
+
 </ParamField>
 
 <ParamField path="activity status" type="string">
 
 <MutableBadge />
+
+The last known [activity state](#activity-status) of the deployment.
+
+Enum: `staged`, `needs_review`, `queued`, `deployed`, `removing`, `archived`
 
 </ParamField>
 
@@ -42,23 +54,60 @@ Example: Increase acceleration limit to 1.2 m/s^2
 
 <MutableBadge />
 
+The last known [error state](#error-status) of the deployment.
+
+Enum: `none`, `failed`, `retrying`
+
 </ParamField>
 
 <ParamField path="status" type="string">
 
 <MutableBadge />
 
+This property merges the `activity status` and `error status`
+fields, with error states taking precedence over activity states when errors
+are present. 
+
+Below are some examples of the status given different activity and error states.
+
+| Activity Status | Error Status | Status |
+|-----------------|--------------|--------|
+| `staged`       | `none`       | `staged` |
+| `deployed`      | `none`       | `deployed` |
+| `queued`        | `retrying`   | `retrying` |
+| `removed`       | `failed`     | `failed` |
+
+Enum: `staged`, `needs_review`, `queued`, `deployed`, `removing`, `archived`, `failed`, `retrying`
+
 </ParamField>
 
-<ParamField path="release id" type="string">
+<ParamField path="parent" type="Deployment">
+
+<ImmutableBadge />{' '}<NullableBadge />
+
+The deployment that this deployment was patched from.
+
+Examples: `DPL-L5B8b`
+
+</ParamField>
+
+<ParamField path="release" type="Release">
 
 <ImmutableBadge />
 
+The [release](/docs/learn/releases/overview#properties) which the deployment adheres to.
+
+Examples: `1.0.1`, `1.7.0-beta.1`
+
 </ParamField>
 
-<ParamField path="config instances">
+<ParamField path="config instances" type="[] Config Instance">
 
 <ImmutableBadge />
+
+The [config instances](/docs/learn/config-instances#properties) which the deployment contains, each of which satisfying a different config schema in the deployment's release.
+
+Examples: `CFG-68hdX`, `CFG-Cpa13`
 
 </ParamField>
 
@@ -97,7 +146,7 @@ In practice the activity state is nearly always in sync with the cloud due to th
 
 Although rare, it is possible for the activity state in the cloud to differ from the activity state on the device. For instance, a device may recieve a config instance whose desired state is `deployed` but the 
 
-### Declarative approach
+## Declarative approach
 
 Using a dedicated target status for config instances is a key design decision for ensuring robust delivery of configurations. 
 

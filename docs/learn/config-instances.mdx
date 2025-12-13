@@ -3,7 +3,7 @@ title: "Config instances"
 ---
 
 import ConfigInstanceDef from '/snippets/definitions/config-instance.mdx';
-import {EditableBadge, MutableBadge, ImmutableBadge} from '/snippets/components/badges.jsx';
+import {EditableBadge, MutableBadge, ImmutableBadge, NullableBadge} from '/snippets/components/badges.jsx';
 import {Framed} from '/snippets/components/framed.jsx';
 import {CONFIG_INSTANCE_OWNER_TOOLTIP} from '/snippets/components/config_instances/owner.jsx';
 
@@ -22,7 +22,7 @@ import {CONFIG_INSTANCE_OWNER_TOOLTIP} from '/snippets/components/config_instanc
 
 <EditableBadge />
 
-The [desired state](/docs/learn/deployments/overview#target-status) of the config instance, inherited from the config instance's <Tooltip tip={CONFIG_INSTANCE_OWNER_TOOLTIP.tip} cta={CONFIG_INSTANCE_OWNER_TOOLTIP.cta} href={CONFIG_INSTANCE_OWNER_TOOLTIP.href}>owner</Tooltip>.
+The [desired state](#target-status) of the config instance.
 
 Enum: `created`, `deployed`, `removed`
 
@@ -32,7 +32,7 @@ Enum: `created`, `deployed`, `removed`
 
 <MutableBadge />
 
-The last known [activity state](/docs/learn/deployments/overview#activity-status) of the config instance, inherited from the config instance's <Tooltip tip={CONFIG_INSTANCE_OWNER_TOOLTIP.tip} cta={CONFIG_INSTANCE_OWNER_TOOLTIP.cta} href={CONFIG_INSTANCE_OWNER_TOOLTIP.href}>owner</Tooltip>.
+The last known [activity state](#activity-status) of the config instance.
 
 Enum: `created`, `queued`, `deployed`, `removed`
 
@@ -42,7 +42,7 @@ Enum: `created`, `queued`, `deployed`, `removed`
 
 <MutableBadge />
 
-The last known [error state](/docs/learn/deployments/overview#error-status) of the config instance, inherited from the config instance's <Tooltip tip={CONFIG_INSTANCE_OWNER_TOOLTIP.tip} cta={CONFIG_INSTANCE_OWNER_TOOLTIP.cta} href={CONFIG_INSTANCE_OWNER_TOOLTIP.href}>owner</Tooltip>.
+The last known [error state](#error-status) of the config instance.
 
 Enum: `none`, `failed`, `retrying`
 
@@ -81,9 +81,21 @@ The configuration values that are deployed to the device in the format of a JSON
 
 <ImmutableBadge />
 
-The file path is to the config instance is deployed to relative to the `/srv/miru/config_instances` directory.
+The file path the config instance is deployed to relative to the `/srv/miru/config_instances` directory.
 
 A file path of `/v1/motion-control.json` deploys the config instance to `/srv/miru/config_instances/v1/motion-control.json`.
+
+Examples: `/v1/motion-control.json`, `/safety.json`
+
+</ParamField>
+
+<ParamField path="parent" type="Config Instance">
+
+<ImmutableBadge />{' '}<NullableBadge />
+
+The config instance that this config instance was patched from. 
+
+Examples: `CFG-Cpa13`
 
 </ParamField>
 
@@ -93,7 +105,7 @@ A file path of `/v1/motion-control.json` deploys the config instance to `/srv/mi
 
 The [config schema](/docs/learn/schemas/overview#properties) which the config instance must adhere to.
 
-Examples: `SCH-FmoDN`, `SCH-3JcLq`, `SCH-HHDRn`
+Example: `SCH-FmoDN`
 
 </ParamField>
 
@@ -111,9 +123,9 @@ Examples: `Sojourner`, `Johnny Test`, `Robot 11`
 
 <MutableBadge />
 
-The deployment that a config instance currently belongs to. Visit the [owner](/docs/learn/config-instances#owner) section for more information.
+The [deployment](/docs/learn/deployments#properties) that a config instance currently belongs to. Visit the [owner](/docs/learn/config-instances#owner) section for more information.
 
-Examples: `DPL-123`, `DPL-456`, `DPL-789`
+Example: `DPL-123`
 
 </ParamField>
 
@@ -121,17 +133,21 @@ Examples: `DPL-123`, `DPL-456`, `DPL-789`
 
 <ImmutableBadge />
 
-The deployment with which the config instance was created. Visit the [origin](/docs/learn/config-instances#origin) section for more information.
+The [deployment](/docs/learn/deployments#properties) with which the config instance was created. Visit the [origin](/docs/learn/config-instances#origin) section for more information.
 
-Examples: `DPL-123`, `DPL-456`, `DPL-789`
+Example: `DPL-123`
 
 </ParamField>
 
 ## Formats
 
-Currently, config instances only support JSON. 
+Currently, config instances only support JSON. However, support for more formats including YAML and JSON-C are coming soon!
 
-However, support for more formats including YAML and JSON-C are coming soon!
+## Target Status
+
+## Activity Status
+
+## Error Status
 
 ## Owner
 

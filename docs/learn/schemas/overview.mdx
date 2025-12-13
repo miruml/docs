@@ -17,10 +17,6 @@ import {Framed} from '/snippets/components/framed.jsx';
 
 ## Properties
 
-Config schemas leverage several properties to adequately describe their format and organize them within their config type. 
-
-All properties are immutable except for the `instance_filepath` property, which may be updated at anytime.
-
 <ParamField path="config type" type="Config Type">
 
 <ImmutableBadge />
@@ -94,7 +90,7 @@ Examples: `sha256:45YeoJJ2btBnAKQztAEXEjHsqyyQfC1z1Mw3LLM4xMUy`
 
 <ParamField path="instance file path" type="string">
 
-<EditableBadge />
+<ImmutableBadge />
 
 The instance file path is the file path to deploy config instances (for this schema) on a device relative to the `/srv/miru/config_instances` directory. 
 
@@ -111,7 +107,7 @@ Miru supports:
 - [JSON Schema](https://json-schema.org/draft/2020-12) (draft 2020-12)
 - [CUE](https://cuelang.org/)
 
-For more information on schema languages, visit the [languages](/docs/guides/schemas/languages) section of this guide. 
+For more information on schema languages, visit the [languages](/docs/learn/schemas/languages) section of this guide. 
 
 ## Validating configs
 

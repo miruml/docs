@@ -65,7 +65,7 @@
                 "pages": [
                   "docs/learn/releases/overview",
                   "docs/learn/releases/manage",
-                  "docs/learn/releases/stage"
+                  "docs/learn/releases/staging-area"
                 ]
               }
             ]
@@ -94,7 +94,7 @@
                 "pages": [
                   "docs/admin/users/overview",
                   "docs/admin/users/roles",
-                  "docs/admin/users/invite",
+                  "docs/admin/users/invites",
                   "docs/admin/users/profile",
                   "docs/admin/users/manage"
                 ]
