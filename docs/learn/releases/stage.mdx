@@ -98,17 +98,37 @@ The content tab contains the parameters in the config instance while the metadat
 
 ## Patch a deployment
 
-## Review a deployment
+Patching a deployment is the process of creating a new deployment to take the place of an existing deployment. Patching explicitly marks the original deployment as the predecessor of the new deployment, making it easy to trace the history of changes for a device's configurations.
+
+When patching a deployment, the original deployment is archived and removed from the staging area with the new deployment taking its place.
+
+To patch a deployment, click the ellipses (...) on the deployment to patch and select **Patch** from the dropdown.
+
+<Frame>
+  ![](/images/releases/stage/ellipses-dropdown:staged.png)
+</Frame>
+
+A dialog will appear with the original deployment's config instances populated in each tab. Make any desired edits to the deployment's config instances. These edits will be applied to the new deployment.
+
+<Frame>
+  ![](/images/releases/stage/patch-dialog:configurations.png)
+</Frame>
+
+Once satisfied with the edits, enter a description at the bottom of the dialog and hit **Stage**.
+
+<Frame>
+  ![](/images/releases/stage/patch-dialog:description.png)
+</Frame>
 
 ## Archive a deployment
 
 Archiving a deployment removes it from the staging area and marks it as `archived`. 
 
-This action is irreversible. Once archived, a deployment can never be deployed to a device. However, it will remain available for historical reference.
+This action is irreversible. Once archived, a deployment can never be deployed to a device. However, the deployment will remain available for historical reference.
 
 **Single Deployment**
 
-To archive a single deployment, click the ellipses (...) on the deployment and select **Archive** from the dropdown.
+To archive a single deployment, click the ellipses (...) on the deployment to archive and select **Archive** from the dropdown.
 
 <Frame>
   ![](/images/releases/stage/ellipses-dropdown:staged.png)
@@ -139,3 +159,61 @@ A confirmation dialog will appear. Hit **Archive** to confirm.
 <Frame>
   ![](/images/releases/stage/archive-dialog:bulk.png)
 </Frame>
+
+## Deployment drift
+
+When a device receives configuration updates for its current release while having deployments staged for another release, we say the staged deployment has *drifted*.
+
+Consider the following example:
+
+![](/images/deployments/deployment-drift.png)
+
+Our device is currently running deployment `DPL-Npfzv`, which adheres to release `v1.5`. Our device is about to upgrade to release `v1.6` though, so we've staged deployment `DPL-Q4CeX` for the upcoming upgrade.
+
+However, before the upgrade occurs, our device receives some configuration updates on release `v1.5`-- `DPL-Npfzv` is patched with `DPL-BFwc3`. Since it's often the case that this patch also needs to be applied to the staged deployment `DPL-Q4CeX`, we say `DPL-Q4CeX` has *drifted*.
+
+When a deployment drifts, it is marked as `needs review` and cannot be deployed until an explicit review is performed. You must either ignore the patch, or apply the patch to the staged deployment. 
+
+The concept of deployment drift ensures that configuration changes aren't lost when migrating from one release to another, further preventing misconfigurations.
+
+## Review a deployment
+
+Reviewing a deployment is only possible when a deployment has [drifted](#deployment-drift) and is in the `needs review` state. Otherwise, the review button is disabled.
+
+Reviewing a deployment displays the patches that have occurred for a device since the last time that a deployment was reviewed (or when it was initially staged).
+
+To review a deployment, click the ellipses (...) on the deployment to review and select **Review** from the dropdown.
+
+<Frame>
+  ![](/images/releases/stage/ellipses-dropdown:drifted.png)
+</Frame>
+
+A dialog will appear with a list of deployments that have been patched to the device since the last time this deployment was reviewed (or when it was initially staged).
+
+<Frame>
+  ![](/images/releases/stage/review-dialog:deployments.png)
+</Frame>
+
+Clicking into a deployment will open the deployment details panel on the right of the page. You have two options to proceed.
+
+<Tabs>
+  <Tab title="Restage">
+    The first option is to restage the deployment as-is, effectively ignoring the patches that have occurred. This will move the deployment to the `staged` state and allow it to be deployed.
+
+    <Frame>
+      ![](/images/releases/stage/review-dialog:restage.png)
+    </Frame>
+  </Tab>
+  <Tab title="Archive">
+
+    The second option is to [archive](#archive-a-deployment) the deployment. This removes the deployment from the staging area and moves it to the `archived` state.
+
+    <Frame>
+      ![](/images/releases/stage/review-dialog:archive.png)
+    </Frame>
+  </Tab>
+</Tabs>
+
+<Note>
+  The ability to selectively apply patches to a drifted deployment is currently unavailable but will be coming soon!
+</Note>
