@@ -17,7 +17,7 @@ Config schemas can **only be created via the CLI**.
 
 This is a deliberate design choice—we believe schemas should live in a git repository. This allows them to be versioned alongside the code that uses them and encourages better software development practices. 
 
-Ideally schemas are versioned in the same repository as the code which uses them. However, this is not a requirement and you may find a dedicated git repository for schemas to be more convenient.
+Ideally schemas are versioned in the same repository as the code which uses them. However, this is not a requirement. You may use any git repository to house your schemas.
 
 ## Prerequisites
 
@@ -72,7 +72,7 @@ To be able to capture git metadata, schemas must meet the following requirements
 - The git repository must have a remote URL (GitHub, GitLab, Bitbucket, etc.)
 - The schema's latest changes must be committed to the git repository before pushing to Miru (cannot be dirty or unstaged)
 
-Git metadata is not optional--if a schema does not meet these requirements, the CLI will return an error and fail to push the schema.
+Git metadata is not optional. If a schema does not meet these requirements, the CLI will return an error and fail to push the schema.
 
 ## Push the schema
 

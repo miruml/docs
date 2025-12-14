@@ -5,6 +5,7 @@ title: "Deployments"
 import DeploymentDef from '/snippets/definitions/deployment.mdx';
 import DeploymentConstraints from '/snippets/definitions/deployment-constraints.mdx';
 import {EditableBadge, MutableBadge, ImmutableBadge, NullableBadge} from '/snippets/components/badges.jsx';
+import {ONLINE_TOOLTIP, OFFLINE_TOOLTIP} from '/snippets/components/devices/statuses.jsx';
 import {Framed} from '/snippets/components/framed.jsx';
 
 <Framed 
@@ -64,18 +65,7 @@ Enum: `none`, `failed`, `retrying`
 
 <MutableBadge />
 
-This property merges the `activity status` and `error status`
-fields, with error states taking precedence over activity states when errors
-are present. 
-
-Below are some examples of the status given different activity and error states.
-
-| Activity Status | Error Status | Status |
-|-----------------|--------------|--------|
-| `staged`       | `none`       | `staged` |
-| `deployed`      | `none`       | `deployed` |
-| `queued`        | `retrying`   | `retrying` |
-| `removed`       | `failed`     | `failed` |
+The [status](#status) is a merged property of the `activity status` and `error status` fields, with error states taking precedence over activity states when errors are present.
 
 Enum: `staged`, `needs_review`, `queued`, `deployed`, `removing`, `archived`, `failed`, `retrying`
 
@@ -111,51 +101,145 @@ Examples: `CFG-68hdX`, `CFG-Cpa13`
 
 </ParamField>
 
+## Status
+
+The status is a merged property of the `activity status` and `error status` fields, with error states taking precedence over activity states when errors are present.
+
+So, if the error status is `none`, then the status is simply the activity status. If the error status is not `none`, then the status is the error status.
+
+Below are some examples of the status given different activity and error states.
+
+| Activity Status | Error Status | Status |
+|-----------------|--------------|--------|
+| `staged`       | `none`       | `staged` |
+| `deployed`      | `none`       | `deployed` |
+| `queued`        | `retrying`   | `retrying` |
+| `removed`       | `failed`     | `failed` |
+
 ## Target Status
 
-The target status is the desired state of a config instance. There are three possible target statuses.
+The target status is the desired state of a deployment. There are three possible target statuses.
 
 | Target Status | Description |
 |---------------|-------------|
-| `created`     | Config instance doesn't want to be deployed yet but may be deployed in the future |
-| `deployed`    | Config instance wants to be available on its device |
-| `archived`     | Config instance no longer wants to be deployed; can never be deployed again |
+| `staged`     | Deployment doesn't want to be deployed yet but may be deployed in the future |
+| `deployed`    | Deployment wants to be delivered to its device |
+| `archived`     | Deployment no longer wants to be deployed; can never be deployed again |
 
-Below is a diagram of valid transitions between target statuses.
+**With Staging**
 
-![](/images/config-instances/target-status-fsm.png)
+If a deployment is staged before being deployed, the diagram below shows the valid transitions between target statuses.
+
+<img
+    src="/images/deployments/target-status-fsm:stage.png"
+    alt="Target status state machine"
+    style={{
+        display: "block",
+        width: "85%",
+        margin: "0 auto",
+        borderRadius: "10px",
+    }}
+/>
+
+**Without Staging**
+
+Of course, many deployments completely skip staging and are immediately deployed. The diagram below shows the valid transitions between target statuses for a deployment that is immediately deployed.
+
+<img
+    src="/images/deployments/target-status-fsm:deploy.png"
+    alt="Target status state machine"
+    style={{
+        display: "block",
+        width: "55%",
+        margin: "0 auto",
+        borderRadius: "10px",
+    }}
+/>
+
+**One-Time Use**
 
 As you can see, the target status can only move *forward*, never backwards.
 
-Once a config instance's target status has been set to `deployed`, it can never be set to `created` again.  Similarly, once a config instance's target status has been set to `archived`, it can never be set to `deployed` again.
+Once a deployment's target status has been set to `deployed`, it can never be set to `staged` again.  Similarly, once a deployment's target status has been set to `archived`, it can never be set to `deployed` again.
 
-This is intentional--config instances are one-time use. Once a config instance has been deployed, it can never be deployed again. You must create a new config instance with identical content to roll back.
+This is intentional--deployments are one-time use. Once a deployment has been deployed, it can never be deployed again. You must create a new deployment with identical content to roll back.
 
 ## Activity Status
 
-The activity status is the *last known* state of a config instance.
+The activity status is the *last known* state of a deployment.
 
-We use last known state very intentionally--poor network connectivity can prevent devices from immediately syncing their activity state with the cloud. 
+We use *last known state* very intentionally--poor network connectivity can prevent devices from immediately syncing their activity state with the cloud. In practice this isn't too common. However, it's a still a critical point to keep in mind.
 
-For example, the Miru Agent may recieve a signal to deploy a config instance and successfully downloads the configuration and makes it available on the device. However, during this short window, the device's network connection is interrupted, preventing it from sending the updated activity state back to the cloud.
+There are 6 possible activity states for a deployment.
 
-In practice the activity state is nearly always in sync with the cloud due to the brevity of the window in which such a scenario could occur. However, it's a critical point to keep in mind.
+| Activity Status | Description |
+|-----------------|-------------|
+| `staged`        | Deployment has been created and is ready to be deployed |
+| `needs review`  | Deployment has [drifted](/docs/learn/releases/staging-area#deployment-drift) and needs to be reviewed |
+| `queued`        | Deployment is waiting for the device to be <Tooltip tip={ONLINE_TOOLTIP.tip} cta={ONLINE_TOOLTIP.cta} href={ONLINE_TOOLTIP.href}>online</Tooltip> to be delivered to the device|
+| `deployed`      | Deployment has been delivered to the device and its configurations are available for consumption |
+| `removing`      | Deployment will be removed from the device as soon as the device is `online` |
+| `archived`      | Deployment is available for historical reference but can never be deployed again |
 
+**With Staging**
 
-![](/images/config-instances/activity-status-fsm.png)
+When a deployment is [staged](/docs/learn/releases/staging-area) before being deployed, there are several activity states it can pass through. Below is a diagram of the valid transitions between activity states.
 
-Although rare, it is possible for the activity state in the cloud to differ from the activity state on the device. For instance, a device may recieve a config instance whose desired state is `deployed` but the 
+![](/images/deployments/activity-status-fsm:stage.png)
 
-## Declarative approach
+Deployment start in the `staged` state. If a deployment [drifts](/docs/learn/releases/staging-area#deployment-drift), it transitions to `needs review` and must either be restaged or archived.
 
-Using a dedicated target status for config instances is a key design decision for ensuring robust delivery of configurations. 
+Eventually, the deployment is queued for delivery to the device, where it passes through the primary deployment lifecycle from `queued` to `archived`.
 
-By *declaring* the desired state of a config instance, the Miru Agent is free to take whatever actions necessary to achieve the desired state for a config instance.
+**Without Staging**
 
-Network drops, sudden power cycles, and other edge cases are all gracefully retried by the Miru Agent. The agent simply retries (with an exponential backoff) until the desired state is achieved.
+Deployments which are immediately deployed and skip the `staged` state have a simpler lifecycle, passing straight through from `queued` to `archived`.
 
-The target *declaring* the desired state of a config instance, the Miru Agent is well equipped to handle errors and edge cases in any way possible
+![](/images/deployments/activity-status-fsm:deploy.png)
 
-This declarative approach for config instances allows the agent to be much more robust to errors and edge cases in the deployment process. Poor network conditions and sudden power cycles can easily be handled by 
+**One-Time Use**
+
+Similar to the target status, activity states can only move *forward* due to the one-time use constraint of deployments.
 
 ## Error Status
+
+The error status is the *last known* error state of a deployment. Again, we use *last known state* very intentionally--poor network connectivity can prevent devices from immediately syncing their error state with the cloud.
+
+The error status is independent of the activity and target statuses. The error status does not imply any particular activity or target state and vice versa. The error status is only concerned with any errors encountered during the deployment process, regardless of the activity or target state.
+
+There are 3 possible error states for a deployment.
+
+| Error Status | Description |
+|--------------|-------------|
+| `none`       | There are no errors with the deployment |
+| `retrying`   | An non-fatal error has been encountered; the agent is retrying to fulfill the deployment's target status |
+| `failed`     | A fatal error has been encountered; the deployment is (or will be) removed from the device and archived |
+
+Below are the valid transitions between error states.
+
+<img
+    src="/images/deployments/error-status-fsm.png"
+    alt="Error status state machine"
+    style={{
+        display: "block",
+        width: "85%",
+        margin: "0 auto",
+        borderRadius: "10px",
+    }}
+/>
+
+Deployments start in the `none` error state. If no errors are encountered, the deployment remains in the `none` error state for the duration of its existence.
+
+**Non-Fatal Errors**
+
+If a non-fatal error is encountered, the deployment transitions to the `retrying` error state. Non-fatal errors include things like unexpected network drops, sudden power cycles, etc.
+
+If the agent is able to recover the deployment from the error, the deployment transitions back to the `none` error state once the deployment's target status is reached. 
+
+On the other hand, while the agent is unable to recover the deployment from the error, the deployment remains in the `retrying` error state. The agent continually attempts to fulfill the deployment's target status with an exponential backoff to prevent throttling the device's resources.
+
+If the deployment is stuck in the `retrying` error state, try replacing or archiving the deployment to allow the agent to start fresh.
+
+**Fatal Errors**
+
+If a fatal error is encountered, the deployment transitions to the `failed` error state, is removed from the device, and marked as `archived`. 

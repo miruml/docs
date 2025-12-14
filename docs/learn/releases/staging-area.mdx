@@ -13,7 +13,7 @@ import { Framed } from '/snippets/components/framed.jsx';
 
 ## Overview
 
-The staging area for a release is a place to create deployments in preparation for a future rollout. The staging area only contains `staged` deployments. Currently deployed and previously deployed deployments are not accessible in the staging area.
+The staging area for a release is a place to create deployments in preparation for a future rollout. The staging area only contains staged deployments. Currently deployed and previously deployed deployments are not accessible in the staging area.
 
 Deployments in the staging area can be freely created without being deployed to devices. This makes it an ideal place to prepare and review deployments before rolling them out.
 
@@ -142,7 +142,7 @@ A confirmation dialog will appear. Hit **Archive** to confirm.
 
 **Multiple Deployments**
 
-To archive multiple deployments, hover over the deployments you want to archive and click the checkbox on the far left of the deployment.
+To archive multiple deployments, hover over the deployments you want to archive and select the checkbox on the far left of the deployment.
 
 <Frame>
   ![](/images/releases/stage/select-devices.png)
@@ -198,24 +198,22 @@ Clicking into a deployment will open the deployment details panel on the right o
 
 After reviewing the patches, you have two options to proceed.
 
-<Tabs>
-  <Tab title="Restage">
-    The first option is to restage the deployment as-is, effectively ignoring the patches that have occurred. This will move the deployment to the `staged` state and allow it to be deployed.
+**Restage**
 
-    <Frame>
-      ![](/images/releases/stage/review-dialog:restage.png)
-    </Frame>
-  </Tab>
-  <Tab title="Archive">
+The first option is to restage the deployment as-is, effectively ignoring the patches that have occurred. This will move the deployment to the `staged` state and allow it to be deployed.
 
-    The second option is to [archive](#archive-a-deployment) the deployment. This removes the deployment from the staging area and moves it to the `archived` state.
+<Frame>
+  ![](/images/releases/stage/review-dialog:restage.png)
+</Frame>
 
-    <Frame>
-      ![](/images/releases/stage/review-dialog:archive.png)
-    </Frame>
-  </Tab>
-</Tabs>
+**Archive**
 
-<Note>
-  The ability to apply patches to a drifted deployment is currently unavailable but will be coming soon!
-</Note>
+The second option is to [archive](#archive-a-deployment) the deployment. This removes the deployment from the staging area and moves it to the `archived` state.
+
+<Frame>
+  ![](/images/releases/stage/review-dialog:archive.png)
+</Frame>
+
+**Patch**
+
+The ability to apply patches to a drifted deployment is currently unavailable but will be coming soon!
