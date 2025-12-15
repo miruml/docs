@@ -99,7 +99,7 @@ The default instance file path for a schema is `{my-config-type-slug}.json`, whi
 Examples: `/v1/mobility.json`, `/config/safety.json`
 </ParamField>
 
-## Supported languages
+## Schema languages
 
 Config schemas are defined using a schema language--a formal language for describing the structure, constraints, and data types of a configuration. 
 
@@ -108,6 +108,16 @@ Miru supports:
 - [CUE](https://cuelang.org/)
 
 For more information on schema languages, visit the [languages](/docs/learn/schemas/languages) section of this guide. 
+
+## File formats
+
+Config schemas support the following file formats:
+
+- JSON (`.json`)
+- YAML (`.yaml`, `.yml`)
+- CUE (`.cue`)
+
+However, each language supports a different set of file formats. Visit the [languages](/docs/learn/schemas/languages) section for more information about each language's supported file formats.
 
 ## Validating instances
 
