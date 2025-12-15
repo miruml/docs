@@ -56,7 +56,7 @@ Examples: `v0.6.0`
 
 <EditableBadge />{' '}<NullableBadge />
 
-The [release](/docs/learn/releases/overview#properties) that the device's deployments must adhere to. 
+The [release](/docs/learn/releases/overview#properties) that the device's configurations are currently deployed from.
 
 If the device is `inactive` or `activating`, the current release id is `null`. If the device is `online` or `offline`, the current release may still be `null` if the device has no deployed config instances.
 
@@ -74,9 +74,11 @@ The Miru Agent offers the following functionality:
 - **Manages device state**, providing real-time updates of the device's status and the currently deployed configurations
 - **Exposes a [REST API](/docs/references/agent-api/intro)** over a Unix socket for programmatic access by applications running on the same machine
 
-<Warning>
+<Note>
   The Miru Agent only supports Linux. Visit the [supported platforms](/docs/developers/agent/intro#supported-platforms) for a complete list of supported platforms.
-</Warning>
+</Note>
+
+Read more about the agent in the [Miru Agent](/docs/developers/agent/intro) section.
 
 ## Status
 
