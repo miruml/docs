@@ -57,7 +57,9 @@
                   "docs/learn/devices/overview",
                   "docs/learn/devices/provision",
                   "docs/learn/devices/manage",
-                  "docs/learn/devices/config-editor"
+                  "docs/learn/devices/initial-deployment",
+                  "docs/learn/devices/config-editor",
+                  "docs/learn/devices/deployment-history"
                 ]
               },
               {
@@ -65,7 +67,8 @@
                 "pages": [
                   "docs/learn/releases/overview",
                   "docs/learn/releases/manage",
-                  "docs/learn/releases/staging-area"
+                  "docs/learn/releases/staging-area",
+                  "docs/learn/releases/deployment-history"
                 ]
               }
             ]

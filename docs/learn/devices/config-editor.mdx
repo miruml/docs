@@ -2,6 +2,98 @@
 title: "Config editor"
 ---
 
-## Set current release
+import {Framed} from '/snippets/components/framed.jsx';
+
+<Framed 
+  background="https://assets.miruml.com/docs/images/devices/background.jpeg"
+  image="/images/devices/header:editor.png"
+  borderWidth="30px 60px 0 0"
+  innerRadius="0 8px 0 0"
+/>
+
+The config editor is the primary way to view and edit a device's configurations.
+
+The editor is accessed by clicking into a device from the [Devices page](https://app.miruml.com/devices) and selecting the **Editor** tab at the top.
+
+## Layout
+
+The config editor is organized into three main sections.
+
+1. Config types - a list of config types which are part of the device's current deployment
+2. File editor - a VSCode-like file editor for editing configurations
+3. History - a reference of all the device's deployments
+
+<Frame>
+  ![](/images/devices/editor/layout.png)
+</Frame>
+
+## Customize
+
+The config editor offers a couple layout adjustments to help you get the most out of the editor.
+
+**Width**
+
+Customize the width by dragging the vertical dividers to the left or right as desired.
+
+<Frame>
+  <video
+    autoPlay
+    loop
+    controls
+    src="/videos/devices/editor/customize-widths.webm"
+  />
+</Frame>
+
+**Hide Config Types**
+
+Hide the config types sidebar by hitting the sidebar toggle in the top left corner of the file editor.
+
+<Frame>
+  <video
+    autoPlay
+    loop
+    controls
+    src="/videos/devices/editor/hide-config-types.webm"
+  />
+</Frame>
+
+**History Height**
+
+Customize the height of the history section by dragging the horizontal divider to the top or bottom as desired.
+
+<Frame>
+  <video
+    autoPlay
+    loop
+    controls
+    src="/videos/devices/editor/customize-history-height.webm"
+  />
+</Frame>
+
+
+## Patch a config instance
+
+Patching a config instance is the process of creating a new config instance to replace a currently deployed config instance.
+
+Patching a config instance is only allowed from currently deployed config instances. Config instances which are not deployed are read-only and cannot be edited.
+
+To patch a config instance, make some edits to the instance in the file editor.
+
+<Frame>
+  ![](/images/devices/editor/mobility-patch.png)
+</Frame>
+
+As edits are made, a log on the right maintains a list of all changes, categorizing them by their type: `added`, `deleted`, or `modified`.
+
+Once satisfied with the edits, click **Deploy** in the top right. A dialog will appear to confirm the deployment. 
+
+<Frame>
+  ![](https://assets.miruml.com/docs/images/devices/editor/deploy-dialog.png)
+</Frame>
+
+Add a description, confirm the device, and click **Deploy**.
+
+
+## Config instance history
 
 ## Switch releases

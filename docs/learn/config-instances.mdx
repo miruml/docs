@@ -3,7 +3,7 @@ title: "Config instances"
 ---
 
 import ConfigInstanceDef from '/snippets/definitions/config-instance.mdx';
-import {EditableBadge, MutableBadge, ImmutableBadge, NullableBadge} from '/snippets/components/badges.jsx';
+import {MutableBadge, ImmutableBadge, NullableBadge} from '/snippets/components/badges.jsx';
 import {Framed} from '/snippets/components/framed.jsx';
 import {CONFIG_INSTANCE_OWNER_TOOLTIP} from '/snippets/components/config_instances/owner.jsx';
 
@@ -20,7 +20,7 @@ import {CONFIG_INSTANCE_OWNER_TOOLTIP} from '/snippets/components/config_instanc
 
 <ParamField path="target status" type="string">
 
-<EditableBadge />
+<MutableBadge />
 
 The desired state of the config instance, inherited from its [owner](/docs/learn/config-instances#owners-and-origins) deployment.
 
@@ -50,7 +50,6 @@ The last known error state of the config instance, inherited from its [owner](/d
 
 Visit the deployment's [error status](/docs/learn/deployments#error-status) for more information.
 
-
 Enum: `none`, `failed`, `retrying`
 
 </ParamField>
@@ -67,7 +66,7 @@ Below are some examples of the status given different activity and error states.
 
 | Activity Status | Error Status | Status |
 |-----------------|--------------|--------|
-| `created`       | `none`       | `created` |
+| `staged`       | `none`       | `staged` |
 | `deployed`      | `none`       | `deployed` |
 | `queued`        | `retrying`   | `retrying` |
 | `removed`       | `failed`     | `failed` |
@@ -130,7 +129,9 @@ Examples: `Sojourner`, `Johnny Test`, `Robot 11`
 
 <ImmutableBadge />
 
-The [deployment](/docs/learn/deployments#properties) with which the config instance was created. Visit the [origin](/docs/learn/config-instances#owners-and-origins) section for more information.
+The [deployment](/docs/learn/deployments#properties) with which the config instance was created. 
+
+Visit the [origin](/docs/learn/config-instances#owners-and-origins) section for more information.
 
 Example: `DPL-123`
 
@@ -140,7 +141,9 @@ Example: `DPL-123`
 
 <MutableBadge />
 
-The [deployment](/docs/learn/deployments#properties) that a config instance currently belongs to. Visit the [owner](/docs/learn/config-instances#owners-and-origins) section for more information.
+The [deployment](/docs/learn/deployments#properties) that a config instance currently belongs to. 
+
+Visit the [owner](/docs/learn/config-instances#owners-and-origins) section for more information.
 
 Example: `DPL-123`
 
@@ -152,22 +155,22 @@ Currently, config instances only support JSON. However, support for more formats
 
 ## Owners and origins
 
-Config instances aren't directly interacted with in Miru. Instead, instances are created and used as part of the [deployment](/docs/learn/deployments) to which they belong.
-
-Each config instance has two key deployment relationships:
+Config instances are created and used as part of a [deployment](/docs/learn/deployments). Each config instance has two key deployment relationships:
 
 - **Origin** - the deployment with which the config instance was created
 - **Owner** - the deployment that a config instance currently belongs to
 
-These concepts are best explained with an example.
+These concepts are best explained via example.
 
 **Initial Deployment**
 
-Let's say we create and deploy a new deployment, `DPL-MT3Ec`, containing config instances `CFG-K9xF6`, `CFG-BrM1v`, and `CFG-9ai6A`. The config instances are each an instantiation of the [config types](/docs/learn/config-types) `Mobility`, `Perception`, and `Safety` respectively.
+Let's say our application has three config types: `Mobility`, `Perception`, and `Safety`. 
+
+We create an initial deployment, `DPL-MT3Ec`. The deployment contains config instances `CFG-K9xF6`, `CFG-BrM1v`, and `CFG-9ai6A` which are instantiations of `Mobility`, `Perception`, and `Safety` respectively.
 
 ![](/images/config-instances/ownership:step1.png)
 
-Since the deployment is brand new, all three config instances's owner and origin is `DPL-MT3Ec`.
+Since all configs are brand new, all three config instances's owner and origin is `DPL-MT3Ec`.
 
 | Instance |  Owner | Origin |
 |----------|--------|--------|
@@ -177,19 +180,11 @@ Since the deployment is brand new, all three config instances's owner and origin
 
 **Mobility Edit**
 
-Now we make an edit to the `Mobility` config instance, which creates `DPL-8Xerr` and replaces `DPL-MT3Ec` with it. 
+After our initial deployment, we decide to make an edit to the `Mobility` config instance, creating `DPL-8Xerr` to replace `DPL-MT3Ec`.
 
 ![](/images/config-instances/ownership:step2.png)
 
-Since no edits were made to the `Perception` or `Safety` instances, our new deployment `DPL-8Xerr` reuses the config instances from `DPL-MT3Ec` for those config types. As such, the total number of config instances increases from three to four.
-
-The new `Mobility` config instance, `CFG-6jrCj`, has an owner and origin of `DPL-8Xerr` since it was created with that deployment. 
-
-The old `Mobility` config instance is removed and retains its owner as `DPL-MT3Ec`.
-
-The other two config instances are more interesting though. Since `DPL-8Xerr` reuses the `Perception` and `Safety` instances, `CFG-BrM1v` and `CFG-9ai6A` have their ownership transferred to `DPL-8Xerr`. 
-
-Below is our updated table of owners and origins.
+Since no edits were made to the `Perception` or `Safety` instances, `DPL-8Xerr` reuses the `Perception` and `Safety` configs from `DPL-MT3Ec`. As such, the total number of config instances only increases from three to four.
 
 | Instance |  Owner | Origin |
 |----------|--------|--------|
@@ -198,19 +193,19 @@ Below is our updated table of owners and origins.
 | **CFG-9ai6A (Safety)**     | **DPL-8Xerr** | **DPL-MT3Ec** |
 | **CFG-6jrCj (Mobility)**    | **DPL-8Xerr** | **DPL-8Xerr** |
 
+The new `Mobility` config instance, `CFG-6jrCj`, has an owner and origin of `DPL-8Xerr` since it was created with that deployment. 
+
+The old `Mobility` config instance is removed and retains its owner as `DPL-MT3Ec`.
+
+Finally, since `DPL-8Xerr` reuses the `Perception` and `Safety` instances from `DPL-MT3Ec`, `CFG-BrM1v` and `CFG-9ai6A` have their ownership transferred to `DPL-8Xerr`. 
+
 **Safety Edit**
 
-To make sure things are crystal clear, let's say we make another edit. This time we edit the `Safety` config instance, which creates `DPL-8jVBY` to replace `DPL-8Xerr`.
+Some more time passes and we need to make another edit. This time we edit the `Safety` config instance, creating `DPL-8jVBY` to replace `DPL-8Xerr`.
 
 ![](/images/config-instances/ownership:step3.png)
 
-As before, since no edits were made to the `Mobility` or `Perception` instances, our new deployment `DPL-8jVBY` reuses the config instances from `DPL-8Xerr` for those config types. The total number of config instances thus increases from four to five.
-
-The new `Safety` config instance, `CFG-2kQ1b`, has an owner and origin of `DPL-8jVBY` since it was created with that deployment. 
-
-The old `Safety` config instance is removed and retains its owner as `DPL-8Xerr`.
-
-The other two config instances have their ownership transferred to `DPL-8jVBY`, leaving us with our final table of owners and origins.
+Since no edits were made to the `Mobility` or `Perception` instances, `DPL-8jVBY` reuses the config instances from `DPL-8Xerr` for those config types. The total number of config instances thus increases from four to five.
 
 | Instance |  Owner | Origin |
 |----------|--------|--------|
@@ -219,3 +214,16 @@ The other two config instances have their ownership transferred to `DPL-8jVBY`, 
 | **CFG-9ai6A (Safety)**     | **DPL-8jVBY** | **DPL-MT3Ec** |
 | **CFG-6jrCj (Mobility)**    | **DPL-8jVBY** | **DPL-8Xerr** |
 | **CFG-2kQ1b (Safety)**    | **DPL-8jVBY** | **DPL-8jVBY** |
+
+The new `Safety` config instance, `CFG-2kQ1b`, has an owner and origin of `DPL-8jVBY` since it was created with that deployment. 
+
+The old `Safety` config instance is removed and retains its owner as `DPL-8Xerr`.
+
+Finally, the other two config instances have their ownership transferred to `DPL-8jVBY`.
+
+**Conclusion**
+
+Owners and origins are useful for maintaining an accurate history of configuration changes for a device. Instead of unnecessarily creating new config instances for every config type on each edit, new instances are only created when the config type is edited.
+
+The origin tracks the initial deployment that created the config instance while the owner tracks the current deployment that the config instance belongs to.
+

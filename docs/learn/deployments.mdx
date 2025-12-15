@@ -170,7 +170,7 @@ The activity status is the *last known* state of a deployment.
 
 We use *last known state* very intentionally--poor network connectivity can prevent devices from immediately syncing their activity state with the cloud. In practice this isn't too common. However, it's a still a critical point to keep in mind.
 
-There are 6 possible activity states for a deployment.
+There are six possible activity states for a deployment.
 
 | Activity Status | Description |
 |-----------------|-------------|
@@ -183,7 +183,7 @@ There are 6 possible activity states for a deployment.
 
 **With Staging**
 
-When a deployment is [staged](/docs/learn/releases/staging-area) before being deployed, there are several activity states it can pass through. Below is a diagram of the valid transitions between activity states.
+When a deployment is [staged](/docs/learn/releases/staging-area) before being deployed, it may pass through all the listed activity states. Below is a diagram of the valid transitions between activity states.
 
 ![](/images/deployments/activity-status-fsm:stage.png)
 
@@ -193,7 +193,7 @@ Eventually, the deployment is queued for delivery to the device, where it passes
 
 **Without Staging**
 
-Deployments which are immediately deployed and skip the `staged` state have a simpler lifecycle, passing straight through from `queued` to `archived`.
+Deployments which are immediately deployed and skip the `staged` state have a simpler lifecycle. They pass straight through from `queued` to `archived`.
 
 ![](/images/deployments/activity-status-fsm:deploy.png)
 
@@ -212,7 +212,7 @@ There are 3 possible error states for a deployment.
 | Error Status | Description |
 |--------------|-------------|
 | `none`       | There are no errors with the deployment |
-| `retrying`   | An non-fatal error has been encountered; the agent is retrying to fulfill the deployment's target status |
+| `retrying`   | A non-fatal error has been encountered; the agent is retrying to fulfill the deployment's target status |
 | `failed`     | A fatal error has been encountered; the deployment is (or will be) removed from the device and archived |
 
 Below are the valid transitions between error states.
@@ -236,7 +236,7 @@ If a non-fatal error is encountered, the deployment transitions to the `retrying
 
 If the agent is able to recover the deployment from the error, the deployment transitions back to the `none` error state once the deployment's target status is reached. 
 
-On the other hand, while the agent is unable to recover the deployment from the error, the deployment remains in the `retrying` error state. The agent continually attempts to fulfill the deployment's target status with an exponential backoff to prevent throttling the device's resources.
+On the other hand, as long as the agent is unable to recover the deployment from the error, the deployment remains in the `retrying` error state. The agent continually attempts to fulfill the deployment's target status with an exponential backoff to prevent throttling the device's resources.
 
 If the deployment is stuck in the `retrying` error state, try replacing or archiving the deployment to allow the agent to start fresh.
 

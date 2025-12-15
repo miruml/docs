@@ -15,7 +15,7 @@ import { Framed } from '/snippets/components/framed.jsx';
 
 The staging area for a release is a place to create deployments in preparation for a future rollout. The staging area only contains staged deployments. Currently deployed and previously deployed deployments are not accessible in the staging area.
 
-Deployments in the staging area can be freely created without being deployed to devices. This makes it an ideal place to prepare and review deployments before rolling them out.
+Deployments in the staging area can be freely created *before* being deployed to devices, making it an ideal place to prepare and review deployments before rolling them out.
 
 Every release has its own staging area that is completely separate from other release's staging areas. This separation allows deployments to be staged for multiple releases simultaneously.
 
@@ -37,11 +37,13 @@ Then select the **Stage** tab at the top of the page.
 
 ## Stage a deployment
  
-To stage a deployment, click the **Stage Deployment** button in the top right. A dialog will appear with tabs for each config schema defined in the release. The tabs are pre-populated with the schema's default values.
+To stage a deployment, click the **Stage Deployment** button in the top right. 
 
 <Frame>
   ![](/images/releases/stage/stage-dialog-step1:configs.png)
 </Frame>
+
+A dialog will appear with tabs for each config schema defined in the release. The tabs are pre-populated with the schema's default values.
 
 Make any desired edits to the config instances in the deployment, enter a description at the bottom of the dialog, and hit **Next**.
 
@@ -98,7 +100,7 @@ The content tab contains the parameters in the config instance while the metadat
 
 ## Patch a deployment
 
-Patching a deployment is the process of creating a new deployment to take the place of an existing deployment. Patching explicitly marks the original deployment as the predecessor of the new deployment, making it easy to trace the history of changes for a device's configurations.
+Patching a deployment is the process of creating a new deployment to take the place of an existing deployment. Patching explicitly marks the original deployment as the parent of the new deployment, making it easy to trace the history of changes for a device's configurations.
 
 When patching a deployment, the original deployment is archived and removed from the staging area with the new deployment taking its place.
 
@@ -108,13 +110,13 @@ To patch a deployment, click the ellipses (...) on the deployment to patch and s
   ![](/images/releases/stage/ellipses-dropdown:staged.png)
 </Frame>
 
-A dialog will appear with the original deployment's config instances populated in each tab. Make any desired edits to the deployment's config instances. These edits will be applied to the new deployment.
+A dialog will appear with the original deployment's config instances populated in each tab. 
 
 <Frame>
   ![](/images/releases/stage/patch-dialog:configurations.png)
 </Frame>
 
-Once satisfied with the edits, enter a description at the bottom of the dialog and hit **Stage**.
+Make any desired edits to the deployment's config instances. Once satisfied with the edits, enter a description at the bottom of the dialog and hit **Stage**.
 
 <Frame>
   ![](/images/releases/stage/patch-dialog:description.png)
@@ -194,9 +196,19 @@ A dialog will appear with a list of deployments that have been patched to the de
   ![](/images/releases/stage/review-dialog:deployments.png)
 </Frame>
 
-Clicking into a deployment will open the deployment details panel on the right of the page. And clicking into their Configurations will open the config instance details panel with the differences highlighted.
+Clicking into a deployment will open the deployment details panel on the right of the page. 
 
-After reviewing the patches, you have two options to proceed.
+<Frame>
+  ![](/images/releases/stage/deployment-panel:deployed.png)
+</Frame>
+
+Clicking into the deployment's listed configurations will open that config instance's details panel with the differences highlighted.
+
+<Frame>
+  ![](/images/releases/stage/config-panel.png)
+</Frame>
+
+With the deployment's patches available to view, you have two options to proceed.
 
 **Restage**
 
