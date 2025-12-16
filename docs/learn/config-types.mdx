@@ -31,7 +31,7 @@ Examples: `Mobility`, `Safety Features`, `Perception`
 
 <ImmutableBadge />
 
-A unique, code-friendly identifier used to associate schemas with their config type. 
+A unique, code-friendly identifier for a config type. 
 
 Slugs are immutable and must satisfy the following constraints:
 
@@ -60,7 +60,7 @@ Fill in the fields and hit **Create**.
 </Frame>
 
 <Warning>
-  Slugs cannot be modified after creation.
+  Config type slugs are immutable and cannot be modified after creation.
 </Warning>
 
 ## Edit a config type
@@ -79,13 +79,11 @@ Update the desired fields and hit **Save**.
 
 ## Delete a config type
 
+Deleting a config type is an irreversible action. Once a config type is deleted, it cannot be recovered.
+
 Deleting a config type is only possible if there exist no config instances for that config type. As such, most config types cannot be deleted.
 
 If no config instances exist for the config type, deleting a config type removes all associated schemas.
-
-<Warning>
-  Deleting a config type cannot be undone.
-</Warning>
 
 To delete a config type, click the ellipses of the config type you want to delete and select **Delete**.
 

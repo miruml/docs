@@ -1,0 +1,8 @@
+Config schemas support the following file formats:
+
+| Language     | Schema Formats  | Instance Formats |
+| ------------ | --------------- | ---------------- |
+| JSON Schema  | JSON, YAML      | JSON       |
+| CUE          | CUE             | JSON       |
+
+Note that a *schema's* format does not need to match the format of the *config instance* it validates. For example, a YAML formatted JSON Schema can validate a JSON formatted config instance.

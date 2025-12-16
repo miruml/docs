@@ -3,6 +3,7 @@ title: "Overview"
 ---
 
 import ConfigSchemaDef from '/snippets/definitions/config-schema.mdx';
+import SchemaFormats from '/snippets/schemas/formats.mdx';
 import {MutableBadge, ImmutableBadge, EditableBadge} from '/snippets/components/badges.jsx';
 import {Framed} from '/snippets/components/framed.jsx';
 
@@ -17,21 +18,11 @@ import {Framed} from '/snippets/components/framed.jsx';
 
 ## Properties
 
-<ParamField path="config type" type="Config Type">
-
-<ImmutableBadge />
-
-The config type which the schema belongs to.
-
-Examples: `Mobility`, `Safety Features`, `Perception`
-
-</ParamField>
-
 <ParamField path="language" type="string">
 
 <ImmutableBadge />
 
-The schema language used to define the schema. 
+The [schema language](/docs/learn/schemas/languages) used to define the schema. 
 
 Currently supported schema languages include:
 - JSON Schema (Draft 2020-12)
@@ -47,18 +38,7 @@ Enum: `jsonschema`, `cue`
 
 The file format used to define the schema.
 
-Some languages, such as JSON Schema, support multiple formats (e.g. JSON, YAML) while others, such as CUE, only support a single format (i.e. CUE lang itself).
-
-A *schema's* format does not need to match the format of the *config instance* it validates. Below are the supported schema and config instance formats for each schema language.
-
-| Language     | Schema Formats  | Instance Formats |
-| ------------ | --------------- | ---------------- |
-| JSON Schema  | JSON, YAML      | JSON       |
-| CUE          | CUE             | JSON       |
-
-<Info>
-  Support for more config instance formats including YAML and JSON-C are coming soon.
-</Info>
+<SchemaFormats />
 
 Examples: `json`, `yaml`, `cue`
 
@@ -72,7 +52,6 @@ The raw schema definition written in the specified schema language.
 
 The exact contents of a schema file is preserved in Miru including any comments, whitespace, and formatting.
 
-
 </ParamField>
 
 <ParamField path="digest" type="string">
@@ -81,12 +60,11 @@ The exact contents of a schema file is preserved in Miru including any comments,
 
 A hash of the canonicalized schema content.
 
-Digests are computed by converting a schema to a canonical format--a format which disregards whitespace, comments, and other non-semantic differences--and hashing the result. This is useful for comparing schemas and detecting duplicates.
+Digests are computed by converting schemas to a canonical format--a format which disregards whitespace, comments, and other non-semantic differences--and hashing the result. This is useful for comparing schemas and detecting duplicates.
 
 Examples: `sha256:45YeoJJ2btBnAKQztAEXEjHsqyyQfC1z1Mw3LLM4xMUy`
 
 </ParamField>
-
 
 <ParamField path="instance file path" type="string">
 
@@ -97,6 +75,16 @@ The instance file path is the file path to deploy config instances (for this sch
 The default instance file path for a schema is `{my-config-type-slug}.json`, which deploys config instances to `/srv/miru/config_instances/{my-config-type-slug}.json`.
 
 Examples: `/v1/mobility.json`, `/config/safety.json`
+</ParamField>
+
+<ParamField path="config type" type="Config Type">
+
+<ImmutableBadge />
+
+The [config type](/docs/learn/config-types#properties) which the schema belongs to.
+
+Examples: `Mobility`, `Safety Features`, `Perception`
+
 </ParamField>
 
 ## Schema languages
@@ -111,13 +99,7 @@ For more information on schema languages, visit the [languages](/docs/learn/sche
 
 ## File formats
 
-Config schemas support the following file formats:
-
-- JSON (`.json`)
-- YAML (`.yaml`, `.yml`)
-- CUE (`.cue`)
-
-However, each language supports a different set of file formats. Visit the [languages](/docs/learn/schemas/languages) section for more information about each language's supported file formats.
+<SchemaFormats />
 
 ## Validating instances
 

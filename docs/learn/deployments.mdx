@@ -4,6 +4,7 @@ title: "Deployments"
 
 import DeploymentDef from '/snippets/definitions/deployment.mdx';
 import DeploymentConstraints from '/snippets/definitions/deployment-constraints.mdx';
+import DeploymentStatus from '/snippets/deployments/status.mdx';
 import {EditableBadge, MutableBadge, ImmutableBadge, NullableBadge} from '/snippets/components/badges.jsx';
 import {ONLINE_TOOLTIP, OFFLINE_TOOLTIP} from '/snippets/components/devices/statuses.jsx';
 import {Framed} from '/snippets/components/framed.jsx';
@@ -65,7 +66,7 @@ Enum: `none`, `failed`, `retrying`
 
 <MutableBadge />
 
-The [status](#status) is a merged property of the `activity status` and `error status` fields, with error states taking precedence over activity states when errors are present.
+<DeploymentStatus />
 
 Enum: `staged`, `needs_review`, `queued`, `deployed`, `removing`, `archived`, `failed`, `retrying`
 
@@ -103,18 +104,7 @@ Examples: `CFG-68hdX`, `CFG-Cpa13`
 
 ## Status
 
-The status is a merged property of the `activity status` and `error status` fields, with error states taking precedence over activity states when errors are present.
-
-So, if the error status is `none`, then the status is simply the activity status. If the error status is not `none`, then the status is the error status.
-
-Below are some examples of the status given different activity and error states.
-
-| Activity Status | Error Status | Status |
-|-----------------|--------------|--------|
-| `staged`       | `none`       | `staged` |
-| `deployed`      | `none`       | `deployed` |
-| `queued`        | `retrying`   | `retrying` |
-| `removed`       | `failed`     | `failed` |
+<DeploymentStatus />
 
 ## Target Status
 
@@ -122,7 +112,7 @@ The target status is the desired state of a deployment. There are three possible
 
 | Target Status | Description |
 |---------------|-------------|
-| `staged`     | Deployment doesn't want to be deployed yet but may be deployed in the future |
+| `staged`     | Deployment doesn't yet want to be deployed yet but may be deployed in the future |
 | `deployed`    | Deployment wants to be delivered to its device |
 | `archived`     | Deployment no longer wants to be deployed; can never be deployed again |
 
@@ -176,24 +166,24 @@ There are six possible activity states for a deployment.
 |-----------------|-------------|
 | `staged`        | Deployment has been created and is ready to be deployed |
 | `needs review`  | Deployment has [drifted](/docs/learn/releases/staging-area#deployment-drift) and needs to be reviewed |
-| `queued`        | Deployment is waiting for the device to be <Tooltip tip={ONLINE_TOOLTIP.tip} cta={ONLINE_TOOLTIP.cta} href={ONLINE_TOOLTIP.href}>online</Tooltip> to be delivered to the device|
+| `queued`        | Deployment is waiting for the device to be <Tooltip tip={ONLINE_TOOLTIP.tip} cta={ONLINE_TOOLTIP.cta} href={ONLINE_TOOLTIP.href}>online</Tooltip> so it can be delivered to the device|
 | `deployed`      | Deployment has been delivered to the device and its configurations are available for consumption |
 | `removing`      | Deployment will be removed from the device as soon as the device is `online` |
 | `archived`      | Deployment is available for historical reference but can never be deployed again |
 
 **With Staging**
 
-When a deployment is [staged](/docs/learn/releases/staging-area) before being deployed, it may pass through all the listed activity states. Below is a diagram of the valid transitions between activity states.
+When a deployment is [staged](/docs/learn/releases/staging-area) before being deployed, it can pass through all the listed activity states. Below is a diagram of the valid transitions between activity states.
 
 ![](/images/deployments/activity-status-fsm:stage.png)
 
-Deployment start in the `staged` state. If a deployment [drifts](/docs/learn/releases/staging-area#deployment-drift), it transitions to `needs review` and must either be restaged or archived.
+Deployments start in the `staged` state. If a deployment [drifts](/docs/learn/releases/staging-area#deployment-drift), it transitions to `needs review` and must either be restaged or archived.
 
 Eventually, the deployment is queued for delivery to the device, where it passes through the primary deployment lifecycle from `queued` to `archived`.
 
 **Without Staging**
 
-Deployments which are immediately deployed and skip the `staged` state have a simpler lifecycle. They pass straight through from `queued` to `archived`.
+Deployments which are immediately deployed and skip the `staged` state have a simpler lifecycle. They simply go through the primary deployment lifecycle from `queued` to `archived`.
 
 ![](/images/deployments/activity-status-fsm:deploy.png)
 
@@ -205,7 +195,7 @@ Similar to the target status, activity states can only move *forward* due to the
 
 The error status is the *last known* error state of a deployment. Again, we use *last known state* very intentionally--poor network connectivity can prevent devices from immediately syncing their error state with the cloud.
 
-The error status is independent of the activity and target statuses. The error status does not imply any particular activity or target state and vice versa. The error status is only concerned with any errors encountered during the deployment process, regardless of the activity or target state.
+The error status is independent of the activity and target statuses. The error status does not imply any particular activity or target state and vice versa. The error status is only concerned with any errors encountered during the deployment process.
 
 There are 3 possible error states for a deployment.
 
@@ -236,7 +226,7 @@ If a non-fatal error is encountered, the deployment transitions to the `retrying
 
 If the agent is able to recover the deployment from the error, the deployment transitions back to the `none` error state once the deployment's target status is reached. 
 
-On the other hand, as long as the agent is unable to recover the deployment from the error, the deployment remains in the `retrying` error state. The agent continually attempts to fulfill the deployment's target status with an exponential backoff to prevent throttling the device's resources.
+On the other hand, as long as the agent is unable to recover the deployment from the error, the deployment remains in the `retrying` error state. The agent continually re-attempts to fulfill the deployment's target status with an exponential backoff to prevent throttling the device's resources.
 
 If the deployment is stuck in the `retrying` error state, try replacing or archiving the deployment to allow the agent to start fresh.
 

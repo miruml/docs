@@ -152,15 +152,15 @@ properties:
 
 Although many of JSON Schema's capabilities are omitted in this example, you'll find some of the most common keywords including:
 
-- `$schema` - specifies the JSON Schema draft version
+- `$schema` - the JSON Schema draft version
 - `type` - the data type of a property
-- `required` - signals that a property is required
+- `required` - the property must exist
 - `properties` - the sub-fields of an object
 - `default` - the default value of a property
-- `description` - the description of a property
-- `enum` - a constrained list of allowed values for a property (only for string types)
-- `minimum` - the minimum value of a property (only for numeric types)
-- `maximum` - the maximum value of a property (only for numeric types)
+- `description` - a human-readable description of a property
+- `enum` - a constrained list of values a property can take
+- `minimum` - the minimum value of a property
+- `maximum` - the maximum value of a property
 
 For a comprehensive list of JSON Schema keywords, visit the [official JSON Schema website](https://json-schema.org/understanding-json-schema/keywords). We also find the [official test suite](https://github.com/json-schema-org/JSON-Schema-Test-Suite/tree/main/tests/draft2020-12) highly useful, containing a vast number of simple JSON Schema examples.
 
@@ -191,10 +191,6 @@ The format of a schema does not need to match the format of the config instance 
 JSON Schemas can validate config instances in the following formats:
 
 - **JSON** (`.json`)
-
-<Note>
-  Support for more instance formats including YAML and JSON-C are coming soon.
-</Note>
 
 ## CUE
 <Framed 
@@ -264,7 +260,3 @@ Unlike JSON Schema, CUE can only be written in the CUE file format and must have
 Similar to JSON Schema though, CUE schemas can validate config instances in formats besides CUE itself. The following formats are supported:
 
 - **JSON** (`.json`)
-
-<Note>
-  Support for more instance formats including YAML and JSON-C are coming soon.
-</Note>

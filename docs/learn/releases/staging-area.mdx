@@ -36,6 +36,10 @@ Then select the **Stage** tab at the top of the page.
 </Frame>
 
 ## Stage a deployment
+
+Staging a deployment creates a new deployment in the staging area but does not deploy it to any devices. 
+
+Only one deployment may be staged for a device at a time. If a release already has a deployment staged for a device, staging a new deployment will replace the existing deployment.
  
 To stage a deployment, click the **Stage Deployment** button in the top right. 
 
@@ -160,6 +164,30 @@ A confirmation dialog will appear. Hit **Archive** to confirm.
 
 <Frame>
   ![](/images/releases/stage/archive-dialog:bulk.png)
+</Frame>
+
+## Deploy a deployment
+
+Deploying a deployment removes the existing deployment from the device and replaces it with the new deployment.
+
+This action is irreversible. Once deployed, the only way to restore configurations is to create a new deployment with the old configurations.
+
+To deploy one or more deployments, hover over the deployments you want to deploy and select their checkboxes on the far left of the page.
+
+<Frame>
+  ![](/images/releases/stage/select-devices.png)
+</Frame>
+
+At the bottom of the page, click **Deploy** from the available bulk actions.
+
+<Frame>
+  ![](/images/releases/stage/bulk-actions.png)
+</Frame>
+
+A confirmation dialog will appear. Hit **Deploy** to confirm. 
+
+<Frame>
+  ![](/images/releases/stage/deploy-dialog:bulk.png)
 </Frame>
 
 ## Deployment drift

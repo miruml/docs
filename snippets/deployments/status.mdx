@@ -1,0 +1,12 @@
+The status is a merged property of the `activity status` and `error status` fields, with error states taking precedence over activity states when errors are present.
+
+So, if the error status is `none`, then the status is simply the activity status. If the error status is not `none`, then the status is the error status.
+
+Below are some examples of the status given different activity and error states.
+
+| Activity Status | Error Status | Status |
+|-----------------|--------------|--------|
+| `staged`       | `none`       | `staged` |
+| `deployed`      | `none`       | `deployed` |
+| `queued`        | `retrying`   | `retrying` |
+| `removed`       | `failed`     | `failed` |

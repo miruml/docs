@@ -24,7 +24,7 @@ Provisioning a device is the process of creating a device in Miru and installing
 
 The Miru dashboard is the simplest method for provisioning devices, ideal for getting started or managing individual devices. 
 
-For automated deployments or provisioning devices at scale, consider using API Keys instead.
+For automated deployments or provisioning devices at scale, consider using [API Keys](#api-keys) instead.
 
 ### Create a Device
 <CreateDevice />
@@ -83,13 +83,17 @@ Default: `$HOSTNAME`
 
 <ParamField path="--allow-reactivation" type="boolean">
 
-Allows reactivation of existing devices. Without this flag, only `inactive` devices can be activated. With this flag, devices which have been previously activated (status `online`, `offline`, etc.) may be reactivated.
+Allows reactivation of existing devices. 
+
+Without this flag, only `inactive` devices can be activated. With this flag, devices which have been previously activated (status `online`, `offline`, etc.) may be reactivated.
 
 Default: `false`
 </ParamField>
 
 <ParamField path="--version" type="string">
-The agent version to install (e.g., `v0.6.0`). Defaults to the [latest release](https://github.com/miruml/agent/releases/latest). See all [available versions](https://github.com/miruml/agent/releases).
+The agent version to install (e.g., `v0.6.0`). 
+
+Defaults to the [latest release](https://github.com/miruml/agent/releases/latest). See all [available versions](https://github.com/miruml/agent/releases).
 </ParamField>
 
 <ParamField path="--from-pkg" type="string">
@@ -115,9 +119,9 @@ While this method circumvents the need to _download_ the Miru Agent over a netwo
 
 All Miru Agent releases are available as Debian packages [on GitHub](https://github.com/miruml/agent/releases). You can find the latest release [here](https://github.com/miruml/agent/releases/latest).
 
-<Note>
+<Info>
   Releases with the `Pre-release` tag are not yet considered stable and may contain bugs or other issues. Use at your own risk.
-</Note>
+</Info>
 
 To download the agent, drop down the **Assets** section for the desired release. The assets ending with the `.deb` extension are the Debian packages for the Miru Agent.
 
@@ -150,9 +154,9 @@ curl -fsSL https://raw.githubusercontent.com/miruml/agent/main/scripts/install/p
 --from-pkg=/path/to/miru-agent_<version>_<architecture>.deb
 ```
 
-<Note>
+<Info>
   You'll need to replace `<path/to/miru-agent_<version>_<architecture>.deb>` with the actual path to the package.
-</Note>
+</Info>
 
 **Dashboard**
 
@@ -163,13 +167,13 @@ If installing via the dashboard, follow these steps.
 
 This will give you an installation command similar to the following.
 
-<Warning>
-  Do not copy the example command below. It will not work since it does not have the appropriate activation token. Instead, follow the steps listed above.
-</Warning>
-
 ```bash
 curl -fsSL https://raw.githubusercontent.com/miruml/agent/main/scripts/install/install.sh | \
 env MIRU_ACTIVATION_TOKEN=<activation-token> \
 sh -s -- \
 --from-pkg=</path/to/agent.deb>
 ```
+
+<Warning>
+  Do not copy the example command below. It will not work since it does not have the appropriate activation token. Instead, follow the steps listed above.
+</Warning>
