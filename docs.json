@@ -80,11 +80,10 @@
                 "group": "Agent",
                 "pages": [
                   "docs/developers/agent/intro",
-                  "docs/developers/agent/usage"
+                  "docs/developers/agent/agent-api"
                 ]
               },
               "docs/developers/cli",
-              "docs/developers/agent-side-api",
               "docs/developers/server-side-api"
             ]
           },
@@ -176,6 +175,7 @@
               {
                 "group": "CLI",
                 "pages": [
+                  "docs/references/cli/intro",
                   "docs/references/cli/install",
                   "docs/references/cli/login"
                 ]
