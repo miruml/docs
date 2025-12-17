@@ -1,8 +1,8 @@
-Below are some example schema definitions using the <Tooltip tip="A formal language for describing the structure, constraints, and data types of a configuration" cta="Learn more" href="/docs/learn/schemas/languages">schema languages</Tooltip> JSON Schema and CUE.
+Below are some example schema definitions in the JSON Schema and CUE schema languages.
 
 <CodeGroup>
 
-```yaml JSON Schema [expandable]
+```yaml JSON Schema expandable
 x-miru-config-type: "mobility"
 $schema: "https://json-schema.org/draft/2020-12/schema"
 type: object
@@ -47,6 +47,7 @@ required:
   - navigation_mode
   - telemetry
 ```
+
 
 ```cue CUE
 @miru(config_type="mobility")

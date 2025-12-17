@@ -4,22 +4,17 @@ title: "Staging area"
 
 import { Framed } from '/snippets/components/framed.jsx';
 
-<Framed 
-  background="https://assets.miruml.com/docs/v02/images/releases/background.jpeg"
-  image="https://assets.miruml.com/docs/v02/images/releases/stage/header:page.png"
-  borderWidth="30px 0 0 48px"
-  innerRadius="8px 0 0 0"
-/>
+<Framed background="https://assets.miruml.com/docs/v02/images/releases/background.jpeg" image="https://assets.miruml.com/docs/v02/images/releases/stage/header:page.png" borderWidth="30px 0 0 48px" innerRadius="8px 0 0 0" />
 
 ## Overview
 
-The staging area for a release is a place to create deployments in preparation for a future rollout. The staging area only contains staged deployments. Currently deployed and previously deployed deployments are not accessible in the staging area.
+The staging area for a release is where deployments are created in preparation for a future rollout. The staging area only contains staged deployments. Currently deployed and previously deployed deployments are not accessible in the staging area.
 
-Deployments in the staging area can be freely created *before* being deployed to devices, making it an ideal place to prepare and review deployments before rolling them out.
+Deployments in the staging area can be created freely _before_ being deployed to devices, making it an ideal place to prepare and review them before rolling them out.
 
-Every release has its own staging area that is completely separate from other release's staging areas. This separation allows deployments to be staged for multiple releases simultaneously.
+Each release has its own staging area, entirely separate from other releases' staging areas. This separation allows deployments to be staged for multiple releases simultaneously.
 
-The staging area is also handy for batch operations. Deployments may be created, deployed, and archived in bulk, helpful for managing large numbers of deployments at once.
+The staging area is also handy for batch operations. Deployments can be created, deployed, and archived in bulk, which helps manage large numbers of deployments at once.
 
 ## View the staging area
 
@@ -37,11 +32,11 @@ Then select the **Stage** tab at the top of the page.
 
 ## Stage a deployment
 
-Staging a deployment creates a new deployment in the staging area but does not deploy it to any devices. 
+Staging a deployment creates a new deployment in the staging area but does not deploy it to any devices.
 
-Only one deployment may be staged for a device at a time. If a release already has a deployment staged for a device, staging a new deployment will replace the existing deployment.
- 
-To stage a deployment, click the **Stage Deployment** button in the top right. 
+Only one deployment can be staged per device at a time. If a release already has a deployment staged for a device, staging a new deployment will replace the existing deployment.
+
+To stage a deployment, click the **Stage Deployment** button in the top right.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/releases/stage/stage-dialog-step1:configs.png)
@@ -61,9 +56,9 @@ Select one or more devices to stage this deployment for. Selecting multiple devi
   ![](https://assets.miruml.com/docs/v02/images/releases/stage/stage-dialog-step2:select-devices.png)
 </Frame>
 
-You may find some devices unavailable for selection--these devices have configurations for *this release* which are currently deployed. This is not allowed. 
+You may find some devices unavailable for selection--these devices have configurations for _this release_ that are already deployed. This is not allowed.
 
-You can only stage deployments for devices which are running a *different release*. To patch configurations for such devices, make your edits in the device's [config editor](/docs/learn/devices/config-editor).
+You can only stage deployments for devices that are running a _different release_. To patch configurations for such devices, make your edits in the device's [config editor](/docs/learn/devices/config-editor).
 
 Once satisfied with the selected devices, click **Stage** at the bottom of the dialog.
 
@@ -73,7 +68,7 @@ Once satisfied with the selected devices, click **Stage** at the bottom of the d
 
 ## View a deployment
 
-To view a deployment in the staging area, select the deployment from the list of deployments in the staging area.
+To view a deployment in the staging area, select it from the list.
 
 A panel will open on the right of the page displaying the deployment's details.
 
@@ -81,13 +76,13 @@ A panel will open on the right of the page displaying the deployment's details.
   ![](https://assets.miruml.com/docs/v02/images/deployments/staged-panel.png)
 </Frame>
 
-To view the details of any config instances in the deployment, click into the config instance in the **Configurations** section of the panel. 
+To view the details of any config instances in the deployment, click into the config instance in the **Configurations** section of the panel.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/deployments/staged-panel:configurations.png)
 </Frame>
 
-The content tab contains the parameters in the config instance while the metadata tab contains audit information--the author, creation date, description, etc.
+The content tab contains the config instance's parameters, while the metadata tab contains audit information--the author, creation date, description, etc.
 
 <Tabs>
   <Tab title="Content">
@@ -104,9 +99,9 @@ The content tab contains the parameters in the config instance while the metadat
 
 ## Patch a deployment
 
-Patching a deployment is the process of creating a new deployment to take the place of an existing deployment. Patching explicitly marks the original deployment as the parent of the new deployment, making it easy to trace the history of changes for a device's configurations.
+Patching a deployment is the process of creating a new deployment to replace an existing one. Patching explicitly marks the original deployment as the parent of the latest deployment, making it easy to trace the history of changes for a device's configurations.
 
-When patching a deployment, the original deployment is archived and removed from the staging area with the new deployment taking its place.
+When patching a deployment, the original deployment is archived and removed from the staging area, with the new deployment taking its place.
 
 To patch a deployment, click the ellipses (...) on the deployment to patch and select **Patch** from the dropdown.
 
@@ -114,7 +109,7 @@ To patch a deployment, click the ellipses (...) on the deployment to patch and s
   ![](https://assets.miruml.com/docs/v02/images/releases/stage/ellipses-dropdown:staged.png)
 </Frame>
 
-A dialog will appear with the original deployment's config instances populated in each tab. 
+A dialog will appear with the original deployment's config instances populated in each tab.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/releases/stage/patch-dialog:configurations.png)
@@ -128,19 +123,19 @@ Make any desired edits to the config instances. Once satisfied with the edits, e
 
 ## Archive a deployment
 
-Archiving a deployment removes it from the staging area and marks it as `archived`. 
+Archiving a deployment removes it from the staging area and marks it as `archived`.
 
 This action is irreversible. Once archived, a deployment can never be deployed to a device. However, the deployment will remain available for historical reference.
 
 **Single Deployment**
 
-To archive a single deployment, click the ellipses (...) on the deployment to archive and select **Archive** from the dropdown.
+To archive a single deployment, click the ellipsis (...) on the deployment and select **Archive** from the dropdown.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/releases/stage/ellipses-dropdown:staged.png)
 </Frame>
 
-A confirmation dialog will appear. Hit **Archive** to confirm.
+A confirmation dialog will appear -- hit **Archive** to confirm.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/releases/stage/archive-dialog:single.png)
@@ -148,7 +143,7 @@ A confirmation dialog will appear. Hit **Archive** to confirm.
 
 **Multiple Deployments**
 
-To archive multiple deployments, hover over the deployments you want to archive and select the checkbox on the far left of the deployment.
+To archive multiple deployments, hover over the deployments you want to archive and select the checkbox in the far-left column.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/releases/stage/select-devices.png)
@@ -160,7 +155,7 @@ At the bottom of the page, click **Archive** from the available bulk actions.
   ![](https://assets.miruml.com/docs/v02/images/releases/stage/bulk-actions.png)
 </Frame>
 
-A confirmation dialog will appear. Hit **Archive** to confirm. 
+A confirmation dialog will appear -- hit **Archive** to confirm.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/releases/stage/archive-dialog:bulk.png)
@@ -172,7 +167,7 @@ Deploying a deployment removes the existing deployment from the device and repla
 
 This action is irreversible. Once deployed, the only way to restore configurations is to create a new deployment with the old configurations.
 
-To deploy one or more deployments, hover over the deployments you want to deploy and select their checkboxes on the far left of the page.
+To deploy one or more deployments, hover over the deployments you want to deploy and select their checkboxes in the far-left column.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/releases/stage/select-devices.png)
@@ -184,7 +179,7 @@ At the bottom of the page, click **Deploy** from the available bulk actions.
   ![](https://assets.miruml.com/docs/v02/images/releases/stage/bulk-actions.png)
 </Frame>
 
-A confirmation dialog will appear. Hit **Deploy** to confirm. 
+A confirmation dialog will appear. Hit **Deploy** to confirm.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/releases/stage/deploy-dialog:bulk.png)
@@ -192,27 +187,27 @@ A confirmation dialog will appear. Hit **Deploy** to confirm.
 
 ## Deployment drift
 
-When a device receives configuration updates for its current release while having deployments staged for another release, we say the staged deployment has *drifted*.
+When a device receives configuration updates for its current release while having deployments staged for another release, we say the staged deployment has _drifted_.
 
 Consider the following example:
 
 ![](https://assets.miruml.com/docs/v02/images/deployments/deployment-drift.png)
 
-Our device is currently running deployment `DPL-Npfzv`, which adheres to release `v1.5`. Our device is about to upgrade to release `v1.6` though, so we've staged deployment `DPL-Q4CeX` for the upcoming upgrade.
+Our device is currently running deployment `DPL-Npfzv`, which adheres to release `v1.5`. Our device is about to be upgraded to release `v1.6` though, so we've staged deployment `DPL-Q4CeX` for the upcoming upgrade.
 
-However, before the upgrade occurs, our device receives some configuration updates on release `v1.5`-- `DPL-Npfzv` is patched with `DPL-BFwc3`. Since it's often the case that this patch also needs to be applied to the staged deployment `DPL-Q4CeX`, we say `DPL-Q4CeX` has *drifted*.
+However, before the upgrade occurs, our device receives some configuration updates on release `v1.5`-- `DPL-Npfzv` is patched with `DPL-BFwc3`. Since it's often the case that this patch also needs to be applied to the staged deployment `DPL-Q4CeX`, we say `DPL-Q4CeX` has _drifted_.
 
-When a deployment drifts, it is marked as `needs review` and cannot be deployed until an explicit review is performed. You must either ignore the patch, or apply the patch to the staged deployment. 
+When a deployment drifts, it is marked as `needs review` and cannot be deployed until an explicit review is performed. You must either ignore the patch or apply the patch to the staged deployment.
 
-The concept of deployment drift ensures that configuration changes aren't lost when migrating from one release to another, preventing misconfigurations.
+The concept of deployment drift ensures that configuration changes aren't lost during migrations between releases, preventing misconfigurations.
 
 ## Review a deployment
 
 Reviewing a deployment is only possible when a deployment has [drifted](#deployment-drift) and is in the `needs review` state. Otherwise, the review button is disabled.
 
-Reviewing a deployment displays the patches that have occurred for a device since the last time that the deployment was reviewed (or when it was initially staged).
+Reviewing a deployment displays the patches applied to a device since the last time the deployment was reviewed (or since it was initially staged).
 
-To review a deployment, click the ellipses (...) on the deployment to review and select **Review** from the dropdown.
+To review a deployment, click the ellipsis (...) on the deployment and select **Review** from the dropdown.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/releases/stage/ellipses-dropdown:drifted.png)
@@ -224,19 +219,19 @@ A dialog will appear with a list of deployments that have been patched to the de
   ![](https://assets.miruml.com/docs/v02/images/releases/stage/review-dialog:deployments.png)
 </Frame>
 
-Clicking into a deployment will open the deployment details panel on the right of the page. 
+Clicking a deployment opens the deployment details panel on the right side of the page.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/releases/stage/deployment-panel:deployed.png)
 </Frame>
 
-Clicking into the deployment's listed configurations will open that config instance's details panel with the differences highlighted.
+Clicking a deployment's listed configuration opens that config instance's details panel, with the differences highlighted.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/releases/stage/config-panel.png)
 </Frame>
 
-With the deployment's patches available to view, you have two options to proceed.
+With the deployment's patches available for review, you have two options for proceeding.
 
 **Restage**
 
@@ -248,7 +243,7 @@ The first option is to restage the deployment as-is, effectively ignoring the pa
 
 **Archive**
 
-The second option is to [archive](#archive-a-deployment) the deployment. This removes the deployment from the staging area and moves it to the `archived` state.
+The second option is to [archive](#archive-a-deployment) the deployment. This removes the deployment from the staging area and moves it to the `archived` state. Archived deployments are available for historical reference but cannot be deployed.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/releases/stage/review-dialog:archive.png)
@@ -256,4 +251,4 @@ The second option is to [archive](#archive-a-deployment) the deployment. This re
 
 **Patch**
 
-The ability to apply patches to a drifted deployment is currently unavailable but will be coming soon!
+The ability to apply patches to a drifted deployment is currently unavailable, but will be coming soon!

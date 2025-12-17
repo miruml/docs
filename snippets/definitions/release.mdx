@@ -1,13 +1,13 @@
 A **release** is a version of software and its compatible config schemas.
 
-Amongst a fleet of robots, multiple software versions may be deployed--each release defines which config schemas are valid for that software version.
+Within a fleet of robots, multiple software versions may be deployed -- each release defines which config schemas are valid for that version.
 
 For example, software release `v1.7.0` might specify the following schemas:
 
 | **Config Type** | **Schema Version** |
-|----------------|-------------------|
-| `Mobility`       | **SCH-FmoDN** |
-| `Perception`   | **SCH-3JcLq** |
-| `Manipulation` | **SCH-HHDRn** |
+| --------------- | ------------------ |
+| `Mobility`      | **SCH-FmoDN**      |
+| `Perception`    | **SCH-3JcLq**      |
+| `Manipulation`  | **SCH-HHDRn**      |
 
-Before deploying config instances to a device, the deployment's release (`v1.7.0`) is used to validate that all necessary config instances are present and that each instance satisfies the release's schemas.
+Before deploying config instances to a device, the deployment's release (`v1.7.0`) is used to verify that all required config instances are present and that each instance complies with the release's schemas.

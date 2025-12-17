@@ -4,17 +4,13 @@ title: "Manage releases"
 
 import { Framed } from '/snippets/components/framed.jsx';
 
-<Framed 
-  background="https://assets.miruml.com/docs/v02/images/releases/background.jpeg"
-  image="https://assets.miruml.com/docs/v02/images/releases/header:overview.png"
-  borderWidth="28px"
-/>
+<Framed background="https://assets.miruml.com/docs/v02/images/releases/background.jpeg" image="https://assets.miruml.com/docs/v02/images/releases/header:overview.png" borderWidth="28px" />
 
 Releases are located in the [Releases page](https://app.miruml.com/releases) of the dashboard.
 
 ## Create a release
 
-To create a release, click the **New Release** button in the top right and supply a version. 
+To create a release, click the **New Release** button in the top-right and enter a version.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/releases/create-dialog-step1.png)
@@ -24,18 +20,17 @@ To create a release, click the **New Release** button in the top right and suppl
   The version must be a [semantic version](https://semver.org/). See the [release properties](/docs/learn/releases/overview#properties) for more information.
 </Info>
 
-Hit **Next** and select the config schemas to include in the release. 
+Click **Next,** then select the config schemas to include in the release.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/releases/create-dialog-step2.png)
 </Frame>
 
 <Info>
-If you don't have any config types or schemas to choose from, you first need to [create a config type](/docs/learn/config-types#create-a-config-type) and then [create a schema](/docs/learn/schemas/create).
+  If you don't have any config types or schemas to choose from, first [create a config type](/docs/learn/config-types#create-a-config-type), then [create a schema](/docs/learn/schemas/create).
 </Info>
 
-Only one config schema per config type can be included in a release. By default, the latest schema for each config type is chosen. To select a different version, click the dropdown for the config type and select the desired version. 
-
+Only one config schema per config type can be included in a release. By default, the latest schema for each config type is chosen. To select a different version, click the dropdown for the config type and select the desired version.
 
 To view the schema's content and metadata, hover over the schema and click the **View** button.
 
@@ -61,7 +56,7 @@ To retrieve a release programmatically, use the [get release endpoint »](/docs/
 
 ## Delete a release
 
-Deleting a release is only possible if there exist no deployments which have been deployed to a device with that release. Otherwise, the release cannot be deleted.
+Deleting a release is only possible if no deployments have been delivered to any device with that release. Otherwise, the release cannot be deleted.
 
 To delete a release, click the ellipses (...) on the release you want to delete and hit **Delete**.
 
