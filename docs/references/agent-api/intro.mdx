@@ -2,14 +2,8 @@
 title: "Introduction"
 ---
 
-The Miru Agent API allows you to programmatically interact with the Miru Agent running locally on your robot, useful for manually refreshing configurations, retrieving configurations, and more.
+import Intro from '/snippets/references/agent-api/intro.mdx';
 
-<Note>
-The Miru Agent API is not available over the internet. It is only available on the device running the agent.
-</Note>
+<Intro />
 
-The Miru Agent API is organized around [REST](https://en.wikipedia.org/wiki/REST), and is available over the Unix socket `/run/miru/miru.sock` on the device running the agent.
-
-To get started, continue to the [Authentication](/docs/references/agent-api/authn) page to learn how requests are authenticated. 
-
-For information about a specific API endpoint, visit the [**Endpoints**](/docs/references/agent-api/endpoints/agent/health) section.
+To get started, continue to the [Authentication](/docs/references/agent-api/authn) page to learn how requests are authenticated. For information about a specific API endpoint, visit the [**Endpoints**](/docs/references/agent-api/endpoints/agent/health) section.
