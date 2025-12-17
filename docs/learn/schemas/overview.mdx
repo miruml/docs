@@ -7,95 +7,81 @@ import SchemaFormats from '/snippets/schemas/formats.mdx';
 import {MutableBadge, ImmutableBadge, EditableBadge} from '/snippets/components/badges.jsx';
 import {Framed} from '/snippets/components/framed.jsx';
 
-<Framed 
-  background="https://assets.miruml.com/docs/v02/images/config-schemas/background.png"
-  image="https://assets.miruml.com/docs/v02/images/config-schemas/header:panel.png"
-  borderWidth={"32px 56px 0 0"}
-  innerRadius={"0 8px 0 0"}
-/>
+<Framed background="https://assets.miruml.com/docs/v02/images/config-schemas/background.png" image="https://assets.miruml.com/docs/v02/images/config-schemas/header:panel.png" borderWidth={"32px 56px 0 0"} innerRadius={"0 8px 0 0"} />
 
 <ConfigSchemaDef />
 
 ## Properties
 
 <ParamField path="language" type="string">
+  <ImmutableBadge />
 
-<ImmutableBadge />
+  The [schema language](/docs/learn/schemas/languages) used to define the schema.
 
-The [schema language](/docs/learn/schemas/languages) used to define the schema. 
+  Currently supported schema languages include:
 
-Currently supported schema languages include:
-- JSON Schema (Draft 2020-12)
-- CUE
+  - JSON Schema (Draft 2020-12)
+  - CUE
 
-Enum: `jsonschema`, `cue`
-
+  Enum: `jsonschema`, `cue`
 </ParamField>
 
 <ParamField path="format" type="string">
+  <ImmutableBadge />
 
-<ImmutableBadge />
+  The file format used to define the schema.
 
-The file format used to define the schema.
+  <SchemaFormats />
 
-<SchemaFormats />
-
-Examples: `json`, `yaml`, `cue`
-
+  Examples: `json`, `yaml`, `cue`
 </ParamField>
 
 <ParamField path="content" type="string">
+  <ImmutableBadge />
 
-<ImmutableBadge />
+  The raw schema definition, written in the specified schema language.
 
-The raw schema definition written in the specified schema language.
-
-The exact contents of a schema file is preserved in Miru including any comments, whitespace, and formatting.
-
+  The exact contents of a schema file is preserved in Miru, including any comments, whitespace, and formatting.
 </ParamField>
 
 <ParamField path="digest" type="string">
+  <ImmutableBadge />
 
-<ImmutableBadge />
+  A hash of the canonicalized schema content.
 
-A hash of the canonicalized schema content.
+  Digests are computed by converting schemas to a canonical format -- a format that ignores whitespace, comments, and other non-semantic differences -- and then hashing the result. This is useful for comparing schemas and detecting duplicates.
 
-Digests are computed by converting schemas to a canonical format--a format which disregards whitespace, comments, and other non-semantic differences--and hashing the result. This is useful for comparing schemas and detecting duplicates.
-
-Examples: `sha256:45YeoJJ2btBnAKQztAEXEjHsqyyQfC1z1Mw3LLM4xMUy`
-
+  Examples: `sha256:45YeoJJ2btBnAKQztAEXEjHsqyyQfC1z1Mw3LLM4xMUy`
 </ParamField>
 
 <ParamField path="instance file path" type="string">
+  <ImmutableBadge />
 
-<ImmutableBadge />
+  The instance file path is the file path to deploy config instances (for this schema) on a device, relative to the `/srv/miru/config_instances` directory.
 
-The instance file path is the file path to deploy config instances (for this schema) on a device relative to the `/srv/miru/config_instances` directory. 
+  The default instance file path for a schema is `{my-config-type-slug}.json`, which deploys config instances to `/srv/miru/config_instances/{my-config-type-slug}.json`.
 
-The default instance file path for a schema is `{my-config-type-slug}.json`, which deploys config instances to `/srv/miru/config_instances/{my-config-type-slug}.json`.
-
-Examples: `/v1/mobility.json`, `/config/safety.json`
+  Examples: `/v1/mobility.json`, `/config/safety.json`
 </ParamField>
 
 <ParamField path="config type" type="Config Type">
+  <ImmutableBadge />
 
-<ImmutableBadge />
+  The [config type](/docs/learn/config-types#properties) to which the schema belongs.
 
-The [config type](/docs/learn/config-types#properties) which the schema belongs to.
-
-Examples: `Mobility`, `Safety Features`, `Perception`
-
+  Examples: `Mobility`, `Safety Features`, `Perception`
 </ParamField>
 
 ## Schema languages
 
-Config schemas are defined using a schema language--a formal language for describing the structure, constraints, and data types of a configuration. 
+Config schemas are defined using a schema language--a formal language for describing the structure, constraints, and data types of a configuration.
 
 Miru supports:
+
 - [JSON Schema](https://json-schema.org/draft/2020-12) (draft 2020-12)
 - [CUE](https://cuelang.org/)
 
-For more information on schema languages, visit the [languages](/docs/learn/schemas/languages) section of this guide. 
+For more information on schema languages, visit the [languages](/docs/learn/schemas/languages) section of this guide.
 
 ## File formats
 
@@ -107,7 +93,7 @@ The primary purpose of schemas is to validate config instances. Let's look at a 
 
 The following is a toy schema written in JSON Schema.
 
-```yaml JSON Schema [expandable]
+```yaml JSON Schema expandable
 $schema: "https://json-schema.org/draft/2020-12/schema"
 title: Mobility
 type: object
@@ -183,26 +169,27 @@ Identifying the issue, we correct the `max_angular_speed_radps` field to use the
   ![](https://assets.miruml.com/docs/v02/images/devices/editor/valid-mobility-edit.png)
 </Frame>
 
-This time the config instance successfully validates against the schema and is deployed to the device.
+This time, the config instance successfully validates against the schema and is deployed to the device.
 
-Although simple in concept, schemas are a powerful tool for preventing typos, misconfigurations, and other preventable errors. 
+Although simple in concept, schemas are a powerful tool for preventing typos, misconfigurations, and other preventable errors.
 
 ## Empty schemas
 
-While schemas provide a lot of value for production deployments, it can be a significant undertaking to define one from scratch.
+While schemas provide significant value in production deployments, defining one from scratch can be a considerable undertaking.
 
-Many teams find it best to begin with an empty schema--a schema that accepts any configuration--and gradually add constraints over time. This approach allows you to define the most high value constraints first and gradually transition to stricter and stricter schemas as needed.
+Many teams find it best to begin with an empty schema-- one that accepts any configuration -- and gradually add constraints. This approach allows you to define the most highly valued constraints first and progressively transition to stricter and stricter schemas as needed.
 
-Below are the empty schemas for JSON Schema and CUE respectively.
+Below are the empty schemas for JSON Schema and CUE, respectively.
 
 <CodeGroup>
+
 ```yaml JSON Schema
 $schema: "https://json-schema.org/draft/2020-12/schema"
 ```
 
+
 ```cue CUE
 {}
 ```
+
 </CodeGroup>
-
-

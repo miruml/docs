@@ -5,80 +5,77 @@ title: "Default values"
 import { Dropdown, DropdownItem } from '/snippets/components/dropdown.jsx'
 import { Separator } from '/snippets/components/seperator.jsx'
 
-While schemas are primarily used to validate config instances, a secondary purpose is to define default values.
+While schemas are primarily used to validate config instances, they also define default values.
 
-Schemas are a perfect place to define defaults--values are naturally migrated and versioned alongside the schema, preventing drift between default configs and schema versions.
+Schemas are a perfect place to define defaults — values are naturally migrated and versioned alongside the schema, preventing drift between default configurations and schema versions.
 
-While some configs, such as calibrations, do not have sensible defaults, defaults should be leveraged for the majority of parameters.
+While some configurations, such as calibrations, do not have sensible defaults, defaults should be used for most parameters.
 
-As detailed further down in the [extracting defaults](/docs/learn/schemas/defaults#extracting-defaults) section, Miru integrates directly with schema defaults to auto-populate config instances.
+As detailed in the extracting defaults section below, Miru integrates directly with schema defaults to auto-populate config instances.
 
 ## Defining defaults
 
 Defining defaults in a schema is straightforward. Below are examples of how to define defaults in the supported schema languages.
 
 <Tabs>
+  <Tab title="JSON Schema">
+    JSON Schema uses the `default` keyword to specify the default value for a property.
 
-<Tab title="JSON Schema">
-JSON Schema uses the `default` keyword to specify the default value for a property.
+    Below is a schema that defines `conservative` as a default value for the `navigation_mode` property.
 
-Below is a schema which defines `conservative` as a default value for the `navigation_mode` property.
+    ```yaml
+    $schema: "https://json-schema.org/draft/2020-12/schema"
+    type: object
+    properties:
+        navigation_mode:
+            type: string
+            enum: [conservative, aggressive]
+            default: conservative
+    required:
+    - navigation_mode
+    ```
 
-```yaml
-$schema: "https://json-schema.org/draft/2020-12/schema"
-type: object
-properties:
-    navigation_mode:
-        type: string
-        enum: [conservative, aggressive]
-        default: conservative
-required:
-- navigation_mode
-```
+    One JSON Schema quirk is that it treats default values as [annotations](https://json-schema.org/understanding-json-schema/reference/annotations)--supplementary information that is not part of the schema itself. As a result, JSON Schema allows defining properties with invalid default values.
 
-One JSON Schema quirk is that it considers default values [annotations](https://json-schema.org/understanding-json-schema/reference/annotations)--supplementary information that is not part of the schema itself. As a result, JSON Schema allows the definition of properties which contain invalid default values.
+    For example, the following schema defines the property `foo` with a default value of `"bar"`, which is not a valid number.
 
-For example, the following schema defines the property `foo` with a default value of `"bar"`, which is not a valid number.
+    ```yaml
+    $schema: "https://json-schema.org/draft/2020-12/schema"
+    type: object
+    properties:
+      foo:
+        type: number
+        default: "bar"
+    ```
 
-```yaml
-$schema: "https://json-schema.org/draft/2020-12/schema"
-type: object
-properties:
-  foo:
-    type: number
-    default: "bar"
-```
+    While JSON Schema allows such schemas, Miru rejects them. Any schema that contains invalid default values is considered invalid by Miru.
+  </Tab>
+  <Tab title="CUE">
+    CUE uses the `| *` syntax to define default values.
 
-While JSON Schema allows such schemas, Miru rejects them. Any schemas that contain invalid default values are considered invalid by Miru.
+    Below is a schema which defines `conservative` as a default value for the `navigation_mode` property.
 
-</Tab>
-
-<Tab title="CUE">
-
-CUE uses the `| *` syntax to define default values.
-
-Below is a schema which defines `conservative` as a default value for the `navigation_mode` property.
-
-```cue
-navigation_mode: "conservative" | "aggressive" | *"conservative"
-```
-
-</Tab>
+    ```cue
+    navigation_mode: "conservative" | "aggressive" | *"conservative"
+    ```
+  </Tab>
 </Tabs>
 
 ## Extracting defaults
+
 Miru integrates directly with schema defaults to auto-populate config instances at various parts of the deployment process.
 
 While default extraction is mostly straightforward, there are several nuances to be aware of.
 
 ### Omitted values
 
-If a parameter does not specify a default value, Miru simply omits this parameter from the extracted defaults.
+If a parameter has no default value, Miru omits it from the extracted defaults.
 
-In the below schema, `enable_remote_control` is not given a default value and is accordingly omitted from the extracted defaults.
+In the below schema, `enable_remote_control` it is not given a default value and is accordingly omitted from the extracted defaults.
 
 <CodeGroup>
-```yaml JSON Schema [expandable]
+
+```yaml JSON Schema expandable
 $schema: "https://json-schema.org/draft/2020-12/schema"
 type: object
 properties:
@@ -106,6 +103,7 @@ required:
   - preferred_speed_mode
 ```
 
+
 ```cue CUE
 {
   enable_autonomy: bool | *true
@@ -114,8 +112,8 @@ required:
   preferred_speed_mode: "slow" | "normal" | "fast" | *"normal"
 }
 ```
-</CodeGroup>
 
+</CodeGroup>
 
 ```yaml Defaults
 enable_autonomy: true
@@ -125,11 +123,12 @@ preferred_speed_mode: "normal"
 
 ### Arrays of objects
 
-Extracting defaults for *primitive* arrays works as you would expect: values are extracted from the schema as-is.
+Extracting defaults for _primitive_ arrays works as you would expect: values are taken directly from the schema.
 
 <Tabs>
   <Tab title="Schema">
-  <CodeGroup>
+    <CodeGroup>
+
     ```yaml JSON Schema
     $schema: "https://json-schema.org/draft/2020-12/schema"
     type: object
@@ -141,75 +140,81 @@ Extracting defaults for *primitive* arrays works as you would expect: values are
         default: ["manual", "autonomous", "semi-autonomous"]
     ```
 
+    
     ```cue CUE
     {
       allowed_modes: [...string] | *["manual", "autonomous", "semi-autonomous"]
     }
     ```
-  </CodeGroup>
+
+    </CodeGroup>
   </Tab>
   <Tab title="Defaults">
-  ```yaml
-  allowed_modes: ["manual", "autonomous", "semi-autonomous"]
-  ```
+    ```yaml
+    allowed_modes: ["manual", "autonomous", "semi-autonomous"]
+    ```
   </Tab>
 </Tabs>
+
 However, arrays of objects are a bit more nuanced. Schema languages allow you to define defaults for both the array and the objects within the array, leaving the default extraction ambiguous.
 
-To handle such cases, Miru ignores any defaults that are defined inside of array items. If an array is defined, only the defaults defined at the array level are extracted.
+To handle such cases, Miru ignores any defaults defined within array items. If an array is specified, only the defaults defined at the array level are extracted.
 
 Below are some examples of how this works.
 
 <AccordionGroup>
   <Accordion title="Array and item-level defaults defined">
     <CodeGroup>
-      ```yaml JSON Schema
-      $schema: "https://json-schema.org/draft/2020-12/schema"
-      type: array
-      items:
-        type: object
-        properties:
-          task_name:
-            type: string
-            default: "initialize" # ignored
-          timeout_seconds:
-            type: number
-            default: 30 # ignored
-          enabled:
-            type: boolean
-            default: true # ignored
-        default: [
-          {
-            task_name: "initialize",
-            timeout_seconds: 30,
-            enabled: true
-          },
-          {
-            task_name: "calibrate",
-            timeout_seconds: 60,
-            enabled: false
-          },
-        ]
-      ```
 
-      ```cue CUE
-      [...{
-        task_name: string | *"initialize" // ignored
-        timeout_seconds: number | *30 // ignored
-        enabled: bool | *true // ignored
-      }] | *[
+    ```yaml JSON Schema
+    $schema: "https://json-schema.org/draft/2020-12/schema"
+    type: array
+    items:
+      type: object
+      properties:
+        task_name:
+          type: string
+          default: "initialize" # ignored
+        timeout_seconds:
+          type: number
+          default: 30 # ignored
+        enabled:
+          type: boolean
+          default: true # ignored
+      default: [
         {
-          task_name: string | *"initialize"
-          timeout_seconds: number | *30
-          enabled: bool | *true
+          task_name: "initialize",
+          timeout_seconds: 30,
+          enabled: true
         },
         {
-          task_name: string | *"calibrate"
-          timeout_seconds: number | *60
-          enabled: bool | *false
-        }
+          task_name: "calibrate",
+          timeout_seconds: 60,
+          enabled: false
+        },
       ]
-      ```
+    ```
+
+    
+    ```cue CUE
+    [...{
+      task_name: string | *"initialize" // ignored
+      timeout_seconds: number | *30 // ignored
+      enabled: bool | *true // ignored
+    }] | *[
+      {
+        task_name: string | *"initialize"
+        timeout_seconds: number | *30
+        enabled: bool | *true
+      },
+      {
+        task_name: string | *"calibrate"
+        timeout_seconds: number | *60
+        enabled: bool | *false
+      }
+    ]
+    ```
+
     </CodeGroup>
 
     ```yaml Defaults
@@ -227,53 +232,55 @@ Below are some examples of how this works.
     ]
     ```
   </Accordion>
-
   <Accordion title="Only array-level defaults defined">
     <CodeGroup>
-      ```yaml JSON Schema
-      $schema: "https://json-schema.org/draft/2020-12/schema"
-      type: array
-      items:
-        type: object
-        properties:
-          task_name:
-            type: string
-          timeout_seconds:
-            type: number
-          enabled:
-            type: boolean
-        default: [
-          {
-            task_name: "initialize",
-            timeout_seconds: 30,
-            enabled: true
-          },
-          {
-            task_name: "calibrate",
-            timeout_seconds: 60,
-            enabled: false
-          },
-        ]
-      ```
 
-      ```cue CUE
-      [...{
-        task_name: string
-        timeout_seconds: number
-        enabled: bool
-      }] | *[
+    ```yaml JSON Schema
+    $schema: "https://json-schema.org/draft/2020-12/schema"
+    type: array
+    items:
+      type: object
+      properties:
+        task_name:
+          type: string
+        timeout_seconds:
+          type: number
+        enabled:
+          type: boolean
+      default: [
         {
-          task_name: string | *"initialize"
-          timeout_seconds: number | *30
-          enabled: bool | *true
+          task_name: "initialize",
+          timeout_seconds: 30,
+          enabled: true
         },
         {
-          task_name: string | *"calibrate"
-          timeout_seconds: number | *60
-          enabled: bool | *false
-        }
+          task_name: "calibrate",
+          timeout_seconds: 60,
+          enabled: false
+        },
       ]
-      ```
+    ```
+
+    
+    ```cue CUE
+    [...{
+      task_name: string
+      timeout_seconds: number
+      enabled: bool
+    }] | *[
+      {
+        task_name: string | *"initialize"
+        timeout_seconds: number | *30
+        enabled: bool | *true
+      },
+      {
+        task_name: string | *"calibrate"
+        timeout_seconds: number | *60
+        enabled: bool | *false
+      }
+    ]
+    ```
+
     </CodeGroup>
 
     ```yaml Defaults
@@ -291,33 +298,35 @@ Below are some examples of how this works.
     ]
     ```
   </Accordion>
-
   <Accordion title="Only item-level defaults defined">
     <CodeGroup>
-      ```yaml JSON Schema
-      $schema: "https://json-schema.org/draft/2020-12/schema"
-      type: array
-      items:
-        type: object
-        properties:
-          task_name:
-            type: string
-            default: "initialize" # ignored
-          timeout_seconds:
-            type: number
-            default: 30 # ignored
-          enabled:
-            type: boolean
-            default: true # ignored
-      ```
 
-      ```cue CUE
-      [...{
-        task_name: string | *"initialize" // ignored
-        timeout_seconds: number | *30 // ignored
-        enabled: bool | *true // ignored
-      }]
-      ```
+    ```yaml JSON Schema
+    $schema: "https://json-schema.org/draft/2020-12/schema"
+    type: array
+    items:
+      type: object
+      properties:
+        task_name:
+          type: string
+          default: "initialize" # ignored
+        timeout_seconds:
+          type: number
+          default: 30 # ignored
+        enabled:
+          type: boolean
+          default: true # ignored
+    ```
+
+    
+    ```cue CUE
+    [...{
+      task_name: string | *"initialize" // ignored
+      timeout_seconds: number | *30 // ignored
+      enabled: bool | *true // ignored
+    }]
+    ```
+
     </CodeGroup>
 
     ```yaml Defaults
@@ -328,43 +337,46 @@ Below are some examples of how this works.
 
 ### Circular references
 
-Circular references, or recursive structures, occur when properties reference themselves, either directly or indirectly (i.e. linked lists, tree structures, etc.).
+Circular references, or recursive structures, occur when properties reference themselves, either directly or indirectly (i.e., linked lists, tree structures, etc.).
 
 <AccordionGroup>
   <Accordion title="Self-referential recursion">
-<CodeGroup>
-  ```yaml JSON Schema
-  $schema: "https://json-schema.org/draft/2020-12/schema"
-  $defs:
-        joint:
-  type: object
-  properties:
-            name:
-              type: string
-              default: "base"
-            child:
-              oneOf:
-                - $ref: "#/$defs/joint"
-                - type: "null"
-              default: null
-      type: object
-      properties:
-        arm:
-          $ref: "#/$defs/joint"
-          default: {}
-  ```
+    <CodeGroup>
 
-  ```cue CUE
-      #Joint: {
-        name: string | *"base"
-        child: #Joint | *null
-  }
+    ```yaml JSON Schema
+    $schema: "https://json-schema.org/draft/2020-12/schema"
+    $defs:
+          joint:
+    type: object
+    properties:
+              name:
+                type: string
+                default: "base"
+              child:
+                oneOf:
+                  - $ref: "#/$defs/joint"
+                  - type: "null"
+                default: null
+        type: object
+        properties:
+          arm:
+            $ref: "#/$defs/joint"
+            default: {}
+    ```
 
-  {
-        arm: #Joint
-  }
-  ```
-</CodeGroup>
+    
+    ```cue CUE
+        #Joint: {
+          name: string | *"base"
+          child: #Joint | *null
+    }
+    
+    {
+          arm: #Joint
+    }
+    ```
+
+    </CodeGroup>
 
     ```yaml Defaults
     arm:
@@ -375,40 +387,42 @@ Circular references, or recursive structures, occur when properties reference th
 
     In CUE, the definition includes field-level defaults. Without a default for `arm`, extraction applies the field defaults from `#Joint`, including `child: null`.
   </Accordion>
-
   <Accordion title="Mutual recursion">
     <CodeGroup>
-      ```yaml JSON Schema
-      $schema: "https://json-schema.org/draft/2020-12/schema"
-      $defs:
-        joint:
-          type: object
-          properties:
-            name:
-              type: string
-              default: "base"
-            child:
-              oneOf:
-                - $ref: "#/$defs/joint"
-                - type: "null"
-              default: null
-      type: object
-      properties:
-        arm:
-          $ref: "#/$defs/joint"
-          default: {}
-      ```
 
-      ```cue CUE
-      #Joint: {
-        name: string | *"base"
-        child: #Joint | *null
-      }
+    ```yaml JSON Schema
+    $schema: "https://json-schema.org/draft/2020-12/schema"
+    $defs:
+      joint:
+        type: object
+        properties:
+          name:
+            type: string
+            default: "base"
+          child:
+            oneOf:
+              - $ref: "#/$defs/joint"
+              - type: "null"
+            default: null
+    type: object
+    properties:
+      arm:
+        $ref: "#/$defs/joint"
+        default: {}
+    ```
 
-      {
-        arm: #Joint
-      }
-      ```
+    
+    ```cue CUE
+    #Joint: {
+      name: string | *"base"
+      child: #Joint | *null
+    }
+    
+    {
+      arm: #Joint
+    }
+    ```
+
     </CodeGroup>
 
     ```yaml Defaults
@@ -420,64 +434,69 @@ Circular references, or recursive structures, occur when properties reference th
 
     In CUE, the definition includes field-level defaults. Without a default for `arm`, extraction applies the field defaults from `#Joint`, including `child: null`.
   </Accordion>
-
   <Accordion title="Nested recursive defaults">
     <CodeGroup>
-      ```yaml JSON Schema
-      $schema: "https://json-schema.org/draft/2020-12/schema"
-      $defs:
-        behavior:
-          type: object
-          properties:
-            name:
-              type: string
-              default: "idle"
-            children:
-              type: array
-              items:
-                $ref: "#/$defs/behavior"
-              default: []
-      type: object
-      properties:
-        root:
-          $ref: "#/$defs/behavior"
-          default: {}
-      ```
 
-      ```cue CUE
-      #Behavior: {
-        name: string | *"idle"
-        children: [...#Behavior] | *[]
-      }
+    ```yaml JSON Schema
+    $schema: "https://json-schema.org/draft/2020-12/schema"
+    $defs:
+      behavior:
+        type: object
+        properties:
+          name:
+            type: string
+            default: "idle"
+          children:
+            type: array
+            items:
+              $ref: "#/$defs/behavior"
+            default: []
+    type: object
+    properties:
+      root:
+        $ref: "#/$defs/behavior"
+        default: {}
+    ```
 
-      {
-        root: #Behavior | *{
-          name: "patrol"
-          children: [
-            {
-              name: "navigate"
-            }
-          ]
-        }
+    
+    ```cue CUE
+    #Behavior: {
+      name: string | *"idle"
+      children: [...#Behavior] | *[]
+    }
+    
+    {
+      root: #Behavior | *{
+        name: "patrol"
+        children: [
+          {
+            name: "navigate"
+          }
+        ]
       }
-      ```
+    }
+    ```
+
     </CodeGroup>
 
     <CodeGroup>
-      ```yaml Defaults (JSON Schema)
-      root:
-        name: "idle"
-        children: []
-      ```
 
-      ```yaml Defaults (CUE)
-      root:
-        name: "patrol"
-        children:
-          - label: "Dashboard"
-            enabled: true
-            children: []
-      ```
+    ```yaml Defaults (JSON Schema)
+    root:
+      name: "idle"
+      children: []
+    ```
+
+    
+    ```yaml Defaults (CUE)
+    root:
+      name: "patrol"
+      children:
+        - label: "Dashboard"
+          enabled: true
+          children: []
+    ```
+
     </CodeGroup>
 
     In JSON Schema, the `root` field has a default of `{}`, which gets populated with field-level defaults. The recursive `children` array defaults to empty, stopping further recursion.
@@ -499,7 +518,8 @@ For example, in the following schema `listening_port` is a property that depends
 Since `listening_port` defaults are defined in the `then` block, Miru ignores its defaults despite the default for `enable_remote_control` being true.
 
 <CodeGroup>
-```yaml Schema [expandable]
+
+```yaml Schema expandable
 $schema: "https://json-schema.org/draft/2020-12/schema"
 type: object
 properties:
@@ -522,9 +542,11 @@ required:
   - enable_remote_control
 ```
 
+
 ```yaml Defaults
 enable_remote_control: true
 ```
+
 </CodeGroup>
 
 **oneOf**
@@ -532,5 +554,3 @@ enable_remote_control: true
 **anyOf**
 
 **allOf**
-
-

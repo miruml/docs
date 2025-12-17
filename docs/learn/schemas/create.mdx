@@ -7,17 +7,13 @@ import PushNewSchema from "/snippets/schemas/push/new.mdx";
 import PushExistingSchema from "/snippets/schemas/push/exists.mdx";
 import { Framed } from '/snippets/components/framed.jsx';
 
-<Framed 
-  background="https://assets.miruml.com/docs/v02/images/config-schemas/background.png"
-  image="https://assets.miruml.com/docs/v02/images/config-schemas/header:schema-push.png"
-  borderWidth="40px"
-/>
+<Framed background="https://assets.miruml.com/docs/v02/images/config-schemas/background.png" image="https://assets.miruml.com/docs/v02/images/config-schemas/header:schema-push.png" borderWidth="40px" />
 
-Config schemas can **only be created via the CLI**. 
+Config schemas can **only be created via the CLI**.
 
-This is a deliberate design choice—we believe schemas should live in a git repository. This allows them to be versioned alongside the code that uses them and encourages better software development practices. 
+This is a deliberate design choice—we believe schemas should live in a git repository. This allows them to be versioned alongside the code that uses them and encourages better software development practices.
 
-Ideally schemas are versioned in the same repository as the code which uses them. However, this is not a requirement. You may use any git repository to house your schemas.
+Ideally, schemas are versioned in the same repository as the code that uses them. However, this is not a requirement. You may use any git repository to house your schemas.
 
 ## Prerequisites
 
@@ -30,53 +26,56 @@ To create a schema, the following prerequisites must be met:
 
 Begin by defining your schema using a supported schema [language](/docs/learn/schemas/languages). You can find example schemas in our [getting-started repository](https://github.com/miruml/getting-started).
 
-If you're not sure which language to use, we recommend starting with JSON Schema--it's the most widely used and easiest to start with.
+If you're not sure which language to use, we recommend starting with JSON Schema — it's the most widely used and easiest to get started with.
 
 To get started quickly, feel free to use an empty schema, which considers all config instances as valid.
 
 <CodeGroup>
+
 ```yaml JSON Schema
 $schema: "https://json-schema.org/draft/2020-12/schema"
 ```
 
+
 ```cue CUE
 {}
 ```
+
 </CodeGroup>
 
 ### Annotations
 
-Annotations are a convenient way to store schema metadata with your schema. Most annotations are optional, but some are required for Miru to properly process the schema.
+Annotations are a convenient way to store schema metadata with your schema. Most annotations are optional, but some are required for Miru to process the schema correctly.
 
 <Annotations />
 
 ## Git metadata
 
-When pushing a schema to Miru, the CLI captures git metadata from the local git repository the CLI is run from:
+When pushing a schema to Miru, the CLI captures git metadata from the local git repository from which the CLI is run:
 
 - **Commit SHA** - the SHA of the current commit that the schema is defined in
 - **Origin URL** - the remote URL of the git repository
 - **File path** - the path to the schema file within the repo
 
-This metadata is then made available in the dashboard for each schema, making it easy to trace where schemas originated from.
+This metadata is then made available in the dashboard for each schema, making it easy to trace the origin of each schema.
 
-It's important to reiterate that Miru does not directly integrate with your hosted git repository provider (GitHub, GitLab, Bitbucket, etc.). It only captures git metadata from the local git repository the CLI is run from.
+It's important to reiterate that Miru does not directly integrate with your hosted git repository provider (GitHub, GitLab, Bitbucket, etc.). It only captures Git metadata from the local Git repository where the CLI is run.
 
 ### Requirements
 
 To be able to capture git metadata, schemas must meet the following requirements when uploading from the CLI:
 
 - The schema must be defined in a local git repository
-- The git repository must have a remote URL (GitHub, GitLab, Bitbucket, etc.)
+- The Git repository must have a remote URL (e.g., GitHub, GitLab, Bitbucket).
 - The schema's latest changes must be committed to the git repository before pushing to Miru (cannot be dirty or unstaged)
 
 Git metadata is not optional. If a schema does not meet these requirements, the CLI will return an error and fail to push the schema.
 
 ## Push the schema
 
-Once you've defined a schema and committed to git, you're ready to push the schema to Miru using the CLI.
+Once you've defined a schema and committed it to Git, you're ready to push it to Miru via the CLI.
 
-To push a schema, simply replace `{path/to/schema.yaml}` with the actual path to the schema file.
+To push a schema, replace `{path/to/schema.yaml}` with the actual path to the schema file.
 
 ```bash
 miru schema push {path/to/schema.yaml}

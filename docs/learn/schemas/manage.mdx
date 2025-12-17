@@ -5,25 +5,19 @@ title: "Manage schemas"
 import { MutableBadge } from '/snippets/components/badges.jsx';
 import { Framed } from '/snippets/components/framed.jsx';
 
-<Framed 
-  background="https://assets.miruml.com/docs/v02/images/config-schemas/background.png"
-  image="https://assets.miruml.com/docs/v02/images/config-schemas/header:metadata.png"
-  borderWidth={"24px 48px 0 0"}
-  innerRadius={"0 8px 0 0"}
-/>
+<Framed background="https://assets.miruml.com/docs/v02/images/config-schemas/background.png" image="https://assets.miruml.com/docs/v02/images/config-schemas/header:metadata.png" borderWidth={"24px 48px 0 0"} innerRadius={"0 8px 0 0"} />
 
 ## View a schema
 
-To view a schema in Miru, navigate to the [Config Types page](https://app.miruml.com/configs) and click into the config type which contains the schema you want to view.
+To view a schema in Miru, navigate to the [Config Types page](https://app.miruml.com/configs) and click into the config type that contains the schema you want to view.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/config-schemas/list.png)
 </Frame>
 
-Clicking a schema opens the schema details panel with various information about the schema. 
+Clicking a schema opens the schema details panel, which displays information about the schema.
 
-
-The **Content** tab contains the schema's content while the **Metadata** tab contains the schema's metadata and it's git history.
+The **Content** tab contains the schema's content, while the **Metadata** tab contains the schema's metadata and its Git history.
 
 <Tabs>
   <Tab title="Content">
@@ -45,9 +39,9 @@ The **Content** tab contains the schema's content while the **Metadata** tab con
 
 ## Delete a schema
 
-Deleting a schema is an irreversible action. Once a schema is deleted, it cannot be recovered.
+Deleting a schema is irreversible. Once a schema is deleted, it cannot be recovered.
 
-Deleting a config schema is only possible if there exist no config instances for that schema. As such, most schemas cannot be deleted.
+Deleting a config schema is only possible if there are no config instances for that schema. As such, most schemas cannot be deleted.
 
 To delete a config schema, click the ellipses of the config schema you want to delete and select **Delete**.
 

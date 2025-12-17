@@ -4,37 +4,28 @@ title: "Languages"
 
 import {Framed} from '/snippets/components/framed.jsx';
 
-
-
-A schema language is a formal language for describing the structure, constraints, and data types of a configuration. Config schemas are defined in one of the supported schema languages to validate config instances before deployment.
+A schema language is a formal language for describing the structure, constraints, and data types of a configuration. Config schemas are defined in a supported schema language to validate config instances before deployment.
 
 Currently, the following languages are supported:
 
 - [JSON Schema](https://json-schema.org/draft/2020-12) (draft 2020-12)
 - [CUE](https://cuelang.org/)
 
-
-This section covers key integration points for each language. 
+This section covers key integration points for each language.
 
 For general information on the strengths and weaknesses of each language, check out our [blog post](https://www.mirurobotics.com/blog/config-wars-chapter-1-intro-to-schemas) comparing JSON Schema, CUE, and Protocol Buffers.
 
-
 ## JSON Schema
 
-<Framed 
-  image="https://assets.miruml.com/docs/v02/images/schema-langs/jsonschema/website.png"
-  link="https://json-schema.org/"
-  borderWidth={"0px"}
-/>
+<Framed image="https://assets.miruml.com/docs/v02/images/schema-langs/jsonschema/website.png" link="https://json-schema.org/" borderWidth={"0px"} />
 
-[JSON Schema](https://json-schema.org/) is probably the most popular schema language. With origins dating back to 2010, JSON Schema was originally built for API validation. Since then, it has found its way into configuration systems across web, cloud, and robotics infrastructure.
-
+[JSON Schema](https://json-schema.org/) is probably the most popular schema language. With origins dating back to 2010, JSON Schema was initially built for API validation. Since then, it has found its way into configuration systems across web, cloud, and robotics infrastructure.
 
 ### Example
 
 Below is an example JSON Schema to give you a flavor of what JSON Schema looks like:
 
-```yaml JSON Schema [expandable]
+```yaml JSON Schema expandable
 $schema: "https://json-schema.org/draft/2020-12/schema"
 title: Communication Configuration Schema
 type: object
@@ -150,7 +141,7 @@ properties:
         default: true
 ```
 
-Although many of JSON Schema's capabilities are omitted in this example, you'll find some of the most common keywords including:
+Although many of JSON Schema's capabilities are omitted in this example, you'll find some of the most common keywords, including:
 
 - `$schema` - the JSON Schema draft version
 - `type` - the data type of a property
@@ -162,12 +153,11 @@ Although many of JSON Schema's capabilities are omitted in this example, you'll 
 - `minimum` - the minimum value of a property
 - `maximum` - the maximum value of a property
 
-For a comprehensive list of JSON Schema keywords, visit the [official JSON Schema website](https://json-schema.org/understanding-json-schema/keywords). We also find the [official test suite](https://github.com/json-schema-org/JSON-Schema-Test-Suite/tree/main/tests/draft2020-12) highly useful, containing a vast number of simple JSON Schema examples.
-
+For a comprehensive list of JSON Schema keywords, visit the [official JSON Schema website](https://json-schema.org/understanding-json-schema/keywords). We also find the [official test suite](https://github.com/json-schema-org/JSON-Schema-Test-Suite/tree/main/tests/draft2020-12) highly useful, as it contains a large number of simple JSON Schema examples.
 
 ### Drafts
 
-While JSON Schema has a variety of drafts, only [Draft 2020-12](https://json-schema.org/draft/2020-12), the most recent stable draft, is supported.
+While JSON Schema has multiple drafts, only [Draft 2020-12](https://json-schema.org/draft/2020-12), the most recent stable draft, is supported.
 
 When specifying the `$schema` keyword in a schema, it must be set to the following value:
 
@@ -186,18 +176,15 @@ While JSON Schema was originally built for JSON data, it is not exclusive to JSO
 - **JSON** (`.json`)
 - **YAML** (`.yaml`, `.yml`)
 
-The format of a schema does not need to match the format of the config instance it validates. For example, a YAML formatted JSON Schema can validate a JSON formatted config instance. 
+The format of a schema does not need to match the format of the config instance it validates. For example, a YAML-formatted JSON Schema can validate a JSON-formatted config instance.
 
 JSON Schemas can validate config instances in the following formats:
 
 - **JSON** (`.json`)
 
 ## CUE
-<Framed 
-  image="https://assets.miruml.com/docs/v02/images/schema-langs/cue/website.png"
-  link="https://cuelang.org/"
-  borderWidth={"0px"}
-/>
+
+<Framed image="https://assets.miruml.com/docs/v02/images/schema-langs/cue/website.png" link="https://cuelang.org/" borderWidth={"0px"} />
 
 [CUE](https://cuelang.org/) (Configure, Unify, Execute) is another well-regarded schema language, useful for defining valid fields, types, and values for a config.
 
@@ -209,7 +196,7 @@ Instead of building and managing external tools to validate, patch, or generate 
 
 Below is an example CUE schema:
 
-```cue CUE [expandable]
+```cue CUE expandable
 @miru(config_type="communication")
 
 control_loop_rate_hz: number & >=1 & <=1000 | *50
@@ -237,7 +224,7 @@ error_handling: {
 }
 ```
 
-Although many of CUE's capabilities are omitted in this example, you'll find some of the most commonly used features including:
+Although many of CUE's capabilities are omitted in this example, you'll find some of the most commonly used features, including:
 
 - type specification - `number`, `string`, `bool`, etc.
 - numeric constraints- `>=`, `<=`, `==`, `!=`, `=~`, `!~`, etc.
@@ -257,6 +244,6 @@ Unlike JSON Schema, CUE can only be written in the CUE file format and must have
 
 - **CUE** (`.cue`)
 
-Similar to JSON Schema though, CUE schemas can validate config instances in formats besides CUE itself. The following formats are supported:
+Similar to JSON Schema, CUE schemas can validate config instances in formats other than CUE. The following formats are supported:
 
 - **JSON** (`.json`)

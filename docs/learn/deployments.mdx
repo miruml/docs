@@ -9,12 +9,7 @@ import {EditableBadge, MutableBadge, ImmutableBadge, NullableBadge} from '/snipp
 import {ONLINE_TOOLTIP, OFFLINE_TOOLTIP} from '/snippets/components/devices/statuses.jsx';
 import {Framed} from '/snippets/components/framed.jsx';
 
-<Framed 
-  background="https://assets.miruml.com/docs/v02/images/deployments/background.jpeg"
-  image="https://assets.miruml.com/docs/v02/images/deployments/header:panel.png"
-  borderWidth="28px 56px 0 0"
-  innerRadius="0 8px 0 0"
-/>
+<Framed background="https://assets.miruml.com/docs/v02/images/deployments/background.jpeg" image="https://assets.miruml.com/docs/v02/images/deployments/header:panel.png" borderWidth="28px 56px 0 0" innerRadius="0 8px 0 0" />
 
 <DeploymentDef />
 
@@ -23,83 +18,71 @@ import {Framed} from '/snippets/components/framed.jsx';
 ## Properties
 
 <ParamField path="description" type="string">
+  <ImmutableBadge />
 
-<ImmutableBadge />
+  A user-provided description of the deployment.
 
-A user-provided description of the deployment.
-
-Example: "increase acceleration limit to 1.2 m/s^2"
-
+  Example: "increase acceleration limit to 1.2 m/s^2"
 </ParamField>
 
 <ParamField path="target status" type="string">
+  <EditableBadge />
 
-<EditableBadge />
+  The [desired state](#target-status) of the deployment.
 
-The [desired state](#target-status) of the deployment.
-
-Enum: `staged`, `deployed`, `archived`
-
+  Enum: `staged`, `deployed`, `archived`
 </ParamField>
 
 <ParamField path="activity status" type="string">
+  <MutableBadge />
 
-<MutableBadge />
+  The deployment's last known [activity state](#activity-status).
 
-The last known [activity state](#activity-status) of the deployment.
-
-Enum: `staged`, `needs_review`, `queued`, `deployed`, `removing`, `archived`
-
+  Enum: `staged`, `needs_review`, `queued`, `deployed`, `removing`, `archived`
 </ParamField>
 
 <ParamField path="error status" type="string">
+  <MutableBadge />
 
-<MutableBadge />
+  The deployment's last known [error state](#error-status).
 
-The last known [error state](#error-status) of the deployment.
-
-Enum: `none`, `failed`, `retrying`
-
+  Enum: `none`, `failed`, `retrying`
 </ParamField>
 
 <ParamField path="status" type="string">
+  <MutableBadge />
 
-<MutableBadge />
+  <DeploymentStatus />
 
-<DeploymentStatus />
-
-Enum: `staged`, `needs_review`, `queued`, `deployed`, `removing`, `archived`, `failed`, `retrying`
-
+  Enum: `staged`, `needs_review`, `queued`, `deployed`, `removing`, `archived`, `failed`, `retrying`
 </ParamField>
 
 <ParamField path="parent" type="Deployment">
+  <ImmutableBadge />
 
-<ImmutableBadge />{' '}<NullableBadge />
+  {' '}
 
-The deployment that this deployment was patched from.
+  <NullableBadge />
 
-Examples: `DPL-L5B8b`
+  The deployment from which this deployment was patched.
 
+  Examples: `DPL-L5B8b`
 </ParamField>
 
 <ParamField path="release" type="Release">
+  <ImmutableBadge />
 
-<ImmutableBadge />
+  The [release](/docs/learn/releases/overview#properties) which the deployment adheres to.
 
-The [release](/docs/learn/releases/overview#properties) which the deployment adheres to.
-
-Examples: `1.0.1`, `1.7.0-beta.1`
-
+  Examples: `1.0.1`, `1.7.0-beta.1`
 </ParamField>
 
 <ParamField path="config instances" type="[] Config Instance">
+  <ImmutableBadge />
 
-<ImmutableBadge />
+  The [config instances](/docs/learn/config-instances#properties) in the deployment, each of which satisfies a different config schema in the deployment's release.
 
-The [config instances](/docs/learn/config-instances#properties) which the deployment contains, each of which satisfying a different config schema in the deployment's release.
-
-Examples: `CFG-68hdX`, `CFG-Cpa13`
-
+  Examples: `CFG-68hdX`, `CFG-Cpa13`
 </ParamField>
 
 ## Status
@@ -110,66 +93,56 @@ Examples: `CFG-68hdX`, `CFG-Cpa13`
 
 The target status is the desired state of a deployment. There are three possible target statuses.
 
-| Target Status | Description |
-|---------------|-------------|
-| `staged`     | Deployment doesn't yet want to be deployed yet but may be deployed in the future |
-| `deployed`    | Deployment wants to be delivered to its device |
-| `archived`     | Deployment no longer wants to be deployed; can never be deployed again |
+| Target Status | Description                                                               |
+| ------------- | ------------------------------------------------------------------------- |
+| `staged`      | Deployment doesn't want to be deployed, but may be deployed in the future |
+| `deployed`    | Deployment wants to be delivered to its device                            |
+| `archived`    | Deployment no longer wants to be deployed; it can never be deployed again |
 
 **With Staging**
 
 If a deployment is staged before being deployed, the diagram below shows the valid transitions between target statuses.
 
 <img
-    src="https://assets.miruml.com/docs/v02/images/deployments/target-status-fsm:stage.png"
-    alt="Target status state machine"
-    style={{
-        display: "block",
-        width: "85%",
-        margin: "0 auto",
-        borderRadius: "10px",
-    }}
+  src="https://assets.miruml.com/docs/v02/images/deployments/target-status-fsm:stage.png"
+  alt="Target status state machine"
+  style={{ display:"block",width:"85%",margin:"0 auto",borderRadius:"10px" }}
 />
 
 **Without Staging**
 
-Of course, many deployments completely skip staging and are immediately deployed. The diagram below shows the valid transitions between target statuses for a deployment that is immediately deployed.
+Of course, many deployments skip staging and deploy immediately. The diagram below shows the valid transitions between target statuses for a deployment that is immediately deployed.
 
 <img
-    src="https://assets.miruml.com/docs/v02/images/deployments/target-status-fsm:deploy.png"
-    alt="Target status state machine"
-    style={{
-        display: "block",
-        width: "55%",
-        margin: "0 auto",
-        borderRadius: "10px",
-    }}
+  src="https://assets.miruml.com/docs/v02/images/deployments/target-status-fsm:deploy.png"
+  alt="Target status state machine"
+  style={{ display:"block",width:"55%",margin:"0 auto",borderRadius:"10px" }}
 />
 
 **One-Time Use**
 
-As you can see, the target status can only move *forward*, never backwards.
+As you can see, the target status can only move _forward_, never backwards.
 
 Once a deployment's target status has been set to `deployed`, it can never be set to `staged` again.  Similarly, once a deployment's target status has been set to `archived`, it can never be set to `deployed` again.
 
-This is intentional--deployments are one-time use. Once a deployment has been deployed, it can never be deployed again. You must create a new deployment with identical content to roll back.
+This is intentional--deployments are one-time use. Once a deployment has been deployed, it cannot be redeployed. You must create a new deployment with identical content to roll back.
 
 ## Activity Status
 
-The activity status is the *last known* state of a deployment.
+The activity status is the _last known_ state of a deployment.
 
-We use *last known state* very intentionally--poor network connectivity can prevent devices from immediately syncing their activity state with the cloud. In practice this isn't too common. However, it's a still a critical point to keep in mind.
+We use _the last known state_ intentionally -- poor network connectivity can prevent devices from immediately syncing their activity state with the cloud. In practice, this isn't too common. However, it's still a critical point to keep in mind.
 
 There are six possible activity states for a deployment.
 
-| Activity Status | Description |
-|-----------------|-------------|
-| `staged`        | Deployment has been created and is ready to be deployed |
-| `needs review`  | Deployment has [drifted](/docs/learn/releases/staging-area#deployment-drift) and needs to be reviewed |
-| `queued`        | Deployment is waiting for the device to be <Tooltip tip={ONLINE_TOOLTIP.tip} cta={ONLINE_TOOLTIP.cta} href={ONLINE_TOOLTIP.href}>online</Tooltip> so it can be delivered to the device|
-| `deployed`      | Deployment has been delivered to the device and its configurations are available for consumption |
-| `removing`      | Deployment will be removed from the device as soon as the device is `online` |
-| `archived`      | Deployment is available for historical reference but can never be deployed again |
+| Activity Status | Description                                                                                                                     |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `staged`        | Deployment has been created and is ready to be deployed                                                                         |
+| `needs review`  | Deployment has [drifted](/docs/learn/releases/staging-area#deployment-drift) and needs to be reviewed                           |
+| `queued`        | Deployment is waiting for the device to be <Tooltip tip="[object Object]">online</Tooltip> so it can be delivered to the device |
+| `deployed`      | Deployment has been delivered to the device, and its configurations are available for consumption                               |
+| `removing`      | Deployment will be removed from the device as soon as the device is `online`                                                    |
+| `archived`      | Deployment is available for historical reference, but can never be deployed again                                               |
 
 **With Staging**
 
@@ -189,47 +162,42 @@ Deployments which are immediately deployed and skip the `staged` state have a si
 
 **One-Time Use**
 
-Similar to the target status, activity states can only move *forward* due to the one-time use constraint of deployments.
+As with the target status, activity states can only progress forward since deployments are one-time.
 
 ## Error Status
 
-The error status is the *last known* error state of a deployment. Again, we use *last known state* very intentionally--poor network connectivity can prevent devices from immediately syncing their error state with the cloud.
+The error status is the _last known_ error state of a deployment. Again, we use _the last known state_ intentionally -- poor network connectivity can prevent devices from immediately syncing their error state to the cloud.
 
-The error status is independent of the activity and target statuses. The error status does not imply any particular activity or target state and vice versa. The error status is only concerned with any errors encountered during the deployment process.
+The error status is independent of the activity and target statuses. The error status does not imply any particular activity or target state, and vice versa. The error status is only concerned with errors encountered during deployment.
 
-There are 3 possible error states for a deployment.
+There are three possible error states for a deployment.
 
-| Error Status | Description |
-|--------------|-------------|
-| `none`       | There are no errors with the deployment |
+| Error Status | Description                                                                                             |
+| ------------ | ------------------------------------------------------------------------------------------------------- |
+| `none`       | There are no errors with the deployment                                                                 |
 | `retrying`   | A non-fatal error has been encountered; the agent is retrying to fulfill the deployment's target status |
 | `failed`     | A fatal error has been encountered; the deployment is (or will be) removed from the device and archived |
 
 Below are the valid transitions between error states.
 
 <img
-    src="https://assets.miruml.com/docs/v02/images/deployments/error-status-fsm.png"
-    alt="Error status state machine"
-    style={{
-        display: "block",
-        width: "85%",
-        margin: "0 auto",
-        borderRadius: "10px",
-    }}
+  src="https://assets.miruml.com/docs/v02/images/deployments/error-status-fsm.png"
+  alt="Error status state machine"
+  style={{ display:"block",width:"85%",margin:"0 auto",borderRadius:"10px" }}
 />
 
 Deployments start in the `none` error state. If no errors are encountered, the deployment remains in the `none` error state for the duration of its existence.
 
 **Non-Fatal Errors**
 
-If a non-fatal error is encountered, the deployment transitions to the `retrying` error state. Non-fatal errors include things like unexpected network drops, sudden power cycles, etc.
+If a non-fatal error is encountered, the deployment transitions to the `retrying` error state. Non-fatal errors include unexpected network drops, sudden power cycles, and similar events.
 
-If the agent is able to recover the deployment from the error, the deployment transitions back to the `none` error state once the deployment's target status is reached. 
+If the agent recovers the deployment from the error, the deployment transitions back to the `none` error state once the deployment's target status is reached.
 
-On the other hand, as long as the agent is unable to recover the deployment from the error, the deployment remains in the `retrying` error state. The agent continually re-attempts to fulfill the deployment's target status with an exponential backoff to prevent throttling the device's resources.
+On the other hand, as long as the agent is unable to recover the deployment, the deployment remains in the `retrying` error state. The agent continually attempts to reach the deployment's target status, using exponential backoff to prevent resource throttling.
 
 If the deployment is stuck in the `retrying` error state, try replacing or archiving the deployment to allow the agent to start fresh.
 
 **Fatal Errors**
 
-If a fatal error is encountered, the deployment transitions to the `failed` error state, is removed from the device, and marked as `archived`. 
+If a fatal error is encountered, the deployment transitions to the `failed` error state, is removed from the device, and marked as `archived`.

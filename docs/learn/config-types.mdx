@@ -6,43 +6,34 @@ import ConfigTypeDef from '/snippets/definitions/config-type.mdx';
 import {ImmutableBadge, EditableBadge} from '/snippets/components/badges.jsx';
 import {Framed} from '/snippets/components/framed.jsx';
 
-<Framed 
-  image="https://assets.miruml.com/docs/v02/images/config-types/header:page.png"
-  background="https://assets.miruml.com/docs/v02/images/config-types/background.jpeg"
-  borderWidth="24px 0 0 32px"
-  innerRadius="8px 0 0 0"
-/>
+<Framed image="https://assets.miruml.com/docs/v02/images/config-types/header:page.png" background="https://assets.miruml.com/docs/v02/images/config-types/background.jpeg" borderWidth="24px 0 0 32px" innerRadius="8px 0 0 0" />
 
 <ConfigTypeDef />
 
 ## Properties
 
 <ParamField path="name" type="string">
+  <EditableBadge />
 
-<EditableBadge />
+  A human-readable display name that can contain most characters, such as spaces, special characters, and punctuation. Must contain between 1 and 48 characters.
 
-A human-readable display name that can contain most characters such as spaces, special characters, and punctuation. Must contain between 1 and 48 characters.
-
-Examples: `Mobility`, `Safety Features`, `Perception`
-
+  Examples: `Mobility`, `Safety Features`, `Perception`
 </ParamField>
 
 <ParamField path="slug" type="string">
+  <ImmutableBadge />
 
-<ImmutableBadge />
+  A unique, code-friendly identifier for a config type.
 
-A unique, code-friendly identifier for a config type. 
+  Slugs are immutable and must satisfy the following constraints:
 
-Slugs are immutable and must satisfy the following constraints:
+  - Contain only lowercase letters, digits, and hyphens (`-`)
+  - Start and end with a lowercase letter or digit
+  - Contain between 1 and 48 characters
 
-- Contain only lowercase letters, digits, and hyphens (`-`)
-- Start and end with a lowercase letter or digit
-- Contain between 1 and 48 characters
+  Slugs are primarily used in code to reference config types in a human-readable format. For instance, config schemas are annotated with a config type slug to associate them with their proper config type.
 
-Slugs are primarily used in code to reference config types in a human-readable format. For instance, config schemas are annotated with a config type slug to associate it with its proper config type.
-
-
-Examples: `mobility`, `safety-features`, `perception`
+  Examples: `mobility`, `safety-features`, `perception`
 </ParamField>
 
 ## Create a config type
@@ -53,9 +44,9 @@ Navigate to the [Config Types page](https://app.miruml.com/configs) and click **
   ![](https://assets.miruml.com/docs/v02/images/config-types/create-page.png)
 </Frame>
 
-Fill in the fields and hit **Create**.
+Fill in the fields, then click **Create**.
 
-<Frame width="100px">
+<Frame>
   ![](https://assets.miruml.com/docs/v02/images/config-types/create-dialog.png)
 </Frame>
 
@@ -67,11 +58,11 @@ Fill in the fields and hit **Create**.
 
 Click the ellipses (...) on the config type you want to edit and hit **Edit**.
 
-<Frame >
+<Frame>
   ![](https://assets.miruml.com/docs/v02/images/config-types/ellipses-dropdown.png)
 </Frame>
 
-Update the desired fields and hit **Save**.
+Update the desired fields, then click **Save**.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/config-types/edit-dialog.png)
@@ -79,9 +70,9 @@ Update the desired fields and hit **Save**.
 
 ## Delete a config type
 
-Deleting a config type is an irreversible action. Once a config type is deleted, it cannot be recovered.
+Deleting a config type is irreversible. Once a config type is deleted, it cannot be recovered.
 
-Deleting a config type is only possible if there exist no config instances for that config type. As such, most config types cannot be deleted.
+Deleting a config type is only possible if there are no config instances for that config type. As such, most config types cannot be deleted.
 
 If no config instances exist for the config type, deleting a config type removes all associated schemas.
 
