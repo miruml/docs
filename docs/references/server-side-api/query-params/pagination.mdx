@@ -14,7 +14,7 @@ All list endpoints optionally accept the **`limit`** and **`offset`** query 
 
 ### Limit
 
-`limit` specifies the maximum number of items which can be returned in a single request. 
+`limit` specifies the maximum number of items that can be returned in a single request.
 
 **The default is 10 while the maximum is 100.**
 
@@ -73,7 +73,7 @@ Every list response follows the same structure.
 
 `total_count` is the total number of items matching the query. By default, the total count is not computed (and thus set to `-1`) to avoid the performance cost of counting all items.
 
-To get the total count, you must explicitly request it using the `expand[]=total_count` parameter. While useful, the total count is typically not needed and can incur significant performance costs, so please use judiciously. See the `total_count` [expansion](/docs/references/server-side-api/query-params/expansions#total-count) documentation for more information about retrieving the total count. 
+To get the total count, you must explicitly request it using the `expand[]=total_count` parameter. While useful, the total count is typically not needed and can incur significant performance costs, so please use it judiciously. See the `total_count` [expansion](/docs/references/server-side-api/query-params/expansions#total-count) documentation for more information about retrieving the total count.
 
 ### Limit
 
@@ -82,6 +82,7 @@ To get the total count, you must explicitly request it using the `expand[]=total
 If a valid value is provided (e.g., `10`), the response will reflect that value.
 
 If an invalid value is provided (e.g., `1001`), the closest valid value will be used instead (in this case, `100`).
+
 ### Offset
 
 `offset` indicates the starting index of the returned items.
@@ -89,21 +90,24 @@ If an invalid value is provided (e.g., `1001`), the closest valid value will be 
 If a valid value is provided (e.g., `5`), the response will reflect that value.
 
 If an invalid value is provided (e.g., `-3`), the closest valid value will be used instead (`0` in this case).
+
 ### Has more
 
 `has_more` is a boolean that indicates whether more items exist beyond the current page.
 
 If `true`, you can fetch the next page by increasing the `offset` by the `limit`.
+
 ### Data
 
-`data` is an array of the actual items returned by the query. 
+`data` is an array of the actual items returned by the query.
 
 The number of items in the array will be less than or equal to the specified `limit`.
+
 ## Pagination walkthrough
 
 To paginate a request, continually request the next page until `has_more` is `false`. The next page uses the same `limit` but the `offset` is increased by the `limit`.
 
-First, let's make a request with a limit of 10 and an offset of 0.
+First, let's request with a limit of 10 and an offset of 0.
 
 ```bash
 curl --request GET \
@@ -111,7 +115,7 @@ curl --request GET \
   --header 'X-API-Key: <api-key>'
 ```
 
-The response will look like similar to the following:
+The response will look similar to the following:
 
 ```json
 {
@@ -136,6 +140,6 @@ The response will look like similar to the following:
 }
 ```
 
-If `has_more` is `false`, there are no more items after the current page. If `has_more` is `true`, more items exist after the current page. The next pagination request uses the same `limit` but the `offset` is increased by the `limit`: `offset = offset + limit`. 
+If `has_more` is `false`, there are no more items after the current page. If `has_more` is `true`, more items exist beyond the current page. The subsequent pagination request uses the same `limit` , but the `offset` is increased by the `limit`: `offset = offset + limit`.
 
-This gives us an offset of 10 and a limit of 10. Simply repeat this process until `has_more` is `false`. The next request would use an offset of 20 and a limit of 10, then 30 and 10, and so on.
+This gives us an offset of 10 and a limit of 10. Repeat this process until `has_more` is `false`. The following request would use an offset of 20 and a limit of 10, then 30 and 10, and so on.

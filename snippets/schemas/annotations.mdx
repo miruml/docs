@@ -1,37 +1,39 @@
 <ParamField path="config type" required>
+  The config type is a required annotation that identifies the config type to which a schema belongs. Below is the syntax for annotating your schema with the [config type slug](/docs/learn/config-types#param-slug).
 
-The config type is a required annotation that identifies the config type that a schema belongs to. Below is the syntax for annotating your schema with the [config type slug](/docs/learn/config-types#param-slug).
+  <CodeGroup>
 
-<CodeGroup>
-```yaml JSON Schema
-x-miru-config-type: "{config-type-slug}"
-```
+  ```yaml JSON Schema
+  x-miru-config-type: "{config-type-slug}"
+  ```
 
-```cue CUE
-@miru(config_type="{config-type-slug}")
-```
+  
+  ```cue CUE
+  @miru(config_type="{config-type-slug}")
+  ```
 
-</CodeGroup>
+  </CodeGroup>
 
-Examples: `mobility`, `safety-features`, `perception`
-
+  Examples: `mobility`, `safety-features`, `perception`
 </ParamField>
 
 <ParamField path="instance file path">
-The instance file path is the file system location that config instances (for this schema) are deployed to relative to the `/srv/miru/config_instances` directory. 
+  The instance file path is the file system location that config instances (for this schema) are deployed to relative to the `/srv/miru/config_instances` directory.
 
-This annotation is optional and defaults to `{config-type-slug}.json`, which deploys config instances to `/srv/miru/config_instances/{config-type-slug}.json` on a given device.
+  This annotation is optional and defaults to `{config-type-slug}.json`, which deploys config instances to `/srv/miru/config_instances/{config-type-slug}.json` on a given device.
 
-<CodeGroup>
-```yaml JSON Schema
-x-miru-instance-filepath: "{instance-file-path}"
-```
+  <CodeGroup>
 
-```cue CUE
-@miru(instance_filepath="{instance-file-path}")
-```
-</CodeGroup>
+  ```yaml JSON Schema
+  x-miru-instance-filepath: "{instance-file-path}"
+  ```
 
-Examples: `/v1/mobility.json`, `/safety.json`, `configs/perception.json`
+  
+  ```cue CUE
+  @miru(instance_filepath="{instance-file-path}")
+  ```
 
+  </CodeGroup>
+
+  Examples: `/v1/mobility.json`, `/safety.json`, `configs/perception.json`
 </ParamField>
