@@ -1,5 +1,5 @@
 ---
-title: 'Install the agent'
+title: "Install the agent"
 ---
 
 import CreateDevice from '/snippets/devices/create.mdx';
@@ -8,19 +8,24 @@ import RunCmd from '/snippets/agent/install/dashboard/run-activation-cmd.mdx';
 import Verify from '/snippets/agent/install/verify.mdx';
 import SupportedPlatforms from '/snippets/agent/supported-platforms.mdx';
 
-Before deploying config instances, we must first install the Miru Agent on the machine we want to deploy to. 
+Before deploying config instances, we must first install the Miru Agent on the target machine.
 
 The agent is a lightweight `systemd` service that runs on your machines, handling the deployment lifecycle of configurations. For more information on the agent, visit the [Miru Agent](/docs/developers/agent/intro) section.
 
 ## Supported platforms
+
 <SupportedPlatforms />
 
 ## Create a device
+
 <CreateDevice />
 
 ## Install the agent
+
 <RetrieveCmd />
+
 <RunCmd />
 
 ## Verify the installation
+
 <Verify />
