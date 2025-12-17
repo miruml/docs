@@ -6,63 +6,50 @@ import {MutableBadge, ImmutableBadge} from '/snippets/components/badges.jsx';
 import {Framed} from '/snippets/components/framed.jsx';
 import UserDef from '/snippets/definitions/user.mdx';
 
-<Framed 
-  background="https://assets.miruml.com/docs/v02/images/users/background.jpeg"
-  image="https://assets.miruml.com/docs/v02/images/users/members/header:page.png"
-  borderWidth={"24px 0 0 40px"}
-  innerRadius={"8px 0 0 0"}
-/>
+<Framed background="https://assets.miruml.com/docs/v02/images/users/background.jpeg" image="https://assets.miruml.com/docs/v02/images/users/members/header:page.png" borderWidth={"24px 0 0 40px"} innerRadius={"8px 0 0 0"} />
 
 <UserDef />
 
 ## Properties
 
 <ParamField path="first_name">
+  <MutableBadge />
 
-<MutableBadge />
+  The first name of the user. Must contain between 1 and 48 characters.
 
-The first name of the user. Must contain between 1 and 48 characters.
-
-Examples: `John`, `Jane`
-
+  Examples: `John`, `Jane`
 </ParamField>
 
 <ParamField path="last_name">
+  <MutableBadge />
 
-<MutableBadge />
+  The last name of the user. Must contain between 1 and 48 characters.
 
-The last name of the user. Must contain between 1 and 48 characters.
-
-Examples: `Doe`, `Smith`
+  Examples: `Doe`, `Smith`
 </ParamField>
 
 <ParamField path="email">
+  <ImmutableBadge />
 
-<ImmutableBadge />
+  The email address of the user.
 
-The email address of the user.
-
-Examples: `john.doe@example.com`, `jane.smith@example.com`
+  Examples: `john.doe@example.com`, `jane.smith@example.com`
 </ParamField>
 
 <ParamField path="role">
+  <MutableBadge />
 
-<MutableBadge />
+  The user's [access role](/docs/admin/users/overview#roles) in the workspace.
 
-The [access role](/docs/admin/users/overview#roles) of the user in the workspace. 
-
-Examples: `member`, `admin`, `owner`
-
+  Examples: `member`, `admin`, `owner`
 </ParamField>
 
 <ParamField path="status">
+  <MutableBadge />
 
-<MutableBadge />
+  The user's [status](/docs/admin/users/overview#status).
 
-The [status](/docs/admin/users/overview#status) of the user in the workspace.
-
-Examples: `active`, `suspended`, `left`
-
+  Examples: `active`, `suspended`, `left`
 </ParamField>
 
 ## Status
@@ -71,12 +58,12 @@ To maintain an accurate audit trail of user activity, users cannot be deleted fr
 
 As such, there are three possible statuses for a user:
 
-| Status | Description |
-|--------|-------------|
-| `active` | User can login and access workspace resources |
-| `suspended` | User's access was revoked by an admin |
-| `left` | User has left the workspace |
+| Status      | Description                                    |
+| ----------- | ---------------------------------------------- |
+| `active`    | User can log in and access workspace resources |
+| `suspended` | User's access was revoked by an admin          |
+| `left`      | User has left the workspace                    |
 
-Only `active` users can login and access workspace resources. `suspended` and `left` users exist purely for auditing purposes--they cannot login to the workspace or access any resources.
+Only `active` users can log in and access workspace resources. `suspended` and `left` users exist solely for auditing purposes--they cannot log in to the workspace or access any resources.
 
-Users who have been suspended or left can be re-invited to the workspace by an admin at any time via [invites](/docs/admin/users/invites#send-an-invite).
+Users who have been suspended or left can be reinvited to the workspace at any time by an admin via [invites](/docs/admin/users/invites#send-an-invite).

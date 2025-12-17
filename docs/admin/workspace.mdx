@@ -1,5 +1,13 @@
 ---
-Workspace
+0: "W"
+1: "o"
+2: "r"
+3: "k"
+4: "s"
+5: "p"
+6: "a"
+7: "c"
+8: "e"
 ---
 
 import LeaveWorkspace from '/snippets/workspaces/leave.mdx';
@@ -8,34 +16,28 @@ import {OWNER_TOOLTIP, ADMIN_TOOLTIP} from '/snippets/components/users/roles.jsx
 import {MutableBadge} from '/snippets/components/badges.jsx';
 import {Framed} from '/snippets/components/framed.jsx';
 
-<Framed 
-  background="https://assets.miruml.com/docs/v02/images/workspaces/background.jpeg"
-  image="https://assets.miruml.com/docs/v02/images/workspaces/header:page.png"
-  borderWidth="24px 0 0 48px"
-  innerRadius="8px 0 0 0"
-/>
+<Framed background="https://assets.miruml.com/docs/v02/images/workspaces/background.jpeg" image="https://assets.miruml.com/docs/v02/images/workspaces/header:page.png" borderWidth="24px 0 0 48px" innerRadius="8px 0 0 0" />
 
 <WorkspaceDef />
 
 ## Properties
 
 <ParamField path="name">
+  <MutableBadge />
 
-<MutableBadge />
+  The name of the workspace. Must contain between 1 and 48 characters.
 
-The name of the workspace. Must contain between 1 and 48 characters.
-
-Examples: `Miru`
-
+  Examples: `Miru`
 </ParamField>
 
 ## Update workspace name
 
 To be able to update the workspace name, you must have one of the following roles:
-- <Tooltip tip={ADMIN_TOOLTIP.tip} cta={ADMIN_TOOLTIP.cta} href={ADMIN_TOOLTIP.href}>Admin</Tooltip>
-- <Tooltip tip={OWNER_TOOLTIP.tip} cta={OWNER_TOOLTIP.cta} href={OWNER_TOOLTIP.href}>Owner</Tooltip>
 
-To update your workspace's name, navigate to the [workspace](https://app.miruml.com/settings/workspace) page. 
+- Admin
+- Owner
+
+To update your workspace's name, navigate to the [workspace](https://app.miruml.com/settings/workspace) page.
 
 Edit the **Name** field and hit **Enter** on your keyboard.
 
@@ -45,25 +47,25 @@ Edit the **Name** field and hit **Enter** on your keyboard.
 
 ## Set workspace logo
 
-To set your workspace logo, navigate to the [workspace](https://app.miruml.com/settings/workspace) page. 
+To set your workspace logo, navigate to the [workspace](https://app.miruml.com/settings/workspace) page.
 
-Cick the current logo and select the image you want to use from the file system.
+Click the current logo and select the image you want to use from the file system.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/workspaces/set-logo-hover.png)
 </Frame>
 
-A dialog will appear allowing you to crop the image.
+A dialog will appear, allowing you to crop the image.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/workspaces/crop-logo.png)
 </Frame>
 
-Crop the image to your desired size and hit **Save** to set your workspace logo.
+Crop the image to your desired size, then click **Save** to set your workspace logo.
 
 ## Transfer ownership
 
-To be able to transfer ownership of your workspace to another member, you must be the current owner of the workspace.
+To transfer ownership of your workspace to another member, you must be the current owner.
 
 To begin, navigate to the [members](https://app.miruml.com/settings/members) page. Click the ellipses (...) of the member you want to transfer ownership to and hit **Transfer ownership**.
 
@@ -72,7 +74,7 @@ To begin, navigate to the [members](https://app.miruml.com/settings/members) pag
 </Frame>
 
 <Warning>
-    Transferring workspace ownership is a sensitive operation and cannot be undone. Please proceed with caution.
+  Transferring workspace ownership is a sensitive operation and cannot be undone. Please proceed with caution.
 </Warning>
 
 ## Leave your workspace

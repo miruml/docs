@@ -10,67 +10,61 @@ import InviteDef from '/snippets/definitions/invite.mdx';
 
 import {Framed} from '/snippets/components/framed.jsx';
 
-<Framed 
-  background="https://assets.miruml.com/docs/v02/images/users/background.jpeg"
-  image="https://assets.miruml.com/docs/v02/images/invites/header:join-workspace.png"
-  borderWidth="40px"
-/>
-
+<Framed background="https://assets.miruml.com/docs/v02/images/users/background.jpeg" image="https://assets.miruml.com/docs/v02/images/invites/header:join-workspace.png" borderWidth="40px" />
 
 <InviteDef />
 
 ### Properties
 
 <ParamField path="email">
+  <ImmutableBadge />
 
-<ImmutableBadge />
+  The email address of the invitee.
 
-The email address of the invitee.
-
-Examples: `john.doe@example.com`, `jane.smith@example.com`
+  Examples: `john.doe@example.com`, `jane.smith@example.com`
 </ParamField>
 
 <ParamField path="expires_at">
+  <ImmutableBadge />
 
-<ImmutableBadge />
+  The date and time the invite expires. Invites are valid for seven days from creation.
 
-The date and time the invite expires. Invites are valid for seven days from the time they were created.
-
-Examples: `2025-11-19T12:00:00Z`
-
+  Examples: `2025-11-19T12:00:00Z`
 </ParamField>
 
 <ParamField path="role">
+  <MutableBadge />
 
-<MutableBadge />
+  The <Tooltip tip="[object Object]">role</Tooltip> of the invitee when they join the workspace. Must be one of the following:
 
-The <Tooltip tip={ROLE_TOOLTIP.tip} cta={ROLE_TOOLTIP.cta} href={ROLE_TOOLTIP.href}>role</Tooltip> of the invitee when they join the workspace. Must be one of the following:
-- `admin`
-- `member`
+  - `admin`
+  - `member`
 
-Examples: `admin`, `member`
-
+  Examples: `admin`, `member`
 </ParamField>
 
 ## Sending invites
 
 ### Prerequisites
-To be able to send or revoke invites, you must be an <Tooltip tip={OWNER_TOOLTIP.tip} cta={OWNER_TOOLTIP.cta} href={OWNER_TOOLTIP.href}>owner</Tooltip> or <Tooltip tip={ADMIN_TOOLTIP.tip} cta={ADMIN_TOOLTIP.cta} href={ADMIN_TOOLTIP.href}>admin</Tooltip> of the workspace. You can check your role on the [members](https://app.miruml.com/settings/members) page.
+
+To send or revoke invites, you must be an <Tooltip tip="[object Object]">owner</Tooltip> or <Tooltip tip="[object Object]">admin</Tooltip> of the workspace. You can check your role on the [members](https://app.miruml.com/settings/members) page.
 
 ### Send an invite
+
 To invite a member to your workspace, navigate to the [members](https://app.miruml.com/settings/members) page and click **Invite** in the top right corner.
 
-Next, supply the email addresses of the members you want to invite as a comma-separated list, select their <Tooltip tip={ROLE_TOOLTIP.tip} cta={ROLE_TOOLTIP.cta} href={ROLE_TOOLTIP.href}>role</Tooltip>, and hit **Send**. 
+Next, supply the email addresses of the members you want to invite as a comma-separated list, select their <Tooltip tip="[object Object]">role</Tooltip>, and hit **Send**.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/invites/send-dialog.png)
 </Frame>
 
-An email will be sent to each member with a link to accept the invite. 
+An email will be sent to each member with a link to accept the invite.
 
-Invites expire after seven days. Once expired, a new invite must be issued for a member to join your workspace.
+Invites expire after seven days. Once the invite expires, a new invite must be issued for a member to join your workspace.
 
 ### Revoke an invite
+
 To revoke an invite, navigate to the [pending invites](https://app.miruml.com/settings/members?filters=invites) tab in the members page.
 
 Click the ellipses (...) of the invite to revoke and hit **Revoke Invite**.
@@ -80,9 +74,10 @@ Click the ellipses (...) of the invite to revoke and hit **Revoke Invite**.
 </Frame>
 
 ### Resend an invite
-Resending an invite simply sends a new email to the invitee, but does not affect the invite in any way--previous emails are still valid and the invite's expiration date is not changed.
 
-Since resending an invite does not extend the invite's expiration date, invitees must still accept the invite within seven days of the invite's original creation. To give the invitee more time to accept an invite, create a new invite.
+Resending an invite sends a new email to the invitee but does not affect the invite in any way — previous emails remain valid, and the invite's expiration date is unchanged.
+
+Since resending an invite does not extend its expiration date, invitees must still accept it within seven days of its original creation. To give the invitee more time to accept, create a new invite.
 
 To resend an invite, navigate to the [pending invites](https://app.miruml.com/settings/members?filters=invites) tab in the members page.
 
@@ -94,20 +89,21 @@ Click the ellipses (...) of the invite to resend and hit **Resend Invite**.
 
 ## Receiving invites
 
-This section covers invites received by users *who already have a Miru account*. If you do not yet have a Miru account, simply follow the instructions sent in the invitation email to join a workspace.
+This section covers invites received by users _who already have a Miru account_. If you do not yet have a Miru account, follow the instructions sent in the invitation email to join a workspace.
 
 ### Accept an invite
+
 Since user accounts can only belong to a single workspace, accepting an invite from another workspace transfers you from your current workspace to the workspace you've been invited to:
 
 - You will lose all access to your current workspace
-- Your status in your current workspace will be set to <Tooltip tip={LEFT_TOOLTIP.tip} cta={LEFT_TOOLTIP.cta} href={LEFT_TOOLTIP.href}>left</Tooltip>
+- Your status in your current workspace will be set to <Tooltip tip="[object Object]">left</Tooltip>
 - Logging in gives you access to the workspace you've accepted the invite from
 
-Accepting an invite is reversible if you are *not the only <Tooltip tip={ACTIVE_TOOLTIP.tip} cta={ACTIVE_TOOLTIP.cta} href={ACTIVE_TOOLTIP.href}>active member</Tooltip>*. An admin from the workspace you left can invite you back at any time.
+Accepting an invite is reversible if you are _not the only active member_. An admin from the workspace you left can invite you back at any time.
 
-However, if you are *the only* active member of your current workspace, accepting an invite will delete the workspace and all associated resources.
+However, if you are _the only_ active member of your current workspace, accepting an invite will delete the workspace and all associated resources.
 
-To accept an invite from another workspace, navigate to the [Profile page](https://app.miruml.com/settings/profile) and hit **Accept** on the invite you want to accept.
+To accept an invite from another workspace, navigate to the [Profile page](https://app.miruml.com/settings/profile) and hit **Join**.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/users/profile/invitations.png)
@@ -120,6 +116,7 @@ Finally, click **Join workspace** to accept the invite and transfer workspaces.
 </Frame>
 
 ### Decline an invite
+
 To decline an invite, navigate to your [Profile page](https://app.miruml.com/settings/profile) and hit **Decline** on the invite you want to decline.
 
 <Frame>
