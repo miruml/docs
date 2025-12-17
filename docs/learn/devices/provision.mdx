@@ -1,5 +1,5 @@
 ---
-title: 'Provision devices'
+title: "Provision devices"
 ---
 
 import CreateDevice from '/snippets/devices/create.mdx';
@@ -11,35 +11,33 @@ import CreateAPIKey from '/snippets/api-keys/create-provisioner.mdx';
 
 import {Framed} from '/snippets/components/framed.jsx';
 
-<Framed 
-  background="https://assets.miruml.com/docs/v02/images/devices/background.jpeg"
-  image="https://assets.miruml.com/docs/v02/images/devices/header:create-panel.png"
-  borderWidth={"36px 100px 0 0"}
-  innerRadius={"0 8px 0 0"}
-/>
+<Framed background="https://assets.miruml.com/docs/v02/images/devices/background.jpeg" image="https://assets.miruml.com/docs/v02/images/devices/header:create-panel.png" borderWidth={"36px 100px 0 0"} innerRadius={"0 8px 0 0"} />
 
-Provisioning a device is the process of creating a device in Miru and installing the Miru Agent onto the device. Once provisioned, a device is ready to receive deployments.
+Provisioning a device is the process of creating it in Miru and installing the Miru Agent on it. Once provisioned, a device is ready to receive deployments.
 
 ## Dashboard
 
-The Miru dashboard is the simplest method for provisioning devices, ideal for getting started or managing individual devices. 
+The Miru dashboard is the simplest way to provision devices, ideal for getting started or managing individual devices.
 
 For automated deployments or provisioning devices at scale, consider using [API Keys](#api-keys) instead.
 
 ### Create a Device
+
 <CreateDevice />
 
 ### Install the Agent
+
 <RetrieveCmd />
 
 <RunCmd />
 
 ### Verify the Installation
+
 <Verify />
 
 ## API Keys
 
-To programmatically provision devices, Miru offers API keys. 
+To programmatically provision devices, Miru offers API keys.
 
 Unlike the dashboard installation, which requires manual interaction with the web interface for each device, provisioning devices via API keys allows you to:
 
@@ -48,16 +46,18 @@ Unlike the dashboard installation, which requires manual interaction with the we
 - **Use in headless environments** where a web browser isn't available
 
 ### Create the API Key
+
 <CreateAPIKey />
 
 ### Provision the Device
+
 On the device you want to install the Miru Agent, set the `MIRU_API_KEY` environment variable to your API key.
 
 ```bash
 export MIRU_API_KEY=<your-api-key>
 ```
 
-Execute the [provision script](https://github.com/miruml/agent/blob/main/scripts/install/provision.sh), which creates and activates a device using your API key.
+Execute the [provisioning script](https://github.com/miruml/agent/blob/main/scripts/install/provision.sh) to create and activate a device using your API key.
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/miruml/agent/main/scripts/install/provision.sh | sh -s -- \
@@ -66,53 +66,52 @@ curl -fsSL https://raw.githubusercontent.com/miruml/agent/main/scripts/install/p
 ```
 
 The provision script performs the following actions:
+
 1. **Creates the device** - creates a new device in the Miru dashboard if a device with the provided name doesn't already exist
-1. **Downloads the agent** - fetches the latest Miru Agent debian package
+1. **Downloads the agent** - fetches the latest Miru Agent Debian package
 1. **Installs the service** - installs the agent as a `systemd` service
 1. **Activates the device** - registers the agent with Miru servers using the activation token
 
 The provision script supports the following parameters to tune your installation:
 
 <ParamField path="--device-name" type="string">
+  The name of the device in the Miru dashboard.
 
-The name of the device in the Miru dashboard.
-
-Default: `$HOSTNAME`
-
+  Default: `$HOSTNAME`
 </ParamField>
 
 <ParamField path="--allow-reactivation" type="boolean">
+  Allows reactivation of existing devices.
 
-Allows reactivation of existing devices. 
+  Without this flag, only `inactive` devices can be activated. With this flag, devices that have been previously activated (status `online`, `offline`, etc.) may be reactivated.
 
-Without this flag, only `inactive` devices can be activated. With this flag, devices which have been previously activated (status `online`, `offline`, etc.) may be reactivated.
-
-Default: `false`
+  Default: `false`
 </ParamField>
 
 <ParamField path="--version" type="string">
-The agent version to install (e.g., `v0.6.0`). 
+  The agent version to install (e.g., `v0.6.0`).
 
-Defaults to the [latest release](https://github.com/miruml/agent/releases/latest). See all [available versions](https://github.com/miruml/agent/releases).
+  Defaults to the [latest release](https://github.com/miruml/agent/releases/latest). See all [available versions](https://github.com/miruml/agent/releases).
 </ParamField>
 
 <ParamField path="--from-pkg" type="string">
-The file path to the Miru Agent debian package to use for installation. Useful for installing the agent in poor connectivity scenarios.
+  The file path to the Miru Agent Debian package to use for installation. Useful for installing the agent in poor connectivity scenarios.
 </ParamField>
 
 ### Verify Installation
+
 <Verify />
 
 ## Poor Connectivity
 
-Some environments may have poor internet connection. Whether located in a remote area or using a cellular connection, downloading the Miru Agent over a network may be impractical in some environments.
+Some environments may have a poor internet connection. Whether located in a remote area or using a cellular connection, downloading the Miru Agent over a network may be impractical in some environments.
 
-In such scenarios, we recommend downloading the Miru Agent on a computer with a stable connection and then transferring the agent to the target machine.
+In such scenarios, we recommend downloading the Miru Agent to a computer with a stable connection and then transferring it to the target machine.
 
 While this method circumvents the need to _download_ the Miru Agent over a network, _activating_ the agent still requires some level of connectivity to register the device with the Miru servers.
 
 <Warning>
-  Some connectivity (however weak) is required to activate the agent. If a device has no connectivity, the agent cannot activate.
+  Some connectivity (however weak) is required to activate the agent. If a device is not connected, the agent cannot be activated.
 </Warning>
 
 ### Download the Agent
@@ -175,5 +174,5 @@ sh -s -- \
 ```
 
 <Warning>
-  Do not copy the example command below. It will not work since it does not have the appropriate activation token. Instead, follow the steps listed above.
+  Do not copy the example command below. It will not work because it lacks the required activation token. Instead, follow the steps listed above.
 </Warning>

@@ -4,12 +4,7 @@ title: "Config editor"
 
 import {Framed} from '/snippets/components/framed.jsx';
 
-<Framed 
-  background="https://assets.miruml.com/docs/v02/images/devices/background.jpeg"
-  image="https://assets.miruml.com/docs/v02/images/devices/header:editor.png"
-  borderWidth="30px 60px 0 0"
-  innerRadius="0 8px 0 0"
-/>
+<Framed background="https://assets.miruml.com/docs/v02/images/devices/background.jpeg" image="https://assets.miruml.com/docs/v02/images/devices/header:editor.png" borderWidth="30px 60px 0 0" innerRadius="0 8px 0 0" />
 
 The config editor is the primary way to view and edit a device's configurations.
 
@@ -29,55 +24,39 @@ The config editor is organized into three main sections.
 
 ## Customize
 
-The config editor offers a couple layout adjustments to help you get the most out of the editor.
+The config editor offers a couple of layout adjustments to help you get the most out of the editor.
 
 **Width**
 
 Customize the width by dragging the vertical dividers to the left or right as desired.
 
 <Frame>
-  <video
-    autoPlay
-    loop
-    controls
-    src="/videos/devices/editor/customize-widths.webm"
-  />
+  <video autoPlay loop controls src="/videos/devices/editor/customize-widths.webm" />
 </Frame>
 
 **Hide Config Types**
 
-Hide the config types sidebar by hitting the sidebar toggle in the top left corner of the file editor.
+Hide the config types sidebar by clicking the sidebar toggle in the top-left corner of the file editor.
 
 <Frame>
-  <video
-    autoPlay
-    loop
-    controls
-    src="/videos/devices/editor/hide-config-types.webm"
-  />
+  <video autoPlay loop controls src="/videos/devices/editor/hide-config-types.webm" />
 </Frame>
 
 **History Height**
 
-Customize the height of the history section by dragging the horizontal divider to the top or bottom as desired.
+Customize the height of the history section by dragging the horizontal divider to the top or bottom.
 
 <Frame>
-  <video
-    autoPlay
-    loop
-    controls
-    src="/videos/devices/editor/customize-history-height.webm"
-  />
+  <video autoPlay loop controls src="/videos/devices/editor/customize-history-height.webm" />
 </Frame>
-
 
 ## Patch a config instance
 
-Patching a config instance is the process of creating a new config instance to replace a currently deployed config instance.
+Patching a config instance is the process of creating a new config instance to replace the currently deployed one.
 
-Patching a config instance is only allowed from currently deployed config instances. Config instances which are not deployed are read-only and cannot be edited.
+Patching a config instance is only allowed from currently deployed config instances. Config instances that are not deployed are read-only and cannot be edited.
 
-To patch a config instance, make some edits to the instance in the file editor.
+To patch a config instance, edit the instance in the file editor.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/devices/editor/mobility-patch.png)
@@ -85,7 +64,7 @@ To patch a config instance, make some edits to the instance in the file editor.
 
 As edits are made, a log on the right maintains a list of all changes, categorizing them by their type: `added`, `deleted`, or `modified`.
 
-Once satisfied with the edits, click **Deploy** in the top right. A dialog will appear to confirm the deployment. 
+Once you're satisfied with the edits, click **Deploy** in the top-right. A dialog will appear to confirm the deployment.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/devices/editor/deploy-dialog.png)
@@ -101,9 +80,9 @@ The right side of the config editor maintains a history of all the config instan
   ![](https://assets.miruml.com/docs/v02/images/devices/editor/history-entry.png)
 </Frame>
 
-You can view more information about a history entry by hitting the dropdown arrow to the left of the entry. 
+You can view more information about a history entry by hitting the dropdown arrow to the left of the entry.
 
-For more information about a config instance property in the history entry, refer to the [config instance properties](/docs/learn/config-instances#properties).
+For more information about a config instance property in a history entry, see the [config instance properties](/docs/learn/config-instances#properties).
 
 For more information about a deployment in the history entry, refer to the [deployment properties](/docs/learn/deployments#properties).
 
@@ -115,7 +94,7 @@ Above the config types on the left, you'll find the current release version of t
   ![](https://assets.miruml.com/docs/v02/images/devices/editor/current-release.png)
 </Frame>
 
-To deploy configurations with a different release, click the release's dropdown arrow and select the release you want to switch to.
+To deploy configurations with a different release, click the release dropdown and select the release you want to switch to.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/devices/editor/release-dropdown.png)
@@ -133,17 +112,17 @@ Select a release with a `Staged` badge and hit **Next**.
   ![](https://assets.miruml.com/docs/v02/images/devices/editor/set-release-dialog:step1:deploy-staged.png)
 </Frame>
 
-The deployment staged on this release will appear in the dialog. Simply select the deployment and hit **Deploy**.
+The deployment staged on this release will appear in the dialog. Select the deployment and hit **Deploy**.
 
 ### New deployments
 
-If the release you selected does not have any staged deployments, you'll immediately be presented with a dialog to create a new deployment.
+If the release you selected has no staged deployments, you'll immediately be presented with a dialog to create a new deployment.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/devices/editor/set-release-dialog:step2:config-tabs.png)
 </Frame>
 
-A dialog will appear with tabs for each config schema defined in the release. The tabs are pre-populated with the schema's default values.
+The dialog includes a tab for each config schema defined in the release, each pre-populated with the schema's default values.
 
 Make any desired edits to the config instances, enter a description at the bottom of the dialog, and hit **Deploy**.
 

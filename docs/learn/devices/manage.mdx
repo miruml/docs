@@ -5,13 +5,7 @@ title: "Manage devices"
 import {Framed} from '/snippets/components/framed.jsx';
 import {ONLINE_TOOLTIP, OFFLINE_TOOLTIP} from '/snippets/components/devices/statuses.jsx';
 
-<Framed 
-  background="https://assets.miruml.com/docs/v02/images/devices/background.jpeg"
-  image="https://assets.miruml.com/docs/v02/images/devices/header:list2.png"
-  borderWidth={"24px 30px 0 30px"}
-  innerRadius="12px 12px 0 0"
-  outerRadius="14px"
-/>
+<Framed background="https://assets.miruml.com/docs/v02/images/devices/background.jpeg" image="https://assets.miruml.com/docs/v02/images/devices/header:list2.png" borderWidth={"24px 30px 0 30px"} innerRadius="12px 12px 0 0" outerRadius="14px" />
 
 Devices are located in the [Devices page](https://app.miruml.com/devices) of the dashboard.
 
@@ -25,7 +19,7 @@ To edit a device in the dashboard, click the ellipses (...) on the device you wa
   ![](https://assets.miruml.com/docs/v02/images/devices/ellipses-dropdown.png)
 </Frame>
 
-Update the desired fields and hit **Save**.
+Update the desired fields, then click **Save**.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/devices/edit-panel.png)
@@ -37,15 +31,15 @@ To edit a device programmatically, use the [update device endpoint »](/docs/ref
 
 ## Ping a device
 
-Pinging a device sends a real-time request to the device to check if it is online. Ping requests wait a maximum of 5 seconds for a response from the device before timing out.
+Pinging a device sends a real-time request to verify whether it is online. Ping requests wait up to 5 seconds for a response from the device before timing out.
 
-<Tooltip tip={ONLINE_TOOLTIP.tip} cta={ONLINE_TOOLTIP.cta} href={ONLINE_TOOLTIP.href}>Online</Tooltip> devices should return a success message similar to the one below.
+<Tooltip tip="[object Object]">Online</Tooltip> devices should return a success message similar to the one below.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/devices/ping-success.png)
 </Frame>
 
-On the other hand, <Tooltip tip={OFFLINE_TOOLTIP.tip} cta={OFFLINE_TOOLTIP.cta} href={OFFLINE_TOOLTIP.href}>offline</Tooltip> devices should return a timeout message similar to the one below.
+On the other hand, <Tooltip tip="[object Object]">offline</Tooltip> devices should return a timeout message similar to the one below.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/devices/ping-timeout.png)
@@ -53,18 +47,18 @@ On the other hand, <Tooltip tip={OFFLINE_TOOLTIP.tip} cta={OFFLINE_TOOLTIP.cta} 
 
 ## Reactivate a device
 
-Reactivating a device is the process of reinstalling the Miru Agent onto a device that has been previously activated. Reactivating a device:
+Reactivating a device is the process of reinstalling the Miru Agent on a device that was previously activated. Reactivating a device:
 
 1. Invalidates the device's current authentication session
 2. Creates a new authentication session for the device
 3. Resets the Miru Agent to a clean state
 4. Recreates the device's current deployments
 
-Reactivating a device is useful for resetting the Miru Agent on a device to a clean state while maintaining the device's full deployment history.
+Reactivating a device resets the Miru Agent to a clean state while preserving the device's full deployment history.
 
 **Dashboard**
 
-To reactivate a device, click the ellipses (...) on the device you want to reactivate and hit **Reactivate**.
+To reactivate a device, click the ellipsis (...) next to the device you want to reactivate, then select **Reactivate**.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/devices/ellipses-dropdown.png)
@@ -76,7 +70,7 @@ A dialog will appear with a pre-authenticated reactivation command. Copy this co
   ![](https://assets.miruml.com/docs/v02/images/devices/reactivate-dialog.png)
 </Frame>
 
-Outside of the reactivation capability, this installation command is identical to the activation command used when provisioning a device. For more information on the installation command, visit the [dashboard device provisioning](/docs/learn/devices/provision#install-the-agent) documentation.
+Outside the reactivation capability, this installation command is identical to the activation command used to provision a device. For more information on the installation command, visit the [dashboard device provisioning](/docs/learn/devices/provision#install-the-agent) documentation.
 
 **Server-Side API**
 
@@ -84,7 +78,7 @@ To reactivate a device programmatically, use the [API key provisioning](/docs/le
 
 ## Delete a device
 
-Deleting a device immediately invalidates the device's authentication session and deletes all deployment and configuration history for that device. This action is irreversible, please proceed with caution.
+Deleting a device immediately invalidates its authentication session and removes all deployment and configuration history. This action is irreversible. Please proceed with caution.
 
 **Dashboard**
 
