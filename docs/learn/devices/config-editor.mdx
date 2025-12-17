@@ -5,8 +5,8 @@ title: "Config editor"
 import {Framed} from '/snippets/components/framed.jsx';
 
 <Framed 
-  background="https://assets.miruml.com/docs/images/devices/background.jpeg"
-  image="/images/devices/header:editor.png"
+  background="https://assets.miruml.com/docs/v02/images/devices/background.jpeg"
+  image="https://assets.miruml.com/docs/v02/images/devices/header:editor.png"
   borderWidth="30px 60px 0 0"
   innerRadius="0 8px 0 0"
 />
@@ -24,7 +24,7 @@ The config editor is organized into three main sections.
 3. History - a reference of the device's previously deployed config instances for the selected config type
 
 <Frame>
-  ![](/images/devices/editor/layout.png)
+  ![](https://assets.miruml.com/docs/v02/images/devices/editor/layout.png)
 </Frame>
 
 ## Customize
@@ -80,7 +80,7 @@ Patching a config instance is only allowed from currently deployed config instan
 To patch a config instance, make some edits to the instance in the file editor.
 
 <Frame>
-  ![](/images/devices/editor/mobility-patch.png)
+  ![](https://assets.miruml.com/docs/v02/images/devices/editor/mobility-patch.png)
 </Frame>
 
 As edits are made, a log on the right maintains a list of all changes, categorizing them by their type: `added`, `deleted`, or `modified`.
@@ -88,7 +88,7 @@ As edits are made, a log on the right maintains a list of all changes, categoriz
 Once satisfied with the edits, click **Deploy** in the top right. A dialog will appear to confirm the deployment. 
 
 <Frame>
-  ![](https://assets.miruml.com/docs/images/devices/editor/deploy-dialog.png)
+  ![](https://assets.miruml.com/docs/v02/images/devices/editor/deploy-dialog.png)
 </Frame>
 
 Add a description, confirm the device, and click **Deploy**.
@@ -98,7 +98,7 @@ Add a description, confirm the device, and click **Deploy**.
 The right side of the config editor maintains a history of all the config instances deployed to the device for the currently selected config type.
 
 <Frame>
-  ![](/images/devices/editor/history-entry.png)
+  ![](https://assets.miruml.com/docs/v02/images/devices/editor/history-entry.png)
 </Frame>
 
 You can view more information about a history entry by hitting the dropdown arrow to the left of the entry. 
@@ -112,13 +112,13 @@ For more information about a deployment in the history entry, refer to the [depl
 Above the config types on the left, you'll find the current release version of the device's configurations.
 
 <Frame>
-  ![](/images/devices/editor/current-release.png)
+  ![](https://assets.miruml.com/docs/v02/images/devices/editor/current-release.png)
 </Frame>
 
 To deploy configurations with a different release, click the release's dropdown arrow and select the release you want to switch to.
 
 <Frame>
-  ![](/images/devices/editor/release-dropdown.png)
+  ![](https://assets.miruml.com/docs/v02/images/devices/editor/release-dropdown.png)
 </Frame>
 
 At this point, you have two options: deploy a staged deployment or create a new deployment.
@@ -130,7 +130,7 @@ If you've [staged a deployment](/docs/learn/releases/staging-area) on the chosen
 Select a release with a `Staged` badge and hit **Next**.
 
 <Frame>
-  ![](/images/devices/editor/set-release-dialog:step1:deploy-staged.png)
+  ![](https://assets.miruml.com/docs/v02/images/devices/editor/set-release-dialog:step1:deploy-staged.png)
 </Frame>
 
 The deployment staged on this release will appear in the dialog. Simply select the deployment and hit **Deploy**.
@@ -140,7 +140,7 @@ The deployment staged on this release will appear in the dialog. Simply select t
 If the release you selected does not have any staged deployments, you'll immediately be presented with a dialog to create a new deployment.
 
 <Frame>
-  ![](/images/devices/editor/set-release-dialog:step2:config-tabs.png)
+  ![](https://assets.miruml.com/docs/v02/images/devices/editor/set-release-dialog:step2:config-tabs.png)
 </Frame>
 
 A dialog will appear with tabs for each config schema defined in the release. The tabs are pre-populated with the schema's default values.
@@ -148,5 +148,5 @@ A dialog will appear with tabs for each config schema defined in the release. Th
 Make any desired edits to the config instances, enter a description at the bottom of the dialog, and hit **Deploy**.
 
 <Frame>
-  ![](/images/devices/editor/set-release-dialog:step2:description.png)
+  ![](https://assets.miruml.com/docs/v02/images/devices/editor/set-release-dialog:step2:description.png)
 </Frame>

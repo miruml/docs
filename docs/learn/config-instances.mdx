@@ -8,8 +8,8 @@ import {Framed} from '/snippets/components/framed.jsx';
 import {CONFIG_INSTANCE_OWNER_TOOLTIP} from '/snippets/components/config_instances/owner.jsx';
 
 <Framed 
-  background="/images/config-instances/background.jpeg"
-  image="/images/config-instances/header:panel.png"
+  background="https://assets.miruml.com/docs/v02/images/config-instances/background.jpeg"
+  image="https://assets.miruml.com/docs/v02/images/config-instances/header:panel.png"
   borderWidth="28px 56px 0 0"
   innerRadius="0 8px 0 0"
 />
@@ -168,7 +168,7 @@ Let's say our application has three config types: `Mobility`, `Perception`, and 
 
 We create an initial deployment, `DPL-MT3Ec`. The deployment contains config instances `CFG-K9xF6`, `CFG-BrM1v`, and `CFG-9ai6A` which are instantiations of `Mobility`, `Perception`, and `Safety` respectively.
 
-![](/images/config-instances/ownership:step1.png)
+![](https://assets.miruml.com/docs/v02/images/config-instances/ownership:step1.png)
 
 Since all configs are brand new, all three config instances's owner and origin is `DPL-MT3Ec`.
 
@@ -182,7 +182,7 @@ Since all configs are brand new, all three config instances's owner and origin i
 
 After our initial deployment, we decide to make an edit to the `Mobility` config instance, creating `DPL-8Xerr` to replace `DPL-MT3Ec`.
 
-![](/images/config-instances/ownership:step2.png)
+![](https://assets.miruml.com/docs/v02/images/config-instances/ownership:step2.png)
 
 Since no edits were made to the `Perception` or `Safety` instances, `DPL-8Xerr` reuses the `Perception` and `Safety` configs from `DPL-MT3Ec`. As such, the total number of config instances only increases from three to four.
 
@@ -203,7 +203,7 @@ Finally, since `DPL-8Xerr` reuses the `Perception` and `Safety` instances from `
 
 Some more time passes and we need to make another edit. This time we edit the `Safety` config instance, creating `DPL-8jVBY` to replace `DPL-8Xerr`.
 
-![](/images/config-instances/ownership:step3.png)
+![](https://assets.miruml.com/docs/v02/images/config-instances/ownership:step3.png)
 
 Since no edits were made to the `Mobility` or `Perception` instances, `DPL-8jVBY` reuses the config instances from `DPL-8Xerr` for those config types. The total number of config instances thus increases from four to five.
 
