@@ -80,11 +80,11 @@
                 "group": "Agent",
                 "pages": [
                   "docs/developers/agent/intro",
-                  "docs/developers/agent/usage",
-                  "docs/developers/agent/agent-side-api"
+                  "docs/developers/agent/usage"
                 ]
               },
               "docs/developers/cli",
+              "docs/developers/agent-side-api",
               "docs/developers/server-side-api"
             ]
           },

@@ -1,3 +1,22 @@
 ---
 title: "Server-Side API"
 ---
+
+Miru's Server-Side API is a REST API for programmatically managing your Miru resources. 
+
+The Server-Side API is primarily for backend and cloud-native applications, allowing you to build custom workflows for provisioning devices, CI/CD pipelines, and more.
+
+The Server-Side API is distinct from the [Agent-Side API](/docs/developers/agent-side-api), which is a REST API exposed by the Miru Agent for programmatic control by applications *running on your devices*. 
+
+While the Server-Side API is accessed over the internet, the Agent-Side API is only available on devices running the Miru Agent and does not require internet access for operation. For more information on the Agent-Side API, visit the [Agent-Side API](/docs/developers/agent-side-api) section.
+
+<Columns cols={2}>
+    <Card title="Reference" icon="server" href="/docs/references/server-side-api/endpoints/config-instances/get">
+    Complete reference for all available API endpoints.
+    </Card>
+
+    <Card title="SDKs" icon="package" href="/docs/references/server-side-api/sdks/overview">
+    Idiomatic libraries for quick and reliable integration.
+    </Card>
+
+</Columns>
