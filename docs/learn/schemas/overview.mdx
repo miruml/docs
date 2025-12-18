@@ -18,22 +18,24 @@ import {Framed} from '/snippets/components/framed.jsx';
 
   The [schema language](/docs/learn/schemas/languages) used to define the schema.
 
-  Currently supported schema languages include:
+  Allowed values: 
+  - `jsonschema`
+  - `cue`
 
-  - JSON Schema (Draft 2020-12)
-  - CUE
-
-  Enum: `jsonschema`, `cue`
 </ParamField>
 
-<ParamField path="format" type="string">
+<ParamField path="format" type="enum">
   <ImmutableBadge />
 
-  The file format used to define the schema.
+  The file format used to define the schema. 
 
   <SchemaFormats />
 
-  Examples: `json`, `yaml`, `cue`
+  Allowed values: 
+  - `cue`
+  - `json`
+  - `yaml`
+
 </ParamField>
 
 <ParamField path="content" type="string">

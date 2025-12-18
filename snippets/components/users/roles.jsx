@@ -12,7 +12,7 @@ export const ADMIN_TOOLTIP = {
 
 
 export const OWNER_TOOLTIP = {
-    tip: "A user with total access to the workspace; exactly one per workspace.",
+    tip: "A user with complete control over the workspace; exactly one per workspace.",
     cta: "Learn more",
     href: "/docs/admin/users/roles"
 };

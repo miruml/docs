@@ -25,28 +25,42 @@ import {Framed} from '/snippets/components/framed.jsx';
   Example: "increase acceleration limit to 1.2 m/s^2"
 </ParamField>
 
-<ParamField path="target status" type="string">
+<ParamField path="target status" type="enum">
   <EditableBadge />
 
   The [desired state](#target-status) of the deployment.
 
-  Enum: `staged`, `deployed`, `archived`
+  Allowed values: 
+  - `staged`
+  - `deployed`
+  - `archived`
+
 </ParamField>
 
-<ParamField path="activity status" type="string">
+<ParamField path="activity status" type="enum">
   <MutableBadge />
 
   The deployment's last known [activity state](#activity-status).
 
-  Enum: `staged`, `needs_review`, `queued`, `deployed`, `removing`, `archived`
+  Allowed values: 
+  - `staged`
+  - `needs_review`
+  - `queued`
+  - `deployed`
+  - `removing`
+  - `archived`
+
 </ParamField>
 
-<ParamField path="error status" type="string">
+<ParamField path="error status" type="enum">
   <MutableBadge />
 
   The deployment's last known [error state](#error-status).
 
-  Enum: `none`, `failed`, `retrying`
+  Allowed values: 
+  - `none`
+  - `failed`
+  - `retrying`
 </ParamField>
 
 <ParamField path="status" type="string">
@@ -139,7 +153,7 @@ There are six possible activity states for a deployment.
 | --------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | `staged`        | Deployment has been created and is ready to be deployed                                                                         |
 | `needs review`  | Deployment has [drifted](/docs/learn/releases/staging-area#deployment-drift) and needs to be reviewed                           |
-| `queued`        | Deployment is waiting for the device to be <Tooltip tip="[object Object]">online</Tooltip> so it can be delivered to the device |
+| `queued`        | Deployment is waiting for the device to be <Tooltip tip={ONLINE_TOOLTIP.tip} cta={ONLINE_TOOLTIP.cta} href={ONLINE_TOOLTIP.href}>online</Tooltip> so it can be delivered to the device |
 | `deployed`      | Deployment has been delivered to the device, and its configurations are available for consumption                               |
 | `removing`      | Deployment will be removed from the device as soon as the device is `online`                                                    |
 | `archived`      | Deployment is available for historical reference, but can never be deployed again                                               |

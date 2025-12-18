@@ -5,7 +5,6 @@ title: "Config instances"
 import ConfigInstanceDef from '/snippets/definitions/config-instance.mdx';
 import {MutableBadge, ImmutableBadge, NullableBadge} from '/snippets/components/badges.jsx';
 import {Framed} from '/snippets/components/framed.jsx';
-import {CONFIG_INSTANCE_OWNER_TOOLTIP} from '/snippets/components/config_instances/owner.jsx';
 
 <Framed background="https://assets.miruml.com/docs/v02/images/config-instances/background.jpeg" image="https://assets.miruml.com/docs/v02/images/config-instances/header:panel.png" borderWidth="28px 56px 0 0" innerRadius="0 8px 0 0" />
 
@@ -13,14 +12,18 @@ import {CONFIG_INSTANCE_OWNER_TOOLTIP} from '/snippets/components/config_instanc
 
 ## Properties
 
-<ParamField path="target status" type="string">
+<ParamField path="target status" type="enum">
   <MutableBadge />
 
   The desired state of the config instance, inherited from its [owner](/docs/learn/config-instances#owners-and-origins) deployment.
 
   Visit the deployment's [target status](/docs/learn/deployments#target-status) for more information.
 
-  Enum: `staged`, `deployed`, `archived`
+  Allowed values: 
+  - `staged`
+  - `deployed`
+  - `removed`
+
 </ParamField>
 
 <ParamField path="activity status" type="string">
@@ -30,7 +33,14 @@ import {CONFIG_INSTANCE_OWNER_TOOLTIP} from '/snippets/components/config_instanc
 
   Visit the deployment's [activity status](/docs/learn/deployments#activity-status) for more information.
 
-  Enum: `staged`, `needs_review`, `queued`, `deployed`, `removing`, `archived`
+  Allowed values: 
+  - `staged`
+  - `needs_review`
+  - `queued`
+  - `deployed`
+  - `removing`
+  - `archived`
+
 </ParamField>
 
 <ParamField path="error status" type="string">
@@ -40,7 +50,11 @@ import {CONFIG_INSTANCE_OWNER_TOOLTIP} from '/snippets/components/config_instanc
 
   Visit the deployment's [error status](/docs/learn/deployments#error-status) for more information.
 
-  Enum: `none`, `failed`, `retrying`
+  Allowed values: 
+  - `none`
+  - `failed`
+  - `retrying`
+
 </ParamField>
 
 <ParamField path="status" type="string">

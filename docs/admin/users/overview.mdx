@@ -12,7 +12,7 @@ import UserDef from '/snippets/definitions/user.mdx';
 
 ## Properties
 
-<ParamField path="first_name">
+<ParamField path="first_name" type="string">
   <MutableBadge />
 
   The first name of the user. Must contain between 1 and 48 characters.
@@ -20,7 +20,7 @@ import UserDef from '/snippets/definitions/user.mdx';
   Examples: `John`, `Jane`
 </ParamField>
 
-<ParamField path="last_name">
+<ParamField path="last_name" type="string">
   <MutableBadge />
 
   The last name of the user. Must contain between 1 and 48 characters.
@@ -28,7 +28,7 @@ import UserDef from '/snippets/definitions/user.mdx';
   Examples: `Doe`, `Smith`
 </ParamField>
 
-<ParamField path="email">
+<ParamField path="email" type="string">
   <ImmutableBadge />
 
   The email address of the user.
@@ -36,20 +36,35 @@ import UserDef from '/snippets/definitions/user.mdx';
   Examples: `john.doe@example.com`, `jane.smith@example.com`
 </ParamField>
 
-<ParamField path="role">
+<ParamField path="role" type="enum">
   <MutableBadge />
 
   The user's [access role](/docs/admin/users/overview#roles) in the workspace.
 
-  Examples: `member`, `admin`, `owner`
+  Allowed values: 
+  - `member`
+  - `admin`
+  - `owner`
+
 </ParamField>
 
-<ParamField path="status">
+<ParamField path="status" type="enum">
   <MutableBadge />
 
   The user's [status](/docs/admin/users/overview#status).
 
-  Examples: `active`, `suspended`, `left`
+  Allowed values: 
+  - `active`
+  - `suspended`
+  - `left`
+
+</ParamField>
+
+<ParamField path="avatar" type="image">
+  <MutableBadge />
+
+  The avatar of the user.
+
 </ParamField>
 
 ## Status

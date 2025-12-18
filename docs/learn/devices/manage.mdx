@@ -33,13 +33,13 @@ To edit a device programmatically, use the [update device endpoint »](/docs/ref
 
 Pinging a device sends a real-time request to verify whether it is online. Ping requests wait up to 5 seconds for a response from the device before timing out.
 
-<Tooltip tip="[object Object]">Online</Tooltip> devices should return a success message similar to the one below.
+<Tooltip tip={ONLINE_TOOLTIP.tip} cta={ONLINE_TOOLTIP.cta} href={ONLINE_TOOLTIP.href}>Online</Tooltip> devices should return a success message similar to the one below.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/devices/ping-success.png)
 </Frame>
 
-On the other hand, <Tooltip tip="[object Object]">offline</Tooltip> devices should return a timeout message similar to the one below.
+On the other hand, <Tooltip tip={OFFLINE_TOOLTIP.tip} cta={OFFLINE_TOOLTIP.cta} href={OFFLINE_TOOLTIP.href}>offline</Tooltip> devices should return a timeout message similar to the one below.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/devices/ping-timeout.png)

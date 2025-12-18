@@ -10,11 +10,11 @@ import {Framed} from '/snippets/components/framed.jsx';
 
 ## Prerequisites
 
-To manage members, you must be an <Tooltip tip="[object Object]">owner</Tooltip> or <Tooltip tip="[object Object]">admin</Tooltip> of the workspace. You can check your role on the [members](https://app.miruml.com/settings/members) page.
+To manage members, you must be an <Tooltip tip={OWNER_TOOLTIP.tip} cta={OWNER_TOOLTIP.cta} href={OWNER_TOOLTIP.href}>owner</Tooltip> or <Tooltip tip={ADMIN_TOOLTIP.tip} cta={ADMIN_TOOLTIP.cta} href={ADMIN_TOOLTIP.href}>admin</Tooltip> of the workspace. You can check your role on the [members](https://app.miruml.com/settings/members) page.
 
 ## Change a member's role
 
-To change a member's <Tooltip tip="[object Object]">role</Tooltip>, first navigate to the [members](https://app.miruml.com/settings/members) page.
+To change a member's <Tooltip tip={ROLE_TOOLTIP.tip} cta={ROLE_TOOLTIP.cta} href={ROLE_TOOLTIP.href}>role</Tooltip>, first navigate to the [members](https://app.miruml.com/settings/members) page.
 
 Next, click the ellipses (...) of the member you want to change the role of, and hit **Change role**.
 
@@ -30,7 +30,7 @@ Select the new role and hit **Save**.
 
 ## Suspend a member
 
-Suspending a member immediately revokes their access to the workspace and sets their status to <Tooltip tip="[object Object]">suspended</Tooltip>:
+Suspending a member immediately revokes their access to the workspace and sets their status to <Tooltip tip={SUSPENDED_TOOLTIP.tip} cta={SUSPENDED_TOOLTIP.cta} href={SUSPENDED_TOOLTIP.href}>suspended</Tooltip>:
 
 - They are immediately logged out
 - They cannot log in to this workspace or access any resources (signing in with the same email address creates a new workspace with a new account)

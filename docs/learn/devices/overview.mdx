@@ -23,12 +23,17 @@ import {Framed} from '/snippets/components/framed.jsx';
   Examples: `Robot 11`, `ArcticBlaze`, `Scooby Doo`
 </ParamField>
 
-<ParamField path="status" type="string">
+<ParamField path="status" type="enum">
   <MutableBadge />
 
   The [status](#status) of the device.
 
-  Examples: `inactive`, `activating`, `online`, `offline`
+  Allowed values: 
+  - `inactive`
+  - `activating`
+  - `online`
+  - `offline`
+
 </ParamField>
 
 <ParamField path="agent version" type="string">
