@@ -1,3 +1,6 @@
-A **config type** represents a logical grouping of parameters used by your robot's software. Config types consist of config schemas, which define the structure and constraints, and config instances, which store the actual configuration values.
+A **config type** represents a logical grouping of parameters used by your robot's software. It consists of
 
-For example, a `Mobility` config type contains schemas and configs related to the robot's motion, while a `Safety Features` config type contains the schemas and configs related to the robot's safety. All schemas and configs belong to exactly one config type, allowing you to version and manage different aspects of your application's configuration independently.
+1. The config instances in its domain (the actual parameters deployed to devices)
+2. A versioned config schema, which defines the structure and constraints for those instances
+
+For example, a `Mobility` config type houses configs related to the robot's motion while a `Safety Features` config type houses configs related to the robot's safety. Each config type has its own versioned schema, which its config instances must adhere to depending on the release they are deployed under.
