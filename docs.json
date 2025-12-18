@@ -44,7 +44,14 @@
                 "group": "Config schemas",
                 "pages": [
                   "docs/learn/schemas/overview",
-                  "docs/learn/schemas/languages",
+                  {
+                    "group": "Languages",
+                    "pages": [
+                      "docs/learn/schemas/languages/overview",
+                      "docs/learn/schemas/languages/jsonschema",
+                      "docs/learn/schemas/languages/cue"
+                    ]
+                  },
                   "docs/learn/schemas/create",
                   "docs/learn/schemas/manage"
                 ]
