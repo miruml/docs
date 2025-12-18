@@ -51,7 +51,7 @@ import {Framed} from '/snippets/components/framed.jsx';
 
   A hash of the canonicalized schema content.
 
-  Digests are computed by converting schemas to a canonical format -- a format that ignores whitespace, comments, and other non-semantic differences -- and then hashing the result. This is useful for comparing schemas and detecting duplicates.
+  Digests are computed by converting schemas to a canonical format--a format that ignores whitespace, comments, and other non-semantic differences--and then hashing the result. This is useful for comparing schemas and detecting duplicates.
 
   Examples: `sha256:45YeoJJ2btBnAKQztAEXEjHsqyyQfC1z1Mw3LLM4xMUy`
 </ParamField>
@@ -179,7 +179,7 @@ Although simple in concept, schemas are a powerful tool for preventing typos, mi
 
 While schemas provide significant value in production deployments, defining one from scratch can be a considerable undertaking.
 
-Many teams find it best to begin with an empty schema-- one that accepts any configuration -- and gradually add constraints. This approach allows you to define the most highly valued constraints first and progressively transition to stricter and stricter schemas as needed.
+Many teams find it best to begin with an empty schema--one that accepts any configuration--and gradually add constraints. This approach allows you to define the most highly valued constraints first and progressively transition to stricter and stricter schemas as needed.
 
 Below are the empty schemas for JSON Schema and CUE, respectively.
 

@@ -135,7 +135,7 @@ To archive a single deployment, click the ellipsis (...) on the deployment and s
   ![](https://assets.miruml.com/docs/v02/images/releases/stage/ellipses-dropdown:staged.png)
 </Frame>
 
-A confirmation dialog will appear -- hit **Archive** to confirm.
+A confirmation dialog will appear--hit **Archive** to confirm.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/releases/stage/archive-dialog:single.png)
@@ -155,7 +155,7 @@ At the bottom of the page, click **Archive** from the available bulk actions.
   ![](https://assets.miruml.com/docs/v02/images/releases/stage/bulk-actions.png)
 </Frame>
 
-A confirmation dialog will appear -- hit **Archive** to confirm.
+A confirmation dialog will appear--hit **Archive** to confirm.
 
 <Frame>
   ![](https://assets.miruml.com/docs/v02/images/releases/stage/archive-dialog:bulk.png)
@@ -195,7 +195,7 @@ Consider the following example:
 
 Our device is currently running deployment `DPL-Npfzv`, which adheres to release `v1.5`. Our device is about to be upgraded to release `v1.6` though, so we've staged deployment `DPL-Q4CeX` for the upcoming upgrade.
 
-However, before the upgrade occurs, our device receives some configuration updates on release `v1.5`-- `DPL-Npfzv` is patched with `DPL-BFwc3`. Since it's often the case that this patch also needs to be applied to the staged deployment `DPL-Q4CeX`, we say `DPL-Q4CeX` has _drifted_.
+However, before the upgrade occurs, our device receives some configuration updates on release `v1.5`--`DPL-Npfzv` is patched with `DPL-BFwc3`. Since it's often the case that this patch also needs to be applied to the staged deployment `DPL-Q4CeX`, we say `DPL-Q4CeX` has _drifted_.
 
 When a deployment drifts, it is marked as `needs review` and cannot be deployed until an explicit review is performed. You must either ignore the patch or apply the patch to the staged deployment.
 
