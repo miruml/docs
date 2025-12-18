@@ -99,6 +99,29 @@ import {Framed} from '/snippets/components/framed.jsx';
   Examples: `CFG-68hdX`, `CFG-Cpa13`
 </ParamField>
 
+## Methods
+
+Broadly speaking, there are two methods for creating and deploying configurations. Configurations can be:
+
+1. Edited per device via the [config editor](/docs/learn/devices/config-editor)
+2. Staged in a release's [staging area](/docs/learn/releases/staging-area) to be deployed at a later time
+
+**Per-Device Editing**
+
+Each device has a dedicated config editor for viewing and editing its configurations. Changes made in the config editor are immediately deployed to the device.
+
+The config editor deals only with a single device's configurations. It does not support multiple devices at once nor does it support staging new deployments.
+
+For more information, check out the [config editor](/docs/learn/devices/config-editor) documentation.
+
+**Release Staging**
+
+Staging a deployment is the process of creating a new deployment in a release's [staging area](/docs/learn/releases/staging-area) to be deployed in the future. Staging is primarily used to rollout a new release, providing an unobstrusive place to create and review deployments before being deployed to devices. 
+
+A release's staging area is also useful for batch operations. Deployments can be created, deployed, and archived in bulk, which helps manage large numbers of deployments at once.
+
+For more information, check out the [staging area](/docs/learn/releases/staging-area) documentation.
+
 ## Status
 
 <DeploymentStatus />
@@ -125,7 +148,7 @@ If a deployment is staged before being deployed, the diagram below shows the val
 
 **Without Staging**
 
-Of course, many deployments skip staging and deploy immediately. The diagram below shows the valid transitions between target statuses for a deployment that is immediately deployed.
+Of course, many deployments skip staging and deploy immediately (such as those deployed from a device's [config editor](/docs/learn/devices/config-editor)). The diagram below shows the valid transitions between target statuses for a deployment that is immediately deployed.
 
 <img
   src="https://assets.miruml.com/docs/v02/images/deployments/target-status-fsm:deploy.png"
