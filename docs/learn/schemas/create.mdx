@@ -11,9 +11,9 @@ import { Framed } from '/snippets/components/framed.jsx';
 
 Config schemas can **only be created via the CLI**.
 
-This is a deliberate design choice—we believe schemas should live in a git repository. This allows them to be versioned alongside the code that uses them and encourages better software development practices.
+This is a deliberate design choice—we believe schemas should live in a Git repository. This allows them to be versioned alongside the code that uses them and encourages better software development practices.
 
-Ideally, schemas are versioned in the same repository as the code that uses them. However, this is not a requirement. You may use any git repository to house your schemas.
+Ideally, schemas are versioned in the same repository as the code that uses them. However, this is not a requirement. You may use any Git repository to house your schemas.
 
 ## Prerequisites
 
@@ -51,23 +51,29 @@ Annotations are a convenient way to store schema metadata with your schema. Most
 
 ## Git metadata
 
-When pushing a schema to Miru, the CLI captures git metadata from the local git repository from which the CLI is run:
+When pushing a schema to Miru, the CLI captures Git metadata from the *local* Git repository from which the CLI is run:
 
 - **Commit SHA** - the SHA of the current commit that the schema is defined in
-- **Origin URL** - the remote URL of the git repository
+- **Origin URL** - the remote URL of the Git repository
 - **File path** - the path to the schema file within the repo
 
 This metadata is then made available in the dashboard for each schema, making it easy to trace the origin of each schema.
 
-It's important to reiterate that Miru does not directly integrate with your hosted git repository provider (GitHub, GitLab, Bitbucket, etc.). It only captures Git metadata from the local Git repository where the CLI is run.
+While Git metadata is captured from the local Git repository, only origin URLs from the following providers are supported:
+
+- GitHub
+- GitLab
+- Bitbucket
+
+If your Git repository is hosted on a different provider, please reach out to 
 
 ### Requirements
 
-To be able to capture git metadata, schemas must meet the following requirements when uploading from the CLI:
+To be able to capture Git metadata, schemas must meet the following requirements when uploading from the CLI:
 
-- The schema must be defined in a local git repository
+- The schema must be defined in a local Git repository
 - The Git repository must have a remote URL (e.g., GitHub, GitLab, Bitbucket).
-- The schema's latest changes must be committed to the git repository before pushing to Miru (cannot be dirty or unstaged)
+- The schema's latest changes must be committed to the Git repository before pushing to Miru (cannot be dirty or unstaged)
 
 Git metadata is not optional. If a schema does not meet these requirements, the CLI will return an error and fail to push the schema.
 
