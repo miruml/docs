@@ -1,0 +1,176 @@
+---
+title: 'Commands'
+---
+
+The Miru Agent does not (currently) provide a command line interface. 
+
+The [CLI](/docs/developers/cli/intro) is only for managing Miru resources from your development machine's terminal. Please do not attempt to use the `miru` command to manage the agent.
+
+However, the agent can be managed using standard `systemd` commands and other standard Linux tools.
+
+## Version
+
+To check the version of the agent, use the `dpkg-query` command to query the version of the `miru-agent` debian package.
+
+```bash
+dpkg-query -W -f='${Version}\n' miru-agent
+```
+
+## Logs
+
+The Miru Agent logs are accessible via [`journalctl`](https://www.freedesktop.org/software/systemd/man/journalctl.html), the standard tool for viewing systemd service logs.
+
+### View all
+
+The Miru Agent's logs are stored in the `systemd` journal and can be viewed using the `journalctl` command.
+
+```bash
+journalctl -u miru
+```
+
+By default, `journalctl` truncates each line's output to the size of the terminal window. To view the full log output for each line, use the `--no-pager` flag.
+
+### Tail in real-time
+
+Tail the logs and watch new entries as they appear.
+
+```bash
+journalctl -u miru -f --no-pager
+```
+
+### Recent logs
+
+View only the most recent log entries (e.g., the last 100 lines).
+
+```bash
+journalctl -u miru -n 100 --no-pager
+```
+
+### Filter by time
+
+View logs from a specific time period.
+
+```bash
+# Logs from the last hour
+journalctl -u miru --since "1 hour ago" --no-pager
+
+# Logs from today
+journalctl -u miru --since today --no-pager
+
+# Logs from a specific date/time range
+journalctl -u miru --since "2024-01-15 09:00:00" --until "2024-01-15 12:00:00" --no-pager
+```
+
+### Filter by priority
+
+View only logs of a specific priority level (e.g., errors).
+
+```bash
+# Show only errors and above
+journalctl -u miru -p err --no-pager
+
+# Show warnings and above
+journalctl -u miru -p warning --no-pager
+```
+
+<Tip>
+  Combine flags for more targeted output. For example, `journalctl -u miru -f -n 50 --no-pager` will tail the last 50 lines and then follow new entries in real-time.
+</Tip>
+
+
+## Systemd
+
+The Miru Agent runs as a [`systemd`](https://en.wikipedia.org/wiki/Systemd) service named `miru`, allowing you to manage the service using standard `systemctl` commands.
+
+You can find the agent's `systemd` service files on your file system at the following paths:
+
+- `/lib/systemd/system/miru.service`
+- `/lib/systemd/system/miru.socket`
+
+### Status
+
+To check the status of the agent, use the `status` command.
+
+```bash
+systemctl status miru
+```
+
+Depending on the state of the agent, you will see outputs similar to the following:
+
+<Tabs >
+  <Tab title="Active">
+    The agent is running as expected. 
+
+    <Frame>
+      ![](/images/agent/commands/systemctl-status:running.png)
+    </Frame>
+  </Tab>
+  <Tab title="Inactive">
+    The agent is not running. Unless you've manually stopped the agent, this should not happen.
+
+    <Frame>
+      ![](/images/agent/commands/systemctl-status:dead.png)
+    </Frame>
+  </Tab>
+</Tabs>
+
+### Restart
+
+Restarting the agent stops and starts the agent, giving it a fresh start. If you're experiencing unexpected behavior, restarting the agent is a good place to begin.
+
+```bash
+systemctl restart miru
+```
+
+<Info>
+  If the agent is not running, restarting it will start it.
+</Info>
+
+### Stop
+
+`stop` stops the agent while leaving it's state intact. Stopping the agent does not [disable](/docs/developers/agent/commands#disable) the agent--it will still automatically start on next system boot.
+
+
+Note that stopping the agent will prevent any new deployments from reaching the device until the agent is started again.
+
+```bash
+systemctl stop miru
+```
+
+<Info>
+  If the agent is not running, stopping it does nothing.
+</Info>
+
+
+### Start
+
+`start` starts the agent if it has been stopped.
+
+```bash
+systemctl start miru
+```
+
+<Info>
+  If the agent is already running, starting it does nothing.
+</Info>
+
+### Disable
+
+Disabling the agent prevents it from starting automatically on boot. 
+
+This does not immediately [stop](/docs/developers/agent/commands#stop) the agent--it will still run if it is currently running. However, it will not be able to start on next system boot.
+
+```bash
+systemctl disable miru
+```
+
+### Enable
+
+Enabling the agent allows it to start automatically on boot. This is the default behavior after installation and only needs to be done if the agent has been [disabled](/docs/developers/agent/commands#disable).
+
+Enabling the agent will not immediately start it--it will still need to be [started](/docs/developers/agent/commands#start) manually.
+
+```bash
+systemctl enable miru
+```
+
