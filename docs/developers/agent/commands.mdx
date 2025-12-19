@@ -2,15 +2,13 @@
 title: 'Commands'
 ---
 
-The Miru Agent does not (currently) provide a command line interface. 
+The Miru Agent does not (currently) provide a command line interface. However, the agent can be managed using standard `systemd` commands and other standard Linux tools.
 
-The [CLI](/docs/developers/cli/intro) is only for managing Miru resources from your development machine's terminal. Please do not attempt to use the `miru` command to manage the agent.
-
-However, the agent can be managed using standard `systemd` commands and other standard Linux tools.
+The current [CLI](/docs/references/cli/intro) is only for managing Miru resources from your development machine's terminal. Please do not attempt to use the `miru` command to manage the agent.
 
 ## Version
 
-To check the version of the agent, use the `dpkg-query` command to query the version of the `miru-agent` debian package.
+To check the version of the agent, use the `dpkg-query` command with the `miru-agent` debian package.
 
 ```bash
 dpkg-query -W -f='${Version}\n' miru-agent
@@ -18,17 +16,15 @@ dpkg-query -W -f='${Version}\n' miru-agent
 
 ## Logs
 
-The Miru Agent logs are accessible via [`journalctl`](https://www.freedesktop.org/software/systemd/man/journalctl.html), the standard tool for viewing systemd service logs.
+The Miru Agent logs are accessible via [`journalctl`](https://www.freedesktop.org/software/systemd/man/journalctl.html), the standard tool for viewing `systemd` service logs.
 
 ### View all
 
-The Miru Agent's logs are stored in the `systemd` journal and can be viewed using the `journalctl` command.
+By default, `journalctl` truncates each line's output to the size of the terminal window. We recommend using the `--no-pager` flag to view the full log output for each line.
 
 ```bash
-journalctl -u miru
+journalctl -u miru --no-pager
 ```
-
-By default, `journalctl` truncates each line's output to the size of the terminal window. To view the full log output for each line, use the `--no-pager` flag.
 
 ### Tail in real-time
 
@@ -102,14 +98,14 @@ Depending on the state of the agent, you will see outputs similar to the followi
     The agent is running as expected. 
 
     <Frame>
-      ![](/images/agent/commands/systemctl-status:running.png)
+      ![](https://assets.miruml.com/docs/v02/images/agent/commands/systemctl-status:running.png)
     </Frame>
   </Tab>
   <Tab title="Inactive">
     The agent is not running. Unless you've manually stopped the agent, this should not happen.
 
     <Frame>
-      ![](/images/agent/commands/systemctl-status:dead.png)
+      ![](https://assets.miruml.com/docs/v02/images/agent/commands/systemctl-status:dead.png)
     </Frame>
   </Tab>
 </Tabs>
@@ -128,8 +124,7 @@ systemctl restart miru
 
 ### Stop
 
-`stop` stops the agent while leaving it's state intact. Stopping the agent does not [disable](/docs/developers/agent/commands#disable) the agent--it will still automatically start on next system boot.
-
+`stop` stops the agent while leaving its state intact. Stopping the agent does not [disable](/docs/developers/agent/commands#disable) the agent--it will still automatically start on next system boot.
 
 Note that stopping the agent will prevent any new deployments from reaching the device until the agent is started again.
 

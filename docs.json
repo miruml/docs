@@ -86,8 +86,10 @@
               {
                 "group": "Agent",
                 "pages": [
-                  "docs/developers/agent/intro",
-                  "docs/developers/agent/agent-api"
+                  "docs/developers/agent/overview",
+                  "docs/developers/agent/install",
+                  "docs/developers/agent/agent-api",
+                  "docs/developers/agent/commands"
                 ]
               },
               "docs/developers/cli",
