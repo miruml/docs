@@ -1,26 +1,42 @@
+---
+arguments:
+  - name: scope
+    description: What to review - 'commit' for all uncommitted changes, or 'page' to review a specific file
+    required: true
+  - name: file
+    description: The file path to review (only used when scope is 'page')
+    required: false
+---
+
 # review
 
-Review all uncommitted documentation changes for quality issues before committing.
+Review documentation for quality issues.
 
 ## Instructions
 
-You are tasked with reviewing all uncommitted changes in this documentation repository for quality issues.
+You are tasked with reviewing documentation in this repository for quality issues.
 
-### Step 1: Gather Changes
+**Scope:** `{{scope}}`
+**File:** `{{file}}`
 
-Run these commands in parallel to understand what changed:
+### Step 1: Gather Content to Review
 
-1. `git status` - See all modified and untracked files
-2. `git diff` - View unstaged changes
-3. `git diff --cached` - View staged changes
+**Based on the scope argument:**
 
-### Step 2: Read Changed Files
+- **If scope is `commit`:** Review all uncommitted changes.
+  1. Run these commands in parallel:
+     - `git status` - See all modified and untracked files
+     - `git diff` - View unstaged changes
+     - `git diff --cached` - View staged changes
+  2. Read the full content of each changed documentation file (`.mdx`, `.md`, `.json`)
 
-Read the full content of each changed documentation file (`.mdx`, `.md`, `.json`) to perform a thorough review.
+- **If scope is `page`:** Review a single page.
+  1. Read the full content of the file specified in the `file` argument
+  2. If no file path was provided, ask the user which file they want reviewed
 
-### Step 3: Review Checklist
+### Step 2: Review Checklist
 
-For each changed file, check for the following issues:
+For each file being reviewed, check for the following issues:
 
 #### Grammar & Spelling
 - [ ] Spelling errors and typos
@@ -62,7 +78,7 @@ To verify internal links exist, use `ls` or glob to check if referenced files ex
 - [ ] UI element names match actual product
 - [ ] Command examples are accurate
 
-### Step 4: Present Findings
+### Step 3: Present Findings
 
 Present your findings in this format:
 
@@ -93,7 +109,7 @@ Present your findings in this format:
 ...
 ```
 
-### Step 5: Offer to Fix
+### Step 4: Offer to Fix
 
 After presenting findings, ask:
 
@@ -103,7 +119,7 @@ After presenting findings, ask:
 - **specific numbers** - e.g., 'fix 1, 3, 5'
 - **'no'** - Don't fix anything"
 
-### Step 6: Apply Fixes (If Requested)
+### Step 5: Apply Fixes (If Requested)
 
 If the user requests fixes:
 1. Make the requested changes using file edit tools
