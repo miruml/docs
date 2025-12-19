@@ -2,6 +2,10 @@
 
 Write git commit(s) for all staged and unstaged changes using Conventional Commits format.
 
+## Context
+
+This is a **documentation repository**. Since the entire codebase is documentation, do NOT use `docs:` as the default commit type—it would be meaningless. Instead, use commit types that describe the *nature* of the documentation change.
+
 ## Instructions
 
 You are tasked with analyzing all uncommitted changes in the codebase and creating well-structured git commit(s).
@@ -44,17 +48,19 @@ Use **Conventional Commits** format: https://www.conventionalcommits.org/en/v1.0
 [optional footer(s)]
 ```
 
-**Types (choose the most appropriate):**
-- `feat`: A new feature (MINOR version bump)
-- `fix`: A bug fix (PATCH version bump)
-- `docs`: Documentation only changes
-- `style`: Code style changes (formatting, semicolons, etc.) - no logic change
-- `refactor`: Code change that neither fixes a bug nor adds a feature
-- `perf`: Performance improvement
-- `test`: Adding or correcting tests
-- `build`: Changes to build system or external dependencies
+**Types for a documentation repository (choose the most appropriate):**
+- `feat`: New documentation page, section, or significant content addition
+- `fix`: Correcting errors, typos, broken links, or inaccurate information
+- `refactor`: Reorganizing content, restructuring navigation, or moving pages without changing meaning
+- `style`: Formatting changes (whitespace, punctuation, markdown syntax) - no content change
+- `chore`: Changes to config files (docs.json, package.json), dependencies, or tooling
+- `build`: Changes to the build/generation system or API spec processing
 - `ci`: Changes to CI configuration files and scripts
-- `chore`: Other changes that don't modify src or test files
+
+**Use scopes to add clarity when helpful:**
+- `feat(agent):` new agent documentation
+- `fix(api):` correct API reference error
+- `refactor(nav):` restructure sidebar navigation
 
 **Description guidelines:**
 - Use imperative mood ("add" not "added" or "adds")
