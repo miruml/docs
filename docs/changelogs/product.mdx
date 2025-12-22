@@ -9,6 +9,110 @@ import { Framed } from '/snippets/components/framed.jsx'
 import { Frame } from '/snippets/components/frame.jsx'
 import { Separator } from '/snippets/components/seperator.jsx'
 
+<Update label="December 19, 2025">
+    ## Workspace Logo
+
+    You can now personalize your workspace with a team logo and add a profile picture 
+    to your account. We’ve also added a new feedback form in the app so you can easily 
+    share your thoughts or report bugs.
+
+    ### Upload a workspace logo
+
+    Admins and owners can now upload a custom logo for their workspace. Once set, the 
+    logo is displayed in the sidebar and invite pages, giving new members a branded 
+    welcome experience.
+
+
+    <video
+        autoPlay
+        loop
+        controls
+        className="aspect-video rounded-xl"
+        src="https://assets.miruml.com/docs/changelog/25-12-19/upload-workspace-logo.mp4"
+    />
+
+    ### Upload a profile picture
+
+    Make your profile your own. Go to **Settings → Profile** to upload a profile 
+    picture. We've included a built-in cropper so you can center your image 
+    perfectly before saving.
+
+    <video
+        autoPlay
+        loop
+        controls
+        className="aspect-video rounded-xl"
+        src="https://assets.miruml.com/docs/changelog/25-12-19/upload-profile-picture.mp4"
+    />
+
+    ### Give feedback in the app
+
+    We’ve added a dedicated feedback button directly in the sidebar so you can share 
+    your thoughts without leaving your workflow.
+
+    Use the feedback form to share:
+    - **Feedback** — feature requests, suggestions, or general thoughts
+    - **Bug Report** — issues you encounter while using the app
+
+    We take bugs seriously. Our commitment to you:
+    - **All reported bugs** are resolved within **7 days**
+    - **Critical bugs** are resolved within **2 days**
+
+    <video
+        autoPlay
+        loop
+        controls
+        className="aspect-video rounded-xl"
+        src="https://assets.miruml.com/docs/changelog/25-12-19/feedback-demo.mp4"
+    />
+
+    <Separator />
+    <Dropdown title="Improvements">
+        <DropdownItem>
+            **Preserved JSON Key Ordering:** We now preserve the order of key-value pairs in 
+            your JSON configuration exactly as you wrote them, preventing unwanted alphabetical 
+            reordering when saved.
+        </DropdownItem>
+        <DropdownItem>
+            **OTP Email Authentication:** Replaced magic links with a 6-digit 
+            one-time password (OTP) code to support sign-in on lab and deployment 
+            machines without email access.
+        </DropdownItem>
+        <DropdownItem>
+            **Removed Schema Versioning:** We've replaced schema version numbers with 
+            unique IDs. Since you version your config schema with your code in Git, 
+            we removed the extra tracking layer in Miru.
+        </DropdownItem>
+        <DropdownItem>
+            **Removed Target File Path:** Removed the target file path setting from the 
+            editor's deployment flow. The file path is now exclusively defined in the config 
+            schema and cannot be overridden during deployment.
+        </DropdownItem>
+    </Dropdown>
+    <Separator />
+    <Dropdown title="Fixes">
+        <DropdownItem>
+            **Detailed Cue Validation Errors:** Validation failures now display 
+            specific error messages instead of a generic popup, making it easier to 
+            debug schema issues.
+        </DropdownItem>
+        <DropdownItem>
+            **Float Value Preservation:** Fixed an issue where trailing `.0` in float values 
+            was stripped during deployment, causing Cue validation failures.
+        </DropdownItem>
+        <DropdownItem>
+            **Authentication Loop Fixed:** Resolved an issue where already-authenticated 
+            users could get stuck in a sign-in loop when accessing login pages from 
+            stale tabs.
+        </DropdownItem>
+        <DropdownItem>
+            **Critical Security Patch:** Patched CVE-2025-66478, a critical CVSS 
+            10.0 vulnerability in React Server Components that could allow remote 
+            code execution.
+        </DropdownItem>
+    </Dropdown>
+</Update>
+
 <Update label="December 4, 2025">
     ## CUE Support
 
