@@ -251,5 +251,10 @@
     "mixpanel": {
       "projectToken": "af913ac7e816c287f882e93095c10ec9"
     }
+  },
+  "seo": {
+    "metatags": {
+      "canonical": "https://docs.mirurobotics.com"
   }
+}
 }
