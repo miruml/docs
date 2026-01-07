@@ -6,7 +6,7 @@ info:
     name: MIT
     url: https://opensource.org/licenses/MIT
 servers:
-  - url: http://localhost/{version}
+  - url: http://localhost/v1
     description: localhost
     variables:
       version:

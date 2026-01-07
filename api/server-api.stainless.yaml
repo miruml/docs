@@ -6,13 +6,8 @@ info:
     name: MIT
     url: https://opensource.org/licenses/MIT
 servers:
-- url: https://{host}/{version}
+- url: https://api.mirurobotics.com/beta
   description: Miru API
-  variables:
-    host:
-      default: api.mirurobotics.com
-    version:
-      default: v1
 security:
 - ApiKeyAuth: []
 paths:
