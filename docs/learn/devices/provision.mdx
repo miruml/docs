@@ -57,10 +57,10 @@ On the device you want to install the Miru Agent, set the `MIRU_API_KEY` environ
 export MIRU_API_KEY=<your-api-key>
 ```
 
-Execute the [provisioning script](https://github.com/miruml/agent/blob/main/scripts/install/provision.sh) to create and activate a device using your API key.
+Execute the [provisioning script](https://github.com/mirurobotics/agent/blob/main/scripts/install/provision.sh) to create and activate a device using your API key.
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/miruml/agent/main/scripts/install/provision.sh | sh -s -- \
+curl -fsSL https://raw.githubusercontent.com/mirurobotics/agent/main/scripts/install/provision.sh | sh -s -- \
   --device-name=$HOSTNAME \
   --allow-reactivation=true
 ```
@@ -91,7 +91,7 @@ The provision script supports the following parameters to tune your installation
 <ParamField path="--version" type="string">
   The agent version to install (e.g., `v0.6.0`).
 
-  Defaults to the [latest release](https://github.com/miruml/agent/releases/latest). See all [available versions](https://github.com/miruml/agent/releases).
+  Defaults to the [latest release](https://github.com/mirurobotics/agent/releases/latest). See all [available versions](https://github.com/mirurobotics/agent/releases).
 </ParamField>
 
 <ParamField path="--from-pkg" type="string">
@@ -116,7 +116,7 @@ While this method circumvents the need to _download_ the Miru Agent over a netwo
 
 ### Download the Agent
 
-All Miru Agent releases are available as Debian packages [on GitHub](https://github.com/miruml/agent/releases). You can find the latest release [here](https://github.com/miruml/agent/releases/latest).
+All Miru Agent releases are available as Debian packages [on GitHub](https://github.com/mirurobotics/agent/releases). You can find the latest release [here](https://github.com/mirurobotics/agent/releases/latest).
 
 <Info>
   Releases with the `Pre-release` tag are not yet considered stable and may contain bugs or other issues. Use at your own risk.
@@ -147,7 +147,7 @@ After transferring the package to your target machine, install it by adding the 
 If installing via an [API key](#api-keys), add the `--from-pkg` argument to the provision script.
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/miruml/agent/main/scripts/install/provision.sh | sh -s -- \
+curl -fsSL https://raw.githubusercontent.com/mirurobotics/agent/main/scripts/install/provision.sh | sh -s -- \
 --device-name=$HOSTNAME \
 --allow-reactivation=true \
 --from-pkg=/path/to/miru-agent_<version>_<architecture>.deb
@@ -167,7 +167,7 @@ If installing via the dashboard, follow these steps.
 This will give you an installation command similar to the following.
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/miruml/agent/main/scripts/install/install.sh | \
+curl -fsSL https://raw.githubusercontent.com/mirurobotics/agent/main/scripts/install/install.sh | \
 env MIRU_ACTIVATION_TOKEN=<activation-token> \
 sh -s -- \
 --from-pkg=</path/to/agent.deb>

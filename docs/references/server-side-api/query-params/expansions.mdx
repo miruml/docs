@@ -50,7 +50,7 @@ The following request expands the **`device`** field using **`expand[]=device
 
 ```bash Request
 curl --request GET \
---url https://configs.api.miruml.com/v1/config_instances/cfg_inst_123?expand[]=device \
+--url https://api.mirurobotics.com/v1/config_instances/cfg_inst_123?expand[]=device \
 --header 'X-API-Key: <api-key>'
 ```
 
@@ -99,7 +99,7 @@ The following request expands both the **`device`** and **`content`** fields
 
 ```bash Request
   curl --request GET \
-    --url https://configs.api.miruml.com/v1/config_instances/cfg_inst_123?expand[]=device&expand[]=content \
+    --url https://api.mirurobotics.com/v1/config_instances/cfg_inst_123?expand[]=device&expand[]=content \
     --header 'X-API-Key: <api-key>'
 ```
 
@@ -156,7 +156,7 @@ The following request expands the **`config_type`** inside the **`config_sche
 
 ```bash Request
   curl --request GET \
-    --url https://configs.api.miruml.com/v1/config_instances/cfg_inst_123?expand[]=config_schema.config_type \
+    --url https://api.mirurobotics.com/v1/config_instances/cfg_inst_123?expand[]=config_schema.config_type \
     --header 'X-API-Key: <api-key>'
 ```
 
@@ -250,7 +250,7 @@ The following request expands the **`content`** field for every config instanc
 
 ```bash Request
   curl --request GET \
-    --url 'https://configs.api.miruml.com/v1/config_instances?expand[]=content' \
+    --url 'https://api.mirurobotics.com/v1/config_instances?expand[]=content' \
     --header 'X-API-Key: <api-key>'
 ```
 
@@ -316,7 +316,7 @@ To include the actual total count in the response, add `expand[]=total_count` to
 
 ```bash Request
   curl --request GET \
-    --url 'https://configs.api.miruml.com/v1/config_instances?expand[]=total_count' \
+    --url 'https://api.mirurobotics.com/v1/config_instances?expand[]=total_count' \
     --header 'X-API-Key: <api-key>'
 ```
 

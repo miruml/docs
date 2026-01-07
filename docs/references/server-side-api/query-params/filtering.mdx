@@ -16,7 +16,7 @@ The following uses the `id=dvc_123` filter to include only the device with the 
 
 ```bash
 curl --request GET \
-  --url 'https://configs.api.miruml.com/v1/devices?id=dvc_123' \
+  --url 'https://api.mirurobotics.com/v1/devices?id=dvc_123' \
   --header 'X-API-Key: <api-key>'
 ```
 
@@ -30,7 +30,7 @@ Thus, to filter devices by multiple ids, you can use the `id` filter with a `|` 
 
 ```bash
 curl --request GET \
-  --url 'https://configs.api.miruml.com/v1/devices?id=dvc_123|dvc_456|dvc_789' \
+  --url 'https://api.mirurobotics.com/v1/devices?id=dvc_123|dvc_456|dvc_789' \
   --header 'X-API-Key: <api-key>'
 ```
 
@@ -42,7 +42,7 @@ The following request filters the device list to include only the devices with t
 
 ```bash
 curl --request GET \
-  --url 'https://configs.api.miruml.com/v1/devices?id=dvc_123|dvc_456&name=Robot%20A' \ 
+  --url 'https://api.mirurobotics.com/v1/devices?id=dvc_123|dvc_456&name=Robot%20A' \ 
   --header 'X-API-Key: <api-key>'
 ```
 
@@ -56,6 +56,6 @@ The following request filters the device list to only include devices named `My 
 
 ```bash
 curl --request GET \
-  --url 'https://configs.api.miruml.com/v1/devices?name=My%20Device%20Name' \
+  --url 'https://api.mirurobotics.com/v1/devices?name=My%20Device%20Name' \
   --header 'X-API-Key: <api-key>'
 ```

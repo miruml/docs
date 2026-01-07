@@ -10,7 +10,7 @@ servers:
   description: Miru API
   variables:
     host:
-      default: configs.api.miruml.com
+      default: api.mirurobotics.com
     version:
       default: v1
 security:
@@ -380,7 +380,7 @@ components:
       in: header
       name: X-API-Key
       description: The API key to use for authentication. Retrieve your API key from
-        the [Miru dashboard](https://app.miruml.com/secrets/api-keys).
+        the [Miru dashboard](https://app.mirurobotics.com/secrets/api-keys).
   parameters:
     config_instance_id:
       name: config_instance_id

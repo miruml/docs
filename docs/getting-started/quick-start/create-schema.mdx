@@ -5,18 +5,18 @@ title: "Create a schema"
 import InstallInstructions from '/snippets/references/cli/install.mdx'
 import LoginInstructions from '/snippets/references/cli/login.mdx'
 
-To keep things simple, we've provided a [getting-started repository](https://github.com/miruml/getting-started) that contains a variety of sample schemas. Follow along with us by cloning the repository.
+To keep things simple, we've provided a [getting-started repository](https://github.com/mirurobotics/getting-started) that contains a variety of sample schemas. Follow along with us by cloning the repository.
 
 ```bash
-git clone https://github.com/miruml/getting-started.git
+git clone https://github.com/mirurobotics/getting-started.git
 ```
 
 This guide focuses on the `Mobility` config type, which has two sample schema variations:
 
 <Tabs>
   <Tab title="JSON Schema">
-    - [Empty schema](https://github.com/miruml/getting-started/blob/main/jsonschema/empty-mobility.yaml) - a schema that regards all config instances as valid
-    - [Strict schema](https://github.com/miruml/getting-started/blob/main/jsonschema/mobility.yaml) - a well-defined schema that constrains the valid fields, types, and values for instances of the `Mobility` config type
+    - [Empty schema](https://github.com/mirurobotics/getting-started/blob/main/jsonschema/empty-mobility.yaml) - a schema that regards all config instances as valid
+    - [Strict schema](https://github.com/mirurobotics/getting-started/blob/main/jsonschema/mobility.yaml) - a well-defined schema that constrains the valid fields, types, and values for instances of the `Mobility` config type
 
     Below are the empty and strict schemas defined in the getting-started repository.
 
@@ -77,8 +77,8 @@ This guide focuses on the `Mobility` config type, which has two sample schema va
     </CodeGroup>
   </Tab>
   <Tab title="CUE">
-    - [Empty schema](https://github.com/miruml/getting-started/blob/main/cue/empty-mobility.cue) - a schema that regards all config instances as valid
-    - [Strict schema](https://github.com/miruml/getting-started/blob/main/cue/mobility.cue) - a well-defined schema that constrains the valid fields, types, and values for instances of the `Mobility` config type
+    - [Empty schema](https://github.com/mirurobotics/getting-started/blob/main/cue/empty-mobility.cue) - a schema that regards all config instances as valid
+    - [Strict schema](https://github.com/mirurobotics/getting-started/blob/main/cue/mobility.cue) - a well-defined schema that constrains the valid fields, types, and values for instances of the `Mobility` config type
 
     Below are the empty and strict schemas defined in the getting-started repository.
 
@@ -113,7 +113,7 @@ While we recommend using a strict schema, many teams find it simpler to start wi
 
 ## Create a config type
 
-Before defining a schema, we first need to create a config type to house it. Navigate to the [config types page](https://app.miruml.com/configs).
+Before defining a schema, we first need to create a config type to house it. Navigate to the [config types page](https://app.mirurobotics.com/configs).
 
 <Frame>
   ![](https://assets.mirurobotics.com/docs/v02/images/config-types/create-page.png)
@@ -164,7 +164,7 @@ This is a deliberate design choice—we believe schemas should live in a Git rep
 
 With the CLI setup, we are ready to push a schema to Miru.
 
-Navigate to the root of the [getting-started](https://github.com/miruml/getting-started) repository and push the mobility schema to Miru.
+Navigate to the root of the [getting-started](https://github.com/mirurobotics/getting-started) repository and push the mobility schema to Miru.
 
 <Tabs>
   <Tab title="JSON Schema">
@@ -206,7 +206,7 @@ Upon a successful push, you'll see a confirmation message similar to the followi
     ```bash Empty
     🔍 Collected Git Metadata
         commit: b6e16a4baecb7631dc40663219832156be7eb08b
-        origin: git@github.com:miruml/getting-started.git
+        origin: git@github.com:mirurobotics/getting-started.git
         file path: jsonschema/empty-mobility.yaml
         message: refactor: remove uneeded package imports & comments
     
@@ -221,7 +221,7 @@ Upon a successful push, you'll see a confirmation message similar to the followi
     ```bash Strict
     🔍 Collected Git Metadata
         commit: b6e16a4baecb7631dc40663219832156be7eb08b
-        origin: git@github.com:miruml/getting-started.git
+        origin: git@github.com:mirurobotics/getting-started.git
         file path: jsonschema/mobility.yaml
         message: refactor: remove uneeded package imports & comments
     
@@ -240,7 +240,7 @@ Upon a successful push, you'll see a confirmation message similar to the followi
     ```bash Empty
     🔍 Collected Git Metadata
         commit: b6e16a4baecb7631dc40663219832156be7eb08b
-        origin: git@github.com:miruml/getting-started.git
+        origin: git@github.com:mirurobotics/getting-started.git
         file path: cue/empty-mobility.cue
         message: refactor: remove uneeded package imports & comments
     
@@ -255,7 +255,7 @@ Upon a successful push, you'll see a confirmation message similar to the followi
     ```bash Strict
     🔍 Collected Git Metadata
         commit: b6e16a4baecb7631dc40663219832156be7eb08b
-        origin: git@github.com:miruml/getting-started.git
+        origin: git@github.com:mirurobotics/getting-started.git
         file path: cue/mobility.cue
         message: refactor: remove uneeded package imports & comments
     
@@ -274,7 +274,7 @@ Upon a successful push, you'll see a confirmation message similar to the followi
   Git metadata is pulled from the local Git repository that the schema is defined in.
 </Info>
 
-To view the schema in Miru, navigate to the [config types page](https://app.miruml.com/configs) and click into the `Mobility` config type.
+To view the schema in Miru, navigate to the [config types page](https://app.mirurobotics.com/configs) and click into the `Mobility` config type.
 
 <Frame>
   ![](https://assets.mirurobotics.com/docs/v02/images/config-schemas/page.png)

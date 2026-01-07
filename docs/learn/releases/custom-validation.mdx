@@ -18,7 +18,7 @@ Once the endpoint is integrated, validation occurs in two parts:
 1. Miru sends [deployment.validate](/docs/references/webhooks/events/deployments/validate) webhook events to your endpoint whenever deployments require validation.
 2. Your endpoint sends validation results back to Miru using the [validate deployment API](/docs/references/server-side-api/endpoints/deployments/validate).
 
-This section guides you through the process of integrating an endpoint with Miru. An example [Flask server](https://github.com/miruml/custom-validation), which leverages the [Miru server-side SDK](/docs/references/server-side-api/sdks/python), is provided to get you started.
+This section guides you through the process of integrating an endpoint with Miru. An example [Flask server](https://github.com/mirurobotics/custom-validation), which leverages the [Miru server-side SDK](/docs/references/server-side-api/sdks/python), is provided to get you started.
 
 You may host the endpoint however you'd like as long as it is accessible over HTTPS.
 
@@ -28,7 +28,7 @@ If want to set up a server on your local machine for testing or want a more in-d
 
 Custom validation is enabled on a per-[release](/docs/getting-started/concepts#release) basis. Enabling it on one release has no impact on other releases.
 
-To enable custom validation for a release, navigate to the [Releases](https://app.miruml.com/releases) page. Click the ellipses on the far right of the release you would like to enable and select **Edit** from the dropdown.
+To enable custom validation for a release, navigate to the [Releases](https://app.mirurobotics.com/releases) page. Click the ellipses on the far right of the release you would like to enable and select **Edit** from the dropdown.
 
 <Frame>
   ![](https://assets.mirurobotics.com/docs/v02/images/releases/enable-custom-val-dialog.png)
@@ -46,7 +46,7 @@ Next, you'll need to supply the URL of the endpoint to Miru.
 
 If you haven't deployed the endpoint yet, that's okay. You can change the URL at any time, so feel free to follow along and deploy the endpoint later.
 
-Navigate to the [webhooks](https://app.miruml.com/webhooks) page in Miru.
+Navigate to the [webhooks](https://app.mirurobotics.com/webhooks) page in Miru.
 
 <Frame>
   ![](https://assets.mirurobotics.com/docs/v02/images/webhooks/header.png)
@@ -95,15 +95,15 @@ To create an API key for your endpoint:
 
 ## Example server
 
-The [custom-validation](https://github.com/miruml/custom-validation) repository contains an example Flask server that demonstrates webhook verification and deployment validation using the Miru server-side SDK.
+The [custom-validation](https://github.com/mirurobotics/custom-validation) repository contains an example Flask server that demonstrates webhook verification and deployment validation using the Miru server-side SDK.
 
 ### Secrets
 
-For a plug-and-play experience with Webhook Secrets and API Keys, you may place the secrets in the [.env](https://github.com/miruml/custom-validation/blob/main/.env) file. However, for production use, we recommend storing the secrets in a secrets manager or other secure location.
+For a plug-and-play experience with Webhook Secrets and API Keys, you may place the secrets in the [.env](https://github.com/mirurobotics/custom-validation/blob/main/.env) file. However, for production use, we recommend storing the secrets in a secrets manager or other secure location.
 
 ### Code walkthrough
 
-The [app.py](https://github.com/miruml/custom-validation/blob/main/flask/app.py) file is the entry point for the Flask server. Let's walk through it step by step.
+The [app.py](https://github.com/mirurobotics/custom-validation/blob/main/flask/app.py) file is the entry point for the Flask server. Let's walk through it step by step.
 
 The server accepts a POST request at the `/webhooks/miru` route. You may need to update this route to match the route you specified when creating the endpoint in Miru.
 
