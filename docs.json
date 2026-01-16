@@ -7,7 +7,10 @@
     "light": "#34d399",
     "dark": "#065f46"
   },
-  "favicon": "/miru-favicon.svg",
+  "favicon": {
+    "light": "/favicon-black.svg",
+    "dark": "/favicon-white.svg"
+  },
   "styling": {
     "eyebrows": "section"
   },
@@ -255,6 +258,11 @@
   "seo": {
     "metatags": {
       "canonical": "https://docs.mirurobotics.com"
+    }
+  },
+  "metadata": {
+    "og:image": "/favicon-black.svg",
+    "og:site_name": "Miru Robotics",
+    "twitter:image": "/favicon-black.svg"
   }
-}
 }
