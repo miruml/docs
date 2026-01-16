@@ -52,7 +52,6 @@
                       "docs/learn/schemas/languages/cue"
                     ]
                   },
-                  "docs/learn/schemas/create",
                   "docs/learn/schemas/manage"
                 ]
               },
@@ -73,6 +72,7 @@
                 "group": "Releases",
                 "pages": [
                   "docs/learn/releases/overview",
+                  "docs/learn/releases/create",
                   "docs/learn/releases/manage",
                   "docs/learn/releases/staging-area",
                   "docs/learn/releases/deployment-history"

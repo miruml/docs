@@ -8,38 +8,6 @@ import { Framed } from '/snippets/components/framed.jsx';
 
 Releases are located in the [Releases page](https://app.mirurobotics.com/releases) of the dashboard.
 
-## Create a release
-
-To create a release, click the **New Release** button in the top-right and enter a version.
-
-<Frame>
-  ![](https://assets.mirurobotics.com/docs/v02/images/releases/create-dialog-step1.png)
-</Frame>
-
-<Info>
-  The version must be a [semantic version](https://semver.org/). See the [release properties](/docs/learn/releases/overview#properties) for more information.
-</Info>
-
-Click **Next,** then select the config schemas to include in the release.
-
-<Frame>
-  ![](https://assets.mirurobotics.com/docs/v02/images/releases/create-dialog-step2.png)
-</Frame>
-
-<Info>
-  If you don't have any config types or schemas to choose from, first [create a config type](/docs/learn/config-types#create-a-config-type), then [create a schema](/docs/learn/schemas/create).
-</Info>
-
-Only one config schema per config type can be included in a release. By default, the latest schema for each config type is chosen. To select a different version, click the dropdown for the config type and select the desired version.
-
-To view the schema's content and metadata, hover over the schema and click the **View** button.
-
-<Frame>
-  ![](https://assets.mirurobotics.com/docs/v02/images/releases/create-dialog-step1:view-schema-button.png)
-</Frame>
-
-Once you're satisfied with the selected schemas, hit **Create**.
-
 ## View a release
 
 **Dashboard**

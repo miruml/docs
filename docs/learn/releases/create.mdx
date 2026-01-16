@@ -1,19 +1,20 @@
 ---
-title: "Create schemas"
+title: "Create releases"
 ---
 
-import Annotations from "/snippets/schemas/annotations.mdx";
-import PushNewSchema from "/snippets/schemas/push/new.mdx";
-import PushExistingSchema from "/snippets/schemas/push/exists.mdx";
 import { Framed } from '/snippets/components/framed.jsx';
 
-<Framed background="https://assets.mirurobotics.com/docs/v02/images/config-schemas/background.png" image="https://assets.mirurobotics.com/docs/v02/images/config-schemas/header:schema-push.png" borderWidth="40px" />
+<Framed background="https://assets.mirurobotics.com/docs/v02/images/releases/background.jpeg" image="https://assets.mirurobotics.com/docs/v02/images/config-schemas/header:schema-push.png" borderWidth="36px" />
 
-Config schemas can **only be created via the CLI**.
+INTRO
+
+Config schemas can **only be created via the command line**.
 
 This is a deliberate design choice—we believe schemas should live in a Git repository. This allows them to be versioned alongside the code that uses them and encourages better software development practices.
 
 Ideally, schemas are versioned in the same repository as the code that uses them. However, this is not a requirement. You may use any Git repository to house your schemas.
+
+## Command line
 
 ## Prerequisites
 
@@ -94,3 +95,37 @@ miru schema push {path/to/schema.yaml}
 ### Existing schemas
 
 <PushExistingSchema />
+
+## Continuous integration
+
+## Dashboard
+
+To create a release, click the **New Release** button in the top-right and enter a version.
+
+<Frame>
+  ![](https://assets.mirurobotics.com/docs/v02/images/releases/create-dialog-step1.png)
+</Frame>
+
+<Info>
+  The version must be a [semantic version](https://semver.org/). See the [release properties](/docs/learn/releases/overview#properties) for more information.
+</Info>
+
+Click **Next,** then select the config schemas to include in the release.
+
+<Frame>
+  ![](https://assets.mirurobotics.com/docs/v02/images/releases/create-dialog-step2.png)
+</Frame>
+
+<Info>
+  If you don't have any config types or schemas to choose from, first [create a config type](/docs/learn/config-types#create-a-config-type), then [create a schema](/docs/learn/schemas/create).
+</Info>
+
+Only one config schema per config type can be included in a release. By default, the latest schema for each config type is chosen. To select a different version, click the dropdown for the config type and select the desired version.
+
+To view the schema's content and metadata, hover over the schema and click the **View** button.
+
+<Frame>
+  ![](https://assets.mirurobotics.com/docs/v02/images/releases/create-dialog-step1:view-schema-button.png)
+</Frame>
+
+Once you're satisfied with the selected schemas, hit **Create**.
