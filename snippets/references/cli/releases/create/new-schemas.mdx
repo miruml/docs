@@ -1,0 +1,19 @@
+If the provided git commit and schemas do not exist in Miru, they are created and attached to the new release. This is indicated by the `(new)` suffix in the output.
+
+```bash command
+$ miru release create \
+  --version v1.0.0 \
+  --schemas ./cue/strict-schemas/
+
+◐ Creating release v1.0.0
+
+  ✓ Pushed git commit (new)
+    1c7f7a8 · miruml/getting-started
+
+  ◐ Pushing schemas
+    ✓ Mobility · SCH-D5nFP (new)
+    ✓ Planning · SCH-37QAr (new)
+    ✓ Communication · SCH-9WfCx (new)
+
+✓ Created release v1.0.0
+```

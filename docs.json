@@ -93,7 +93,8 @@
                 ]
               },
               "docs/developers/cli",
-              "docs/developers/server-side-api"
+              "docs/developers/server-side-api",
+              "docs/developers/continuous-integration"
             ]
           },
           {
@@ -190,9 +191,9 @@
                 ]
               },
               {
-                "group": "Schemas",
+                "group": "Releases",
                 "pages": [
-                  "docs/references/cli/schema-push"
+                  "docs/references/cli/release-create"
                 ]
               }
             ]

@@ -3,104 +3,141 @@ title: "Create releases"
 ---
 
 import { Framed } from '/snippets/components/framed.jsx';
+import Annotations from '/snippets/references/cli/releases/create/schema-annotations.mdx';
+import CreateNewSchemas from '/snippets/references/cli/releases/create/new-schemas.mdx';
+import CreateExistingSchemas from '/snippets/references/cli/releases/create/existing-schemas.mdx';
+import CLIFlags from '/snippets/references/cli/releases/create/flags.mdx';
+import CLIUsage from '/snippets/references/cli/releases/create/usage.mdx';
 
 <Framed background="https://assets.mirurobotics.com/docs/v02/images/releases/background.jpeg" image="https://assets.mirurobotics.com/docs/v02/images/config-schemas/header:schema-push.png" borderWidth="36px" />
 
-INTRO
-
-Config schemas can **only be created via the command line**.
-
-This is a deliberate design choice—we believe schemas should live in a Git repository. This allows them to be versioned alongside the code that uses them and encourages better software development practices.
-
-Ideally, schemas are versioned in the same repository as the code that uses them. However, this is not a requirement. You may use any Git repository to house your schemas.
-
 ## Command line
 
-## Prerequisites
+The primary method of creating releases is via the command line. 
 
-To create a schema, the following prerequisites must be met:
+This is a deliberate design choice—we believe that config schemas should live in the same Git repository as the code which uses them. This encourages better software development practices and simplifies the release process.
+
+Furthermore, the CLI can be used to programmatically create releases in a [CI pipeline](#continuous-integration), ensuring releases contain the correct schemas and are always associated with the correct Git commit.
+
+If you've created a release via the CLI before and want a concise overview of the command and its flags, visit the [CLI Reference](/docs/references/cli/release-create). For a more detailed guide, continue reading below.
+
+### Prerequisites
+
+To create a release, the following prerequisites must be met:
 
 1. CLI installed - [install](/docs/references/cli/install) the Miru CLI on your development machine and authenticate using the [login](/docs/references/cli/login) command
-2. Config type created - create a [config type](/docs/learn/config-types) to house the schema
+1. Local Git repository - the release's schemas must be committed to a local Git repository
+1. Config types annotations - each schema must be annotated with its [config type](/docs/learn/config-types)
 
-## Define the schema
+### Config schemas
 
-Begin by defining your schema using a supported schema [language](/docs/learn/schemas/languages/overview). You can find example schemas in our [getting-started repository](https://github.com/mirurobotics/getting-started).
+A release may be created with any number of configs schemas, but it must contain at least one.
+
+Schemas don't need to be created separately from releases. Instead, the CLI creates the schemas in the same command as the release itself.
+
+Since schemas may belong to multiple releases, specifying schemas which already exist in Miru is perfectly valid. The CLI simply attaches the schemas to the release. 
+
+The CLI identifies schemas by hashing their content. Schemas with equivalent content are considered identical in Miru (even if the comments, spacing, or other formatting is different).
+
+#### Define the schemas
+
+Schemas must be defined in a supported schema [language](/docs/learn/schemas/languages/overview). You can find example schemas in our [getting-started repository](https://github.com/mirurobotics/getting-started).
 
 If you're not sure which language to use, we recommend starting with JSON Schema — it's the most widely used and easiest to get started with.
 
-To get started quickly, feel free to use an empty schema, which considers all config instances as valid.
+If you don't currently use a schema, we recommend starting with an empty schema, one that regards all config instances as valid. Over time, you can gradually add constraints to make it more strict.
 
 <CodeGroup>
 
 ```yaml JSON Schema
 $schema: "https://json-schema.org/draft/2020-12/schema"
+x-miru-config-type: "{your-config-type-slug}"
 ```
 
 
 ```cue CUE
-{}
+@miru(config_type="{your-config-type-slug}")
 ```
 
 </CodeGroup>
 
-### Annotations
+#### Schema annotations
 
-Annotations are a convenient way to store schema metadata with your schema. Most annotations are optional, but some are required for Miru to process the schema correctly.
+Annotations are a convenient way to store metadata with your schemas. Most annotations are optional, but some are required for Miru to process the schemas correctly.
 
 <Annotations />
 
-## Git metadata
+### Git commit
 
-When pushing a schema to Miru, the CLI captures Git metadata from the *local* Git repository from which the CLI is run:
+When creating a release, the CLI captures the following Git metadata from the *local* Git repository where the CLI is run:
 
-- **Commit SHA** - the SHA of the current commit that the schema is defined in
-- **Origin URL** - the remote URL of the Git repository
-- **File path** - the path to the schema file within the repo
+| Metadata | Description |
+|----------|-------------|
+| **Commit SHA** | The SHA of the current commit |
+| **Origin URL** | The remote URL of the Git repository |
+| **File paths** | The file paths of the schemas relative to the repository root |
 
-This metadata is then made available in the dashboard for each schema, making it easy to trace the origin of each schema.
+This metadata is then made available in the dashboard for the release, allowing you to easily trace the release's origin.
 
-While Git metadata is captured from the local Git repository, only origin URLs from the following providers are supported:
+#### Supported Git providers
+
+The following Git providers are currently supported:
 
 - GitHub
 - GitLab
 - Bitbucket
 
-If your Git repository is hosted on a different provider, please reach out to 
+If your Git repository is hosted on a different provider, please reach out to [support@mirurobotics.com](mailto:support@mirurobotics.com).
 
-### Requirements
+#### Requirements
 
-To be able to capture Git metadata, schemas must meet the following requirements when uploading from the CLI:
+To be able to capture Git metadata, the provided config schemas must meet the following requirements when creating a release via the CLI:
 
-- The schema must be defined in a local Git repository
+- Schemas must be defined in a local Git repository
 - The Git repository must have a remote URL (e.g., GitHub, GitLab, Bitbucket).
 - The schema's latest changes must be committed to the Git repository before pushing to Miru (cannot be dirty or unstaged)
 
-Git metadata is not optional. If a schema does not meet these requirements, the CLI will return an error and fail to push the schema.
+Git metadata is not optional. If a schema does not meet these requirements, the CLI will return an error and fail to create the release.
 
-## Push the schema
 
-Once you've defined a schema and committed it to Git, you're ready to push it to Miru via the CLI.
+### Create a release
 
-To push a schema, replace `{path/to/schema.yaml}` with the actual path to the schema file.
+Once you've defined the schemas and committed them to Git, you're ready to create a release.
 
-```bash
-miru schema push {path/to/schema.yaml}
-```
+#### Usage
 
-### New schemas
+You must specify two flags when creating a release: the version and the schemas. Schemas can be specified as a directory or as individual files.
 
-<PushNewSchema />
+<CLIUsage />
 
-### Existing schemas
+#### Flags
 
-<PushExistingSchema />
+Below are the CLI flags which can be specified when creating a release.
+
+<CLIFlags />
+
+#### Examples
+
+Below are some examples of what the CLI command might look like when creating a release.
+
+<Tabs>
+  <Tab title="New schemas">
+    <CreateNewSchemas />
+  </Tab>
+  <Tab title="Existing schemas">
+    <CreateExistingSchemas />
+  </Tab>
+</Tabs>
 
 ## Continuous integration
 
+TODO: GITHUB ACTIONS
+
 ## Dashboard
 
-To create a release, click the **New Release** button in the top-right and enter a version.
+While creating a release in the dashboard is possible, it is not recommended. The dashboard is more prone to human error when selecting schemas and does not capture the Git metadata associated with the release.
+
+To create a release, click the **New Release** button in the top-right of the [Releases page](https://app.mirurobotics.com/releases) and enter a version.
 
 <Frame>
   ![](https://assets.mirurobotics.com/docs/v02/images/releases/create-dialog-step1.png)
@@ -115,10 +152,6 @@ Click **Next,** then select the config schemas to include in the release.
 <Frame>
   ![](https://assets.mirurobotics.com/docs/v02/images/releases/create-dialog-step2.png)
 </Frame>
-
-<Info>
-  If you don't have any config types or schemas to choose from, first [create a config type](/docs/learn/config-types#create-a-config-type), then [create a schema](/docs/learn/schemas/create).
-</Info>
 
 Only one config schema per config type can be included in a release. By default, the latest schema for each config type is chosen. To select a different version, click the dropdown for the config type and select the desired version.
 

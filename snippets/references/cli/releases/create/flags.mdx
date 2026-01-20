@@ -1,0 +1,23 @@
+import SemVer from '/snippets/releases/semver.mdx';
+
+<ParamField path="--version, -v" type="string" required>
+
+  <SemVer />
+
+</ParamField>
+
+<ParamField path="--schemas" type="string">
+  A directory containing the config schemas to include in the release. May be specified multiple times for multiple directories.
+  
+  Must be specified if no schema files are provided.
+
+  Examples: `./schemas`
+</ParamField>
+
+<ParamField path="--schema" type="string">
+  The path to a config schema to include in the release. May be specified multiple times to include multiple schemas. 
+
+  Must be specified if no schema directory is provided.
+
+  Examples: `./schemas/schema1.yaml`, `./schemas/schema2.yaml`
+</ParamField>
