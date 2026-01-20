@@ -13,9 +13,9 @@ import CLIUsage from '/snippets/references/cli/releases/create/usage.mdx';
 
 ## Command line
 
-The primary method of creating releases is via the command line. 
+The only method of creating releases is via the command line. 
 
-This is a deliberate design choice—we believe that config schemas should live in the same Git repository as the code which uses them. This encourages better software development practices and simplifies the release process.
+This is a deliberate design choice. We believe that config schemas should live in the same Git repository as the code which uses them. This encourages better software development practices and simplifies the release process.
 
 Furthermore, the CLI can be used to programmatically create releases in a [CI pipeline](#continuous-integration), ensuring releases contain the correct schemas and are always associated with the correct Git commit.
 
@@ -132,33 +132,3 @@ Below are some examples of what the CLI command might look like when creating a 
 ## Continuous integration
 
 TODO: GITHUB ACTIONS
-
-## Dashboard
-
-While creating a release in the dashboard is possible, it is not recommended. The dashboard is more prone to human error when selecting schemas and does not capture the Git metadata associated with the release.
-
-To create a release, click the **New Release** button in the top-right of the [Releases page](https://app.mirurobotics.com/releases) and enter a version.
-
-<Frame>
-  ![](https://assets.mirurobotics.com/docs/v02/images/releases/create-dialog-step1.png)
-</Frame>
-
-<Info>
-  The version must be a [semantic version](https://semver.org/). See the [release properties](/docs/learn/releases/overview#properties) for more information.
-</Info>
-
-Click **Next,** then select the config schemas to include in the release.
-
-<Frame>
-  ![](https://assets.mirurobotics.com/docs/v02/images/releases/create-dialog-step2.png)
-</Frame>
-
-Only one config schema per config type can be included in a release. By default, the latest schema for each config type is chosen. To select a different version, click the dropdown for the config type and select the desired version.
-
-To view the schema's content and metadata, hover over the schema and click the **View** button.
-
-<Frame>
-  ![](https://assets.mirurobotics.com/docs/v02/images/releases/create-dialog-step1:view-schema-button.png)
-</Frame>
-
-Once you're satisfied with the selected schemas, hit **Create**.

@@ -1,0 +1,183 @@
+---
+title: "Create a release"
+timestamp: true
+---
+
+import InstallInstructions from '/snippets/references/cli/install.mdx'
+import LoginInstructions from '/snippets/references/cli/login.mdx'
+import EmptyJsonSchemas from '/snippets/getting-started/empty-json-schemas.mdx'
+import StrictJsonSchemas from '/snippets/getting-started/strict-json-schemas.mdx'
+import EmptyCueSchemas from '/snippets/getting-started/empty-cue-schemas.mdx'
+import StrictCueSchemas from '/snippets/getting-started/strict-cue-schemas.mdx'
+
+To keep things simple, we've provided a [getting-started repository](https://github.com/mirurobotics/getting-started) that contains everything you need to create a release. Follow along with us by cloning the repository.
+
+```bash
+git clone https://github.com/mirurobotics/getting-started.git
+```
+
+## Example schemas
+
+Releases are primarily defined by the config schemas they contain. The getting-started repository contains two sets of schemas for each of the supported [schema languages](/docs/learn/schemas/languages/overview):
+
+- Empty schemas - regard all config instances as valid
+- Strict schemas - constrain the valid fields, types, and values for instances of the config type they belong to
+
+For this tutorial, choose one of these schema sets to create your release with.
+
+If you're unfamiliar with schema languages, we recommend starting with [JSON Schema](/docs/learn/schemas/languages/jsonschema). If you don't currently use a schema, we recommend starting with an empty schema and gradually adding constraints as needed.
+
+<Tabs>
+
+  <Tab title="JSON Schema">
+    **Empty Schemas**
+    <EmptyJsonSchemas />
+
+    **Strict Schemas**
+    <StrictJsonSchemas />
+  </Tab>
+
+  <Tab title="CUE">
+    **Empty Schemas**
+    <EmptyCueSchemas />
+
+    **Strict Schemas**
+    <StrictCueSchemas />
+  </Tab>
+
+</Tabs>
+
+## Create the config types
+
+To be able to push the schemas to Miru, we must first create config types to house them. We'll start with the `Mobility` config type.
+
+Navigate to the [config types page](https://app.mirurobotics.com/configs).
+
+<Frame>
+  ![](https://assets.mirurobotics.com/docs/v02/images/config-types/create-page.png)
+</Frame>
+
+Click the **New Config Type** button, supply the name `Mobility` and slug `mobility`, and click **Create**.
+
+<Frame>
+  ![](https://assets.mirurobotics.com/docs/v02/images/config-types/create-dialog.png)
+</Frame>
+
+The provided slug is a unique identifier for the config type--it's how the CLI determines which config type a schema belongs to. As such, config schemas _must_ be annotated with the slug of the config type to which they belong.
+
+<CodeGroup>
+
+```yaml JSON Schema
+x-miru-config-type: "mobility"
+```
+
+
+```cue CUE
+@miru(config_type="mobility")
+```
+
+</CodeGroup>
+
+The getting-started repository already annotates the schemas with the appropriate slugs, so no need to add them yourself.
+
+After creating the `Mobility` config type, **repeat this process** for the `Communication` and `Planning` config types, using the slugs `communication` and `planning` respectively.
+
+
+## Set up the CLI
+
+Next, we'll install the CLI—the only method of creating releases in Miru.
+
+This is a deliberate design choice. We believe a release's schemas should live in a Git repository. This allows them to be versioned alongside the code that uses them and encourages better software development practices.
+
+While this tutorial covers creating releases on your local machine, the CLI can also be used to create releases in a [CI pipeline](/docs/learn/releases/create#continuous-integration).
+
+### Install
+
+<InstallInstructions />
+
+### Login
+
+<LoginInstructions />
+
+## Create a release
+
+With the CLI setup, we are ready to create a release in Miru.
+
+Navigate to the root of the [getting-started](https://github.com/mirurobotics/getting-started) repository and create the release with a schema set of your choice.
+
+<Tabs>
+  <Tab title="JSON Schema">
+    <CodeGroup>
+
+    ```bash Empty Schemas
+    miru release create \
+      --version "v1.0.0" \
+      --schemas ./jsonschema/empty-schemas/
+    ```
+
+    
+    ```bash Strict Schemas
+    miru release create \
+      --version "v1.0.0" \
+      --schemas ./jsonschema/strict-schemas/
+    ```
+
+    </CodeGroup>
+  </Tab>
+  <Tab title="CUE">
+    <CodeGroup>
+
+    ```bash Empty Schemas
+    miru release create \
+      --version "v1.0.0" \
+      --schemas ./cue/empty-schemas/
+    ```
+
+    
+    ```bash Strict Schemas
+    miru release create \
+      --version "v1.0.0" \
+      --schemas ./cue/strict-schemas/
+    ```
+
+    </CodeGroup>
+  </Tab>
+</Tabs>
+
+Upon a successful creation, you'll see a confirmation message similar to the following.
+
+```bash Empty
+$ miru release create \
+  --version v1.0.0 \
+  --schemas ./{schema-language}/{schema-type}/
+
+◐ Creating release v1.0.0
+
+  ✓ Pushed git commit (new)
+    1c7f7a8 · miruml/getting-started
+
+  ◐ Pushing schemas
+    ✓ Mobility · SCH-D5nFP (new)
+    ✓ Planning · SCH-37QAr (new)
+    ✓ Communication · SCH-9WfCx (new)
+
+✓ Created release v1.0.0
+```
+
+<Info>
+  Git metadata is pulled from the local Git repository that the schemas are defined in.
+</Info>
+
+To view the release in Miru, navigate to the [releases page](https://app.mirurobotics.com/releases) and click into the release.
+
+<Frame>
+  ![](https://assets.mirurobotics.com/docs/v02/images/releases/page.png)
+</Frame>
+
+Clicking into a specific schema will show the schema details, including its metadata and the schema content.
+
+<Frame>
+  ![](https://assets.mirurobotics.com/docs/v02/images/releases/overview.png)
+</Frame>
+
+For a more detailed guide on creating releases, visit the [create releases](/docs/learn/releases/create) page. For a comprehensive reference of the CLI command, visit the [CLI Reference](/docs/references/cli/release-create).

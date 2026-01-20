@@ -2,12 +2,12 @@
 title: "Overview"
 ---
 
-import CfgInstDef from '/snippets/definitions/config-instance.mdx';
-import ConfigTypeDef from '/snippets/definitions/config-type.mdx';
-import ConfigSchemaDef from '/snippets/definitions/config-schema.mdx';
-import DeploymentDef from '/snippets/definitions/deployment.mdx';
-import DeviceDef from '/snippets/definitions/device.mdx';
-import ReleaseDef from '/snippets/definitions/release.mdx';
+import CfgInstConcept from '/snippets/concepts/config-instance.mdx';
+import ConfigTypeConcept from '/snippets/concepts/config-type.mdx';
+import ConfigSchemaConcept from '/snippets/concepts/config-schema.mdx';
+import DeploymentConcept from '/snippets/concepts/deployment.mdx';
+import DeviceConcept from '/snippets/concepts/device.mdx';
+import ReleaseConcept from '/snippets/concepts/release.mdx';
 import {Framed} from '/snippets/components/framed.jsx';
 
 <Framed image="https://assets.mirurobotics.com/docs/v02/images/getting-started/signup-page.png" background="https://assets.mirurobotics.com/docs/v02/images/getting-started/background:dark.jpeg" link="https://app.mirurobotics.com/signup" borderWidth={"8px"} />
@@ -15,8 +15,8 @@ import {Framed} from '/snippets/components/framed.jsx';
 This quick-start guide walks through deploying your first configuration with Miru. Here's what we'll cover:
 
 <Steps>
-  <Step title="Creating a config schema">
-    We'll create the `Mobility` config type, install the [Miru CLI](/docs/references/cli/install), and push a schema to Miru.
+  <Step title="Creating a release">
+    We'll define our config schemas, install the [Miru CLI](/docs/references/cli/install), and create a release in Miru.
   </Step>
   <Step title="Installing the agent">
     Next, we'll install and activate the [Miru Agent](/docs/developers/agent/intro) on your target device.
@@ -34,11 +34,11 @@ To begin, let's define the primary concepts in Miru.
 
 ### Config instances
 
-<CfgInstDef />
+<CfgInstConcept />
 
 ### Config schemas
 
-<ConfigSchemaDef />
+<ConfigSchemaConcept />
 
 <Tip>
   If you don't already use a schema, we recommend starting with an [empty schema](/docs/learn/schemas/overview#empty-schemas) — one that treats all config instances as valid.
@@ -46,19 +46,19 @@ To begin, let's define the primary concepts in Miru.
 
 ### Config types
 
-<ConfigTypeDef />
+<ConfigTypeConcept />
 
 ### Devices
 
-<DeviceDef />
+<DeviceConcept />
 
 ### Releases
 
-<ReleaseDef />
+<ReleaseConcept />
 
 ### Deployments
 
-<DeploymentDef />
+<DeploymentConcept />
 
 <Note>
   If these concepts are a bit fuzzy at the moment, don't worry! Seeing these concepts in action will solidify their meaning.
