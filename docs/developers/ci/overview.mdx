@@ -1,0 +1,40 @@
+---
+title: "Overview"
+---
+
+import {Framed} from '/snippets/components/framed.jsx';
+import CreateAPIKey from '/snippets/api-keys/create.mdx';
+
+<Framed 
+  background="https://assets.mirurobotics.com/docs/v02/images/developers/background.jpeg"
+  image="https://assets.mirurobotics.com/docs/v02/images/config-schemas/header:schema-push.png"
+  borderWidth="24px 30px 24px 30px"
+  innerRadius="10px"
+  outerRadius="14px"
+/>
+
+Miru supports continuous integration (CI) to automate various tasks, such as the creation of [releases](/docs/learn/releases/create) and their associated schemas.
+
+CI pipelines leverage the [Miru CLI](/docs/references/cli/intro) to programmatically execute any CLI commands, which accepts API keys for authentication. 
+
+Since the Miru CLI is the engine behind CI tasks, any tasks supported by the CLI can easily be automated in your CI pipeline.
+
+## Supported CI tools
+
+Currently, GitHub Actions is the only officially supported CI tool. However, support for other CI tools is coming soon.
+
+If you use a different CI tool, please reach out to [support@mirurobotics.com](mailto:support@mirurobotics.com) to request support for your tool.
+
+## Authentication
+
+The CLI can be authenticated using an API key. Simply export the `MIRU_API_KEY` environment variable in your CI pipeline for the CLI to use.
+
+```bash
+export MIRU_API_KEY=<your-api-key>
+```
+
+To create an API key, follow the instructions below.
+
+<CreateAPIKey />
+
+To determine the scopes to give the API key, consult the documentation for the task you want to automate. For example, if you want to create a release, see the [create release](/docs/learn/releases/create) documentation for the required scopes.

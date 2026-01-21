@@ -11,17 +11,15 @@ import CLIUsage from '/snippets/references/cli/releases/create/usage.mdx';
 
 <Framed background="https://assets.mirurobotics.com/docs/v02/images/releases/background.jpeg" image="https://assets.mirurobotics.com/docs/v02/images/config-schemas/header:schema-push.png" borderWidth="36px" />
 
-## Command line
-
 The only method of creating releases is via the command line. 
 
 This is a deliberate design choice. We believe that config schemas should live in the same Git repository as the code which uses them. This encourages better software development practices and simplifies the release process.
 
-Furthermore, the CLI can be used to programmatically create releases in a [CI pipeline](#continuous-integration), ensuring releases contain the correct schemas and are always associated with the correct Git commit.
+Furthermore, the CLI can be used to programmatically create releases in a [CI pipeline](/docs/developers/ci/overview), ensuring releases contain the correct schemas and are always associated with the correct Git commit.
 
 If you've created a release via the CLI before and want a concise overview of the command and its flags, visit the [CLI Reference](/docs/references/cli/release-create). For a more detailed guide, continue reading below.
 
-### Prerequisites
+## Prerequisites
 
 To create a release, the following prerequisites must be met:
 
@@ -29,7 +27,7 @@ To create a release, the following prerequisites must be met:
 1. Local Git repository - the release's schemas must be committed to a local Git repository
 1. Config types annotations - each schema must be annotated with its [config type](/docs/learn/config-types)
 
-### Config schemas
+## Config schemas
 
 A release may be created with any number of configs schemas, but it must contain at least one.
 
@@ -39,7 +37,7 @@ Since schemas may belong to multiple releases, specifying schemas which already 
 
 The CLI identifies schemas by hashing their content. Schemas with equivalent content are considered identical in Miru (even if the comments, spacing, or other formatting is different).
 
-#### Define the schemas
+### Define the schemas
 
 Schemas must be defined in a supported schema [language](/docs/learn/schemas/languages/overview). You can find example schemas in our [getting-started repository](https://github.com/mirurobotics/getting-started).
 
@@ -61,13 +59,13 @@ x-miru-config-type: "{your-config-type-slug}"
 
 </CodeGroup>
 
-#### Schema annotations
+### Schema annotations
 
 Annotations are a convenient way to store metadata with your schemas. Most annotations are optional, but some are required for Miru to process the schemas correctly.
 
 <Annotations />
 
-### Git commit
+## Git commit
 
 When creating a release, the CLI captures the following Git metadata from the *local* Git repository where the CLI is run:
 
@@ -79,7 +77,7 @@ When creating a release, the CLI captures the following Git metadata from the *l
 
 This metadata is then made available in the dashboard for the release, allowing you to easily trace the release's origin.
 
-#### Supported Git providers
+### Supported Git providers
 
 The following Git providers are currently supported:
 
@@ -89,7 +87,7 @@ The following Git providers are currently supported:
 
 If your Git repository is hosted on a different provider, please reach out to [support@mirurobotics.com](mailto:support@mirurobotics.com).
 
-#### Requirements
+### Requirements
 
 To be able to capture Git metadata, the provided config schemas must meet the following requirements when creating a release via the CLI:
 
@@ -100,23 +98,23 @@ To be able to capture Git metadata, the provided config schemas must meet the fo
 Git metadata is not optional. If a schema does not meet these requirements, the CLI will return an error and fail to create the release.
 
 
-### Create a release
+## Create a release
 
 Once you've defined the schemas and committed them to Git, you're ready to create a release.
 
-#### Usage
+### Usage
 
 You must specify two flags when creating a release: the version and the schemas. Schemas can be specified as a directory or as individual files.
 
 <CLIUsage />
 
-#### Flags
+### Flags
 
 Below are the CLI flags which can be specified when creating a release.
 
 <CLIFlags />
 
-#### Examples
+### Examples
 
 Below are some examples of what the CLI command might look like when creating a release.
 
@@ -129,6 +127,6 @@ Below are some examples of what the CLI command might look like when creating a 
   </Tab>
 </Tabs>
 
-## Continuous integration
+## Continuous integration (CI)
 
 TODO: GITHUB ACTIONS
