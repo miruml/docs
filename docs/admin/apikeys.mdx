@@ -1,0 +1,49 @@
+---
+title: "API Keys"
+---
+
+import {Tooltip} from '/snippets/components/tooltip.jsx';
+
+API keys allow you to authenticate to the Miru [Server-Side API](/docs/developers/server-side-api) as well as the Miru CLI in your [CI pipeline](/docs/developers/ci/overview).
+
+Your API keys carry many privileges, so be sure to keep them secure! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.
+
+## Create an API key
+
+import {ADMIN_TOOLTIP} from '/snippets/components/users/roles.jsx';
+
+<Warning>
+    You must be an <Tooltip tip={ADMIN_TOOLTIP.tip} cta={ADMIN_TOOLTIP.cta} href={ADMIN_TOOLTIP.href}>admin</Tooltip> user to create an API key.
+</Warning>
+
+To create an API key, navigate to the [API Keys page](https://app.mirurobotics.com/secrets/api-keys) in the dashboard and click **New API Key** in the top right corner.
+
+TODO: Add screenshot of the API Keys page.
+
+Provide a name for the API key, select the desired scopes, then click **Create**.
+
+Once an API key has been created, it can never be retrieved again. If you lose your API key, you must create a new one.
+
+## View API keys
+
+To view your existing API keys, navigate to the [API Keys page](https://app.mirurobotics.com/secrets/api-keys).
+
+TODO: add screenshot of the API Keys page
+
+To see the scopes of an API key, click the scopes icon in the **Scopes** column of the API key you want to view.
+
+TODO: add screenshot of the scopes popup
+
+## Delete an API key
+
+Deleting an API key immediately revokes it. Attempting to authenticate with a deleted API key will fail.
+
+Furthermore, deleting an API key is irreversible. Once an API key is deleted, it cannot be recovered.
+
+To delete an API key, click the ellipsis (...) on the API key you want to delete and select **Delete**.
+
+TODO: add screenshot of the delete dialog
+
+A confirmation dialog will appear. Hit **Delete** to confirm the deletion.
+
+TODO: add screenshot of the delete dialog

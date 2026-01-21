@@ -3,7 +3,7 @@ title: "Overview"
 ---
 
 import {Framed} from '/snippets/components/framed.jsx';
-import CreateAPIKey from '/snippets/api-keys/create.mdx';
+import SupportedTools from '/snippets/developers/ci/supported-tools.mdx';
 
 <Framed 
   background="https://assets.mirurobotics.com/docs/v02/images/developers/background.jpeg"
@@ -21,20 +21,16 @@ Since the Miru CLI is the engine behind CI tasks, any tasks supported by the CLI
 
 ## Supported CI tools
 
-Currently, GitHub Actions is the only officially supported CI tool. However, support for other CI tools is coming soon.
-
-If you use a different CI tool, please reach out to [support@mirurobotics.com](mailto:support@mirurobotics.com) to request support for your tool.
+<SupportedTools />
 
 ## Authentication
 
-The CLI can be authenticated using an API key. Simply export the `MIRU_API_KEY` environment variable in your CI pipeline for the CLI to use.
+When used in your CI pipeline, the CLI can be authenticated using an API key. Simply export the `MIRU_API_KEY` environment variable.
 
 ```bash
 export MIRU_API_KEY=<your-api-key>
 ```
 
-To create an API key, follow the instructions below.
-
-<CreateAPIKey />
+To create an API key for your CI pipeline, follow the instructions in the [API keys](/docs/admin/apikeys#create-an-api-key) section.
 
 To determine the scopes to give the API key, consult the documentation for the task you want to automate. For example, if you want to create a release, see the [create release](/docs/learn/releases/create) documentation for the required scopes.

@@ -107,6 +107,7 @@
             "group": "Administration",
             "pages": [
               "docs/admin/workspace",
+              "docs/admin/apikeys",
               {
                 "group": "Users",
                 "pages": [
@@ -132,15 +133,10 @@
                 "pages": [
                   "docs/references/server-side-api/intro",
                   "docs/references/server-side-api/authn",
-                  {
-                    "group": "Query Parameters",
-                    "pages": [
-                      "docs/references/server-side-api/query-params/filtering",
-                      "docs/references/server-side-api/query-params/sorting",
-                      "docs/references/server-side-api/query-params/pagination",
-                      "docs/references/server-side-api/query-params/expansions"
-                    ]
-                  }
+                  "docs/references/server-side-api/query-params/filtering",
+                  "docs/references/server-side-api/query-params/sorting",
+                  "docs/references/server-side-api/query-params/pagination",
+                  "docs/references/server-side-api/query-params/expansions"
                 ]
               },
               {

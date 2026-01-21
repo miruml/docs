@@ -2,14 +2,12 @@
 title: "Authentication"
 ---
 
-import CreateAPIKey from '/snippets/api-keys/create.mdx';
-
 ## API keys
 The Miru API uses API keys to authenticate requests. You can view and manage your API keys in the [Miru Dashboard](https://app.mirurobotics.com/secrets/api-keys).
 
-Your API keys carry many privileges, so be sure to keep them secure! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.
+For more information on creating and managing API keys, see the [API keys](/docs/admin/apikeys) section of the documentation.
 
-To authenticate, include your API key in the `X-API-Key` header of your request:
+To authenticate requests to the Miru Server-Side API, include your API key in the `X-API-Key` header of your request:
 
 ```bash
 curl --request GET \
@@ -18,9 +16,3 @@ curl --request GET \
 ```
 
 All requests must be made over HTTPS. Any requests over plain HTTP or without authentication will fail.
-
-## Create an API key
-
-To generate a new key:
-
-<CreateAPIKey />
