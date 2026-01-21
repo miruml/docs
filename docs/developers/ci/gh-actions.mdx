@@ -3,8 +3,9 @@ title: "GitHub Actions"
 ---
 
 import {Warning} from '/snippets/components/warning.jsx';
+import CreateRelease from '/snippets/releases/create/gh-actions.mdx';
 
-The recommended way to install the Miru CLI in GitHub Actions is using the official [mirurobotics/setup-miru](https://github.com/mirurobotics/setup-miru) action.
+Miru provides an official action for installing the Miru CLI. You can find it on GitHub at [mirurobotics/setup-miru](https://github.com/mirurobotics/setup-miru).
 
 ## Usage
 
@@ -60,7 +61,7 @@ steps:
   - name: Setup Miru CLI
     uses: mirurobotics/setup-miru@v0.1
     with:
-      version: 'v0.8.0'
+      version: 'v0.9.0'
 ```
 
 ### Use the installed version in subsequent steps
@@ -110,32 +111,4 @@ This action supports the following runner environments:
 
 ### Create a release
 
-This example creates a release when a tag is pushed to the repository. The release is created with the version of the tag and the schemas in the `schemas` directory.
-
-You can also specify schemas as individual files by using the `--schema` flag. Checkout the [CLI Reference](/docs/references/cli/release-create) for more information.
-
-```yaml
-name: Create Miru Release
-
-on:
-  push:
-    tags:
-      - '*'
-
-jobs:
-  release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-
-      - name: Setup Miru CLI
-        uses: mirurobotics/setup-miru@v0.1
-
-      - name: Create the release
-        env:
-          MIRU_API_KEY: ${{ secrets.MIRU_API_KEY }}
-        run: |
-          miru release create \
-            --version "${{ github.ref_name }}" \
-            --schemas ./schemas
-```
+<CreateRelease />
