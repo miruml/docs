@@ -2,7 +2,15 @@
 title: "API Keys"
 ---
 
-import {Tooltip} from '/snippets/components/tooltip.jsx';
+import {Framed} from '/snippets/components/framed.jsx';
+
+<Framed 
+background="/images/apikeys/background.jpeg" 
+image="/images/apikeys/header:page.png" 
+borderWidth="28px"
+innerRadius="10px"
+outerRadius="12px"
+/>
 
 API keys allow you to authenticate to the Miru [Server-Side API](/docs/developers/server-side-api) as well as the Miru CLI in your [CI pipeline](/docs/developers/ci/overview).
 
@@ -18,7 +26,9 @@ import {ADMIN_TOOLTIP} from '/snippets/components/users/roles.jsx';
 
 To create an API key, navigate to the [API Keys page](https://app.mirurobotics.com/secrets/api-keys) in the dashboard and click **New API Key** in the top right corner.
 
-TODO: Add screenshot of the API Keys page.
+<Frame>
+  ![](/images/apikeys/create-panel.png)
+</Frame>
 
 Provide a name for the API key, select the desired scopes, then click **Create**.
 
@@ -28,11 +38,15 @@ Once an API key has been created, it can never be retrieved again. If you lose y
 
 To view your existing API keys, navigate to the [API Keys page](https://app.mirurobotics.com/secrets/api-keys).
 
-TODO: add screenshot of the API Keys page
+<Frame>
+  ![](/images/apikeys/page.png)
+</Frame>
 
 To see the scopes of an API key, click the scopes icon in the **Scopes** column of the API key you want to view.
 
-TODO: add screenshot of the scopes popup
+<Frame>
+  ![](/images/apikeys/scopes-popup.png)
+</Frame>
 
 ## Delete an API key
 
@@ -42,8 +56,12 @@ Furthermore, deleting an API key is irreversible. Once an API key is deleted, it
 
 To delete an API key, click the ellipsis (...) on the API key you want to delete and select **Delete**.
 
-TODO: add screenshot of the delete dialog
+<Frame>
+  ![](/images/apikeys/ellipses-dropdown.png)
+</Frame>
 
 A confirmation dialog will appear. Hit **Delete** to confirm the deletion.
 
-TODO: add screenshot of the delete dialog
+<Frame>
+  ![](/images/apikeys/delete-dialog.png)
+</Frame>
