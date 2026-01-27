@@ -89,6 +89,50 @@ rclone copy r2:public-assets/docs/images r2:public-assets/docs/v01/images --prog
 
 ---
 
+## Delete a Folder (Prefix) Inside the Bucket
+
+Since R2 doesn't have real folders, deleting a "folder" means deleting all objects with that prefix.
+
+### Basic delete (recommended)
+
+```bash
+rclone delete r2:public-assets/docs/v01/images
+```
+
+This:
+- Deletes all objects under `docs/v01/images/`
+- Includes all subfolders and files
+- ⚠️ **This action cannot be undone**
+
+---
+
+### Dry run (recommended first)
+
+```bash
+rclone delete r2:public-assets/docs/v01/images --dry-run
+```
+
+This shows what would be deleted without actually deleting anything.
+
+---
+
+### Troubleshooting: "Access Denied" error with `purge`
+
+If you see an error like:
+```
+ERROR : S3 bucket public-assets path docs/images: Failed to read versioning status, assuming unversioned: AccessDenied
+```
+
+This happens because `rclone purge` tries to check bucket versioning status, which R2 doesn't support the same way as AWS S3. Use `rclone delete` instead (shown above), which works reliably with R2.
+
+Alternatively, if you need to use `purge`, you can disable the versioning check by adding the `--s3-disable-checksum` flag:
+
+```bash
+rclone purge r2:public-assets/docs/v01/images --s3-disable-checksum
+```
+
+---
+
 ## Notes
 
 - Cloudflare R2 does not have real folders — these are object key prefixes.
