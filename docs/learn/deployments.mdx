@@ -9,7 +9,7 @@ import {EditableBadge, MutableBadge, ImmutableBadge, NullableBadge} from '/snipp
 import {ONLINE_TOOLTIP, OFFLINE_TOOLTIP} from '/snippets/components/devices/statuses.jsx';
 import {Framed} from '/snippets/components/framed.jsx';
 
-<Framed background="https://assets.mirurobotics.com/docs/v02/images/deployments/background.jpeg" image="https://assets.mirurobotics.com/docs/v02/images/deployments/header:panel.png" borderWidth="28px 56px 0 0" innerRadius="0 8px 0 0" />
+<Framed background="https://assets.mirurobotics.com/docs/v03/images/deployments/background.jpeg" image="https://assets.mirurobotics.com/docs/v03/images/deployments/header:panel.png" borderWidth="28px 56px 0 0" innerRadius="0 8px 0 0" />
 
 <DeploymentDef />
 
@@ -141,7 +141,7 @@ The target status is the desired state of a deployment. There are three possible
 If a deployment is staged before being deployed, the diagram below shows the valid transitions between target statuses.
 
 <img
-  src="https://assets.mirurobotics.com/docs/v02/images/deployments/target-status-fsm:stage.png"
+  src="https://assets.mirurobotics.com/docs/v03/images/deployments/target-status-fsm:stage.png"
   alt="Target status state machine"
   style={{ display:"block",width:"85%",margin:"0 auto",borderRadius:"10px" }}
 />
@@ -151,7 +151,7 @@ If a deployment is staged before being deployed, the diagram below shows the val
 Of course, many deployments skip staging and deploy immediately (such as those deployed from a device's [config editor](/docs/learn/devices/config-editor)). The diagram below shows the valid transitions between target statuses for a deployment that is immediately deployed.
 
 <img
-  src="https://assets.mirurobotics.com/docs/v02/images/deployments/target-status-fsm:deploy.png"
+  src="https://assets.mirurobotics.com/docs/v03/images/deployments/target-status-fsm:deploy.png"
   alt="Target status state machine"
   style={{ display:"block",width:"55%",margin:"0 auto",borderRadius:"10px" }}
 />
@@ -185,7 +185,7 @@ There are six possible activity states for a deployment.
 
 When a deployment is [staged](/docs/learn/releases/staging-area) before being deployed, it can pass through all the listed activity states. Below is a diagram of the valid transitions between activity states.
 
-![](https://assets.mirurobotics.com/docs/v02/images/deployments/activity-status-fsm:stage.png)
+![](https://assets.mirurobotics.com/docs/v03/images/deployments/activity-status-fsm:stage.png)
 
 Deployments start in the `staged` state. If a deployment [drifts](/docs/learn/releases/staging-area#deployment-drift), it transitions to `needs review` and must either be restaged or archived.
 
@@ -195,7 +195,7 @@ Eventually, the deployment is queued for delivery to the device, where it passes
 
 Deployments which are immediately deployed and skip the `staged` state have a simpler lifecycle. They simply go through the primary deployment lifecycle from `queued` to `archived`.
 
-![](https://assets.mirurobotics.com/docs/v02/images/deployments/activity-status-fsm:deploy.png)
+![](https://assets.mirurobotics.com/docs/v03/images/deployments/activity-status-fsm:deploy.png)
 
 **One-Time Use**
 
@@ -218,7 +218,7 @@ There are three possible error states for a deployment.
 Below are the valid transitions between error states.
 
 <img
-  src="https://assets.mirurobotics.com/docs/v02/images/deployments/error-status-fsm.png"
+  src="https://assets.mirurobotics.com/docs/v03/images/deployments/error-status-fsm.png"
   alt="Error status state machine"
   style={{ display:"block",width:"85%",margin:"0 auto",borderRadius:"10px" }}
 />
