@@ -1,3 +1,5 @@
+import { ADMIN_TOOLTIP } from '/snippets/components/users/roles.jsx';
+
 To log in, run the `login` command.
 
 ```bash
@@ -7,7 +9,7 @@ miru login
 Retrieve your authentication token from the [Secrets](https://app.mirurobotics.com/settings/cli-token) page.
 
 <Warning>
-  You must be an `admin` user to retrieve an authentication token.
+  You must be an <Tooltip tip={ADMIN_TOOLTIP.tip} cta={ADMIN_TOOLTIP.cta} href={ADMIN_TOOLTIP.href}>admin</Tooltip> user to retrieve an authentication token.
 </Warning>
 
 <Frame>

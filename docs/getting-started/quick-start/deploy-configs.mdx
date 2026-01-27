@@ -16,14 +16,14 @@ Select the release we just created and hit **Next**.
   ![](https://assets.mirurobotics.com/docs/v02/images/devices/editor/set-release-dialog-step1.png)
 </Frame>
 
-Input the desired `Mobility` config instance.
+Input the desired parameters for the `Mobility`, `Planning`, and `Communication` config instances respectively.
 
 <Frame>
-  ![](https://assets.mirurobotics.com/docs/v02/images/devices/editor/set-release-dialog-step2-edit.png)
+  ![](/images/devices/editor/set-release-dialog-step2-edit.png)
 </Frame>
 
 <Note>
-  The instance is auto-populated with the default values defined in the `Mobility` config schema. If using the empty schema, the auto-populated instance will be empty.
+  The instances are auto-populated with the default values defined in the release's config schemas. If using empty schemas, the auto-populated instances will be empty as well.
 </Note>
 
 Finally, provide a description for the deployment, then click **Deploy**.
@@ -42,7 +42,7 @@ To verify a config seen in the editor is deployed to the device, drop down the d
 
 The `File Path` field shows the file system path that the config instance is deployed to, relative to `/srv/miru/config_instances`.
 
-Since our `File Path` is `/mobility.json`, the config instance is deployed to `/srv/miru/config_instances/mobility.json`.
+Since the `File Path` is `/mobility.json`, the config instance is deployed to `/srv/miru/config_instances/mobility.json`.
 
 To verify the config instance is deployed to the device's file system, open a terminal on the device and navigate to the `/srv/miru/config_instances` directory.
 
