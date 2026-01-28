@@ -9,7 +9,7 @@ Miru provides an official action for installing the Miru CLI. You can find it on
 
 ## Usage
 
-Since the CLI is still in beta, we highly recommend [pinning to a minor version](#pin-a-minor-version) to avoid breaking changes. Minor versions are guaranteed to be backwards compatible.
+Since the CLI is still in beta, we highly recommend [pinning to a minor version](#pin-a-minor-version) to avoid breaking changes. Changes within a minor version are guaranteed to be backwards compatible.
 
 You can find the CLI version changelog in the [developer changelog](/docs/changelogs/developers).
 
@@ -44,7 +44,7 @@ This is the recommended approach to receive the latest bug fixes and improvement
 steps:
   - uses: actions/checkout@v6
 
-  - name: Setup Miru CLI (latest v0.8.x)
+  - name: Setup Miru CLI (latest v0.9.x)
     uses: mirurobotics/setup-miru@v0.1
     with:
       version: 'v0.9'
@@ -85,7 +85,7 @@ steps:
 ## Inputs
 
 <ParamField path="version" type="string">
-  Miru version of the CLI to install. Supports exact (`v0.8.0`) and minor (`v0.8`) versions. We recommend using a minor version to avoid breaking changes.
+  Miru version of the CLI to install. Supports exact (`v0.9.0`) and minor (`v0.9`) versions. We recommend using a minor version to avoid breaking changes.
   
   Omit or use `latest` for the most recent release. However, this is not recommended as it may introduce breaking changes.
 </ParamField>
