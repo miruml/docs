@@ -9,6 +9,68 @@ import { Framed } from '/snippets/components/framed.jsx'
 import { Frame } from '/snippets/components/frame.jsx'
 import { Separator } from '/snippets/components/seperator.jsx'
 
+<Update label="January 27, 2026">
+    ## Create Releases in CI/CD
+
+    You can now create releases directly from your CI/CD pipeline, ensuring releases are up to date and created consistently.
+
+    Furthermore, creating a release has been streamlined: only a single CLI command is required and CUE packages now support defining schemas across multiple files.
+
+    ### GitHub Actions workflow
+
+    We've released an official GitHub Actions workflow for creating releases in CI/CD. The workflow installs the Miru CLI and accepts an API Key for authentication, letting you execute any CLI commands from your GitHub runner.
+
+    <Framed 
+        background="https://assets.mirurobotics.com/docs/changelog/26-01-27/background.jpg"
+        image="https://assets.mirurobotics.com/docs/changelog/26-01-27/gh-actions-workflow.png"
+        borderWidth="20px"
+        innerRadius="8px"
+    />
+
+    [Read the full documentation »](/docs/developers/ci/gh-actions)
+
+    ### Create release CLI command
+    
+    The new `miru release create` command bundles the entire release process. It creates the release, pushes its schemas, and captures associated Git metadata in one step for greater reliability and ease of use.
+
+    <Framed 
+        background="https://assets.mirurobotics.com/docs/changelog/26-01-27/background.jpg"
+        image="https://assets.mirurobotics.com/docs/changelog/26-01-27/create-release-cmd.png"
+        borderWidth="20px"
+        innerRadius="8px"
+    />
+
+    [Read the full documentation »](/docs/learn/releases/create)
+
+    ### CUE packages
+
+    The CLI now supports CUE packages, allowing you to define schemas across multiple files while treating them as a single logical schema in Miru.
+
+    <video
+        autoPlay
+        loop
+        controls
+        className="aspect-video rounded-xl"
+        src="https://assets.mirurobotics.com/docs/changelog/26-01-27/cue-package.mp4"
+    />
+
+    [Read the full documentation »](/docs/learn/releases/create#cue-packages)
+
+    <Separator />
+    <Dropdown title="Improvements">
+        <DropdownItem>
+            **Track Git Metadata with Releases:** Releases are now associated with a specific Git commit and repository, allowing you to easily trace the release's origin.
+        </DropdownItem>
+    </Dropdown>
+    <Separator />
+    <Dropdown title="Fixes">
+        <DropdownItem>
+            **Show Full Cue Validation Errors:** Validation failures now display 
+            the full CUE validation error message instead of masking larger error messages, making it easier to debug schema issues.
+        </DropdownItem>
+    </Dropdown>
+</Update>
+
 <Update label="December 19, 2025">
     ## Workspace Logo
 
