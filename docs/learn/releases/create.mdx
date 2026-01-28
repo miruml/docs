@@ -6,6 +6,7 @@ import { Framed } from '/snippets/components/framed.jsx';
 import Annotations from '/snippets/references/cli/releases/create/schema-annotations.mdx';
 import CreateNewSchemas from '/snippets/references/cli/releases/create/new-schemas.mdx';
 import CreateExistingSchemas from '/snippets/references/cli/releases/create/existing-schemas.mdx';
+import CuePackages from '/snippets/references/cli/releases/create/cue-packages.mdx';
 import CLIFlags from '/snippets/references/cli/releases/create/flags.mdx';
 import CLIUsage from '/snippets/references/cli/releases/create/usage.mdx';
 
@@ -35,7 +36,7 @@ To create a release, the following prerequisites must be met:
 
 ## Config schemas
 
-A release may be created with any number of configs schemas, but it must contain at least one.
+A release may be created with any number of config schemas, but it must contain at least one.
 
 Schemas don't need to be created separately from releases. Instead, the CLI creates the schemas in the same command as the release itself.
 
@@ -58,7 +59,6 @@ $schema: "https://json-schema.org/draft/2020-12/schema"
 x-miru-config-type: "{your-config-type-slug}"
 ```
 
-
 ```cue CUE
 @miru(config_type="{your-config-type-slug}")
 ```
@@ -70,6 +70,10 @@ x-miru-config-type: "{your-config-type-slug}"
 Annotations are a convenient way to store metadata with your schemas. Most annotations are optional, but some are required for Miru to process the schemas correctly.
 
 <Annotations />
+
+### CUE packages
+
+<CuePackages />
 
 ## Git commit
 
@@ -102,7 +106,6 @@ To be able to capture Git metadata, the provided config schemas must meet the fo
 - The schema's latest changes must be committed to the Git repository before pushing to Miru (cannot be dirty or unstaged)
 
 Git metadata is not optional. If a schema does not meet these requirements, the CLI will return an error and fail to create the release.
-
 
 ## CLI command
 
