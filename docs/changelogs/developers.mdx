@@ -2,6 +2,21 @@
 title: "Developers"
 ---
 
+<Update label="January 27, 2026" tags={["CLI"]}>
+  ### CLI `v0.9.0`
+
+  **Features**
+  - Added the [miru release create](/docs/references/cli/release-create) command—creates releases, its schemas, and Git commit metadata in a single command
+  - Added support for [CUE packages](/docs/references/cli/release-create#cue-packages) when creating a release
+  - Added support for authentication via API keys using the `MIRU_API_KEY` environment variable
+  - Improved error messages to be more descriptive and readable
+
+  **Retired**
+
+  - CLI versions before `v0.9.0` are no longer supported
+  - Removed the `miru schema push` command (use `miru release create` instead)
+</Update>
+
 <Update label="January 22, 2026" tags={["Agent"]}>
   ### Agent `v0.6.1`
 
