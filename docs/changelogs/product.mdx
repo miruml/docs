@@ -59,14 +59,41 @@ import { Separator } from '/snippets/components/seperator.jsx'
     <Separator />
     <Dropdown title="Improvements">
         <DropdownItem>
-            **Track Git Metadata with Releases:** Releases are now associated with a specific Git commit and repository, allowing you to easily trace the release's origin.
+            **Track Git Metadata with Releases:** Releases are now associated with a 
+            specific Git commit and repository, allowing you to easily trace the 
+            release's origin.
+        </DropdownItem>
+        <DropdownItem>
+            **Duplicate Existing Releases:** Create a new release based on an existing 
+            one with a single click. All config schemas and git commit info copy over 
+            automatically.
+        </DropdownItem>
+        <DropdownItem>
+            **Faster Page Navigation:** Data is now prefetched when you 
+            hover over sidebar navigation for devices, releases, and config types, 
+            delivering near-instant page transitions.
         </DropdownItem>
     </Dropdown>
     <Separator />
     <Dropdown title="Fixes">
         <DropdownItem>
             **Show Full Cue Validation Errors:** Validation failures now display 
-            the full CUE validation error message instead of masking larger error messages, making it easier to debug schema issues.
+            the full CUE validation error message instead of masking larger error 
+            messages, making it easier to debug schema issues.
+        </DropdownItem>
+        <DropdownItem>
+            **List Page Freeze Fixed:** Resolved an issue where quickly navigating between 
+            pages (Devices, Releases, Deployments, etc.) while data was loading could 
+            cause the browser to freeze and display a "Page Unresponsive" error.
+        </DropdownItem>
+        <DropdownItem>
+            **Activation Dialog Auto-Close:** The device activation dialog now automatically 
+            closes when a device status transitions to 'activating', fixing an issue where 
+            the dialog remained open after reactivating a device.
+        </DropdownItem>
+        <DropdownItem>
+            **Accurate Selection Counts:** Fixed stale selection counts in staging area 
+            after patching staged deployments.
         </DropdownItem>
     </Dropdown>
 </Update>
