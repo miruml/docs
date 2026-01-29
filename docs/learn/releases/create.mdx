@@ -18,9 +18,9 @@ innerRadius="8px"
 outerRadius="10px"
 />
 
-The primary method of creating releases is via the command line.
+The primary method of creating releases is via the command line. The dashboard does not support creating new releases (although you can [duplicate existing releases](/docs/learn/releases/manage#duplicate-a-release)).
 
-This is a deliberate design choice. We believe that config schemas should live in the same Git repository as the code which uses them. This encourages better software development practices and simplifies the release process.
+Creating releases from the CLI is a deliberate design choice. We believe that config schemas should live in the same Git repository as the code which uses them. The CLI promotes such practices, simplifying the release process and encouraging better software development habits.
 
 Furthermore, the CLI can be used to programmatically create releases in a [CI pipeline](/docs/learn/releases/ci), ensuring releases contain the correct schemas and are always associated with the correct Git commit.
 
